@@ -66,6 +66,32 @@ Building 1 is capped at 420 BST with a ban list. Later buildings escalate to
 
 ---
 
+## ⚠️ Temporary test-only patches — currently ON, must be reverted before shipping
+
+Two engine behaviors are hard-disabled right now so the building 1 boss test
+harness gives a clean read. Neither has an existing on/off switch anywhere
+else in the codebase, so each is a small, clearly-marked direct patch rather
+than a existing config flip:
+
+| | |
+|---|---|
+| Switch | `include/config/battle.h`, near the top: `TESTING_DISABLE_EXP_GAIN` and `TESTING_DISABLE_OBEDIENCE`, both `TRUE` |
+| Exp gain | `BattleTypeAllowsExp()` in `src/battle_script_commands.c` — returns `FALSE` unconditionally when the flag is on, so no Pokémon can level up mid-fight and skew the test |
+| Obedience | `GetAttackerObedienceForAction()` in `src/battle_util.c` — returns `OBEYS` unconditionally when the flag is on, since the whole test team is level 50 with zero badges and would otherwise disobey constantly |
+
+**To revert:** flip both `TESTING_DISABLE_*` defines to `FALSE`, or delete the
+config block and the one guarded `if` at the top of each of those two
+functions. All three edits are additive (nothing else was changed in either
+function), so removal is a clean, small diff.
+
+**Do not carry these into the real facility** without deciding on purpose
+whether the real ten-building game wants exp/obedience on or off — this was
+switched off purely so the boss tuning test isn't contaminated by mid-battle
+level-ups or random disobedience, not as a design decision for the shipped
+game.
+
+---
+
 ## Files
 
 Copy these into the repo folder so they're readable:
@@ -100,7 +126,11 @@ tuned correctly. This is a throwaway test harness, not the real facility.
    holds it in reserve.
 4. **Add the counter-team function** from `give-counter-team.c` to
    `src/new_game.c`, with the call at the end of `NewGameInitData()`.
-5. **Build and fix errors.**
+5. **Disable exp gain and obedience checks** for the duration of this test —
+   see "Temporary test-only patches" below. Both would otherwise contaminate
+   the tuning read (mid-battle level-ups, random disobedience at level 50
+   with zero badges).
+6. **Build and fix errors.**
 
 ---
 
