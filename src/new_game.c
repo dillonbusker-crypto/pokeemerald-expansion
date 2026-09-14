@@ -50,6 +50,7 @@
 #include "union_room_chat.h"
 #include "constants/map_groups.h"
 #include "constants/items.h"
+#include "constants/moves.h"
 #include "difficulty.h"
 #include "follower_npc.h"
 
@@ -158,6 +159,118 @@ void ResetMenuAndMonGlobals(void)
     ResetPokeblockScrollPositions();
 }
 
+// ============================================================================
+// Test-team injector for Building 1 boss playtesting.
+//
+// Throwaway harness, not the real facility: gives the player the benchmark
+// counter-team from building-01.md so Warden Helis (placed on Youngster
+// Calvin's Route 102 encounter, see src/data/trainers.party) can be tested
+// for tuning. Delete the call in NewGameInitData() below to remove it later;
+// this function can stay harmlessly.
+//
+// Adapted from give-counter-team.c to the actual API in this checkout:
+// CreateMonWithNature() does not exist here, so this uses CreateMonFromTemplate()
+// (include/pokemon.h) instead, which fills in nature/ability/IVs/EVs/moves from
+// a single struct PokemonTemplate.
+// ============================================================================
+
+#define IVS_ALL_31 { [STAT_HP] = 31, [STAT_ATK] = 31, [STAT_DEF] = 31, [STAT_SPEED] = 31, [STAT_SPATK] = 31, [STAT_SPDEF] = 31 }
+
+static const struct PokemonTemplate sBuilding1CounterTeam[] =
+{
+    {
+        .species = SPECIES_SABLEYE,
+        .heldItem = ITEM_LEFTOVERS,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_BOLD,
+        .abilityNum = 2, // Prankster (hidden ability)
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_HP] = 252, [STAT_DEF] = 252, [STAT_SPDEF] = 4 },
+        .ivs = IVS_ALL_31,
+        .moves = { MOVE_WILL_O_WISP, MOVE_TAUNT, MOVE_RECOVER, MOVE_FOUL_PLAY },
+    },
+    {
+        .species = SPECIES_FERROSEED,
+        .heldItem = ITEM_METAL_COAT,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_RELAXED,
+        .abilityNum = 0, // Iron Barbs
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_HP] = 252, [STAT_DEF] = 252, [STAT_SPDEF] = 4 },
+        .ivs = IVS_ALL_31,
+        .moves = { MOVE_GYRO_BALL, MOVE_SEED_BOMB, MOVE_PROTECT, MOVE_CURSE },
+    },
+    {
+        .species = SPECIES_CHINCHOU,
+        .heldItem = ITEM_MYSTIC_WATER,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_MODEST,
+        .abilityNum = 0, // Volt Absorb
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_HP] = 252, [STAT_DEF] = 4, [STAT_SPATK] = 252 },
+        .ivs = IVS_ALL_31,
+        .moves = { MOVE_SURF, MOVE_ICE_BEAM, MOVE_THUNDERBOLT, MOVE_CONFUSE_RAY },
+    },
+    {
+        .species = SPECIES_PAWNIARD,
+        .heldItem = ITEM_BLACK_GLASSES,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_JOLLY,
+        .abilityNum = 0, // Defiant
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_ATK] = 252, [STAT_DEF] = 4, [STAT_SPEED] = 252 },
+        .ivs = IVS_ALL_31,
+        .moves = { MOVE_SUCKER_PUNCH, MOVE_KNOCK_OFF, MOVE_IRON_HEAD, MOVE_SWORDS_DANCE },
+    },
+    {
+        .species = SPECIES_MARSHTOMP,
+        .heldItem = ITEM_SOFT_SAND,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_ADAMANT,
+        .abilityNum = 0, // Torrent
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_HP] = 252, [STAT_ATK] = 252, [STAT_DEF] = 4 },
+        .ivs = IVS_ALL_31,
+        .moves = { MOVE_EARTHQUAKE, MOVE_WATERFALL, MOVE_ROCK_SLIDE, MOVE_PROTECT },
+    },
+    {
+        .species = SPECIES_PARASECT,
+        .heldItem = ITEM_MIRACLE_SEED,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_ADAMANT,
+        .abilityNum = 1, // Dry Skin
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_HP] = 252, [STAT_ATK] = 252, [STAT_DEF] = 4 },
+        .ivs = IVS_ALL_31,
+        .moves = { MOVE_SPORE, MOVE_SEED_BOMB, MOVE_X_SCISSOR, MOVE_LEECH_LIFE },
+    },
+};
+
+#undef IVS_ALL_31
+
+void GiveBuilding1CounterTeam(void)
+{
+    u32 i;
+
+    ZeroPlayerPartyMons();
+    for (i = 0; i < ARRAY_COUNT(sBuilding1CounterTeam); i++)
+        CreateMonFromTemplate(&gParties[B_TRAINER_PLAYER][i], &sBuilding1CounterTeam[i]);
+
+    gPartiesCount[B_TRAINER_PLAYER] = ARRAY_COUNT(sBuilding1CounterTeam);
+}
+
 void NewGameInitData(void)
 {
 #if IS_FRLG
@@ -234,6 +347,7 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
+    GiveBuilding1CounterTeam();
 }
 
 static void ResetMiniGamesRecords(void)
