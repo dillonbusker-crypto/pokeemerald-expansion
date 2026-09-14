@@ -662,7 +662,7 @@ Bold Nature
 - Seismic Toss
 - Protect
 
-Natu @ Figy Berry
+Natu @ Wiki Berry
 Ability: Magic Bounce
 EVs: 252 HP / 4 Def / 252 SpA
 Modest Nature
@@ -925,7 +925,7 @@ Adamant Nature
 - Aqua Jet
 - Swords Dance
 
-Claydol @ Figy Berry
+Claydol @ Iapapa Berry
 Ability: Levitate
 EVs: 252 HP / 252 Def / 4 SpD
 Bold Nature
