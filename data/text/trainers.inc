@@ -11,6 +11,10 @@ Route102_Text_CalvinPostBattle:
 	.string "Listen, you. If you're strong,\n"
 	.string "you should have told me before!$"
 
+Route102_Text_CalvinNotEnoughMons:
+	.string "Come back when you have at least\n"
+	.string "two POKéMON with you!$"
+
 Route102_Text_CalvinRegister:
 	.string "I've been working hard at this since\n"
 	.string "I saw you before.\p"

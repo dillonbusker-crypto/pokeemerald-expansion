@@ -5943,83 +5943,81 @@ Level: 39
 IVs: 29 HP / 29 Atk / 29 Def / 29 SpA / 29 SpD / 29 Spe
 
 /*
-Building 1 boss test harness - Warden Helis, from building-01.md.
-Throwaway placement on Route 102 so the boss is reachable immediately
-for playtesting. Not the real facility.
+Building 2 boss test harness - Tidewarden Nerys, from building-02.md.
+Reuses the same Route 102 slot Warden Helis used (see building-01.md) so
+the boss stays reachable immediately for playtesting. Not the real
+facility. This is building 2's first doubles fight - the overworld
+script in data/maps/Route102/scripts.inc was switched from
+trainerbattle_single to trainerbattle_double to carry it.
 */
 === TRAINER_CALVIN_1 ===
-Name: HELIS
+Name: NERYS
 Class: Youngster
 Pic: Youngster
 Gender: Male
 Music: Male
-Double Battle: No
+Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 
-Hariyama @ Black Belt
-Ability: Thick Fat
+Pelipper @ Damp Rock
+Ability: Drizzle
 Level: 50
-EVs: 252 HP / 252 Atk / 4 Def
-Adamant Nature
-- Fake Out
-- Close Combat
-- Knock Off
-- Bullet Punch
+EVs: 252 HP / 252 SpA / 4 Def
+Modest Nature
+- Hurricane
+- Scald
+- Tailwind
+- Protect
 
-/*
-Speed IV nudged to 30 (even) below so Hidden Power resolves to Ice;
-trainerproc has no support for a typed "Hidden Power X" move name.
-*/
-Manectric @ Magnet
-Ability: Lightning Rod
+Kingdra @ Mystic Water
+Ability: Swift Swim
 Level: 50
-IVs: 31 HP / 31 Atk / 31 Def / 30 Spe / 31 SpA / 31 SpD
 EVs: 252 SpA / 4 Def / 252 Spe
-Timid Nature
-- Thunderbolt
-- Flamethrower
-- Volt Switch
-- Hidden Power
+Modest Nature
+- Muddy Water
+- Draco Meteor
+- Ice Beam
+- Protect
 
-Jumpluff
-Ability: Infiltrator
-Level: 50
-EVs: 252 HP / 4 Def / 252 Spe
-Jolly Nature
-- Sleep Powder
-- Leech Seed
-- Acrobatics
-- U-turn
-
-Crawdaunt @ Mystic Water
-Ability: Adaptability
+Kabutops @ Hard Stone
+Ability: Swift Swim
 Level: 50
 EVs: 252 Atk / 4 Def / 252 Spe
 Adamant Nature
-- Crabhammer
-- Knock Off
+- Liquidation
+- Stone Edge
 - Aqua Jet
-- Swords Dance
+- Protect
 
-Claydol @ Iapapa Berry
-Ability: Levitate
+Seismitoad @ Sitrus Berry
+Ability: Swift Swim
 Level: 50
-EVs: 252 HP / 252 Def / 4 SpD
-Bold Nature
+EVs: 252 HP / 252 SpA / 4 Def
+Modest Nature
+- Muddy Water
 - Earth Power
-- Ice Beam
-- Stealth Rock
-- Rapid Spin
+- Sludge Bomb
+- Protect
 
-Altaria @ Leftovers
-Ability: Natural Cure
+Ludicolo @ Leftovers
+Ability: Swift Swim
+Level: 50
+EVs: 252 HP / 252 SpA / 4 Def
+Modest Nature
+- Surf
+- Giga Drain
+- Ice Beam
+- Fake Out
+
+Toxicroak @ Black Belt
+Ability: Dry Skin
 Level: 50
 EVs: 252 Atk / 4 Def / 252 Spe
-Jolly Nature
-- Dragon Dance
-- Dragon Claw
-- Earthquake
-- Roost
+Adamant Nature
+- Drain Punch
+- Gunk Shot
+- Fake Out
+- Protect
 
 === TRAINER_BILLY ===
 Name: BILLY

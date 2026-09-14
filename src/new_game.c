@@ -160,115 +160,119 @@ void ResetMenuAndMonGlobals(void)
 }
 
 // ============================================================================
-// Test-team injector for Building 1 boss playtesting.
+// Test-team injector for Building 2 boss playtesting.
 //
 // Throwaway harness, not the real facility: gives the player the benchmark
-// counter-team from building-01.md so Warden Helis (placed on Youngster
+// counter-team from building-02.md so Tidewarden Nerys (placed on Youngster
 // Calvin's Route 102 encounter, see src/data/trainers.party) can be tested
 // for tuning. Delete the call in NewGameInitData() below to remove it later;
 // this function can stay harmlessly.
 //
-// Adapted from give-counter-team.c to the actual API in this checkout:
-// CreateMonWithNature() does not exist here, so this uses CreateMonFromTemplate()
-// (include/pokemon.h) instead, which fills in nature/ability/IVs/EVs/moves from
-// a single struct PokemonTemplate.
+// This is a Trick Room team: every mon's Speed IV is floored to 0 (on top of
+// a minimizing nature) rather than the usual 31, because Trick Room makes
+// slower move first. Getting this wrong silently inverts the whole strategy.
+//
+// Uses CreateMonFromTemplate() (include/pokemon.h) - see the building 1
+// counter-team comment (git history) for why, over the CreateMonWithNature()
+// call in the original design-doc snippet, which doesn't exist in this
+// checkout.
 // ============================================================================
 
-#define IVS_ALL_31 { [STAT_HP] = 31, [STAT_ATK] = 31, [STAT_DEF] = 31, [STAT_SPEED] = 31, [STAT_SPATK] = 31, [STAT_SPDEF] = 31 }
+#define IVS_ZERO_SPEED { [STAT_HP] = 31, [STAT_ATK] = 31, [STAT_DEF] = 31, [STAT_SPEED] = 0, [STAT_SPATK] = 31, [STAT_SPDEF] = 31 }
 
-static const struct PokemonTemplate sBuilding1CounterTeam[] =
+static const struct PokemonTemplate sBuilding2CounterTeam[] =
 {
     {
-        .species = SPECIES_SABLEYE,
-        .heldItem = ITEM_LEFTOVERS,
-        .level = 50,
-        .gender = MON_GENDER_RANDOM,
-        .nature = NATURE_BOLD,
-        .abilityNum = 2, // Prankster (hidden ability)
-        .doNotUseDefaultAbility = TRUE,
-        .origin = GIFTMON_ORIGIN,
-        .evs = { [STAT_HP] = 252, [STAT_DEF] = 252, [STAT_SPDEF] = 4 },
-        .ivs = IVS_ALL_31,
-        .moves = { MOVE_WILL_O_WISP, MOVE_TAUNT, MOVE_RECOVER, MOVE_FOUL_PLAY },
-    },
-    {
-        .species = SPECIES_FERROSEED,
-        .heldItem = ITEM_METAL_COAT,
+        .species = SPECIES_BRONZONG,
+        .heldItem = ITEM_SITRUS_BERRY,
         .level = 50,
         .gender = MON_GENDER_RANDOM,
         .nature = NATURE_RELAXED,
-        .abilityNum = 0, // Iron Barbs
+        .abilityNum = 0, // Levitate
         .doNotUseDefaultAbility = TRUE,
         .origin = GIFTMON_ORIGIN,
         .evs = { [STAT_HP] = 252, [STAT_DEF] = 252, [STAT_SPDEF] = 4 },
-        .ivs = IVS_ALL_31,
-        .moves = { MOVE_GYRO_BALL, MOVE_SEED_BOMB, MOVE_PROTECT, MOVE_CURSE },
+        .ivs = IVS_ZERO_SPEED,
+        .moves = { MOVE_TRICK_ROOM, MOVE_GYRO_BALL, MOVE_ZEN_HEADBUTT, MOVE_PROTECT },
     },
     {
-        .species = SPECIES_CHINCHOU,
-        .heldItem = ITEM_MYSTIC_WATER,
+        .species = SPECIES_GASTRODON,
+        .heldItem = ITEM_PASSHO_BERRY,
         .level = 50,
         .gender = MON_GENDER_RANDOM,
-        .nature = NATURE_MODEST,
+        .nature = NATURE_QUIET,
+        .abilityNum = 1, // Storm Drain
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_HP] = 252, [STAT_SPATK] = 252, [STAT_DEF] = 4 },
+        .ivs = IVS_ZERO_SPEED,
+        .moves = { MOVE_MUDDY_WATER, MOVE_EARTH_POWER, MOVE_RECOVER, MOVE_PROTECT },
+    },
+    {
+        .species = SPECIES_LANTURN,
+        .heldItem = ITEM_WACAN_BERRY,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_QUIET,
         .abilityNum = 0, // Volt Absorb
         .doNotUseDefaultAbility = TRUE,
         .origin = GIFTMON_ORIGIN,
-        .evs = { [STAT_HP] = 252, [STAT_DEF] = 4, [STAT_SPATK] = 252 },
-        .ivs = IVS_ALL_31,
-        .moves = { MOVE_SURF, MOVE_ICE_BEAM, MOVE_THUNDERBOLT, MOVE_CONFUSE_RAY },
+        .evs = { [STAT_HP] = 252, [STAT_SPATK] = 252, [STAT_DEF] = 4 },
+        .ivs = IVS_ZERO_SPEED,
+        .moves = { MOVE_THUNDER, MOVE_ICE_BEAM, MOVE_SURF, MOVE_PROTECT },
     },
     {
-        .species = SPECIES_PAWNIARD,
-        .heldItem = ITEM_BLACK_GLASSES,
+        .species = SPECIES_AMOONGUSS,
+        .heldItem = ITEM_LEFTOVERS,
         .level = 50,
         .gender = MON_GENDER_RANDOM,
-        .nature = NATURE_JOLLY,
-        .abilityNum = 0, // Defiant
+        .nature = NATURE_RELAXED,
+        .abilityNum = 2, // Regenerator (hidden)
         .doNotUseDefaultAbility = TRUE,
         .origin = GIFTMON_ORIGIN,
-        .evs = { [STAT_ATK] = 252, [STAT_DEF] = 4, [STAT_SPEED] = 252 },
-        .ivs = IVS_ALL_31,
-        .moves = { MOVE_SUCKER_PUNCH, MOVE_KNOCK_OFF, MOVE_IRON_HEAD, MOVE_SWORDS_DANCE },
+        .evs = { [STAT_HP] = 252, [STAT_DEF] = 252, [STAT_SPDEF] = 4 },
+        .ivs = IVS_ZERO_SPEED,
+        .moves = { MOVE_SPORE, MOVE_RAGE_POWDER, MOVE_SLUDGE_BOMB, MOVE_PROTECT },
     },
     {
-        .species = SPECIES_MARSHTOMP,
-        .heldItem = ITEM_SOFT_SAND,
+        .species = SPECIES_VIKAVOLT,
+        .heldItem = ITEM_MAGNET,
         .level = 50,
         .gender = MON_GENDER_RANDOM,
-        .nature = NATURE_ADAMANT,
-        .abilityNum = 0, // Torrent
+        .nature = NATURE_QUIET,
+        .abilityNum = 0, // Levitate
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_HP] = 252, [STAT_SPATK] = 252, [STAT_DEF] = 4 },
+        .ivs = IVS_ZERO_SPEED,
+        .moves = { MOVE_THUNDER, MOVE_BUG_BUZZ, MOVE_ENERGY_BALL, MOVE_PROTECT },
+    },
+    {
+        .species = SPECIES_MUDSDALE,
+        .heldItem = ITEM_MYSTIC_WATER,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_BRAVE,
+        .abilityNum = 1, // Stamina
         .doNotUseDefaultAbility = TRUE,
         .origin = GIFTMON_ORIGIN,
         .evs = { [STAT_HP] = 252, [STAT_ATK] = 252, [STAT_DEF] = 4 },
-        .ivs = IVS_ALL_31,
-        .moves = { MOVE_EARTHQUAKE, MOVE_WATERFALL, MOVE_ROCK_SLIDE, MOVE_PROTECT },
-    },
-    {
-        .species = SPECIES_PARASECT,
-        .heldItem = ITEM_MIRACLE_SEED,
-        .level = 50,
-        .gender = MON_GENDER_RANDOM,
-        .nature = NATURE_ADAMANT,
-        .abilityNum = 1, // Dry Skin
-        .doNotUseDefaultAbility = TRUE,
-        .origin = GIFTMON_ORIGIN,
-        .evs = { [STAT_HP] = 252, [STAT_ATK] = 252, [STAT_DEF] = 4 },
-        .ivs = IVS_ALL_31,
-        .moves = { MOVE_SPORE, MOVE_SEED_BOMB, MOVE_X_SCISSOR, MOVE_LEECH_LIFE },
+        .ivs = IVS_ZERO_SPEED,
+        .moves = { MOVE_HIGH_HORSEPOWER, MOVE_HEAVY_SLAM, MOVE_ROCK_SLIDE, MOVE_PROTECT },
     },
 };
 
-#undef IVS_ALL_31
+#undef IVS_ZERO_SPEED
 
-void GiveBuilding1CounterTeam(void)
+void GiveBuilding2CounterTeam(void)
 {
     u32 i;
 
     ZeroPlayerPartyMons();
-    for (i = 0; i < ARRAY_COUNT(sBuilding1CounterTeam); i++)
-        CreateMonFromTemplate(&gParties[B_TRAINER_PLAYER][i], &sBuilding1CounterTeam[i]);
+    for (i = 0; i < ARRAY_COUNT(sBuilding2CounterTeam); i++)
+        CreateMonFromTemplate(&gParties[B_TRAINER_PLAYER][i], &sBuilding2CounterTeam[i]);
 
-    gPartiesCount[B_TRAINER_PLAYER] = ARRAY_COUNT(sBuilding1CounterTeam);
+    gPartiesCount[B_TRAINER_PLAYER] = ARRAY_COUNT(sBuilding2CounterTeam);
 }
 
 void NewGameInitData(void)
@@ -347,7 +351,7 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
-    GiveBuilding1CounterTeam();
+    GiveBuilding2CounterTeam();
 }
 
 static void ResetMiniGamesRecords(void)
