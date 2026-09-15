@@ -376,6 +376,12 @@ extern const u8 Debug_EventScript_InflictStatus1[];
 extern const u8 Debug_EventScript_KoPokemon[];
 extern const u8 Debug_EventScript_SetHiddenNature[];
 extern const u8 Debug_EventScript_SetAbility[];
+// Ported from Emerald Imperium (iriv24/pokeemerald-expansion) - nature and
+// Hidden Power type changer, plus the stat editor. Credited in
+// src/data/credits.h. Test entry points only, see data/scripts/debug.inc.
+extern const u8 Debug_EventScript_ChangeMonNature[];
+extern const u8 Debug_EventScript_ChangeMonHPType[];
+extern const u8 Debug_EventScript_OpenStatEditor[];
 extern const u8 Debug_EventScript_SetFriendship[];
 extern const u8 Debug_EventScript_Script_1[];
 extern const u8 Debug_EventScript_Script_2[];
@@ -633,6 +639,9 @@ static const struct DebugMenuOption sDebugMenu_Actions_EditPokemon[] =
     { COMPOUND_STRING("Set Hidden Nature"),  DebugAction_ExecuteScript, Debug_EventScript_SetHiddenNature },
     { COMPOUND_STRING("Set Friendship"),     DebugAction_ExecuteScript, Debug_EventScript_SetFriendship },
     { COMPOUND_STRING("Set Ability"),        DebugAction_ExecuteScript, Debug_EventScript_SetAbility },
+    { COMPOUND_STRING("Change Nature"),      DebugAction_ExecuteScript, Debug_EventScript_ChangeMonNature },
+    { COMPOUND_STRING("Change HP Type"),     DebugAction_ExecuteScript, Debug_EventScript_ChangeMonHPType },
+    { COMPOUND_STRING("Open Stat Editor"),   DebugAction_ExecuteScript, Debug_EventScript_OpenStatEditor },
     { NULL }
 };
 

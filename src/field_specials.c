@@ -4594,6 +4594,65 @@ void SetAbility(void)
     SetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_ABILITY_NUM, &ability);
 }
 
+// ----------------------------------------------------------------------------
+// Ported from Emerald Imperium (iriv24/pokeemerald-expansion, release branch,
+// src/field_specials.c), close to as-is. Adapted only to use gParties[B_TRAINER_PLAYER]
+// instead of the deprecated gPlayerParty. Credited in src/data/credits.h.
+//
+// BufferNatureName() and BufferHPTypeInfo() are new here: Imperium buffers this
+// same info via two custom script command opcodes (buffernaturename,
+// bufferhptypeinfo). We use plain def_special functions instead, so nothing
+// needed adding to the script command table.
+// ----------------------------------------------------------------------------
+
+void ChangeMonNature(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    u8 gender = GetMonGender(mon);
+    bool8 isShiny = IsMonShiny(mon);
+    //todo maybe worry about spinda spots, unown letter, wurmple evo
+
+    u8 newNature = gSpecialVar_0x8005;
+    u32 newPersonality;
+    do
+    {
+        newPersonality = Random32();
+    }
+    while ((GetNatureFromPersonality(newPersonality) != newNature) ||
+           (GetGenderFromSpeciesAndPersonality(species, newPersonality) != gender));
+
+    UpdateMonPersonality(&mon->box, newPersonality);
+    SetMonData(mon, MON_DATA_IS_SHINY, &isShiny);
+    SetMonData(mon, MON_DATA_HIDDEN_NATURE, &newNature);
+    CalculateMonStats(mon);
+}
+
+void ChangeMonIVsForHP(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    u8 newHiddenPowerType = gSpecialVar_0x8005;
+
+    SetMonData(mon, MON_DATA_HP_IV, &gHiddenPowerTypeInfo[newHiddenPowerType].ivHp);
+    SetMonData(mon, MON_DATA_ATK_IV, &gHiddenPowerTypeInfo[newHiddenPowerType].ivAtk);
+    SetMonData(mon, MON_DATA_DEF_IV, &gHiddenPowerTypeInfo[newHiddenPowerType].ivDef);
+    SetMonData(mon, MON_DATA_SPATK_IV, &gHiddenPowerTypeInfo[newHiddenPowerType].ivSpatk);
+    SetMonData(mon, MON_DATA_SPDEF_IV, &gHiddenPowerTypeInfo[newHiddenPowerType].ivSpdef);
+    SetMonData(mon, MON_DATA_SPEED_IV, &gHiddenPowerTypeInfo[newHiddenPowerType].ivSpeed);
+    CalculateMonStats(mon);
+}
+
+void BufferNatureName(void)
+{
+    StringCopy(gStringVar2, gNaturesInfo[gSpecialVar_0x8005].name);
+}
+
+void BufferHPTypeInfo(void)
+{
+    StringCopy(gStringVar2, gHiddenPowerTypeInfo[gSpecialVar_0x8005].typeName);
+    StringCopy(gStringVar3, gHiddenPowerTypeInfo[gSpecialVar_0x8005].ivsListed);
+}
+
 void DaisyMassageServices(void)
 {
     AdjustFriendship(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], FRIENDSHIP_EVENT_MASSAGE);

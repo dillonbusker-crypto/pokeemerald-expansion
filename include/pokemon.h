@@ -638,6 +638,21 @@ struct NatureInfo
     const u8 *natureGirlMessage;
 };
 
+// Ported from Emerald Imperium (iriv24/pokeemerald-expansion, release branch,
+// src/pokemon.c) — see gHiddenPowerTypeInfo in src/pokemon.c and
+// ChangeMonIVsForHP() in src/field_specials.c. Credited in src/data/credits.h.
+struct HiddenPowerTypeInfo
+{
+    const u8 *typeName;
+    const u8 *ivsListed;
+    u8 ivHp;
+    u8 ivAtk;
+    u8 ivDef;
+    u8 ivSpatk;
+    u8 ivSpdef;
+    u8 ivSpeed;
+};
+
 struct LevelUpMove
 {
     enum Move move;
@@ -763,6 +778,7 @@ extern const struct SpriteTemplate gBattlerSpriteTemplates[];
 extern const u32 sExpCandyExperienceTable[];
 extern const struct AbilityInfo gAbilitiesInfo[];
 extern const struct NatureInfo gNaturesInfo[];
+extern const struct HiddenPowerTypeInfo gHiddenPowerTypeInfo[];
 extern const struct BehaviorOWE gOWESpeciesBehavior[OWE_SPECIES_BEHAVIOR_COUNT];
 
 void ZeroBoxMonData(struct BoxPokemon *boxMon);

@@ -565,6 +565,11 @@ gSpecials::
 	def_special GetCodeFeedback
 	def_special SetHiddenNature
 	def_special SetAbility
+	def_special ChangeMonNature
+	def_special ChangeMonIVsForHP
+	def_special BufferNatureName
+	def_special BufferHPTypeInfo
+	def_special StatEditorSpecial, waitstate=1
 	def_special CanTeachMoveBoxMon
 	def_special ObjectEventInteractionGetApricornTreeData
 	def_special ObjectEventInteractionPickApricornTree

@@ -498,6 +498,153 @@ Debug_EventScript_GivePokerus::
 	releaseall
 	end
 
+@ ----------------------------------------------------------------------------
+@ Ported from Emerald Imperium (iriv24/pokeemerald-expansion, release branch) -
+@ nature changer and Hidden Power type changer. The party-select/dynmultichoice
+@ flow below is rewritten for this debug menu; ChangeMonNature/ChangeMonIVsForHP
+@ and the gHiddenPowerTypeInfo table (src/pokemon.c, src/field_specials.c) are
+@ ported close to as-is. No FLAG_SYS_STAT_EDITOR_GET / FLAG_MIN_GRINDING_MODE
+@ gating - freely available here. Credited in src/data/credits.h.
+@ ----------------------------------------------------------------------------
+
+Debug_EventScript_ChangeMonNature::
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, Debug_EventScript_InflictStatus1_Close
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_eq VAR_RESULT, SPECIES_EGG, Debug_EventScript_InflictStatus1_Close
+	special BufferMonNickname
+	dynmultipush Debug_EventScript_ChangeNature_Text_Hardy, NATURE_HARDY
+	dynmultipush Debug_EventScript_ChangeNature_Text_Lonely, NATURE_LONELY
+	dynmultipush Debug_EventScript_ChangeNature_Text_Brave, NATURE_BRAVE
+	dynmultipush Debug_EventScript_ChangeNature_Text_Adamant, NATURE_ADAMANT
+	dynmultipush Debug_EventScript_ChangeNature_Text_Naughty, NATURE_NAUGHTY
+	dynmultipush Debug_EventScript_ChangeNature_Text_Bold, NATURE_BOLD
+	dynmultipush Debug_EventScript_ChangeNature_Text_Docile, NATURE_DOCILE
+	dynmultipush Debug_EventScript_ChangeNature_Text_Relaxed, NATURE_RELAXED
+	dynmultipush Debug_EventScript_ChangeNature_Text_Impish, NATURE_IMPISH
+	dynmultipush Debug_EventScript_ChangeNature_Text_Lax, NATURE_LAX
+	dynmultipush Debug_EventScript_ChangeNature_Text_Timid, NATURE_TIMID
+	dynmultipush Debug_EventScript_ChangeNature_Text_Hasty, NATURE_HASTY
+	dynmultipush Debug_EventScript_ChangeNature_Text_Serious, NATURE_SERIOUS
+	dynmultipush Debug_EventScript_ChangeNature_Text_Jolly, NATURE_JOLLY
+	dynmultipush Debug_EventScript_ChangeNature_Text_Naive, NATURE_NAIVE
+	dynmultipush Debug_EventScript_ChangeNature_Text_Modest, NATURE_MODEST
+	dynmultipush Debug_EventScript_ChangeNature_Text_Mild, NATURE_MILD
+	dynmultipush Debug_EventScript_ChangeNature_Text_Quiet, NATURE_QUIET
+	dynmultipush Debug_EventScript_ChangeNature_Text_Bashful, NATURE_BASHFUL
+	dynmultipush Debug_EventScript_ChangeNature_Text_Rash, NATURE_RASH
+	dynmultipush Debug_EventScript_ChangeNature_Text_Calm, NATURE_CALM
+	dynmultipush Debug_EventScript_ChangeNature_Text_Gentle, NATURE_GENTLE
+	dynmultipush Debug_EventScript_ChangeNature_Text_Sassy, NATURE_SASSY
+	dynmultipush Debug_EventScript_ChangeNature_Text_Careful, NATURE_CAREFUL
+	dynmultipush Debug_EventScript_ChangeNature_Text_Quirky, NATURE_QUIRKY
+	dynmultistack 0, 0, TRUE, 7, FALSE, NATURE_HARDY, NULL
+	switch VAR_RESULT
+	case MULTI_B_PRESSED, Debug_EventScript_InflictStatus1_Close
+	copyvar VAR_0x8005, VAR_RESULT
+	special BufferNatureName
+	msgbox Debug_EventScript_StatTools_Text_ConfirmNature, MSGBOX_YESNO
+	switch VAR_RESULT
+	case NO, Debug_EventScript_InflictStatus1_Close
+	case MULTI_B_PRESSED, Debug_EventScript_InflictStatus1_Close
+	special ChangeMonNature
+	msgbox Debug_EventScript_StatTools_Text_Done, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Debug_EventScript_ChangeMonHPType::
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, Debug_EventScript_InflictStatus1_Close
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_eq VAR_RESULT, SPECIES_EGG, Debug_EventScript_InflictStatus1_Close
+	special BufferMonNickname
+	dynmultipush Debug_EventScript_HPType_Text_Fighting, TYPE_FIGHTING
+	dynmultipush Debug_EventScript_HPType_Text_Flying, TYPE_FLYING
+	dynmultipush Debug_EventScript_HPType_Text_Poison, TYPE_POISON
+	dynmultipush Debug_EventScript_HPType_Text_Ground, TYPE_GROUND
+	dynmultipush Debug_EventScript_HPType_Text_Rock, TYPE_ROCK
+	dynmultipush Debug_EventScript_HPType_Text_Bug, TYPE_BUG
+	dynmultipush Debug_EventScript_HPType_Text_Ghost, TYPE_GHOST
+	dynmultipush Debug_EventScript_HPType_Text_Steel, TYPE_STEEL
+	dynmultipush Debug_EventScript_HPType_Text_Fire, TYPE_FIRE
+	dynmultipush Debug_EventScript_HPType_Text_Water, TYPE_WATER
+	dynmultipush Debug_EventScript_HPType_Text_Grass, TYPE_GRASS
+	dynmultipush Debug_EventScript_HPType_Text_Electric, TYPE_ELECTRIC
+	dynmultipush Debug_EventScript_HPType_Text_Psychic, TYPE_PSYCHIC
+	dynmultipush Debug_EventScript_HPType_Text_Ice, TYPE_ICE
+	dynmultipush Debug_EventScript_HPType_Text_Dragon, TYPE_DRAGON
+	dynmultipush Debug_EventScript_HPType_Text_Dark, TYPE_DARK
+	dynmultistack 0, 0, TRUE, 7, FALSE, TYPE_FIGHTING, NULL
+	switch VAR_RESULT
+	case MULTI_B_PRESSED, Debug_EventScript_InflictStatus1_Close
+	copyvar VAR_0x8005, VAR_RESULT
+	special BufferHPTypeInfo
+	msgbox Debug_EventScript_StatTools_Text_ConfirmHPType, MSGBOX_YESNO
+	switch VAR_RESULT
+	case NO, Debug_EventScript_InflictStatus1_Close
+	case MULTI_B_PRESSED, Debug_EventScript_InflictStatus1_Close
+	special ChangeMonIVsForHP
+	msgbox Debug_EventScript_StatTools_Text_Done, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ Ported from Emerald Imperium (src/ui_stat_editor.c), close to as-is. Neither
+@ gate from Imperium is wired up here - no FLAG_SYS_STAT_EDITOR_GET unlock, no
+@ FLAG_MIN_GRINDING_MODE EV restriction. Test entry point only; the real access
+@ point comes with the facility.
+Debug_EventScript_OpenStatEditor::
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, Debug_EventScript_InflictStatus1_Close
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_eq VAR_RESULT, SPECIES_EGG, Debug_EventScript_InflictStatus1_Close
+	special StatEditorSpecial
+	releaseall
+	end
+
+Debug_EventScript_StatTools_Text_ConfirmNature:
+	.string "Give {STR_VAR_1} the {STR_VAR_2} nature?$"
+
+Debug_EventScript_StatTools_Text_ConfirmHPType:
+	.string "Give {STR_VAR_1} the {STR_VAR_2} Hidden\nPower type?\p"
+	.string "IVs required (H/A/D/SA/SD/S):\n"
+	.string "{STR_VAR_3}$"
+
+Debug_EventScript_StatTools_Text_Done:
+	.string "Done.$"
+
+Debug_EventScript_HPType_Text_Fighting:
+	.string "Fighting$"
+Debug_EventScript_HPType_Text_Flying:
+	.string "Flying$"
+Debug_EventScript_HPType_Text_Poison:
+	.string "Poison$"
+Debug_EventScript_HPType_Text_Ground:
+	.string "Ground$"
+Debug_EventScript_HPType_Text_Rock:
+	.string "Rock$"
+Debug_EventScript_HPType_Text_Bug:
+	.string "Bug$"
+Debug_EventScript_HPType_Text_Ghost:
+	.string "Ghost$"
+Debug_EventScript_HPType_Text_Steel:
+	.string "Steel$"
+Debug_EventScript_HPType_Text_Fire:
+	.string "Fire$"
+Debug_EventScript_HPType_Text_Water:
+	.string "Water$"
+Debug_EventScript_HPType_Text_Grass:
+	.string "Grass$"
+Debug_EventScript_HPType_Text_Electric:
+	.string "Electric$"
+Debug_EventScript_HPType_Text_Psychic:
+	.string "Psychic$"
+Debug_EventScript_HPType_Text_Ice:
+	.string "Ice$"
+Debug_EventScript_HPType_Text_Dragon:
+	.string "Dragon$"
+Debug_EventScript_HPType_Text_Dark:
+	.string "Dark$"
+
 Debug_EventScript_InflictStatus1_Single_Poison:
 	setstatus1 STATUS1_POISON, VAR_0x8004
 	releaseall

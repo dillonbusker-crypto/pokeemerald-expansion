@@ -57,6 +57,7 @@ enum
     PAGE_EXECUTIVE_DIRECTOR,
     PAGE_EXECUTIVE_PRODUCERS_1,
     PAGE_EXECUTIVE_PRODUCERS_2,
+    PAGE_TEN_BUILDINGS_CREDITS,
     PAGE_COUNT
 };
 
@@ -221,6 +222,13 @@ static const u8 sCreditsText_MotoyasuTojima[]                 = _("Motoyasu Toji
 static const u8 sCreditsText_NicolaPrattBarlow[]              = _("Nicola Pratt-Barlow");
 static const u8 sCreditsText_ShellieDow[]                     = _("Shellie Dow");
 static const u8 sCreditsText_ErikJohnson[]                    = _("Erik Johnson");
+
+// Ten Buildings: stat editor, nature changer and Hidden Power type changer
+// ported from Emerald Imperium (iriv24/pokeemerald-expansion). Git history on
+// that repo's release branch shows all three original to this contributor;
+// no LICENSE file there or here, so credited by name per community norm.
+static const u8 sCreditsText_TenBuildingsStatTools[]          = _("Stat Editor, Nature and\nHidden Power Changers");
+static const u8 sCreditsText_IsaacRivera[]                    = _("Isaac Rivera (iriv24)");
 static const struct CreditsEntry sCreditsEntry_EmptyString                      = { 0, FALSE, sCreditsText_EmptyString};
 static const struct CreditsEntry sCreditsEntry_PkmnEmeraldVersion               = { 7,  TRUE, sCreditsText_PkmnEmeraldVersion};
 static const struct CreditsEntry sCreditsEntry_Credits                          = {11,  TRUE, sCreditsText_Credits};
@@ -380,6 +388,9 @@ static const struct CreditsEntry sCreditsEntry_MotoyasuTojima                   
 static const struct CreditsEntry sCreditsEntry_NicolaPrattBarlow                = { 0, FALSE, sCreditsText_NicolaPrattBarlow};
 static const struct CreditsEntry sCreditsEntry_ShellieDow                       = { 0, FALSE, sCreditsText_ShellieDow};
 static const struct CreditsEntry sCreditsEntry_ErikJohnson                      = { 0, FALSE, sCreditsText_ErikJohnson};
+
+static const struct CreditsEntry sCreditsEntry_TenBuildingsStatTools            = { 8,  TRUE, sCreditsText_TenBuildingsStatTools};
+static const struct CreditsEntry sCreditsEntry_IsaacRivera                      = {11, FALSE, sCreditsText_IsaacRivera};
 
 #define _ &sCreditsEntry_EmptyString
 static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][ENTRIES_PER_PAGE] =
@@ -780,6 +791,13 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         _,
         &sCreditsEntry_ExecProducers,
         &sCreditsEntry_TsunekazIshihara,
+        _,
+        _,
+    },
+    [PAGE_TEN_BUILDINGS_CREDITS] = {
+        _,
+        &sCreditsEntry_TenBuildingsStatTools,
+        &sCreditsEntry_IsaacRivera,
         _,
         _,
     },
