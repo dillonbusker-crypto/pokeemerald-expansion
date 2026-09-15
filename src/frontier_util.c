@@ -1005,6 +1005,45 @@ static void SaveSelectedParty(void)
     }
 }
 
+// ----------------------------------------------------------------------------
+// Held item snapshot/restore for facility battles.
+//
+// HealPlayerParty() (called between rounds - see e.g. the Battle Tower's own
+// room script, data/maps/BattleFrontier_BattleTowerBattleRoom/scripts.inc,
+// "special HealPlayerParty") only restores HP/PP/status; it has no item
+// logic at all. Item consumption in battle (berries eaten, Fling, Knock Off,
+// Thief/Covet) is written back to the party's real data at battle end like
+// normal play, so without this, a consumed item would stay gone for the rest
+// of a facility run. Held items are meant to be permanent purchases for this
+// project, not something a single battle can cost the player, so every
+// facility battle needs its party's held items snapshotted beforehand and
+// force-restored afterward - deliberately undoing all of the above
+// uniformly, Knock Off/Thief/Covet included (see CLAUDE.md).
+//
+// WIRE HERE LATER: the future facility's pre-battle flow should call
+// SaveFacilityHeldItems() right before each battle starts, and its
+// post-battle flow should call RestoreFacilityHeldItems() right after
+// HealPlayerParty() (special HealPlayerParty). Both are already registered
+// as specials (data/specials.inc) so a script can call them directly.
+// ----------------------------------------------------------------------------
+static EWRAM_DATA u16 sFacilityHeldItems[PARTY_SIZE] = {0};
+
+void SaveFacilityHeldItems(void)
+{
+    u32 i;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+        sFacilityHeldItems[i] = GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_HELD_ITEM);
+}
+
+void RestoreFacilityHeldItems(void)
+{
+    u32 i;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+        SetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_HELD_ITEM, &sFacilityHeldItems[i]);
+}
+
 static void ShowFacilityResultsWindow(void)
 {
     if (gSpecialVar_0x8006 >= FRONTIER_MODE_COUNT)

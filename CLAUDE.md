@@ -66,6 +66,53 @@ Building 1 is capped at 420 BST with a ban list. Later buildings escalate to
 
 ---
 
+## ⚠️ Set vs. Shift protection is tied to one specific flag — a trap
+
+Facility battles must not let the player's Options menu Battle Style setting
+(Set/Shift) affect difficulty — Shift's free "opponent is about to switch,
+want to switch too?" prompt is a real competitive advantage and shouldn't
+depend on a menu toggle. Investigated whether this needed a hard override
+and found the good news and the trap in the same place:
+
+**The good news:** it's already handled, for free, with zero code of ours.
+The Shift-only prompt is gated by this exact line in the vanilla battle
+scripts:
+
+```
+data/battle_scripts_1.s:2748
+jumpifbattletype BATTLE_TYPE_FRONTIER, BattleScript_FaintedMonSendOutNew
+```
+
+Any battle carrying `BATTLE_TYPE_FRONTIER` skips the prompt unconditionally,
+*regardless* of what `gSaveBlock2Ptr->optionsBattleStyle` says — the raw
+option is never overridden (checked every reference to it; there's no
+Frontier-specific write), but the one place it's actually read for gameplay
+(this same script, checking `sBATTLE_STYLE`) is never reached in a
+Frontier-flagged battle, because the line above jumps past it first.
+
+**The trap:** this protection is *only* that one hardcoded
+`BATTLE_TYPE_FRONTIER` check. It is not "any facility battle" or "any battle
+this project considers a facility fight" — it's that literal flag, checked
+by name, in vanilla script data we didn't write and won't be revisiting
+line-by-line. **If facility battles are ever run under a different/custom
+battle type flag instead of reusing `BATTLE_TYPE_FRONTIER`, this protection
+disappears silently** — no build error, no obvious symptom, just a player
+with Shift selected quietly getting free information and a free switch that
+Set-style players don't. Whoever wires up the real facility's battles needs
+to either keep `BATTLE_TYPE_FRONTIER` set on them, or explicitly re-check
+this before shipping if a custom flag is used instead.
+
+(Separately investigated in the same pass: between-round healing is a full
+heal, not a party snapshot, and does not restore held items consumed in
+battle — `SaveFacilityHeldItems()`/`RestoreFacilityHeldItems()`
+(`src/frontier_util.c`) now exist to handle that, registered as specials,
+ready for the facility's pre-/post-battle scripts to call. Unlike the Set/
+Shift protection above, this one is explicit and ours - it doesn't depend on
+`BATTLE_TYPE_FRONTIER` or any other flag, so it isn't subject to the same
+trap.)
+
+---
+
 ## ⚠️ Temporary test-only patches — currently ON, must be reverted before shipping
 
 Two engine behaviors are hard-disabled right now so the building 1 boss test
