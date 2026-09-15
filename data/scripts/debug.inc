@@ -601,6 +601,23 @@ Debug_EventScript_OpenStatEditor::
 	releaseall
 	end
 
+@ Move editor: the vanilla Move Relearner UI (src/move_relearner.c), pointed
+@ at MOVE_RELEARNER_ALL_LEGAL_MOVES - level-up (whole pre-evolution chain) +
+@ egg + TM/HM + tutor moves combined into one legal pool, the same set
+@ Pokemon Showdown would allow. That state is only reachable by setting it
+@ directly like this (see its isActive() in src/move_relearner.c) - it never
+@ appears via the summary screen's normal relearn cycling. Test entry point
+@ only; the real access point comes with the facility.
+Debug_EventScript_OpenMoveEditor::
+	setmoverelearnerstate MOVE_RELEARNER_ALL_LEGAL_MOVES
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, Debug_EventScript_InflictStatus1_Close
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_eq VAR_RESULT, SPECIES_EGG, Debug_EventScript_InflictStatus1_Close
+	special TeachMoveRelearnerMove
+	releaseall
+	end
+
 Debug_EventScript_StatTools_Text_ConfirmNature:
 	.string "Give {STR_VAR_1} the {STR_VAR_2} nature?$"
 

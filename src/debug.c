@@ -382,6 +382,7 @@ extern const u8 Debug_EventScript_SetAbility[];
 extern const u8 Debug_EventScript_ChangeMonNature[];
 extern const u8 Debug_EventScript_ChangeMonHPType[];
 extern const u8 Debug_EventScript_OpenStatEditor[];
+extern const u8 Debug_EventScript_OpenMoveEditor[];
 extern const u8 Debug_EventScript_SetFriendship[];
 extern const u8 Debug_EventScript_Script_1[];
 extern const u8 Debug_EventScript_Script_2[];
@@ -642,6 +643,7 @@ static const struct DebugMenuOption sDebugMenu_Actions_EditPokemon[] =
     { COMPOUND_STRING("Change Nature"),      DebugAction_ExecuteScript, Debug_EventScript_ChangeMonNature },
     { COMPOUND_STRING("Change HP Type"),     DebugAction_ExecuteScript, Debug_EventScript_ChangeMonHPType },
     { COMPOUND_STRING("Open Stat Editor"),   DebugAction_ExecuteScript, Debug_EventScript_OpenStatEditor },
+    { COMPOUND_STRING("Open Move Editor"),   DebugAction_ExecuteScript, Debug_EventScript_OpenMoveEditor },
     { NULL }
 };
 
