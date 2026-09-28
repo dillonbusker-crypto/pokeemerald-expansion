@@ -23,8 +23,8 @@ the group decides what that Mega is *for*.
 **Why the Dome.** Buildings 1–4 used the Battle Tower's four counters, so the
 Tower is finished. The Dome is the Frontier's arena, with an audience and a
 spotlight, which suits the building where Pokémon first transform mid-battle.
-It's also first in the unlock-bit order (`FACILITY_DOOR_DOME`), and its lobby
-already has the locked-door check waiting for that bit. Vanilla Dome tournament
+Its lobby already had a locked-door check; it now opens when building 4 is
+cleared. Vanilla Dome tournament
 rules (brackets, 3v3, team preview) are **not** used. The Dome is only the
 location, and the Ten Buildings run loop runs there unchanged.
 
@@ -1221,31 +1221,42 @@ turn away, or be faster than the turn.
 
 ## Implementation notes
 
-Not code — a checklist for when this gets built.
+What was built, and where. Keep the sets above in sync with
+`src/data/trainers.party` — the trainer entries were generated from this doc.
 
-- **Building 4 completion** (`Facility_AfterBossBattle`,
-  `data/maps/BattleFrontier_BattleTowerLobby/scripts.inc`): add a building 4
-  branch, like the existing building 1 one. It gives `ITEM_MEGA_RING`, sets
-  the `FACILITY_DOOR_DOME` bit in `unlockedFacilityDoors`, and shows the
-  dialogue above. Nothing sets any door bit yet (see the comment above
-  `FACILITY_DOOR_DOME` in `src/facility.c`).
-- **The run loop only exists in the Tower lobby.** Building 5 is the first
-  building elsewhere, so the Dome lobby needs the same entry, battle and
-  post-battle script flow. This is the biggest single piece of work here.
-- **Keeper 3** (`BattleFrontier_ExchangeServiceCorner_EventScript_MegaStoneKeeper`)
-  is a "coming later" placeholder. It needs a real stock list and menu, the
-  same shape as Keeper 2's.
-- **New data:** `FACILITY_BUILDING_5`, 13 trainer constants (12 pool plus the
-  boss), the `sBuilding5Pool` table, and the shop entries above at
-  `unlockBuilding 4`.
-- **Update the docs:**
-  - `battle-tower-design-v2.md`'s progression table: building 5 now adds
-    Megas, Paradoxes, Ultra Beasts and Mythicals, not "pseudo-legendaries
-    only".
-  - Its item table: Clear Amulet moves to building 6.
-  - `shop-spec.md`: the Mega Stone keeper now opens after building 4, not
-    building 5.
-- **To verify before building:** that the CPU Mega Evolves automatically from
-  trainer data, that `Chilly Reception`, `Mortal Spin`, `Glaive Rush`,
-  `Malignant Chain` and `Tachyon Cutter` all behave correctly, and that the AI
-  knows to Trick a Choice item rather than using Trick as a wasted turn.
+- **Trainer IDs.** `MAX_TRAINERS_COUNT_EMERALD` was raised from 890 to 1000
+  (`include/constants/opponents.h`), with headroom for all ten buildings. At
+  890 it had been too low for building 4: trainer IDs past it share their
+  "defeated" flag with system flags (the Pokédex, badges and so on), and
+  ID 891 was read as a battle partner. A `STATIC_ASSERT` in `src/facility.c`
+  now fails the build if it ever happens again. **Raising it changed the save
+  layout, so saves from before this build don't load correctly — start a New
+  Game.**
+- **Trainers:** `TRAINER_FACILITY_B5_*` (IDs 901–913) in
+  `include/constants/opponents.h` and `src/data/trainers.party`.
+- **Run loop:** `FACILITY_BUILDING_5` and `sBuilding5Pool` in
+  `src/facility.c`. The shared script flow in the Tower lobby
+  (`Facility_DoBattle`, `Facility_Battle_Boss`) routes building 5 to
+  `Facility_DoBattle_B5` / `Facility_Battle_Boss_B5`, which live in the Dome
+  lobby's scripts next to the building 5 attendant.
+- **The Dome:** the Singles attendant runs building 5
+  (`BattleFrontier_BattleDomeLobby_EventScript_FacilityAttendantB5`). The
+  Doubles attendant turns the player away, since the vanilla tournament
+  isn't used. The Dome opens when building 4 is cleared:
+  `IsBattleDomeUnlocked()` reads the same `buildingsCompleted` bits as the
+  Tower mats, so no separate door bit has to be set.
+- **Building 4 completion:** `Facility_B4_BuildingComplete` gives the Mega
+  Ring *before* saving, then points the player to the Mega Stone counter and
+  the Dome. The Mega Stone keeper also hands over a ring if one is ever
+  missing.
+- **Shop:** the building 5 wave (`unlockBuilding 4`) in
+  `src/facility_shop.c`: Choice items and friends in Keeper 2, all 28 stones
+  in the new `sMegaStones` table (Keeper 3, `FacilityShopBuildMegaStonesMenu`),
+  and the Pokémon in Keeper 4. The Mega bases go in the Budget tier. New
+  ability overrides: Garchomp, Dragonite, Clefable, Dragalge.
+
+**Not verified in-game yet:** Mega Evolution from both sides, the AI's use of
+Trick with Choice items, and the moves new to this project (`Chilly
+Reception`, `Mortal Spin`, `Glaive Rush`, `Malignant Chain`, `Tachyon
+Cutter`). The code paths were checked: CPU Pokémon Mega Evolve on their own
+when holding a usable stone, and the player needs the Mega Ring.

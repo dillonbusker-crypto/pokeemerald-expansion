@@ -49,6 +49,7 @@ gSpecials::
 	def_special FacilityShopGiveFP
 	def_special FacilityShopBuildConsumablesMenu
 	def_special FacilityShopBuildHeldItemsMenu
+	def_special FacilityShopBuildMegaStonesMenu
 	def_special FacilityShopBuildBuildingMenu
 	def_special FacilityShopSelectBuildingRow
 	def_special FacilityShopBuildMonTierList

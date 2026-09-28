@@ -708,3 +708,136 @@ BattleFrontier_BattleDomeLobby_Text_ExplainDoubleKORules:
 	.string "time--a double KO--in a tournament\l"
 	.string "match, the REFEREES will review\l"
 	.string "the match and declare the winner.$"
+
+@ ============================================================================
+@ Ten Buildings: building 5 ("The Main Event", building-05.md). The Dome is
+@ only the location - the vanilla tournament (brackets, 3v3, team preview)
+@ isn't used. The Singles attendant runs building 5 through the same shared
+@ run-loop scripts the Battle Tower lobby uses (Facility_DoBattle and
+@ everything after it, in data/maps/BattleFrontier_BattleTowerLobby/
+@ scripts.inc - every map's scripts assemble into one file, so those labels
+@ are reachable from here). The Dome opens when building 4 is cleared (see
+@ IsBattleDomeUnlocked() in src/facility.c), so this attendant needs no
+@ lock check of its own - the lobby's OnFrame check already turns the
+@ player away before then.
+@
+@ The vanilla SinglesAttendant/DoublesAttendant flows above are unreferenced
+@ now - map.json points the two attendants at the scripts below instead.
+@ ============================================================================
+
+BattleFrontier_BattleDomeLobby_EventScript_FacilityAttendantB5::
+	lock
+	faceplayer
+	setvar VAR_0x8004, FACILITY_BUILDING_5
+	special IsFacilityRunActiveForBuilding
+	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
+	special IsFacilityRunActiveForDifferentBuilding
+	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
+	msgbox Facility_B5_Text_AskEnter, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Facility_Decline
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
+	setvar VAR_0x8004, FACILITY_BUILDING_5
+	special FacilityStartRun
+	call Common_EventScript_SaveGame
+	goto Facility_DoBattle
+	end
+
+@ The vanilla Doubles tournament would run the real Battle Dome's own
+@ challenge logic, outside the Ten Buildings run loop entirely - so the
+@ Doubles attendant just turns the player away.
+BattleFrontier_BattleDomeLobby_EventScript_DoublesAttendantClosed::
+	lock
+	faceplayer
+	msgbox BattleFrontier_BattleDomeLobby_Text_DoublesClosed, MSGBOX_DEFAULT
+	release
+	end
+
+Facility_DoBattle_B5:
+	switch VAR_RESULT
+	case 0, Facility_B5_Battle_HEADLINER
+	case 1, Facility_B5_Battle_SPOTLIGHT
+	case 2, Facility_B5_Battle_QUICKDRAW
+	case 3, Facility_B5_Battle_ASCENSION
+	case 4, Facility_B5_Battle_CRESCENDO
+	case 5, Facility_B5_Battle_BULWARK
+	case 6, Facility_B5_Battle_LOCKEDIN
+	case 7, Facility_B5_Battle_MOMENTUM
+	case 8, Facility_B5_Battle_SLEIGHT
+	case 9, Facility_B5_Battle_MINEFIELD
+	case 10, Facility_B5_Battle_IRONWALL
+	case 11, Facility_B5_Battle_PRESSURE
+	end
+
+Facility_B5_Battle_HEADLINER:
+	trainerbattle_single TRAINER_FACILITY_B5_A1_HEADLINER, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B5_Battle_SPOTLIGHT:
+	trainerbattle_single TRAINER_FACILITY_B5_A2_SPOTLIGHT, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B5_Battle_QUICKDRAW:
+	trainerbattle_single TRAINER_FACILITY_B5_A3_QUICKDRAW, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B5_Battle_ASCENSION:
+	trainerbattle_single TRAINER_FACILITY_B5_B4_ASCENSION, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B5_Battle_CRESCENDO:
+	trainerbattle_single TRAINER_FACILITY_B5_B5_CRESCENDO, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B5_Battle_BULWARK:
+	trainerbattle_single TRAINER_FACILITY_B5_B6_BULWARK, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B5_Battle_LOCKEDIN:
+	trainerbattle_single TRAINER_FACILITY_B5_C7_LOCKEDIN, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B5_Battle_MOMENTUM:
+	trainerbattle_single TRAINER_FACILITY_B5_C8_MOMENTUM, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B5_Battle_SLEIGHT:
+	trainerbattle_single TRAINER_FACILITY_B5_C9_SLEIGHT, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B5_Battle_MINEFIELD:
+	trainerbattle_single TRAINER_FACILITY_B5_D10_MINEFIELD, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B5_Battle_IRONWALL:
+	trainerbattle_single TRAINER_FACILITY_B5_D11_IRONWALL, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B5_Battle_PRESSURE:
+	trainerbattle_single TRAINER_FACILITY_B5_D12_PRESSURE, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_Battle_Boss_B5:
+	trainerbattle_single TRAINER_FACILITY_B5_BOSS_SOLEN, Facility_B5_Text_BossIntro, Facility_B5_Text_BossDefeat, Facility_AfterBossBattle
+	end
+
+Facility_B5_Text_AskEnter:
+	.string "Welcome to the Main Event!\p"
+	.string "This is a Singles gauntlet - six battles,\n"
+	.string "then a boss. Your whole party of six\l"
+	.string "enters, and it's locked once you begin.\p"
+	.string "Every opponent here can Mega Evolve.\n"
+	.string "Ready to start?$"
+
+Facility_B5_Text_BossIntro:
+	.string "You made it to the main event.\p"
+	.string "Let's see whose crown this is.$"
+
+Facility_B5_Text_BossDefeat:
+	.string "The crown is yours.$"
+
+BattleFrontier_BattleDomeLobby_Text_DoublesClosed:
+	.string "The Doubles tournament isn't running\n"
+	.string "right now. Please see my colleague\l"
+	.string "for the Main Event.$"

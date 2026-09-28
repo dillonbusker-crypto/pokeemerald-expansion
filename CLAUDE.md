@@ -113,6 +113,23 @@ trap.)
 
 ---
 
+## ⚠️ Trainer IDs must stay below MAX_TRAINERS_COUNT — and raising it breaks saves
+
+Every trainer's "defeated" flag is `TRAINER_FLAGS_START + id`, and the trainer
+flag range ends at `MAX_TRAINERS_COUNT` (`include/constants/opponents.h`).
+An ID past it silently shares its flag with a **system flag** (Pokédex,
+badges, ...) and is also read as a **battle partner** (`IsPartnerTrainerId()`
+in `include/data.h`), so the game loads the wrong team. This happened to
+building 4 while the limit was 890.
+
+It's now 1000, sized for all ten buildings (13 trainers each), and a
+`STATIC_ASSERT` in `src/facility.c` fails the build if `TRAINERS_COUNT` ever
+exceeds it. **Don't raise it again casually:** it moves every flag after the
+trainer range and every SaveBlock1 field after `flags[]`, so existing saves
+stop loading correctly. The raise to 1000 already required a New Game.
+
+---
+
 ## ⚠️ Temporary test-only patch — currently ON, must be reverted before shipping
 
 One engine behavior is still hard-disabled so the building 1 boss test

@@ -918,16 +918,37 @@
 #define TRAINER_FACILITY_B4_D12_CHECKMATE    899
 #define TRAINER_FACILITY_B4_BOSS_IYLA        900
 
-// NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs are capped at
-//       MAX_TRAINERS_COUNT below. Growing it costs a couple of bytes in SaveBlock1's flags[] array (see
-//       save-data-findings.md - SaveBlock1 has 304 B free before even reclaiming any of the disabled vanilla
-//       features listed there), nothing more. Buildings 3 and 4 used the last ~15 spare IDs and then some -
-//       growing TRAINERS_COUNT_EMERALD from 875 to 901 cost 26 new bits (~4 bytes) in that flags[] array.
-//       Verified against the same SaveBlock1 STATIC_ASSERT in src/save.c that gates BAG_TMHM_COUNT.
-//       More space can also be made by shifting flags around in constants/flags.h if ever needed instead.
+// Ten Buildings facility - building 5 ("The Main Event", Battle Dome). See
+// building-05.md and src/facility.c.
+#define TRAINER_FACILITY_B5_A1_HEADLINER     901
+#define TRAINER_FACILITY_B5_A2_SPOTLIGHT     902
+#define TRAINER_FACILITY_B5_A3_QUICKDRAW     903
+#define TRAINER_FACILITY_B5_B4_ASCENSION     904
+#define TRAINER_FACILITY_B5_B5_CRESCENDO     905
+#define TRAINER_FACILITY_B5_B6_BULWARK       906
+#define TRAINER_FACILITY_B5_C7_LOCKEDIN      907
+#define TRAINER_FACILITY_B5_C8_MOMENTUM      908
+#define TRAINER_FACILITY_B5_C9_SLEIGHT       909
+#define TRAINER_FACILITY_B5_D10_MINEFIELD    910
+#define TRAINER_FACILITY_B5_D11_IRONWALL     911
+#define TRAINER_FACILITY_B5_D12_PRESSURE     912
+#define TRAINER_FACILITY_B5_BOSS_SOLEN       913
 
-#define TRAINERS_COUNT_EMERALD     901
-#define MAX_TRAINERS_COUNT_EMERALD 890
+// NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
+//       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
+//       the system flags (Pokedex, badges, ...) start right after it, so an ID at or past this limit
+//       silently shares its "defeated" flag with a system flag. It also collides with the battle partner
+//       ID range (TRAINER_PARTNER() below / IsPartnerTrainerId() in data.h), which makes the game load a
+//       partner's team instead of the trainer's. Both happened to building 4 while this was 890.
+//
+//       Raised to 1000 once, with headroom for all ten buildings (13 trainers each, the last ending around
+//       978), so the save layout only changes this one time. Growing it shifts every flag after the
+//       trainer range and every SaveBlock1 field after flags[], so it invalidates existing saves - don't
+//       grow it again casually. Costs ~14 bytes of SaveBlock1 (304 B free, see save-data-findings.md),
+//       checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
+
+#define TRAINERS_COUNT_EMERALD     914
+#define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG
 #define TRAINERS_COUNT                      TRAINERS_COUNT_FRLG

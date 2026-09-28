@@ -1554,7 +1554,8 @@ Facility_DoBattle:
 	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_1, Facility_DoBattle_B1
 	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_2, Facility_DoBattle_B2
 	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_3, Facility_DoBattle_B3
-	goto Facility_DoBattle_B4
+	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_4, Facility_DoBattle_B4
+	goto Facility_DoBattle_B5
 	end
 
 Facility_Battle_Boss:
@@ -1562,7 +1563,8 @@ Facility_Battle_Boss:
 	goto_if_eq VAR_RESULT, FACILITY_BUILDING_1, Facility_Battle_Boss_B1
 	goto_if_eq VAR_RESULT, FACILITY_BUILDING_2, Facility_Battle_Boss_B2
 	goto_if_eq VAR_RESULT, FACILITY_BUILDING_3, Facility_Battle_Boss_B3
-	goto Facility_Battle_Boss_B4
+	goto_if_eq VAR_RESULT, FACILITY_BUILDING_4, Facility_Battle_Boss_B4
+	goto Facility_Battle_Boss_B5
 
 Facility_Battle_Boss_B1:
 	trainerbattle_single TRAINER_FACILITY_B1_BOSS_HELIS, Facility_B1_Text_BossIntro, Facility_B1_Text_BossDefeat, Facility_AfterBossBattle
@@ -1882,9 +1884,26 @@ Facility_AfterBossBattle:
 	special GetFacilityRunBuilding
 	copyvar VAR_TEMP_2, VAR_RESULT
 	special FacilityCompleteBuilding
+	goto_if_eq VAR_TEMP_2, FACILITY_BUILDING_4, Facility_B4_BuildingComplete
 	call Common_EventScript_SaveGame
 	goto_if_eq VAR_TEMP_2, FACILITY_BUILDING_1, Facility_B1_BuildingComplete
 	msgbox Facility_Text_BuildingComplete, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ Ten Buildings: clearing building 4 hands over the Mega Ring - without it
+@ the player can't Mega Evolve at all (CanMegaEvolve() in
+@ src/battle_util.c checks the bag for it) - and points the player at the
+@ two things that just opened: the Mega Stone counter and the Battle Dome
+@ (building 5, see IsBattleDomeUnlocked() in src/facility.c). The ring is
+@ given BEFORE the save, so a completed building 4 is never saved without
+@ it. The Mega Stone keeper also re-gives it if it's ever missing - see
+@ BattleFrontier_ExchangeServiceCorner_EventScript_MegaStoneKeeper.
+Facility_B4_BuildingComplete:
+	msgbox Facility_B4_Text_BuildingComplete, MSGBOX_DEFAULT
+	giveitem ITEM_MEGA_RING
+	call Common_EventScript_SaveGame
+	msgbox Facility_B4_Text_MegaStonesAndDome, MSGBOX_DEFAULT
 	releaseall
 	end
 
@@ -2026,9 +2045,26 @@ Facility_Text_BossUpNext:
 	.string "Six down - that's the whole lineup.\n"
 	.string "The boss is up next. Good luck.$"
 
+@ Shared by every building without its own completion text (2, 3, 5) -
+@ so it can't name a building number.
 Facility_Text_BuildingComplete:
-	.string "That's building 2, cleared! The next\n"
-	.string "tier is open to you.$"
+	.string "That's the building, cleared! The\n"
+	.string "next tier is open to you.$"
+
+Facility_B4_Text_BuildingComplete:
+	.string "Congratulations! You've cleared the\n"
+	.string "Turn Order!\p"
+	.string "You've earned this. With it, a POKéMON\n"
+	.string "holding its MEGA STONE can Mega\l"
+	.string "Evolve in battle - once per battle,\l"
+	.string "so choose well.$"
+
+Facility_B4_Text_MegaStonesAndDome:
+	.string "The MEGA STONE counter at the\n"
+	.string "Exchange Service Corner is open now.\p"
+	.string "And your next challenge is waiting\n"
+	.string "at the BATTLE DOME. Its doors are\l"
+	.string "open to you.$"
 
 Facility_B1_Text_BuildingComplete:
 	.string "That's building 1, cleared! The next\n"

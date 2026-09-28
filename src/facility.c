@@ -5,7 +5,10 @@
 // pool and boss. Building 2 ("The Second Slot", building-02.md) has 6 of
 // its twelve pool teams for now (A1, A2, B4, B6, C7, D11) - the shuffle
 // below operates on whatever poolSize the active building declares, so
-// adding the remaining six later is a data change only.
+// adding the remaining six later is a data change only. Buildings 3 and 4
+// use the Battle Tower's other two mats; building 5 ("The Main Event",
+// building-05.md) is the first outside the Tower, run from the Battle Dome
+// lobby with the same shared run-loop scripts.
 // ============================================================================
 
 #include "global.h"
@@ -22,6 +25,12 @@
 #include "constants/trainers.h"
 
 #define FACILITY_MAX_POOL_SIZE 12
+
+// Every trainer ID needs its own "defeated" flag below MAX_TRAINERS_COUNT -
+// past it, the flag lands on a system flag and the ID is read as a battle
+// partner. See the note above TRAINERS_COUNT_EMERALD in
+// include/constants/opponents.h. Fails the build instead of failing silently.
+STATIC_ASSERT(TRAINERS_COUNT <= MAX_TRAINERS_COUNT, TrainerIdsMustFitBelowMaxTrainersCount);
 
 struct FacilityBuildingData
 {
@@ -88,12 +97,29 @@ static const u16 sBuilding4Pool[] =
     TRAINER_FACILITY_B4_D12_CHECKMATE,
 };
 
+static const u16 sBuilding5Pool[] =
+{
+    TRAINER_FACILITY_B5_A1_HEADLINER,
+    TRAINER_FACILITY_B5_A2_SPOTLIGHT,
+    TRAINER_FACILITY_B5_A3_QUICKDRAW,
+    TRAINER_FACILITY_B5_B4_ASCENSION,
+    TRAINER_FACILITY_B5_B5_CRESCENDO,
+    TRAINER_FACILITY_B5_B6_BULWARK,
+    TRAINER_FACILITY_B5_C7_LOCKEDIN,
+    TRAINER_FACILITY_B5_C8_MOMENTUM,
+    TRAINER_FACILITY_B5_C9_SLEIGHT,
+    TRAINER_FACILITY_B5_D10_MINEFIELD,
+    TRAINER_FACILITY_B5_D11_IRONWALL,
+    TRAINER_FACILITY_B5_D12_PRESSURE,
+};
+
 static const struct FacilityBuildingData sFacilityBuildings[] =
 {
     [FACILITY_BUILDING_1] = { sBuilding1Pool, ARRAY_COUNT(sBuilding1Pool), TRAINER_FACILITY_B1_BOSS_HELIS },
     [FACILITY_BUILDING_2] = { sBuilding2Pool, ARRAY_COUNT(sBuilding2Pool), TRAINER_FACILITY_B2_BOSS_NERYS },
     [FACILITY_BUILDING_3] = { sBuilding3Pool, ARRAY_COUNT(sBuilding3Pool), TRAINER_FACILITY_B3_BOSS_KASRA },
     [FACILITY_BUILDING_4] = { sBuilding4Pool, ARRAY_COUNT(sBuilding4Pool), TRAINER_FACILITY_B4_BOSS_IYLA },
+    [FACILITY_BUILDING_5] = { sBuilding5Pool, ARRAY_COUNT(sBuilding5Pool), TRAINER_FACILITY_B5_BOSS_SOLEN },
 };
 
 bool8 IsFacilityRunActive(void)
@@ -135,11 +161,16 @@ bool8 IsFacilityBattleTrainer(u16 trainerId)
 }
 
 // Every real Battle Frontier facility except the Tower is locked at game
-// start (see the six BattleFrontier_Battle*Lobby OnFrame checks). Nothing
-// sets any of these bits yet - that's the unlock schedule, still
-// undesigned - so gSaveBlock3Ptr->facility.progress.unlockedFacilityDoors
-// stays 0 and every door below reads as locked. Tower needs no bit; its
-// lobby has no lock check at all.
+// start (see the six BattleFrontier_Battle*Lobby OnFrame checks). The Tower
+// needs no bit; its lobby has no lock check at all.
+//
+// A facility that hosts a building opens when the building before it is
+// cleared, read straight from buildingsCompleted - the same bitmask the
+// Tower mats use (IsDoublesMatUnlocked() etc.), so there's no second piece
+// of state a script could forget to set. The door bits in
+// gSaveBlock3Ptr->facility.progress.unlockedFacilityDoors are still honored
+// as an extra way in (nothing sets them yet), for any door that ever needs
+// opening outside the building order.
 #define FACILITY_DOOR_DOME    (1 << 0)
 #define FACILITY_DOOR_FACTORY (1 << 1)
 #define FACILITY_DOOR_PIKE    (1 << 2)
@@ -152,9 +183,11 @@ static bool8 IsFacilityDoorUnlocked(u8 door)
     return (gSaveBlock3Ptr->facility.progress.unlockedFacilityDoors & door) != 0;
 }
 
+// The Dome hosts building 5, so it opens when building 4 is cleared.
 void IsBattleDomeUnlocked(void)
 {
-    gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_DOME);
+    gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_DOME)
+        || (gSaveBlock3Ptr->facility.progress.buildingsCompleted & (1 << FACILITY_BUILDING_4)) != 0;
 }
 
 void IsBattleFactoryUnlocked(void)

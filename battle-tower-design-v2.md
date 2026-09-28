@@ -52,8 +52,8 @@ its tier.
 | 2 | Doubles | 500 | Core support and utility mons |
 | 3 | Singles | 550 | Strong fully-evolved non-legendaries |
 | 4 | Doubles | 599 | The best sub-600 competitive picks |
-| 5 | Singles | 600 | Pseudo-legendaries only — no Paradox, no UB |
-| 6 | Doubles | 600 | Pseudos + **limited Mega pool** |
+| 5 | Singles | 600 | Pseudo-legendaries, singles-relevant Paradox/UB/Mythicals, **28 Mega Stones** (see `building-05.md`) |
+| 6 | Doubles | 600 | Doubles-leaning Paradox/UB + **doubles-leaning Megas** |
 | 7 | Singles | 600 | Stronger Megas + some legendaries/Paradox/UB |
 | 8 | Doubles | 600 | **All Mega Stones** + all 600 BST legendaries/Paradox/UB |
 | 9 | Singles | 680 | Box-art legendaries — weaker selection, no Mega legends |
@@ -144,10 +144,10 @@ unlock alongside them.
 |---|---|
 | Building 1 | Type-boosting items, pinch berries, Leftovers |
 | Building 2 | Resist berries, Sitrus, weather rocks, terrain seeds |
-| Building 3 | **Choice items**, Life Orb, Eviolite |
+| Building 3 | Life Orb, Eviolite |
 | Building 4 | **Focus Sash**, Assault Vest, Heavy-Duty Boots |
-| Building 5 | Rocky Helmet, Mental Herb, Weakness Policy |
-| Building 6 | Covert Cloak, Clear Amulet, Safety Goggles, **limited Mega Stones** |
+| Building 5 | **Choice items**, Rocky Helmet, Mental Herb, Weakness Policy, **first Mega Stones** |
+| Building 6 | Covert Cloak, Clear Amulet, **doubles-leaning Mega Stones** |
 | Building 7 | Booster Energy, stronger Mega Stones |
 | Building 8 | **All remaining Mega Stones** |
 

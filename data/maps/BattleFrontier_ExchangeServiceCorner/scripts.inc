@@ -141,15 +141,75 @@ BattleFrontier_ExchangeServiceCorner_EventScript_BagFullHeldItem::
 	end
 
 @ ----------------------------------------------------------------------------
-@ Keeper 3 - Mega Stones. Empty until building 6 (shop-spec.md) - dialogue
-@ only, no menu, so the shop reads as "not yet" rather than broken.
+@ Keeper 3 - Mega Stones. Opens clearing building 4 (building-05.md). Until
+@ then FacilityShopBuildMegaStonesMenu finds nothing unlocked and the keeper
+@ just says "not yet", so the counter reads as closed rather than broken.
+@ Same purchase flow as Keeper 2 otherwise.
+@
+@ Also a safety net for the Mega Ring: the building 4 attendant gives it
+@ (Facility_B4_BuildingComplete), but if a save ever reaches this counter
+@ with stones unlocked and no ring, the keeper hands one over - stones are
+@ useless without it (CanMegaEvolve() in src/battle_util.c).
 @ ----------------------------------------------------------------------------
 
 BattleFrontier_ExchangeServiceCorner_EventScript_MegaStoneKeeper::
 	lock
 	faceplayer
+	specialvar VAR_RESULT, IsFacilityRunActive
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_ShopClosedMidRun
+	special FacilityShopBuildMegaStonesMenu
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_ExchangeServiceCorner_EventScript_MegaStonesComingLater
+	checkitem ITEM_MEGA_RING
+	call_if_eq VAR_RESULT, FALSE, BattleFrontier_ExchangeServiceCorner_EventScript_GiveMissingMegaRing
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_WelcomeMegaStones, MSGBOX_DEFAULT
+	special ShowFacilityFPWindow
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMegaStone
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_MegaStonesComingLater::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_MegaStonesComingLater, MSGBOX_DEFAULT
 	release
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_GiveMissingMegaRing::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_YouNeedAMegaRing, MSGBOX_DEFAULT
+	giveitem ITEM_MEGA_RING
+	return
+
+BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMegaStone::
+	special FacilityShopBuildMegaStonesMenu
+	setvar VAR_0x8004, SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC
+	special ShowScrollableMultichoice
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbyeFP
+	copyvar VAR_0x8004, VAR_RESULT
+	special FacilityShopSelectRow
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ConfirmBuyMegaStone
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_ConfirmBuyMegaStone::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmPurchase, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMegaStone
+	special FacilityShopGetFP
+	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_ExchangeServiceCorner_EventScript_NotEnoughFPMegaStone
+	checkitemspace VAR_0x8009
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_ExchangeServiceCorner_EventScript_BagFullMegaStone
+	copyvar VAR_0x8004, VAR_0x8008
+	special FacilityShopTakeFP
+	special UpdateFacilityFPWindow
+	additem VAR_0x8009
+	playse SE_SHOP
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_HereIsYourItem, MSGBOX_DEFAULT
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMegaStone
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_NotEnoughFPMegaStone::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_DontHaveEnoughFP, MSGBOX_DEFAULT
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMegaStone
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_BagFullMegaStone::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_DontHaveSpaceToHoldIt, MSGBOX_DEFAULT
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMegaStone
 	end
 
 @ ----------------------------------------------------------------------------
@@ -384,6 +444,16 @@ BattleFrontier_ExchangeServiceCorner_Text_MegaStonesComingLater:
 	.string "Come back once you've made it further\n"
 	.string "through the buildings - I hear this\l"
 	.string "place fills up fast after that.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_WelcomeMegaStones:
+	.string "Welcome to the MEGA STONE counter.\p"
+	.string "Give a POKéMON its own stone and it\n"
+	.string "can Mega Evolve - once per battle.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_YouNeedAMegaRing:
+	.string "Hold on - you don't have a MEGA RING?\n"
+	.string "These stones are no use without one.\l"
+	.string "Here, take this.$"
 
 BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemon:
 	.string "Welcome!\p"

@@ -1,7 +1,8 @@
 // ============================================================================
 // Ten Buildings shop - see shop-spec.md and shop-unlock-b2.md.
 //
-// Keepers 1 (consumables) and 2 (held items) are plain `additem` purchases,
+// Keepers 1 (consumables), 2 (held items) and 3 (Mega Stones) are plain
+// `additem` purchases,
 // scripted the same way vanilla's own BP vendors are (see
 // data/maps/BattleFrontier_ExchangeServiceCorner/scripts.inc) but spending
 // FP instead of Battle Points. Keeper 4 (Pokemon) needs this file because it
@@ -208,6 +209,62 @@ static const struct FacilityShopItem sHeldItems[] =
     { ITEM_ASSAULT_VEST,     350, 3, NULL },
     { ITEM_LIFE_ORB,         350, 3, NULL },
     { ITEM_HEAVY_DUTY_BOOTS, 300, 3, NULL },
+    // Unlocked clearing building 4 - building-05.md. Choice Scarf is the
+    // signature purchase: the singles answer to every fast Mega in the
+    // building. Clear Amulet waits for building 6 (doubles, where blanking
+    // Intimidate actually teaches something).
+    { ITEM_CHOICE_SCARF,     450, 4, NULL },
+    { ITEM_CHOICE_BAND,      400, 4, NULL },
+    { ITEM_CHOICE_SPECS,     400, 4, NULL },
+    { ITEM_WEAKNESS_POLICY,  350, 4, NULL },
+    { ITEM_ROCKY_HELMET,     300, 4, NULL },
+    { ITEM_MENTAL_HERB,      200, 4, NULL },
+};
+
+// ----------------------------------------------------------------------------
+// Keeper 3 - Mega Stones. Opens clearing building 4, the same moment the
+// building 4 attendant hands over the Mega Ring. Gen 6 Megas plus the
+// Legends: Z-A Megas that play best in singles, all at or under 600 BST
+// after evolving - see building-05.md's Bans and Keeper 3 sections for why
+// each one is in, which were cut as outclassed, and which wait for later
+// buildings (Gengar/Kangaskhan at 7, the doubles-leaning ones at 6). Every
+// stone's base Pokemon is sold by Keeper 4 by the same wave. Plain items,
+// bought through the same flow as Keeper 2's.
+// ----------------------------------------------------------------------------
+
+static const struct FacilityShopItem sMegaStones[] =
+{
+    // Premium - 600
+    { ITEM_ALAKAZITE,     600, 4, NULL },
+    { ITEM_SCIZORITE,     600, 4, NULL },
+    { ITEM_HERACRONITE,   600, 4, NULL },
+    { ITEM_PINSIRITE,     600, 4, NULL },
+    { ITEM_MAWILITE,      600, 4, NULL },
+    { ITEM_MEDICHAMITE,   600, 4, NULL },
+    { ITEM_ALTARIANITE,   600, 4, NULL },
+    { ITEM_LOPUNNITE,     600, 4, NULL },
+    { ITEM_SABLENITE,     600, 4, NULL },
+    { ITEM_CLEFABLITE,    600, 4, NULL },
+    { ITEM_HAWLUCHANITE,  600, 4, NULL },
+    { ITEM_RAICHUNITE_Y,  600, 4, NULL },
+    { ITEM_ABSOLITE_Z,    600, 4, NULL },
+    { ITEM_STARAPTITE,    600, 4, NULL },
+    // Strong - 450
+    { ITEM_MANECTITE,     450, 4, NULL },
+    { ITEM_SLOWBRONITE,   450, 4, NULL },
+    { ITEM_HOUNDOOMINITE, 450, 4, NULL },
+    { ITEM_SHARPEDONITE,  450, 4, NULL },
+    { ITEM_PIDGEOTITE,    450, 4, NULL },
+    { ITEM_ABSOLITE,      450, 4, NULL },
+    { ITEM_ABOMASITE,     450, 4, NULL },
+    { ITEM_BARBARACITE,   450, 4, NULL },
+    { ITEM_MALAMARITE,    450, 4, NULL },
+    { ITEM_SKARMORITE,    450, 4, NULL },
+    { ITEM_FROSLASSITE,   450, 4, NULL },
+    { ITEM_DRAGALGITE,    450, 4, NULL },
+    // Standard - 300
+    { ITEM_BEEDRILLITE,   300, 4, NULL },
+    { ITEM_VICTREEBELITE, 300, 4, NULL },
 };
 
 // ----------------------------------------------------------------------------
@@ -275,6 +332,29 @@ static const struct FacilityShopMon sPremiumMons[] =
     { SPECIES_SERPERIOR,      400, 2 },
     // Unlocked clearing building 3 - shop-unlock-b4.md.
     { SPECIES_ARCANINE,       500, 3 },
+    // Unlocked clearing building 4 - building-05.md. The 600-BST
+    // pseudo-legendaries plus the singles-relevant Paradox / Ultra Beast /
+    // Mythical picks; the Ubers-grade ones wait for building 7.
+    { SPECIES_GARCHOMP,        850, 4 },
+    { SPECIES_DRAGAPULT,       850, 4 },
+    { SPECIES_DRAGONITE,       850, 4 },
+    { SPECIES_TYRANITAR,       850, 4 },
+    { SPECIES_METAGROSS,       850, 4 },
+    { SPECIES_GREAT_TUSK,      850, 4 },
+    { SPECIES_IRON_VALIANT,    850, 4 },
+    { SPECIES_IRON_TREADS,     850, 4 },
+    { SPECIES_IRON_MOTH,       850, 4 },
+    { SPECIES_RAGING_BOLT,     850, 4 },
+    { SPECIES_IRON_BOULDER,    850, 4 },
+    { SPECIES_IRON_CROWN,      850, 4 },
+    { SPECIES_KELDEO,          850, 4 },
+    { SPECIES_VOLCANION,       850, 4 },
+    { SPECIES_PECHARUNT,       850, 4 },
+    { SPECIES_MEW,             850, 4 },
+    { SPECIES_JIRACHI,         850, 4 },
+    { SPECIES_CELESTEELA,      850, 4 },
+    { SPECIES_BLACEPHALON,     850, 4 },
+    { SPECIES_BUZZWOLE,        850, 4 },
 };
 
 static const struct FacilityShopMon sStrongMons[] =
@@ -414,6 +494,27 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_AZELF,         375, 3 },
     { SPECIES_TERRAKION,     375, 3 },
     { SPECIES_COBALION,      375, 3 },
+    // Unlocked clearing building 4 - building-05.md.
+    { SPECIES_SALAMENCE,       700, 4 },
+    { SPECIES_HYDREIGON,       700, 4 },
+    { SPECIES_BAXCALIBUR,      700, 4 },
+    { SPECIES_ARCHALUDON,      700, 4 },
+    { SPECIES_KOMMO_O,         700, 4 },
+    { SPECIES_IRON_LEAVES,     700, 4 },
+    { SPECIES_SLITHER_WING,    700, 4 },
+    { SPECIES_SANDY_SHOCKS,    700, 4 },
+    { SPECIES_NIHILEGO,        700, 4 },
+    { SPECIES_XURKITREE,       700, 4 },
+    { SPECIES_VICTINI,         700, 4 },
+    { SPECIES_CELEBI,          700, 4 },
+    { SPECIES_MELOETTA,        700, 4 },
+    { SPECIES_ZERAORA,         700, 4 },
+    { SPECIES_MELMETAL,        700, 4 },
+    { SPECIES_ZARUDE,          700, 4 },
+    { SPECIES_MANAPHY,         700, 4 },
+    { SPECIES_DEOXYS_DEFENSE,  700, 4 },
+    { SPECIES_SHAYMIN,         700, 4 },
+    { SPECIES_HOOPA,           700, 4 },
 };
 
 static const struct FacilityShopMon sStandardMons[] =
@@ -575,6 +676,13 @@ static const struct FacilityShopMon sStandardMons[] =
     { SPECIES_UXIE,       250, 3 },
     { SPECIES_MESPRIT,    250, 3 },
     { SPECIES_VIRIZION,   250, 3 },
+    // Unlocked clearing building 4 - building-05.md.
+    { SPECIES_GOODRA,          550, 4 },
+    { SPECIES_GOODRA_HISUI,    550, 4 },
+    { SPECIES_SCREAM_TAIL,     550, 4 },
+    { SPECIES_BRUTE_BONNET,    550, 4 },
+    { SPECIES_IRON_THORNS,     550, 4 },
+    { SPECIES_GUZZLORD,        550, 4 },
 };
 
 static const struct FacilityShopMon sBudgetMons[] =
@@ -590,6 +698,21 @@ static const struct FacilityShopMon sBudgetMons[] =
     { SPECIES_MINUN,      100, 0 },
     { SPECIES_PACHIRISU,  100, 0 },
     { SPECIES_GRIMER,     100, 0 },
+    // Unlocked clearing building 4 - building-05.md. Base Pokemon for Mega
+    // Stones that weren't sold yet, priced for what they are without the
+    // stone (the stone carries the premium). Clefable also arrives here as
+    // a regular Pokemon - it had never been sold, and building 5's CPU
+    // teams use it.
+    { SPECIES_LOPUNNY,         375, 4 },
+    { SPECIES_ALTARIA,         375, 4 },
+    { SPECIES_ABSOL,           375, 4 },
+    { SPECIES_CLEFABLE,        375, 4 },
+    { SPECIES_STARAPTOR,       375, 4 },
+    { SPECIES_RAICHU,          375, 4 },
+    { SPECIES_PIDGEOT,         250, 4 },
+    { SPECIES_SHARPEDO,        250, 4 },
+    { SPECIES_MALAMAR,         250, 4 },
+    { SPECIES_DRAGALGE,        250, 4 },
 };
 
 static const struct FacilityShopMon *const sMonTiers[] =
@@ -629,6 +752,10 @@ static const struct { u16 species; u8 abilityNum; } sAbilityOverrides[] =
     { SPECIES_SUICUNE,   2 }, // Inner Focus, as Entei
     { SPECIES_ZAPDOS,    2 }, // Static, not Pressure
     { SPECIES_MOLTRES,   2 }, // Flame Body, not Pressure
+    { SPECIES_GARCHOMP,  2 }, // Rough Skin, not Sand Veil
+    { SPECIES_DRAGONITE, 2 }, // Multiscale, not Inner Focus
+    { SPECIES_CLEFABLE,  1 }, // Magic Guard, not Cute Charm
+    { SPECIES_DRAGALGE,  2 }, // Adaptability, not Poison Point
 };
 
 static u8 GetShopMonAbilityNum(u16 species)
@@ -768,6 +895,37 @@ void FacilityShopBuildHeldItemsMenu(void)
         sMenuRows[count].id = sHeldItems[i].item;
         sMenuRows[count].price = sHeldItems[i].price;
         sMenuRows[count].name = GetItemName(sHeldItems[i].item);
+        sMenuRows[count].description = NULL;
+        count++;
+    }
+}
+
+// Keeper 3. gSpecialVar_Result = FALSE if no stone is unlocked yet (the
+// keeper shows its "coming later" line instead of an empty list).
+void FacilityShopBuildMegaStonesMenu(void)
+{
+    u16 i, count = 0;
+
+    FreeMenuRows();
+    for (i = 0; i < ARRAY_COUNT(sMegaStones); i++)
+    {
+        if (IsShopEntryUnlocked(sMegaStones[i].unlockBuilding))
+            count++;
+    }
+
+    gSpecialVar_Result = (count != 0);
+    if (count == 0)
+        return;
+
+    sMenuRows = Alloc(count * sizeof(struct FacilityShopMenuRow));
+    sMenuRowCount = count;
+    for (i = 0, count = 0; i < ARRAY_COUNT(sMegaStones); i++)
+    {
+        if (!IsShopEntryUnlocked(sMegaStones[i].unlockBuilding))
+            continue;
+        sMenuRows[count].id = sMegaStones[i].item;
+        sMenuRows[count].price = sMegaStones[i].price;
+        sMenuRows[count].name = GetItemName(sMegaStones[i].item);
         sMenuRows[count].description = NULL;
         count++;
     }

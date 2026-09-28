@@ -14,7 +14,7 @@ Player arrives with 6 Pokémon and **300 FP**.
 |---|---|---|---|
 | 1 | Consumables | Berries — recovery, resist, pinch-activated | Yes |
 | 2 | Held items | Everything permanent — boosters, Leftovers, Choice, Sash, rocks | Yes |
-| 3 | Mega Stones | The sixteen stones | **No — unlocks building 6** |
+| 3 | Mega Stones | 28 stones at first, more later | **No — opens on clearing building 4** |
 | 4 | Pokémon | The species pool for unlocked tiers | Yes |
 
 **Keepers 3 has nothing at start.** Give it dialogue rather than an empty menu —
@@ -79,11 +79,12 @@ why it's priced at more than double the boosters.
 
 ## Keeper 3 — Mega Stones
 
-**Empty until building 6.** Full stock when it opens, at 900 FP each:
+**Opens on clearing building 4**, with 28 stones at 300–600 FP — see
+`building-05.md` for the full list, prices and reasoning. Clearing building 4
+also gives the player the Mega Ring, without which no Mega can evolve.
 
-Venusaurite, Manectite, Scizorite, Gardevoirite, Aggronite, Ampharosite.
-
-Stronger stones follow at buildings 7 and 8.
+Building 6 adds the doubles-leaning Megas; Gengar and Kangaskhan wait for
+building 7; stronger stones follow after that.
 
 ---
 
@@ -157,8 +158,9 @@ to retune.
 | 8 | — | — | 680 box-art legendaries (curated) |
 | 9 | — | Orbs | Unrestricted |
 
-Keeper 3 opens after building 5 with the first six stones, gains stronger
-stones after 6, the remainder after 7, and legendary stones after 9.
+Keeper 3 opens after building 4 (see `building-05.md`), gains the
+doubles-leaning stones after 5, stronger stones after 6, the remainder after 7,
+and legendary stones after 9.
 
 **Building 1's unlock is specced in full in `shop-unlock-b2.md`.**
 

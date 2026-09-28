@@ -27,6 +27,8 @@ void FacilityShopGiveFP(void);
 
 void FacilityShopBuildConsumablesMenu(void);
 void FacilityShopBuildHeldItemsMenu(void);
+// gSpecialVar_Result = FALSE if no Mega Stone is unlocked yet.
+void FacilityShopBuildMegaStonesMenu(void);
 
 // The Pokemon keeper's first screen - one row per unlocked building's shop
 // wave plus "Sell a Pokemon". gSpecialVar_0x8004 = chosen row index in;
