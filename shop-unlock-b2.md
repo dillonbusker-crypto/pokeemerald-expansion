@@ -41,6 +41,8 @@ which is the mental shift doubles demands.
 | Item | FP | Effect |
 |---|---|---|
 | Safety Goggles | 250 | Immune to powder moves and weather chip |
+| White Herb | 150 | Restores lowered stats once. Pairs with Close Combat, Shell Smash, Unburden |
+| Black Sludge | 120 | Leftovers for Poison types (damages anything else) |
 
 **Moved from building 3 deliberately.** Building 2 is where Amoonguss and Spore
 first appear in force, and the building that teaches a threat should sell its

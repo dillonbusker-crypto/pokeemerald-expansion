@@ -29,6 +29,11 @@ Nothing new. The berry shelf is complete after building 1's unlock.
 | Misty Seed | 150 | +1 Sp. Defense on Misty Terrain, once |
 | Psychic Seed | 150 | +1 Sp. Defense on Psychic Terrain, once |
 | Eviolite | 350 | +50% Defense and Sp. Defense to a Pokémon that can still evolve |
+| Flame Orb | 200 | Burns the holder at end of turn. Guts, Facade and Flare Boost enabler |
+| Toxic Orb | 200 | Badly poisons the holder at end of turn. Poison Heal and Guts enabler |
+| Expert Belt | 250 | 1.2× damage on super-effective hits |
+| Muscle Band | 150 | 1.1× damage on physical moves |
+| Wise Glasses | 150 | 1.1× damage on special moves |
 
 **The weather rocks are the signature purchase of this tier.** They're the first
 item that doesn't improve a Pokémon at all — it improves the *team*. A player
@@ -58,7 +63,7 @@ The tier's genuinely format-defining picks.
 Volcarona, Ferrothorn, Gholdengo, Kingambit, Hatterene, Grimmsnarl, Gliscor,
 Excadrill, Skarmory, Chansey, Porygon2, Rillaboom, Milotic, Gardevoir,
 Magnezone, Hippowdon, Ninetales-Alola, Weavile, Aegislash, Annihilape,
-Togekiss, Kingdra
+Togekiss, Kingdra, Ursaluna, Sneasler *(Unburden)*, Serperior *(Contrary)*
 
 ### Strong — 300 FP
 
@@ -69,20 +74,22 @@ Gallade, Crobat, Haxorus, Noivern, Bisharp, Honchkrow, Porygon-Z, Electivire,
 Yanmega, Dusknoir, Toxicroak, Seismitoad, Kabutops, Lycanroc,
 Sandaconda, Cetitan, Arctozolt, Toxtricity, Pincurchin, Weezing-Galar,
 Blissey, Snorlax, Starmie, Aerodactyl, Cloyster, Ampharos, Sylveon, Espeon,
-Umbreon, Vaporeon, Jolteon, Flareon, Leafeon, Glaceon, Braviary
+Umbreon, Vaporeon, Jolteon, Flareon, Leafeon, Glaceon, Braviary, Tinkaton,
+Lucario, Ceruledge, Hydrapple *(Regenerator)*, Golisopod, Feraligatr
 
 ### Standard — 200 FP
 
 Vanilluxe, Floatzel, Omastar, Poliwrath, Gorebyss, Huntail, Exeggutor,
 Lilligant, Victreebel, Shiftry, Sawsbuck, Cherrim, Charizard, Magmortar,
-Blaziken, Beartic, Lapras, Walrein, Sceptile, Dusclops
+Blaziken, Beartic, Lapras, Walrein, Sceptile, Dusclops, Eelektross,
+Tentacruel, Sirfetch'd
 
 ### Eviolite targets — 300 FP
 
 Sold alongside the item, since they only make sense together.
 
 Chansey, Porygon2, Rhydon, Gligar, Magneton, Type: Null, Doublade,
-Sneasel, Dusclops
+Sneasel, Dusclops, Duraludon
 
 Scyther and Stoutland moved to the building 2 wave (both exactly 500 BST -
 see shop-unlock-b2.md). Scyther is still an Eviolite target; it just becomes

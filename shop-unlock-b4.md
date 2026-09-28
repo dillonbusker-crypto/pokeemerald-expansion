@@ -80,7 +80,19 @@ second consecutive unlock where the Mega keeper has nothing.
 | Florges | 375 | Bulky Fairy special wall with Calm Mind and Wish |
 | Silvally | 250 | Typing changes by held memory disc; flexible but unremarkable |
 
-That's the entire cap-raise addition.
+### Legendaries
+
+A limited set, chosen to be safe in building 5's singles once they're on the
+permanent roster. Everything else in the 551–599 legendary / Paradox / UB band
+is held back.
+
+| Pokémon | FP | Notes |
+|---|---|---|
+| Entei, Raikou, Suicune | 375 | Sold with Inner Focus — immune to Intimidate and flinching |
+| Zapdos | 375 | Sold with Static |
+| Moltres | 375 | Sold with Flame Body |
+| Azelf, Terrakion, Cobalion | 375 | |
+| Articuno, Regirock, Regice, Registeel, Uxie, Mesprit, Virizion | 250 | |
 
 ---
 

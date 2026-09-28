@@ -17785,7 +17785,7 @@ Class: Expert
 Pic: Expert M
 Gender: Male
 Music: Male
-AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient / Ace Pokemon
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 
 Hariyama @ Black Belt
 Ability: Thick Fat
@@ -17897,7 +17897,7 @@ Adamant Nature
 - Rock Slide
 - Protect
 
-Hawlucha @ Coba Berry
+Hawlucha @ White Herb
 Ability: Unburden
 Level: 50
 EVs: 252 Atk / 4 Def / 252 Spe
@@ -17966,7 +17966,7 @@ Adamant Nature
 - Wide Guard
 - Protect
 
-Clawitzer @ Wise Glasses
+Clawitzer @ Rindo Berry
 Ability: Mega Launcher
 Level: 50
 EVs: 252 HP / 252 SpA / 4 SpD
@@ -18190,7 +18190,7 @@ EVs: 252 HP / 252 Atk / 4 SpD
 Adamant Nature
 - Poison Jab
 - Snarl
-- Shadow Sneak
+- Knock Off
 - Protect
 
 === TRAINER_FACILITY_B2_D11_INVERSION ===
@@ -18369,15 +18369,15 @@ Jolly Nature
 - Psychic Fangs
 - Aqua Jet
 
-Ludicolo @ Leftovers
-Ability: Swift Swim
+Feraligatr @ Expert Belt
+Ability: Sheer Force
 Level: 50
-EVs: 252 HP / 252 SpA / 4 Def
-Modest Nature
-- Surf
-- Giga Drain
-- Ice Beam
-- Rain Dance
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+- Dragon Dance
+- Liquidation
+- Ice Punch
+- Crunch
 
 Toxicroak @ Black Belt
 Ability: Dry Skin
@@ -18417,15 +18417,15 @@ Bold Nature
 - Perish Song
 - Protect
 
-Toxapex @ Leftovers
-Ability: Regenerator
+Tentacruel @ Black Sludge
+Ability: Rain Dish
 Level: 50
-EVs: 252 HP / 252 Def / 4 SpD
-Bold Nature
+EVs: 252 HP / 4 Def / 252 Spe
+Timid Nature
 - Scald
-- Toxic
-- Recover
-- Haze
+- Knock Off
+- Toxic Spikes
+- Rapid Spin
 
 Ferrothorn @ Metal Coat
 Ability: Iron Barbs
@@ -18573,15 +18573,15 @@ Timid Nature
 - Sleep Powder
 - Pollen Puff
 
-Exeggutor @ Twisted Spoon
-Ability: Chlorophyll
+Serperior @ Leftovers
+Ability: Contrary
 Level: 50
-EVs: 252 SpA / 4 Def / 252 Spe
-Modest Nature
-- Psychic
-- Giga Drain
-- Sleep Powder
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
 - Leaf Storm
+- Glare
+- Synthesis
+- Dragon Pulse
 
 Torkoal @ Charcoal
 Ability: Drought
@@ -18641,15 +18641,15 @@ Timid Nature
 - Solar Beam
 - Roost
 
-Magmortar @ Sitrus Berry
-Ability: Flame Body
+Ceruledge @ Muscle Band
+Ability: Flash Fire
 Level: 50
-EVs: 252 SpA / 4 Def / 252 Spe
-Modest Nature
-- Fire Blast
-- Thunderbolt
-- Focus Blast
-- Taunt
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Bitter Blade
+- Poltergeist
+- Shadow Sneak
+- Swords Dance
 
 Leafeon @ Miracle Seed
 Ability: Chlorophyll
@@ -18787,15 +18787,15 @@ Adamant Nature
 - Explosion
 - Rock Blast
 
-Sandaconda @ Sitrus Berry
-Ability: Sand Spit
+Ursaluna @ Flame Orb
+Ability: Guts
 Level: 50
-EVs: 252 HP / 252 Atk / 4 Def
-Impish Nature
-- Coil
-- Earthquake
-- Glare
-- Rock Slide
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Facade
+- Headlong Rush
+- Fire Punch
+- Protect
 
 Mandibuzz @ Leftovers
 Ability: Overcoat
@@ -18923,15 +18923,15 @@ Modest Nature
 - Volt Switch
 - Body Press
 
-Flygon @ Soft Sand
-Ability: Levitate
+Tinkaton @ Leftovers
+Ability: Mold Breaker
 Level: 50
-EVs: 252 Atk / 4 Def / 252 Spe
+EVs: 252 HP / 4 Atk / 252 Spe
 Jolly Nature
-- Earthquake
-- Dragon Claw
-- U-turn
-- Fire Punch
+- Gigaton Hammer
+- Play Rough
+- Knock Off
+- Encore
 
 Porygon2 @ Eviolite
 Ability: Trace
@@ -19039,15 +19039,15 @@ Relaxed Nature
 - Sleep Powder
 - Synthesis
 
-Appletun @ Sitrus Berry
-Ability: Thick Fat
+Hydrapple @ Sitrus Berry
+Ability: Regenerator
 Level: 50
-EVs: 252 HP / 252 SpA / 4 Def
+EVs: 252 HP / 252 SpA / 4 SpD
 Modest Nature
-- Apple Acid
-- Dragon Pulse
-- Recover
-- Leech Seed
+- Nasty Plot
+- Fickle Beam
+- Giga Drain
+- Earth Power
 
 Gligar @ Eviolite
 Ability: Immunity
@@ -19069,15 +19069,15 @@ Modest Nature
 - Psyshock
 - Wish
 
-Heracross @ Black Belt
-Ability: Guts
+Sneasler @ Grassy Seed
+Ability: Unburden
 Level: 50
-EVs: 252 Atk / 4 Def / 252 Spe
+EVs: 252 Atk / 4 SpD / 252 Spe
 Jolly Nature
-- Close Combat
-- Megahorn
-- Rock Blast
 - Swords Dance
+- Dire Claw
+- Close Combat
+- Acrobatics
 
 === TRAINER_FACILITY_B3_D12_STATFIELD ===
 Name: STATFIELD
@@ -19254,14 +19254,14 @@ Jolly Nature
 - Ice Shard
 - Protect
 
-Magnezone @ Life Orb
-Ability: Analytic
+Zapdos @ Life Orb
+Ability: Static
 Level: 50
-EVs: 252 HP / 252 SpA / 4 Def
-Modest Nature
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
 - Thunderbolt
-- Flash Cannon
-- Volt Switch
+- Hurricane
+- Heat Wave
 - Protect
 
 Noivern @ Heavy-Duty Boots
@@ -19333,14 +19333,14 @@ Modest Nature
 - Follow Me
 - Tailwind
 
-Archeops @ Life Orb
-Ability: Defeatist
+Suicune @ Leftovers
+Ability: Inner Focus
 Level: 50
-EVs: 252 Atk / 4 Def / 252 Spe
-Jolly Nature
-- Stone Edge
-- Dual Wingbeat
-- Earthquake
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Tailwind
+- Scald
+- Ice Beam
 - Protect
 
 Tsareena @ Heavy-Duty Boots
@@ -19412,14 +19412,14 @@ Modest Nature
 - Mirror Coat
 - Hydro Pump
 
-Mamoswine @ Heavy-Duty Boots
-Ability: Thick Fat
+Terrakion @ Expert Belt
+Ability: Justified
 Level: 50
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
-- Icicle Crash
-- High Horsepower
-- Ice Shard
+- Rock Slide
+- Close Combat
+- Quick Guard
 - Protect
 
 === TRAINER_FACILITY_B4_B4_STANDSTILL ===
@@ -19520,14 +19520,14 @@ Brave Nature
 - Knock Off
 - Ice Punch
 
-Magnezone @ Life Orb
-Ability: Analytic
+Registeel @ Leftovers
+Ability: Clear Body
 Level: 50
-EVs: 252 HP / 252 SpA / 4 Def
-Quiet Nature
-- Thunderbolt
-- Flash Cannon
-- Volt Switch
+EVs: 252 HP / 252 Def / 4 SpD
+Relaxed Nature
+- Heavy Slam
+- Body Press
+- Iron Defense
 - Protect
 
 Glimmora @ Focus Sash
@@ -19678,14 +19678,14 @@ Impish Nature
 - Yawn
 - Protect
 
-Flygon @ Life Orb
-Ability: Levitate
+Virizion @ Life Orb
+Ability: Justified
 Level: 50
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
-- Earthquake
-- Dragon Claw
-- U-turn
+- Grassy Glide
+- Close Combat
+- Stone Edge
 - Protect
 
 Togekiss @ Heavy-Duty Boots
@@ -19747,14 +19747,14 @@ Adamant Nature
 - Bulk Up
 - Protect
 
-Hatterene @ Spell Tag
-Ability: Magic Bounce
+Azelf @ Focus Sash
+Ability: Levitate
 Level: 50
-EVs: 252 HP / 252 SpA / 4 Def
-Quiet Nature
-- Dazzling Gleam
-- Mystical Fire
-- Psyshock
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Expanding Force
+- Flamethrower
+- Nasty Plot
 - Protect
 
 Gholdengo @ Heavy-Duty Boots
@@ -19796,15 +19796,15 @@ Timid Nature
 - Nasty Plot
 - Protect
 
-Magnezone @ Assault Vest
-Ability: Analytic
+Raikou @ Assault Vest
+Ability: Inner Focus
 Level: 50
-EVs: 252 HP / 252 SpA / 4 Def
-Modest Nature
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
 - Thunderbolt
-- Flash Cannon
 - Volt Switch
-- Body Press
+- Snarl
+- Shadow Ball
 
 Toxtricity @ Focus Sash
 Ability: Punk Rock
@@ -19855,14 +19855,14 @@ Impish Nature
 - Reflect
 - Light Screen
 
-Milotic @ Sitrus Berry
-Ability: Competitive
+Articuno @ Sitrus Berry
+Ability: Pressure
 Level: 50
-EVs: 252 HP / 252 SpA / 4 Def
+EVs: 252 HP / 252 SpA / 4 SpD
 Modest Nature
+- Freeze-Dry
 - Icy Wind
-- Scald
-- Recover
+- Hurricane
 - Protect
 
 Weavile @ Focus Sash
@@ -19944,14 +19944,14 @@ Timid Nature
 - Mystical Fire
 - Protect
 
-Excadrill @ Focus Sash
-Ability: Sand Rush
+Cobalion @ Focus Sash
+Ability: Justified
 Level: 50
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
-- Earthquake
+- Close Combat
 - Iron Head
-- Rock Slide
+- Thunder Wave
 - Protect
 
 Amoonguss @ Heavy-Duty Boots
@@ -20033,14 +20033,14 @@ Quiet Nature
 - Body Press
 - Protect
 
-Venusaur @ Focus Sash
-Ability: Chlorophyll
+Entei @ Charcoal
+Ability: Inner Focus
 Level: 50
-EVs: 252 SpA / 4 Def / 252 Spe
-Modest Nature
-- Growth
-- Giga Drain
-- Sludge Bomb
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Sacred Fire
+- Extreme Speed
+- Stomping Tantrum
 - Protect
 
 === TRAINER_FACILITY_B4_BOSS_IYLA ===

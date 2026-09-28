@@ -145,7 +145,7 @@ Adamant Nature
 - Rock Slide
 - Protect
 
-Hawlucha @ Coba Berry
+Hawlucha @ White Herb
 Ability: Unburden
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
@@ -206,7 +206,7 @@ Adamant Nature
 - Wide Guard
 - Protect
 
-Clawitzer @ Wise Glasses
+Clawitzer @ Rindo Berry
 Ability: Mega Launcher
 EVs: 252 HP / 252 SpA / 4 SpD
 Modest Nature
@@ -540,7 +540,7 @@ EVs: 252 HP / 252 Atk / 4 SpD
 Adamant Nature
 - Poison Jab
 - Snarl
-- Shadow Sneak
+- Knock Off
 - Protect
 ```
 

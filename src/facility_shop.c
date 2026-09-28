@@ -179,6 +179,8 @@ static const struct FacilityShopItem sHeldItems[] =
     // building 2 is where Spore shows up in force, and the building that
     // teaches a threat should sell its answer. See shop-unlock-b2.md.
     { ITEM_SAFETY_GOGGLES, 250, 1, NULL },
+    { ITEM_WHITE_HERB,     150, 1, NULL },
+    { ITEM_BLACK_SLUDGE,   120, 1, NULL },
     // Unlocked clearing building 2 - shop-unlock-b3.md. The weather rocks and
     // terrain seeds are the signature purchase of this tier: the first items
     // that improve the *team* rather than one Pokemon. Eviolite is gated
@@ -193,6 +195,11 @@ static const struct FacilityShopItem sHeldItems[] =
     { ITEM_MISTY_SEED,    150, 2, NULL },
     { ITEM_PSYCHIC_SEED,  150, 2, NULL },
     { ITEM_EVIOLITE,      350, 2, NULL },
+    { ITEM_FLAME_ORB,     200, 2, NULL },
+    { ITEM_TOXIC_ORB,     200, 2, NULL },
+    { ITEM_EXPERT_BELT,   250, 2, NULL },
+    { ITEM_MUSCLE_BAND,   150, 2, NULL },
+    { ITEM_WISE_GLASSES,  150, 2, NULL },
     // Unlocked clearing building 3 - shop-unlock-b4.md. Focus Sash is the
     // signature purchase and the one to watch in playtesting - held items are
     // reusable here, so it's a permanent guaranteed-survive every battle,
@@ -263,6 +270,9 @@ static const struct FacilityShopMon sPremiumMons[] =
     { SPECIES_ANNIHILAPE,     400, 2 },
     { SPECIES_TOGEKISS,       400, 2 },
     { SPECIES_KINGDRA,        400, 2 },
+    { SPECIES_URSALUNA,       400, 2 },
+    { SPECIES_SNEASLER,       400, 2 },
+    { SPECIES_SERPERIOR,      400, 2 },
     // Unlocked clearing building 3 - shop-unlock-b4.md.
     { SPECIES_ARCANINE,       500, 3 },
 };
@@ -375,6 +385,12 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_LEAFEON,       300, 2 },
     { SPECIES_GLACEON,       300, 2 },
     { SPECIES_BRAVIARY,      300, 2 },
+    { SPECIES_TINKATON,      300, 2 },
+    { SPECIES_LUCARIO,       300, 2 },
+    { SPECIES_CERULEDGE,     300, 2 },
+    { SPECIES_HYDRAPPLE,     300, 2 },
+    { SPECIES_GOLISOPOD,     300, 2 },
+    { SPECIES_FERALIGATR,    300, 2 },
     // Eviolite targets, same tier/price as the rest of this wave -
     // shop-unlock-b3.md.
     { SPECIES_RHYDON,        300, 2 },
@@ -383,9 +399,21 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_TYPE_NULL,     300, 2 },
     { SPECIES_DOUBLADE,      300, 2 },
     { SPECIES_SNEASEL,       300, 2 },
+    { SPECIES_DURALUDON,     300, 2 },
     // Unlocked clearing building 3 - shop-unlock-b4.md.
     { SPECIES_ARCHEOPS,      375, 3 },
     { SPECIES_FLORGES,       375, 3 },
+    // Sub-legendaries judged safe for building 5's singles (see the
+    // building 4 legendary draft) - the rest of the 551-599 legendary /
+    // Paradox / UB band is held back on purpose.
+    { SPECIES_ENTEI,         375, 3 },
+    { SPECIES_RAIKOU,        375, 3 },
+    { SPECIES_SUICUNE,       375, 3 },
+    { SPECIES_ZAPDOS,        375, 3 },
+    { SPECIES_MOLTRES,       375, 3 },
+    { SPECIES_AZELF,         375, 3 },
+    { SPECIES_TERRAKION,     375, 3 },
+    { SPECIES_COBALION,      375, 3 },
 };
 
 static const struct FacilityShopMon sStandardMons[] =
@@ -535,8 +563,18 @@ static const struct FacilityShopMon sStandardMons[] =
     { SPECIES_LAPRAS,     200, 2 },
     { SPECIES_WALREIN,    200, 2 },
     { SPECIES_SCEPTILE,   200, 2 },
+    { SPECIES_EELEKTROSS, 200, 2 },
+    { SPECIES_TENTACRUEL, 200, 2 },
+    { SPECIES_SIRFETCHD,  200, 2 },
     // Unlocked clearing building 3 - shop-unlock-b4.md.
     { SPECIES_SILVALLY,   250, 3 },
+    { SPECIES_ARTICUNO,   250, 3 },
+    { SPECIES_REGIROCK,   250, 3 },
+    { SPECIES_REGICE,     250, 3 },
+    { SPECIES_REGISTEEL,  250, 3 },
+    { SPECIES_UXIE,       250, 3 },
+    { SPECIES_MESPRIT,    250, 3 },
+    { SPECIES_VIRIZION,   250, 3 },
 };
 
 static const struct FacilityShopMon sBudgetMons[] =
@@ -583,6 +621,14 @@ static const struct { u16 species; u8 abilityNum; } sAbilityOverrides[] =
     { SPECIES_POLITOED,  2 }, // Drizzle, not Water Absorb - the point of selling it, see shop-unlock-b2.md
     { SPECIES_PELIPPER,  1 }, // Drizzle, not Keen Eye
     { SPECIES_TORKOAL,   1 }, // Drought, not White Smoke
+    { SPECIES_SERPERIOR, 2 }, // Contrary, not Overgrow - Leaf Storm is the whole set
+    { SPECIES_HYDRAPPLE, 1 }, // Regenerator, not Supersweet Syrup
+    { SPECIES_SNEASLER,  1 }, // Unburden, not Pressure
+    { SPECIES_ENTEI,     2 }, // Inner Focus - blocks Intimidate and flinch (B_UPDATED_INTIMIDATE)
+    { SPECIES_RAIKOU,    2 }, // Inner Focus, as Entei
+    { SPECIES_SUICUNE,   2 }, // Inner Focus, as Entei
+    { SPECIES_ZAPDOS,    2 }, // Static, not Pressure
+    { SPECIES_MOLTRES,   2 }, // Flame Body, not Pressure
 };
 
 static u8 GetShopMonAbilityNum(u16 species)

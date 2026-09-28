@@ -50,9 +50,18 @@ Palafin.
 **Blaziken remains Blaze-only** in the shop. Speed Boost behind a Tailwind is
 worse here than it was in singles.
 
-**No legendaries yet**, which rules out the Forces of Nature. Tornadus in
-particular is the best Tailwind setter in the game and would trivialize group
-A — it arrives at building 7 as designed.
+**A limited set of legendaries arrives here** — the ones that won't break
+building 5's singles once they're on the permanent roster: Entei, Raikou,
+Suicune, Zapdos, Moltres, Articuno, Regirock, Regice, Registeel, Azelf, Uxie,
+Mesprit, Terrakion, Cobalion and Virizion. Every other legendary, Paradox and
+Ultra Beast in the 551–599 band stays held back.
+
+The Forces of Nature stay out. Tornadus in particular is the best Tailwind
+setter in the game and would trivialize group A — it arrives at building 7 as
+designed.
+
+**Pool teams carry at most one legendary each.** Ten of the twelve do; the two
+Hatterene/Indeedee Trick Room teams (B4, B6) have none.
 
 ---
 
@@ -131,13 +140,13 @@ Jolly Nature
 - Ice Shard
 - Protect
 
-Magnezone @ Life Orb
-Ability: Analytic
-EVs: 252 HP / 252 SpA / 4 Def
-Modest Nature
+Zapdos @ Life Orb
+Ability: Static
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
 - Thunderbolt
-- Flash Cannon
-- Volt Switch
+- Hurricane
+- Heat Wave
 - Protect
 
 Noivern @ Heavy-Duty Boots
@@ -202,13 +211,13 @@ Modest Nature
 - Follow Me
 - Tailwind
 
-Archeops @ Life Orb
-Ability: Defeatist
-EVs: 252 Atk / 4 Def / 252 Spe
-Jolly Nature
-- Stone Edge
-- Dual Wingbeat
-- Earthquake
+Suicune @ Leftovers
+Ability: Inner Focus
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Tailwind
+- Scald
+- Ice Beam
 - Protect
 
 Tsareena @ Heavy-Duty Boots
@@ -272,13 +281,13 @@ Modest Nature
 - Mirror Coat
 - Hydro Pump
 
-Mamoswine @ Heavy-Duty Boots
-Ability: Thick Fat
+Terrakion @ Expert Belt
+Ability: Justified
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
-- Icicle Crash
-- High Horsepower
-- Ice Shard
+- Rock Slide
+- Close Combat
+- Quick Guard
 - Protect
 ```
 
@@ -372,13 +381,13 @@ Brave Nature
 - Knock Off
 - Ice Punch
 
-Magnezone @ Life Orb
-Ability: Analytic
-EVs: 252 HP / 252 SpA / 4 Def
-Quiet Nature
-- Thunderbolt
-- Flash Cannon
-- Volt Switch
+Registeel @ Leftovers
+Ability: Clear Body
+EVs: 252 HP / 252 Def / 4 SpD
+Relaxed Nature
+- Heavy Slam
+- Body Press
+- Iron Defense
 - Protect
 
 Glimmora @ Focus Sash
@@ -517,13 +526,13 @@ Impish Nature
 - Yawn
 - Protect
 
-Flygon @ Life Orb
-Ability: Levitate
+Virizion @ Life Orb
+Ability: Justified
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
-- Earthquake
-- Dragon Claw
-- U-turn
+- Grassy Glide
+- Close Combat
+- Stone Edge
 - Protect
 
 Togekiss @ Heavy-Duty Boots
@@ -579,13 +588,13 @@ Adamant Nature
 - Bulk Up
 - Protect
 
-Hatterene @ Spell Tag
-Ability: Magic Bounce
-EVs: 252 HP / 252 SpA / 4 Def
-Quiet Nature
-- Dazzling Gleam
-- Mystical Fire
-- Psyshock
+Azelf @ Focus Sash
+Ability: Levitate
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Expanding Force
+- Flamethrower
+- Nasty Plot
 - Protect
 
 Gholdengo @ Heavy-Duty Boots
@@ -622,14 +631,14 @@ Timid Nature
 - Nasty Plot
 - Protect
 
-Magnezone @ Assault Vest
-Ability: Analytic
-EVs: 252 HP / 252 SpA / 4 Def
-Modest Nature
+Raikou @ Assault Vest
+Ability: Inner Focus
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
 - Thunderbolt
-- Flash Cannon
 - Volt Switch
-- Body Press
+- Snarl
+- Shadow Ball
 
 Toxtricity @ Focus Sash
 Ability: Punk Rock
@@ -682,13 +691,13 @@ Impish Nature
 - Reflect
 - Light Screen
 
-Milotic @ Sitrus Berry
-Ability: Competitive
-EVs: 252 HP / 252 SpA / 4 Def
+Articuno @ Sitrus Berry
+Ability: Pressure
+EVs: 252 HP / 252 SpA / 4 SpD
 Modest Nature
+- Freeze-Dry
 - Icy Wind
-- Scald
-- Recover
+- Hurricane
 - Protect
 
 Weavile @ Focus Sash
@@ -762,13 +771,13 @@ Timid Nature
 - Mystical Fire
 - Protect
 
-Excadrill @ Focus Sash
-Ability: Sand Rush
+Cobalion @ Focus Sash
+Ability: Justified
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
-- Earthquake
+- Close Combat
 - Iron Head
-- Rock Slide
+- Thunder Wave
 - Protect
 
 Amoonguss @ Heavy-Duty Boots
@@ -842,13 +851,13 @@ Quiet Nature
 - Body Press
 - Protect
 
-Venusaur @ Focus Sash
-Ability: Chlorophyll
-EVs: 252 SpA / 4 Def / 252 Spe
-Modest Nature
-- Growth
-- Giga Drain
-- Sludge Bomb
+Entei @ Charcoal
+Ability: Inner Focus
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Sacred Fire
+- Extreme Speed
+- Stomping Tantrum
 - Protect
 ```
 

@@ -140,9 +140,12 @@ replacement enabled the AI picks its best answer after a faint rather than
 walking down the list, so party order past slot one is a fallback rather than
 the primary mechanism.
 
-**The boss's ace goes last.** Altaria is in slot six and should be flagged as
-the ace so the AI holds it in reserve rather than leading with it. Check the
-ace flag's exact name in `include/constants/battle_ai.h`.
+**No ace flag on the boss.** `AI_FLAG_ACE_POKEMON` forces the last party
+slot to wait until it's the only Pokémon left. That was tried on Altaria and
+removed: it always arrived after the player's wall had spent several turns
+stacking Curse, which made a Dragon Dance sweeper dead on arrival. With
+proactive switching, the AI brings Altaria in when the matchup is best
+instead.
 
 ---
 
@@ -884,7 +887,7 @@ for it.
 competitive Pokémon, it's legible after one loss, and the answers all exist in
 the building 1 shop.
 
-**AI:** omniscient. Altaria held in reserve as the ace.
+**AI:** omniscient, proactive switching. No ace flag — the AI chooses when to send Altaria in.
 
 **Lead: Hariyama.** Fake Out opens every game. Free chip, free momentum, and Thick Fat means Fire and Ice leads don't punish it.
 
@@ -1060,8 +1063,8 @@ sets up. Keep it away from Claydol's Ice Beam and Jumpluff's Acrobatics.
 3. Keep Pawniard at full health and in reserve — it exists solely to Sucker
    Punch Altaria.
 4. Don't let Ferroseed take a Close Combat. Hariyama is its only real threat.
-5. Altaria comes last as the ace. Ideally it arrives burned, paralyzed by
-   nothing, and facing a healthy Pawniard.
+5. Altaria can come in at any point — the AI picks its moment. Keep
+   Pawniard healthy so Sucker Punch is ready whenever it does.
 
 ### If this team loses consistently
 

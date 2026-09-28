@@ -168,14 +168,14 @@ Jolly Nature
 - Psychic Fangs
 - Aqua Jet
 
-Ludicolo @ Leftovers
-Ability: Swift Swim
-EVs: 252 HP / 252 SpA / 4 Def
-Modest Nature
-- Surf
-- Giga Drain
-- Ice Beam
-- Rain Dance
+Feraligatr @ Expert Belt
+Ability: Sheer Force
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+- Dragon Dance
+- Liquidation
+- Ice Punch
+- Crunch
 
 Toxicroak @ Black Belt
 Ability: Dry Skin
@@ -212,14 +212,14 @@ Bold Nature
 - Perish Song
 - Protect
 
-Toxapex @ Leftovers
-Ability: Regenerator
-EVs: 252 HP / 252 Def / 4 SpD
-Bold Nature
+Tentacruel @ Black Sludge
+Ability: Rain Dish
+EVs: 252 HP / 4 Def / 252 Spe
+Timid Nature
 - Scald
-- Toxic
-- Recover
-- Haze
+- Knock Off
+- Toxic Spikes
+- Rapid Spin
 
 Ferrothorn @ Metal Coat
 Ability: Iron Barbs
@@ -357,14 +357,14 @@ Timid Nature
 - Sleep Powder
 - Pollen Puff
 
-Exeggutor @ Twisted Spoon
-Ability: Chlorophyll
-EVs: 252 SpA / 4 Def / 252 Spe
-Modest Nature
-- Psychic
-- Giga Drain
-- Sleep Powder
+Serperior @ Leftovers
+Ability: Contrary
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
 - Leaf Storm
+- Glare
+- Synthesis
+- Dragon Pulse
 
 Torkoal @ Charcoal
 Ability: Drought
@@ -418,14 +418,14 @@ Timid Nature
 - Solar Beam
 - Roost
 
-Magmortar @ Sitrus Berry
-Ability: Flame Body
-EVs: 252 SpA / 4 Def / 252 Spe
-Modest Nature
-- Fire Blast
-- Thunderbolt
-- Focus Blast
-- Taunt
+Ceruledge @ Muscle Band
+Ability: Flash Fire
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Bitter Blade
+- Poltergeist
+- Shadow Sneak
+- Swords Dance
 
 Leafeon @ Miracle Seed
 Ability: Chlorophyll
@@ -553,14 +553,14 @@ Adamant Nature
 - Explosion
 - Rock Blast
 
-Sandaconda @ Sitrus Berry
-Ability: Sand Spit
-EVs: 252 HP / 252 Atk / 4 Def
-Impish Nature
-- Coil
-- Earthquake
-- Glare
-- Rock Slide
+Ursaluna @ Flame Orb
+Ability: Guts
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Facade
+- Headlong Rush
+- Fire Punch
+- Protect
 
 Mandibuzz @ Leftovers
 Ability: Overcoat
@@ -675,14 +675,14 @@ Modest Nature
 - Volt Switch
 - Body Press
 
-Flygon @ Soft Sand
-Ability: Levitate
-EVs: 252 Atk / 4 Def / 252 Spe
+Tinkaton @ Leftovers
+Ability: Mold Breaker
+EVs: 252 HP / 4 Atk / 252 Spe
 Jolly Nature
-- Earthquake
-- Dragon Claw
-- U-turn
-- Fire Punch
+- Gigaton Hammer
+- Play Rough
+- Knock Off
+- Encore
 
 Porygon2 @ Eviolite
 Ability: Trace
@@ -784,14 +784,14 @@ Relaxed Nature
 - Sleep Powder
 - Synthesis
 
-Appletun @ Sitrus Berry
-Ability: Thick Fat
-EVs: 252 HP / 252 SpA / 4 Def
+Hydrapple @ Sitrus Berry
+Ability: Regenerator
+EVs: 252 HP / 252 SpA / 4 SpD
 Modest Nature
-- Apple Acid
-- Dragon Pulse
-- Recover
-- Leech Seed
+- Nasty Plot
+- Fickle Beam
+- Giga Drain
+- Earth Power
 
 Gligar @ Eviolite
 Ability: Immunity
@@ -811,14 +811,14 @@ Modest Nature
 - Psyshock
 - Wish
 
-Heracross @ Black Belt
-Ability: Guts
-EVs: 252 Atk / 4 Def / 252 Spe
+Sneasler @ Grassy Seed
+Ability: Unburden
+EVs: 252 Atk / 4 SpD / 252 Spe
 Jolly Nature
-- Close Combat
-- Megahorn
-- Rock Blast
 - Swords Dance
+- Dire Claw
+- Close Combat
+- Acrobatics
 ```
 
 ### D12. Static Field — Electric Terrain
