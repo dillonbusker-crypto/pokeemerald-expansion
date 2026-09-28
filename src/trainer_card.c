@@ -1312,6 +1312,14 @@ static void PrintContestStringOnCard(void)
         PrintStatOnBackOfCard(4, gText_WonContestsWFriends, sData->textNumLinkContests, sTrainerCardStatColors);
 }
 
+// Ten Buildings: this hack never touches gSaveBlock2Ptr->frontier.
+// cardBattlePoints (frontierBP below), since Battle Points aren't a
+// currency here - FP is. That line on the card would otherwise just
+// always be blank (frontierBP permanently 0), so it shows the player's FP
+// balance instead. See shop-spec.md for what FP is spent on.
+static const u8 sText_CurrentFP[] = _("CURRENT FP");
+static const u8 sText_NumFP[] = _("{STR_VAR_1}{COLOR DARK_GRAY}{SHADOW LIGHT_GRAY}FP");
+
 static void BufferBattleFacilityStats(void)
 {
     switch (sData->cardType)
@@ -1325,11 +1333,8 @@ static void BufferBattleFacilityStats(void)
         }
         break;
     case CARD_TYPE_EMERALD:
-        if (sData->trainerCard.frontierBP)
-        {
-            ConvertIntToDecimalStringN(gStringVar1, sData->trainerCard.frontierBP, STR_CONV_MODE_RIGHT_ALIGN, 5);
-            StringExpandPlaceholders(sData->textBattleFacilityStat, gText_NumBP);
-        }
+        ConvertIntToDecimalStringN(gStringVar1, gSaveBlock3Ptr->facility.progress.fp, STR_CONV_MODE_RIGHT_ALIGN, 5);
+        StringExpandPlaceholders(sData->textBattleFacilityStat, sText_NumFP);
         break;
     case CARD_TYPE_FRLG:
         break;
@@ -1345,8 +1350,7 @@ static void PrintBattleFacilityStringOnCard(void)
             PrintStatOnBackOfCard(5, gText_BattleTower, sData->textBattleFacilityStat, sTrainerCardTextColors);
         break;
     case CARD_TYPE_EMERALD:
-        if (sData->trainerCard.frontierBP)
-            PrintStatOnBackOfCard(5, gText_BattlePtsWon, sData->textBattleFacilityStat, sTrainerCardStatColors);
+        PrintStatOnBackOfCard(5, sText_CurrentFP, sData->textBattleFacilityStat, sTrainerCardStatColors);
         break;
     case CARD_TYPE_FRLG:
         break;

@@ -13,6 +13,7 @@ BattleFrontier_BattleFactoryLobby_EventScript_TurnPlayerNorth::
 	end
 
 BattleFrontier_BattleFactoryLobby_OnFrame:
+	map_script_2 VAR_TEMP_2, 0, BattleFrontier_BattleFactoryLobby_EventScript_CheckLocked
 	map_script_2 VAR_TEMP_CHALLENGE_STATUS, 0, BattleFrontier_BattleFactoryLobby_EventScript_GetChallengeStatus
 	map_script_2 VAR_TEMP_CHALLENGE_STATUS, CHALLENGE_STATUS_SAVING, BattleFrontier_BattleFactoryLobby_EventScript_QuitWithoutSaving
 	map_script_2 VAR_TEMP_CHALLENGE_STATUS, CHALLENGE_STATUS_PAUSED, BattleFrontier_BattleFactoryLobby_EventScript_ResumeChallenge
@@ -321,6 +322,29 @@ BattleFrontier_BattleFactoryLobby_EventScript_RulesOpenLv::
 BattleFrontier_BattleFactoryLobby_EventScript_ExitRules::
 	releaseall
 	end
+
+@ Ten Buildings: every non-Tower facility is locked until it's this
+@ building's turn. IsBattleFactoryUnlocked always reads FALSE right now -
+@ nothing sets that bit yet, since the unlock schedule isn't designed. See
+@ CLAUDE.md and shop-spec.md's unlock-schedule table.
+BattleFrontier_BattleFactoryLobby_EventScript_CheckLocked::
+	setvar VAR_TEMP_2, 1
+	special IsBattleFactoryUnlocked
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattleFactoryLobby_EventScript_CheckLocked_Done
+	lockall
+	msgbox BattleFrontier_BattleFactoryLobby_Text_NotOpenYet, MSGBOX_DEFAULT
+	closemessage
+	warpsilent MAP_BATTLE_FRONTIER_OUTSIDE_WEST, 2
+	waitstate
+	releaseall
+	end
+
+BattleFrontier_BattleFactoryLobby_EventScript_CheckLocked_Done::
+	end
+
+BattleFrontier_BattleFactoryLobby_Text_NotOpenYet:
+	.string "This part of the BATTLE FRONTIER\n"
+	.string "hasn't opened up yet.$"
 
 BattleFrontier_BattleFactoryLobby_Text_WelcomeForSingleBattle:
 	.string "Where the intelligence of TRAINERS\n"

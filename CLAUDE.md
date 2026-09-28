@@ -113,29 +113,38 @@ trap.)
 
 ---
 
-## ⚠️ Temporary test-only patches — currently ON, must be reverted before shipping
+## ⚠️ Temporary test-only patch — currently ON, must be reverted before shipping
 
-Two engine behaviors are hard-disabled right now so the building 1 boss test
-harness gives a clean read. Neither has an existing on/off switch anywhere
-else in the codebase, so each is a small, clearly-marked direct patch rather
-than a existing config flip:
+One engine behavior is still hard-disabled so the building 1 boss test
+harness gives a clean read. No existing on/off switch for it anywhere else in
+the codebase, so it's a small, clearly-marked direct patch rather than a
+config flip:
 
 | | |
 |---|---|
-| Switch | `include/config/battle.h`, near the top: `TESTING_DISABLE_EXP_GAIN` and `TESTING_DISABLE_OBEDIENCE`, both `TRUE` |
+| Switch | `include/config/battle.h`, near the top: `TESTING_DISABLE_EXP_GAIN`, `TRUE` |
 | Exp gain | `BattleTypeAllowsExp()` in `src/battle_script_commands.c` — returns `FALSE` unconditionally when the flag is on, so no Pokémon can level up mid-fight and skew the test |
-| Obedience | `GetAttackerObedienceForAction()` in `src/battle_util.c` — returns `OBEYS` unconditionally when the flag is on, since the whole test team is level 50 with zero badges and would otherwise disobey constantly |
 
-**To revert:** flip both `TESTING_DISABLE_*` defines to `FALSE`, or delete the
-config block and the one guarded `if` at the top of each of those two
-functions. All three edits are additive (nothing else was changed in either
-function), so removal is a clean, small diff.
+**To revert:** flip the define to `FALSE`, or delete the config block and the
+one guarded `if` at the top of `BattleTypeAllowsExp()`. Additive, so removal
+is a clean, small diff.
 
-**Do not carry these into the real facility** without deciding on purpose
-whether the real ten-building game wants exp/obedience on or off — this was
-switched off purely so the boss tuning test isn't contaminated by mid-battle
-level-ups or random disobedience, not as a design decision for the shipped
-game.
+**Do not carry this into the real facility** without deciding on purpose
+whether the shipped game wants exp gain on or off — it was switched off
+purely so the boss tuning test isn't contaminated by mid-battle level-ups,
+not as a design decision for the shipped game.
+
+**Obedience is no longer test-patched — this is now real, not a shim.**
+`TESTING_DISABLE_OBEDIENCE` has been removed entirely (was `GetAttackerObedienceForAction()`
+in `src/battle_util.c` unconditionally returning `OBEYS`). The player now
+receives all 8 badges at starter receipt (`CB2_GiveStarter()` in
+`src/battle_setup.c`), so real obedience checks already pass at level 50 —
+`FLAG_BADGE08_GET` alone makes obedience unconditional regardless of level,
+per vanilla's own Rain Badge behavior. Facility battles were already exempt
+either way (`BATTLE_TYPE_FRONTIER` always obeys, vanilla behavior, untouched).
+No further action needed here; noted in case a future save-data wipe or
+alternate game-start path ever bypasses `CB2_GiveStarter()` and needs its own
+way to grant badges.
 
 ---
 

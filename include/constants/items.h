@@ -813,6 +813,89 @@ enum __attribute__((packed)) Item
     ITEM_TM99 = 680,
     ITEM_TM100 = 681,
 
+    // Ten Buildings: TM51-100's numeric IDs already existed but were never
+    // paired with a FOREACH_TM entry (see include/constants/tms_hms.h) - no
+    // move data, no name, unreachable. Raising the TM roster from the
+    // vanilla 50 to 166 (Emerald Imperium's list) needed TM101-166 as new
+    // IDs. These have to sit here, before the RECURSIVELY(R_ZIP(ENUM_TM, ...))
+    // block further down in this same enum that aliases ITEM_TM_<move> to
+    // ITEM_TM<n> for every FOREACH_TM entry - that macro use is a forward
+    // reference to whatever ITEM_TM<n> means, so the raw numbers have to be
+    // declared first. (Learned this the hard way: putting them at the very
+    // end of the enum instead compiled as "undeclared identifier", which a
+    // parallel build's interleaved output then reported everywhere as a
+    // confusing pile of "duplicate case value" errors instead.) The literal
+    // values (874-939) still don't collide with anything - chosen to
+    // continue right after the real item list's own last entry,
+    // ITEM_GLIMMORANITE - so nothing already using a numeric-adjacent ID
+    // shifts, even though these are declared out of numeric order here.
+    ITEM_TM101 = 874,
+    ITEM_TM102 = 875,
+    ITEM_TM103 = 876,
+    ITEM_TM104 = 877,
+    ITEM_TM105 = 878,
+    ITEM_TM106 = 879,
+    ITEM_TM107 = 880,
+    ITEM_TM108 = 881,
+    ITEM_TM109 = 882,
+    ITEM_TM110 = 883,
+    ITEM_TM111 = 884,
+    ITEM_TM112 = 885,
+    ITEM_TM113 = 886,
+    ITEM_TM114 = 887,
+    ITEM_TM115 = 888,
+    ITEM_TM116 = 889,
+    ITEM_TM117 = 890,
+    ITEM_TM118 = 891,
+    ITEM_TM119 = 892,
+    ITEM_TM120 = 893,
+    ITEM_TM121 = 894,
+    ITEM_TM122 = 895,
+    ITEM_TM123 = 896,
+    ITEM_TM124 = 897,
+    ITEM_TM125 = 898,
+    ITEM_TM126 = 899,
+    ITEM_TM127 = 900,
+    ITEM_TM128 = 901,
+    ITEM_TM129 = 902,
+    ITEM_TM130 = 903,
+    ITEM_TM131 = 904,
+    ITEM_TM132 = 905,
+    ITEM_TM133 = 906,
+    ITEM_TM134 = 907,
+    ITEM_TM135 = 908,
+    ITEM_TM136 = 909,
+    ITEM_TM137 = 910,
+    ITEM_TM138 = 911,
+    ITEM_TM139 = 912,
+    ITEM_TM140 = 913,
+    ITEM_TM141 = 914,
+    ITEM_TM142 = 915,
+    ITEM_TM143 = 916,
+    ITEM_TM144 = 917,
+    ITEM_TM145 = 918,
+    ITEM_TM146 = 919,
+    ITEM_TM147 = 920,
+    ITEM_TM148 = 921,
+    ITEM_TM149 = 922,
+    ITEM_TM150 = 923,
+    ITEM_TM151 = 924,
+    ITEM_TM152 = 925,
+    ITEM_TM153 = 926,
+    ITEM_TM154 = 927,
+    ITEM_TM155 = 928,
+    ITEM_TM156 = 929,
+    ITEM_TM157 = 930,
+    ITEM_TM158 = 931,
+    ITEM_TM159 = 932,
+    ITEM_TM160 = 933,
+    ITEM_TM161 = 934,
+    ITEM_TM162 = 935,
+    ITEM_TM163 = 936,
+    ITEM_TM164 = 937,
+    ITEM_TM165 = 938,
+    ITEM_TM166 = 939,
+
     ITEM_HM01 = 682,
     ITEM_HM02 = 683,
     ITEM_HM03 = 684,

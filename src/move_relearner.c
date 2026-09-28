@@ -260,17 +260,14 @@ static bool32 IsLevelUpMoveRelearnerActive(void);
 static bool32 IsEggMoveRelearnerActive(void);
 static bool32 IsTMMoveRelearnerActive(void);
 static bool32 IsTutorMoveRelearnerActive(void);
-static bool32 IsAllLegalMovesRelearnerActive(void);
 static bool32 HasRelearnerLevelUpMoves(struct BoxPokemon *boxMon);
 static bool32 HasRelearnerEggMoves(struct BoxPokemon *boxMon);
 static bool32 HasRelearnerTMMoves(struct BoxPokemon *boxMon);
 static bool32 HasRelearnerTutorMoves(struct BoxPokemon *boxMon);
-static bool32 HasRelearnerAllLegalMoves(struct BoxPokemon *boxMon);
 static u32 GetRelearnerLevelUpMoves(struct BoxPokemon *mon, u16 *moves);
 static u32 GetRelearnerEggMoves(struct BoxPokemon *mon, u16 *moves);
 static u32 GetRelearnerTMMoves(struct BoxPokemon *mon, u16 *moves);
 static u32 GetRelearnerTutorMoves(struct BoxPokemon *mon, u16 *moves);
-static u32 GetRelearnerAllLegalMoves(struct BoxPokemon *mon, u16 *moves);
 
 static void Task_MoveRelearner_HandleInput(u8 taskId);
 static void Task_MoveRelearner_LearnMove(u8 taskId);
@@ -303,18 +300,6 @@ static const struct RelearnType sRelearnTypes[MOVE_RELEARNER_COUNT] =
         .hasMoveToRelearn = HasRelearnerTutorMoves,
         .getMoves = GetRelearnerTutorMoves,
         .moveText = MoveRelearner_Text_TutorMoveLWR
-    },
-    // Move editor: level-up (whole pre-evolution chain) + egg + TM/HM +
-    // tutor, combined into one legal pool. isActive() is always FALSE so
-    // this never surfaces via the summary screen's L/R relearn cycling or
-    // chooseboxmon's party filter (both gate on isActive) - only reachable
-    // by a script setting gMoveRelearnerState to this directly, which skips
-    // that gate (see HasMoveToRelearn() below vs CanBoxMonRelearnMoves()).
-    [MOVE_RELEARNER_ALL_LEGAL_MOVES] = {
-        .isActive = IsAllLegalMovesRelearnerActive,
-        .hasMoveToRelearn = HasRelearnerAllLegalMoves,
-        .getMoves = GetRelearnerAllLegalMoves,
-        .moveText = MoveRelearner_Text_MoveLWR
     },
 };
 
@@ -1025,67 +1010,6 @@ static u32 GetRelearnerTutorMoves(struct BoxPokemon *mon, u16 *moves)
     return numMoves;
 }
 
-// Move editor support. Unlike the four vanilla getMoves functions above, this
-// always uses the full pre-evolution chain and MAX_LEVEL for level-up moves
-// (regardless of P_PRE_EVO_MOVES / P_ENABLE_ALL_LEVEL_UP_MOVES), since the
-// goal is the complete Pokémon Showdown-legal pool, not whatever subset this
-// hack's relearner difficulty config currently allows.
-//
-// teachableLearnset is already the union of TM/HM and tutor moves for the
-// species - it's the same array CanLearnTeachableMove() checks membership
-// against, and GetRelearnerTMMoves()/GetRelearnerTutorMoves() above both
-// gate through that same check - so reading it directly here covers both
-// sources without re-deriving them separately (and without filtering on
-// IsTmAvailable(), which is a hack-specific item toggle, not a legality
-// question).
-static bool32 IsMoveAlreadyInList(const u16 *moves, u32 numMoves, u16 move)
-{
-    for (u32 i = 0; i < numMoves; i++)
-    {
-        if (moves[i] == move)
-            return TRUE;
-    }
-    return FALSE;
-}
-
-static u32 GetRelearnerAllLegalMoves(struct BoxPokemon *mon, u16 *moves)
-{
-    enum Species species = GetBoxMonData(mon, MON_DATA_SPECIES);
-    enum Species walkSpecies = species;
-    u32 numMoves = 0;
-
-    do
-    {
-        const struct LevelUpMove *learnset = GetSpeciesLevelUpLearnset(walkSpecies);
-        for (u32 i = 0; learnset[i].move != LEVEL_UP_MOVE_END && numMoves < MAX_RELEARNER_MOVES; i++)
-        {
-            if (!BoxMonKnowsMove(mon, learnset[i].move) && !IsMoveAlreadyInList(moves, numMoves, learnset[i].move))
-                moves[numMoves++] = learnset[i].move;
-        }
-        walkSpecies = GetSpeciesPreEvolution(walkSpecies);
-    } while (walkSpecies != SPECIES_NONE && numMoves < MAX_RELEARNER_MOVES);
-
-    walkSpecies = species;
-    while (GetSpeciesPreEvolution(walkSpecies) != SPECIES_NONE)
-        walkSpecies = GetSpeciesPreEvolution(walkSpecies);
-
-    const u16 *eggMoves = GetSpeciesEggMoves(walkSpecies);
-    for (u32 i = 0; eggMoves[i] != MOVE_UNAVAILABLE && numMoves < MAX_RELEARNER_MOVES; i++)
-    {
-        if (!BoxMonKnowsMove(mon, eggMoves[i]) && !IsMoveAlreadyInList(moves, numMoves, eggMoves[i]))
-            moves[numMoves++] = eggMoves[i];
-    }
-
-    const u16 *teachable = GetSpeciesTeachableLearnset(species);
-    for (u32 i = 0; teachable[i] != MOVE_UNAVAILABLE && numMoves < MAX_RELEARNER_MOVES; i++)
-    {
-        if (!BoxMonKnowsMove(mon, teachable[i]) && !IsMoveAlreadyInList(moves, numMoves, teachable[i]))
-            moves[numMoves++] = teachable[i];
-    }
-
-    return numMoves;
-}
-
 void Special_HasMoveToRelearn(void)
 {
     struct BoxPokemon *boxmon = GetSelectedBoxMonFromPcOrParty();
@@ -1196,12 +1120,6 @@ static bool32 HasRelearnerTutorMoves(struct BoxPokemon *boxMon)
     return FALSE;
 }
 
-static bool32 HasRelearnerAllLegalMoves(struct BoxPokemon *boxMon)
-{
-    u16 moves[MAX_RELEARNER_MOVES];
-    return GetRelearnerAllLegalMoves(boxMon, moves) > 0;
-}
-
 static bool32 IsLevelUpMoveRelearnerActive(void)
 {
     return TRUE;
@@ -1220,11 +1138,4 @@ static bool32 IsTMMoveRelearnerActive(void)
 static bool32 IsTutorMoveRelearnerActive(void)
 {
     return (FlagGet(P_FLAG_TUTOR_MOVES) || P_ENABLE_MOVE_RELEARNERS);
-}
-
-// Always FALSE - see the comment on the MOVE_RELEARNER_ALL_LEGAL_MOVES
-// sRelearnTypes entry above.
-static bool32 IsAllLegalMovesRelearnerActive(void)
-{
-    return FALSE;
 }

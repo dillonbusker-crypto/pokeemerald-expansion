@@ -2,13 +2,27 @@
 #define GUARD_CONSTANTS_MOVE_RELEARNER_H
 
 // Max number of moves shown by the move relearner.
-// Increased from 25 to 60 so Mew can display all TMs/HMs, then to 150 to fit
-// MOVE_RELEARNER_ALL_LEGAL_MOVES (level-up + egg + TM/HM + tutor combined in
-// one list, for the move editor - see GetRelearnerAllLegalMoves() in
-// src/move_relearner.c). Mew's teachableLearnset alone is already 88 moves,
-// well past the old 60 cap once level-up and egg moves are added on top.
-// If you plan on adding more TMs/tutors, increase this number too.
-#define MAX_RELEARNER_MOVES 150
+// Was 60 ("Increased from 25 to 60 so Mew can display all TMs/HMs") - sized
+// for vanilla's 50 TMs + 8 HMs (58) with a little headroom. That comment
+// stopped being true the moment this project's TM roster grew to 166 (see
+// include/constants/tms_hms.h's FOREACH_TM) - GetRelearnerTMMoves()
+// (src/move_relearner.c) writes one entry per TM/HM a species can still
+// learn into sMoveRelearnerStruct->movesToLearn[MAX_RELEARNER_MOVES] with no
+// bounds check at all, so any reasonably TM-versatile species (Mew being the
+// extreme case, but far from the only one against a 166-move pool) could
+// write past a 60-slot buffer and corrupt whatever heap-allocated memory
+// came after it - a real heap-corruption bug found this way (garbled/crashed
+// much later, at an unrelated menu that happened to touch the heap next).
+// Raised to NUM_ALL_MACHINES (include/item.h) - the hard ceiling
+// GetRelearnerTMMoves()'s own loop can never exceed, since it writes at most
+// one entry per TM/HM that exists - so this is provably enough no matter how
+// many machines a species can learn. A "combined legal pool" mode (level-up
+// + egg + TM/HM + tutor in one list, needing this raised even further to
+// 150) used to live here for a custom move editor tool - removed after a
+// separate, never-fully-diagnosed heap corruption issue (see l_menu.c and
+// data/scripts/debug.inc's Debug_EventScript_RelearnLevelUpMove for that
+// history) - unrelated to this fix, but the same failure signature.
+#define MAX_RELEARNER_MOVES 174
 
 // Move Relearner menu change constants
 enum MoveRelearnerStates
@@ -17,11 +31,6 @@ enum MoveRelearnerStates
     MOVE_RELEARNER_EGG_MOVES,
     MOVE_RELEARNER_TM_MOVES,
     MOVE_RELEARNER_TUTOR_MOVES,
-    // Combined legal pool (level-up, from the whole pre-evolution chain, +
-    // egg moves + TM/HM + tutor) for the move editor. Not part of the
-    // vanilla level-up/egg/TM/tutor cycle - entered directly by setting
-    // gMoveRelearnerState to this before invoking the relearner screen.
-    MOVE_RELEARNER_ALL_LEGAL_MOVES,
     MOVE_RELEARNER_COUNT,
 };
 

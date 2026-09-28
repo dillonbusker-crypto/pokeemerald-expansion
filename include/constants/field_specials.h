@@ -37,15 +37,16 @@ enum SSTidalState
 #define SS_TIDAL_MAX_STEPS 205
 
 // Scrollable Multichoice Menus
+// Ten Buildings: the four vanilla Exchange Corner BP vendors (decor x2,
+// vitamins, hold items) that used to live right after
+// SCROLL_MULTI_POKEMON_FAN_CLUB_RATER are gone - replaced by the
+// SCROLL_MULTI_TEN_BUILDINGS_* menus below. Their data lived in
+// src/data/battle_frontier/battle_frontier_exchange_corner.h, now deleted.
 enum ScrollMulti
 {
     SCROLL_MULTI_NONE,
     SCROLL_MULTI_GLASS_WORKSHOP_VENDOR,
     SCROLL_MULTI_POKEMON_FAN_CLUB_RATER,
-    SCROLL_MULTI_BF_EXCHANGE_CORNER_DECOR_VENDOR_1,
-    SCROLL_MULTI_BF_EXCHANGE_CORNER_DECOR_VENDOR_2,
-    SCROLL_MULTI_BF_EXCHANGE_CORNER_VITAMIN_VENDOR,
-    SCROLL_MULTI_BF_EXCHANGE_CORNER_HOLD_ITEM_VENDOR,
     SCROLL_MULTI_BERRY_POWDER_VENDOR,
     SCROLL_MULTI_BF_RECEPTIONIST,
     SCROLL_MULTI_BF_MOVE_TUTOR_1,
@@ -54,6 +55,19 @@ enum ScrollMulti
     SCROLL_MULTI_BATTLE_TENT_RULES,
     SCROLL_MULTI_BADGES,
     SCROLL_MULTI_SILPHCO_FLOORS,
+    // Ten Buildings shop (shop-spec.md), Exchange Service Corner keepers.
+    // SCROLL_MULTI_TEN_BUILDINGS_MON_TIER_SELECT and _POST_BATTLE are small,
+    // fixed-content menus and stay static. Everything else - consumables,
+    // held items, every Pokemon tier and its optional type filter - is one
+    // dynamically-built list, staged by src/facility_shop.c and read via
+    // FacilityShopGetMenuCount/Name/Price/Description() instead of a
+    // per-menu COMPOUND_STRING table. This is what lets the shop grow by
+    // nine more unlocks without a new enum value or a new
+    // ShowScrollableMultichoice case each time - see shop-spec.md and
+    // shop-unlock-b2.md.
+    SCROLL_MULTI_TEN_BUILDINGS_MON_TIER_SELECT,
+    SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC,
+    SCROLL_MULTI_TEN_BUILDINGS_POST_BATTLE,
 };
 
 #define MAX_SCROLL_MULTI_ON_SCREEN 6
@@ -115,6 +129,25 @@ enum {
 enum {
     CURRENT_POSITION,
     TEMPLATE_POSITION
+};
+
+// Ten Buildings: TeachTMMove()'s result (src/field_specials.c), read by
+// Debug_EventScript_TeachTM (data/scripts/debug.inc). TEACH_TM_NEEDS_REPLACE
+// means the mon already has 4 moves - the script then shows its own
+// dynmultichoice slot picker and calls ReplaceTMMoveSlot() directly, rather
+// than routing through CanTeachMoveBoxMon/ShowSelectMovePokemonSummaryScreen
+// like every other move-teaching path in this project. That summary-screen
+// swap is exactly what 3-for-3 crash repros traced back to (a heap-corrupting
+// bug never pinned down through code review, despite it being shared,
+// heavily-used vanilla machinery) - so Teach TM's replace case avoids it
+// entirely instead, using only primitives already proven safe elsewhere
+// (dynmultichoice, direct SetBoxMonData/GiveMoveToBoxMon calls).
+enum TeachTMResult
+{
+    TEACH_TM_LEARNED,
+    TEACH_TM_ALREADY_KNOWS,
+    TEACH_TM_CANNOT_LEARN,
+    TEACH_TM_NEEDS_REPLACE,
 };
 
 #endif // GUARD_CONSTANTS_FIELD_SPECIALS_H

@@ -26,6 +26,8 @@
 #include "constants/easy_chat.h"
 #include "constants/event_objects.h"
 #include "constants/event_object_movement.h"
+#include "constants/facility.h"
+#include "constants/facility_shop.h"
 #include "constants/fame_checker.h"
 #include "constants/field_effects.h"
 #include "constants/field_move.h"

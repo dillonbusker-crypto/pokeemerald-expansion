@@ -25,6 +25,24 @@ OldaleTown_EventScript_MoveMartEmployee::
 	setobjectmovementtype LOCALID_OLDALE_MART_EMPLOYEE, MOVEMENT_TYPE_FACE_DOWN
 	return
 
+@ Ten Buildings: permanent roadblock. This is a battle-only hack with no
+@ story - Route 102 onward (the rest of the vanilla region) is never meant
+@ to be reachable. Two HIKERs cover both tiles of the path west (see
+@ OldaleTown_EventScript_BlockWestEntrance above for vanilla's OWN
+@ temporary version of this same block, which lifts once
+@ FLAG_ADVENTURE_STARTED is set - these don't depend on that flag and
+@ never lift.
+@
+@ This was originally OBJ_EVENT_GFX_SNORLAX, matching the classic "sleeping
+@ Snorlax blocks the road" gag, but that graphic's info pointer is compiled
+@ out for Emerald builds (see the #if IS_FRLG block in
+@ src/data/object_events/object_event_graphics_info_pointers.h) - it rendered
+@ invisible even though its collision still worked. HIKER is a normal,
+@ always-available Emerald graphic that reads fine as "the trail's closed".
+OldaleTown_EventScript_Route102Roadblock::
+	msgbox OldaleTown_Text_TrailClosed, MSGBOX_NPC
+	end
+
 OldaleTown_EventScript_TownSign::
 	msgbox OldaleTown_Text_TownSign, MSGBOX_SIGN
 	end
@@ -342,6 +360,12 @@ OldaleTown_Movement_ReturnToOriginalPosition:
 OldaleTown_Text_SavingMyProgress:
 	.string "I want to take a rest, so I'm saving my\n"
 	.string "progress.$"
+
+OldaleTown_Text_TrailClosed:
+	.string "HIKER: Whoa there!\p"
+	.string "This trail's closed - rockslide up\n"
+	.string "ahead. Not getting through this way\l"
+	.string "anytime soon.$"
 
 OldaleTown_Text_IWorkAtPokemonMart:
 	.string "Hi!\n"

@@ -1,6 +1,7 @@
 // ============================================================================
-// Player-facing L-button menu for the four QoL tools (stat editor, nature
-// changer, Hidden Power changer, move editor).
+// Player-facing L-button menu for the seven QoL tools (stat editor, nature
+// changer, Hidden Power changer, level-up move relearner, egg move
+// relearner, ability switcher, teach TM).
 //
 // Structured after Emerald Imperium's L-menu as a reference for how the menu
 // is registered and opened (iriv24/pokeemerald-expansion, release branch):
@@ -23,18 +24,17 @@
 //     (ShowStartMenu()/its close paths), the more thoroughly-proven pattern
 //     for a genuinely player-facing overworld menu.
 //
-// Currently ungated, per instructions - the four tools are meant to be
-// freely available before "the facility" exists. GATE HERE LATER: once a
-// facility run can be in progress, the team is locked for the run's
-// duration, and an editor able to rewrite it mid-run would break that lock.
-// Add the "no run in progress" check at the very top of ShowLMenu() below
-// (return immediately, without building the menu, if a run is active) -
-// that's the single choke point every path to this menu goes through.
+// Gated on IsFacilityRunActive() (src/facility.c) - see run-loop-spec.md's
+// "Mid-run access restrictions". The team is locked for the run's duration,
+// and an editor able to rewrite it mid-run would break that lock. ShowLMenu()
+// is the single choke point every path to this menu goes through, so that's
+// the only place this needs checking.
 // ============================================================================
 
 #include "global.h"
 #include "event_object_lock.h"
 #include "event_object_movement.h"
+#include "facility.h"
 #include "field_player_avatar.h"
 #include "list_menu.h"
 #include "l_menu.h"
@@ -53,14 +53,28 @@
 extern const u8 Debug_EventScript_OpenStatEditor[];
 extern const u8 Debug_EventScript_ChangeMonNature[];
 extern const u8 Debug_EventScript_ChangeMonHPType[];
-extern const u8 Debug_EventScript_OpenMoveEditor[];
+extern const u8 Debug_EventScript_RelearnLevelUpMove[];
+extern const u8 Debug_EventScript_RelearnEggMove[];
+extern const u8 Debug_EventScript_SetAbility[];
+extern const u8 Debug_EventScript_TeachTM[];
 
+// The Move Editor slot used to run a custom "full legal movepool" relearn
+// state and repeatedly corrupted the heap (see data/scripts/debug.inc's
+// comment on Debug_EventScript_RelearnLevelUpMove for the full history).
+// Retired in favor of the plain level-up relearner plus a "Teach TM" tool
+// (Debug_EventScript_TeachTM) that teaches straight from the 166-move TM
+// list without touching the bag - see the comment on
+// GiveFrontierStartingGrants() in src/new_game.c for why TMs aren't bag
+// items here. Between the two the player can still reach any legal move.
 enum LMenuAction
 {
     LMENU_ACTION_STAT_EDITOR,
     LMENU_ACTION_CHANGE_NATURE,
     LMENU_ACTION_CHANGE_HP_TYPE,
-    LMENU_ACTION_MOVE_EDITOR,
+    LMENU_ACTION_RELEARN_MOVE,
+    LMENU_ACTION_EGG_MOVE,
+    LMENU_ACTION_SWITCH_ABILITY,
+    LMENU_ACTION_TEACH_TM,
     LMENU_ACTION_COUNT,
 };
 
@@ -88,15 +102,21 @@ static const struct WindowTemplate sLMenuWindowTemplate =
 static const u8 sLMenuText_StatEditor[] = _("Stat Editor");
 static const u8 sLMenuText_ChangeNature[] = _("Change Nature");
 static const u8 sLMenuText_ChangeHPType[] = _("Change Hidden Power");
-static const u8 sLMenuText_MoveEditor[] = _("Move Editor");
+static const u8 sLMenuText_RelearnMove[] = _("Relearn Move");
+static const u8 sLMenuText_EggMove[] = _("Learn Egg Move");
+static const u8 sLMenuText_SwitchAbility[] = _("Switch Ability");
+static const u8 sLMenuText_TeachTM[] = _("Teach TM");
 static const u8 sLMenuText_Cancel[] = _("Cancel");
 
 static const struct LMenuOption sLMenuOptions[LMENU_ACTION_COUNT] =
 {
-    [LMENU_ACTION_STAT_EDITOR]    = { sLMenuText_StatEditor,   Debug_EventScript_OpenStatEditor },
-    [LMENU_ACTION_CHANGE_NATURE]  = { sLMenuText_ChangeNature, Debug_EventScript_ChangeMonNature },
-    [LMENU_ACTION_CHANGE_HP_TYPE] = { sLMenuText_ChangeHPType, Debug_EventScript_ChangeMonHPType },
-    [LMENU_ACTION_MOVE_EDITOR]    = { sLMenuText_MoveEditor,   Debug_EventScript_OpenMoveEditor },
+    [LMENU_ACTION_STAT_EDITOR]     = { sLMenuText_StatEditor,    Debug_EventScript_OpenStatEditor },
+    [LMENU_ACTION_CHANGE_NATURE]   = { sLMenuText_ChangeNature,  Debug_EventScript_ChangeMonNature },
+    [LMENU_ACTION_CHANGE_HP_TYPE]  = { sLMenuText_ChangeHPType,  Debug_EventScript_ChangeMonHPType },
+    [LMENU_ACTION_RELEARN_MOVE]    = { sLMenuText_RelearnMove,   Debug_EventScript_RelearnLevelUpMove },
+    [LMENU_ACTION_EGG_MOVE]        = { sLMenuText_EggMove,       Debug_EventScript_RelearnEggMove },
+    [LMENU_ACTION_SWITCH_ABILITY]  = { sLMenuText_SwitchAbility, Debug_EventScript_SetAbility },
+    [LMENU_ACTION_TEACH_TM]        = { sLMenuText_TeachTM,       Debug_EventScript_TeachTM },
 };
 
 static EWRAM_DATA struct ListMenuItem sLMenuItems[LMENU_ACTION_COUNT + 1] = {0};
@@ -112,7 +132,11 @@ void ShowLMenu(void)
     u8 inputTaskId;
     u32 i;
 
-    // GATE HERE LATER - see the file header comment.
+    // Blocked for the duration of a facility run - re-tuning EVs/moveset or
+    // nature/Hidden Power against the team you're about to fight isn't a
+    // locked team. See run-loop-spec.md's "Mid-run access restrictions".
+    if (IsFacilityRunActive())
+        return;
 
     for (i = 0; i < LMENU_ACTION_COUNT; i++)
     {
@@ -162,14 +186,32 @@ void ShowLMenu(void)
     LockPlayerFieldControls();
 }
 
+// Window/task teardown only - deliberately does NOT touch the freeze/lock
+// state ShowLMenu() put in place. The two callers below need opposite things
+// there: picking an option hands off to a script that expects the field
+// still frozen (its own release/releaseall - see ScrCmd_release(all) in
+// src/scrcmd.c - is what's supposed to undo that, exactly like any other
+// script), while Cancel has no follow-up script and has to undo the freeze
+// itself. Doing the unfreeze here unconditionally (the previous bug) meant
+// object events kept moving and animating in the background for the whole
+// time a chosen tool's script - and whatever full-screen UI it opened, e.g.
+// the move relearner's own CB2 - was up, stomping on state and VRAM that UI
+// assumed was quiescent. That's what was corrupting the move editor's
+// "replace which move" popup text and, later, whatever it clobbered next.
 static void CloseLMenu(u8 taskId)
 {
     DestroyListMenuTask(gTasks[taskId].tMenuTaskId, NULL, NULL);
     ClearStdWindowAndFrame(gTasks[taskId].tWindowId, TRUE);
     RemoveWindow(gTasks[taskId].tWindowId);
     DestroyTask(taskId);
+}
+
+static void CancelLMenu(u8 taskId)
+{
+    CloseLMenu(taskId);
     ScriptUnfreezeObjectEvents();
     UnlockPlayerFieldControls();
+    ScriptContext_Enable();
 }
 
 static void Task_LMenuHandleInput(u8 taskId)
@@ -183,18 +225,20 @@ static void Task_LMenuHandleInput(u8 taskId)
         {
             const u8 *script = sLMenuOptions[input].script;
             CloseLMenu(taskId);
+            // Field stays frozen; ScriptContext_SetupScript() re-locks player
+            // controls itself, and the script's own release/releaseall
+            // unfreezes object events again once it's done - see the
+            // comment on CloseLMenu().
             ScriptContext_SetupScript(script);
         }
         else
         {
-            CloseLMenu(taskId);
-            ScriptContext_Enable();
+            CancelLMenu(taskId);
         }
     }
     else if (JOY_NEW(B_BUTTON))
     {
         PlaySE(SE_SELECT);
-        CloseLMenu(taskId);
-        ScriptContext_Enable();
+        CancelLMenu(taskId);
     }
 }

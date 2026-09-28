@@ -5,6 +5,10 @@ BattleFrontier_OutsideWest_MapScripts::
 BattleFrontier_OutsideWest_OnTransition:
 	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, 0
 	setflag FLAG_HIDE_BATTLE_TOWER_REPORTER
+	@ Ten Buildings: rounds the player's starter out to a full six and grants
+	@ starting FP. Self-guarded (see GiveFrontierStartingGrants() in
+	@ src/new_game.c), safe to call every time this map loads.
+	special GiveFrontierStartingGrants
 	end
 
 BattleFrontier_OutsideWest_EventScript_FerryAttendant::
@@ -18,12 +22,15 @@ BattleFrontier_OutsideWest_EventScript_FerryAttendant::
 	goto BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination
 	end
 
+@ Ten Buildings: Slateport/Lilycove removed from this menu on purpose - see
+@ the comment on MultichoiceList_SSTidalBattleFrontier in
+@ src/data/script_menu.h. Route 103 is the only real destination for now,
+@ mirroring how the player got here in the first place.
 BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination::
-	multichoicedefault 18, 6, MULTI_SSTIDAL_BATTLE_FRONTIER, 2, FALSE
+	multichoicedefault 18, 6, MULTI_SSTIDAL_BATTLE_FRONTIER, 1, FALSE
 	switch VAR_RESULT
-	case 0, BattleFrontier_OutsideWest_EventScript_FerryToSlateport
-	case 1, BattleFrontier_OutsideWest_EventScript_FerryToLilycove
-	case 2, BattleFrontier_OutsideWest_EventScript_CancelFerrySelect
+	case 0, BattleFrontier_OutsideWest_EventScript_FerryToRoute103
+	case 1, BattleFrontier_OutsideWest_EventScript_CancelFerrySelect
 	case MULTI_B_PRESSED, BattleFrontier_OutsideWest_EventScript_CancelFerrySelect
 	end
 
@@ -48,6 +55,21 @@ BattleFrontier_OutsideWest_EventScript_FerryToLilycove::
 	msgbox BattleFrontier_OutsideWest_Text_PleaseBoardFerry, MSGBOX_DEFAULT
 	call BattleFrontier_OutsideWest_EventScript_BoardFerry
 	warp MAP_LILYCOVE_CITY_HARBOR, 8, 11
+	waitstate
+	release
+	end
+
+@ Ten Buildings: the only real destination the ferry menu offers right now -
+@ back the way the player came in, Route 103's own dock (see the comment on
+@ Route103_EventScript_FerryAttendant, data/maps/Route103/scripts.inc). (20, 9)
+@ lands just west of that dock's SS Tidal object, mirroring where the player
+@ would have stood to board it in the first place.
+BattleFrontier_OutsideWest_EventScript_FerryToRoute103::
+	msgbox BattleFrontier_OutsideWest_Text_Route103ItIs, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideWest_EventScript_ChooseNewFerryDestination
+	msgbox BattleFrontier_OutsideWest_Text_PleaseBoardFerry, MSGBOX_DEFAULT
+	call BattleFrontier_OutsideWest_EventScript_BoardFerry
+	warp MAP_ROUTE103, 20, 9
 	waitstate
 	release
 	end
@@ -335,6 +357,9 @@ BattleFrontier_OutsideWest_Text_SlateportItIs:
 
 BattleFrontier_OutsideWest_Text_LilycoveItIs:
 	.string "LILYCOVE CITY it is, then!$"
+
+BattleFrontier_OutsideWest_Text_Route103ItIs:
+	.string "ROUTE 103 it is, then!$"
 
 BattleFrontier_OutsideWest_Text_SailWithUsAnotherTime:
 	.string "Please sail with us another time!$"

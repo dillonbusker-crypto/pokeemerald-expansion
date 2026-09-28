@@ -392,7 +392,7 @@ Debug_EventScript_InflictStatus1::
 	dynmultipush Debug_EventScript_InflictStatus1_Text_Single, 0
 	dynmultipush Debug_EventScript_InflictStatus1_Text_PartyWide, 1
 	dynmultipush Debug_EventScript_InflictStatus1_Text_Close, 2
-	dynmultistack 0, 0, FALSE, 3 FALSE, 0, NULL
+	dynmultistack 0, 0, FALSE, 3 FALSE, 0, DYN_MULTICHOICE_CB_NONE
 	switch VAR_RESULT
 	case 0, Debug_EventScript_InflictStatus1_Single
 	case 1, Debug_EventScript_InflictStatus1_Party
@@ -413,7 +413,7 @@ Debug_EventScript_InflictStatus1_Single:
 	dynmultipush Debug_EventScript_InflictStatus1_Text_Freeze, 4
 	dynmultipush Debug_EventScript_InflictStatus1_Text_Frostbite, 5
 	dynmultipush Debug_EventScript_InflictStatus1_Text_Close, 6
-	dynmultistack 0, 0, FALSE, 7, FALSE, 0, NULL
+	dynmultistack 0, 0, FALSE, 7, FALSE, 0, DYN_MULTICHOICE_CB_NONE
 	switch VAR_RESULT
 	case 0, Debug_EventScript_InflictStatus1_Single_Poison
 	case 1, Debug_EventScript_InflictStatus1_Single_Paralysis
@@ -465,26 +465,46 @@ Debug_EventScript_SetHiddenNature::
 	dynmultipush Debug_EventScript_ChangeNature_Text_Sassy, 22
 	dynmultipush Debug_EventScript_ChangeNature_Text_Careful, 23
 	dynmultipush Debug_EventScript_ChangeNature_Text_Quirky, 24
-	dynmultistack 0, 0, TRUE, 7, FALSE, 0, NULL
+	dynmultistack 0, 0, TRUE, 7, FALSE, 0, DYN_MULTICHOICE_CB_NONE
 	switch VAR_RESULT
 	case MULTI_B_PRESSED, Debug_EventScript_InflictStatus1_Close
 	special SetHiddenNature
 	releaseall
 	end
 
+@ Ten Buildings: added the PARTY_SIZE/egg guards (matching every other tool
+@ here) and the "only one ability" branch - GetMonAbilityOptions (src/
+@ field_specials.c) replaces the callnative DebugNative_GetAbilityNames used
+@ before, since it also reports whether the mon's three ability slots are
+@ actually three different abilities or just one repeated three times (no
+@ second regular ability, no hidden ability - true for a lot of species).
 Debug_EventScript_SetAbility::
 	special ChoosePartyMon
-	callnative DebugNative_GetAbilityNames
+	goto_if_ge VAR_0x8004, PARTY_SIZE, Debug_EventScript_InflictStatus1_Close
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_eq VAR_RESULT, SPECIES_EGG, Debug_EventScript_InflictStatus1_Close
+	special GetMonAbilityOptions
+	goto_if_eq VAR_RESULT, FALSE, Debug_EventScript_SetAbility_OnlyOneAbility
 	dynmultipush gStringVar1, 0
 	dynmultipush gStringVar2, 1
 	dynmultipush gStringVar3, 2
-	dynmultistack 0, 0, FALSE, 3 FALSE, 0, NULL
+	dynmultistack 0, 0, FALSE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE
 	switch VAR_RESULT
 	case MULTI_B_PRESSED, Debug_EventScript_SetAbilityClose
 	special SetAbility
 Debug_EventScript_SetAbilityClose:
 	releaseall
 	end
+
+Debug_EventScript_SetAbility_OnlyOneAbility::
+	msgbox Debug_EventScript_Text_OnlyOneAbility, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Debug_EventScript_Text_OnlyOneAbility:
+	.string "This POKéMON only has one possible\n"
+	.string "Ability - there's nothing to switch\l"
+	.string "it to.$"
 
 Debug_EventScript_SetFriendship::
 	special ChoosePartyMon
@@ -538,7 +558,7 @@ Debug_EventScript_ChangeMonNature::
 	dynmultipush Debug_EventScript_ChangeNature_Text_Sassy, NATURE_SASSY
 	dynmultipush Debug_EventScript_ChangeNature_Text_Careful, NATURE_CAREFUL
 	dynmultipush Debug_EventScript_ChangeNature_Text_Quirky, NATURE_QUIRKY
-	dynmultistack 0, 0, TRUE, 7, FALSE, NATURE_HARDY, NULL
+	dynmultistack 0, 0, TRUE, 7, FALSE, NATURE_HARDY, DYN_MULTICHOICE_CB_NONE
 	switch VAR_RESULT
 	case MULTI_B_PRESSED, Debug_EventScript_InflictStatus1_Close
 	copyvar VAR_0x8005, VAR_RESULT
@@ -574,7 +594,7 @@ Debug_EventScript_ChangeMonHPType::
 	dynmultipush Debug_EventScript_HPType_Text_Ice, TYPE_ICE
 	dynmultipush Debug_EventScript_HPType_Text_Dragon, TYPE_DRAGON
 	dynmultipush Debug_EventScript_HPType_Text_Dark, TYPE_DARK
-	dynmultistack 0, 0, TRUE, 7, FALSE, TYPE_FIGHTING, NULL
+	dynmultistack 0, 0, TRUE, 7, FALSE, TYPE_FIGHTING, DYN_MULTICHOICE_CB_NONE
 	switch VAR_RESULT
 	case MULTI_B_PRESSED, Debug_EventScript_InflictStatus1_Close
 	copyvar VAR_0x8005, VAR_RESULT
@@ -601,22 +621,158 @@ Debug_EventScript_OpenStatEditor::
 	releaseall
 	end
 
-@ Move editor: the vanilla Move Relearner UI (src/move_relearner.c), pointed
-@ at MOVE_RELEARNER_ALL_LEGAL_MOVES - level-up (whole pre-evolution chain) +
-@ egg + TM/HM + tutor moves combined into one legal pool, the same set
-@ Pokemon Showdown would allow. That state is only reachable by setting it
-@ directly like this (see its isActive() in src/move_relearner.c) - it never
-@ appears via the summary screen's normal relearn cycling. Test entry point
-@ only; the real access point comes with the facility.
-Debug_EventScript_OpenMoveEditor::
-	setmoverelearnerstate MOVE_RELEARNER_ALL_LEGAL_MOVES
+@ Ten Buildings: this used to run MOVE_RELEARNER_ALL_LEGAL_MOVES - a custom
+@ relearn state combining level-up (whole pre-evolution chain) + egg + TM/HM
+@ + tutor moves into one pool, the same set Pokemon Showdown would allow.
+@ Retired after repeated heap corruption traced back to it (garbled move-list
+@ text, then crashes elsewhere - see l_menu.c) that couldn't be pinned down
+@ through code review alone. Replaced with the plain vanilla level-up
+@ relearner (MOVE_RELEARNER_LEVEL_UP_MOVES, gMoveRelearnerState's own
+@ default - the exact path Fallarbor's Move Relearner NPC already uses every
+@ playthrough) plus one already-existing, already-tested expansion config
+@ flip: P_ENABLE_ALL_LEVEL_UP_MOVES (include/config/summary_screen.h) makes
+@ GetRelearnerLevelUpMoves() use MAX_LEVEL instead of the mon's actual level,
+@ so a level-50-capped mon can still relearn moves its full learnset has
+@ above level 50. TMs/HMs are handled separately now - see
+@ GiveFrontierStartingGrants() in src/new_game.c, which hands the player 99
+@ of every real TM and HM at game start instead.
+@ setmoverelearnerstate is still explicit here (not strictly needed, since
+@ MOVE_RELEARNER_LEVEL_UP_MOVES is gMoveRelearnerState's default) so this
+@ stays correct even if something else changes that global first - see the
+@ comment on FreeMoveRelearnerResources()'s callers in src/move_relearner.c
+@ for why that's not just a hypothetical.
+Debug_EventScript_RelearnLevelUpMove::
+	setmoverelearnerstate MOVE_RELEARNER_LEVEL_UP_MOVES
 	special ChoosePartyMon
 	goto_if_ge VAR_0x8004, PARTY_SIZE, Debug_EventScript_InflictStatus1_Close
 	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
 	goto_if_eq VAR_RESULT, SPECIES_EGG, Debug_EventScript_InflictStatus1_Close
+	special Special_HasMoveToRelearn
+	goto_if_eq VAR_RESULT, FALSE, Debug_EventScript_RelearnLevelUpMove_Nothing
 	special TeachMoveRelearnerMove
 	releaseall
 	end
+
+Debug_EventScript_RelearnLevelUpMove_Nothing::
+	msgbox Debug_EventScript_Text_NothingToRelearn, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Debug_EventScript_Text_NothingToRelearn:
+	.string "This POKéMON already knows every\n"
+	.string "level-up move it's able to learn.$"
+
+@ Same flow as Debug_EventScript_RelearnLevelUpMove, just pointed at the
+@ relearner's built-in egg move list (GetRelearnerEggMoves() in
+@ src/move_relearner.c - the base form's egg moves). Entering via script
+@ skips the P_FLAG_EGG_MOVES / P_ENABLE_MOVE_RELEARNERS gate, so no config
+@ change is needed for this to work.
+Debug_EventScript_RelearnEggMove::
+	setmoverelearnerstate MOVE_RELEARNER_EGG_MOVES
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, Debug_EventScript_InflictStatus1_Close
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_eq VAR_RESULT, SPECIES_EGG, Debug_EventScript_InflictStatus1_Close
+	special Special_HasMoveToRelearn
+	goto_if_eq VAR_RESULT, FALSE, Debug_EventScript_RelearnEggMove_Nothing
+	special TeachMoveRelearnerMove
+	releaseall
+	end
+
+Debug_EventScript_RelearnEggMove_Nothing::
+	msgbox Debug_EventScript_Text_NoEggMoves, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Debug_EventScript_Text_NoEggMoves:
+	.string "This POKéMON has no egg moves\n"
+	.string "left to learn.$"
+
+@ Ten Buildings: "Teach TM" - see the comment on GiveFrontierStartingGrants()
+@ in src/new_game.c for why this replaced handing out TM items. Two-stage
+@ drill-down (type, then move) built from PushTMTypeMenuOptions/
+@ PushTMMoveMenuOptionsForType (src/field_specials.c), which push onto the
+@ same dynamic multichoice stack dynmultipush/dynmultichoice use elsewhere in
+@ this file - dynmultistack with no dynmultipush calls before it just
+@ displays whatever's already on that stack.
+@ The actual teaching deliberately does NOT go through CanTeachMoveBoxMon/
+@ ShowSelectMovePokemonSummaryScreen like every vanilla Move Tutor does -
+@ three independent live tests all traced a silent heap-corrupting crash
+@ (malloc.c's double-free assertion, surfacing later on whatever menu
+@ happened to touch the heap next) back to that summary-screen swap
+@ specifically, and it couldn't be pinned down further through code review
+@ despite it being shared, heavily-used vanilla machinery. TeachTMMove/
+@ PushTeachTMMoveSlotOptions/ReplaceTMMoveSlot (src/field_specials.c)
+@ replicate the same teach-or-replace behavior with direct BoxMon data writes
+@ and our own dynmultichoice slot picker instead, avoiding that code path
+@ entirely.
+Debug_EventScript_TeachTM::
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, Debug_EventScript_InflictStatus1_Close
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_eq VAR_RESULT, SPECIES_EGG, Debug_EventScript_InflictStatus1_Close
+	special PushTMTypeMenuOptions
+	dynmultistack 0, 0, FALSE, 7, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	switch VAR_RESULT
+	case MULTI_B_PRESSED, Debug_EventScript_InflictStatus1_Close
+	copyvar VAR_0x8006, VAR_RESULT
+	special PushTMMoveMenuOptionsForType
+	dynmultistack 0, 0, FALSE, 7, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	switch VAR_RESULT
+	case MULTI_B_PRESSED, Debug_EventScript_InflictStatus1_Close
+	copyvar VAR_0x8005, VAR_RESULT
+	special TeachTMMove
+	switch VAR_RESULT
+	case TEACH_TM_CANNOT_LEARN, Debug_EventScript_TeachTM_CannotLearn
+	case TEACH_TM_ALREADY_KNOWS, Debug_EventScript_TeachTM_AlreadyKnows
+	case TEACH_TM_NEEDS_REPLACE, Debug_EventScript_TeachTM_NeedsReplace
+	msgbox Debug_EventScript_Text_TeachTMLearned, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Debug_EventScript_TeachTM_CannotLearn::
+	msgbox Debug_EventScript_Text_TeachTMCannotLearn, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Debug_EventScript_TeachTM_AlreadyKnows::
+	msgbox Debug_EventScript_Text_TeachTMAlreadyKnows, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Debug_EventScript_TeachTM_NeedsReplace::
+	msgbox Debug_EventScript_Text_TeachTMNeedsReplace, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Debug_EventScript_TeachTM_DidNotLearn
+	special PushTeachTMMoveSlotOptions
+	dynmultistack 0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	switch VAR_RESULT
+	case MULTI_B_PRESSED, Debug_EventScript_TeachTM_DidNotLearn
+	copyvar VAR_0x8007, VAR_RESULT
+	special ReplaceTMMoveSlot
+	msgbox Debug_EventScript_Text_TeachTMLearned, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Debug_EventScript_TeachTM_DidNotLearn::
+	msgbox Debug_EventScript_Text_TeachTMDidNotLearn, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Debug_EventScript_Text_TeachTMLearned:
+	.string "{STR_VAR_1} learned {STR_VAR_2}!$"
+
+Debug_EventScript_Text_TeachTMAlreadyKnows:
+	.string "{STR_VAR_1} already knows {STR_VAR_2}.$"
+
+Debug_EventScript_Text_TeachTMCannotLearn:
+	.string "{STR_VAR_1} cannot learn {STR_VAR_2}.$"
+
+Debug_EventScript_Text_TeachTMNeedsReplace:
+	.string "{STR_VAR_1} needs to forget a move to\n"
+	.string "learn {STR_VAR_2}. Proceed?$"
+
+Debug_EventScript_Text_TeachTMDidNotLearn:
+	.string "{STR_VAR_1} did not learn {STR_VAR_2}.$"
 
 Debug_EventScript_StatTools_Text_ConfirmNature:
 	.string "Give {STR_VAR_1} the {STR_VAR_2} nature?$"
@@ -700,7 +856,7 @@ Debug_EventScript_InflictStatus1_Party:
 	dynmultipush Debug_EventScript_InflictStatus1_Text_Freeze, 4
 	dynmultipush Debug_EventScript_InflictStatus1_Text_Frostbite, 5
 	dynmultipush Debug_EventScript_InflictStatus1_Text_Close, 6
-	dynmultistack 0, 0, FALSE, 7, FALSE, 0, NULL
+	dynmultistack 0, 0, FALSE, 7, FALSE, 0, DYN_MULTICHOICE_CB_NONE
 	switch VAR_RESULT
 	case 0, Debug_EventScript_InflictStatus1_Party_Poison
 	case 1, Debug_EventScript_InflictStatus1_Party_Paralysis
@@ -957,7 +1113,7 @@ Debug_EventScript_FontTest::
 @	dynmultipush Debug_EventScript_InflictStatus1_Text_Single, 0
 @	dynmultipush Debug_EventScript_InflictStatus1_Text_PartyWide, 1
 @	dynmultipush Debug_EventScript_InflictStatus1_Text_Close, 2
-@	dynmultistack 0, 0, FALSE, 3 FALSE, 0, NULL
+@	dynmultistack 0, 0, FALSE, 3 FALSE, 0, DYN_MULTICHOICE_CB_NONE
 @	switch VAR_RESULT
 @	case 0, Debug_EventScript_InflictStatus1_Single
 @	case 1, Debug_EventScript_InflictStatus1_Party

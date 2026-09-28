@@ -166,6 +166,16 @@ BattleFrontier_BattleTowerLobby_EventScript_SetBravoTrainerOn::
 	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, TRUE
 	return
 
+@ Ten Buildings: this used to be the real vanilla Singles challenge (party
+@ select, level mode, elevator ride to the battle room upstairs). That flow
+@ is now Facility_AttendantB1 down by FacilityAttendantB2 (see the comment
+@ there for why the elevator/battle-room sequence wasn't reused - it's
+@ wired tightly to gSaveBlock2Ptr->frontier's own streak/record/brain-status
+@ state machine, which this project's facility run loop doesn't use).
+@ This body is unreferenced dead code now, kept rather than deleted per
+@ this project's convention of not stripping vanilla script bodies it
+@ stops pointing at (see BattleFrontier_BattleTowerLobby_EventScript_
+@ DoublesAttendant below, orphaned the same way for building 2).
 BattleFrontier_BattleTowerLobby_EventScript_SinglesAttendant::
 	lock
 	faceplayer
@@ -290,6 +300,55 @@ BattleFrontier_BattleTowerLobby_EventScript_SaveBeforeDoublesChallenge::
 BattleFrontier_BattleTowerLobby_EventScript_ExplainDoublesChallenge::
 	msgbox BattleFrontier_BattleTowerLobby_Text_ExplainDoublesChallenge, MSGBOX_DEFAULT
 	goto BattleFrontier_BattleTowerLobby_EventScript_AskEnterDoublesChallenge
+	end
+
+@ Ten Buildings: the Multis mat is building 3, locked until building 2 is
+@ cleared (IsMultisMatUnlocked); the Link Multis mat is building 4, locked
+@ until building 3 is cleared (IsLinkMultisMatUnlocked) - same one-building-
+@ ahead gating FacilityAttendantB2 already uses for the Doubles mat. The
+@ vanilla Multis/Link Multis flows below (MultisAttendant/LinkMultisAttendant)
+@ are unreferenced dead code, same as DoublesAttendant above - the object
+@ events in map.json point at these two real attendants instead.
+BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB3::
+	lock
+	faceplayer
+	special IsMultisMatUnlocked
+	goto_if_eq VAR_RESULT, FALSE, Facility_MatLocked
+	setvar VAR_0x8004, FACILITY_BUILDING_3
+	special IsFacilityRunActiveForBuilding
+	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
+	special IsFacilityRunActiveForDifferentBuilding
+	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
+	msgbox Facility_B3_Text_AskEnter, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Facility_Decline
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
+	setvar VAR_0x8004, FACILITY_BUILDING_3
+	special FacilityStartRun
+	call Common_EventScript_SaveGame
+	goto Facility_DoBattle
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB4::
+	lock
+	faceplayer
+	special IsLinkMultisMatUnlocked
+	goto_if_eq VAR_RESULT, FALSE, Facility_MatLocked
+	setvar VAR_0x8004, FACILITY_BUILDING_4
+	special IsFacilityRunActiveForBuilding
+	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
+	special IsFacilityRunActiveForDifferentBuilding
+	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
+	msgbox Facility_B4_Text_AskEnter, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Facility_Decline
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
+	setvar VAR_0x8004, FACILITY_BUILDING_4
+	special FacilityStartRun
+	call Common_EventScript_SaveGame
+	goto Facility_DoBattle
 	end
 
 BattleFrontier_BattleTowerLobby_EventScript_MultisAttendant::
@@ -1397,3 +1456,586 @@ BattleFrontier_BattleTowerLobby_Text_ExplainMultiLinkRules:
 	.string "from those of your friend.\p"
 	.string "You may not interrupt this challenge\n"
 	.string "in the middle, unlike other modes.$"
+
+@ ============================================================================
+@ Ten Buildings facility run loop - vertical slice on building 2.
+@ See run-loop-spec.md. Replaces the vanilla Doubles Attendant script
+@ (BattleFrontier_BattleTowerLobby_EventScript_DoublesAttendant, still above,
+@ untouched, just no longer reachable from this NPC - see map.json) since
+@ that script is deeply tied to the real Tower's own eligibility/party-size/
+@ win-streak machinery, which doesn't apply here. Reuses the NPC/location,
+@ not the vanilla logic.
+@ ============================================================================
+
+BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB1::
+	lock
+	faceplayer
+	setvar VAR_0x8004, FACILITY_BUILDING_1
+	special IsFacilityRunActiveForBuilding
+	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
+	special IsFacilityRunActiveForDifferentBuilding
+	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
+	msgbox Facility_B1_Text_AskEnter, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Facility_Decline
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
+	setvar VAR_0x8004, FACILITY_BUILDING_1
+	special FacilityStartRun
+	call Common_EventScript_SaveGame
+	goto Facility_DoBattle
+	end
+
+@ Ten Buildings: the Doubles mat is building 2, and stays locked until
+@ building 1 is cleared - see IsDoublesMatUnlocked() in src/facility.c.
+@ Was named plain "FacilityAttendant" before building 1 existed; renamed
+@ for symmetry with FacilityAttendantB1 above.
+BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB2::
+	lock
+	faceplayer
+	special IsDoublesMatUnlocked
+	goto_if_eq VAR_RESULT, FALSE, Facility_MatLocked
+	setvar VAR_0x8004, FACILITY_BUILDING_2
+	special IsFacilityRunActiveForBuilding
+	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
+	special IsFacilityRunActiveForDifferentBuilding
+	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
+	msgbox Facility_Text_AskEnter, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Facility_Decline
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
+	setvar VAR_0x8004, FACILITY_BUILDING_2
+	special FacilityStartRun
+	call Common_EventScript_SaveGame
+	goto Facility_DoBattle
+	end
+
+Facility_MatLocked:
+	msgbox Facility_Text_MatNotOpenYet, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Facility_ResumeRun:
+	msgbox Facility_Text_WelcomeBack, MSGBOX_DEFAULT
+	goto Facility_DoBattle
+	end
+
+@ Only one run can be active at a time (run-loop-spec.md). Reached if the
+@ player starts a run at one mat, then walks over and talks to a
+@ *different* mat's attendant before finishing it.
+Facility_BusyElsewhere:
+	msgbox Facility_Text_BusyElsewhere, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Facility_NotEligible:
+	msgbox Facility_Text_NotEligible, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Facility_Decline:
+	msgbox Facility_Text_Decline, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ Shared between every mat's run - which building's battle-label switch to
+@ use is read back from the save (gSaveBlock3Ptr->facility.run.building),
+@ not hardcoded, so this and everything below it (AfterPoolBattle,
+@ AfterBossBattle, Lost) works unmodified as more buildings get real data.
+Facility_DoBattle:
+	special FacilityIsBossBattle
+	goto_if_eq VAR_RESULT, TRUE, Facility_Battle_Boss
+	special FacilityGetDrawnPoolIndex
+	copyvar VAR_TEMP_2, VAR_RESULT
+	special GetFacilityRunBuilding
+	copyvar VAR_TEMP_3, VAR_RESULT
+	copyvar VAR_RESULT, VAR_TEMP_2
+	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_1, Facility_DoBattle_B1
+	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_2, Facility_DoBattle_B2
+	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_3, Facility_DoBattle_B3
+	goto Facility_DoBattle_B4
+	end
+
+Facility_Battle_Boss:
+	special GetFacilityRunBuilding
+	goto_if_eq VAR_RESULT, FACILITY_BUILDING_1, Facility_Battle_Boss_B1
+	goto_if_eq VAR_RESULT, FACILITY_BUILDING_2, Facility_Battle_Boss_B2
+	goto_if_eq VAR_RESULT, FACILITY_BUILDING_3, Facility_Battle_Boss_B3
+	goto Facility_Battle_Boss_B4
+
+Facility_Battle_Boss_B1:
+	trainerbattle_single TRAINER_FACILITY_B1_BOSS_HELIS, Facility_B1_Text_BossIntro, Facility_B1_Text_BossDefeat, Facility_AfterBossBattle
+	end
+
+Facility_Battle_Boss_B2:
+	trainerbattle_double TRAINER_FACILITY_B2_BOSS_NERYS, Facility_Text_BossIntro, Facility_Text_BossDefeat, Facility_Text_NotEnoughMons, Facility_AfterBossBattle
+	end
+
+Facility_Battle_Boss_B3:
+	trainerbattle_single TRAINER_FACILITY_B3_BOSS_KASRA, Facility_B3_Text_BossIntro, Facility_B3_Text_BossDefeat, Facility_AfterBossBattle
+	end
+
+Facility_Battle_Boss_B4:
+	trainerbattle_double TRAINER_FACILITY_B4_BOSS_IYLA, Facility_B4_Text_BossIntro, Facility_B4_Text_BossDefeat, Facility_Text_NotEnoughMons, Facility_AfterBossBattle
+	end
+
+Facility_DoBattle_B1:
+	switch VAR_RESULT
+	case 0, Facility_B1_Battle_EMBER
+	case 1, Facility_B1_Battle_BROOK
+	case 2, Facility_B1_Battle_FERN
+	case 3, Facility_B1_Battle_VOLT
+	case 4, Facility_B1_Battle_MARLO
+	case 5, Facility_B1_Battle_MIRA
+	case 6, Facility_B1_Battle_SABLE
+	case 7, Facility_B1_Battle_GALE
+	case 8, Facility_B1_Battle_CASS
+	case 9, Facility_B1_Battle_DEX
+	case 10, Facility_B1_Battle_QUARRY
+	case 11, Facility_B1_Battle_NYX
+	end
+
+Facility_B1_Battle_EMBER:
+	trainerbattle_single TRAINER_FACILITY_B1_01_EMBER, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B1_Battle_BROOK:
+	trainerbattle_single TRAINER_FACILITY_B1_02_BROOK, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B1_Battle_FERN:
+	trainerbattle_single TRAINER_FACILITY_B1_03_FERN, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B1_Battle_VOLT:
+	trainerbattle_single TRAINER_FACILITY_B1_04_VOLT, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B1_Battle_MARLO:
+	trainerbattle_single TRAINER_FACILITY_B1_05_MARLO, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B1_Battle_MIRA:
+	trainerbattle_single TRAINER_FACILITY_B1_06_MIRA, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B1_Battle_SABLE:
+	trainerbattle_single TRAINER_FACILITY_B1_07_SABLE, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B1_Battle_GALE:
+	trainerbattle_single TRAINER_FACILITY_B1_08_GALE, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B1_Battle_CASS:
+	trainerbattle_single TRAINER_FACILITY_B1_09_CASS, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B1_Battle_DEX:
+	trainerbattle_single TRAINER_FACILITY_B1_10_DEX, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B1_Battle_QUARRY:
+	trainerbattle_single TRAINER_FACILITY_B1_11_QUARRY, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B1_Battle_NYX:
+	trainerbattle_single TRAINER_FACILITY_B1_12_NYX, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_DoBattle_B2:
+	switch VAR_RESULT
+	case 0, Facility_Battle_A1
+	case 1, Facility_Battle_A2
+	case 2, Facility_Battle_B4
+	case 3, Facility_Battle_B6
+	case 4, Facility_Battle_C7
+	case 5, Facility_Battle_D11
+	end
+
+Facility_Battle_A1:
+	trainerbattle_double TRAINER_FACILITY_B2_A1_FAULT, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_Battle_A2:
+	trainerbattle_double TRAINER_FACILITY_B2_A2_UNDERTOW, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_Battle_B4:
+	trainerbattle_double TRAINER_FACILITY_B2_B4_SPORECLOUD, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_Battle_B6:
+	trainerbattle_double TRAINER_FACILITY_B2_B6_LIGHTNINGROD, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_Battle_C7:
+	trainerbattle_double TRAINER_FACILITY_B2_C7_OPENINGACT, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_Battle_D11:
+	trainerbattle_double TRAINER_FACILITY_B2_D11_INVERSION, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_DoBattle_B3:
+	switch VAR_RESULT
+	case 0, Facility_B3_Battle_DOWNPOUR
+	case 1, Facility_B3_Battle_DELUGE
+	case 2, Facility_B3_Battle_THUNDER
+	case 3, Facility_B3_Battle_SOLARFLARE
+	case 4, Facility_B3_Battle_HEATHAZE
+	case 5, Facility_B3_Battle_SCORCHED
+	case 6, Facility_B3_Battle_DUSTSTORM
+	case 7, Facility_B3_Battle_ATTRITION
+	case 8, Facility_B3_Battle_GRIT
+	case 9, Facility_B3_Battle_WHITEOUT
+	case 10, Facility_B3_Battle_OVERGROWTH
+	case 11, Facility_B3_Battle_STATFIELD
+	end
+
+Facility_B3_Battle_DOWNPOUR:
+	trainerbattle_single TRAINER_FACILITY_B3_A1_DOWNPOUR, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B3_Battle_DELUGE:
+	trainerbattle_single TRAINER_FACILITY_B3_A2_DELUGE, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B3_Battle_THUNDER:
+	trainerbattle_single TRAINER_FACILITY_B3_A3_THUNDER, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B3_Battle_SOLARFLARE:
+	trainerbattle_single TRAINER_FACILITY_B3_B4_SOLARFLARE, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B3_Battle_HEATHAZE:
+	trainerbattle_single TRAINER_FACILITY_B3_B5_HEATHAZE, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B3_Battle_SCORCHED:
+	trainerbattle_single TRAINER_FACILITY_B3_B6_SCORCHED, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B3_Battle_DUSTSTORM:
+	trainerbattle_single TRAINER_FACILITY_B3_C7_DUSTSTORM, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B3_Battle_ATTRITION:
+	trainerbattle_single TRAINER_FACILITY_B3_C8_ATTRITION, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B3_Battle_GRIT:
+	trainerbattle_single TRAINER_FACILITY_B3_C9_GRIT, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B3_Battle_WHITEOUT:
+	trainerbattle_single TRAINER_FACILITY_B3_D10_WHITEOUT, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B3_Battle_OVERGROWTH:
+	trainerbattle_single TRAINER_FACILITY_B3_D11_OVERGROWTH, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B3_Battle_STATFIELD:
+	trainerbattle_single TRAINER_FACILITY_B3_D12_STATFIELD, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_DoBattle_B4:
+	switch VAR_RESULT
+	case 0, Facility_B4_Battle_JETSTREAM
+	case 1, Facility_B4_Battle_HEADWIND
+	case 2, Facility_B4_Battle_CROSSWIND
+	case 3, Facility_B4_Battle_STANDSTILL
+	case 4, Facility_B4_Battle_DEADWEIGHT
+	case 5, Facility_B4_Battle_SLOWBURN
+	case 6, Facility_B4_Battle_VERDANT
+	case 7, Facility_B4_Battle_MINDFIELD
+	case 8, Facility_B4_Battle_LIVEWIRE
+	case 9, Facility_B4_Battle_DRAGNET
+	case 10, Facility_B4_Battle_STATCLING
+	case 11, Facility_B4_Battle_CHECKMATE
+	end
+
+Facility_B4_Battle_JETSTREAM:
+	trainerbattle_double TRAINER_FACILITY_B4_A1_JETSTREAM, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B4_Battle_HEADWIND:
+	trainerbattle_double TRAINER_FACILITY_B4_A2_HEADWIND, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B4_Battle_CROSSWIND:
+	trainerbattle_double TRAINER_FACILITY_B4_A3_CROSSWIND, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B4_Battle_STANDSTILL:
+	trainerbattle_double TRAINER_FACILITY_B4_B4_STANDSTILL, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B4_Battle_DEADWEIGHT:
+	trainerbattle_double TRAINER_FACILITY_B4_B5_DEADWEIGHT, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B4_Battle_SLOWBURN:
+	trainerbattle_double TRAINER_FACILITY_B4_B6_SLOWBURN, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B4_Battle_VERDANT:
+	trainerbattle_double TRAINER_FACILITY_B4_C7_VERDANT, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B4_Battle_MINDFIELD:
+	trainerbattle_double TRAINER_FACILITY_B4_C8_MINDFIELD, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B4_Battle_LIVEWIRE:
+	trainerbattle_double TRAINER_FACILITY_B4_C9_LIVEWIRE, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B4_Battle_DRAGNET:
+	trainerbattle_double TRAINER_FACILITY_B4_D10_DRAGNET, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B4_Battle_STATCLING:
+	trainerbattle_double TRAINER_FACILITY_B4_D11_STATCLING, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B4_Battle_CHECKMATE:
+	trainerbattle_double TRAINER_FACILITY_B4_D12_CHECKMATE, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+@ Shared continuation for every pool battle in every building. Reached
+@ whether the battle was won or lost - see the IsPlayerDefeated() branch in
+@ src/battle_setup.c's CB2_EndTrainerBattle, patched to resume the script
+@ instead of whiting out while IsFacilityRunActive().
+Facility_AfterPoolBattle:
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_ne VAR_RESULT, B_OUTCOME_WON, Facility_Lost
+	special HealPlayerParty
+	special RestoreFacilityHeldItems
+	special FacilityGetBattleWonInfo
+	copyvar VAR_TEMP_5, VAR_RESULT
+	buffernumberstring STR_VAR_2, VAR_0x8008
+	special FacilityAwardBattleFP
+	special FacilityAdvanceBattleNum
+	call Common_EventScript_SaveGame
+	msgbox Facility_Text_BattleWon, MSGBOX_DEFAULT
+	goto_if_eq VAR_TEMP_5, TRUE, Facility_BossUpNext
+	goto Facility_PostWinMenu
+	end
+
+Facility_BossUpNext:
+	msgbox Facility_Text_BossUpNext, MSGBOX_DEFAULT
+	goto Facility_PostWinMenu
+	end
+
+@ Ten Buildings: only offered between pool battles, not after the boss -
+@ "Continue" has nothing left to continue to once the building's cleared,
+@ so Facility_AfterBossBattle below goes straight to the building-complete
+@ message instead of here.
+Facility_PostWinMenu:
+	setvar VAR_0x8004, SCROLL_MULTI_TEN_BUILDINGS_POST_BATTLE
+	special ShowScrollableMultichoice
+	switch VAR_RESULT
+	case 0, Facility_DoBattle
+	case 1, Facility_RearrangeParty
+	case 2, Facility_ConfirmQuit
+	case MULTI_B_PRESSED, Facility_DoBattle
+	end
+
+@ A real swap of the Pokemon data, not just a lead pick - see
+@ FacilitySwapPartyMonSlots() in src/facility.c for why. One swap per visit
+@ to this menu; picking "Rearrange Party" again from Facility_PostWinMenu
+@ does another.
+Facility_RearrangeParty:
+	msgbox Facility_Text_ChooseMonToMove, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, Facility_PostWinMenu
+	copyvar VAR_TEMP_4, VAR_0x8004
+	msgbox Facility_Text_ChooseMonToSwapWith, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, Facility_PostWinMenu
+	copyvar VAR_0x8005, VAR_0x8004
+	copyvar VAR_0x8004, VAR_TEMP_4
+	special FacilitySwapPartyMonSlots
+	msgbox Facility_Text_SwappedMons, MSGBOX_DEFAULT
+	goto Facility_PostWinMenu
+	end
+
+Facility_ConfirmQuit:
+	msgbox Facility_Text_ConfirmQuit, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Facility_PostWinMenu
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_PostWinMenu
+	special FacilityAbandonRun
+	call Common_EventScript_SaveGame
+	msgbox Facility_Text_QuitConfirmed, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Facility_AfterBossBattle:
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_ne VAR_RESULT, B_OUTCOME_WON, Facility_Lost
+	special HealPlayerParty
+	special RestoreFacilityHeldItems
+	special GetFacilityRunBuilding
+	copyvar VAR_TEMP_2, VAR_RESULT
+	special FacilityCompleteBuilding
+	call Common_EventScript_SaveGame
+	goto_if_eq VAR_TEMP_2, FACILITY_BUILDING_1, Facility_B1_BuildingComplete
+	msgbox Facility_Text_BuildingComplete, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Facility_B1_BuildingComplete:
+	msgbox Facility_B1_Text_BuildingComplete, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ Ten Buildings: heals and restores held items on a loss too, not just a
+@ win - CLAUDE.md's "Full heal between every battle" applies regardless of
+@ outcome. FP already earned and the run being over are unaffected either
+@ way (FacilityAbandonRun doesn't touch FP - see run-loop-spec.md's
+@ "Losing" section).
+Facility_Lost:
+	special HealPlayerParty
+	special RestoreFacilityHeldItems
+	special FacilityAbandonRun
+	special FacilitySilentSave
+	msgbox Facility_Text_Lost, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Facility_Text_AskEnter:
+	.string "Welcome to the Second Slot!\p"
+	.string "This is a Doubles gauntlet - six battles,\n"
+	.string "then a boss. Your whole party of six\l"
+	.string "enters, and it's locked once you begin.\p"
+	.string "Ready to start?$"
+
+Facility_B1_Text_AskEnter:
+	.string "Welcome to Little League!\p"
+	.string "This is a Singles gauntlet - six battles,\n"
+	.string "then a boss. Your whole party of six\l"
+	.string "enters, and it's locked once you begin.\p"
+	.string "Ready to start?$"
+
+Facility_B3_Text_AskEnter:
+	.string "Welcome to the Changing Sky!\p"
+	.string "This is a Singles gauntlet - six battles,\n"
+	.string "then a boss. Your whole party of six\l"
+	.string "enters, and it's locked once you begin.\p"
+	.string "Ready to start?$"
+
+Facility_B4_Text_AskEnter:
+	.string "Welcome to the Turn Order!\p"
+	.string "This is a Doubles gauntlet - six battles,\n"
+	.string "then a boss. Your whole party of six\l"
+	.string "enters, and it's locked once you begin.\p"
+	.string "Ready to start?$"
+
+Facility_Text_WelcomeBack:
+	.string "Welcome back! Picking up where you\n"
+	.string "left off.$"
+
+Facility_Text_ChooseMonToMove:
+	.string "Which POKéMON would you like to\n"
+	.string "move?$"
+
+Facility_Text_ChooseMonToSwapWith:
+	.string "Swap it with which POKéMON?$"
+
+Facility_Text_SwappedMons:
+	.string "Done! Your team's back in order.$"
+
+Facility_Text_ConfirmQuit:
+	.string "Quitting now ends your streak here,\n"
+	.string "but you keep every bit of FP you've\l"
+	.string "earned so far.\p"
+	.string "Are you sure?$"
+
+Facility_Text_QuitConfirmed:
+	.string "All right. Come back and try again\n"
+	.string "whenever you're ready.$"
+
+Facility_Text_MatNotOpenYet:
+	.string "This mat isn't open yet - clear the\n"
+	.string "one before it first.$"
+
+Facility_Text_BusyElsewhere:
+	.string "You've already got a challenge going\n"
+	.string "at another mat. Finish that one first.$"
+
+Facility_Text_NotEligible:
+	.string "You'll need exactly six POKéMON in\n"
+	.string "your party before you can enter.$"
+
+Facility_Text_Decline:
+	.string "Come back when you're ready.$"
+
+Facility_Text_Intro:
+	.string "Let's go!$"
+
+Facility_Text_Defeat:
+	.string "Well fought!$"
+
+Facility_Text_NotEnoughMons:
+	.string "Come back when you have enough\n"
+	.string "POKéMON able to battle.$"
+
+Facility_Text_BossIntro:
+	.string "I'm Tidewarden Nerys - the last one\n"
+	.string "standing between you and the next tier.\p"
+	.string "Let's see what you've got!$"
+
+Facility_B1_Text_BossIntro:
+	.string "I'm Warden Helis. I've been waiting\n"
+	.string "for someone worth the trouble.\p"
+	.string "Let's see what you've got!$"
+
+Facility_Text_BossDefeat:
+	.string "The tide turns. Well earned.$"
+
+Facility_B1_Text_BossDefeat:
+	.string "Heh. Not bad at all.$"
+
+Facility_B3_Text_BossIntro:
+	.string "I'm Dunewarden Kasra. The sand doesn't\n"
+	.string "settle until one of us does.\p"
+	.string "Let's see what you've got!$"
+
+Facility_B3_Text_BossDefeat:
+	.string "The wind's changed. Well fought.$"
+
+Facility_B4_Text_BossIntro:
+	.string "I'm Timewarden Iyla. Everyone thinks\n"
+	.string "they control the turn order.\p"
+	.string "Let's see what you've got!$"
+
+Facility_B4_Text_BossDefeat:
+	.string "Out of time. Well played.$"
+
+Facility_Text_BattleWon:
+	.string "That's your {STR_VAR_1} win! Here's\n"
+	.string "{STR_VAR_2} FP for the trouble.\p"
+	.string "Your team is fully restored - held\n"
+	.string "items included. Ready when you are.$"
+
+Facility_Text_BossUpNext:
+	.string "Six down - that's the whole lineup.\n"
+	.string "The boss is up next. Good luck.$"
+
+Facility_Text_BuildingComplete:
+	.string "That's building 2, cleared! The next\n"
+	.string "tier is open to you.$"
+
+Facility_B1_Text_BuildingComplete:
+	.string "That's building 1, cleared! The next\n"
+	.string "tier is open to you.$"
+
+Facility_Text_Lost:
+	.string "Tough break. The streak ends here, but\n"
+	.string "everything you earned is still yours.\p"
+	.string "Come back and try again whenever\n"
+	.string "you're ready.$"

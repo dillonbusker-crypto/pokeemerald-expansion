@@ -1,0 +1,276 @@
+# Shop Spec — Starting Inventory
+
+Four keepers in the Exchange Service Corner, replacing the vanilla BP vendors.
+This document covers **game start**, meaning building 1 unlocked and nothing
+else.
+
+Player arrives with 6 Pokémon and **300 FP**.
+
+---
+
+## The four keepers
+
+| # | Keeper | Sells | Stocked at start? |
+|---|---|---|---|
+| 1 | Consumables | Berries — recovery, resist, pinch-activated | Yes |
+| 2 | Held items | Everything permanent — boosters, Leftovers, Choice, Sash, rocks | Yes |
+| 3 | Mega Stones | The sixteen stones | **No — unlocks building 6** |
+| 4 | Pokémon | The species pool for unlocked tiers | Yes |
+
+**Keepers 3 has nothing at start.** Give it dialogue rather than an empty menu —
+something that signals the shop exists and will matter later.
+
+**Note on "consumables."** Held items restore after every battle in this game,
+so berries aren't consumed in the economic sense. Keeper 1 is a shelf
+organization, not a different purchase model. If that's confusing, the
+alternative split is offensive items / defensive items.
+
+---
+
+## Keeper 1 — Consumables (starting stock)
+
+| Item | FP | Effect |
+|---|---|---|
+| Figy Berry | 80 | Restores HP below 25%. Confuses if nature lowers Attack |
+| Wiki Berry | 80 | Restores HP below 25%. Confuses if nature lowers Sp. Attack |
+| Mago Berry | 80 | Restores HP below 25%. Confuses if nature lowers Speed |
+| Aguav Berry | 80 | Restores HP below 25%. Confuses if nature lowers Sp. Defense |
+| Iapapa Berry | 80 | Restores HP below 25%. Confuses if nature lowers Defense |
+| Liechi Berry | 100 | +1 Attack below 25% HP |
+| Petaya Berry | 100 | +1 Sp. Attack below 25% HP |
+
+**The confusion mechanic should be surfaced in the shop.** A player who buys a
+Figy Berry for a Bold Pokémon has bought a liability, and nothing in the game
+tells them so. A one-line description naming which nature each berry suits is
+the cheapest fix.
+
+Sitrus Berry and Lum Berry unlock at building 2. Resist berries at building 2.
+
+---
+
+## Keeper 2 — Held items (starting stock)
+
+| Item | FP | Effect |
+|---|---|---|
+| Leftovers | 150 | Restores 1/16 max HP each turn |
+| Charcoal | 60 | Fire moves +20% |
+| Mystic Water | 60 | Water moves +20% |
+| Miracle Seed | 60 | Grass moves +20% |
+| Magnet | 60 | Electric moves +20% |
+| Never-Melt Ice | 60 | Ice moves +20% |
+| Black Belt | 60 | Fighting moves +20% |
+| Poison Barb | 60 | Poison moves +20% |
+| Soft Sand | 60 | Ground moves +20% |
+| Sharp Beak | 60 | Flying moves +20% |
+| Twisted Spoon | 60 | Psychic moves +20% |
+| Silver Powder | 60 | Bug moves +20% |
+| Hard Stone | 60 | Rock moves +20% |
+| Spell Tag | 60 | Ghost moves +20% |
+| Dragon Fang | 60 | Dragon moves +20% |
+| Black Glasses | 60 | Dark moves +20% |
+| Metal Coat | 60 | Steel moves +20% |
+| Silk Scarf | 60 | Normal moves +20% |
+| Fairy Feather | 60 | Fairy moves +20% |
+
+Leftovers is the only item here with real strategic weight at tier 1, which is
+why it's priced at more than double the boosters.
+
+---
+
+## Keeper 3 — Mega Stones
+
+**Empty until building 6.** Full stock when it opens, at 900 FP each:
+
+Venusaurite, Manectite, Scizorite, Gardevoirite, Aggronite, Ampharosite.
+
+Stronger stones follow at buildings 7 and 8.
+
+---
+
+## Keeper 4 — Pokémon (starting stock)
+
+Building 1's pool, BST cap 420, banned species excluded. Priced by competitive
+viability rather than BST — which means the answers to the building 1 boss are
+the expensive ones.
+
+### Premium — 250 FP
+
+The tier's genuinely strong picks.
+
+Sableye, Parasect, Ferroseed, Butterfree, Murkrow, Mawile, Roselia, Gabite
+
+### Strong — 200 FP
+
+Haunter, Pawniard, Croagunk, Mienfoo, Scraggy, Gurdurr, Metang, Porygon,
+Sudowoodo, Pupitar, Krokorok, Mightyena, Masquerain, Ariados, Marshtomp,
+Chinchou, Dunsparce, Drifloon, Vullaby, Natu, Solosis, Toxapex-line (Mareanie)
+
+### Standard — 150 FP
+
+Combusken, Monferno, Frogadier, Dewott, Quilladin, Grovyle, Ivysaur, Servine,
+Dartrix, Thwackey, Floragato, Torracat, Raboot, Crocalor, Braixen, Quaxwell,
+Brionne, Drizzile, Croconaw, Prinplup, Wartortle, Quilava, Charmeleon,
+Pignite, Grotle, Bayleef, Luxio, Flaaffy, Magnemite, Machoke, Graveler,
+Fletchinder, Staravia, Kadabra, Lampent, Morgrem, Whirlipede, Nidorino,
+Nidorina, Koffing, Skrelp, Stunky, Boldore, Onix, Mudbray, Palpitoad,
+Kricketune, Beedrill, Yanma, Furret, Raticate, Lickitung, Chatot, Woobat,
+Rufflet, Pancham, Stufful, Timburr, Zorua, Espurr, Munna, Bronzor, Drowzee,
+Spoink, Kirlia, Nosepass, Charjabug, Joltik, Elekid, Corsola, Staryu,
+Poliwhirl, Foongus, Ponyta, Growlithe, Larvesta, Pidgeotto, Tranquill
+
+### Budget — 100 FP
+
+Spinda, Delcatty, Aipom, Teddiursa, Ledian, Dustox, Beautifly, Plusle, Minun,
+Pachirisu, Grimer, Kricketune
+
+---
+
+## Economy check at game start
+
+| | |
+|---|---|
+| Starting FP | 300 |
+| Sell-back on a starting Pokémon | 50% of tier price |
+| A building 1 clear yields | ~160 FP |
+
+300 FP buys one premium Pokémon and change, or two standard ones, or Leftovers
+plus two boosters. Since the player starts with a full six, the realistic
+opening move is items rather than roster.
+
+**Watch this number in playtesting.** If 300 doesn't cover a Leftovers plus the
+type-boosters a starting six wants, raise it. It's a single constant and easy
+to retune.
+
+---
+
+## Unlock schedule for the keepers
+
+| Building cleared | Keeper 1 gains | Keeper 2 gains | Keeper 4 gains |
+|---|---|---|---|
+| 1 | Sitrus, Lum, resist berries | — | ≤500 BST pool |
+| 2 | — | Weather rocks, terrain seeds, Eviolite, Safety Goggles | ≤550 BST pool |
+| 3 | — | Focus Sash, Assault Vest, Life Orb, Heavy-Duty Boots | ≤599 BST pool |
+| 4 | — | Weakness Policy, Rocky Helmet, Mental Herb, Clear Amulet | 600 pseudo-legendaries |
+| 5 | — | Covert Cloak, Light Clay, Ability Shield, Utility Umbrella | — |
+| 6 | — | — | Legendaries, Paradox, Ultra Beasts (curated) |
+| 7 | — | Booster Energy | Full 600 legendary set |
+| 8 | — | — | 680 box-art legendaries (curated) |
+| 9 | — | Orbs | Unrestricted |
+
+Keeper 3 opens after building 5 with the first six stones, gains stronger
+stones after 6, the remainder after 7, and legendary stones after 9.
+
+**Building 1's unlock is specced in full in `shop-unlock-b2.md`.**
+
+**The shop unlocks on clearing building N, not on entering N+1.** That matters
+because the player needs to spend their winnings before the next gauntlet, not
+during it.
+
+---
+
+## Open questions for implementation
+
+1. **Menu structure for 105 Pokémon.** One list is unusable. Options: filter by
+   type, filter by price band, or curate the tier-1 pool down to ~40. I'd lean
+   toward type submenus, since the player is usually shopping to fill a
+   specific role.
+2. **Does the shop show stats?** A player choosing between Ferroseed and
+   Parasect with no visible base stats is guessing. At minimum: types, ability,
+   and BST.
+3. **Purchased Pokémon arrive with what?** Level 50 is a given. Neutral nature,
+   zero EVs, 31 IVs and the level-up moveset is the sensible default, since the
+   player edits all of it immediately anyway.
+4. **Which ability?** Shop-controlled, per the Blaziken restriction in the tier
+   docs. Simplest is selling each species with its best legal ability, with
+   named exceptions where that would break the tier.
+
+---
+
+# Economy
+
+## Earning
+
+| Source | FP |
+|---|---|
+| Each battle won | **75** |
+| Defeating the building boss | **450** |
+| **Full clear of a building** | **900** |
+
+Flat across all ten buildings. Starting grant remains 300 FP.
+
+**Partial runs pay properly.** A run that dies at battle four still banks 225
+FP. That makes the anti-soft-lock grind real rather than theoretical — a player
+who spends badly can always re-enter the current building and earn their way
+out, slowly.
+
+## Pricing — tier 2 baseline
+
+Set so the win-count reads cleanly:
+
+| Band | FP | Wins to afford |
+|---|---|---|
+| Standard | 150 | 2 |
+| Strong | 225 | 3 |
+| Premium | 300 | 4 |
+
+A full clear buys roughly three premium picks, or six standard ones, or a mix
+of Pokémon and items. Enough to reshape a team for the next building, not
+enough to rebuild it.
+
+## Pricing — the ladder question
+
+Flat FP means **prices must rise or late buildings become trivial**. A box-art
+legendary at building 9 costing the same as a Furret is not a decision.
+
+Two coherent options:
+
+### Option A — prices scale, purchase count stays constant
+
+Multiply each band by roughly 1.4 per tier so the player always affords about
+three or four new pieces per building.
+
+| Building | Standard | Strong | Premium | Purchases per clear |
+|---|---|---|---|---|
+| 1 | 100 | 150 | 250 | 4–6 |
+| 2 | 150 | 225 | 300 | 3–6 |
+| 3 | 200 | 300 | 400 | 2–4 |
+| 4 | 250 | 375 | 500 | 2–3 |
+| 5 | 300 | 450 | 600 | 1–3 |
+| 6 | 350 | 525 | 700 | 1–2 (+ Mega Stones at 900) |
+| 7 | 400 | 600 | 800 | 1–2 |
+| 8 | 450 | 675 | 900 | 1–2 |
+| 9 | 550 | 825 | 1100 | ~1 |
+| 10 | 650 | 975 | 1300 | ~1 |
+
+The curve tightens naturally. Early buildings are about breadth; late ones are
+about one decisive acquisition. That's a good arc, and it means the final
+buildings feel like real commitments.
+
+### Option B — prices stay flat, the player accumulates
+
+Keep 150/225/300 throughout. By building 9 the player owns a deep roster and
+buys freely. Progression becomes about *access* — what's unlocked — rather than
+affordability.
+
+Simpler, and it removes the risk of a player stalling out late. But it also
+removes the "always choosing" tension the design was built around, and a
+legendary costing two wins undercuts its arrival.
+
+**Recommendation: Option A.** It preserves the decision at every tier, and the
+ladder above is a single table to tune.
+
+## The check to run in playtesting
+
+**If the player consistently banks more than ~1500 FP, prices are too low.**
+That's the signal to raise the band, not to cut FP earnings — earnings are what
+make failed runs survivable.
+
+The reverse signal: if a player ever sits at under 200 FP with no viable
+purchase after clearing a building, the bands are too high.
+
+## Sell-back
+
+50% of the current tier price. Note that selling the five granted starting
+Pokémon nets roughly 450 FP, which is effectively a second starting grant for a
+player willing to commit to a narrower team early. That's an interesting
+option — worth leaving in rather than blocking.

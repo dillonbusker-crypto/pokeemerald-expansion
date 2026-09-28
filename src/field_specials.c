@@ -16,6 +16,7 @@
 #include "field_message_box.h"
 #include "field_player_avatar.h"
 #include "field_screen_effect.h"
+#include "facility_shop.h"
 #include "field_specials.h"
 #include "field_weather.h"
 #include "graphics.h"
@@ -57,6 +58,7 @@
 #include "wallclock.h"
 #include "window.h"
 #include "constants/battle_frontier.h"
+#include "constants/tms_hms.h"
 #include "constants/battle_pyramid.h"
 #include "constants/battle_tower.h"
 #include "constants/decorations.h"
@@ -141,11 +143,11 @@ static void ScrollableMultichoice_UpdateScrollArrows(u8);
 static void ScrollableMultichoice_MoveCursor(s32, bool8, struct ListMenu *);
 static void HideFrontierExchangeCornerItemIcon(enum ScrollMulti, u16);
 static void ShowBattleFrontierTutorMoveDescription(enum ScrollMulti, u16);
+static void FacilityShopPrintPriceInList(u8, u32, u8);
 static void CloseScrollableMultichoice(u8);
 static void ScrollableMultichoice_RemoveScrollArrows(u8);
 static void Task_ScrollableMultichoice_WaitReturnToList(u8);
 static void Task_ScrollableMultichoice_ReturnToList(u8);
-static void ShowFrontierExchangeCornerItemIcon(enum Item);
 static void Task_DeoxysRockInteraction(u8);
 static void ChangeDeoxysRockLevel(u8);
 static void WaitForDeoxysRockMovement(u8);
@@ -2383,46 +2385,6 @@ void ShowScrollableMultichoice(void)
         task->tKeepOpenAfterSelect = FALSE;
         task->tTaskId = taskId;
         break;
-    case SCROLL_MULTI_BF_EXCHANGE_CORNER_DECOR_VENDOR_1:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 11;
-        task->tLeft = 14;
-        task->tTop = 1;
-        task->tWidth = 15;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_BF_EXCHANGE_CORNER_DECOR_VENDOR_2:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 6;
-        task->tLeft = 14;
-        task->tTop = 1;
-        task->tWidth = 15;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_BF_EXCHANGE_CORNER_VITAMIN_VENDOR:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 7;
-        task->tLeft = 14;
-        task->tTop = 1;
-        task->tWidth = 15;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
-    case SCROLL_MULTI_BF_EXCHANGE_CORNER_HOLD_ITEM_VENDOR:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 10;
-        task->tLeft = 14;
-        task->tTop = 1;
-        task->tWidth = 15;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
     case SCROLL_MULTI_BERRY_POWDER_VENDOR:
         task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
         task->tNumItems = 12;
@@ -2496,6 +2458,40 @@ void ShowScrollableMultichoice(void)
         task->tScrollOffset = sElevatorScroll;
         task->tSelectedRow = sElevatorCursorPos;
         break;
+    case SCROLL_MULTI_TEN_BUILDINGS_MON_TIER_SELECT:
+        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
+        task->tNumItems = 5;
+        task->tLeft = 14;
+        task->tTop = 1;
+        task->tWidth = 15;
+        task->tHeight = 12;
+        task->tKeepOpenAfterSelect = FALSE;
+        task->tTaskId = taskId;
+        break;
+    // Consumables, held items, and every Pokemon tier/type list - see the
+    // enum comment in include/constants/field_specials.h. tNumItems comes
+    // from whatever src/facility_shop.c staged, not a literal, so this one
+    // case covers every unlock past and future without changing.
+    case SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC:
+        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
+        task->tNumItems = FacilityShopGetMenuCount();
+        task->tLeft = 12;
+        task->tTop = 1;
+        task->tWidth = 17;
+        task->tHeight = 12;
+        task->tKeepOpenAfterSelect = FALSE;
+        task->tTaskId = taskId;
+        break;
+    case SCROLL_MULTI_TEN_BUILDINGS_POST_BATTLE:
+        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
+        task->tNumItems = 3;
+        task->tLeft = 14;
+        task->tTop = 1;
+        task->tWidth = 15;
+        task->tHeight = 12;
+        task->tKeepOpenAfterSelect = FALSE;
+        task->tTaskId = taskId;
+        break;
     default:
         gSpecialVar_Result = MULTI_B_PRESSED;
         DestroyTask(taskId);
@@ -2534,52 +2530,6 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
         COMPOUND_STRING("90 pts"),
         COMPOUND_STRING("100 pts"),
         COMPOUND_STRING("?")
-    },
-    [SCROLL_MULTI_BF_EXCHANGE_CORNER_DECOR_VENDOR_1] =
-    {
-        COMPOUND_STRING("KISS POSTER{CLEAR_TO 94}16BP"),
-        COMPOUND_STRING("KISS CUSHION{CLEAR_TO 94}32BP"),
-        COMPOUND_STRING("SMOOCHUM DOLL{CLEAR_TO 94}32BP"),
-        COMPOUND_STRING("TOGEPI DOLL{CLEAR_TO 94}48BP"),
-        COMPOUND_STRING("MEOWTH DOLL{CLEAR_TO 94}48BP"),
-        COMPOUND_STRING("CLEFAIRY DOLL{CLEAR_TO 94}48BP"),
-        COMPOUND_STRING("DITTO DOLL{CLEAR_TO 94}48BP"),
-        COMPOUND_STRING("CYNDAQUIL DOLL{CLEAR_TO 94}80BP"),
-        COMPOUND_STRING("CHIKORITA DOLL{CLEAR_TO 94}80BP"),
-        COMPOUND_STRING("TOTODILE DOLL{CLEAR_TO 94}80BP"),
-        gText_Exit
-    },
-    [SCROLL_MULTI_BF_EXCHANGE_CORNER_DECOR_VENDOR_2] =
-    {
-        COMPOUND_STRING("LAPRAS DOLL{CLEAR_TO 88}128BP"),
-        COMPOUND_STRING("SNORLAX DOLL{CLEAR_TO 88}128BP"),
-        COMPOUND_STRING("VENUSAUR DOLL{CLEAR_TO 88}256BP"),
-        COMPOUND_STRING("CHARIZARD DOLL{CLEAR_TO 88}256BP"),
-        COMPOUND_STRING("BLASTOISE DOLL{CLEAR_TO 88}256BP"),
-        gText_Exit
-    },
-    [SCROLL_MULTI_BF_EXCHANGE_CORNER_VITAMIN_VENDOR] =
-    {
-        COMPOUND_STRING("PROTEIN{CLEAR_TO 100}1BP"),
-        COMPOUND_STRING("CALCIUM{CLEAR_TO 100}1BP"),
-        COMPOUND_STRING("IRON{CLEAR_TO 100}1BP"),
-        COMPOUND_STRING("ZINC{CLEAR_TO 100}1BP"),
-        COMPOUND_STRING("CARBOS{CLEAR_TO 100}1BP"),
-        COMPOUND_STRING("HP UP{CLEAR_TO 100}1BP"),
-        gText_Exit
-    },
-    [SCROLL_MULTI_BF_EXCHANGE_CORNER_HOLD_ITEM_VENDOR] =
-    {
-        COMPOUND_STRING("LEFTOVERS{CLEAR_TO 94}48BP"),
-        COMPOUND_STRING("WHITE HERB{CLEAR_TO 94}48BP"),
-        COMPOUND_STRING("QUICK CLAW{CLEAR_TO 94}48BP"),
-        COMPOUND_STRING("MENTAL HERB{CLEAR_TO 94}48BP"),
-        COMPOUND_STRING("BRIGHTPOWDER{CLEAR_TO 94}64BP"),
-        COMPOUND_STRING("CHOICE BAND{CLEAR_TO 94}64BP"),
-        COMPOUND_STRING("KING'S ROCK{CLEAR_TO 94}64BP"),
-        COMPOUND_STRING("FOCUS BAND{CLEAR_TO 94}64BP"),
-        COMPOUND_STRING("SCOPE LENS{CLEAR_TO 94}64BP"),
-        gText_Exit
     },
     [SCROLL_MULTI_BERRY_POWDER_VENDOR] =
     {
@@ -2683,8 +2633,30 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
         gText_2F,
         gText_1F,
         gText_Exit,
-    }
-};
+    },
+    // Ten Buildings: no price suffix here anymore - each building's wave
+    // prices its own Premium/Strong/Standard/Budget rows differently (see
+    // shop-unlock-b3.md's escalating tier prices), so a single fixed number
+    // per tier stopped being true the moment building 3's wave shipped. Sell
+    // moved up to the building-select screen (FacilityShopBuildBuildingMenu)
+    // since it isn't tied to any one building's wave.
+    [SCROLL_MULTI_TEN_BUILDINGS_MON_TIER_SELECT] =
+    {
+        COMPOUND_STRING("Premium"),
+        COMPOUND_STRING("Strong"),
+        COMPOUND_STRING("Standard"),
+        COMPOUND_STRING("Budget"),
+        gText_Exit
+    },
+    // SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC has no entry here - its rows come
+    // from src/facility_shop.c at runtime (see Task_ShowScrollableMultichoice
+    // below).
+    [SCROLL_MULTI_TEN_BUILDINGS_POST_BATTLE] =
+    {
+        COMPOUND_STRING("Continue"),
+        COMPOUND_STRING("Rearrange Party"),
+        COMPOUND_STRING("Quit"),
+    },};
 
 static void Task_ShowScrollableMultichoice(u8 taskId)
 {
@@ -2698,27 +2670,45 @@ static void Task_ShowScrollableMultichoice(u8 taskId)
     sScrollableMultichoice_ItemSpriteId = MAX_SPRITES;
     FillFrontierExchangeCornerWindowAndItemIcon(task->tScrollMultiId, 0);
     ShowBattleFrontierTutorWindow(task->tScrollMultiId, 0);
+    if (task->tScrollMultiId == SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC && FacilityShopMenuHasDescriptions())
+    {
+        ShowFacilityShopDescriptionWindow();
+        gSpecialVar_0x8004 = 0;
+        UpdateFacilityShopDescriptionWindow();
+    }
     sScrollableMultichoice_ListMenuItem = AllocZeroed(task->tNumItems * sizeof(struct ListMenuItem));
     sFrontierExchangeCorner_NeverRead = 0;
     InitScrollableMultichoice();
 
     for (width = 0, i = 0; i < task->tNumItems; i++)
     {
-        const u8 *text = sScrollableMultichoiceOptions[gSpecialVar_0x8004][i];
+        const u8 *text;
+
+        if (task->tScrollMultiId == SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC)
+            text = FacilityShopGetMenuRowName(i);
+        else
+            text = sScrollableMultichoiceOptions[gSpecialVar_0x8004][i];
         sScrollableMultichoice_ListMenuItem[i].name = text;
         sScrollableMultichoice_ListMenuItem[i].id = i;
         width = DisplayTextAndGetWidth(text, width);
     }
 
-    task->tWidth = ConvertPixelWidthToTileWidth(width);
-
-    if (task->tLeft + task->tWidth > MAX_MULTICHOICE_WIDTH + 1)
+    // The dynamic list's price column is drawn separately (see
+    // FacilityShopPrintPriceInList below) at a fixed offset past the widest
+    // reasonable name, so it keeps its geometry from ShowScrollableMultichoice
+    // instead of shrinking to whatever the names alone measure out to.
+    if (task->tScrollMultiId != SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC)
     {
-        int adjustedLeft = MAX_MULTICHOICE_WIDTH + 1 - task->tWidth;
-        if (adjustedLeft < 0)
-            task->tLeft = 0;
-        else
-            task->tLeft = adjustedLeft;
+        task->tWidth = ConvertPixelWidthToTileWidth(width);
+
+        if (task->tLeft + task->tWidth > MAX_MULTICHOICE_WIDTH + 1)
+        {
+            int adjustedLeft = MAX_MULTICHOICE_WIDTH + 1 - task->tWidth;
+            if (adjustedLeft < 0)
+                task->tLeft = 0;
+            else
+                task->tLeft = adjustedLeft;
+        }
     }
 
     template = CreateWindowTemplate(0, task->tLeft, task->tTop, task->tWidth, task->tHeight, 0xF, 0x64);
@@ -2729,6 +2719,8 @@ static void Task_ShowScrollableMultichoice(u8 taskId)
     gScrollableMultichoice_ListMenuTemplate.totalItems = task->tNumItems;
     gScrollableMultichoice_ListMenuTemplate.maxShowed = task->tMaxItemsOnScreen;
     gScrollableMultichoice_ListMenuTemplate.windowId = task->tWindowId;
+    if (task->tScrollMultiId == SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC)
+        gScrollableMultichoice_ListMenuTemplate.itemPrintFunc = FacilityShopPrintPriceInList;
 
     ScrollableMultichoice_UpdateScrollArrows(taskId);
     task->tListTaskId = ListMenuInit(&gScrollableMultichoice_ListMenuTemplate, task->tScrollOffset, task->tSelectedRow);
@@ -2758,6 +2750,38 @@ static void InitScrollableMultichoice(void)
     gScrollableMultichoice_ListMenuTemplate.cursorKind = CURSOR_BLACK_ARROW;
 }
 
+// Draws a row's FP price on the right side of the list, the same way
+// vanilla's own Pokemart list draws its Poke Dollar prices
+// (BuyMenuPrintPriceInList in src/shop.c) - a per-row callback instead of
+// baking the price into the name string, so the name can stay a bare
+// GetSpeciesName()/GetItemName() pointer with no per-row text buffer needed.
+// `id` is the row's index into src/facility_shop.c's staged list (set as
+// each ListMenuItem's `id` field in Task_ShowScrollableMultichoice above).
+static const u8 sText_FacilityShopPriceSuffix[] = _("FP");
+
+static void FacilityShopPrintPriceInList(u8 windowId, u32 id, u8 y)
+{
+    u8 string[16];
+    u8 x;
+    u16 price;
+
+    if (id == LIST_CANCEL)
+        return;
+
+    // Ten Buildings: no real row is ever 0FP, so a staged price of 0 means
+    // this row isn't a purchase at all - the type-filter menu's type/"All"
+    // rows and the building-select menu's building/"Sell" rows all stage 0
+    // here on purpose. Skip drawing a price next to a row that isn't for
+    // sale.
+    price = FacilityShopGetMenuRowPrice(id);
+    if (price == 0)
+        return;
+
+    StringCopy(ConvertIntToDecimalStringN(string, price, STR_CONV_MODE_LEFT_ALIGN, 4), sText_FacilityShopPriceSuffix);
+    x = GetStringRightAlignXOffset(FONT_NORMAL, string, 128);
+    AddTextPrinterParameterized(windowId, FONT_NORMAL, string, x, y, TEXT_SKIP_DRAW, NULL);
+}
+
 static void ScrollableMultichoice_MoveCursor(s32 itemIndex, bool8 onInit, struct ListMenu *list)
 {
     u8 taskId;
@@ -2773,6 +2797,11 @@ static void ScrollableMultichoice_MoveCursor(s32 itemIndex, bool8 onInit, struct
         HideFrontierExchangeCornerItemIcon(task->tScrollMultiId, sFrontierExchangeCorner_NeverRead);
         FillFrontierExchangeCornerWindowAndItemIcon(task->tScrollMultiId, selection);
         ShowBattleFrontierTutorMoveDescription(task->tScrollMultiId, selection);
+        if (task->tScrollMultiId == SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC && FacilityShopMenuHasDescriptions())
+        {
+            gSpecialVar_0x8004 = selection;
+            UpdateFacilityShopDescriptionWindow();
+        }
         sFrontierExchangeCorner_NeverRead = selection;
     }
 }
@@ -3096,87 +3125,21 @@ void CloseFrontierExchangeCornerItemIconWindow(void)
     RemoveWindow(sFrontierExchangeCorner_ItemIconWindowId);
 }
 
+// Ten Buildings: used to show an icon + description sidebar for the four
+// vanilla Exchange Corner BP vendors this project replaced (see the comment
+// on enum ScrollMulti in include/constants/field_specials.h). None of the
+// SCROLL_MULTI_TEN_BUILDINGS_* menus use it, so this is a no-op now, but
+// it's still called unconditionally for every scrollable multichoice
+// (see the call sites below), so it stays rather than threading a
+// conditional through both callers.
 static void FillFrontierExchangeCornerWindowAndItemIcon(enum ScrollMulti menu, u16 selection)
 {
-    #include "data/battle_frontier/battle_frontier_exchange_corner.h"
-
-    if (menu >= SCROLL_MULTI_BF_EXCHANGE_CORNER_DECOR_VENDOR_1 && menu <= SCROLL_MULTI_BF_EXCHANGE_CORNER_HOLD_ITEM_VENDOR)
-    {
-        FillWindowPixelRect(0, PIXEL_FILL(1), 0, 0, 216, 32);
-        switch (menu)
-        {
-        case SCROLL_MULTI_BF_EXCHANGE_CORNER_DECOR_VENDOR_1:
-            AddTextPrinterParameterized2(0, FONT_NORMAL, sFrontierExchangeCorner_Decor1Descriptions[selection], 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
-            if (sFrontierExchangeCorner_Decor1[selection] == ITEM_LIST_END)
-            {
-                ShowFrontierExchangeCornerItemIcon(sFrontierExchangeCorner_Decor1[selection]);
-            }
-            else
-            {
-                FreeSpriteTilesByTag(TAG_ITEM_ICON);
-                FreeSpritePaletteByTag(TAG_ITEM_ICON);
-                sScrollableMultichoice_ItemSpriteId = AddDecorationIconObject(sFrontierExchangeCorner_Decor1[selection], 33, 88, 0, TAG_ITEM_ICON, TAG_ITEM_ICON);
-            }
-            break;
-        case SCROLL_MULTI_BF_EXCHANGE_CORNER_DECOR_VENDOR_2:
-            AddTextPrinterParameterized2(0, FONT_NORMAL, sFrontierExchangeCorner_Decor2Descriptions[selection], 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
-            if (sFrontierExchangeCorner_Decor2[selection] == ITEM_LIST_END)
-            {
-                ShowFrontierExchangeCornerItemIcon(sFrontierExchangeCorner_Decor2[selection]);
-            }
-            else
-            {
-                FreeSpriteTilesByTag(TAG_ITEM_ICON);
-                FreeSpritePaletteByTag(TAG_ITEM_ICON);
-                sScrollableMultichoice_ItemSpriteId = AddDecorationIconObject(sFrontierExchangeCorner_Decor2[selection], 33, 88, 0, TAG_ITEM_ICON, TAG_ITEM_ICON);
-            }
-            break;
-        case SCROLL_MULTI_BF_EXCHANGE_CORNER_VITAMIN_VENDOR:
-            AddTextPrinterParameterized2(0, FONT_NORMAL, sFrontierExchangeCorner_VitaminsDescriptions[selection], 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
-            ShowFrontierExchangeCornerItemIcon(sFrontierExchangeCorner_Vitamins[selection]);
-            break;
-        case SCROLL_MULTI_BF_EXCHANGE_CORNER_HOLD_ITEM_VENDOR:
-            AddTextPrinterParameterized2(0, FONT_NORMAL, sFrontierExchangeCorner_HoldItemsDescriptions[selection], 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
-            ShowFrontierExchangeCornerItemIcon(sFrontierExchangeCorner_HoldItems[selection]);
-            break;
-        default:
-            break;
-        }
-    }
-}
-
-static void ShowFrontierExchangeCornerItemIcon(enum Item item)
-{
-    FreeSpriteTilesByTag(TAG_ITEM_ICON);
-    FreeSpritePaletteByTag(TAG_ITEM_ICON);
-    sScrollableMultichoice_ItemSpriteId = AddItemIconSprite(TAG_ITEM_ICON, TAG_ITEM_ICON, item);
-
-    if (sScrollableMultichoice_ItemSpriteId != MAX_SPRITES)
-    {
-        gSprites[sScrollableMultichoice_ItemSpriteId].oam.priority = 0;
-        gSprites[sScrollableMultichoice_ItemSpriteId].x = 36;
-        gSprites[sScrollableMultichoice_ItemSpriteId].y = 92;
-    }
 }
 
 static void HideFrontierExchangeCornerItemIcon(enum ScrollMulti menu, u16 unused)
 {
     if (sScrollableMultichoice_ItemSpriteId != MAX_SPRITES)
-    {
-        switch (menu)
-        {
-        case SCROLL_MULTI_BF_EXCHANGE_CORNER_DECOR_VENDOR_1:
-        case SCROLL_MULTI_BF_EXCHANGE_CORNER_DECOR_VENDOR_2:
-        case SCROLL_MULTI_BF_EXCHANGE_CORNER_VITAMIN_VENDOR:
-        case SCROLL_MULTI_BF_EXCHANGE_CORNER_HOLD_ITEM_VENDOR:
-            // This makes sure deleting the icon will not clear palettes in use by object events
-            FieldEffectFreeGraphicsResources(&gSprites[sScrollableMultichoice_ItemSpriteId]);
-            break;
-        default:
-            break;
-        }
         sScrollableMultichoice_ItemSpriteId = MAX_SPRITES;
-    }
 }
 
 void BufferBattleFrontierTutorMoveName(void)
@@ -4592,6 +4555,175 @@ void SetAbility(void)
 {
     enum Ability ability = gSpecialVar_Result;
     SetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_ABILITY_NUM, &ability);
+}
+
+// gSpecialVar_0x8004 = party slot in (set by ChoosePartyMon). Fills
+// gStringVar1/2/3 with the mon's three possible ability names, slots 0/1/2 -
+// same slots SetAbility() above takes. gSpecialVar_Result = TRUE if at least
+// two of the three are actually different abilities (a real choice); FALSE
+// if all three resolve to the same one, which happens for any species with
+// no second regular ability and no hidden ability - the caller should show a
+// "this Pokemon only has one ability" message instead of a 3-item menu of
+// the same entry three times.
+void GetMonAbilityOptions(void)
+{
+    enum Species species = GetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_SPECIES, NULL);
+    enum Ability ability0 = GetAbilityBySpecies(species, 0);
+    enum Ability ability1 = GetAbilityBySpecies(species, 1);
+    enum Ability ability2 = GetAbilityBySpecies(species, 2);
+
+    StringCopy(gStringVar1, gAbilitiesInfo[ability0].name);
+    StringCopy(gStringVar2, gAbilitiesInfo[ability1].name);
+    StringCopy(gStringVar3, gAbilitiesInfo[ability2].name);
+
+    gSpecialVar_Result = (ability0 != ability1 || ability0 != ability2);
+}
+
+// Ten Buildings: "Teach TM" L-menu tool. Bag space can't hold all 166 TM
+// items (see BAG_TMHM_COUNT in include/constants/global.h), so instead of
+// granting TM items, the player teaches moves directly from this tool - pick
+// a party mon, then drill down by move type, then pick the move. Both drill-
+// down menus push their options with MultichoiceDynamic_PushElement, the
+// same heap-allocated stack dynmultipush/dynmultichoice already use, so the
+// alloc/free pattern here is identical to (and no riskier than) menus this
+// project already ships (Nature Changer, Switch Ability).
+#define TM_MOVE_ENTRY(name) MOVE_##name,
+static const u16 sAllTMMoves[] = { FOREACH_TM(TM_MOVE_ENTRY) };
+#undef TM_MOVE_ENTRY
+#define NUM_ALL_TM_MOVES ARRAY_COUNT(sAllTMMoves)
+
+// Pushes one menu option per distinct move type found among the TM movepool
+// (so only types that actually have a TM show up), for dynmultistack to
+// display right after this special returns.
+void PushTMTypeMenuOptions(void)
+{
+    enum Type seenTypes[NUMBER_OF_MON_TYPES];
+    u32 numSeenTypes = 0;
+    u32 i, j;
+
+    for (i = 0; i < NUM_ALL_TM_MOVES; i++)
+    {
+        enum Type type = gMovesInfo[sAllTMMoves[i]].type;
+        bool32 alreadySeen = FALSE;
+        for (j = 0; j < numSeenTypes; j++)
+        {
+            if (seenTypes[j] == type)
+            {
+                alreadySeen = TRUE;
+                break;
+            }
+        }
+        if (!alreadySeen)
+            seenTypes[numSeenTypes++] = type;
+    }
+
+    for (i = 0; i < numSeenTypes; i++)
+    {
+        struct ListMenuItem item;
+        u8 *nameBuffer = Alloc(100);
+        StringCopy(nameBuffer, gTypesInfo[seenTypes[i]].name);
+        item.name = nameBuffer;
+        item.id = seenTypes[i];
+        MultichoiceDynamic_PushElement(item);
+    }
+}
+
+// gSpecialVar_0x8006 = the type chosen from the PushTMTypeMenuOptions menu.
+// Pushes one menu option per TM move of that type, for dynmultistack to
+// display right after this special returns; the chosen move's id lands in
+// VAR_RESULT, ready to feed straight into TeachTMMove as VAR_0x8005.
+void PushTMMoveMenuOptionsForType(void)
+{
+    enum Type type = gSpecialVar_0x8006;
+    u32 i;
+
+    for (i = 0; i < NUM_ALL_TM_MOVES; i++)
+    {
+        u16 move = sAllTMMoves[i];
+        if (gMovesInfo[move].type == type)
+        {
+            struct ListMenuItem item;
+            u8 *nameBuffer = Alloc(100);
+            StringCopy(nameBuffer, GetMoveName(move));
+            item.name = nameBuffer;
+            item.id = move;
+            MultichoiceDynamic_PushElement(item);
+        }
+    }
+}
+
+// gSpecialVar_0x8004 = party slot, gSpecialVar_0x8005 = move chosen from
+// PushTMMoveMenuOptionsForType. Teaches it directly via GiveMoveToBoxMon
+// (src/pokemon.c) when there's a free slot - the exact same primitive
+// CanTeachMoveBoxMon/chooseboxmon.c itself calls for that case, so this isn't
+// new logic, just skipping the layer above it. gSpecialVar_Result reports
+// which of the four TeachTMResult outcomes happened; TEACH_TM_NEEDS_REPLACE
+// means the caller should show its own slot picker (PushTeachTMMoveSlotOptions
+// below) instead of the summary screen - see the comment on TeachTMResult
+// (include/constants/field_specials.h) for why.
+void TeachTMMove(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    struct BoxPokemon *boxmon = &mon->box;
+    enum Move move = gSpecialVar_0x8005;
+    enum Species species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+
+    GetBoxMonNickname(boxmon, gStringVar1);
+    StringCopy(gStringVar2, GetMoveName(move));
+
+    if (!CanLearnTeachableMove(species, move))
+    {
+        gSpecialVar_Result = TEACH_TM_CANNOT_LEARN;
+        return;
+    }
+
+    switch (GiveMoveToBoxMon(boxmon, move))
+    {
+    case MON_ALREADY_KNOWS_MOVE:
+        gSpecialVar_Result = TEACH_TM_ALREADY_KNOWS;
+        break;
+    case MON_HAS_MAX_MOVES:
+        gSpecialVar_Result = TEACH_TM_NEEDS_REPLACE;
+        break;
+    default:
+        gSpecialVar_Result = TEACH_TM_LEARNED;
+        break;
+    }
+}
+
+// Only called after TeachTMMove() reports TEACH_TM_NEEDS_REPLACE. Pushes the
+// mon's four current moves (by slot) so the player can pick which one to
+// forget, same dynmultichoice mechanism as everywhere else in this menu.
+void PushTeachTMMoveSlotOptions(void)
+{
+    struct BoxPokemon *boxmon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004].box;
+    u32 slot;
+
+    for (slot = 0; slot < MAX_MON_MOVES; slot++)
+    {
+        struct ListMenuItem item;
+        u8 *nameBuffer = Alloc(100);
+        StringCopy(nameBuffer, GetMoveName(GetBoxMonData(boxmon, MON_DATA_MOVE1 + slot)));
+        item.name = nameBuffer;
+        item.id = slot;
+        MultichoiceDynamic_PushElement(item);
+    }
+}
+
+// gSpecialVar_0x8007 = slot chosen from PushTeachTMMoveSlotOptions. Writes
+// the new move into that slot with full PP, same as chooseboxmon.c's own
+// REPLACE_MOVE_1 state (CanTeachMoveBoxMon always teaches with full PP, never
+// partial recovery, so there's no recoverPp branch to replicate here).
+void ReplaceTMMoveSlot(void)
+{
+    struct BoxPokemon *boxmon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004].box;
+    enum Move move = gSpecialVar_0x8005;
+    u32 slot = gSpecialVar_0x8007;
+    u32 pp = GetMovePP(move);
+
+    RemoveBoxMonPPBonus(boxmon, slot);
+    SetBoxMonData(boxmon, MON_DATA_MOVE1 + slot, &move);
+    SetBoxMonData(boxmon, MON_DATA_PP1 + slot, &pp);
 }
 
 // ----------------------------------------------------------------------------

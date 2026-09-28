@@ -3,18 +3,19 @@
 
 // ============================================================================
 // TEMPORARY — Building 1 boss playtest harness. See CLAUDE.md.
-// No equivalent on/off switch exists elsewhere in this file, so these gate a
-// direct patch in the exp/obedience code instead:
-//   - TESTING_DISABLE_EXP_GAIN   -> BattleTypeAllowsExp() in
-//     src/battle_script_commands.c always returns FALSE, so no Pokémon can
-//     level up mid-fight and skew the test.
-//   - TESTING_DISABLE_OBEDIENCE  -> GetAttackerObedienceForAction() in
-//     src/battle_util.c always returns OBEYS, since the whole test team is
-//     level 50 with zero badges and would otherwise disobey constantly.
-// Set both back to FALSE (or delete this block and the two call sites it
-// gates) once the boss is tuned and this harness is torn out.
+// No equivalent on/off switch exists elsewhere in this file, so this gates a
+// direct patch in the exp code instead: TESTING_DISABLE_EXP_GAIN ->
+// BattleTypeAllowsExp() in src/battle_script_commands.c always returns
+// FALSE, so no Pokémon can level up mid-fight and skew the test.
+// Set back to FALSE (or delete this block and the one call site it gates)
+// once the boss is tuned and this harness is torn out.
+//
+// TESTING_DISABLE_OBEDIENCE, which used to live here, was reverted for good:
+// the player now receives all 8 badges at starter receipt (see
+// CB2_GiveStarter in src/battle_setup.c), so real obedience checks in
+// GetAttackerObedienceForAction() (src/battle_util.c) already pass at level
+// 50 without a test shim.
 #define TESTING_DISABLE_EXP_GAIN    TRUE
-#define TESTING_DISABLE_OBEDIENCE   TRUE
 // ============================================================================
 
 // Calculation settings

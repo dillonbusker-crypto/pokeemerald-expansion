@@ -860,12 +860,74 @@
 #define TRAINER_BRENDAN_PLACEHOLDER         853
 #define TRAINER_MAY_PLACEHOLDER             854
 
-// NOTE: Because each Trainer uses a flag to determine when they are defeated, there is only space for 9 additional trainers before trainer flag space overflows
-//       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
-//       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
+// Ten Buildings facility - building 1 ("Little League"), full twelve-team
+// pool plus boss. See building-01.md and src/facility.c.
+#define TRAINER_FACILITY_B1_01_EMBER         855
+#define TRAINER_FACILITY_B1_02_BROOK         856
+#define TRAINER_FACILITY_B1_03_FERN          857
+#define TRAINER_FACILITY_B1_04_VOLT          858
+#define TRAINER_FACILITY_B1_05_MARLO         859
+#define TRAINER_FACILITY_B1_06_MIRA          860
+#define TRAINER_FACILITY_B1_07_SABLE         861
+#define TRAINER_FACILITY_B1_08_GALE          862
+#define TRAINER_FACILITY_B1_09_CASS          863
+#define TRAINER_FACILITY_B1_10_DEX           864
+#define TRAINER_FACILITY_B1_11_QUARRY        865
+#define TRAINER_FACILITY_B1_12_NYX           866
+#define TRAINER_FACILITY_B1_BOSS_HELIS       867
 
-#define TRAINERS_COUNT_EMERALD     855
-#define MAX_TRAINERS_COUNT_EMERALD 864
+// Ten Buildings facility - building 2 vertical slice. See run-loop-spec.md
+// and src/facility.c.
+#define TRAINER_FACILITY_B2_A1_FAULT         868
+#define TRAINER_FACILITY_B2_A2_UNDERTOW      869
+#define TRAINER_FACILITY_B2_B4_SPORECLOUD    870
+#define TRAINER_FACILITY_B2_B6_LIGHTNINGROD  871
+#define TRAINER_FACILITY_B2_C7_OPENINGACT    872
+#define TRAINER_FACILITY_B2_D11_INVERSION    873
+#define TRAINER_FACILITY_B2_BOSS_NERYS       874
+
+// Ten Buildings facility - building 3 vertical slice. See run-loop-spec.md
+// and src/facility.c.
+#define TRAINER_FACILITY_B3_A1_DOWNPOUR      875
+#define TRAINER_FACILITY_B3_A2_DELUGE        876
+#define TRAINER_FACILITY_B3_A3_THUNDER       877
+#define TRAINER_FACILITY_B3_B4_SOLARFLARE    878
+#define TRAINER_FACILITY_B3_B5_HEATHAZE      879
+#define TRAINER_FACILITY_B3_B6_SCORCHED      880
+#define TRAINER_FACILITY_B3_C7_DUSTSTORM     881
+#define TRAINER_FACILITY_B3_C8_ATTRITION     882
+#define TRAINER_FACILITY_B3_C9_GRIT          883
+#define TRAINER_FACILITY_B3_D10_WHITEOUT     884
+#define TRAINER_FACILITY_B3_D11_OVERGROWTH   885
+#define TRAINER_FACILITY_B3_D12_STATFIELD    886
+#define TRAINER_FACILITY_B3_BOSS_KASRA       887
+
+// Ten Buildings facility - building 4 vertical slice. See run-loop-spec.md
+// and src/facility.c.
+#define TRAINER_FACILITY_B4_A1_JETSTREAM     888
+#define TRAINER_FACILITY_B4_A2_HEADWIND      889
+#define TRAINER_FACILITY_B4_A3_CROSSWIND     890
+#define TRAINER_FACILITY_B4_B4_STANDSTILL    891
+#define TRAINER_FACILITY_B4_B5_DEADWEIGHT    892
+#define TRAINER_FACILITY_B4_B6_SLOWBURN      893
+#define TRAINER_FACILITY_B4_C7_VERDANT       894
+#define TRAINER_FACILITY_B4_C8_MINDFIELD     895
+#define TRAINER_FACILITY_B4_C9_LIVEWIRE      896
+#define TRAINER_FACILITY_B4_D10_DRAGNET      897
+#define TRAINER_FACILITY_B4_D11_STATCLING    898
+#define TRAINER_FACILITY_B4_D12_CHECKMATE    899
+#define TRAINER_FACILITY_B4_BOSS_IYLA        900
+
+// NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs are capped at
+//       MAX_TRAINERS_COUNT below. Growing it costs a couple of bytes in SaveBlock1's flags[] array (see
+//       save-data-findings.md - SaveBlock1 has 304 B free before even reclaiming any of the disabled vanilla
+//       features listed there), nothing more. Buildings 3 and 4 used the last ~15 spare IDs and then some -
+//       growing TRAINERS_COUNT_EMERALD from 875 to 901 cost 26 new bits (~4 bytes) in that flags[] array.
+//       Verified against the same SaveBlock1 STATIC_ASSERT in src/save.c that gates BAG_TMHM_COUNT.
+//       More space can also be made by shifting flags around in constants/flags.h if ever needed instead.
+
+#define TRAINERS_COUNT_EMERALD     901
+#define MAX_TRAINERS_COUNT_EMERALD 890
 
 #if IS_FRLG
 #define TRAINERS_COUNT                      TRAINERS_COUNT_FRLG

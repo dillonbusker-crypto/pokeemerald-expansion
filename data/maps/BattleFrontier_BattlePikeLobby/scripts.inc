@@ -4,6 +4,7 @@ BattleFrontier_BattlePikeLobby_MapScripts::
 	.byte 0
 
 BattleFrontier_BattlePikeLobby_OnFrame:
+	map_script_2 VAR_TEMP_2, 0, BattleFrontier_BattlePikeLobby_EventScript_CheckLocked
 	map_script_2 VAR_TEMP_CHALLENGE_STATUS, 0, BattleFrontier_BattlePikeLobby_EventScript_GetChallengeStatus
 	map_script_2 VAR_TEMP_CHALLENGE_STATUS, CHALLENGE_STATUS_SAVING, BattleFrontier_BattlePikeLobby_EventScript_QuitWithoutSaving
 	map_script_2 VAR_TEMP_CHALLENGE_STATUS, CHALLENGE_STATUS_WON, BattleFrontier_BattlePikeLobby_EventScript_WonChallenge
@@ -270,6 +271,29 @@ BattleFrontier_BattlePike_EventScript_CloseCurtain::
 	special CloseBattlePikeCurtain
 	waitse
 	return
+
+@ Ten Buildings: every non-Tower facility is locked until it's this
+@ building's turn. IsBattlePikeUnlocked always reads FALSE right now -
+@ nothing sets that bit yet, since the unlock schedule isn't designed. See
+@ CLAUDE.md and shop-spec.md's unlock-schedule table.
+BattleFrontier_BattlePikeLobby_EventScript_CheckLocked::
+	setvar VAR_TEMP_2, 1
+	special IsBattlePikeUnlocked
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattlePikeLobby_EventScript_CheckLocked_Done
+	lockall
+	msgbox BattleFrontier_BattlePikeLobby_Text_NotOpenYet, MSGBOX_DEFAULT
+	closemessage
+	warpsilent MAP_BATTLE_FRONTIER_OUTSIDE_WEST, 0
+	waitstate
+	releaseall
+	end
+
+BattleFrontier_BattlePikeLobby_EventScript_CheckLocked_Done::
+	end
+
+BattleFrontier_BattlePikeLobby_Text_NotOpenYet:
+	.string "This part of the BATTLE FRONTIER\n"
+	.string "hasn't opened up yet.$"
 
 BattleFrontier_BattlePikeLobby_Text_WelcomeToBattlePike:
 	.string "Where the luck of TRAINERS\n"

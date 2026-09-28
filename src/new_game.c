@@ -29,6 +29,7 @@
 #include "mail.h"
 #include "battle_records.h"
 #include "item.h"
+#include "constants/tms_hms.h"
 #include "pokedex.h"
 #include "apprentice.h"
 #include "frontier_util.h"
@@ -275,6 +276,135 @@ void GiveBuilding2CounterTeam(void)
     gPartiesCount[B_TRAINER_PLAYER] = ARRAY_COUNT(sBuilding2CounterTeam);
 }
 
+// ============================================================================
+// Ten Buildings: the five Pokémon that round out the player's starting
+// roster on arrival at the Frontier, plus a starting FP grant. See CLAUDE.md.
+//
+// Building 1 requires a full party of six to enter (FacilityCheckEligible()
+// in src/facility.c), but FP is only earned by winning battles inside a
+// building - a player who's only ever received their starter (see
+// CB2_GiveStarter() in src/battle_setup.c) has no way to reach eligibility at
+// all. These five, plus the FP grant below, close that gap.
+//
+// All five are drawn from building-01.md's pool, same as the starter -
+// deliberately NOT Sableye, Parasect or Ferroseed, since those three are the
+// answer to building 1's boss and handing them over for free would
+// trivialize it. No held items on any of them either, same reasoning as the
+// starter: the player buys their own.
+//
+// Called from BattleFrontier_OutsideWest's on-transition script (see
+// data/maps/BattleFrontier_OutsideWest/scripts.inc), which runs every time
+// the player passes through that map - guarded by
+// gSaveBlock3Ptr->facility.progress.startingGrantsGiven so it only actually
+// grants anything the first time.
+// ============================================================================
+
+#define FRONTIER_STARTING_FP 300 // easy to retune once the shop exists
+
+#define IVS_31 { [STAT_HP] = 31, [STAT_ATK] = 31, [STAT_DEF] = 31, [STAT_SPEED] = 31, [STAT_SPATK] = 31, [STAT_SPDEF] = 31 }
+
+static const struct PokemonTemplate sFrontierStartingFive[] =
+{
+    {
+        .species = SPECIES_FURRET,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_JOLLY,
+        .abilityNum = 2, // Frisk
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_ATK] = 252, [STAT_DEF] = 4, [STAT_SPEED] = 252 },
+        .ivs = IVS_31,
+        .moves = { MOVE_DOUBLE_EDGE, MOVE_COIL, MOVE_KNOCK_OFF, MOVE_U_TURN },
+    },
+    {
+        .species = SPECIES_CHINCHOU,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_MODEST,
+        .abilityNum = 0, // Volt Absorb
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_HP] = 252, [STAT_DEF] = 4, [STAT_SPATK] = 252 },
+        .ivs = IVS_31,
+        .moves = { MOVE_SURF, MOVE_THUNDERBOLT, MOVE_ICE_BEAM, MOVE_CONFUSE_RAY },
+    },
+    {
+        .species = SPECIES_GRAVELER,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_ADAMANT,
+        .abilityNum = 1, // Sturdy
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_HP] = 252, [STAT_ATK] = 252, [STAT_DEF] = 4 },
+        .ivs = IVS_31,
+        .moves = { MOVE_EARTHQUAKE, MOVE_ROCK_BLAST, MOVE_STEALTH_ROCK, MOVE_EXPLOSION },
+    },
+    {
+        .species = SPECIES_MURKROW,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_JOLLY,
+        .abilityNum = 2, // Prankster
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_ATK] = 252, [STAT_DEF] = 4, [STAT_SPEED] = 252 },
+        .ivs = IVS_31,
+        .moves = { MOVE_BRAVE_BIRD, MOVE_SUCKER_PUNCH, MOVE_THUNDER_WAVE, MOVE_TAUNT },
+    },
+    {
+        .species = SPECIES_ROSELIA,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_TIMID,
+        .abilityNum = 0, // Natural Cure
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_SPATK] = 252, [STAT_DEF] = 4, [STAT_SPEED] = 252 },
+        .ivs = IVS_31,
+        .moves = { MOVE_GIGA_DRAIN, MOVE_SLUDGE_BOMB, MOVE_SLEEP_POWDER, MOVE_SYNTHESIS },
+    },
+};
+
+#undef IVS_31
+
+void GiveFrontierStartingGrants(void)
+{
+    u32 i;
+    u32 fp;
+
+    if (gSaveBlock3Ptr->facility.progress.startingGrantsGiven)
+        return;
+
+    for (i = 0; i < ARRAY_COUNT(sFrontierStartingFive); i++)
+    {
+        CreateMonFromTemplate(&gParties[B_TRAINER_PLAYER][gPartiesCount[B_TRAINER_PLAYER]], &sFrontierStartingFive[i]);
+        gPartiesCount[B_TRAINER_PLAYER]++;
+    }
+
+    fp = gSaveBlock3Ptr->facility.progress.fp + FRONTIER_STARTING_FP;
+    gSaveBlock3Ptr->facility.progress.fp = (fp > 0xFFFF) ? 0xFFFF : fp;
+
+    // Ten Buildings: with the Move Editor retired (see l_menu.c), the L-menu's
+    // Move Relearner only ever offers a species' own level-up learnset - the
+    // player's other way to round out a moveset is TMs. The TM/HM bag pocket
+    // (BAG_TMHM_COUNT, include/constants/global.h) can only hold 64 distinct
+    // item types within SaveBlock1's fixed sector budget - nowhere near
+    // Emerald Imperium's 166-move TM list this project uses (see
+    // include/constants/tms_hms.h's FOREACH_TM) - so TMs are no longer bag
+    // items the player carries. They're taught directly via the L-menu's
+    // "Teach TM" tool (data/scripts/debug.inc, Debug_EventScript_TeachTM),
+    // which drills down by move type and calls the same CanTeachMoveBoxMon
+    // special every vanilla Move Tutor uses. HMs stay as real bag items -
+    // only 8 of them, nowhere near the pocket cap.
+#define GRANT_HM(id) AddBagItem(ITEM_HM_##id, 99);
+    FOREACH_HM(GRANT_HM)
+#undef GRANT_HM
+
+    gSaveBlock3Ptr->facility.progress.startingGrantsGiven = TRUE;
+}
+
 void NewGameInitData(void)
 {
 #if IS_FRLG
@@ -351,7 +481,13 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
-    GiveBuilding2CounterTeam();
+    // GiveBuilding2CounterTeam() call removed here: the real starter flow
+    // (CB2_GiveStarter in src/battle_setup.c) now gives the player's first
+    // mon, and this test harness handing out a full 6-mon team before Birch's
+    // lab would both skip starter selection and make the eligibility check
+    // in FacilityCheckEligible() trivially true from turn one. The function
+    // itself is left in place, per its own header comment, as a harmless
+    // throwaway that can still be called manually for boss-tuning tests.
 }
 
 static void ResetMiniGamesRecords(void)

@@ -29,6 +29,7 @@
 #include "pokemon_summary_screen.h"
 #include "pokemon_storage_system.h"
 #include "script.h"
+#include "facility.h"
 #include "sound.h"
 #include "string_util.h"
 #include "strings.h"
@@ -1621,7 +1622,20 @@ static void Task_PCMainMenu(u8 taskId)
 
 void ShowPokemonStorageSystemPC(void)
 {
-    u8 taskId = CreateTask(Task_PCMainMenu, 80);
+    u8 taskId;
+
+    // Ten Buildings: PC access is blocked for the duration of a facility
+    // run - it would let the player swap the locked six outright. See
+    // run-loop-spec.md's "Mid-run access restrictions". This is a
+    // waitstate=1 special (data/specials.inc), so a refusal still has to
+    // re-enable the calling script rather than just returning.
+    if (IsFacilityRunActive())
+    {
+        ScriptContext_Enable();
+        return;
+    }
+
+    taskId = CreateTask(Task_PCMainMenu, 80);
     gTasks[taskId].tState = 0;
     gTasks[taskId].tSelectedOption = 0;
     LockPlayerFieldControls();

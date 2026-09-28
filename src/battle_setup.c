@@ -13,6 +13,7 @@
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "event_scripts.h"
+#include "facility.h"
 #include "fieldmap.h"
 #include "field_name_box.h"
 #include "field_control_avatar.h"
@@ -998,6 +999,62 @@ enum BattleTransition GetSpecialBattleTransition(enum BattleTransitionGroup id)
     return sBattleTransitionTable_BattleFrontier[var % ARRAY_COUNT(sBattleTransitionTable_BattleFrontier)];
 }
 
+// Ten Buildings: building-01.md-pool starters given at the project's flat
+// level 50 instead of the vanilla level-5 base stages, via
+// CreateMonFromTemplate() (the same pattern GiveBuilding2CounterTeam() in
+// src/new_game.c uses) rather than ScriptGiveMon(), since ScriptGiveMon only
+// auto-fills a level-up learnset and can't set a fixed competitive spread.
+// Indexed the same way GetStarterPokemon()/sStarterMon (starter_choose.c)
+// are: 0 = grass (Quilladin), 1 = fire (Combusken), 2 = water (Frogadier).
+//
+// No held item on the starter - the player buys their own from the shop.
+#define IVS_31 { [STAT_HP] = 31, [STAT_ATK] = 31, [STAT_DEF] = 31, [STAT_SPEED] = 31, [STAT_SPATK] = 31, [STAT_SPDEF] = 31 }
+
+static const struct PokemonTemplate sStarterTemplates[] =
+{
+    [0] = // grass - Quilladin
+    {
+        .species = SPECIES_QUILLADIN,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_IMPISH,
+        .abilityNum = 0, // Overgrow
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_HP] = 252, [STAT_DEF] = 252, [STAT_SPDEF] = 4 },
+        .ivs = IVS_31,
+        .moves = { MOVE_SEED_BOMB, MOVE_BODY_SLAM, MOVE_SPIKES, MOVE_SYNTHESIS },
+    },
+    [1] = // fire - Combusken
+    {
+        .species = SPECIES_COMBUSKEN,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_ADAMANT,
+        .abilityNum = 0, // Blaze
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_ATK] = 252, [STAT_DEF] = 4, [STAT_SPEED] = 252 },
+        .ivs = IVS_31,
+        .moves = { MOVE_FLAME_CHARGE, MOVE_SKY_UPPERCUT, MOVE_BULK_UP, MOVE_ROCK_SLIDE },
+    },
+    [2] = // water - Frogadier
+    {
+        .species = SPECIES_FROGADIER,
+        .level = 50,
+        .gender = MON_GENDER_RANDOM,
+        .nature = NATURE_TIMID,
+        .abilityNum = 0, // Torrent
+        .doNotUseDefaultAbility = TRUE,
+        .origin = GIFTMON_ORIGIN,
+        .evs = { [STAT_SPATK] = 252, [STAT_DEF] = 4, [STAT_SPEED] = 252 },
+        .ivs = IVS_31,
+        .moves = { MOVE_WATER_PULSE, MOVE_ICE_BEAM, MOVE_ROUND, MOVE_QUICK_ATTACK },
+    },
+};
+
+#undef IVS_31
+
 void ChooseStarter(void)
 {
     SetMainCallback2(CB2_ChooseStarter);
@@ -1006,11 +1063,20 @@ void ChooseStarter(void)
 
 static void CB2_GiveStarter(void)
 {
-    u16 starterMon;
+    u16 badgeFlag;
 
     *GetVarPointer(VAR_STARTER_MON) = gSpecialVar_Result;
-    starterMon = GetStarterPokemon(gSpecialVar_Result);
-    ScriptGiveMon(starterMon, 5, ITEM_NONE);
+    CreateMonFromTemplate(&gParties[B_TRAINER_PLAYER][0], &sStarterTemplates[gSpecialVar_Result]);
+    gPartiesCount[B_TRAINER_PLAYER] = 1;
+
+    // Ten Buildings: badges granted here, not on frontier arrival, so the
+    // level-50 starter obeys through the Route 101 rescue battle and the
+    // Route 103 rival battle that follow immediately after. See CLAUDE.md -
+    // this is what lets TESTING_DISABLE_OBEDIENCE be retired for good rather
+    // than carried as a permanent shim.
+    for (badgeFlag = FLAG_BADGE01_GET; badgeFlag <= FLAG_BADGE08_GET; badgeFlag++)
+        FlagSet(badgeFlag);
+
     ResetTasks();
     PlayBattleBGM();
     SetMainCallback2(CB2_StartFirstBattle);
@@ -1504,6 +1570,29 @@ void BattleSetup_StartTrainerBattle(void)
         gBattleTypeFlags |= BATTLE_TYPE_DOUBLE;
     }
 
+    // Ten Buildings: every battle fought during an active facility run counts
+    // as a Frontier battle (BATTLE_TYPE_FRONTIER is a composite of several
+    // specific flags - BATTLE_TYPE_BATTLE_TOWER is the closest fit - not a
+    // standalone bit, so this is the only way to get it set). This is what
+    // makes Set-style forced and the bag disabled during these battles; see
+    // CLAUDE.md for the exact mechanism this depends on.
+    //
+    // Landmine this trips: a lot of the real Battle Frontier's code treats
+    // any BATTLE_TYPE_FRONTIER trainerId as an index into the legacy,
+    // hand-authored gFacilityTrainers/gBattleFrontierTrainers array
+    // (FRONTIER_TRAINERS_COUNT entries), not the regular gTrainers[] table
+    // our TRAINER_FACILITY_* trainers.party entries live in. Those two ID
+    // spaces are unrelated, and our trainer IDs are always far outside the
+    // legacy array's bounds, so anything that does that indexing for one of
+    // our trainers reads garbage. battle_message.c is the one place this is
+    // actually reachable from a generic trainer battle (opponent name/class,
+    // win/lose flavor text) and it's patched there with
+    // IsFacilityBattleTrainer() to route our trainers around those lookups
+    // instead. See src/facility.c's comment on that function for the crash
+    // this caused (SWANNA send-out message, TRAINER_FACILITY_B2_A1_FAULT).
+    if (IsFacilityRunActive())
+        gBattleTypeFlags |= BATTLE_TYPE_BATTLE_TOWER;
+
     sNoOfPossibleTrainerRetScripts = gNoOfApproachingTrainers;
     gNoOfApproachingTrainers = 0;
     sShouldCheckTrainerBScript = FALSE;
@@ -1613,7 +1702,12 @@ static void CB2_EndTrainerBattle(void)
     }
     else if (IsPlayerDefeated(gBattleOutcome))
     {
-        if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || InTrainerHillChallenge() || FlagGet(B_FLAG_NO_WHITEOUT))
+        // Ten Buildings: losing during a facility run ends the run (see the
+        // continuation script after each facility trainerbattle, which reads
+        // GetBattleOutcome() to tell win from loss), it doesn't white the
+        // player out - same as the real Battle Tower, which never whites you
+        // out either, it just returns you to the lobby with the streak lost.
+        if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || InTrainerHillChallenge() || FlagGet(B_FLAG_NO_WHITEOUT) || IsFacilityRunActive())
             SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         else
             SetMainCallback2(CB2_WhiteOut);

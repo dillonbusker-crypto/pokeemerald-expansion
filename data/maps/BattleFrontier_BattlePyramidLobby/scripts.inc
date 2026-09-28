@@ -14,6 +14,7 @@ BattleFrontier_BattlePyramidLobby_EventScript_TurnPlayerNorth:
 	end
 
 BattleFrontier_BattlePyramidLobby_OnFrame:
+	map_script_2 VAR_TEMP_2, 0, BattleFrontier_BattlePyramidLobby_EventScript_CheckLocked
 	map_script_2 VAR_TEMP_CHALLENGE_STATUS, 0, BattleFrontier_BattlePyramidLobby_EventScript_GetChallengeStatus
 	map_script_2 VAR_TEMP_CHALLENGE_STATUS, CHALLENGE_STATUS_SAVING, BattleFrontier_BattlePyramidLobby_EventScript_QuitWithoutSaving
 	map_script_2 VAR_TEMP_CHALLENGE_STATUS, CHALLENGE_STATUS_PAUSED, BattleFrontier_BattlePyramidLobby_EventScript_ResumeChallenge
@@ -525,6 +526,29 @@ BattleFrontier_BattlePyramidLobby_EventScript_RulesBag::
 BattleFrontier_BattlePyramidLobby_EventScript_ExitRules::
 	releaseall
 	end
+
+@ Ten Buildings: every non-Tower facility is locked until it's this
+@ building's turn. IsBattlePyramidUnlocked always reads FALSE right now -
+@ nothing sets that bit yet, since the unlock schedule isn't designed. See
+@ CLAUDE.md and shop-spec.md's unlock-schedule table.
+BattleFrontier_BattlePyramidLobby_EventScript_CheckLocked::
+	setvar VAR_TEMP_2, 1
+	special IsBattlePyramidUnlocked
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattlePyramidLobby_EventScript_CheckLocked_Done
+	lockall
+	msgbox BattleFrontier_BattlePyramidLobby_Text_NotOpenYet, MSGBOX_DEFAULT
+	closemessage
+	warpsilent MAP_BATTLE_FRONTIER_OUTSIDE_EAST, 3
+	waitstate
+	releaseall
+	end
+
+BattleFrontier_BattlePyramidLobby_EventScript_CheckLocked_Done::
+	end
+
+BattleFrontier_BattlePyramidLobby_Text_NotOpenYet:
+	.string "This part of the BATTLE FRONTIER\n"
+	.string "hasn't opened up yet.$"
 
 BattleFrontier_BattlePyramidLobby_Text_WelcomeToBattlePyramid:
 	.string "Where the courage of TRAINERS\n"

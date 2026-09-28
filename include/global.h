@@ -254,6 +254,53 @@ struct NPCFollower
 #include "constants/items.h"
 #define ITEM_FLAGS_COUNT ((ITEMS_COUNT / 8) + ((ITEMS_COUNT % 8) ? 1 : 0))
 
+// Ten Buildings facility run state. See run-loop-spec.md.
+//
+// Only meaningful while active == TRUE - nothing reads building/battleNum/
+// drawnTeams without checking active first (see IsFacilityRunActive() in
+// src/facility.c, the single shared check every mid-run restriction and the
+// battle loop itself go through).
+//
+// No separate "which teams already faced" field: drawnTeams[] is decided
+// once at run start (shuffle the pool, take the number needed) and consumed
+// in order as battleNum advances, so "already faced" is just
+// "index < battleNum - 1" - storing it twice would just be two things that
+// could disagree.
+//
+// No "locked team" field: the party itself is the locked team. Once PC, shop,
+// L-menu and the bag (already handled by BATTLE_TYPE_FRONTIER) are all gated
+// on active, there's no path by which composition could change mid-run, so
+// there is nothing to separately snapshot or compare against. Reordering the
+// party is allowed by design and doesn't need tracking either.
+struct FacilityRun
+{
+    bool8 active;
+    u8 building;         // 0-9
+    u8 battleNum;        // 1-7 (7 = boss)
+    u8 drawnTeams[6];    // shuffled draw from the active building's pool;
+                         // drawnTeams[battleNum - 1] is "next up" while
+                         // battleNum <= 6
+};
+
+// Persists regardless of whether a run is active.
+struct FacilityProgress
+{
+    u16 fp;
+    u16 buildingsCompleted; // bitmask, 1 bit per building (10 used of 16)
+    bool8 startingGrantsGiven; // see GiveFrontierStartingGrants() in src/new_game.c
+    // Bitmask, one bit per non-Tower Battle Frontier facility door - see the
+    // FACILITY_DOOR_* constants in src/facility.c. All zero (all doors
+    // locked) until something sets a bit; nothing does yet, which is
+    // intentional - see IsFacilityDoorUnlocked() in src/facility.c.
+    u8 unlockedFacilityDoors;
+};
+
+struct FacilitySaveData
+{
+    struct FacilityRun run;
+    struct FacilityProgress progress;
+};
+
 struct SaveBlock3
 {
 #if OW_USE_FAKE_RTC
@@ -272,6 +319,7 @@ struct SaveBlock3
 #if APRICORN_TREE_COUNT > 0
     u8 apricornTrees[NUM_APRICORN_TREE_BYTES];
 #endif
+    struct FacilitySaveData facility;
 }; /* max size 1624 bytes */
 
 extern struct SaveBlock3 *gSaveBlock3Ptr;

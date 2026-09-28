@@ -20,6 +20,51 @@ gSpecials::
 	def_special HealPlayerParty
 	def_special SaveFacilityHeldItems
 	def_special RestoreFacilityHeldItems
+	def_special IsFacilityRunActive
+	def_special FacilityCheckEligible
+	def_special FacilityStartRun
+	def_special FacilityIsBossBattle
+	def_special FacilityGetDrawnPoolIndex
+	def_special FacilityAwardBattleFP
+	def_special FacilityGetBattleWonInfo
+	def_special FacilityAdvanceBattleNum
+	def_special FacilityCompleteBuilding
+	def_special FacilityAbandonRun
+	def_special GetFacilityRunBuilding
+	def_special IsFacilityRunActiveForBuilding
+	def_special IsFacilityRunActiveForDifferentBuilding
+	def_special IsDoublesMatUnlocked
+	def_special IsMultisMatUnlocked
+	def_special IsLinkMultisMatUnlocked
+	def_special FacilitySilentSave
+	def_special FacilitySwapPartyMonSlots
+	def_special IsBattleDomeUnlocked
+	def_special IsBattleFactoryUnlocked
+	def_special IsBattlePikeUnlocked
+	def_special IsBattleArenaUnlocked
+	def_special IsBattlePalaceUnlocked
+	def_special IsBattlePyramidUnlocked
+	def_special FacilityShopGetFP
+	def_special FacilityShopTakeFP
+	def_special FacilityShopGiveFP
+	def_special FacilityShopBuildConsumablesMenu
+	def_special FacilityShopBuildHeldItemsMenu
+	def_special FacilityShopBuildBuildingMenu
+	def_special FacilityShopSelectBuildingRow
+	def_special FacilityShopBuildMonTierList
+	def_special FacilityShopSelectMonType
+	def_special FacilityShopSelectRow
+	def_special FacilityShopFreeMenuRows
+	def_special ShowFacilityFPWindow
+	def_special UpdateFacilityFPWindow
+	def_special CloseFacilityFPWindow
+	def_special ShowFacilityShopDescriptionWindow
+	def_special UpdateFacilityShopDescriptionWindow
+	def_special CloseFacilityShopDescriptionWindow
+	def_special FacilityShopBuyMon
+	def_special FacilityShopSellMonPrompt
+	def_special FacilityShopSellMon
+	def_special GiveFrontierStartingGrants
 	def_special SetCableClubWarp
 	def_special DoCableClubWarp, waitstate=1
 	def_special ReturnFromLinkRoom, waitstate=1
@@ -567,6 +612,12 @@ gSpecials::
 	def_special GetCodeFeedback
 	def_special SetHiddenNature
 	def_special SetAbility
+	def_special GetMonAbilityOptions
+	def_special PushTMTypeMenuOptions
+	def_special PushTMMoveMenuOptionsForType
+	def_special TeachTMMove
+	def_special PushTeachTMMoveSlotOptions
+	def_special ReplaceTMMoveSlot
 	def_special ChangeMonNature
 	def_special ChangeMonIVsForHP
 	def_special BufferNatureName

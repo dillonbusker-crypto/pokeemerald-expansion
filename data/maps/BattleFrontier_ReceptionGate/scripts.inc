@@ -55,6 +55,9 @@ BattleFrontier_ReceptionGate_EventScript_ScottScene::
 	applymovement LOCALID_FRONTIER_RECEPTION_SCOTT, BattleFrontier_ReceptionGate_Movement_ScottEnter
 	waitmovement 0
 	msgbox BattleFrontier_ReceptionGate_Text_ScottGreatToSeeYouHere, MSGBOX_DEFAULT
+	msgbox BattleFrontier_ReceptionGate_Text_ScottExplainsBattleRules, MSGBOX_DEFAULT
+	msgbox BattleFrontier_ReceptionGate_Text_ScottExplainsShop, MSGBOX_DEFAULT
+	msgbox BattleFrontier_ReceptionGate_Text_ScottExplainsWhereToStart, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_FRONTIER_RECEPTION_SCOTT, BattleFrontier_ReceptionGate_Movement_ScottExit
 	waitmovement 0
@@ -328,13 +331,77 @@ BattleFrontier_ReceptionGate_Text_OhMrScottGoodDay:
 	.string "GUIDE: Oh! MR. SCOTT, sir!\n"
 	.string "Good day to you, sir!$"
 
+@ Ten Buildings: this whole speech used to be one giant string with 15 \p
+@ pages. msgbox expands its text into the fixed 1000-byte gStringVar4
+@ buffer (StringExpandPlaceholders, src/field_message_box.c) regardless of
+@ length - that one string ran to ~1950 raw characters and silently
+@ overflowed it, corrupting nearby memory and eventually crashing with a
+@ "jumped to invalid address" fault well after the fact. Split into four
+@ separate msgbox calls (see ScottScene above), each comfortably under the
+@ limit - same pattern already used for Birch's equally long explanation in
+@ LittlerootTown_ProfessorBirchsLab.
 BattleFrontier_ReceptionGate_Text_ScottGreatToSeeYouHere:
 	.string "SCOTT: It's great to see you here,\n"
 	.string "it really is!\p"
-	.string "I hope you'll take your time and\n"
-	.string "explore everywhere.\p"
-	.string "Naturally, I hope you'll also experience\n"
-	.string "the pure essence of battling.\p"
+	.string "Let me tell you how things work around\n"
+	.string "here, because this circuit isn't like\l"
+	.string "anything you've faced before.\p"
+	.string "Forget GYMS and BADGES. Here, there are\n"
+	.string "ten buildings, and battling your way\l"
+	.string "through them is the whole game.\p"
+	.string "Each building throws six trainers at\n"
+	.string "you, drawn at random from a pool of\l"
+	.string "twelve. Beat all six, and that\l"
+	.string "building's boss is waiting for you.\p"
+	.string "Beat the boss, and the building's\n"
+	.string "cleared - for good. There's no going\l"
+	.string "back in for a rematch, so bring your\l"
+	.string "best team every time.$"
+
+BattleFrontier_ReceptionGate_Text_ScottExplainsBattleRules:
+	.string "You'll get a full heal between every\n"
+	.string "single battle, and held items come\l"
+	.string "right back, too. But whatever's in your\l"
+	.string "BAG stays there. Once you're in, it's\l"
+	.string "just you and your team.\p"
+	.string "Win, and you'll earn FP. Lose, and you\n"
+	.string "keep whatever FP you've already banked -\l"
+	.string "a bad run only costs you the streak,\l"
+	.string "never your progress.\p"
+	.string "Oh, and MEGA EVOLUTION is alive and well\n"
+	.string "in this format. TERASTALLIZING,\l"
+	.string "Z-MOVES, DYNAMAXING - none of that\l"
+	.string "exists here. Just POKéMON, movesets,\l"
+	.string "and MEGAS.$"
+
+BattleFrontier_ReceptionGate_Text_ScottExplainsShop:
+	.string "Spend that FP right here with us, at\n"
+	.string "the EXCHANGE SERVICE CORNER just\l"
+	.string "outside. Four keepers, four specialties -\l"
+	.string "Consumables, Held Items, MEGA STONES,\l"
+	.string "and POKéMON.\p"
+	.string "Everything you buy there is yours for\n"
+	.string "good, no renting. And if a POKéMON\l"
+	.string "isn't working out for you, that same\l"
+	.string "keeper will buy it back for half what\l"
+	.string "you paid.\p"
+	.string "Right now you're only seeing what's on\n"
+	.string "the shelves for building one. Clear more\l"
+	.string "buildings, and better stock comes out\l"
+	.string "from the back.$"
+
+BattleFrontier_ReceptionGate_Text_ScottExplainsWhereToStart:
+	.string "As for where to start - the BATTLE\n"
+	.string "TOWER is the one you want. Head back\l"
+	.string "outside and look for it. That's the\l"
+	.string "only door open right now.\p"
+	.string "The other nine buildings are locked up\n"
+	.string "tight. Clear what's in front of you, and\l"
+	.string "they'll open up one at a time.\p"
+	.string "Ten buildings. Get through all of them,\n"
+	.string "and you'll have earned some real\l"
+	.string "bragging rights. Good luck out there,\l"
+	.string "{PLAYER}{KUN}!\p"
 	.string "I also have my quarters here, so feel\n"
 	.string "free to visit if you have time.$"
 

@@ -13,6 +13,7 @@ BattleFrontier_BattlePalaceLobby_EventScript_TurnPlayerNorth::
 	end
 
 BattleFrontier_BattlePalaceLobby_OnFrame:
+	map_script_2 VAR_TEMP_2, 0, BattleFrontier_BattlePalaceLobby_EventScript_CheckLocked
 	map_script_2 VAR_TEMP_CHALLENGE_STATUS, 0, BattleFrontier_BattlePalaceLobby_EventScript_GetChallengeStatus
 	map_script_2 VAR_TEMP_CHALLENGE_STATUS, CHALLENGE_STATUS_SAVING, BattleFrontier_BattlePalaceLobby_EventScript_QuitWithoutSaving
 	map_script_2 VAR_TEMP_CHALLENGE_STATUS, CHALLENGE_STATUS_PAUSED, BattleFrontier_BattlePalaceLobby_EventScript_ResumeChallenge
@@ -376,6 +377,29 @@ BattleFrontier_BattlePalaceLobby_EventScript_RulesWhenInDanger::
 BattleFrontier_BattlePalaceLobby_EventScript_ExitRules::
 	releaseall
 	end
+
+@ Ten Buildings: every non-Tower facility is locked until it's this
+@ building's turn. IsBattlePalaceUnlocked always reads FALSE right now -
+@ nothing sets that bit yet, since the unlock schedule isn't designed. See
+@ CLAUDE.md and shop-spec.md's unlock-schedule table.
+BattleFrontier_BattlePalaceLobby_EventScript_CheckLocked::
+	setvar VAR_TEMP_2, 1
+	special IsBattlePalaceUnlocked
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattlePalaceLobby_EventScript_CheckLocked_Done
+	lockall
+	msgbox BattleFrontier_BattlePalaceLobby_Text_NotOpenYet, MSGBOX_DEFAULT
+	closemessage
+	warpsilent MAP_BATTLE_FRONTIER_OUTSIDE_EAST, 2
+	waitstate
+	releaseall
+	end
+
+BattleFrontier_BattlePalaceLobby_EventScript_CheckLocked_Done::
+	end
+
+BattleFrontier_BattlePalaceLobby_Text_NotOpenYet:
+	.string "This part of the BATTLE FRONTIER\n"
+	.string "hasn't opened up yet.$"
 
 BattleFrontier_BattlePalaceLobby_Text_WelcomeForSingleBattle:
 	.string "Where the hearts of TRAINERS\n"

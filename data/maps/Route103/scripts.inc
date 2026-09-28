@@ -300,18 +300,25 @@ Route103_Text_MayLetsBattle:
 	.string "a TRAINER is like.$"
 
 Route103_Text_MayDefeated:
-	.string "Wow! That's great!\n"
-	.string "{PLAYER}{KUN}, you're pretty good!$"
+	.string "…\p"
+	.string "…Huh?\p"
+	.string "Wait, that's not right. My POKéMON\n"
+	.string "didn't even get to move!\p"
+	.string "{PLAYER}{KUN}, how is your POKéMON\n"
+	.string "already that strong? You just got it\l"
+	.string "from my dad!$"
 
 Route103_Text_MayTimeToHeadBack:
-	.string "MAY: I think I know why my dad has\n"
-	.string "an eye out for you now.\p"
-	.string "I mean, you just got that POKéMON,\n"
-	.string "but it already likes you.\p"
-	.string "You might be able to befriend any\n"
-	.string "kind of POKéMON easily.\p"
-	.string "Well, it's time to head back to\n"
-	.string "the LAB.$"
+	.string "MAY: …\p"
+	.string "Okay, something is not right here.\p"
+	.string "My dad wouldn't just hand a brand-new\n"
+	.string "TRAINER a POKéMON that strong. Not\l"
+	.string "without a reason.\p"
+	.string "I'm going to go ask him myself,\n"
+	.string "right now!\p"
+	.string "{PLAYER}{KUN}, you'd better come, too.\n"
+	.string "I want to hear this explanation as\l"
+	.string "much as you do!$"
 
 Route103_Text_BrendanRoute103Pokemon:
 	.string "BRENDAN: Okay, so it's this one and\n"
@@ -326,17 +333,23 @@ Route103_Text_BrendanLetsBattle:
 	.string "about!$"
 
 Route103_Text_BrendanDefeated:
-	.string "Huh, {PLAYER}, you're not too shabby.$"
+	.string "…\p"
+	.string "Wait, hold on.\p"
+	.string "My POKéMON didn't land a single hit.\n"
+	.string "That's not normal.\p"
+	.string "{PLAYER}, how is your POKéMON already\n"
+	.string "that strong? Dad just gave it to you!$"
 
 Route103_Text_BrendanTimeToHeadBack:
-	.string "BRENDAN: I think I get it.\n"
-	.string "I think I know why my dad has his eye\l"
-	.string "out for you now.\p"
-	.string "Look, your POKéMON already likes you,\n"
-	.string "even though you just got it.\p"
-	.string "{PLAYER}, I get the feeling that you\n"
-	.string "could befriend any POKéMON with ease.\p"
-	.string "We should head back to the LAB.$"
+	.string "BRENDAN: …\p"
+	.string "Okay, that's not normal.\p"
+	.string "Dad wouldn't just hand a brand-new\n"
+	.string "TRAINER a POKéMON that strong for no\l"
+	.string "reason.\p"
+	.string "I'm going straight to the LAB to ask\n"
+	.string "him myself.\p"
+	.string "{PLAYER}, you'd better come along.\n"
+	.string "I want to hear this explanation too!$"
 
 Route103_Text_ShouldHaveBroughtPotion:
 	.string "My POKéMON is staggeringly tired…\n"
@@ -351,3 +364,77 @@ Route103_Text_RouteSign:
 	.string "ROUTE 103\n"
 	.string "{DOWN_ARROW} OLDALE TOWN$"
 
+
+@ ============================================================================
+@ Ten Buildings: ferry dock to the Battle Frontier. Modeled directly on
+@ SlateportCity_Harbor_EventScript_BattleFrontier/BoardFerry - same
+@ msgbox -> board -> depart -> warp shape, reusing the SS Tidal boat graphic
+@ and warping to the same MAP_BATTLE_FRONTIER_OUTSIDE_WEST coordinates the
+@ vanilla harbors use. Sits on the pond's left (west) shore, at (21-22, 9),
+@ clear of the Boy NPC at (20, 10). Departs east instead of west (Slateport's
+@ own departure movement, Common_EventScript_FerryDepart, always walks the
+@ boat right) because the open water here is east of the dock, not west.
+@ ============================================================================
+
+Route103_EventScript_FerryAttendant::
+	lock
+	faceplayer
+	checkitem ITEM_SS_TICKET
+	goto_if_eq VAR_RESULT, FALSE, Route103_EventScript_NoTicketYet
+	msgbox Route103_Text_FrontierFerryAskBoard, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Route103_EventScript_FerryDecline
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Route103_EventScript_FerryDecline
+	msgbox Route103_Text_PleaseBoardFerry, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYER, Route103_Movement_BoardFerry
+	waitmovement 0
+	delay 30
+	hideplayer
+	setvar VAR_0x8004, LOCALID_ROUTE103_SS_TIDAL
+	call Route103_EventScript_FerryDepartEast
+	warp MAP_BATTLE_FRONTIER_OUTSIDE_WEST, 19, 67
+	waitstate
+	release
+	end
+
+Route103_EventScript_NoTicketYet::
+	msgbox Route103_Text_FrontierFerryNoTicket, MSGBOX_DEFAULT
+	release
+	end
+
+Route103_EventScript_FerryDecline::
+	msgbox Route103_Text_FrontierFerrySailAnotherTime, MSGBOX_DEFAULT
+	release
+	end
+
+Route103_EventScript_FerryDepartEast::
+	delay 60
+	applymovement VAR_0x8004, Route103_Movement_FerryDepartEast
+	waitmovement 0
+	return
+
+Route103_Movement_BoardFerry:
+	walk_right
+	step_end
+
+Route103_Movement_FerryDepartEast:
+	walk_slow_right
+	walk_slow_right
+	walk_slow_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+Route103_Text_FrontierFerryAskBoard:
+	.string "Ready to sail for the BATTLE FRONTIER?$"
+
+Route103_Text_PleaseBoardFerry:
+	.string "This way, please!$"
+
+Route103_Text_FrontierFerryNoTicket:
+	.string "This dock is for ticket holders only.$"
+
+Route103_Text_FrontierFerrySailAnotherTime:
+	.string "All right. Come back when you're ready.$"

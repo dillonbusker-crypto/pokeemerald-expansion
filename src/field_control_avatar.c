@@ -10,6 +10,7 @@
 #include "event_data.h"
 #include "event_object_movement.h"
 #include "event_scripts.h"
+#include "facility.h"
 #include "fieldmap.h"
 #include "field_control_avatar.h"
 #include "field_message_box.h"
@@ -243,7 +244,14 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     if (input->pressedRButton && TryStartDexNavSearch())
         return TRUE;
 
-    if (input->pressedLButton)
+    // Ten Buildings: ShowLMenu() itself also checks IsFacilityRunActive() and
+    // bails out (see src/l_menu.c), but doing nothing there still plays the
+    // window-open sound and returns TRUE here as if a menu had opened - which
+    // froze the game, since whatever's polling ProcessPlayerFieldInput's
+    // return value here was left waiting on a menu/script that was never
+    // actually started. Checking here too means a blocked L press is a
+    // complete no-op - falls through to the rest of this function instead.
+    if (input->pressedLButton && !IsFacilityRunActive())
     {
         PlaySE(SE_WIN_OPEN);
         ShowLMenu();

@@ -27,6 +27,7 @@
 #include "party_menu.h"
 #include "scanline_effect.h"
 #include "script.h"
+#include "facility.h"
 #include "shop.h"
 #include "sound.h"
 #include "sprite.h"
@@ -1313,6 +1314,18 @@ static void RecordItemPurchase(u8 taskId)
 
 void CreatePokemartMenu(const u16 *itemsForSale)
 {
+    // Ten Buildings: shops are blocked for the duration of a facility run -
+    // buying a counter to the locked team mid-run defeats the point. See
+    // run-loop-spec.md's "Mid-run access restrictions". CreatePokemartMenu()
+    // is invoked via the pokemart script macro, which stops the calling
+    // script and expects the shop menu's close callback to resume it - a
+    // refusal has to call that resume itself rather than just returning.
+    if (IsFacilityRunActive())
+    {
+        ScriptContext_Enable();
+        return;
+    }
+
     CreateShopMenu(MART_TYPE_NORMAL);
     SetShopItemsForSale(itemsForSale);
     ClearItemPurchases();

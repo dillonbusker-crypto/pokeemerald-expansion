@@ -110,9 +110,12 @@ static const u8 sStarterLabelCoords[STARTER_MON_COUNT][2] =
     {8, 4},
 };
 
-#define GRASS_STARTER (IS_FRLG ? SPECIES_BULBASAUR  : SPECIES_TREECKO)
-#define FIRE_STARTER  (IS_FRLG ? SPECIES_CHARMANDER : SPECIES_TORCHIC)
-#define WATER_STARTER (IS_FRLG ? SPECIES_SQUIRTLE   : SPECIES_MUDKIP )
+// Ten Buildings: swapped for three building-1-pool mons at the player's
+// starting level instead of the vanilla base-stage/level-5 starters. See
+// building-01.md and CLAUDE.md.
+#define GRASS_STARTER (IS_FRLG ? SPECIES_BULBASAUR  : SPECIES_QUILLADIN)
+#define FIRE_STARTER  (IS_FRLG ? SPECIES_CHARMANDER : SPECIES_COMBUSKEN)
+#define WATER_STARTER (IS_FRLG ? SPECIES_SQUIRTLE   : SPECIES_FROGADIER)
 
 static const u16 sStarterMon[STARTER_MON_COUNT] =
 {
