@@ -1,4 +1,4 @@
-# Building 1 — "Little League"
+# Gauntlet 1 — "Little League"
 
 Singles, 6v6, level 50. BST cap 420. Six battles drawn from twelve, then the
 boss.
@@ -43,7 +43,7 @@ sleep moves rather than the Pokémon.
 ## Player pool
 
 Curated, not exhaustive. Roughly ten to fourteen options per type gives the
-player real choice without overwhelming a first building.
+player real choice without overwhelming a first gauntlet.
 
 **Fire** — Charmeleon, Quilava, Combusken, Monferno, Braixen, Torracat, Raboot,
 Crocalor, Pignite, Ponyta, Growlithe, Larvesta
@@ -83,7 +83,7 @@ Pawniard, Zorua, Drifloon, Morgrem
 
 ---
 
-## Shop — building 1 inventory
+## Shop — gauntlet 1 inventory
 
 Pokémon: 100–250 FP depending on tier within the pool.
 
@@ -114,10 +114,10 @@ Full offensive intelligence plus smart replacement, but no proactive switching:
 
 **Two different behaviors, two different flags.** Choosing a good replacement
 after something faints is free difficulty with no downside, and should be on
-from building 1. Proactively switching out a *healthy* Pokémon mid-battle is
+from gauntlet 1. Proactively switching out a *healthy* Pokémon mid-battle is
 the one to hold back — at this tier the teams are six roughly equivalent
 Pokémon with no real defensive cores, so the CPU pivots for marginal gains and
-the player spends turns chasing it. Turn that on around building 3, once teams
+the player spends turns chasing it. Turn that on around gauntlet 3, once teams
 have pivots worth making.
 
 **Not** omniscient, except the boss.
@@ -877,7 +877,7 @@ Timid Nature
 
 ## Boss — Warden Helis
 
-**Pool:** building 2 (≤500 BST) plus everything from building 1.
+**Pool:** gauntlet 2 (≤500 BST) plus everything from gauntlet 1.
 
 **Gimmick:** a Dragon Dance sweeper protected by a team that removes its
 checks. Altaria is the win condition; everything else exists to clear the way
@@ -885,7 +885,7 @@ for it.
 
 **Why this is the right first boss:** it's the simplest complete strategy in
 competitive Pokémon, it's legible after one loss, and the answers all exist in
-the building 1 shop.
+the gauntlet 1 shop.
 
 **AI:** omniscient, proactive switching. No ace flag — the AI chooses when to send Altaria in.
 
@@ -969,7 +969,7 @@ can't interact with is a wall.
 
 ## Optimal counter-team for the boss
 
-Built only from building 1's pool, items and bans. Item clause compliant. This
+Built only from gauntlet 1's pool, items and bans. Item clause compliant. This
 is the benchmark: if this team can't beat Helis reliably, the boss needs
 tuning.
 
@@ -1082,5 +1082,5 @@ that's simply weaker is just a worse fight.
    feel oppressive. Cut moves rather than Pokémon if so.
 2. **Sturdy** — Graveler and Nosepass both survive anything once. At a tier
    with no multi-hit moves, this is more annoying than it looks.
-3. **Boss difficulty** — the largest unknown. Building 1's player pool is the
+3. **Boss difficulty** — the largest unknown. Gauntlet 1's player pool is the
    weakest in the game and the boss gap is the widest relative jump.

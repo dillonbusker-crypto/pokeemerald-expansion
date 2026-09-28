@@ -209,7 +209,7 @@ static const struct FacilityShopItem sHeldItems[] =
     { ITEM_ASSAULT_VEST,     350, 3, NULL },
     { ITEM_LIFE_ORB,         350, 3, NULL },
     { ITEM_HEAVY_DUTY_BOOTS, 300, 3, NULL },
-    // Unlocked clearing building 4 - building-05.md. Choice Scarf is the
+    // Unlocked clearing building 4 - gauntlet-05.md. Choice Scarf is the
     // signature purchase: the singles answer to every fast Mega in the
     // building. Clear Amulet waits for building 6 (doubles, where blanking
     // Intimidate actually teaches something).
@@ -219,13 +219,31 @@ static const struct FacilityShopItem sHeldItems[] =
     { ITEM_WEAKNESS_POLICY,  350, 4, NULL },
     { ITEM_ROCKY_HELMET,     300, 4, NULL },
     { ITEM_MENTAL_HERB,      200, 4, NULL },
+    // Unlocked clearing building 5 - gauntlet-06.md. Doubles tools, nothing
+    // that swings a game by itself. Clear Amulet is the signature purchase:
+    // it blanks the Intimidate half of building 6's teams lean on.
+    { ITEM_CLEAR_AMULET,       300, 5, NULL },
+    { ITEM_LOADED_DICE,        300, 5, NULL },
+    { ITEM_COVERT_CLOAK,       250, 5, NULL },
+    { ITEM_ROOM_SERVICE,       250, 5, NULL },
+    { ITEM_THROAT_SPRAY,       250, 5, NULL },
+    { ITEM_EJECT_BUTTON,       250, 5, NULL },
+    { ITEM_LIGHT_CLAY,         250, 5, NULL },
+    { ITEM_TERRAIN_EXTENDER,   250, 5, NULL },
+    { ITEM_MIRROR_HERB,        250, 5, NULL },
+    { ITEM_EJECT_PACK,         200, 5, NULL },
+    { ITEM_UTILITY_UMBRELLA,   200, 5, NULL },
+    { ITEM_ABILITY_SHIELD,     200, 5, NULL },
+    { ITEM_PUNCHING_GLOVE,     200, 5, NULL },
+    { ITEM_RED_CARD,           150, 5, NULL },
+    { ITEM_ADRENALINE_ORB,     150, 5, NULL },
 };
 
 // ----------------------------------------------------------------------------
 // Keeper 3 - Mega Stones. Opens clearing building 4, the same moment the
 // building 4 attendant hands over the Mega Ring. Gen 6 Megas plus the
 // Legends: Z-A Megas that play best in singles, all at or under 600 BST
-// after evolving - see building-05.md's Bans and Keeper 3 sections for why
+// after evolving - see gauntlet-05.md's Bans and Keeper 3 sections for why
 // each one is in, which were cut as outclassed, and which wait for later
 // buildings (Gengar/Kangaskhan at 7, the doubles-leaning ones at 6). Every
 // stone's base Pokemon is sold by Keeper 4 by the same wave. Plain items,
@@ -265,6 +283,18 @@ static const struct FacilityShopItem sMegaStones[] =
     // Standard - 300
     { ITEM_BEEDRILLITE,   300, 4, NULL },
     { ITEM_VICTREEBELITE, 300, 4, NULL },
+    // Unlocked clearing building 5 - gauntlet-06.md. The doubles-leaning
+    // Megas held back from building 5.
+    { ITEM_SCRAFTINITE,    600, 5, NULL },
+    { ITEM_RAICHUNITE_X,   600, 5, NULL },
+    { ITEM_TATSUGIRINITE,  450, 5, NULL },
+    { ITEM_GOLURKITE,      450, 5, NULL },
+    { ITEM_CRABOMINITE,    450, 5, NULL },
+    { ITEM_SCOVILLAINITE,  450, 5, NULL },
+    { ITEM_CAMERUPTITE,    450, 5, NULL },
+    { ITEM_DRAMPANITE,     450, 5, NULL },
+    { ITEM_CHIMECHITE,     300, 5, NULL },
+    { ITEM_MEOWSTICITE,    300, 5, NULL },
 };
 
 // ----------------------------------------------------------------------------
@@ -335,7 +365,7 @@ static const struct FacilityShopMon sPremiumMons[] =
     // Doubles staples building 4's CPU teams already used but the shop
     // never sold - see shop-unlock-b4.md.
     { SPECIES_INCINEROAR,      500, 3 },
-    // Unlocked clearing building 4 - building-05.md. The 600-BST
+    // Unlocked clearing building 4 - gauntlet-05.md. The 600-BST
     // pseudo-legendaries plus the singles-relevant Paradox / Ultra Beast /
     // Mythical picks; the Ubers-grade ones wait for building 7.
     { SPECIES_GARCHOMP,        850, 4 },
@@ -358,6 +388,22 @@ static const struct FacilityShopMon sPremiumMons[] =
     { SPECIES_CELESTEELA,      850, 4 },
     { SPECIES_BLACEPHALON,     850, 4 },
     { SPECIES_BUZZWOLE,        850, 4 },
+    // Unlocked clearing building 5 - gauntlet-06.md. Doubles-relevant
+    // Paradox / Ultra Beasts and the non-Uber sub-legendaries; the
+    // Ubers-grade ones (Chi-Yu, Chien-Pao, Spectrier, Zapdos-Galar, Urshifu
+    // Single Strike, Landorus / Enamorus Incarnate) wait. Ogerpon is Teal
+    // only - no masks are sold.
+    { SPECIES_IRON_HANDS,               850, 5 },
+    { SPECIES_LANDORUS_THERIAN,         850, 5 },
+    { SPECIES_HEATRAN,                  850, 5 },
+    { SPECIES_URSHIFU_RAPID_STRIKE,     850, 5 },
+    { SPECIES_TAPU_KOKO,                850, 5 },
+    { SPECIES_TAPU_LELE,                850, 5 },
+    { SPECIES_TAPU_FINI,                850, 5 },
+    { SPECIES_TING_LU,                  850, 5 },
+    { SPECIES_TORNADUS,                 850, 5 },
+    { SPECIES_THUNDURUS,                850, 5 },
+    { SPECIES_OGERPON,                  850, 5 },
 };
 
 static const struct FacilityShopMon sStrongMons[] =
@@ -505,7 +551,7 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_AZELF,         375, 3 },
     { SPECIES_TERRAKION,     375, 3 },
     { SPECIES_COBALION,      375, 3 },
-    // Unlocked clearing building 4 - building-05.md.
+    // Unlocked clearing building 4 - gauntlet-05.md.
     { SPECIES_SALAMENCE,       700, 4 },
     { SPECIES_HYDREIGON,       700, 4 },
     { SPECIES_BAXCALIBUR,      700, 4 },
@@ -526,6 +572,22 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_DEOXYS_DEFENSE,  700, 4 },
     { SPECIES_SHAYMIN,         700, 4 },
     { SPECIES_HOOPA,           700, 4 },
+    // Unlocked clearing building 5 - gauntlet-06.md.
+    { SPECIES_IRON_JUGULIS,             700, 5 },
+    { SPECIES_STAKATAKA,                700, 5 },
+    { SPECIES_TAPU_BULU,                700, 5 },
+    { SPECIES_LATIOS,                   700, 5 },
+    { SPECIES_LATIAS,                   700, 5 },
+    { SPECIES_CRESSELIA,                700, 5 },
+    { SPECIES_TORNADUS_THERIAN,         700, 5 },
+    { SPECIES_THUNDURUS_THERIAN,        700, 5 },
+    { SPECIES_REGIELEKI,                700, 5 },
+    { SPECIES_REGIDRAGO,                700, 5 },
+    { SPECIES_OKIDOGI,                  700, 5 },
+    { SPECIES_MUNKIDORI,                700, 5 },
+    { SPECIES_FEZANDIPITI,              700, 5 },
+    { SPECIES_MOLTRES_GALAR,            700, 5 },
+    { SPECIES_ENAMORUS_THERIAN,         700, 5 },
 };
 
 static const struct FacilityShopMon sStandardMons[] =
@@ -696,13 +758,17 @@ static const struct FacilityShopMon sStandardMons[] =
     { SPECIES_UXIE,       250, 3 },
     { SPECIES_MESPRIT,    250, 3 },
     { SPECIES_VIRIZION,   250, 3 },
-    // Unlocked clearing building 4 - building-05.md.
+    // Unlocked clearing building 4 - gauntlet-05.md.
     { SPECIES_GOODRA,          550, 4 },
     { SPECIES_GOODRA_HISUI,    550, 4 },
     { SPECIES_SCREAM_TAIL,     550, 4 },
     { SPECIES_BRUTE_BONNET,    550, 4 },
     { SPECIES_IRON_THORNS,     550, 4 },
     { SPECIES_GUZZLORD,        550, 4 },
+    // Unlocked clearing building 5 - gauntlet-06.md.
+    { SPECIES_ARTICUNO_GALAR,           550, 5 },
+    { SPECIES_GLASTRIER,                550, 5 },
+    { SPECIES_WO_CHIEN,                 550, 5 },
 };
 
 static const struct FacilityShopMon sBudgetMons[] =
@@ -718,7 +784,7 @@ static const struct FacilityShopMon sBudgetMons[] =
     { SPECIES_MINUN,      100, 0 },
     { SPECIES_PACHIRISU,  100, 0 },
     { SPECIES_GRIMER,     100, 0 },
-    // Unlocked clearing building 4 - building-05.md. Base Pokemon for Mega
+    // Unlocked clearing building 4 - gauntlet-05.md. Base Pokemon for Mega
     // Stones that weren't sold yet, priced for what they are without the
     // stone (the stone carries the premium). Clefable also arrives here as
     // a regular Pokemon - it had never been sold, and building 5's CPU
@@ -733,6 +799,15 @@ static const struct FacilityShopMon sBudgetMons[] =
     { SPECIES_SHARPEDO,        250, 4 },
     { SPECIES_MALAMAR,         250, 4 },
     { SPECIES_DRAGALGE,        250, 4 },
+    // Unlocked clearing building 5 - gauntlet-06.md. Bases for the doubles
+    // Mega Stones.
+    { SPECIES_SCOVILLAIN,               375, 5 },
+    { SPECIES_GOLURK,                   375, 5 },
+    { SPECIES_TATSUGIRI,                375, 5 },
+    { SPECIES_CRABOMINABLE,             250, 5 },
+    { SPECIES_DRAMPA,                   250, 5 },
+    { SPECIES_CHIMECHO,                 250, 5 },
+    { SPECIES_MEOWSTIC,                 250, 5 },
 };
 
 static const struct FacilityShopMon *const sMonTiers[] =
@@ -783,6 +858,8 @@ static const struct { u16 species; u8 abilityNum; } sAbilityOverrides[] =
     { SPECIES_DRAGONITE, 2 }, // Multiscale, not Inner Focus
     { SPECIES_CLEFABLE,  1 }, // Magic Guard, not Cute Charm
     { SPECIES_DRAGALGE,  2 }, // Adaptability, not Poison Point
+    { SPECIES_TATSUGIRI, 2 }, // Storm Drain, not Commander
+    { SPECIES_MEOWSTIC,  2 }, // Prankster, not Keen Eye
 };
 
 static u8 GetShopMonAbilityNum(u16 species)
@@ -1114,12 +1191,23 @@ void FacilityShopSelectRow(void)
 // values already on those rows do the rest) - no other change needed here.
 // ----------------------------------------------------------------------------
 
+// One name per shop wave. Wave N is the stock that unlocks on clearing
+// gauntlet N, i.e. what the player buys *for* gauntlet N+1 - so wave 0 is
+// "Gauntlet 1". All ten are listed up front: a wave with no name here never
+// appears in the menu at all (FacilityShopBuildBuildingMenu only walks this
+// table), which silently hid gauntlets 5 and 6's Pokemon while it stopped at 4.
 static const u8 *const sBuildingWaveNames[] =
 {
-    COMPOUND_STRING("Building 1 Pokemon"),
-    COMPOUND_STRING("Building 2 Pokemon"),
-    COMPOUND_STRING("Building 3 Pokemon"),
-    COMPOUND_STRING("Building 4 Pokemon"),
+    COMPOUND_STRING("Gauntlet 1 Pokemon"),
+    COMPOUND_STRING("Gauntlet 2 Pokemon"),
+    COMPOUND_STRING("Gauntlet 3 Pokemon"),
+    COMPOUND_STRING("Gauntlet 4 Pokemon"),
+    COMPOUND_STRING("Gauntlet 5 Pokemon"),
+    COMPOUND_STRING("Gauntlet 6 Pokemon"),
+    COMPOUND_STRING("Gauntlet 7 Pokemon"),
+    COMPOUND_STRING("Gauntlet 8 Pokemon"),
+    COMPOUND_STRING("Gauntlet 9 Pokemon"),
+    COMPOUND_STRING("Gauntlet 10 Pokemon"),
 };
 
 static const u8 sText_SellAPokemon[] = _("Sell a Pokemon");

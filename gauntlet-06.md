@@ -1,11 +1,11 @@
-# Building 6 — "The Assembly Line"
+# Gauntlet 6 — "The Assembly Line"
 
 **Battle Factory.** Doubles, 6v6, level 50. BST cap 600. Six battles drawn
 from twelve, then the boss.
 
 **Design intent:** teach archetype recognition. By now the player has seen
-every doubles tool one at a time — spread moves and redirection (building 2),
-speed control (building 4). Here those tools arrive as *finished team
+every doubles tool one at a time — spread moves and redirection (gauntlet 2),
+speed control (gauntlet 4). Here those tools arrive as *finished team
 archetypes*, and the question on turn one is always the same: what is this
 team trying to do, and which of my Pokémon breaks it? Each team has one Mega
 Evolution, now built for doubles.
@@ -22,24 +22,24 @@ built to beat only one of them won't survive the run.
 | D | 10–12 | Raw power | Passive play, no Protect, no Intimidate or Wide Guard |
 
 **Why the Factory.** It's the Frontier's workshop, where teams are assembled
-to spec, which is the building's conceit. It has a Doubles counter, like the
+to spec, which is the gauntlet's conceit. It has a Doubles counter, like the
 Dome's Singles counter, so the same pattern works: the Doubles attendant runs
-building 6 and the Singles attendant turns the player away. It's also next
+gauntlet 6 and the Singles attendant turns the player away. It's also next
 after the Dome in the door order (`FACILITY_DOOR_FACTORY`). Vanilla Factory
 rules (rental Pokémon, swapping) are **not** used; the Factory is only the
-location, and the Ten Buildings run loop runs there unchanged.
+location, and the Ten Gauntlets run loop runs there unchanged.
 
-**AI:** same as building 5 for pool trainers — full offensive intelligence,
+**AI:** same as gauntlet 5 for pool trainers — full offensive intelligence,
 smart replacement choice, proactive switching, not omniscient. Mega Evolution
 is automatic for any CPU Pokémon holding its stone.
 
 ---
 
-## Unlock — end of building 5
+## Unlock — end of gauntlet 5
 
-When Crownwarden Solen falls, the building 5 attendant points the player to
-the Battle Factory (building 6) and mentions the new Mega Stones. No new key
-item is needed — the Mega Ring came with building 4.
+When Crownwarden Solen falls, the gauntlet 5 attendant points the player to
+the Battle Factory (gauntlet 6) and mentions the new Mega Stones. No new key
+item is needed — the Mega Ring came with gauntlet 4.
 
 Draft dialogue:
 
@@ -58,19 +58,19 @@ Permanent list applies: Smeargle, Wobbuffet, Shedinja, Ditto, Wishiwashi,
 Palafin. The Palafin rule stands: nothing that changes form mid-battle to
 escape the cap, except Mega Evolution for Megas at or under 600.
 
-**Still held until building 7:**
+**Still held until gauntlet 7:**
 
 - **Mega Gengar and Mega Kangaskhan.** Both were dominant in doubles too
   (Kangaskhan's Fake Out plus Parental Bond defined VGC 2015). They arrive
-  with building 7's stronger Megas as planned.
+  with gauntlet 7's stronger Megas as planned.
 - **The Ubers-grade Paradoxes, Ultra Beasts and Mythicals**, unchanged from
-  building 5: Flutter Mane, Roaring Moon, Walking Wake, Gouging Fire, Iron
+  gauntlet 5: Flutter Mane, Roaring Moon, Walking Wake, Gouging Fire, Iron
   Bundle, Kartana, Pheromosa, Naganadel, Darkrai, Deoxys (Normal / Attack /
   Speed), Shaymin-Sky, Magearna, Marshadow, Genesect.
 - **Ubers-grade sub-legendaries:** Chi-Yu and Chien-Pao (Ruin abilities),
   Spectrier, Zapdos-Galar and Urshifu Single Strike (all banned to Ubers in
   Sword/Shield), Landorus Incarnate (Sheer Force) and Enamorus Incarnate
-  (Contrary Superpower). They'd carry straight into building 7's singles.
+  (Contrary Superpower). They'd carry straight into gauntlet 7's singles.
 - **Booster Energy.**
 
 The boss uses Walking Wake as part of its power gap — see the boss section.
@@ -83,18 +83,18 @@ Everything prior stays purchasable. Four sources.
 
 ### 1. Doubles-leaning Megas
 
-The ten held back from building 5 because their value is in doubles: Mega
+The ten held back from gauntlet 5 because their value is in doubles: Mega
 Camerupt, plus the *Legends: Z-A* Megas Scrafty, Raichu X, Tatsugiri, Golurk,
 Crabominable, Scovillain, Drampa, Chimecho and Meowstic. See Keeper 3 below.
 
 ### 2. Doubles-relevant Paradox, Ultra Beasts and Mythicals
 
-Iron Hands, Iron Jugulis and Stakataka — the three held back from building 5
+Iron Hands, Iron Jugulis and Stakataka — the three held back from gauntlet 5
 as doubles-focused.
 
 That's all that's left in these categories below Ubers grade: every other
 non-Uber Paradox, Ultra Beast and Mythical at or under 600 was already sold at
-building 5.
+gauntlet 5.
 
 ### 3. Mega bases
 
@@ -115,31 +115,31 @@ Munkidori and Fezandipiti; Articuno-Galar and Moltres-Galar; and **Ogerpon**
 (Teal form only). This build doesn't flag Ogerpon as legendary, but it is
 one; Tera is off, so Embody Aspect never triggers and it's a clean 550 Grass.
 
-Tornadus arrives here, not at building 7 as `building-04.md` planned. Its
-reason for waiting — trivializing building 4's Tailwind teams — no longer
+Tornadus arrives here, not at gauntlet 7 as `gauntlet-04.md` planned. Its
+reason for waiting — trivializing gauntlet 4's Tailwind teams — no longer
 applies.
 
 **Kubfu** is left out: it's an unevolved 385-BST Pokémon.
 
-**Already moved:** the doubles staples building 4's CPU teams used
-(Incineroar, Tsareena, Dondozo and the rest) are now sold in building 4's
-wave, and Solrock in building 3's — see `shop-unlock-b4.md`.
+**Already moved:** the doubles staples gauntlet 4's CPU teams used
+(Incineroar, Tsareena, Dondozo and the rest) are now sold in gauntlet 4's
+wave, and Solrock in gauntlet 3's — see `shop-unlock-b4.md`.
 
 ---
 
-## Shop — building 6 additions
+## Shop — gauntlet 6 additions
 
 **Tier prices:** Standard 550 · Strong 700 · Premium 850 (the design doc's
-550–850 band for buildings 5–6).
+550–850 band for gauntlets 5–6).
 
 ### Keeper 2 — Held items
 
 Doubles tools, nothing that swings a game by itself. **Focus Sash is already
-sold** — it unlocked after building 3, so it needs no change here.
+sold** — it unlocked after gauntlet 3, so it needs no change here.
 
 | Item | FP | Why it matters in doubles |
 |---|---|---|
-| Clear Amulet | 300 | Blocks Intimidate and every other stat drop an opponent causes. Moved here from building 5 |
+| Clear Amulet | 300 | Blocks Intimidate and every other stat drop an opponent causes. Moved here from gauntlet 5 |
 | Loaded Dice | 300 | Multi-hit moves hit 4–5 times. Icicle Spear, Bullet Seed, Scale Shot |
 | Covert Cloak | 250 | Blocks secondary effects — Fake Out flinch, Icy Wind's Speed drop |
 | Room Service | 250 | −1 Speed when Trick Room goes up. Slows the setter's partner further |
@@ -155,11 +155,11 @@ sold** — it unlocked after building 3, so it needs no change here.
 | Red Card | 150 | Forces the attacker to switch out |
 | Adrenaline Orb | 150 | +1 Speed when Intimidated |
 
-**Clear Amulet is the signature purchase.** Every CPU team in this building
+**Clear Amulet is the signature purchase.** Every CPU team in this gauntlet
 that leans on Intimidate (A2, B6, C9, D11, D12, the boss) gets weaker against
 it.
 
-**Held for later:** Booster Energy (building 7).
+**Held for later:** Booster Energy (gauntlet 7).
 
 ### Keeper 3 — Mega Stones
 
@@ -797,7 +797,7 @@ Sassy Nature
 ## Group D — Raw power
 
 No weather, no terrain, no room — just the strongest attacks in the
-building, fired twice a turn. The answer is Protect, Wide Guard and
+gauntlet, fired twice a turn. The answer is Protect, Wide Guard and
 Intimidate, not a counter-strategy.
 
 ### D10. Blitz — Tailwind hyper offense
@@ -990,15 +990,15 @@ Careful Nature
 
 ## Boss — Forgewarden Oren
 
-**Pool:** building 7 plus everything prior, and one Mega the player can
+**Pool:** gauntlet 7 plus everything prior, and one Mega the player can
 never own.
 
 **Gimmick:** **Mega Charizard Y** (634 BST — above the cap). Drought on Mega
 Evolution, then 159 SpA sun-boosted Heat Waves. Around it, a sun team with
 **Walking Wake** (whose Hydro Steam gets *stronger* in sun, and whose
 Protosynthesis switches on) and **Prankster Tornadus** for Tailwind. Walking
-Wake is a building 7 Pokémon the player can't buy yet; Tornadus is buyable
-this building. That's the power gap: slightly above the building, not a
+Wake is a gauntlet 7 Pokémon the player can't buy yet; Tornadus is buyable
+this gauntlet. That's the power gap: slightly above the gauntlet, not a
 different tier.
 
 **AI:** omniscient, proactive switching. No ace flag.
@@ -1089,7 +1089,7 @@ Charizard Y (100 base) and Tornadus are just frail.
 
 ## Benchmark counter-team
 
-Built only from building 6's pool, items and bans. Item clause compliant. One
+Built only from gauntlet 6's pool, items and bans. Item clause compliant. One
 Mega.
 
 ```
@@ -1184,25 +1184,29 @@ replace — the weather — and the rest of the chain goes slack.
 
 ## Implementation notes
 
-A checklist for when this gets built.
+What was built, and where. Keep the sets above in sync with
+`src/data/trainers.party` — the trainer entries were generated from this doc.
 
-- **Building 5 completion:** add a branch in `Facility_AfterBossBattle`
-  (`data/maps/BattleFrontier_BattleTowerLobby/scripts.inc`) like building 4's,
-  with the dialogue above. No item this time.
-- **Factory unlock:** `IsBattleFactoryUnlocked()` in `src/facility.c` should
-  open on building 5's completion bit, the same way the Dome opens on
-  building 4's.
-- **Factory lobby:** the Doubles attendant runs building 6
-  (`trainerbattle_double`, like building 4's battles); the Singles attendant
-  turns the player away. Same shape as the Dome's.
-- **New data:** `FACILITY_BUILDING_6`, 13 trainer constants (IDs 914–926 —
-  inside the 1000 limit), `sBuilding6Pool`, `Facility_DoBattle_B6` and
-  `Facility_Battle_Boss_B6`, and the shop entries above at
-  `unlockBuilding 5`.
-- **`IVs: 0 Spe`** on every C-group attacker and the counter-team's Stakataka.
-- **Ability overrides:** Tatsugiri (Storm Drain), Meowstic (Prankster).
-- **Ogerpon** needs a shop entry by hand if anything ever filters on the
-  legendary flag — this build doesn't set it.
-- **Verify before building:** Storm Drain AI behavior, Instruct, Electro Shot
-  in rain, Hydro Steam in sun, Room Service, and Mega Raichu X setting
-  Electric Terrain on Mega Evolution.
+- **Trainers:** `TRAINER_FACILITY_B6_*` (IDs 914–926, inside the 1000 limit)
+  in `include/constants/opponents.h` and `src/data/trainers.party`, all
+  doubles. Trick Room attackers carry `IVs: 0 Spe`.
+- **Run loop:** `FACILITY_BUILDING_6` and `sBuilding6Pool` in
+  `src/facility.c`. The shared script flow in the Tower lobby routes gauntlet
+  6 to `Facility_DoBattle_B6` / `Facility_Battle_Boss_B6`, which live in the
+  Factory lobby's scripts next to the gauntlet 6 attendant.
+- **The Factory:** the Doubles attendant runs gauntlet 6
+  (`BattleFrontier_BattleFactoryLobby_EventScript_FacilityAttendantB6`); the
+  Singles attendant turns the player away, since the vanilla rental
+  challenge isn't used. The Factory opens when gauntlet 5 is cleared
+  (`IsBattleFactoryUnlocked()`, same pattern as the Dome).
+- **Gauntlet 5 completion:** `Facility_B5_BuildingComplete` points the
+  player to the Factory and the new Mega Stones.
+- **Shop:** the gauntlet 6 wave (`unlockBuilding 5`) in
+  `src/facility_shop.c`: 15 doubles items in Keeper 2, 10 stones in
+  Keeper 3, and the Pokémon in Keeper 4. The Mega bases go in the Budget
+  tier. New ability overrides: Tatsugiri (Storm Drain), Meowstic
+  (Prankster). Ogerpon is sold as Teal only; no masks are sold.
+
+**Not verified in-game yet:** the AI with Storm Drain on its own side (A1),
+Instruct, Electro Shot in rain, Hydro Steam in sun, Room Service, and Mega
+Raichu X setting Electric Terrain when it Mega Evolves.

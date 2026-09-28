@@ -1,4 +1,4 @@
-# Building 2 — "The Second Slot"
+# Gauntlet 2 — "The Second Slot"
 
 Doubles, 6v6, level 50. BST cap 500. Six battles drawn from twelve, then the
 boss.
@@ -26,14 +26,14 @@ answers to all of them.
 
 ## Bans at this tier
 
-Carried forward from building 1: **Smeargle, Wobbuffet, Shedinja, Ditto,
+Carried forward from gauntlet 1: **Smeargle, Wobbuffet, Shedinja, Ditto,
 Wishiwashi.** These break tiering at every level and stay banned permanently.
 
 **New ban: Palafin** (457). Zero to Hero transforms it to 650 BST mid-battle,
 which the cap cannot measure.
 
 **Unbanned at this tier: Azumarill, Linoone, Medicham.** All three were banned
-from building 1 for dominating a 420 BST field. At 500 they're strong but
+from gauntlet 1 for dominating a 420 BST field. At 500 they're strong but
 answerable, and Medicham in particular is a legitimate doubles threat that
 teaches Fake Out pressure. Watch Azumarill — Belly Drum behind a redirector is
 the combination to look out for, and if it proves oppressive, ban the move
@@ -43,7 +43,7 @@ rather than the Pokémon.
 
 ## Pool additions
 
-The building 1 pool stays purchasable. New at ≤500 BST, organized by the role
+The gauntlet 1 pool stays purchasable. New at ≤500 BST, organized by the role
 they teach:
 
 **Redirection & support** — Amoonguss, Clefairy, Togetic, Indeedee, Gastrodon,
@@ -63,12 +63,12 @@ Alolan Raichu, Alolan Marowak
 
 ---
 
-## Shop — building 2 additions
+## Shop — gauntlet 2 additions
 
 **One change from the design doc:** weather rocks and terrain seeds move to
-building 3 rather than arriving here. Two reasons. Weather is building 3's
-theme, so the tools should arrive with the building that teaches them. And
-building 2's boss runs a rain team holding a Damp Rock — which only works as a
+gauntlet 3 rather than arriving here. Two reasons. Weather is gauntlet 3's
+theme, so the tools should arrive with the gauntlet that teaches them. And
+gauntlet 2's boss runs a rain team holding a Damp Rock — which only works as a
 power gap if the player can't buy one yet.
 
 | Item | FP | Why it matters here |
@@ -77,9 +77,9 @@ power gap if the player can't buy one yet.
 | Lum Berry | 160 | The answer to Spore, Will-O-Wisp and Thunder Wave |
 | Occa / Passho / Wacan / Shuca / Yache Berry | 120 each | Resist berries — survive one hit you shouldn't |
 | Chople / Kebab / Rindo / Colbur Berry | 120 each | Same, wider coverage |
-| Eviolite | — | **Not yet.** Building 3 |
+| Eviolite | — | **Not yet.** Gauntlet 3 |
 
-Resist berries are the signature building 2 item. They're the first purchase
+Resist berries are the signature gauntlet 2 item. They're the first purchase
 that requires the player to predict a specific threat rather than generically
 improve a Pokémon, which is the exact mental shift doubles demands.
 
@@ -87,13 +87,13 @@ improve a Pokémon, which is the exact mental shift doubles demands.
 
 ## AI flags
 
-Same as building 1, with one addition: **the doubles-awareness flag**, if your
+Same as gauntlet 1, with one addition: **the doubles-awareness flag**, if your
 version exposes one separately. Check `include/constants/battle_ai.h`.
 
 - Avoid clearly bad moves, try to KO, check viability, HP awareness
 - Setup logic
 - Smart replacement choice
-- **Still no proactive switching** — that arrives at building 3
+- **Still no proactive switching** — that arrives at gauntlet 3
 - Omniscient on the boss only, plus proactive switching for the boss
 
 ---
@@ -800,7 +800,7 @@ Brave Nature
 
 **Lead: Oranguru.** Sets Trick Room, then Instruct makes the partner attack a
 second time in the same turn. Two slow heavy hitters moving twice each is the
-fastest clock in the building.
+fastest clock in the gauntlet.
 
 ```
 Oranguru @ Twisted Spoon
@@ -862,13 +862,13 @@ Quiet Nature
 
 ## Boss — Tidewarden Nerys
 
-**Pool:** building 3 (≤550 BST) plus everything prior.
+**Pool:** gauntlet 3 (≤550 BST) plus everything prior.
 
 **Gimmick:** permanent rain. Pelipper's Drizzle sets it on entry, and four
 teammates have Swift Swim or Dry Skin. Under rain the entire team doubles its
 Speed and every Water move hits 50% harder.
 
-**The power gap:** Damp Rock is a building 3 item. The player cannot buy one,
+**The power gap:** Damp Rock is a gauntlet 3 item. The player cannot buy one,
 so they cannot field a rain team of their own — they have to beat it from the
 outside.
 
@@ -948,7 +948,7 @@ Deliberately multiple routes, so this isn't a lock-and-key:
 
 ### Benchmark counter-team
 
-Built only from building 2's pool, items and bans. Item clause compliant.
+Built only from gauntlet 2's pool, items and bans. Item clause compliant.
 
 ```
 Bronzong @ Sitrus Berry
@@ -1015,7 +1015,7 @@ move gains a free turn and a Special Attack boost.
 
 **Note on the Brave and Quiet natures.** Nearly every Pokémon here wants
 minimum Speed, because Trick Room rewards being slow. This is the first
-building where the optimal spread isn't "max the attacking stat and max
+gauntlet where the optimal spread isn't "max the attacking stat and max
 Speed," which is a genuine conceptual step for the player.
 
 ---

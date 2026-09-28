@@ -141,7 +141,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_BagFullHeldItem::
 	end
 
 @ ----------------------------------------------------------------------------
-@ Keeper 3 - Mega Stones. Opens clearing building 4 (building-05.md). Until
+@ Keeper 3 - Mega Stones. Opens clearing building 4 (gauntlet-05.md). Until
 @ then FacilityShopBuildMegaStonesMenu finds nothing unlocked and the keeper
 @ just says "not yet", so the counter reads as closed rather than broken.
 @ Same purchase flow as Keeper 2 otherwise.

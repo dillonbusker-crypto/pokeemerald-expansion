@@ -164,7 +164,7 @@ void ResetMenuAndMonGlobals(void)
 // Test-team injector for Building 2 boss playtesting.
 //
 // Throwaway harness, not the real facility: gives the player the benchmark
-// counter-team from building-02.md so Tidewarden Nerys (placed on Youngster
+// counter-team from gauntlet-02.md so Tidewarden Nerys (placed on Youngster
 // Calvin's Route 102 encounter, see src/data/trainers.party) can be tested
 // for tuning. Delete the call in NewGameInitData() below to remove it later;
 // this function can stay harmlessly.
@@ -286,7 +286,7 @@ void GiveBuilding2CounterTeam(void)
 // CB2_GiveStarter() in src/battle_setup.c) has no way to reach eligibility at
 // all. These five, plus the FP grant below, close that gap.
 //
-// All five are drawn from building-01.md's pool, same as the starter -
+// All five are drawn from gauntlet-01.md's pool, same as the starter -
 // deliberately NOT Sableye, Parasect or Ferroseed, since those three are the
 // answer to building 1's boss and handing them over for free would
 // trivialize it. No held items on any of them either, same reasoning as the

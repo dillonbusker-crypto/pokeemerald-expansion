@@ -573,3 +573,133 @@ BattleFrontier_BattleFactoryLobby_Text_ExplainOpenLvRules:
 	.string "In the Open Level, the rental POKéMON\n"
 	.string "and the opposing TRAINERS' POKéMON\l"
 	.string "are all Level 100.$"
+
+@ ============================================================================
+@ Ten Buildings: building 6 ("The Assembly Line", gauntlet-06.md). Same
+@ pattern as the Battle Dome's building 5: the Factory is only the location
+@ (no rentals or swapping), and its Doubles attendant runs building 6
+@ through the shared run-loop scripts in data/maps/BattleFrontier_
+@ BattleTowerLobby/scripts.inc. The Factory opens when building 5 is
+@ cleared (IsBattleFactoryUnlocked() in src/facility.c), so the lobby's
+@ OnFrame check already turns the player away before then.
+@
+@ The vanilla Singles/Doubles attendant flows above are unreferenced now -
+@ map.json points the two attendants at the scripts below instead.
+@ ============================================================================
+
+BattleFrontier_BattleFactoryLobby_EventScript_FacilityAttendantB6::
+	lock
+	faceplayer
+	setvar VAR_0x8004, FACILITY_BUILDING_6
+	special IsFacilityRunActiveForBuilding
+	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
+	special IsFacilityRunActiveForDifferentBuilding
+	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
+	msgbox Facility_B6_Text_AskEnter, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Facility_Decline
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
+	setvar VAR_0x8004, FACILITY_BUILDING_6
+	special FacilityStartRun
+	call Common_EventScript_SaveGame
+	goto Facility_DoBattle
+	end
+
+@ The vanilla Singles challenge would run the real Battle Factory's rental
+@ logic, outside the Ten Buildings run loop - so this attendant just turns
+@ the player away.
+BattleFrontier_BattleFactoryLobby_EventScript_SinglesAttendantClosed::
+	lock
+	faceplayer
+	msgbox BattleFrontier_BattleFactoryLobby_Text_SinglesClosed, MSGBOX_DEFAULT
+	release
+	end
+
+Facility_DoBattle_B6:
+	switch VAR_RESULT
+	case 0, Facility_B6_Battle_MONSOON
+	case 1, Facility_B6_Battle_SOLSTICE
+	case 2, Facility_B6_Battle_WHITEOUT
+	case 3, Facility_B6_Battle_LIVEWIRE
+	case 4, Facility_B6_Battle_MINDSCAPE
+	case 5, Facility_B6_Battle_OVERGROWTH
+	case 6, Facility_B6_Battle_STANDING
+	case 7, Facility_B6_Battle_NIGHTSHIFT
+	case 8, Facility_B6_Battle_SLOWBURN
+	case 9, Facility_B6_Battle_BLITZ
+	case 10, Facility_B6_Battle_HEAVYWEIGHT
+	case 11, Facility_B6_Battle_CHORUS
+	end
+
+Facility_B6_Battle_MONSOON:
+	trainerbattle_double TRAINER_FACILITY_B6_A1_MONSOON, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B6_Battle_SOLSTICE:
+	trainerbattle_double TRAINER_FACILITY_B6_A2_SOLSTICE, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B6_Battle_WHITEOUT:
+	trainerbattle_double TRAINER_FACILITY_B6_A3_WHITEOUT, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B6_Battle_LIVEWIRE:
+	trainerbattle_double TRAINER_FACILITY_B6_B4_LIVEWIRE, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B6_Battle_MINDSCAPE:
+	trainerbattle_double TRAINER_FACILITY_B6_B5_MINDSCAPE, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B6_Battle_OVERGROWTH:
+	trainerbattle_double TRAINER_FACILITY_B6_B6_OVERGROWTH, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B6_Battle_STANDING:
+	trainerbattle_double TRAINER_FACILITY_B6_C7_STANDING, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B6_Battle_NIGHTSHIFT:
+	trainerbattle_double TRAINER_FACILITY_B6_C8_NIGHTSHIFT, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B6_Battle_SLOWBURN:
+	trainerbattle_double TRAINER_FACILITY_B6_C9_SLOWBURN, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B6_Battle_BLITZ:
+	trainerbattle_double TRAINER_FACILITY_B6_D10_BLITZ, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B6_Battle_HEAVYWEIGHT:
+	trainerbattle_double TRAINER_FACILITY_B6_D11_HEAVYWEIGHT, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B6_Battle_CHORUS:
+	trainerbattle_double TRAINER_FACILITY_B6_D12_CHORUS, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_Battle_Boss_B6:
+	trainerbattle_double TRAINER_FACILITY_B6_BOSS_OREN, Facility_B6_Text_BossIntro, Facility_B6_Text_BossDefeat, Facility_Text_NotEnoughMons, Facility_AfterBossBattle
+	end
+
+Facility_B6_Text_AskEnter:
+	.string "Welcome to the Assembly Line!\p"
+	.string "This is a Doubles gauntlet - six battles,\n"
+	.string "then a boss. Your whole party of six\l"
+	.string "enters, and it's locked once you begin.\p"
+	.string "Every team here is built to a plan.\n"
+	.string "Ready to start?$"
+
+Facility_B6_Text_BossIntro:
+	.string "Every team off this line runs on one\n"
+	.string "part. Mine runs on the sun.$"
+
+Facility_B6_Text_BossDefeat:
+	.string "You broke the part that mattered.$"
+
+BattleFrontier_BattleFactoryLobby_Text_SinglesClosed:
+	.string "The Singles challenge isn't running\n"
+	.string "right now. Please see my colleague\l"
+	.string "for the Assembly Line.$"

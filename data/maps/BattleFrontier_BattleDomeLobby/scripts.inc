@@ -710,7 +710,7 @@ BattleFrontier_BattleDomeLobby_Text_ExplainDoubleKORules:
 	.string "the match and declare the winner.$"
 
 @ ============================================================================
-@ Ten Buildings: building 5 ("The Main Event", building-05.md). The Dome is
+@ Ten Buildings: building 5 ("The Main Event", gauntlet-05.md). The Dome is
 @ only the location - the vanilla tournament (brackets, 3v3, team preview)
 @ isn't used. The Singles attendant runs building 5 through the same shared
 @ run-loop scripts the Battle Tower lobby uses (Facility_DoBattle and

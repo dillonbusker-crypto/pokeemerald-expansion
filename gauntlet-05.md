@@ -1,14 +1,14 @@
-# Building 5 — "The Main Event"
+# Gauntlet 5 — "The Main Event"
 
 **Battle Dome.** Singles, 6v6, level 50. BST cap 600. Six battles drawn from
 twelve, then the boss.
 
 **Design intent:** teach the one-shot decision. Mega Evolution arrives here, and
 a Mega is the most powerful thing on a team that can only happen once per
-battle. Every CPU team has exactly one, and the building's lesson is choosing
+battle. Every CPU team has exactly one, and the gauntlet's lesson is choosing
 *which* of yours to Mega Evolve, *when*, and how to play around the opponent's
 before it lands. Choice items arrive alongside it — the other "commit now, live
-with it" mechanic — so the whole building is about commitment.
+with it" mechanic — so the whole gauntlet is about commitment.
 
 **Structural conceit:** four groups of three. Every team carries one Mega, and
 the group decides what that Mega is *for*.
@@ -20,23 +20,23 @@ the group decides what that Mega is *for*.
 | C | 7–9 | Choice pressure & pivoting | Predictable switching, staying in on bad matchups |
 | D | 10–12 | Hazards & attrition | No hazard removal, no Heavy-Duty Boots, no wallbreaker |
 
-**Why the Dome.** Buildings 1–4 used the Battle Tower's four counters, so the
+**Why the Dome.** Gauntlets 1–4 used the Battle Tower's four counters, so the
 Tower is finished. The Dome is the Frontier's arena, with an audience and a
-spotlight, which suits the building where Pokémon first transform mid-battle.
-Its lobby already had a locked-door check; it now opens when building 4 is
+spotlight, which suits the gauntlet where Pokémon first transform mid-battle.
+Its lobby already had a locked-door check; it now opens when gauntlet 4 is
 cleared. Vanilla Dome tournament
 rules (brackets, 3v3, team preview) are **not** used. The Dome is only the
-location, and the Ten Buildings run loop runs there unchanged.
+location, and the Ten Gauntlets run loop runs there unchanged.
 
-**AI:** same as buildings 3 and 4 for pool trainers — full offensive
+**AI:** same as gauntlets 3 and 4 for pool trainers — full offensive
 intelligence, smart replacement choice, proactive switching, not omniscient.
 Mega Evolution is automatic for any CPU Pokémon holding its stone.
 
 ---
 
-## Unlock ceremony — end of building 4
+## Unlock ceremony — end of gauntlet 4
 
-When Timewarden Iyla falls, the building 4 attendant does three things:
+When Timewarden Iyla falls, the gauntlet 4 attendant does three things:
 
 1. **Gives the player the Mega Ring** (`ITEM_MEGA_RING`, a key item). Without
    it the player can't Mega Evolve at all: `CanMegaEvolve()` in
@@ -45,7 +45,7 @@ When Timewarden Iyla falls, the building 4 attendant does three things:
    bag items in battle, not owning them, so the ring works during runs.
 2. **Points to the Exchange Service Corner:** the Mega Stone counter (Keeper 3)
    is open now.
-3. **Points to the Battle Dome:** building 5 is there, and its doors are open.
+3. **Points to the Battle Dome:** gauntlet 5 is there, and its doors are open.
 
 Draft dialogue:
 
@@ -79,9 +79,9 @@ is 630.
 **Which Megas are sold.** Gen 6 Megas, plus the *Legends: Z-A* Megas that
 play best in singles. All are at or under 600 after evolving.
 
-- **Doubles-leaning Megas are held for building 6:** Mega Camerupt, plus the
+- **Doubles-leaning Megas are held for gauntlet 6:** Mega Camerupt, plus the
   Z-A Scrafty, Golurk, Crabominable, Scovillain, Tatsugiri, Chimecho, Meowstic,
-  Drampa and Raichu X. Building 6 is doubles, and the design doc already gives
+  Drampa and Raichu X. Gauntlet 6 is doubles, and the design doc already gives
   it a limited Mega pool.
 - **Cut entirely, as outclassed:**
   - Mega Audino — Mega Clefable does its job better.
@@ -90,7 +90,7 @@ play best in singles. All are at or under 600 after evolving.
   - Mega Scolipede — Mega Evolving drops its Speed from 112 to 62.
   - Mega Falinks — five better Fighting Megas are already sold.
 
-**Mega Gengar and Mega Kangaskhan are held until building 7.** Both were
+**Mega Gengar and Mega Kangaskhan are held until gauntlet 7.** Both were
 banned to Ubers in Gen 6: Shadow Tag traps the player's switch-ins, and
 Parental Bond makes every attack hit twice. Their stones aren't sold here.
 
@@ -118,26 +118,26 @@ The ones that matter in singles **and aren't Ubers-grade** there.
 | Ultra Beasts | Buzzwole, Celesteela, Blacephalon, Nihilego, Xurkitree, Guzzlord |
 | Mythicals | Mew, Jirachi, Celebi, Victini, Keldeo, Meloetta, Volcanion, Zeraora, Melmetal, Zarude, Manaphy, Pecharunt, Shaymin (Land), Deoxys-Defense, Hoopa (Confined) |
 
-**Booster Energy is still not sold** (building 7, per the design doc). Paradox
+**Booster Energy is still not sold** (gauntlet 7, per the design doc). Paradox
 abilities only switch on under sun or Electric Terrain, which rewards what
-building 3 taught.
+gauntlet 3 taught.
 
-**Held for building 6 (doubles-focused):** Iron Hands, Iron Jugulis, Stakataka.
+**Held for gauntlet 6 (doubles-focused):** Iron Hands, Iron Jugulis, Stakataka.
 
-**Held for building 7+ (Ubers-grade in singles):** Flutter Mane, Roaring Moon,
+**Held for gauntlet 7+ (Ubers-grade in singles):** Flutter Mane, Roaring Moon,
 Walking Wake, Gouging Fire, Iron Bundle, Kartana, Pheromosa, Naganadel,
 Darkrai, Deoxys (Normal / Attack / Speed), Shaymin-Sky, Magearna, Marshadow,
 Genesect.
 
-Not covered by this pass: the sub-legendaries held back at building 4
+Not covered by this pass: the sub-legendaries held back at gauntlet 4
 (Tornadus, the Tapus, the Ruin quartet, the Loyal Three, Cresselia and the
 rest), plus the 600-BST sub-legendaries (Heatran, Latios, Latias, Landorus).
-They're neither Paradox, Ultra Beast nor Mythical. Building 6 or 7 is their
+They're neither Paradox, Ultra Beast nor Mythical. Gauntlet 6 or 7 is their
 natural home.
 
 ### 3. Mega bases
 
-Every Mega sold at this building (see Bans) needs its base Pokémon, and **nine
+Every Mega sold at this gauntlet (see Bans) needs its base Pokémon, and **nine
 of them aren't sold yet.** Those arrive now, priced for what they are without
 a stone — the stone carries the premium.
 
@@ -145,14 +145,14 @@ Pidgeot, Sharpedo, Altaria, Absol, Lopunny, Raichu, Staraptor, Malamar,
 Dragalge.
 
 **Clefable** also arrives here as a regular Pokémon. It's never been sold, and
-building 5's CPU teams and boss use it.
+gauntlet 5's CPU teams and boss use it.
 
 ---
 
-## Shop — building 5 additions
+## Shop — gauntlet 5 additions
 
 **Tier prices:** Standard 550 · Strong 700 · Premium 850 (the design doc's
-550–850 band for buildings 5–6).
+550–850 band for gauntlets 5–6).
 
 ### Keeper 2 — Held items
 
@@ -166,11 +166,11 @@ building 5's CPU teams and boss use it.
 | Mental Herb | 200 | Cures Taunt, Encore, Torment, Disable and Heal Block once |
 
 **Choice Scarf is the signature purchase.** It's the singles answer to every
-fast Mega in the building, and the benchmark counter-team depends on it.
+fast Mega in the gauntlet, and the benchmark counter-team depends on it.
 
-**Clear Amulet moves to building 6.** `shop-spec.md` had it here and the
-design doc at building 6. Its main job is blanking Intimidate, which is a
-doubles problem, so building 6 is where it teaches something.
+**Clear Amulet moves to gauntlet 6.** `shop-spec.md` had it here and the
+design doc at gauntlet 6. Its main job is blanking Intimidate, which is a
+doubles problem, so gauntlet 6 is where it teaches something.
 
 ### Keeper 3 — Mega Stones (opens now)
 
@@ -220,8 +220,8 @@ Priced by what the Mega does, not its BST. Buying a Mega means buying the base
 | Beedrillite | Beedrill (495) | Adaptability, 145 Speed. Frail, but fast |
 | Victreebelite | Victreebel (590) | Strength Sap, mixed offense, Innards Out |
 
-That's 28 stones. Gengar and Kangaskhan are held until building 7, and ten
-doubles-leaning Megas until building 6 (see Bans).
+That's 28 stones. Gengar and Kangaskhan are held until gauntlet 7, and ten
+doubles-leaning Megas until gauntlet 6 (see Bans).
 
 **Z-A Megas have no Smogon history.** Their tiers come from stats, abilities
 and movepools. Expect to move some after playtesting.
@@ -504,7 +504,7 @@ Modest Nature
 ### B5. Crescendo — special setup
 
 **Mega Clefable's** Magic Bounce bounces back the Taunt or Toxic a player would
-use to stop it. Behind it, every special setup move in the building: Nasty
+use to stop it. Behind it, every special setup move in the gauntlet: Nasty
 Plot, Quiver Dance, Calm Mind, and Contrary Leaf Storm.
 
 ```
@@ -629,7 +629,7 @@ Impish Nature
 
 ## Group C — Choice pressure & pivoting
 
-Choice items arrive this building and these teams are built around them. The
+Choice items arrive this gauntlet and these teams are built around them. The
 lesson runs in both directions: punish a locked opponent, and don't get locked
 into the wrong move yourself.
 
@@ -954,7 +954,7 @@ Bold Nature
 ### D12. Pressure Point — balance
 
 Hazards up, hazards off, a spinblocker, and **Mega Heracross** to punish the
-player for playing slowly back. The most "normal" team in the building, and
+player for playing slowly back. The most "normal" team in the gauntlet, and
 the one closest to what a real singles team looks like.
 
 ```
@@ -1017,13 +1017,13 @@ Calm Nature
 
 ## Boss — Crownwarden Solen
 
-**Pool:** building 6 (≤600, limited Megas) plus everything prior, and one Mega
+**Pool:** gauntlet 6 (≤600, limited Megas) plus everything prior, and one Mega
 the player can never own.
 
 **Gimmick:** **Mega Salamence** (700 BST — well above the cap). Aerilate
 Double-Edge off a Dragon Dance. Everything else on the team exists to get it
 one clean turn. That's the power gap: a Mega the player can't buy, plus
-**Booster Energy** on Great Tusk, which the player can't buy until building 7.
+**Booster Energy** on Great Tusk, which the player can't buy until gauntlet 7.
 Every set is fully optimized.
 
 **AI:** omniscient, proactive switching. **No ace flag** — the same call made
@@ -1095,12 +1095,12 @@ hazards and threatens the Steel and Ice types that would stop a Salamence.
 Dragapult and Clefable force switches, and Corviknight's U-turn brings
 Salamence in safely.
 
-Mega Salamence at +1 is the fastest and strongest thing in the building.
+Mega Salamence at +1 is the fastest and strongest thing in the gauntlet.
 At +0 it's merely very good.
 
 **Adamant, not Jolly, is deliberate — and it's the crack.** At +1 an Adamant
 Mega Salamence is just slower than a **Jolly Choice Scarf Garchomp**, a
-Pokémon and item the player can buy this building. That's the intended
+Pokémon and item the player can buy this gauntlet. That's the intended
 answer, sitting in the same shop that just unlocked. A fully optimized boss
 could run Jolly; this one leaves one door open on purpose, the same way
 Kasra's team depended on sand.
@@ -1123,7 +1123,7 @@ Kasra's team depended on sand.
 
 ## Benchmark counter-team
 
-Built only from building 5's pool, items and bans. Item clause compliant. One
+Built only from gauntlet 5's pool, items and bans. Item clause compliant. One
 Mega.
 
 ```
@@ -1203,13 +1203,13 @@ turn away, or be faster than the turn.
    enough.
 2. **Choice Scarf with reusable items.** A Scarf that restores every battle is
    exactly how it works in official play, so this is fine — but it's the
-   first item that lets a player lock the speed tier building 4 taught them to
+   first item that lets a player lock the speed tier gauntlet 4 taught them to
    fight over. Watch whether every team becomes Scarf Garchomp plus five.
 3. **Mega Raichu Y and Mega Absol Z.** The two likeliest to be too strong:
-   both are faster than almost everything in the building, and No Guard and
+   both are faster than almost everything in the gauntlet, and No Guard and
    Sharpness remove their usual weaknesses. They're comparable to Mega
    Alakazam, so not out of line for the tier, but they're the first two to
-   hold back if the building plays too fast.
+   hold back if the gauntlet plays too fast.
 4. **Hazard stack in D10.** Three hazards plus Whirlwind against a player who
    hasn't bought Heavy-Duty Boots is very punishing. That may be the lesson,
    or it may just feel unfair. Watch the win rate.
@@ -1225,8 +1225,8 @@ What was built, and where. Keep the sets above in sync with
 `src/data/trainers.party` — the trainer entries were generated from this doc.
 
 - **Trainer IDs.** `MAX_TRAINERS_COUNT_EMERALD` was raised from 890 to 1000
-  (`include/constants/opponents.h`), with headroom for all ten buildings. At
-  890 it had been too low for building 4: trainer IDs past it share their
+  (`include/constants/opponents.h`), with headroom for all ten gauntlets. At
+  890 it had been too low for gauntlet 4: trainer IDs past it share their
   "defeated" flag with system flags (the Pokédex, badges and so on), and
   ID 891 was read as a battle partner. A `STATIC_ASSERT` in `src/facility.c`
   now fails the build if it ever happens again. **Raising it changed the save
@@ -1236,20 +1236,20 @@ What was built, and where. Keep the sets above in sync with
   `include/constants/opponents.h` and `src/data/trainers.party`.
 - **Run loop:** `FACILITY_BUILDING_5` and `sBuilding5Pool` in
   `src/facility.c`. The shared script flow in the Tower lobby
-  (`Facility_DoBattle`, `Facility_Battle_Boss`) routes building 5 to
+  (`Facility_DoBattle`, `Facility_Battle_Boss`) routes gauntlet 5 to
   `Facility_DoBattle_B5` / `Facility_Battle_Boss_B5`, which live in the Dome
-  lobby's scripts next to the building 5 attendant.
-- **The Dome:** the Singles attendant runs building 5
+  lobby's scripts next to the gauntlet 5 attendant.
+- **The Dome:** the Singles attendant runs gauntlet 5
   (`BattleFrontier_BattleDomeLobby_EventScript_FacilityAttendantB5`). The
   Doubles attendant turns the player away, since the vanilla tournament
-  isn't used. The Dome opens when building 4 is cleared:
+  isn't used. The Dome opens when gauntlet 4 is cleared:
   `IsBattleDomeUnlocked()` reads the same `buildingsCompleted` bits as the
   Tower mats, so no separate door bit has to be set.
-- **Building 4 completion:** `Facility_B4_BuildingComplete` gives the Mega
+- **Gauntlet 4 completion:** `Facility_B4_BuildingComplete` gives the Mega
   Ring *before* saving, then points the player to the Mega Stone counter and
   the Dome. The Mega Stone keeper also hands over a ring if one is ever
   missing.
-- **Shop:** the building 5 wave (`unlockBuilding 4`) in
+- **Shop:** the gauntlet 5 wave (`unlockBuilding 4`) in
   `src/facility_shop.c`: Choice items and friends in Keeper 2, all 28 stones
   in the new `sMegaStones` table (Keeper 3, `FacilityShopBuildMegaStonesMenu`),
   and the Pokémon in Keeper 4. The Mega bases go in the Budget tier. New

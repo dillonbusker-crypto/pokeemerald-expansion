@@ -1,4 +1,4 @@
-# Competitive Reference — Ten Buildings
+# Competitive Reference — Ten Gauntlets
 
 Working reference for building CPU teams. Organized for lookup, not reading
 front to back.
@@ -36,22 +36,22 @@ BST correlates weakly with competitive viability. A sample of what sits where:
 | Goodra | 600 | Pseudo-legendary, rarely viable |
 | Kommo-o | 600 | Pseudo-legendary, niche at best |
 
-Under a pure BST cap, building 5 "unlocks pseudo-legendaries" and hands the
-player Goodra, which is worse than the Whimsicott they had at building 2.
-Meanwhile Drizzle Pelipper at 430 BST enables an entire archetype at building 1.
+Under a pure BST cap, gauntlet 5 "unlocks pseudo-legendaries" and hands the
+player Goodra, which is worse than the Whimsicott they had at gauntlet 2.
+Meanwhile Drizzle Pelipper at 430 BST enables an entire archetype at gauntlet 1.
 
 **Fix:** use BST as a first-pass filter, then hand-curate every pool. Keep an
 explicit allow-list per tier rather than a formula. The curation is the design
 work — the number is just a sorting aid.
 
-### Specific: building 1 at 400 BST is nearly empty
+### Specific: gauntlet 1 at 400 BST is nearly empty
 
 At or below 400 BST there is almost nothing competitively functional. Sableye
 (380) and Mawile (380) are the notable names and both are defined by their
-Megas, which you've gated to building 6+. You'd be asking players to build a
+Megas, which you've gated to gauntlet 6+. You'd be asking players to build a
 team out of scraps.
 
-**Suggest raising building 1 to ~460.** That opens Azumarill, Pelipper,
+**Suggest raising gauntlet 1 to ~460.** That opens Azumarill, Pelipper,
 Amoonguss, Breloom, Rotom formes, Gligar, Torkoal — enough for real
 teambuilding, and still clearly "little league" against later tiers.
 
@@ -65,16 +65,16 @@ an early one, despite feeling basic.
 
 ---
 
-## Problem 2: Max AI from building 1
+## Problem 2: Max AI from gauntlet 1
 
 You want no mercy from the start, which is a defensible choice, but be aware of
 what the flags actually do. Smart switching in particular makes the CPU pivot
 constantly, which reads as tedious rather than difficult when the teams are
 weak — the player spends six turns chasing something that keeps running.
 
-**Suggest:** full offensive intelligence from building 1 (viability checking,
+**Suggest:** full offensive intelligence from gauntlet 1 (viability checking,
 HP awareness, KO recognition, setup logic), but hold smart switching until
-around building 3 when the CPU teams have defensive cores worth pivoting
+around gauntlet 3 when the CPU teams have defensive cores worth pivoting
 between. Omniscience on bosses only, as you said, is exactly right.
 
 ---
@@ -107,7 +107,7 @@ between battles if you follow Frontier convention.
 - Heavy-Duty Boots negate hazards entirely — a significant item, gate it
   thoughtfully
 
-**Design note:** your buildings are gauntlets. If HP and PP carry between the
+**Design note:** your gauntlets are gauntlets. If HP and PP carry between the
 seven battles, hazard chip becomes brutally strong and the format shifts toward
 attrition. If everything heals between battles, hazards are much weaker and
 offense dominates. **This is an unresolved decision in your design and it
@@ -201,7 +201,7 @@ that the player must disrupt is a puzzle. The player should be able to lose,
 understand why, and rebuild.
 
 **Bosses should have a weakness the player's current tier can reach.** If
-building 5's boss has a Mega the player can't own, the counterplay should be
+gauntlet 5's boss has a Mega the player can't own, the counterplay should be
 something available at tier 5 — Encore, Taunt, priority, a status shutdown. The
 answer must exist in the player's current shop.
 
@@ -219,9 +219,9 @@ much strategic weight they carry:
 Mental Herb, Booster Energy
 **Endgame** — Mega Stones
 
-Your instinct to hold Choice items until building 3+ is right. Choice items
+Your instinct to hold Choice items until gauntlet 3+ is right. Choice items
 aren't strictly "strong" — they're a commitment mechanic that teaches
-prediction, which is exactly the skill a mid-tier building should be testing.
+prediction, which is exactly the skill a mid-tier gauntlet should be testing.
 
 Note on reusability: making held items reusable is the correct call for a
 roguelite economy, and mechanically it's a matter of restoring consumed items
@@ -238,4 +238,4 @@ is a small change rather than a new system.
 3. **Is the player's team of six locked at run start, or do they pick from a
    larger roster per battle?** — Frontier convention is pick before entering
 4. **Boss Pokémon: strictly next-tier-only, or next-tier plus current?** —
-   strictly next-tier may leave bosses with thin team options in early buildings
+   strictly next-tier may leave bosses with thin team options in early gauntlets

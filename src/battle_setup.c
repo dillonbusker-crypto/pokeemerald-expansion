@@ -999,7 +999,7 @@ enum BattleTransition GetSpecialBattleTransition(enum BattleTransitionGroup id)
     return sBattleTransitionTable_BattleFrontier[var % ARRAY_COUNT(sBattleTransitionTable_BattleFrontier)];
 }
 
-// Ten Buildings: building-01.md-pool starters given at the project's flat
+// Ten Buildings: gauntlet-01.md-pool starters given at the project's flat
 // level 50 instead of the vanilla level-5 base stages, via
 // CreateMonFromTemplate() (the same pattern GiveBuilding2CounterTeam() in
 // src/new_game.c uses) rather than ScriptGiveMon(), since ScriptGiveMon only

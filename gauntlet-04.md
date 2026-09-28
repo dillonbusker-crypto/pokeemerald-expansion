@@ -1,11 +1,11 @@
-# Building 4 — "The Turn Order"
+# Gauntlet 4 — "The Turn Order"
 
 **Battle Tower, Link Multi counter.** Doubles, 6v6, level 50. BST cap 599. Six
 battles drawn from twelve, then the boss.
 
 **Design intent:** teach that Speed is something you *set*, not something you
-have. Building 2 introduced Tailwind and Trick Room as one group among four.
-Here they're the whole building, and every team has a plan for the turn order.
+have. Gauntlet 2 introduced Tailwind and Trick Room as one group among four.
+Here they're the whole gauntlet, and every team has a plan for the turn order.
 
 **Structural conceit:** four groups of three — Tailwind, Trick Room, terrain,
 and speed reduction. The player who arrives with a static speed tier and no
@@ -26,21 +26,21 @@ should never see the word "Link."
 
 ## On the roster gap
 
-Building 3's note flagged that the 551–599 band is nearly empty — Arcanine,
+Gauntlet 3's note flagged that the 551–599 band is nearly empty — Arcanine,
 Florges, Archeops and Silvally are the only additions the cap raise brings.
 
-**In practice this matters less than it looked**, for one reason: building 3
+**In practice this matters less than it looked**, for one reason: gauntlet 3
 was singles. The player spent tier 3 buying singles Pokémon. Everything in the
 501–550 band that defines competitive *doubles* — Rillaboom, Togekiss,
 Hatterene, Grimmsnarl, Gholdengo, Porygon2 — was purchasable at tier 3 and
 almost certainly wasn't purchased.
 
-The doubles staples this building's CPU teams lean on — Incineroar, Tsareena,
+The doubles staples this gauntlet's CPU teams lean on — Incineroar, Tsareena,
 Dondozo, Talonflame, Conkeldurr and others — arrive in the shop *with*
-building 4 (see `shop-unlock-b4.md`). They were missing from the shop until
+gauntlet 4 (see `shop-unlock-b4.md`). They were missing from the shop until
 then even though these teams used them.
 
-So the shop has plenty to offer even though the cap barely moved. Building 4's
+So the shop has plenty to offer even though the cap barely moved. Gauntlet 4's
 identity is the **format shift plus four new items**, not the cap.
 
 Still worth deciding whether the ladder should be re-cut. But it isn't urgent.
@@ -56,13 +56,13 @@ Palafin.
 worse here than it was in singles.
 
 **A limited set of legendaries arrives here** — the ones that won't break
-building 5's singles once they're on the permanent roster: Entei, Raikou,
+gauntlet 5's singles once they're on the permanent roster: Entei, Raikou,
 Suicune, Zapdos, Moltres, Articuno, Regirock, Regice, Registeel, Azelf, Uxie,
 Mesprit, Terrakion, Cobalion and Virizion. Every other legendary, Paradox and
 Ultra Beast in the 551–599 band stays held back.
 
 The Forces of Nature stay out. Tornadus in particular is the best Tailwind
-setter in the game and would trivialize group A — it arrives at building 7 as
+setter in the game and would trivialize group A — it arrives at gauntlet 7 as
 designed.
 
 **Pool teams carry at most one legendary each.** Ten of the twelve do; the two
@@ -86,7 +86,7 @@ Dracozolt, Galvantula, Coalossal, Mr. Rime
 
 ---
 
-## Shop — building 4 additions
+## Shop — gauntlet 4 additions
 
 | Item | FP | Why it matters here |
 |---|---|---|
@@ -870,7 +870,7 @@ Adamant Nature
 
 ## Boss — Timewarden Iyla
 
-**Pool:** building 5 (600 BST pseudo-legendaries) plus everything prior.
+**Pool:** gauntlet 5 (600 BST pseudo-legendaries) plus everything prior.
 
 **Gimmick:** Trick Room with four pseudo-legendaries under it. The player has
 never faced a 600 BST Pokémon, and now faces four of them moving first.
@@ -957,7 +957,7 @@ immediate damage to KO a setter outright.
 
 **Tyranitar runs Sand Stream**, which chips the player's team and boosts its
 own Special Defense by 50%. It's also a second pressure point: overwriting the
-sand costs the boss real value, though unlike building 3 it doesn't break the
+sand costs the boss real value, though unlike gauntlet 3 it doesn't break the
 gameplan.
 
 ### Counterplay available at tier 4
@@ -975,7 +975,7 @@ gameplan.
 
 ## Benchmark counter-team
 
-Built only from building 4's pool, items and bans. Item clause compliant.
+Built only from gauntlet 4's pool, items and bans. Item clause compliant.
 
 ```
 Porygon2 @ Eviolite
@@ -1049,17 +1049,17 @@ to one form of it is usually a different form rather than more speed.
 ## Open for playtesting
 
 1. **Focus Sash under reusable items.** Flagged above and the biggest unknown
-   in the building. If it's oppressive, add multi-hit moves to CPU teams rather
+   in the gauntlet. If it's oppressive, add multi-hit moves to CPU teams rather
    than changing the item.
 2. **The Magic Bounce plus Psychic Surge pairing on the boss.** Between them
    they turn off Taunt, Encore, Thunder Wave, Fake Out and all priority. That's
    most of the player's instincts at once. It should read as a puzzle with two
    separable halves — but if it reads as a brick wall, split the setters so
    only one is on the field at a time.
-3. **Whether Trick Room and Tailwind feel distinct from building 2.** Both
-   appeared there as one group of four. If building 4 feels like a rerun rather
+3. **Whether Trick Room and Tailwind feel distinct from gauntlet 2.** Both
+   appeared there as one group of four. If gauntlet 4 feels like a rerun rather
    than an escalation, the fix is leaning harder into group D, which has no
-   building 2 equivalent.
+   gauntlet 2 equivalent.
 4. **Psychic Terrain blocking Fake Out** appears on two teams (B6, C8) and is
    the direct counter to the answer the boss teaches. That's intentional
    tension but worth confirming it doesn't feel arbitrary.

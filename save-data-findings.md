@@ -1,4 +1,4 @@
-# Save Data Findings — Ten Buildings
+# Save Data Findings — Ten Gauntlets
 
 Investigation only. No code changed. All sizes below were measured directly —
 either from `sizeof()` via a throwaway probe compiled with the project's own
@@ -88,10 +88,10 @@ restructuring the sector map — a real engineering task, not a config flip.
 Given that, and that the design says "Roster cap: none," worth flagging: at
 current box math, **420 is the practical ceiling** unless sector space is
 deliberately reallocated. Whether that's actually a problem depends on how
-large the full ten-building purchasable pool ends up being across all ten
-buildings, and how aggressively players are expected to sell back rather
+large the full ten-gauntlet purchasable pool ends up being across all ten
+gauntlets, and how aggressively players are expected to sell back rather
 than hoard — I didn't try to estimate total pool size across the whole
-design doc, since buildings 3–10 aren't designed yet.
+design doc, since gauntlets 3–10 aren't designed yet.
 
 ---
 
@@ -122,7 +122,7 @@ and shaped remarkably close to what this project needs).
 
 ---
 
-## 3. Progression state — buildings, tiers, streak
+## 3. Progression state — gauntlets, tiers, streak
 
 **Confirmed abundant, no new space needed even before touching anything
 else.**
@@ -135,12 +135,12 @@ else.**
   packed into `flags[NUM_FLAG_BYTES]` in `SaveBlock1`,
   `include/global.h:1133`). **381 are currently defined as unused.**
 
-What ten-building progression actually needs is small: one flag per building
+What ten-gauntlet progression actually needs is small: one flag per gauntlet
 completed (10), one var for current streak within a run (0–7), one var (or
 even derivable from the completion flags) for highest unlocked tier, and
 some small encoding for which 6 of 12 pool trainers were drawn this run if
 that needs to persist across a save/quit (worst case, a 12-bit mask per
-building fits in one var each — 10 more vars). That's on the order of
+gauntlet fits in one var each — 10 more vars). That's on the order of
 **~15–25 vars and ~15–25 flags**, comfortably inside the 29 + 381 already
 sitting unused, without needing to grow either array (which would eat into
 the already-tight `SaveBlock1` budget — see §4). This isn't close to a
@@ -213,7 +213,7 @@ win streaks, records, rental trainer pools, the works. This project's
 real facility is conceptually a direct descendant of exactly this system
 (win streaks through a facility, records, rentals), and if the plan is ever
 to gut vanilla Battle Frontier rather than run alongside it, this struct is
-both the natural home for the ten-buildings save state and, on its own,
+both the natural home for the ten-gauntlets save state and, on its own,
 larger than everything else in `SaveBlock2` combined. I'm not making that
 call for you — it's a real design decision (keep vanilla Frontier reachable
 vs. replace it outright) — but it's worth knowing it's sitting right there.
@@ -242,7 +242,7 @@ sector reallocation, which is a real (if bounded) engineering task.
 - **A dedicated FP counter**, separate from vanilla Battle Points, if you
   want the two economies distinct: 2–4 bytes. Fits trivially in the ~1,620
   free bytes already sitting in `SaveBlock3`.
-- **Ten-building progression state** (per-building completion, current
+- **Ten-gauntlet progression state** (per-gauntlet completion, current
   streak, unlocked tier, which pool trainers were drawn if that must
   persist): well under 100 bytes total. Also fits in `SaveBlock3` alongside
   the FP counter with room to spare, no reclamation needed.

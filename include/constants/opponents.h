@@ -861,7 +861,7 @@
 #define TRAINER_MAY_PLACEHOLDER             854
 
 // Ten Buildings facility - building 1 ("Little League"), full twelve-team
-// pool plus boss. See building-01.md and src/facility.c.
+// pool plus boss. See gauntlet-01.md and src/facility.c.
 #define TRAINER_FACILITY_B1_01_EMBER         855
 #define TRAINER_FACILITY_B1_02_BROOK         856
 #define TRAINER_FACILITY_B1_03_FERN          857
@@ -919,7 +919,7 @@
 #define TRAINER_FACILITY_B4_BOSS_IYLA        900
 
 // Ten Buildings facility - building 5 ("The Main Event", Battle Dome). See
-// building-05.md and src/facility.c.
+// gauntlet-05.md and src/facility.c.
 #define TRAINER_FACILITY_B5_A1_HEADLINER     901
 #define TRAINER_FACILITY_B5_A2_SPOTLIGHT     902
 #define TRAINER_FACILITY_B5_A3_QUICKDRAW     903
@@ -934,6 +934,22 @@
 #define TRAINER_FACILITY_B5_D12_PRESSURE     912
 #define TRAINER_FACILITY_B5_BOSS_SOLEN       913
 
+// Ten Buildings facility - building 6 ("The Assembly Line", Battle Factory).
+// See gauntlet-06.md and src/facility.c.
+#define TRAINER_FACILITY_B6_A1_MONSOON        914
+#define TRAINER_FACILITY_B6_A2_SOLSTICE       915
+#define TRAINER_FACILITY_B6_A3_WHITEOUT       916
+#define TRAINER_FACILITY_B6_B4_LIVEWIRE       917
+#define TRAINER_FACILITY_B6_B5_MINDSCAPE      918
+#define TRAINER_FACILITY_B6_B6_OVERGROWTH     919
+#define TRAINER_FACILITY_B6_C7_STANDING       920
+#define TRAINER_FACILITY_B6_C8_NIGHTSHIFT     921
+#define TRAINER_FACILITY_B6_C9_SLOWBURN       922
+#define TRAINER_FACILITY_B6_D10_BLITZ         923
+#define TRAINER_FACILITY_B6_D11_HEAVYWEIGHT   924
+#define TRAINER_FACILITY_B6_D12_CHORUS        925
+#define TRAINER_FACILITY_B6_BOSS_OREN         926
+
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
 //       the system flags (Pokedex, badges, ...) start right after it, so an ID at or past this limit
@@ -947,7 +963,7 @@
 //       grow it again casually. Costs ~14 bytes of SaveBlock1 (304 B free, see save-data-findings.md),
 //       checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
 
-#define TRAINERS_COUNT_EMERALD     914
+#define TRAINERS_COUNT_EMERALD     927
 #define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG

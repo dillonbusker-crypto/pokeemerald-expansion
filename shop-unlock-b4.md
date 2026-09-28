@@ -1,8 +1,8 @@
-# Shop Unlock — After Building 3
+# Shop Unlock — After Gauntlet 3
 
 What the keepers gain when Dunewarden Kasra falls.
 
-**Gate:** building 3 marked complete.
+**Gate:** gauntlet 3 marked complete.
 
 **Tier prices:** Standard 250 · Strong 375 · Premium 500
 
@@ -15,10 +15,10 @@ species sit in it: Arcanine, Florges, Archeops and Silvally.
 
 That's deliberate, not an oversight. **The real unlock here is the four items**,
 and they're four of the most impactful in the game — Focus Sash, Assault Vest,
-Life Orb and Heavy-Duty Boots. Building 3's boss holds all four specifically
+Life Orb and Heavy-Duty Boots. Gauntlet 3's boss holds all four specifically
 because the player couldn't buy them yet.
 
-There's a second, quieter source of new options: building 3 was singles, so the
+There's a second, quieter source of new options: gauntlet 3 was singles, so the
 player spent that tier buying singles Pokémon. Everything in the 501–550 band
 that defines competitive *doubles* — Rillaboom, Togekiss, Hatterene, Grimmsnarl,
 Gholdengo, Porygon2 — was already purchasable and almost certainly wasn't
@@ -52,7 +52,7 @@ it's a permanent guaranteed survive in all seven battles of every run. That is
 stronger than anything in competitive Pokémon.
 
 The intended counter is multi-hit moves, which is why Weavile's Triple Axel,
-Rock Blast users and Dragapult's Dragon Darts appear across building 4's CPU
+Rock Blast users and Dragapult's Dragon Darts appear across gauntlet 4's CPU
 teams. If Sash still feels oppressive in playtesting, add more multi-hit rather
 than changing the item.
 
@@ -64,7 +64,7 @@ playable at all.
 
 ## Keeper 3 — Mega Stones
 
-Still empty. Unlocks after building 5 — one more building to wait.
+Still empty. Unlocks after gauntlet 5 — one more gauntlet to wait.
 
 Worth a dialogue line here acknowledging the player is close, since this is the
 second consecutive unlock where the Mega keeper has nothing.
@@ -82,7 +82,7 @@ second consecutive unlock where the Mega keeper has nothing.
 
 ### Doubles staples
 
-Pokémon building 4's CPU teams use that the shop had never sold. They arrive
+Pokémon gauntlet 4's CPU teams use that the shop had never sold. They arrive
 here so the player can buy what they face.
 
 | Pokémon | FP | Notes |
@@ -96,13 +96,13 @@ here so the player can buy what they face.
 | Indeedee-F | 250 | Sold with Psychic Surge. The form with Follow Me |
 | Mr. Rime, Dracozolt, Galvantula | 250 | |
 
-Solrock went into building 3's wave instead, since building 3's Scorched team
-uses it. The male Indeedee (sold since building 2) now also comes with
+Solrock went into gauntlet 3's wave instead, since gauntlet 3's Scorched team
+uses it. The male Indeedee (sold since gauntlet 2) now also comes with
 Psychic Surge.
 
 ### Legendaries
 
-A limited set, chosen to be safe in building 5's singles once they're on the
+A limited set, chosen to be safe in gauntlet 5's singles once they're on the
 permanent roster. Everything else in the 551–599 legendary / Paradox / UB band
 is held back.
 
@@ -118,10 +118,10 @@ is held back.
 
 ## Implementation note
 
-**Two unlocks in a row where the Pokémon list barely grows** — building 4 adds
-four, building 5 adds eleven. That's a natural place to shift the shop's
+**Two unlocks in a row where the Pokémon list barely grows** — gauntlet 4 adds
+four, gauntlet 5 adds eleven. That's a natural place to shift the shop's
 emphasis onto items in the UI, and to make sure the player understands the
 roster they can already access.
 
 If the Pokémon keeper's menu restructure hasn't happened by now, it can wait
-until building 5. The urgency was at building 3.
+until gauntlet 5. The urgency was at gauntlet 3.

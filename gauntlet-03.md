@@ -1,4 +1,4 @@
-# Building 3 — "The Changing Sky"
+# Gauntlet 3 — "The Changing Sky"
 
 **Battle Tower, Multi counter.** Singles, 6v6, level 50. BST cap 550. Six
 battles drawn from twelve, then the boss.
@@ -24,7 +24,7 @@ dialogue needs rewriting — the player shouldn't be told "Multi" at a singles
 gauntlet.
 
 **AI change:** proactive switching turns on for regular trainers from this
-building. The teams now have genuine defensive cores worth pivoting between, so
+gauntlet. The teams now have genuine defensive cores worth pivoting between, so
 it becomes real difficulty rather than the pointless flailing it would have
 been at tiers 1 and 2.
 
@@ -32,34 +32,34 @@ been at tiers 1 and 2.
 
 ## Problem with the tier ladder — read this
 
-**The 550 → 599 jump adds almost nothing.** I went looking for what building 4
-unlocks over building 3 and the answer is four Pokémon: Arcanine (555),
+**The 550 → 599 jump adds almost nothing.** I went looking for what gauntlet 4
+unlocks over gauntlet 3 and the answer is four Pokémon: Arcanine (555),
 Florges (552), Archeops (567) and Silvally (570). That's it. The band between
 551 and 599 is nearly empty — almost everything strong sits either at 550 and
 below or at exactly 600.
 
 Three consequences:
 
-1. **Building 3's boss can't get its power gap from species.** It gets it from
-   **items** instead — building 4 unlocks Focus Sash, Life Orb, Assault Vest
+1. **Gauntlet 3's boss can't get its power gap from species.** It gets it from
+   **items** instead — gauntlet 4 unlocks Focus Sash, Life Orb, Assault Vest
    and Heavy-Duty Boots, which the player cannot buy yet. That's the gap, and
-   it works, but it's a different mechanism than buildings 1 and 2 used.
-2. **Building 4 may feel like a non-event** in terms of what the player can
+   it works, but it's a different mechanism than gauntlets 1 and 2 used.
+2. **Gauntlet 4 may feel like a non-event** in terms of what the player can
    buy. Its identity has to come from the item unlocks and the format shift
    back to doubles, not from the roster.
-3. **Consider merging or re-cutting the caps.** Options: make building 3 the
-   ≤500–550 band and building 4 jump straight to 600 pseudos, collapsing your
-   current 5 into 4; or keep the ladder and accept that building 4's draw is
+3. **Consider merging or re-cutting the caps.** Options: make gauntlet 3 the
+   ≤500–550 band and gauntlet 4 jump straight to 600 pseudos, collapsing your
+   current 5 into 4; or keep the ladder and accept that gauntlet 4's draw is
    its items.
 
-Worth deciding before I write building 4.
+Worth deciding before I write gauntlet 4.
 
 ---
 
 ## Bans
 
 Permanent list applies: Smeargle, Wobbuffet, Shedinja, Ditto, Wishiwashi,
-Palafin. Azumarill, Medicham and Linoone are legal from building 2 and stay
+Palafin. Azumarill, Medicham and Linoone are legal from gauntlet 2 and stay
 legal here.
 
 **Two shop restrictions rather than bans:**
@@ -72,16 +72,16 @@ restriction. Same handling for any hidden ability that outclasses its tier.
 
 **Chansey with Eviolite is legal and will be oppressive.** 450 BST with a 1.5×
 defensive multiplier on top of base 250 HP is a wall nothing at this tier
-breaks cleanly. I'm leaving it in because building 7's theme is bulk and
+breaks cleanly. I'm leaving it in because gauntlet 7's theme is bulk and
 breaking, so the player learning to hate Chansey now is useful preparation. If
 it drags games past tedium in playtesting, the fix is delaying Eviolite to
-building 4.
+gauntlet 4.
 
 ---
 
 ## Pool additions
 
-Everything from buildings 1 and 2 stays purchasable.
+Everything from gauntlets 1 and 2 stays purchasable.
 
 **Weather setters** — Ninetales, Hippowdon, Gigalith, Vanilluxe, Ninetales-Alola,
 Abomasnow *(Pelipper, Politoed and Torkoal already available from tier 2)*
@@ -115,7 +115,7 @@ Magneton, Type: Null, Doublade, Sneasel
 
 ---
 
-## Shop — building 3 additions
+## Shop — gauntlet 3 additions
 
 | Item | FP | Why it matters here |
 |---|---|---|
@@ -129,7 +129,7 @@ Pokémon at this tier: 300–500 FP.
 **The weather rocks are the signature purchase.** They're the first item that
 doesn't improve a Pokémon at all — it improves the *team*. A player who
 understands why an eight-turn sandstorm beats a five-turn one has understood
-the building.
+the gauntlet.
 
 ---
 
@@ -701,7 +701,7 @@ Bold Nature
 ### D10. Whiteout — snow
 
 **Lead: Abomasnow.** Snow Warning on entry, then Aurora Veil halves incoming
-damage for five turns. The hardest opening in the building to break.
+damage for five turns. The hardest opening in the gauntlet to break.
 
 ```
 Abomasnow @ Icy Rock
@@ -824,7 +824,7 @@ Jolly Nature
 ### D12. Static Field — Electric Terrain
 
 **Lead: Pincurchin.** Electric Surge doubles Rising Voltage's power and blocks
-sleep outright, which shuts off every Spore and Sleep Powder in the building.
+sleep outright, which shuts off every Spore and Sleep Powder in the gauntlet.
 
 ```
 Pincurchin @ Magnet
@@ -886,11 +886,11 @@ Modest Nature
 
 ## Boss — Dunewarden Kasra
 
-**Pool:** building 4 (≤599) plus everything prior.
+**Pool:** gauntlet 4 (≤599) plus everything prior.
 
 **Gimmick:** eight-turn sand, Excadrill sweeping at doubled Speed under it, and
 **four held items the player cannot buy yet.** Life Orb, Heavy-Duty Boots,
-Focus Sash and Assault Vest all unlock at building 4. That's the power gap —
+Focus Sash and Assault Vest all unlock at gauntlet 4. That's the power gap —
 not bigger Pokémon, better equipment. Every set here is fully optimized; the
 boss is not handicapped in any way.
 
@@ -984,7 +984,7 @@ Excadrill under sand does not.
 
 ## Benchmark counter-team
 
-Built only from building 3's pool, items and bans. Item clause compliant.
+Built only from gauntlet 3's pool, items and bans. Item clause compliant.
 
 ```
 Pelipper @ Damp Rock
@@ -1057,12 +1057,12 @@ taking the weather away.
 ## Open for playtesting
 
 1. **Chansey with Eviolite.** Flagged above. Likely to be the most
-   frustrating thing in the building. If games drag, delay Eviolite to
-   building 4.
+   frustrating thing in the gauntlet. If games drag, delay Eviolite to
+   gauntlet 4.
 2. **Aurora Veil in D10.** Halving all damage for five turns on top of snow is
    a strong opening. Watch whether it's a fight or a wall.
 3. **Weather wars generally.** With four groups all running setters, a player
-   who buys their own setter may find the whole building trivial — every team's
+   who buys their own setter may find the whole gauntlet trivial — every team's
    gimmick switches off. That might be the correct lesson, or it might make six
    of twelve matchups identical. This is the single biggest unknown here.
 4. **Grassy Glide priority.** Rillaboom's priority Grass STAB is genuinely

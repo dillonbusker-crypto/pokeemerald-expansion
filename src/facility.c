@@ -1,14 +1,15 @@
 // ============================================================================
 // Ten Buildings facility run loop. See run-loop-spec.md for the full design.
 //
-// Building 1 ("Little League", building-01.md) has its full twelve-team
-// pool and boss. Building 2 ("The Second Slot", building-02.md) has 6 of
+// Building 1 ("Little League", gauntlet-01.md) has its full twelve-team
+// pool and boss. Building 2 ("The Second Slot", gauntlet-02.md) has 6 of
 // its twelve pool teams for now (A1, A2, B4, B6, C7, D11) - the shuffle
 // below operates on whatever poolSize the active building declares, so
 // adding the remaining six later is a data change only. Buildings 3 and 4
 // use the Battle Tower's other two mats; building 5 ("The Main Event",
-// building-05.md) is the first outside the Tower, run from the Battle Dome
-// lobby with the same shared run-loop scripts.
+// gauntlet-05.md) is the first outside the Tower, run from the Battle Dome
+// lobby with the same shared run-loop scripts; building 6 ("The Assembly
+// Line", gauntlet-06.md) runs the same way from the Battle Factory lobby.
 // ============================================================================
 
 #include "global.h"
@@ -113,6 +114,22 @@ static const u16 sBuilding5Pool[] =
     TRAINER_FACILITY_B5_D12_PRESSURE,
 };
 
+static const u16 sBuilding6Pool[] =
+{
+    TRAINER_FACILITY_B6_A1_MONSOON,
+    TRAINER_FACILITY_B6_A2_SOLSTICE,
+    TRAINER_FACILITY_B6_A3_WHITEOUT,
+    TRAINER_FACILITY_B6_B4_LIVEWIRE,
+    TRAINER_FACILITY_B6_B5_MINDSCAPE,
+    TRAINER_FACILITY_B6_B6_OVERGROWTH,
+    TRAINER_FACILITY_B6_C7_STANDING,
+    TRAINER_FACILITY_B6_C8_NIGHTSHIFT,
+    TRAINER_FACILITY_B6_C9_SLOWBURN,
+    TRAINER_FACILITY_B6_D10_BLITZ,
+    TRAINER_FACILITY_B6_D11_HEAVYWEIGHT,
+    TRAINER_FACILITY_B6_D12_CHORUS,
+};
+
 static const struct FacilityBuildingData sFacilityBuildings[] =
 {
     [FACILITY_BUILDING_1] = { sBuilding1Pool, ARRAY_COUNT(sBuilding1Pool), TRAINER_FACILITY_B1_BOSS_HELIS },
@@ -120,6 +137,7 @@ static const struct FacilityBuildingData sFacilityBuildings[] =
     [FACILITY_BUILDING_3] = { sBuilding3Pool, ARRAY_COUNT(sBuilding3Pool), TRAINER_FACILITY_B3_BOSS_KASRA },
     [FACILITY_BUILDING_4] = { sBuilding4Pool, ARRAY_COUNT(sBuilding4Pool), TRAINER_FACILITY_B4_BOSS_IYLA },
     [FACILITY_BUILDING_5] = { sBuilding5Pool, ARRAY_COUNT(sBuilding5Pool), TRAINER_FACILITY_B5_BOSS_SOLEN },
+    [FACILITY_BUILDING_6] = { sBuilding6Pool, ARRAY_COUNT(sBuilding6Pool), TRAINER_FACILITY_B6_BOSS_OREN },
 };
 
 bool8 IsFacilityRunActive(void)
@@ -190,9 +208,11 @@ void IsBattleDomeUnlocked(void)
         || (gSaveBlock3Ptr->facility.progress.buildingsCompleted & (1 << FACILITY_BUILDING_4)) != 0;
 }
 
+// The Factory hosts building 6, so it opens when building 5 is cleared.
 void IsBattleFactoryUnlocked(void)
 {
-    gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_FACTORY);
+    gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_FACTORY)
+        || (gSaveBlock3Ptr->facility.progress.buildingsCompleted & (1 << FACILITY_BUILDING_5)) != 0;
 }
 
 void IsBattlePikeUnlocked(void)

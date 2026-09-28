@@ -1,7 +1,7 @@
 # Shop Spec — Starting Inventory
 
 Four keepers in the Exchange Service Corner, replacing the vanilla BP vendors.
-This document covers **game start**, meaning building 1 unlocked and nothing
+This document covers **game start**, meaning gauntlet 1 unlocked and nothing
 else.
 
 Player arrives with 6 Pokémon and **300 FP**.
@@ -14,7 +14,7 @@ Player arrives with 6 Pokémon and **300 FP**.
 |---|---|---|---|
 | 1 | Consumables | Berries — recovery, resist, pinch-activated | Yes |
 | 2 | Held items | Everything permanent — boosters, Leftovers, Choice, Sash, rocks | Yes |
-| 3 | Mega Stones | 28 stones at first, more later | **No — opens on clearing building 4** |
+| 3 | Mega Stones | 28 stones at first, more later | **No — opens on clearing gauntlet 4** |
 | 4 | Pokémon | The species pool for unlocked tiers | Yes |
 
 **Keepers 3 has nothing at start.** Give it dialogue rather than an empty menu —
@@ -44,7 +44,7 @@ Figy Berry for a Bold Pokémon has bought a liability, and nothing in the game
 tells them so. A one-line description naming which nature each berry suits is
 the cheapest fix.
 
-Sitrus Berry and Lum Berry unlock at building 2. Resist berries at building 2.
+Sitrus Berry and Lum Berry unlock at gauntlet 2. Resist berries at gauntlet 2.
 
 ---
 
@@ -79,19 +79,19 @@ why it's priced at more than double the boosters.
 
 ## Keeper 3 — Mega Stones
 
-**Opens on clearing building 4**, with 28 stones at 300–600 FP — see
-`building-05.md` for the full list, prices and reasoning. Clearing building 4
+**Opens on clearing gauntlet 4**, with 28 stones at 300–600 FP — see
+`gauntlet-05.md` for the full list, prices and reasoning. Clearing gauntlet 4
 also gives the player the Mega Ring, without which no Mega can evolve.
 
-Building 6 adds the doubles-leaning Megas; Gengar and Kangaskhan wait for
-building 7; stronger stones follow after that.
+Gauntlet 6 adds the doubles-leaning Megas; Gengar and Kangaskhan wait for
+gauntlet 7; stronger stones follow after that.
 
 ---
 
 ## Keeper 4 — Pokémon (starting stock)
 
-Building 1's pool, BST cap 420, banned species excluded. Priced by competitive
-viability rather than BST — which means the answers to the building 1 boss are
+Gauntlet 1's pool, BST cap 420, banned species excluded. Priced by competitive
+viability rather than BST — which means the answers to the gauntlet 1 boss are
 the expensive ones.
 
 ### Premium — 250 FP
@@ -132,7 +132,7 @@ Pachirisu, Grimer, Kricketune
 |---|---|
 | Starting FP | 300 |
 | Sell-back on a starting Pokémon | 50% of tier price |
-| A building 1 clear yields | ~160 FP |
+| A gauntlet 1 clear yields | ~160 FP |
 
 300 FP buys one premium Pokémon and change, or two standard ones, or Leftovers
 plus two boosters. Since the player starts with a full six, the realistic
@@ -146,7 +146,7 @@ to retune.
 
 ## Unlock schedule for the keepers
 
-| Building cleared | Keeper 1 gains | Keeper 2 gains | Keeper 4 gains |
+| Gauntlet cleared | Keeper 1 gains | Keeper 2 gains | Keeper 4 gains |
 |---|---|---|---|
 | 1 | Sitrus, Lum, resist berries | — | ≤500 BST pool |
 | 2 | — | Weather rocks, terrain seeds, Eviolite, Safety Goggles | ≤550 BST pool |
@@ -158,13 +158,13 @@ to retune.
 | 8 | — | — | 680 box-art legendaries (curated) |
 | 9 | — | Orbs | Unrestricted |
 
-Keeper 3 opens after building 4 (see `building-05.md`), gains the
+Keeper 3 opens after gauntlet 4 (see `gauntlet-05.md`), gains the
 doubles-leaning stones after 5, stronger stones after 6, the remainder after 7,
 and legendary stones after 9.
 
-**Building 1's unlock is specced in full in `shop-unlock-b2.md`.**
+**Gauntlet 1's unlock is specced in full in `shop-unlock-b2.md`.**
 
-**The shop unlocks on clearing building N, not on entering N+1.** That matters
+**The shop unlocks on clearing gauntlet N, not on entering N+1.** That matters
 because the player needs to spend their winnings before the next gauntlet, not
 during it.
 
@@ -195,14 +195,14 @@ during it.
 | Source | FP |
 |---|---|
 | Each battle won | **75** |
-| Defeating the building boss | **450** |
-| **Full clear of a building** | **900** |
+| Defeating the gauntlet boss | **450** |
+| **Full clear of a gauntlet** | **900** |
 
-Flat across all ten buildings. Starting grant remains 300 FP.
+Flat across all ten gauntlets. Starting grant remains 300 FP.
 
 **Partial runs pay properly.** A run that dies at battle four still banks 225
 FP. That makes the anti-soft-lock grind real rather than theoretical — a player
-who spends badly can always re-enter the current building and earn their way
+who spends badly can always re-enter the current gauntlet and earn their way
 out, slowly.
 
 ## Pricing — tier 2 baseline
@@ -216,22 +216,22 @@ Set so the win-count reads cleanly:
 | Premium | 300 | 4 |
 
 A full clear buys roughly three premium picks, or six standard ones, or a mix
-of Pokémon and items. Enough to reshape a team for the next building, not
+of Pokémon and items. Enough to reshape a team for the next gauntlet, not
 enough to rebuild it.
 
 ## Pricing — the ladder question
 
-Flat FP means **prices must rise or late buildings become trivial**. A box-art
-legendary at building 9 costing the same as a Furret is not a decision.
+Flat FP means **prices must rise or late gauntlets become trivial**. A box-art
+legendary at gauntlet 9 costing the same as a Furret is not a decision.
 
 Two coherent options:
 
 ### Option A — prices scale, purchase count stays constant
 
 Multiply each band by roughly 1.4 per tier so the player always affords about
-three or four new pieces per building.
+three or four new pieces per gauntlet.
 
-| Building | Standard | Strong | Premium | Purchases per clear |
+| Gauntlet | Standard | Strong | Premium | Purchases per clear |
 |---|---|---|---|---|
 | 1 | 100 | 150 | 250 | 4–6 |
 | 2 | 150 | 225 | 300 | 3–6 |
@@ -244,13 +244,13 @@ three or four new pieces per building.
 | 9 | 550 | 825 | 1100 | ~1 |
 | 10 | 650 | 975 | 1300 | ~1 |
 
-The curve tightens naturally. Early buildings are about breadth; late ones are
+The curve tightens naturally. Early gauntlets are about breadth; late ones are
 about one decisive acquisition. That's a good arc, and it means the final
-buildings feel like real commitments.
+gauntlets feel like real commitments.
 
 ### Option B — prices stay flat, the player accumulates
 
-Keep 150/225/300 throughout. By building 9 the player owns a deep roster and
+Keep 150/225/300 throughout. By gauntlet 9 the player owns a deep roster and
 buys freely. Progression becomes about *access* — what's unlocked — rather than
 affordability.
 
@@ -268,7 +268,7 @@ That's the signal to raise the band, not to cut FP earnings — earnings are wha
 make failed runs survivable.
 
 The reverse signal: if a player ever sits at under 200 FP with no viable
-purchase after clearing a building, the bands are too high.
+purchase after clearing a gauntlet, the bands are too high.
 
 ## Sell-back
 

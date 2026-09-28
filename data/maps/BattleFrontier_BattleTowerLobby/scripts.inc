@@ -1555,7 +1555,8 @@ Facility_DoBattle:
 	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_2, Facility_DoBattle_B2
 	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_3, Facility_DoBattle_B3
 	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_4, Facility_DoBattle_B4
-	goto Facility_DoBattle_B5
+	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_5, Facility_DoBattle_B5
+	goto Facility_DoBattle_B6
 	end
 
 Facility_Battle_Boss:
@@ -1564,7 +1565,8 @@ Facility_Battle_Boss:
 	goto_if_eq VAR_RESULT, FACILITY_BUILDING_2, Facility_Battle_Boss_B2
 	goto_if_eq VAR_RESULT, FACILITY_BUILDING_3, Facility_Battle_Boss_B3
 	goto_if_eq VAR_RESULT, FACILITY_BUILDING_4, Facility_Battle_Boss_B4
-	goto Facility_Battle_Boss_B5
+	goto_if_eq VAR_RESULT, FACILITY_BUILDING_5, Facility_Battle_Boss_B5
+	goto Facility_Battle_Boss_B6
 
 Facility_Battle_Boss_B1:
 	trainerbattle_single TRAINER_FACILITY_B1_BOSS_HELIS, Facility_B1_Text_BossIntro, Facility_B1_Text_BossDefeat, Facility_AfterBossBattle
@@ -1887,7 +1889,16 @@ Facility_AfterBossBattle:
 	goto_if_eq VAR_TEMP_2, FACILITY_BUILDING_4, Facility_B4_BuildingComplete
 	call Common_EventScript_SaveGame
 	goto_if_eq VAR_TEMP_2, FACILITY_BUILDING_1, Facility_B1_BuildingComplete
+	goto_if_eq VAR_TEMP_2, FACILITY_BUILDING_5, Facility_B5_BuildingComplete
 	msgbox Facility_Text_BuildingComplete, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ Ten Buildings: clearing building 5 opens the Battle Factory (building 6,
+@ see IsBattleFactoryUnlocked() in src/facility.c) and new Mega Stones. No
+@ item to hand over - the Mega Ring came with building 4.
+Facility_B5_BuildingComplete:
+	msgbox Facility_B5_Text_BuildingComplete, MSGBOX_DEFAULT
 	releaseall
 	end
 
@@ -2065,6 +2076,15 @@ Facility_B4_Text_MegaStonesAndDome:
 	.string "And your next challenge is waiting\n"
 	.string "at the BATTLE DOME. Its doors are\l"
 	.string "open to you.$"
+
+Facility_B5_Text_BuildingComplete:
+	.string "Congratulations! You've cleared the\n"
+	.string "Main Event!\p"
+	.string "Your next challenge is a Doubles\n"
+	.string "gauntlet at the BATTLE FACTORY. Its\l"
+	.string "doors are open to you.\p"
+	.string "The MEGA STONE counter has new stock,\n"
+	.string "too - stones built for Doubles.$"
 
 Facility_B1_Text_BuildingComplete:
 	.string "That's building 1, cleared! The next\n"

@@ -1,22 +1,22 @@
 # Facility Run Loop — Design Spec
 
-The state machine for entering, running and completing a building. Written
+The state machine for entering, running and completing a gauntlet. Written
 before implementation so the edge cases get decided rather than discovered.
 
 ---
 
 ## The happy path
 
-1. Player talks to the building's attendant NPC
+1. Player talks to the gauntlet's attendant NPC
 2. Eligibility check — does the player have exactly six eligible Pokémon?
 3. Team selection: choose six from the roster
 4. Confirm. **The run begins and the team is locked**
-5. Battles 1–6: a random CPU team drawn from that building's pool of twelve,
+5. Battles 1–6: a random CPU team drawn from that gauntlet's pool of twelve,
    no repeats within a run
 6. Between each battle: full heal, held items restored, FP awarded
-7. Battle 7: the building's boss, always the same team
-8. On boss defeat: building marked complete, completion FP awarded, next
-   building and its shop tier unlock
+7. Battle 7: the gauntlet's boss, always the same team
+8. On boss defeat: gauntlet marked complete, completion FP awarded, next
+   gauntlet and its shop tier unlock
 9. Player exits with their team intact
 
 ---
@@ -25,12 +25,12 @@ before implementation so the edge cases get decided rather than discovered.
 
 | State | Scope | Persists across power-off? |
 |---|---|---|
-| Current building | Run | Yes |
+| Current gauntlet | Run | Yes |
 | Battle number (1–7) | Run | Yes |
 | Which pool teams already faced this run | Run | Yes |
 | Locked team (which six) | Run | Yes |
 | FP balance | Permanent | Yes |
-| Buildings completed (10 flags) | Permanent | Yes |
+| Gauntlets completed (10 flags) | Permanent | Yes |
 | Shop tiers unlocked | Derived from above | — |
 
 Run state must survive a power-off, because it's a handheld game and people
@@ -60,7 +60,7 @@ On a loss at battle N:
 - Streak ends, run over
 - **FP from battles 1 through N-1 is kept** — this is the anti-soft-lock
   mechanism
-- Building is not marked complete
+- Gauntlet is not marked complete
 - Team returns intact
 - Player may immediately re-enter and try again
 
@@ -97,14 +97,14 @@ battle to escape a run they've realized is unwinnable is just tedium.
 
 ### Re-entry after completion
 
-Locked, per the design. A completed building cannot be re-entered.
+Locked, per the design. A completed gauntlet cannot be re-entered.
 
-**The consequence to keep in view:** once building N is complete, the only FP
-source is building N+1. A player who has completed building 5 and cannot beat
-building 6 can only grind partial runs of building 6 itself. That works — the
+**The consequence to keep in view:** once gauntlet N is complete, the only FP
+source is gauntlet N+1. A player who has completed gauntlet 5 and cannot beat
+gauntlet 6 can only grind partial runs of gauntlet 6 itself. That works — the
 per-battle FP award means progress is always possible — but it's slow, and if
 playtesting shows it's *too* slow, the fix is raising the per-battle award for
-the current building rather than reopening old ones.
+the current gauntlet rather than reopening old ones.
 
 ---
 
@@ -121,7 +121,7 @@ start and take the first six.
 
 ## Order of implementation
 
-A vertical slice on one building, not all ten at once.
+A vertical slice on one gauntlet, not all ten at once.
 
 1. **Run state and the save block field.** Everything else depends on it
 2. **The "is a run active" check**, and wire the four restrictions to it
@@ -136,7 +136,7 @@ A vertical slice on one building, not all ten at once.
 Steps 1 and 2 are the foundation. Steps 3 through 6 are the loop. Steps 7 and 8
 are the edge cases that make it feel finished.
 
-Once one building works end to end, the other nine are data: a pool of twelve
+Once one gauntlet works end to end, the other nine are data: a pool of twelve
 teams, a boss, a BST cap, a shop tier.
 
 ---
@@ -144,7 +144,7 @@ teams, a boss, a BST cap, a shop tier.
 ## Opponent preview — DECIDED
 
 **No pre-run pool viewing.** The player does not see the twelve teams before
-committing. Team selection is made blind, on the building's stated tier and
+committing. Team selection is made blind, on the gauntlet's stated tier and
 format alone.
 
 **Between battles, a "view next opponent" option is available.** The team is
@@ -167,7 +167,7 @@ code is used as the base, the move display should be stripped.
 
 Showing items is a judgment call. Real team preview doesn't. Leaving items
 hidden preserves the read on Choice items and Focus Sash, which matters more in
-later buildings than early ones.
+later gauntlets than early ones.
 
 ### Party reordering between battles
 
@@ -181,9 +181,9 @@ Team *composition* stays locked. Only the order changes.
 
 ## Still open
 
-1. **Does the player see the building's tier and format at the entrance?** Some
+1. **Does the player see the gauntlet's tier and format at the entrance?** Some
    indication of the BST cap and singles/doubles seems necessary — otherwise a
-   player brings a singles team to a doubles building and loses to a rules
+   player brings a singles team to a doubles gauntlet and loses to a rules
    misunderstanding rather than a skill one.
 2. **Is the boss previewable at battle seven?** Same rules would suggest yes,
    which makes the boss a puzzle you get one look at before committing.

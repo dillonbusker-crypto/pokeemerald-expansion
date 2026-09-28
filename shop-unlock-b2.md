@@ -1,11 +1,11 @@
-# Shop Unlock — After Building 1
+# Shop Unlock — After Gauntlet 1
 
 What the four Exchange Corner keepers gain the moment Warden Helis falls. This
 is the player's first unlock, and the only one before the difficulty starts
 climbing, so it should land as a real jump.
 
-**Gate:** building 1 marked complete. Unlocks on *clearing* the building, not on
-entering building 2 — the player needs to spend before the next run locks their
+**Gate:** gauntlet 1 marked complete. Unlocks on *clearing* the gauntlet, not on
+entering gauntlet 2 — the player needs to spend before the next run locks their
 team.
 
 ## Keeper 1 — Consumables
@@ -44,14 +44,14 @@ which is the mental shift doubles demands.
 | White Herb | 150 | Restores lowered stats once. Pairs with Close Combat, Shell Smash, Unburden |
 | Black Sludge | 120 | Leftovers for Poison types (damages anything else) |
 
-**Moved from building 3 deliberately.** Building 2 is where Amoonguss and Spore
-first appear in force, and the building that teaches a threat should sell its
-answer. Without this, Keeper 2 gains nothing at all after building 1, which
+**Moved from gauntlet 3 deliberately.** Gauntlet 2 is where Amoonguss and Spore
+first appear in force, and the gauntlet that teaches a threat should sell its
+answer. Without this, Keeper 2 gains nothing at all after gauntlet 1, which
 makes the unlock feel thin.
 
 ## Keeper 3 — Mega Stones
 
-Still empty. Unlocks after building 5.
+Still empty. Unlocks after gauntlet 5.
 
 ## Keeper 4 — Pokémon (BST cap raised to 500)
 
@@ -84,16 +84,16 @@ Every fully-evolved, non-legendary Pokémon at exactly 500 BST is now in the
 pool. Most were already listed above. The rest are tiered by competitive strength:
 
 - **Premium (250):** Gengar, Hawlucha, Kleavor
-- **Strong (200):** Muk-Alola, Clawitzer, Barbaracle, Scyther *(moved from the building 3 wave)*
+- **Strong (200):** Muk-Alola, Clawitzer, Barbaracle, Scyther *(moved from the gauntlet 3 wave)*
 - **Standard (150):** Golduck, Rapidash, Rapidash-Galar, Pinsir, Wailord,
-  Drapion, Leavanny, Carbink, Stoutland *(moved from the building 3 wave)*
+  Drapion, Leavanny, Carbink, Stoutland *(moved from the gauntlet 3 wave)*
 
-Not included: **Calyrex** (legendary; those are saved for later buildings) and
+Not included: **Calyrex** (legendary; those are saved for later gauntlets) and
 **Minior** (bought at 440 BST in Meteor Form; it only reaches 500 once Shields
-Down breaks). Aegislash is also 500 but stays in the building 3 wave on purpose.
+Down breaks). Aegislash is also 500 but stays in the gauntlet 3 wave on purpose.
 
 **Weather setters are purchasable here** — Pelipper, Politoed, Torkoal and
 Abomasnow are all under 500. That's fine: the weather *rocks* are the real
-gate, and those stay at building 3. Five turns of rain is a window, not a
+gate, and those stay at gauntlet 3. Five turns of rain is a window, not a
 gameplan.
 

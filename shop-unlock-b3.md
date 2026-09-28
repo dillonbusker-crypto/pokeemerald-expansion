@@ -1,10 +1,10 @@
-# Shop Unlock — After Building 2
+# Shop Unlock — After Gauntlet 2
 
 What the keepers gain when Tidewarden Nerys falls. This is the biggest single
 jump in the shop's life: the cap moves from 500 to 550, which is where most of
 competitive Pokémon actually lives.
 
-**Gate:** building 2 marked complete.
+**Gate:** gauntlet 2 marked complete.
 
 **Tier prices:** Standard 200 · Strong 300 · Premium 400
 
@@ -12,7 +12,7 @@ competitive Pokémon actually lives.
 
 ## Keeper 1 — Consumables
 
-Nothing new. The berry shelf is complete after building 1's unlock.
+Nothing new. The berry shelf is complete after gauntlet 1's unlock.
 
 ---
 
@@ -37,7 +37,7 @@ Nothing new. The berry shelf is complete after building 1's unlock.
 
 **The weather rocks are the signature purchase of this tier.** They're the first
 item that doesn't improve a Pokémon at all — it improves the *team*. A player
-who understands why eight turns of sand beats five has understood building 3.
+who understands why eight turns of sand beats five has understood gauntlet 3.
 
 **Eviolite is gated to here deliberately.** NFE Pokémon have artificially low
 BST because the number measures an unevolved form, so Eviolite systematically
@@ -48,7 +48,7 @@ base 250 HP is a wall nothing below tier 3 can break.
 
 ## Keeper 3 — Mega Stones
 
-Still empty. Unlocks after building 5.
+Still empty. Unlocks after gauntlet 5.
 
 ---
 
@@ -91,9 +91,9 @@ Sold alongside the item, since they only make sense together.
 Chansey, Porygon2, Rhydon, Gligar, Magneton, Type: Null, Doublade,
 Sneasel, Dusclops, Duraludon
 
-Scyther and Stoutland moved to the building 2 wave (both exactly 500 BST -
+Scyther and Stoutland moved to the gauntlet 2 wave (both exactly 500 BST -
 see shop-unlock-b2.md). Scyther is still an Eviolite target; it just becomes
-buyable a building earlier than the item.
+buyable a gauntlet earlier than the item.
 
 ---
 

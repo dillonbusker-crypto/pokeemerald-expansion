@@ -1,4 +1,4 @@
-# Building 2 Setup — Claude Code Prompt & Code
+# Gauntlet 2 Setup — Claude Code Prompt & Code
 
 Two parts: a prompt to paste into Claude Code, and the replacement C function.
 
@@ -6,15 +6,15 @@ Two parts: a prompt to paste into Claude Code, and the replacement C function.
 
 ## PART 1 — Paste this into Claude Code
 
-> Set up the building 2 boss fight for playtesting, same pattern as the Helis
-> test. Read `building-02.md` for the full details.
+> Set up the gauntlet 2 boss fight for playtesting, same pattern as the Helis
+> test. Read `gauntlet-02.md` for the full details.
 >
 > **Boss trainer.** Replace whichever sacrificial trainer we used for Helis
-> with Tidewarden Nerys, the building 2 boss. The six Pokémon, natures, EVs,
-> abilities, items and movesets are all in `building-02.md` under "Boss —
+> with Tidewarden Nerys, the gauntlet 2 boss. The six Pokémon, natures, EVs,
+> abilities, items and movesets are all in `gauntlet-02.md` under "Boss —
 > Tidewarden Nerys". All at level 50 with 31 IVs.
 >
-> **This is a DOUBLE battle, not a single.** Building 2 is the first doubles
+> **This is a DOUBLE battle, not a single.** Gauntlet 2 is the first doubles
 > facility. Make sure the trainer's double-battle field is set, and if the
 > trainer you're replacing was a single-battle trainer, either pick a
 > double-battle trainer instead or set the flag and confirm the overworld
@@ -26,7 +26,7 @@ Two parts: a prompt to paste into Claude Code, and the replacement C function.
 > enable it if so.
 >
 > **Player team.** Replace the body of the counter-team function in
-> `src/new_game.c` with the building 2 benchmark team — the code is in part 2
+> `src/new_game.c` with the gauntlet 2 benchmark team — the code is in part 2
 > of this file. Note the zeroSpeedIV field: this is a Trick Room team, so six
 > Pokémon need their Speed IV set to 0 rather than 31, because under Trick Room
 > slower moves first. Don't skip that, it inverts the whole strategy.
@@ -52,7 +52,7 @@ site at the end of `NewGameInitData()` needs its name updated to match.
 
 ```c
 // ============================================================================
-// Building 2 benchmark counter-team (anti-rain, Trick Room based)
+// Gauntlet 2 benchmark counter-team (anti-rain, Trick Room based)
 //
 // NOTE: zeroSpeedIV. This team wins by being SLOWER than the boss under
 // Trick Room. Brave/Quiet/Relaxed natures lower Speed, but the IV must also

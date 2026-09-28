@@ -1,7 +1,7 @@
-# Project Handoff — Ten Buildings
+# Project Handoff — Ten Gauntlets
 
 Context document for an agent picking up this project. Read this first, then
-`battle-tower-design-v2.md` and `building-01.md`.
+`battle-tower-design-v2.md` and `gauntlet-01.md`.
 
 ---
 
@@ -50,18 +50,18 @@ The build is clean and the ROM boots. Do not re-run environment setup.
 | Battle gimmick | **Megas only.** Tera, Z-Moves, Dynamax all disabled |
 | Level | Flat 50 |
 | Customization | IVs, EVs, nature, moveset freely editable by the player |
-| Format | Alternating singles and doubles by building |
+| Format | Alternating singles and doubles by gauntlet |
 | Team size | Full 6v6, both sides, no team preview |
 | Healing | Full heal between every battle |
 | Bag items | Disabled during runs |
 | Held items | Reusable — restored after each battle |
 | Item clause | No duplicate held items on a team, player and CPU alike |
-| Building structure | 6 battles drawn from a pool of 12, then a fixed boss |
-| Re-entry | None after completing a building |
+| Gauntlet structure | 6 battles drawn from a pool of 12, then a fixed boss |
+| Re-entry | None after completing a gauntlet |
 | Loss | Streak lost, team kept, FP earned so far retained |
 | Roster cap | None. Sell back at 50% |
 
-Building 1 is capped at 420 BST with a ban list. Later buildings escalate to
+Gauntlet 1 is capped at 420 BST with a ban list. Later gauntlets escalate to
 680 BST with legendaries and Megas. Full progression is in the design doc.
 
 ---
@@ -120,9 +120,9 @@ flag range ends at `MAX_TRAINERS_COUNT` (`include/constants/opponents.h`).
 An ID past it silently shares its flag with a **system flag** (Pokédex,
 badges, ...) and is also read as a **battle partner** (`IsPartnerTrainerId()`
 in `include/data.h`), so the game loads the wrong team. This happened to
-building 4 while the limit was 890.
+gauntlet 4 while the limit was 890.
 
-It's now 1000, sized for all ten buildings (13 trainers each), and a
+It's now 1000, sized for all ten gauntlets (13 trainers each), and a
 `STATIC_ASSERT` in `src/facility.c` fails the build if `TRAINERS_COUNT` ever
 exceeds it. **Don't raise it again casually:** it moves every flag after the
 trainer range and every SaveBlock1 field after `flags[]`, so existing saves
@@ -132,7 +132,7 @@ stop loading correctly. The raise to 1000 already required a New Game.
 
 ## ⚠️ Temporary test-only patch — currently ON, must be reverted before shipping
 
-One engine behavior is still hard-disabled so the building 1 boss test
+One engine behavior is still hard-disabled so the gauntlet 1 boss test
 harness gives a clean read. No existing on/off switch for it anywhere else in
 the codebase, so it's a small, clearly-marked direct patch rather than a
 config flip:
@@ -169,9 +169,9 @@ way to grant badges.
 
 Copy these into the repo folder so they're readable:
 
-- `battle-tower-design-v2.md` — full ten-building structure, economy, item and
+- `battle-tower-design-v2.md` — full ten-gauntlet structure, economy, item and
   AI progression
-- `building-01.md` — the complete vertical slice: curated pool, ban list, shop,
+- `gauntlet-01.md` — the complete vertical slice: curated pool, ban list, shop,
   twelve CPU teams, the boss, and the benchmark counter-team
 - `competitive-reference.md` — competitive fundamentals for singles and doubles,
   tailored to this format
@@ -184,7 +184,7 @@ Team sets are written in Pokémon Showdown syntax.
 
 ## Immediate task
 
-Get the building 1 boss fight playable so the owner can test whether it's
+Get the gauntlet 1 boss fight playable so the owner can test whether it's
 tuned correctly. This is a throwaway test harness, not the real facility.
 
 1. **Determine the trainer data format.** Check whether `src/data/` contains
@@ -192,7 +192,7 @@ tuned correctly. This is a throwaway test harness, not the real facility.
    (older C struct format). This decides how the teams get entered.
 2. **Replace a sacrificial early trainer** — Youngster Calvin on Route 102 is
    the suggestion, since he's reachable within two minutes of a new game and
-   is a single battle — with Warden Helis's six from `building-01.md`. All at
+   is a single battle — with Warden Helis's six from `gauntlet-01.md`. All at
    level 50, with the specified natures, EVs, IVs, abilities, items and moves.
 3. **Set the boss AI flags:** full offensive intelligence, smart replacement
    choice, and omniscient. Altaria in slot six flagged as the ace so the AI
@@ -234,13 +234,18 @@ actual headers:
 - **Don't refactor or clean up unrelated code.** Keep diffs small and readable.
 - **Don't strip the vanilla story yet.** That's a later, deliberate step.
 - **Don't enable Tera, Z-Moves or Dynamax.** Megas only is a locked decision.
+- **Say "gauntlet", not "building".** The ten sets of battles are gauntlets
+  (the project is the Ten Gauntlets). "Building" means only the physical
+  Frontier structures. Some code names still say "building"
+  (`FACILITY_BUILDING_N`, `buildingsCompleted`, ...) until the planned rename
+  in `frontier-dialogue.md`, Part 5.
 
 ---
 
 ## What comes after
 
 Once the boss is playable and tuned, the gate for moving on is the owner
-beating Helis using only building 1's pool. Then buildings 2 through 10 get
+beating Helis using only gauntlet 1's pool. Then gauntlets 2 through 10 get
 designed, and separately the real facility gets built — the point economy, the
 shop, the purchase and roster UI, and the save data to hold a permanently owned
 collection.
