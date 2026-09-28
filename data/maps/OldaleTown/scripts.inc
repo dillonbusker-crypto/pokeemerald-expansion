@@ -25,7 +25,7 @@ OldaleTown_EventScript_MoveMartEmployee::
 	setobjectmovementtype LOCALID_OLDALE_MART_EMPLOYEE, MOVEMENT_TYPE_FACE_DOWN
 	return
 
-@ Ten Buildings: permanent roadblock. This is a battle-only hack with no
+@ Ten Gauntlets: permanent roadblock. This is a battle-only hack with no
 @ story - Route 102 onward (the rest of the vanilla region) is never meant
 @ to be reachable. Two HIKERs cover both tiles of the path west (see
 @ OldaleTown_EventScript_BlockWestEntrance above for vanilla's OWN

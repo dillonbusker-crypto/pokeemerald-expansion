@@ -2,17 +2,17 @@ BattleFrontier_ExchangeServiceCorner_MapScripts::
 	.byte 0
 
 @ ============================================================================
-@ Ten Buildings shop - see shop-spec.md and shop-unlock-b2.md. Replaces the
+@ Ten Gauntlets shop - see shop-spec.md and shop-unlock-b2.md. Replaces the
 @ vanilla Battle Points vendors with four FP-spending keepers.
 @
 @ Every keeper's list is now one dynamically-built menu
-@ (SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC) instead of a chain of hand-paginated
+@ (SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC) instead of a chain of hand-paginated
 @ pages - src/facility_shop.c's "Build" specials filter the master data by
-@ unlock progress (and, for Pokemon, by building wave, then tier, then
+@ unlock progress (and, for Pokemon, by gauntlet wave, then tier, then
 @ optionally by type) and stage the result; FacilityShopSelectRow reads back
 @ whichever row got picked. See that file's header comment for the full
 @ rationale. This is what lets a keeper's stock grow across the remaining
-@ unlocks without a new SCROLL_MULTI_TEN_BUILDINGS_* menu id or a new
+@ unlocks without a new SCROLL_MULTI_TEN_GAUNTLETS_* menu id or a new
 @ page-handling label each time.
 @ ============================================================================
 
@@ -21,7 +21,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ShopClosedMidRun::
 	release
 	end
 
-@ Ten Buildings: FacilityShopFreeMenuRows here (not deferred to the next
+@ Ten Gauntlets: FacilityShopFreeMenuRows here (not deferred to the next
 @ visit's Build call) matters more than it looks - see the comment on it in
 @ include/facility_shop.h. Leaving the shop guarantees at least one map
 @ transition before the player can come back, and every map transition
@@ -51,7 +51,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ConsumablesKeeper::
 
 BattleFrontier_ExchangeServiceCorner_EventScript_ChooseConsumable::
 	special FacilityShopBuildConsumablesMenu
-	setvar VAR_0x8004, SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC
+	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC
 	special ShowScrollableMultichoice
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ConsumablesGoodbye
 	copyvar VAR_0x8004, VAR_RESULT
@@ -106,7 +106,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_HeldItemsKeeper::
 
 BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHeldItem::
 	special FacilityShopBuildHeldItemsMenu
-	setvar VAR_0x8004, SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC
+	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC
 	special ShowScrollableMultichoice
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbyeFP
 	copyvar VAR_0x8004, VAR_RESULT
@@ -141,13 +141,13 @@ BattleFrontier_ExchangeServiceCorner_EventScript_BagFullHeldItem::
 	end
 
 @ ----------------------------------------------------------------------------
-@ Keeper 3 - Mega Stones. Opens clearing building 4 (gauntlet-05.md). Until
+@ Keeper 3 - Mega Stones. Opens clearing gauntlet 4 (gauntlet-05.md). Until
 @ then FacilityShopBuildMegaStonesMenu finds nothing unlocked and the keeper
 @ just says "not yet", so the counter reads as closed rather than broken.
 @ Same purchase flow as Keeper 2 otherwise.
 @
-@ Also a safety net for the Mega Ring: the building 4 attendant gives it
-@ (Facility_B4_BuildingComplete), but if a save ever reaches this counter
+@ Also a safety net for the Mega Ring: the gauntlet 4 attendant gives it
+@ (Facility_B4_GauntletComplete), but if a save ever reaches this counter
 @ with stones unlocked and no ring, the keeper hands one over - stones are
 @ useless without it (CanMegaEvolve() in src/battle_util.c).
 @ ----------------------------------------------------------------------------
@@ -178,7 +178,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_GiveMissingMegaRing::
 
 BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMegaStone::
 	special FacilityShopBuildMegaStonesMenu
-	setvar VAR_0x8004, SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC
+	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC
 	special ShowScrollableMultichoice
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbyeFP
 	copyvar VAR_0x8004, VAR_RESULT
@@ -213,7 +213,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_BagFullMegaStone::
 	end
 
 @ ----------------------------------------------------------------------------
-@ Keeper 4 - Pokemon. Choose a building's wave first, then a tier within it,
+@ Keeper 4 - Pokemon. Choose a gauntlet's wave first, then a tier within it,
 @ or sell one back from the party for FP. A tier with more mons in that one
 @ wave than fit comfortably in one browse gets a type-filter menu first
 @ (FacilityShopBuildMonTierList decides which, based on the live count for
@@ -227,30 +227,30 @@ BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeper::
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_ShopClosedMidRun
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemon, MSGBOX_DEFAULT
 	special ShowFacilityFPWindow
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonBuilding
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
 	end
 
-BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonBuilding::
-	special FacilityShopBuildBuildingMenu
-	setvar VAR_0x8004, SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC
+BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet::
+	special FacilityShopBuildGauntletMenu
+	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC
 	special ShowScrollableMultichoice
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbyeFP
 	copyvar VAR_0x8004, VAR_RESULT
-	special FacilityShopSelectBuildingRow
+	special FacilityShopSelectGauntletRow
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonToSell
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonTier
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonTier::
-	setvar VAR_0x8004, SCROLL_MULTI_TEN_BUILDINGS_MON_TIER_SELECT
+	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_MON_TIER_SELECT
 	special ShowScrollableMultichoice
 	switch VAR_RESULT
 	case 0, BattleFrontier_ExchangeServiceCorner_EventScript_GoPremium
 	case 1, BattleFrontier_ExchangeServiceCorner_EventScript_GoStrong
 	case 2, BattleFrontier_ExchangeServiceCorner_EventScript_GoStandard
 	case 3, BattleFrontier_ExchangeServiceCorner_EventScript_GoBudget
-	case 4, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonBuilding
-	case MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonBuilding
+	case 4, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	case MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_GoPremium::
@@ -280,7 +280,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfTier::
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonType::
-	setvar VAR_0x8004, SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC
+	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC
 	special ShowScrollableMultichoice
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonTier
 	copyvar VAR_0x8004, VAR_RESULT
@@ -289,7 +289,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonType::
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfList::
-	setvar VAR_0x8004, SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC
+	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC
 	special ShowScrollableMultichoice
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonTier
 	copyvar VAR_0x8004, VAR_RESULT
@@ -329,7 +329,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_NotEnoughFPForMon::
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfList
 	end
 
-@ Ten Buildings: FacilityShopFreeMenuRows before ChoosePartyMon, not just on
+@ Ten Gauntlets: FacilityShopFreeMenuRows before ChoosePartyMon, not just on
 @ the way out via ClerkGoodbyeFP - see the comment on it in
 @ include/facility_shop.h. ChoosePartyMon is a full-screen party menu swap,
 @ and returning from ANY full-screen menu to the field runs
@@ -340,8 +340,8 @@ BattleFrontier_ExchangeServiceCorner_EventScript_NotEnoughFPForMon::
 @ staged, and selling would silently invalidate it mid-interaction, before
 @ ClerkGoodbyeFP ever runs.
 @
-@ Sell lives on the building-select screen now (it isn't tied to any one
-@ building's wave), so every exit from this flow returns to ChooseMonBuilding,
+@ Sell lives on the gauntlet-select screen now (it isn't tied to any one
+@ gauntlet's wave), so every exit from this flow returns to ChooseMonBuilding,
 @ not ChooseMonTier.
 BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonToSell::
 	specialvar VAR_RESULT, CalculatePlayerPartyCount
@@ -349,40 +349,41 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonToSell::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_WhichMonToSell, MSGBOX_DEFAULT
 	special FacilityShopFreeMenuRows
 	special ChoosePartyMon
-	goto_if_ge VAR_0x8004, PARTY_SIZE, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonBuilding
+	goto_if_ge VAR_0x8004, PARTY_SIZE, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
 	special FacilityShopSellMonPrompt
 	switch VAR_RESULT
 	case SELL_MON_NOT_SELLABLE, BattleFrontier_ExchangeServiceCorner_EventScript_CantSellMon
 	case SELL_MON_HOLDING_ITEM, BattleFrontier_ExchangeServiceCorner_EventScript_CantSellHoldingItem
 	case SELL_MON_NOT_ENOUGH_OWNED, BattleFrontier_ExchangeServiceCorner_EventScript_CantSellNotEnoughOwned
+	case SELL_MON_BROKER_LOAN, BattleFrontier_ExchangeServiceCorner_EventScript_CantSellBrokerLoan
 	buffernumberstring STR_VAR_2, VAR_0x8008
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmSell, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonBuilding
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
 	special FacilityShopSellMon
 	special UpdateFacilityFPWindow
 	playse SE_SHOP
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_SoldMon, MSGBOX_DEFAULT
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonBuilding
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_CantSellLastMon::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_CantSellLastMon, MSGBOX_DEFAULT
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonBuilding
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_CantSellMon::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_CantSellThatMon, MSGBOX_DEFAULT
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonBuilding
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_CantSellHoldingItem::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_CantSellHoldingItem, MSGBOX_DEFAULT
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonBuilding
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_CantSellNotEnoughOwned::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_CantSellNotEnoughOwned, MSGBOX_DEFAULT
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonBuilding
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
 	end
 
 @ ----------------------------------------------------------------------------
@@ -409,7 +410,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_RichBoy::
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_Girl::
-	msgbox BattleFrontier_ExchangeServiceCorner_Text_MoreFPForClearingBuildings, MSGBOX_NPC
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_MoreFPForClearingGauntlets, MSGBOX_NPC
 	end
 
 @ ----------------------------------------------------------------------------
@@ -439,11 +440,13 @@ BattleFrontier_ExchangeServiceCorner_Text_WelcomeHeldItems:
 	.string "every battle, win or lose.$"
 
 BattleFrontier_ExchangeServiceCorner_Text_MegaStonesComingLater:
-	.string "This counter's for MEGA STONES, but\n"
-	.string "I haven't got a thing to sell you yet.\p"
-	.string "Come back once you've made it further\n"
-	.string "through the buildings - I hear this\l"
-	.string "place fills up fast after that.$"
+	.string "This counter's for MEGA STONES,\n"
+	.string "but I haven't got a thing to sell\l"
+	.string "you yet.\p"
+	.string "Come back once you've made it\n"
+	.string "further through the gauntlets. I\l"
+	.string "hear this counter fills up fast\l"
+	.string "after the TOWER.$"
 
 BattleFrontier_ExchangeServiceCorner_Text_WelcomeMegaStones:
 	.string "Welcome to the MEGA STONE counter.\p"
@@ -535,10 +538,16 @@ BattleFrontier_ExchangeServiceCorner_Text_ManFlavor:
 	.string "Now that's more like it.$"
 
 BattleFrontier_ExchangeServiceCorner_Text_ItemsWillGetMonTougher:
-	.string "If I can get hold of the items here,\n"
-	.string "my POKéMON will get tougher.\p"
-	.string "You bet they will!\n"
-	.string "No question about it!$"
+	.string "Leftovers, a resist berry, a\n"
+	.string "CHOICE SCARF… The right item is\l"
+	.string "worth more than a new POKéMON\l"
+	.string "sometimes.\p"
+	.string "Just buy them here, all right? Not\n"
+	.string "from that shady type who hangs\l"
+	.string "around the houses out past the\l"
+	.string "ARENA, on the far east side.\p"
+	.string "Nobody knows where he gets his\n"
+	.string "stuff!$"
 
 BattleFrontier_ExchangeServiceCorner_Text_GetYouAnythingYouWant:
 	.string "Leave it to your mommy!\p"
@@ -550,9 +559,20 @@ BattleFrontier_ExchangeServiceCorner_Text_RichBoyFlavor:
 	.string "here already?\p"
 	.string "Neither do I! Ha ha ha!$"
 
-BattleFrontier_ExchangeServiceCorner_Text_MoreFPForClearingBuildings:
+BattleFrontier_ExchangeServiceCorner_Text_MoreFPForClearingGauntlets:
 	.string "Did you know?\p"
-	.string "Every battle you win is worth the same\n"
-	.string "FP, win or lose the streak later - it's\l"
-	.string "clearing a whole building that really\l"
-	.string "pays out.$"
+	.string "Every battle you win is worth the\n"
+	.string "same FP, win or lose the run\l"
+	.string "later. It's clearing a whole\l"
+	.string "gauntlet that really pays out.$"
+
+@ Ten Gauntlets: the Broker's loaners can't be sold (broker-spec.md).
+BattleFrontier_ExchangeServiceCorner_EventScript_CantSellBrokerLoan::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_CantSellBrokerLoan, MSGBOX_DEFAULT
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	end
+
+BattleFrontier_ExchangeServiceCorner_Text_CantSellBrokerLoan:
+	.string "Hold on - this POKéMON's Original\n"
+	.string "Trainer is the BROKER.\p"
+	.string "That one's not yours to sell.$"

@@ -161,7 +161,7 @@ void ResetMenuAndMonGlobals(void)
 }
 
 // ============================================================================
-// Test-team injector for Building 2 boss playtesting.
+// Test-team injector for Gauntlet 2 boss playtesting.
 //
 // Throwaway harness, not the real facility: gives the player the benchmark
 // counter-team from gauntlet-02.md so Tidewarden Nerys (placed on Youngster
@@ -173,7 +173,7 @@ void ResetMenuAndMonGlobals(void)
 // a minimizing nature) rather than the usual 31, because Trick Room makes
 // slower move first. Getting this wrong silently inverts the whole strategy.
 //
-// Uses CreateMonFromTemplate() (include/pokemon.h) - see the building 1
+// Uses CreateMonFromTemplate() (include/pokemon.h) - see the gauntlet 1
 // counter-team comment (git history) for why, over the CreateMonWithNature()
 // call in the original design-doc snippet, which doesn't exist in this
 // checkout.
@@ -181,7 +181,7 @@ void ResetMenuAndMonGlobals(void)
 
 #define IVS_ZERO_SPEED { [STAT_HP] = 31, [STAT_ATK] = 31, [STAT_DEF] = 31, [STAT_SPEED] = 0, [STAT_SPATK] = 31, [STAT_SPDEF] = 31 }
 
-static const struct PokemonTemplate sBuilding2CounterTeam[] =
+static const struct PokemonTemplate sGauntlet2CounterTeam[] =
 {
     {
         .species = SPECIES_BRONZONG,
@@ -265,38 +265,38 @@ static const struct PokemonTemplate sBuilding2CounterTeam[] =
 
 #undef IVS_ZERO_SPEED
 
-void GiveBuilding2CounterTeam(void)
+void GiveGauntlet2CounterTeam(void)
 {
     u32 i;
 
     ZeroPlayerPartyMons();
-    for (i = 0; i < ARRAY_COUNT(sBuilding2CounterTeam); i++)
-        CreateMonFromTemplate(&gParties[B_TRAINER_PLAYER][i], &sBuilding2CounterTeam[i]);
+    for (i = 0; i < ARRAY_COUNT(sGauntlet2CounterTeam); i++)
+        CreateMonFromTemplate(&gParties[B_TRAINER_PLAYER][i], &sGauntlet2CounterTeam[i]);
 
-    gPartiesCount[B_TRAINER_PLAYER] = ARRAY_COUNT(sBuilding2CounterTeam);
+    gPartiesCount[B_TRAINER_PLAYER] = ARRAY_COUNT(sGauntlet2CounterTeam);
 }
 
 // ============================================================================
-// Ten Buildings: the five Pokémon that round out the player's starting
+// Ten Gauntlets: the five Pokémon that round out the player's starting
 // roster on arrival at the Frontier, plus a starting FP grant. See CLAUDE.md.
 //
-// Building 1 requires a full party of six to enter (FacilityCheckEligible()
+// Gauntlet 1 requires a full party of six to enter (FacilityCheckEligible()
 // in src/facility.c), but FP is only earned by winning battles inside a
-// building - a player who's only ever received their starter (see
+// gauntlet - a player who's only ever received their starter (see
 // CB2_GiveStarter() in src/battle_setup.c) has no way to reach eligibility at
 // all. These five, plus the FP grant below, close that gap.
 //
 // All five are drawn from gauntlet-01.md's pool, same as the starter -
 // deliberately NOT Sableye, Parasect or Ferroseed, since those three are the
-// answer to building 1's boss and handing them over for free would
+// answer to gauntlet 1's boss and handing them over for free would
 // trivialize it. No held items on any of them either, same reasoning as the
 // starter: the player buys their own.
 //
-// Called from BattleFrontier_OutsideWest's on-transition script (see
-// data/maps/BattleFrontier_OutsideWest/scripts.inc), which runs every time
-// the player passes through that map - guarded by
-// gSaveBlock3Ptr->facility.progress.startingGrantsGiven so it only actually
-// grants anything the first time.
+// Handed over by SCOTT the first time the player visits his house (see
+// data/maps/BattleFrontier_ScottsHouse/scripts.inc) - his welcome at the
+// Reception Gate sends the player there. Guarded by
+// gSaveBlock3Ptr->facility.progress.startingGrantsGiven so it only ever
+// happens once.
 // ============================================================================
 
 #define FRONTIER_STARTING_FP 300 // easy to retune once the shop exists
@@ -369,24 +369,40 @@ static const struct PokemonTemplate sFrontierStartingFive[] =
 
 #undef IVS_31
 
-void GiveFrontierStartingGrants(void)
+// Scott hands these over one at a time in his house (data/maps/
+// BattleFrontier_ScottsHouse/scripts.inc), so each gets its own "received"
+// message instead of all five silently appearing on arrival.
+// gSpecialVar_0x8004 = index into sFrontierStartingFive (0-4). Out:
+// gStringVar1 = species name, gSpecialVar_Result = MON_GIVEN_TO_PARTY /
+// MON_GIVEN_TO_PC / MON_CANT_GIVE - the player normally only has their
+// starter at this point, so all five fit in the party, but anything that
+// doesn't goes to the PC like any other gift Pokemon.
+void GiveFrontierStartingMon(void)
 {
-    u32 i;
-    u32 fp;
+    struct Pokemon mon;
+    u16 index = gSpecialVar_0x8004;
 
-    if (gSaveBlock3Ptr->facility.progress.startingGrantsGiven)
-        return;
-
-    for (i = 0; i < ARRAY_COUNT(sFrontierStartingFive); i++)
+    if (index >= ARRAY_COUNT(sFrontierStartingFive))
     {
-        CreateMonFromTemplate(&gParties[B_TRAINER_PLAYER][gPartiesCount[B_TRAINER_PLAYER]], &sFrontierStartingFive[i]);
-        gPartiesCount[B_TRAINER_PLAYER]++;
+        gSpecialVar_Result = MON_CANT_GIVE;
+        return;
     }
+    CreateMonFromTemplate(&mon, &sFrontierStartingFive[index]);
+    StringCopy(gStringVar1, GetSpeciesName(sFrontierStartingFive[index].species));
+    gSpecialVar_Result = GiveCapturedMonToPlayer(&mon);
+}
 
-    fp = gSaveBlock3Ptr->facility.progress.fp + FRONTIER_STARTING_FP;
+// The rest of Scott's welcome gift: starting FP and the HMs. Marks the
+// whole grant as given - the script calls this last, after all five
+// Pokemon, and checks HasReceivedFrontierStartingGrants() before starting,
+// so none of it can ever happen twice.
+void GiveFrontierStartingFPAndHMs(void)
+{
+    u32 fp = gSaveBlock3Ptr->facility.progress.fp + FRONTIER_STARTING_FP;
+
     gSaveBlock3Ptr->facility.progress.fp = (fp > 0xFFFF) ? 0xFFFF : fp;
 
-    // Ten Buildings: with the Move Editor retired (see l_menu.c), the L-menu's
+    // Ten Gauntlets: with the Move Editor retired (see l_menu.c), the L-menu's
     // Move Relearner only ever offers a species' own level-up learnset - the
     // player's other way to round out a moveset is TMs. The TM/HM bag pocket
     // (BAG_TMHM_COUNT, include/constants/global.h) can only hold 64 distinct
@@ -403,6 +419,12 @@ void GiveFrontierStartingGrants(void)
 #undef GRANT_HM
 
     gSaveBlock3Ptr->facility.progress.startingGrantsGiven = TRUE;
+}
+
+// specialvar: TRUE once Scott has handed over the starting team.
+u16 HasReceivedFrontierStartingGrants(void)
+{
+    return gSaveBlock3Ptr->facility.progress.startingGrantsGiven;
 }
 
 void NewGameInitData(void)
@@ -481,7 +503,7 @@ void NewGameInitData(void)
     ResetItemFlags();
     ResetDexNav();
     ClearFollowerNPCData();
-    // GiveBuilding2CounterTeam() call removed here: the real starter flow
+    // GiveGauntlet2CounterTeam() call removed here: the real starter flow
     // (CB2_GiveStarter in src/battle_setup.c) now gives the player's first
     // mon, and this test harness handing out a full 6-mon team before Birch's
     // lab would both skip starter selection and make the eligibility check

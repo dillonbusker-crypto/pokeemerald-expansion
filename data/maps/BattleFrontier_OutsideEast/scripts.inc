@@ -28,15 +28,33 @@ BattleFrontier_OutsideEast_EventScript_BattleTowerSign::
 	end
 
 BattleFrontier_OutsideEast_EventScript_BattlePalaceSign::
-	msgbox BattleFrontier_OutsideEast_Text_BattlePalaceSign, MSGBOX_SIGN
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 8, BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Cleared8
+	msgbox BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Text0, MSGBOX_SIGN
+	end
+
+BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Cleared8:
+	msgbox BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Text8, MSGBOX_SIGN
 	end
 
 BattleFrontier_OutsideEast_EventScript_BattleArenaSign::
-	msgbox BattleFrontier_OutsideEast_Text_BattleArenaSign, MSGBOX_SIGN
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 7, BattleFrontier_OutsideEast_EventScript_BattleArenaSign_Cleared7
+	msgbox BattleFrontier_OutsideEast_EventScript_BattleArenaSign_Text0, MSGBOX_SIGN
+	end
+
+BattleFrontier_OutsideEast_EventScript_BattleArenaSign_Cleared7:
+	msgbox BattleFrontier_OutsideEast_EventScript_BattleArenaSign_Text7, MSGBOX_SIGN
 	end
 
 BattleFrontier_OutsideEast_EventScript_BattlePyramidSign::
-	msgbox BattleFrontier_OutsideEast_Text_BattlePyramidSign, MSGBOX_SIGN
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 9, BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Cleared9
+	msgbox BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Text0, MSGBOX_SIGN
+	end
+
+BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Cleared9:
+	msgbox BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Text9, MSGBOX_SIGN
 	end
 
 BattleFrontier_OutsideEast_EventScript_NinjaBoy::
@@ -84,7 +102,17 @@ BattleFrontier_OutsideEast_EventScript_ExpertF::
 	end
 
 BattleFrontier_OutsideEast_EventScript_TriathleteF::
-	msgbox BattleFrontier_OutsideEast_Text_FastOnBikeAndBattles, MSGBOX_NPC
+	lock
+	faceplayer
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 4, BattleFrontier_OutsideEast_EventScript_TriathleteF_Cleared4
+	msgbox BattleFrontier_OutsideEast_EventScript_TriathleteF_Text0, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_TriathleteF_Cleared4:
+	msgbox BattleFrontier_OutsideEast_EventScript_TriathleteF_Text4, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_OutsideEast_EventScript_Twin::
@@ -93,7 +121,15 @@ BattleFrontier_OutsideEast_EventScript_Twin::
 
 BattleFrontier_OutsideEast_EventScript_Man2::
 	lock
-	msgbox BattleFrontier_OutsideEast_Text_GoRackUpSomeWinsForDaddy, MSGBOX_DEFAULT
+	faceplayer
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 5, BattleFrontier_OutsideEast_EventScript_Man2_Cleared5
+	msgbox BattleFrontier_OutsideEast_EventScript_Man2_Text0, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_Man2_Cleared5:
+	msgbox BattleFrontier_OutsideEast_EventScript_Man2_Text5, MSGBOX_DEFAULT
 	release
 	end
 
@@ -174,15 +210,45 @@ BattleFrontier_OutsideEast_EventScript_PsychicM::
 	end
 
 BattleFrontier_OutsideEast_EventScript_Man3::
-	msgbox BattleFrontier_OutsideEast_Text_GotWipedOut, MSGBOX_NPC
+	lock
+	faceplayer
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 3, BattleFrontier_OutsideEast_EventScript_Man3_Cleared3
+	msgbox BattleFrontier_OutsideEast_EventScript_Man3_Text0, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_Man3_Cleared3:
+	msgbox BattleFrontier_OutsideEast_EventScript_Man3_Text3, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_OutsideEast_EventScript_Woman1::
-	msgbox BattleFrontier_OutsideEast_Text_ToughTrainerInBattleTower, MSGBOX_NPC
+	lock
+	faceplayer
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 3, BattleFrontier_OutsideEast_EventScript_Woman1_Cleared3
+	msgbox BattleFrontier_OutsideEast_EventScript_Woman1_Text0, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_Woman1_Cleared3:
+	msgbox BattleFrontier_OutsideEast_EventScript_Woman1_Text3, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_OutsideEast_EventScript_Woman2::
-	msgbox BattleFrontier_OutsideEast_Text_EnoughBattlePointsForDoll, MSGBOX_NPC
+	lock
+	faceplayer
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 3, BattleFrontier_OutsideEast_EventScript_Woman2_Cleared3
+	msgbox BattleFrontier_OutsideEast_EventScript_Woman2_Text0, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_Woman2_Cleared3:
+	msgbox BattleFrontier_OutsideEast_EventScript_Woman2_Text3, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_OutsideEast_EventScript_BlackBelt2::
@@ -231,9 +297,8 @@ BattleFrontier_OutsideEast_EventScript_Camper::
 	end
 
 BattleFrontier_OutsideEast_Text_BattleTowerSign:
-	.string "This is the BATTLE TOWER!\n"
-	.string "Keep the win streak as the toughest\l"
-	.string "TRAINER!$"
+	.string "BATTLE TOWER - GAUNTLETS 1 TO 4.\p"
+	.string "Every challenger starts here!$"
 
 BattleFrontier_OutsideEast_Text_BattlePalaceSign:
 	.string "This is the BATTLE PALACE!\n"
@@ -248,53 +313,57 @@ BattleFrontier_OutsideEast_Text_BattlePyramidSign:
 	.string "Advance through the Battle Quest!$"
 
 BattleFrontier_OutsideEast_Text_RankingHallSign:
-	.string "BATTLE FRONTIER RANKING HALL\n"
-	.string "Set your sights on new records!$"
+	.string "THE HALL OF TEN\p"
+	.string "Ten gauntlets. Ten bosses. And the\n"
+	.string "trainers who beat them.$"
 
 BattleFrontier_OutsideEast_Text_ExchangeCornerSign:
-	.string "BATTLE POINT EXCHANGE SERVICE CORNER\n"
-	.string "Exchange your Battle Points!$"
+	.string "FRONTIER POINT EXCHANGE SERVICE\n"
+	.string "CORNER\p"
+	.string "POKéMON, items and MEGA STONES for\n"
+	.string "FP!$"
 
 BattleFrontier_OutsideEast_Text_BattleTowerFeelsSpecial:
-	.string "Wow!\n"
-	.string "It's huge!\p"
-	.string "The BATTLE TOWER feels special.\n"
-	.string "It's different from the others.$"
+	.string "Wow! It's huge!\p"
+	.string "The BATTLE TOWER holds four whole\n"
+	.string "gauntlets, one mat each. Everyone\l"
+	.string "starts there!$"
 
 BattleFrontier_OutsideEast_Text_ConquerLeagueAndFrontier:
-	.string "My grand ambition is to conquer both\n"
-	.string "the BATTLE FRONTIER and the POKéMON\l"
-	.string "LEAGUE.\p"
+	.string "My grand ambition is to clear all\n"
+	.string "ten gauntlets.\p"
 	.string "And if my dream comes true…\p"
 	.string "I… I'm going to ask MIMI next door\n"
 	.string "if she will be friends with me!$"
 
 BattleFrontier_OutsideEast_Text_PyramidTooHarsh:
-	.string "The BATTLE PYRAMID's too harsh!\n"
-	.string "I just can't make it to the top!\p"
-	.string "Since I'm out of options, maybe I can\n"
-	.string "climb the outside…$"
+	.string "The BATTLE PYRAMID's sealed tight.\n"
+	.string "They say it's the tenth gauntlet,\l"
+	.string "the very last one.\p"
+	.string "I'm going to be waiting right here\n"
+	.string "the day it opens.$"
 
 BattleFrontier_OutsideEast_Text_ThriveInDarkness:
-	.string "I thrive in darkness…\n"
-	.string "Yes… What is worthy of me?\l"
-	.string "None other than the BATTLE PYRAMID…\p"
-	.string "What say you to wandering in darkness\n"
-	.string "and in utter and total desperation?$"
+	.string "I thrive in darkness… Yes…\p"
+	.string "The PYRAMID KING waits in the dark\n"
+	.string "of the tenth gauntlet… Few have\l"
+	.string "seen him.\p"
+	.string "Yet everyone who reaches gauntlet\n"
+	.string "9 dreams of him…$"
 
 BattleFrontier_OutsideEast_Text_PutTogetherUltimateTeam:
-	.string "I didn't sleep for a week, but then\n"
-	.string "I put together the ultimate team!\p"
-	.string "I can't see myself losing, no joke.\n"
-	.string "We're storming the BATTLE ARENA!$"
+	.string "I didn't sleep for a week, but\n"
+	.string "then I put together the ultimate\l"
+	.string "team!\p"
+	.string "…The ARENA's still sealed, though.\n"
+	.string "So I'm starting at gauntlet 1 like\l"
+	.string "everyone else.$"
 
 BattleFrontier_OutsideEast_Text_DidScottBringYouHere:
-	.string "Did SCOTT bring you here, too?\n"
-	.string "What is it with that guy?\p"
-	.string "It sounds like he really does know\n"
-	.string "how to spot talented TRAINERS, but…\p"
-	.string "I've never seen him battling in person\n"
-	.string "ever.$"
+	.string "Did SCOTT invite you here, too?\p"
+	.string "He really does know how to spot\n"
+	.string "talented trainers, but… I've never\l"
+	.string "once seen him battle.$"
 
 BattleFrontier_OutsideEast_Text_BelieveInYouBuddy:
 	.string "ZIGG!\n"
@@ -306,19 +375,19 @@ BattleFrontier_OutsideEast_Text_ZigzagoonLooksVacant:
 	.string "ZIGZAGOON looks vacant…$"
 
 BattleFrontier_OutsideEast_Text_PeopleCallMeBusybody:
-	.string "People call me a busybody,\n"
-	.string "but I can't help it.\p"
-	.string "Your hat's on crooked!\n"
-	.string "Oh, no, trash on the ground!\l"
-	.string "Oops, it's almost dinnertime!\p"
-	.string "I don't know if I can stand to just\n"
-	.string "watch at the BATTLE PALACE…$"
+	.string "People call me a busybody, but I\n"
+	.string "can't help it.\p"
+	.string "Your hat's crooked! Your lead's\n"
+	.string "wrong! And you haven't bought a\l"
+	.string "single resist berry!\p"
+	.string "…Sorry. I really can't help it.$"
 
 BattleFrontier_OutsideEast_Text_OnceBeatGymLeader:
-	.string "I may not look that impressive now,\n"
-	.string "but I once beat a GYM LEADER.\p"
-	.string "Who knows, maybe I should give it\n"
-	.string "another shot at glory.$"
+	.string "I may not look that impressive\n"
+	.string "now, but I once beat a GYM LEADER.\p"
+	.string "There's no LEAGUE here, though.\n"
+	.string "Only gauntlets. And nobody hands\l"
+	.string "out badges.$"
 
 BattleFrontier_OutsideEast_Text_FastOnBikeAndBattles:
 	.string "I'm fast on my BIKE, and that goes for\n"
@@ -346,22 +415,19 @@ BattleFrontier_OutsideEast_Text_HeardPrettyGirlAtBattleArena:
 	.string "stinky, and primitive martial artists!$"
 
 BattleFrontier_OutsideEast_Text_SometimesImportantOldManInThere:
-	.string "I sometimes see this really important-\n"
-	.string "looking old man going in there.\p"
-	.string "He has these really awesome POKéMON.\n"
-	.string "He seems really nice, though.$"
+	.string "I sometimes see this really\n"
+	.string "important-looking old man going\l"
+	.string "into the PALACE, even though it's\l"
+	.string "sealed.\p"
+	.string "His POKéMON look… legendary.$"
 
 BattleFrontier_OutsideEast_Text_LegendOfBattlePyramid:
-	.string "Do you know it?\n"
-	.string "The legend of the BATTLE PYRAMID?\p"
-	.string "When there comes a confident TRAINER\n"
-	.string "reaching for the golden pinnacle,\l"
-	.string "there shall appear a man among men.\p"
-	.string "Don't know that legend?\n"
-	.string "Well, of course not!\l"
-	.string "I just made it up!\p"
-	.string "What's it supposed to mean?\n"
-	.string "That, my friend, I can't say!$"
+	.string "Do you know it? The legend of the\n"
+	.string "BATTLE PYRAMID?\p"
+	.string "When a trainer clears nine\n"
+	.string "gauntlets, the PYRAMID KING\l"
+	.string "himself shall appear!\p"
+	.string "…I just made that up. Or did I?$"
 
 BattleFrontier_OutsideEast_Text_GotWipedOut:
 	.string "Man! Oh man!\n"
@@ -386,34 +452,33 @@ BattleFrontier_OutsideEast_Text_EnoughBattlePointsForDoll:
 	.string "plush DOLL!$"
 
 BattleFrontier_OutsideEast_Text_LikeToHaveNameRecordedHere:
-	.string "Oh, yeah, okay!\n"
-	.string "So this is the RANKING HALL!\p"
-	.string "I'd like to go down in history as\n"
-	.string "a super champ and have my name\l"
-	.string "recorded here for posterity.$"
+	.string "Oh, yeah, okay! So this is the\n"
+	.string "HALL OF TEN!\p"
+	.string "Beat a gauntlet's boss and your\n"
+	.string "name goes up on its plaque. I'm\l"
+	.string "going to be the reason one of\l"
+	.string "those changes!$"
 
 BattleFrontier_OutsideEast_Text_CanDoAnythingWithYou:
-	.string "With you by my side, I can do anything.$"
+	.string "Doubles is made for us, darling!\n"
+	.string "You use Fake Out, and I'll use\l"
+	.string "Protect!$"
 
 BattleFrontier_OutsideEast_Text_PowerOfOurLoveWillOvercome:
-	.string "Ooh, darling, you are so wonderful!\p"
-	.string "Ooh, I just can't wait anymore!\p"
-	.string "Let's go to a MULTI BATTLE ROOM\n"
-	.string "right this instant!\p"
-	.string "If we get together in the BATTLE SALON,\n"
-	.string "the power of our love will overcome\l"
-	.string "everyone we meet.\p"
-	.string "Why, before us, darling, everything\n"
+	.string "Ooh, darling, you are so\n"
+	.string "wonderful!\p"
+	.string "…That's not how Protect works at\n"
+	.string "all, but I love you.\p"
+	.string "Let's go take on the Doubles mat\n"
+	.string "right this instant! Everything\l"
 	.string "will topple like dominoes!$"
 
 BattleFrontier_OutsideEast_Text_FrontierNotExclusivelyForToughTrainers:
-	.string "The BATTLE FRONTIER isn't exclusively\n"
-	.string "for tough TRAINERS.\p"
-	.string "Many people with special abilities\n"
-	.string "have been invited, it seems.\p"
-	.string "That man SCOTT…\p"
-	.string "He may have built this place to serve\n"
-	.string "a bigger objective…$"
+	.string "Ten gauntlets, and the FRONTIER\n"
+	.string "BRAINS waiting at the end of them…\p"
+	.string "SCOTT never does anything without\n"
+	.string "a reason. What's waiting after the\l"
+	.string "tenth, I wonder?$"
 
 BattleFrontier_OutsideEast_Text_OddTreeHereSeemsToWiggle:
 	.string "Excuse me, young one.\n"
@@ -434,3 +499,87 @@ BattleFrontier_OutsideEast_Text_StickyMonWithLongTail:
 	.string "with a long tail up ahead!\p"
 	.string "It was hiding under a boulder, and\n"
 	.string "it kept staring at me!$"
+
+BattleFrontier_OutsideEast_EventScript_TriathleteF_Text4:
+	.string "Speed is everything! …At least it\n"
+	.string "was, until gauntlet 4. Everyone in\l"
+	.string "there learned to change the speed\l"
+	.string "order.\p"
+	.string "I'm still upset about it.$"
+
+BattleFrontier_OutsideEast_EventScript_TriathleteF_Text0:
+	.string "I'm fast on my BIKE, and that goes\n"
+	.string "for the way I battle, too. I win\l"
+	.string "matches in the blink of an eye!$"
+
+BattleFrontier_OutsideEast_EventScript_Man2_Text5:
+	.string "Go on, my baby sweetie! Daddy\n"
+	.string "bought you a MEGA STONE, so go\l"
+	.string "rack up some wins for Daddy!$"
+
+BattleFrontier_OutsideEast_EventScript_Man2_Text0:
+	.string "Go on, my baby sweetie! Go rack up\n"
+	.string "some wins for Daddy!$"
+
+BattleFrontier_OutsideEast_EventScript_Man3_Text3:
+	.string "Man! I made it to gauntlet 3!\p"
+	.string "…Then the sandstorm started. Don't\n"
+	.string "talk to me about sandstorms.$"
+
+BattleFrontier_OutsideEast_EventScript_Man3_Text0:
+	.string "Man! Oh man! I'd never lost once\n"
+	.string "before!\p"
+	.string "Then I met WARDEN HELIS. I got\n"
+	.string "wiped out with no saving grace at\l"
+	.string "all!$"
+
+BattleFrontier_OutsideEast_EventScript_Woman1_Text3:
+	.string "He's on gauntlet 3 now. He did\n"
+	.string "great until the weather turned.\p"
+	.string "Please don't mention sandstorms\n"
+	.string "around him.$"
+
+BattleFrontier_OutsideEast_EventScript_Woman1_Text0:
+	.string "He'd never lost once. Then he met\n"
+	.string "WARDEN HELIS on the first mat.\p"
+	.string "It was one ALTARIA. ONE!\p"
+	.string "Watch out for that one if you're\n"
+	.string "headed to the TOWER.$"
+
+BattleFrontier_OutsideEast_EventScript_Woman2_Text3:
+	.string "Yes! I've finally got enough FP!\p"
+	.string "A CHOICE SCARF, or a new POKéMON…\n"
+	.string "A CHOICE SCARF, or a new POKéMON…$"
+
+BattleFrontier_OutsideEast_EventScript_Woman2_Text0:
+	.string "Yes! I've finally got enough FP!\p"
+	.string "A resist berry, or save up for a\n"
+	.string "new POKéMON… A resist berry, or a\l"
+	.string "new POKéMON…$"
+
+BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Text8:
+	.string "BATTLE PALACE - GAUNTLET 9.\p"
+	.string "Sealed. Still being prepared.$"
+
+BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Text0:
+	.string "BATTLE PALACE - GAUNTLET 9.\p"
+	.string "Sealed. Opens for those who clear\n"
+	.string "gauntlet 8.$"
+
+BattleFrontier_OutsideEast_EventScript_BattleArenaSign_Text7:
+	.string "BATTLE ARENA - GAUNTLET 8.\p"
+	.string "Sealed. Still being prepared.$"
+
+BattleFrontier_OutsideEast_EventScript_BattleArenaSign_Text0:
+	.string "BATTLE ARENA - GAUNTLET 8.\p"
+	.string "Sealed. Opens for those who clear\n"
+	.string "gauntlet 7.$"
+
+BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Text9:
+	.string "BATTLE PYRAMID - GAUNTLET 10.\p"
+	.string "Sealed. Still being prepared.$"
+
+BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Text0:
+	.string "BATTLE PYRAMID - GAUNTLET 10.\p"
+	.string "Sealed. Opens for those who clear\n"
+	.string "gauntlet 9.$"

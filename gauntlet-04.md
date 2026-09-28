@@ -868,7 +868,7 @@ Adamant Nature
 
 ---
 
-## Boss — Timewarden Iyla
+## Boss — Salon Maiden Anabel
 
 **Pool:** gauntlet 5 (600 BST pseudo-legendaries) plus everything prior.
 

@@ -56,9 +56,9 @@ BattleFrontier_Mart_Text_ProteinMakeNiceGift:
 	.string "It sounds delicious, doesn't it?$"
 
 BattleFrontier_Mart_Text_FacilitiesDontAllowItems:
-	.string "A lot of the BATTLE FRONTIER's\n"
-	.string "facilities don't allow the use of items\l"
-	.string "during battles.\p"
-	.string "That rule makes things tougher than\n"
-	.string "they already are!$"
+	.string "BAG items don't work during a run.\n"
+	.string "Only what your POKéMON are\l"
+	.string "holding.\p"
+	.string "So why am I buying POTIONS?\n"
+	.string "…Habit.$"
 

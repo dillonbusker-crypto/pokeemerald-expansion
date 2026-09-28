@@ -35,7 +35,7 @@ Info taken from https://bulbapedia.bulbagarden.net/wiki/Stats_judge.
 
 // Level up Relearner
 #define P_PRE_EVO_MOVES                  FALSE   // If TRUE, it enables the Pokémon to learn moves from it's pre evolution.
-// Ten Buildings: on, so the L-menu's Move Relearner (data/scripts/debug.inc's
+// Ten Gauntlets: on, so the L-menu's Move Relearner (data/scripts/debug.inc's
 // Debug_EventScript_RelearnLevelUpMove) can offer a species' full level-up
 // learnset instead of just what its level 50 cap has already passed - the
 // project's own custom "full legal movepool" relearner mode was retired

@@ -1,7 +1,7 @@
 #ifndef GUARD_CONSTANTS_TMS_HMS_H
 #define GUARD_CONSTANTS_TMS_HMS_H
 
-// Ten Buildings: raised from the vanilla 50 to Emerald Imperium's 166-move
+// Ten Gauntlets: raised from the vanilla 50 to Emerald Imperium's 166-move
 // list (web-search-verified list, cross-checked against our own moves.h/
 // moves_info.h - every one of these was already a fully-implemented move in
 // this expansion checkout, so no new move data needed, just new items).

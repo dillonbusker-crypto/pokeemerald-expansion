@@ -366,7 +366,7 @@ Route103_Text_RouteSign:
 
 
 @ ============================================================================
-@ Ten Buildings: ferry dock to the Battle Frontier. Modeled directly on
+@ Ten Gauntlets: ferry dock to the Battle Frontier. Modeled directly on
 @ SlateportCity_Harbor_EventScript_BattleFrontier/BoardFerry - same
 @ msgbox -> board -> depart -> warp shape, reusing the SS Tidal boat graphic
 @ and warping to the same MAP_BATTLE_FRONTIER_OUTSIDE_WEST coordinates the

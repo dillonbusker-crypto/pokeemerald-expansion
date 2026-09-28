@@ -57,7 +57,7 @@ enum
     PAGE_EXECUTIVE_DIRECTOR,
     PAGE_EXECUTIVE_PRODUCERS_1,
     PAGE_EXECUTIVE_PRODUCERS_2,
-    PAGE_TEN_BUILDINGS_CREDITS,
+    PAGE_TEN_GAUNTLETS_CREDITS,
     PAGE_COUNT
 };
 
@@ -223,7 +223,7 @@ static const u8 sCreditsText_NicolaPrattBarlow[]              = _("Nicola Pratt-
 static const u8 sCreditsText_ShellieDow[]                     = _("Shellie Dow");
 static const u8 sCreditsText_ErikJohnson[]                    = _("Erik Johnson");
 
-// Ten Buildings: stat editor, nature changer and Hidden Power type changer
+// Ten Gauntlets: stat editor, nature changer and Hidden Power type changer
 // ported from Emerald Imperium (iriv24/pokeemerald-expansion). Git history on
 // that repo's release branch shows all three original to this contributor;
 // no LICENSE file there or here, so credited by name per community norm.
@@ -794,7 +794,7 @@ static const struct CreditsEntry *const sCreditsEntryPointerTable[PAGE_COUNT][EN
         _,
         _,
     },
-    [PAGE_TEN_BUILDINGS_CREDITS] = {
+    [PAGE_TEN_GAUNTLETS_CREDITS] = {
         _,
         &sCreditsEntry_TenBuildingsStatTools,
         &sCreditsEntry_IsaacRivera,

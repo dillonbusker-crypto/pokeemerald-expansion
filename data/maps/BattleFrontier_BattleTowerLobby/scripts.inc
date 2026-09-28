@@ -11,6 +11,11 @@ BattleFrontier_BattleTowerLobby_OnResume:
 
 BattleFrontier_BattleTowerLobby_OnTransition:
 	call BattleFrontier_BattleTowerLobby_EventScript_ShowOrHideReporter
+	@ Ten Gauntlets: the Apprentice is always hidden. It's a vanilla Battle
+	@ Tower / record-mixing feature that can't work here (see
+	@ frontier-dialogue.md, Part 5). The vanilla show/hide logic below is
+	@ unreachable now.
+	goto BattleFrontier_BattleTowerLobby_EventScript_HideApprentice
 	apprentice_shouldcheckgone
 	goto_if_eq VAR_0x8004, FALSE, BattleFrontier_BattleTowerLobby_EventScript_ShowApprentice  @ VAR_0x8004 always TRUE here
 	goto_if_set FLAG_DAILY_APPRENTICE_LEAVES, BattleFrontier_BattleTowerLobby_EventScript_HideApprentice
@@ -166,7 +171,7 @@ BattleFrontier_BattleTowerLobby_EventScript_SetBravoTrainerOn::
 	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, TRUE
 	return
 
-@ Ten Buildings: this used to be the real vanilla Singles challenge (party
+@ Ten Gauntlets: this used to be the real vanilla Singles challenge (party
 @ select, level mode, elevator ride to the battle room upstairs). That flow
 @ is now Facility_AttendantB1 down by FacilityAttendantB2 (see the comment
 @ there for why the elevator/battle-room sequence wasn't reused - it's
@@ -175,7 +180,7 @@ BattleFrontier_BattleTowerLobby_EventScript_SetBravoTrainerOn::
 @ This body is unreferenced dead code now, kept rather than deleted per
 @ this project's convention of not stripping vanilla script bodies it
 @ stops pointing at (see BattleFrontier_BattleTowerLobby_EventScript_
-@ DoublesAttendant below, orphaned the same way for building 2).
+@ DoublesAttendant below, orphaned the same way for gauntlet 2).
 BattleFrontier_BattleTowerLobby_EventScript_SinglesAttendant::
 	lock
 	faceplayer
@@ -302,9 +307,9 @@ BattleFrontier_BattleTowerLobby_EventScript_ExplainDoublesChallenge::
 	goto BattleFrontier_BattleTowerLobby_EventScript_AskEnterDoublesChallenge
 	end
 
-@ Ten Buildings: the Multis mat is building 3, locked until building 2 is
-@ cleared (IsMultisMatUnlocked); the Link Multis mat is building 4, locked
-@ until building 3 is cleared (IsLinkMultisMatUnlocked) - same one-building-
+@ Ten Gauntlets: the Multis mat is gauntlet 3, locked until gauntlet 2 is
+@ cleared (IsMultisMatUnlocked); the Link Multis mat is gauntlet 4, locked
+@ until gauntlet 3 is cleared (IsLinkMultisMatUnlocked) - same one-gauntlet-
 @ ahead gating FacilityAttendantB2 already uses for the Doubles mat. The
 @ vanilla Multis/Link Multis flows below (MultisAttendant/LinkMultisAttendant)
 @ are unreferenced dead code, same as DoublesAttendant above - the object
@@ -314,17 +319,17 @@ BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB3::
 	faceplayer
 	special IsMultisMatUnlocked
 	goto_if_eq VAR_RESULT, FALSE, Facility_MatLocked
-	setvar VAR_0x8004, FACILITY_BUILDING_3
-	special IsFacilityRunActiveForBuilding
+	setvar VAR_0x8004, FACILITY_GAUNTLET_3
+	special IsFacilityRunActiveForGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
-	special IsFacilityRunActiveForDifferentBuilding
+	special IsFacilityRunActiveForDifferentGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_B3_Text_AskEnter, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, Facility_Decline
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
-	setvar VAR_0x8004, FACILITY_BUILDING_3
+	setvar VAR_0x8004, FACILITY_GAUNTLET_3
 	special FacilityStartRun
 	call Common_EventScript_SaveGame
 	goto Facility_DoBattle
@@ -335,17 +340,17 @@ BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB4::
 	faceplayer
 	special IsLinkMultisMatUnlocked
 	goto_if_eq VAR_RESULT, FALSE, Facility_MatLocked
-	setvar VAR_0x8004, FACILITY_BUILDING_4
-	special IsFacilityRunActiveForBuilding
+	setvar VAR_0x8004, FACILITY_GAUNTLET_4
+	special IsFacilityRunActiveForGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
-	special IsFacilityRunActiveForDifferentBuilding
+	special IsFacilityRunActiveForDifferentGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_B4_Text_AskEnter, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, Facility_Decline
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
-	setvar VAR_0x8004, FACILITY_BUILDING_4
+	setvar VAR_0x8004, FACILITY_GAUNTLET_4
 	special FacilityStartRun
 	call Common_EventScript_SaveGame
 	goto Facility_DoBattle
@@ -557,35 +562,43 @@ BattleFrontier_BattleTowerLobby_EventScript_Boy::
 	end
 
 BattleFrontier_BattleTowerLobby_EventScript_ShowSinglesResults::
-	lockall
-	frontier_results FRONTIER_FACILITY_TOWER, FRONTIER_MODE_SINGLES
-	waitbuttonpress
-	special RemoveRecordsWindow
-	releaseall
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 1, BattleFrontier_BattleTowerLobby_EventScript_ShowSinglesResults_Cleared
+	msgbox BattleFrontier_BattleTowerLobby_EventScript_ShowSinglesResults_Text, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_ShowSinglesResults_Cleared:
+	msgbox BattleFrontier_BattleTowerLobby_EventScript_ShowSinglesResults_TextCleared, MSGBOX_SIGN
 	end
 
 BattleFrontier_BattleTowerLobby_EventScript_ShowDoublesResults::
-	lockall
-	frontier_results FRONTIER_FACILITY_TOWER, FRONTIER_MODE_DOUBLES
-	waitbuttonpress
-	special RemoveRecordsWindow
-	releaseall
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 2, BattleFrontier_BattleTowerLobby_EventScript_ShowDoublesResults_Cleared
+	msgbox BattleFrontier_BattleTowerLobby_EventScript_ShowDoublesResults_Text, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_ShowDoublesResults_Cleared:
+	msgbox BattleFrontier_BattleTowerLobby_EventScript_ShowDoublesResults_TextCleared, MSGBOX_SIGN
 	end
 
 BattleFrontier_BattleTowerLobby_EventScript_ShowMultisResults::
-	lockall
-	frontier_results FRONTIER_FACILITY_TOWER, FRONTIER_MODE_MULTIS
-	waitbuttonpress
-	special RemoveRecordsWindow
-	releaseall
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 3, BattleFrontier_BattleTowerLobby_EventScript_ShowMultisResults_Cleared
+	msgbox BattleFrontier_BattleTowerLobby_EventScript_ShowMultisResults_Text, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_ShowMultisResults_Cleared:
+	msgbox BattleFrontier_BattleTowerLobby_EventScript_ShowMultisResults_TextCleared, MSGBOX_SIGN
 	end
 
 BattleFrontier_BattleTowerLobby_EventScript_ShowLinkMultisResults::
-	lockall
-	frontier_results FRONTIER_FACILITY_TOWER, FRONTIER_MODE_LINK_MULTIS
-	waitbuttonpress
-	special RemoveRecordsWindow
-	releaseall
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 4, BattleFrontier_BattleTowerLobby_EventScript_ShowLinkMultisResults_Cleared
+	msgbox BattleFrontier_BattleTowerLobby_EventScript_ShowLinkMultisResults_Text, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_ShowLinkMultisResults_Cleared:
+	msgbox BattleFrontier_BattleTowerLobby_EventScript_ShowLinkMultisResults_TextCleared, MSGBOX_SIGN
 	end
 
 BattleFrontier_BattleTowerLobby_EventScript_NotEnoughValidMons::
@@ -943,9 +956,7 @@ BattleFrontier_BattleTowerLobby_EventScript_WirelessLinkSuccessful::
 	end
 
 BattleFrontier_BattleTowerLobby_EventScript_RulesBoard::
-	lockall
-	msgbox BattleFrontier_BattleTowerLobby_Text_RulesAreListed, MSGBOX_DEFAULT
-	goto BattleFrontier_BattleTowerLobby_EventScript_ReadRulesBoard
+	msgbox BattleFrontier_BattleTowerLobby_EventScript_RulesBoard_Text, MSGBOX_SIGN
 	end
 
 BattleFrontier_BattleTowerLobby_EventScript_ReadRulesBoard::
@@ -1003,9 +1014,9 @@ BattleFrontier_BattleTowerLobby_Text_CongratsBeatenSeven:
 
 @ Unused
 BattleFrontier_BattleTowerLobby_Text_EarnedFabulousPrize:
-	.string "For beating seven TRAINERS in a row,\n"
-	.string "you have earned this fabulous prize!\p"
-	.string "$"
+	.string "For beating seven TRAINERS in a\n"
+	.string "row, you have earned this fabulous\l"
+	.string "prize!$"
 
 BattleFrontier_BattleTowerLobby_Text_ReceivedPrize:
 	.string "{PLAYER} received the prize\n"
@@ -1052,10 +1063,10 @@ BattleFrontier_BattleTowerLobby_Text_PutRibbonOnMons:
 
 BattleFrontier_BattleTowerLobby_Text_DescribeFeelingsAboutBattleTower:
 	.string "Excuse me, do you have a moment?\p"
-	.string "Can you describe your feelings when\n"
-	.string "you're about to begin a BATTLE TOWER\l"
-	.string "match, or when you've either won or\l"
-	.string "lost a match?$"
+	.string "Can you describe your feelings\n"
+	.string "before you face a gauntlet's boss,\l"
+	.string "or when you've won or lost a\l"
+	.string "battle?$"
 
 BattleFrontier_BattleTowerLobby_Text_FeelWhatWhenYouBegin:
 	.string "Okay, what are your feelings when\n"
@@ -1083,17 +1094,16 @@ BattleFrontier_BattleTowerLobby_Text_ThatsHowYouFeel:
 	.string "Thanks!$"
 
 BattleFrontier_BattleTowerLobby_Text_WinsInRowRecorded:
-	.string "The number of matches you win in a row\n"
-	.string "is recorded.\p"
-	.string "I'd better not get beaten in\n"
-	.string "an embarrassing way!$"
+	.string "Lose a battle and the run is over,\n"
+	.string "but you keep every FP you've\l"
+	.string "earned.\p"
+	.string "So even losing pays, a little!$"
 
 BattleFrontier_BattleTowerLobby_Text_CanLeaveUntilLossOrSevenWins:
-	.string "Once you've entered the BATTLE TOWER,\n"
-	.string "you can't leave until you either lose\l"
-	.string "or you beat seven TRAINERS in a row.\p"
-	.string "You'd best be certain that you're up\n"
-	.string "to the challenge.$"
+	.string "Once a run starts, your six are\n"
+	.string "locked in until you win or lose.\p"
+	.string "Choose your team before you talk\n"
+	.string "to the attendant, not after!$"
 
 @ Unused
 BattleFrontier_BattleTowerLobby_Text_DoubleBattleRoomConstruction:
@@ -1458,7 +1468,7 @@ BattleFrontier_BattleTowerLobby_Text_ExplainMultiLinkRules:
 	.string "in the middle, unlike other modes.$"
 
 @ ============================================================================
-@ Ten Buildings facility run loop - vertical slice on building 2.
+@ Ten Gauntlets facility run loop - vertical slice on gauntlet 2.
 @ See run-loop-spec.md. Replaces the vanilla Doubles Attendant script
 @ (BattleFrontier_BattleTowerLobby_EventScript_DoublesAttendant, still above,
 @ untouched, just no longer reachable from this NPC - see map.json) since
@@ -1470,42 +1480,42 @@ BattleFrontier_BattleTowerLobby_Text_ExplainMultiLinkRules:
 BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB1::
 	lock
 	faceplayer
-	setvar VAR_0x8004, FACILITY_BUILDING_1
-	special IsFacilityRunActiveForBuilding
+	setvar VAR_0x8004, FACILITY_GAUNTLET_1
+	special IsFacilityRunActiveForGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
-	special IsFacilityRunActiveForDifferentBuilding
+	special IsFacilityRunActiveForDifferentGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_B1_Text_AskEnter, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, Facility_Decline
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
-	setvar VAR_0x8004, FACILITY_BUILDING_1
+	setvar VAR_0x8004, FACILITY_GAUNTLET_1
 	special FacilityStartRun
 	call Common_EventScript_SaveGame
 	goto Facility_DoBattle
 	end
 
-@ Ten Buildings: the Doubles mat is building 2, and stays locked until
-@ building 1 is cleared - see IsDoublesMatUnlocked() in src/facility.c.
-@ Was named plain "FacilityAttendant" before building 1 existed; renamed
+@ Ten Gauntlets: the Doubles mat is gauntlet 2, and stays locked until
+@ gauntlet 1 is cleared - see IsDoublesMatUnlocked() in src/facility.c.
+@ Was named plain "FacilityAttendant" before gauntlet 1 existed; renamed
 @ for symmetry with FacilityAttendantB1 above.
 BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB2::
 	lock
 	faceplayer
 	special IsDoublesMatUnlocked
 	goto_if_eq VAR_RESULT, FALSE, Facility_MatLocked
-	setvar VAR_0x8004, FACILITY_BUILDING_2
-	special IsFacilityRunActiveForBuilding
+	setvar VAR_0x8004, FACILITY_GAUNTLET_2
+	special IsFacilityRunActiveForGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
-	special IsFacilityRunActiveForDifferentBuilding
+	special IsFacilityRunActiveForDifferentGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_Text_AskEnter, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, Facility_Decline
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
-	setvar VAR_0x8004, FACILITY_BUILDING_2
+	setvar VAR_0x8004, FACILITY_GAUNTLET_2
 	special FacilityStartRun
 	call Common_EventScript_SaveGame
 	goto Facility_DoBattle
@@ -1529,8 +1539,17 @@ Facility_BusyElsewhere:
 	releaseall
 	end
 
+@ Ten Gauntlets: a brand-new arrival who skipped SCOTT's house has only
+@ their starter - point them back at him instead of the generic line.
 Facility_NotEligible:
+	specialvar VAR_RESULT, HasReceivedFrontierStartingGrants
+	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible_SeeScott
 	msgbox Facility_Text_NotEligible, MSGBOX_DEFAULT
+	releaseall
+	end
+
+Facility_NotEligible_SeeScott:
+	msgbox Facility_Text_NotEligibleSeeScott, MSGBOX_DEFAULT
 	releaseall
 	end
 
@@ -1539,33 +1558,33 @@ Facility_Decline:
 	releaseall
 	end
 
-@ Shared between every mat's run - which building's battle-label switch to
-@ use is read back from the save (gSaveBlock3Ptr->facility.run.building),
+@ Shared between every mat's run - which gauntlet's battle-label switch to
+@ use is read back from the save (gSaveBlock3Ptr->facility.run.gauntlet),
 @ not hardcoded, so this and everything below it (AfterPoolBattle,
-@ AfterBossBattle, Lost) works unmodified as more buildings get real data.
+@ AfterBossBattle, Lost) works unmodified as more gauntlets get real data.
 Facility_DoBattle:
 	special FacilityIsBossBattle
 	goto_if_eq VAR_RESULT, TRUE, Facility_Battle_Boss
 	special FacilityGetDrawnPoolIndex
 	copyvar VAR_TEMP_2, VAR_RESULT
-	special GetFacilityRunBuilding
+	special GetFacilityRunGauntlet
 	copyvar VAR_TEMP_3, VAR_RESULT
 	copyvar VAR_RESULT, VAR_TEMP_2
-	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_1, Facility_DoBattle_B1
-	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_2, Facility_DoBattle_B2
-	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_3, Facility_DoBattle_B3
-	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_4, Facility_DoBattle_B4
-	goto_if_eq VAR_TEMP_3, FACILITY_BUILDING_5, Facility_DoBattle_B5
+	goto_if_eq VAR_TEMP_3, FACILITY_GAUNTLET_1, Facility_DoBattle_B1
+	goto_if_eq VAR_TEMP_3, FACILITY_GAUNTLET_2, Facility_DoBattle_B2
+	goto_if_eq VAR_TEMP_3, FACILITY_GAUNTLET_3, Facility_DoBattle_B3
+	goto_if_eq VAR_TEMP_3, FACILITY_GAUNTLET_4, Facility_DoBattle_B4
+	goto_if_eq VAR_TEMP_3, FACILITY_GAUNTLET_5, Facility_DoBattle_B5
 	goto Facility_DoBattle_B6
 	end
 
 Facility_Battle_Boss:
-	special GetFacilityRunBuilding
-	goto_if_eq VAR_RESULT, FACILITY_BUILDING_1, Facility_Battle_Boss_B1
-	goto_if_eq VAR_RESULT, FACILITY_BUILDING_2, Facility_Battle_Boss_B2
-	goto_if_eq VAR_RESULT, FACILITY_BUILDING_3, Facility_Battle_Boss_B3
-	goto_if_eq VAR_RESULT, FACILITY_BUILDING_4, Facility_Battle_Boss_B4
-	goto_if_eq VAR_RESULT, FACILITY_BUILDING_5, Facility_Battle_Boss_B5
+	special GetFacilityRunGauntlet
+	goto_if_eq VAR_RESULT, FACILITY_GAUNTLET_1, Facility_Battle_Boss_B1
+	goto_if_eq VAR_RESULT, FACILITY_GAUNTLET_2, Facility_Battle_Boss_B2
+	goto_if_eq VAR_RESULT, FACILITY_GAUNTLET_3, Facility_Battle_Boss_B3
+	goto_if_eq VAR_RESULT, FACILITY_GAUNTLET_4, Facility_Battle_Boss_B4
+	goto_if_eq VAR_RESULT, FACILITY_GAUNTLET_5, Facility_Battle_Boss_B5
 	goto Facility_Battle_Boss_B6
 
 Facility_Battle_Boss_B1:
@@ -1581,7 +1600,7 @@ Facility_Battle_Boss_B3:
 	end
 
 Facility_Battle_Boss_B4:
-	trainerbattle_double TRAINER_FACILITY_B4_BOSS_IYLA, Facility_B4_Text_BossIntro, Facility_B4_Text_BossDefeat, Facility_Text_NotEnoughMons, Facility_AfterBossBattle
+	trainerbattle_double TRAINER_FACILITY_B4_BOSS_ANABEL, Facility_B4_Text_BossIntro, Facility_B4_Text_BossDefeat, Facility_Text_NotEnoughMons, Facility_AfterBossBattle
 	end
 
 Facility_DoBattle_B1:
@@ -1810,7 +1829,7 @@ Facility_B4_Battle_CHECKMATE:
 	trainerbattle_double TRAINER_FACILITY_B4_D12_CHECKMATE, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
 	end
 
-@ Shared continuation for every pool battle in every building. Reached
+@ Shared continuation for every pool battle in every gauntlet. Reached
 @ whether the battle was won or lost - see the IsPlayerDefeated() branch in
 @ src/battle_setup.c's CB2_EndTrainerBattle, patched to resume the script
 @ instead of whiting out while IsFacilityRunActive().
@@ -1835,12 +1854,12 @@ Facility_BossUpNext:
 	goto Facility_PostWinMenu
 	end
 
-@ Ten Buildings: only offered between pool battles, not after the boss -
-@ "Continue" has nothing left to continue to once the building's cleared,
-@ so Facility_AfterBossBattle below goes straight to the building-complete
+@ Ten Gauntlets: only offered between pool battles, not after the boss -
+@ "Continue" has nothing left to continue to once the gauntlet's cleared,
+@ so Facility_AfterBossBattle below goes straight to the gauntlet-complete
 @ message instead of here.
 Facility_PostWinMenu:
-	setvar VAR_0x8004, SCROLL_MULTI_TEN_BUILDINGS_POST_BATTLE
+	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_POST_BATTLE
 	special ShowScrollableMultichoice
 	switch VAR_RESULT
 	case 0, Facility_DoBattle
@@ -1875,6 +1894,7 @@ Facility_ConfirmQuit:
 	special FacilityAbandonRun
 	call Common_EventScript_SaveGame
 	msgbox Facility_Text_QuitConfirmed, MSGBOX_DEFAULT
+	call Facility_BrokerLoanNews
 	releaseall
 	end
 
@@ -1883,47 +1903,51 @@ Facility_AfterBossBattle:
 	goto_if_ne VAR_RESULT, B_OUTCOME_WON, Facility_Lost
 	special HealPlayerParty
 	special RestoreFacilityHeldItems
-	special GetFacilityRunBuilding
+	special GetFacilityRunGauntlet
 	copyvar VAR_TEMP_2, VAR_RESULT
-	special FacilityCompleteBuilding
-	goto_if_eq VAR_TEMP_2, FACILITY_BUILDING_4, Facility_B4_BuildingComplete
+	special FacilityCompleteGauntlet
+	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_4, Facility_B4_GauntletComplete
 	call Common_EventScript_SaveGame
-	goto_if_eq VAR_TEMP_2, FACILITY_BUILDING_1, Facility_B1_BuildingComplete
-	goto_if_eq VAR_TEMP_2, FACILITY_BUILDING_5, Facility_B5_BuildingComplete
-	msgbox Facility_Text_BuildingComplete, MSGBOX_DEFAULT
+	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_1, Facility_B1_GauntletComplete
+	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_5, Facility_B5_GauntletComplete
+	msgbox Facility_Text_GauntletComplete, MSGBOX_DEFAULT
+	call Facility_BrokerLoanNews
 	releaseall
 	end
 
-@ Ten Buildings: clearing building 5 opens the Battle Factory (building 6,
+@ Ten Gauntlets: clearing gauntlet 5 opens the Battle Factory (gauntlet 6,
 @ see IsBattleFactoryUnlocked() in src/facility.c) and new Mega Stones. No
-@ item to hand over - the Mega Ring came with building 4.
-Facility_B5_BuildingComplete:
-	msgbox Facility_B5_Text_BuildingComplete, MSGBOX_DEFAULT
+@ item to hand over - the Mega Ring came with gauntlet 4.
+Facility_B5_GauntletComplete:
+	msgbox Facility_B5_Text_GauntletComplete, MSGBOX_DEFAULT
+	call Facility_BrokerLoanNews
 	releaseall
 	end
 
-@ Ten Buildings: clearing building 4 hands over the Mega Ring - without it
+@ Ten Gauntlets: clearing gauntlet 4 hands over the Mega Ring - without it
 @ the player can't Mega Evolve at all (CanMegaEvolve() in
 @ src/battle_util.c checks the bag for it) - and points the player at the
 @ two things that just opened: the Mega Stone counter and the Battle Dome
-@ (building 5, see IsBattleDomeUnlocked() in src/facility.c). The ring is
-@ given BEFORE the save, so a completed building 4 is never saved without
+@ (gauntlet 5, see IsBattleDomeUnlocked() in src/facility.c). The ring is
+@ given BEFORE the save, so a completed gauntlet 4 is never saved without
 @ it. The Mega Stone keeper also re-gives it if it's ever missing - see
 @ BattleFrontier_ExchangeServiceCorner_EventScript_MegaStoneKeeper.
-Facility_B4_BuildingComplete:
-	msgbox Facility_B4_Text_BuildingComplete, MSGBOX_DEFAULT
+Facility_B4_GauntletComplete:
+	msgbox Facility_B4_Text_GauntletComplete, MSGBOX_DEFAULT
 	giveitem ITEM_MEGA_RING
 	call Common_EventScript_SaveGame
 	msgbox Facility_B4_Text_MegaStonesAndDome, MSGBOX_DEFAULT
+	call Facility_BrokerLoanNews
 	releaseall
 	end
 
-Facility_B1_BuildingComplete:
-	msgbox Facility_B1_Text_BuildingComplete, MSGBOX_DEFAULT
+Facility_B1_GauntletComplete:
+	msgbox Facility_B1_Text_GauntletComplete, MSGBOX_DEFAULT
+	call Facility_BrokerLoanNews
 	releaseall
 	end
 
-@ Ten Buildings: heals and restores held items on a loss too, not just a
+@ Ten Gauntlets: heals and restores held items on a loss too, not just a
 @ win - CLAUDE.md's "Full heal between every battle" applies regardless of
 @ outcome. FP already earned and the run being over are unaffected either
 @ way (FacilityAbandonRun doesn't touch FP - see run-loop-spec.md's
@@ -1934,35 +1958,73 @@ Facility_Lost:
 	special FacilityAbandonRun
 	special FacilitySilentSave
 	msgbox Facility_Text_Lost, MSGBOX_DEFAULT
+	call Facility_BrokerLoanNews
 	releaseall
 	end
 
+@ Ten Gauntlets: after any run ends, tell the player what happened to a
+@ Broker loaner (broker-spec.md) - kept for clearing the gauntlet, or
+@ collected for not. FacilityCompleteGauntlet/FacilityAbandonRun already
+@ resolved it; this only reports.
+Facility_BrokerLoanNews:
+	special FacilityBrokerGetLoanOutcome
+	goto_if_eq VAR_RESULT, BROKER_LOAN_KEPT, Facility_BrokerLoanKept
+	goto_if_eq VAR_RESULT, BROKER_LOAN_COLLECTED, Facility_BrokerLoanCollected
+	return
+
+Facility_BrokerLoanKept:
+	msgbox Facility_Text_BrokerLoanKept, MSGBOX_DEFAULT
+	return
+
+Facility_BrokerLoanCollected:
+	msgbox Facility_Text_BrokerLoanCollected, MSGBOX_DEFAULT
+	return
+
+Facility_Text_BrokerLoanKept:
+	.string "A note from the BROKER was waiting:\n"
+	.string "“Keep {STR_VAR_1}. You earned it.\l"
+	.string "…Pleasure doing business.”$"
+
+Facility_Text_BrokerLoanCollected:
+	.string "A man in a dark coat was waiting\n"
+	.string "outside.\p"
+	.string "“{STR_VAR_1} goes back to the\n"
+	.string "BROKER. Nothing personal.”$"
+
 Facility_Text_AskEnter:
-	.string "Welcome to the Second Slot!\p"
-	.string "This is a Doubles gauntlet - six battles,\n"
-	.string "then a boss. Your whole party of six\l"
-	.string "enters, and it's locked once you begin.\p"
+	.string "Welcome to gauntlet 2, THE SECOND\n"
+	.string "SLOT!\p"
+	.string "This is a Doubles gauntlet - six\n"
+	.string "battles, then a boss. Your whole\l"
+	.string "party of six enters, and it's\l"
+	.string "locked once you begin.\p"
 	.string "Ready to start?$"
 
 Facility_B1_Text_AskEnter:
-	.string "Welcome to Little League!\p"
-	.string "This is a Singles gauntlet - six battles,\n"
-	.string "then a boss. Your whole party of six\l"
-	.string "enters, and it's locked once you begin.\p"
+	.string "Welcome to gauntlet 1, LITTLE\n"
+	.string "LEAGUE!\p"
+	.string "This is a Singles gauntlet - six\n"
+	.string "battles, then a boss. Your whole\l"
+	.string "party of six enters, and it's\l"
+	.string "locked once you begin.\p"
 	.string "Ready to start?$"
 
 Facility_B3_Text_AskEnter:
-	.string "Welcome to the Changing Sky!\p"
-	.string "This is a Singles gauntlet - six battles,\n"
-	.string "then a boss. Your whole party of six\l"
-	.string "enters, and it's locked once you begin.\p"
+	.string "Welcome to gauntlet 3, THE\n"
+	.string "CHANGING SKY!\p"
+	.string "This is a Singles gauntlet - six\n"
+	.string "battles, then a boss. Your whole\l"
+	.string "party of six enters, and it's\l"
+	.string "locked once you begin.\p"
 	.string "Ready to start?$"
 
 Facility_B4_Text_AskEnter:
-	.string "Welcome to the Turn Order!\p"
-	.string "This is a Doubles gauntlet - six battles,\n"
-	.string "then a boss. Your whole party of six\l"
-	.string "enters, and it's locked once you begin.\p"
+	.string "Welcome to gauntlet 4, THE TURN\n"
+	.string "ORDER!\p"
+	.string "This is a Doubles gauntlet - six\n"
+	.string "battles, then a boss. Your whole\l"
+	.string "party of six enters, and it's\l"
+	.string "locked once you begin.\p"
 	.string "Ready to start?$"
 
 Facility_Text_WelcomeBack:
@@ -1990,16 +2052,25 @@ Facility_Text_QuitConfirmed:
 	.string "whenever you're ready.$"
 
 Facility_Text_MatNotOpenYet:
-	.string "This mat isn't open yet - clear the\n"
-	.string "one before it first.$"
+	.string "This mat isn't open yet. Clear the\n"
+	.string "gauntlet before it first.$"
 
 Facility_Text_BusyElsewhere:
-	.string "You've already got a challenge going\n"
-	.string "at another mat. Finish that one first.$"
+	.string "You've already got a run going in\n"
+	.string "another gauntlet. Finish that one\l"
+	.string "first.$"
 
 Facility_Text_NotEligible:
 	.string "You'll need exactly six POKéMON in\n"
 	.string "your party before you can enter.$"
+
+Facility_Text_NotEligibleSeeScott:
+	.string "Hm, only one POKéMON? You'll need\n"
+	.string "six to enter.\p"
+	.string "MR. SCOTT said he had something\n"
+	.string "for new arrivals. You might pay\l"
+	.string "his house a visit first - north\l"
+	.string "end of the plaza.$"
 
 Facility_Text_Decline:
 	.string "Come back when you're ready.$"
@@ -2039,12 +2110,18 @@ Facility_B3_Text_BossDefeat:
 	.string "The wind's changed. Well fought.$"
 
 Facility_B4_Text_BossIntro:
-	.string "I'm Timewarden Iyla. Everyone thinks\n"
-	.string "they control the turn order.\p"
-	.string "Let's see what you've got!$"
+	.string "I'm ANABEL, the SALON MAIDEN. This\n"
+	.string "is the top of the TOWER.\p"
+	.string "Three of my wardens stood in your\n"
+	.string "way, and you got past every one of\l"
+	.string "them.\p"
+	.string "Everyone thinks they control the\n"
+	.string "turn order. Let's see if you\l"
+	.string "really do.$"
 
 Facility_B4_Text_BossDefeat:
-	.string "Out of time. Well played.$"
+	.string "You read the flow of battle better\n"
+	.string "than I did. The TOWER is yours.$"
 
 Facility_Text_BattleWon:
 	.string "That's your {STR_VAR_1} win! Here's\n"
@@ -2056,19 +2133,20 @@ Facility_Text_BossUpNext:
 	.string "Six down - that's the whole lineup.\n"
 	.string "The boss is up next. Good luck.$"
 
-@ Shared by every building without its own completion text (2, 3, 5) -
-@ so it can't name a building number.
-Facility_Text_BuildingComplete:
-	.string "That's the building, cleared! The\n"
-	.string "next tier is open to you.$"
+@ Shared by every gauntlet without its own completion text (2, 3, 5) -
+@ so it can't name a gauntlet number.
+Facility_Text_GauntletComplete:
+	.string "That's the gauntlet, cleared! The\n"
+	.string "next one is open to you.$"
 
-Facility_B4_Text_BuildingComplete:
-	.string "Congratulations! You've cleared the\n"
-	.string "Turn Order!\p"
-	.string "You've earned this. With it, a POKéMON\n"
-	.string "holding its MEGA STONE can Mega\l"
-	.string "Evolve in battle - once per battle,\l"
-	.string "so choose well.$"
+Facility_B4_Text_GauntletComplete:
+	.string "Congratulations! You've cleared\n"
+	.string "THE TURN ORDER, and the whole\l"
+	.string "BATTLE TOWER with it!\p"
+	.string "You've earned this. With it, a\n"
+	.string "POKéMON holding its MEGA STONE can\l"
+	.string "Mega Evolve in battle - once per\l"
+	.string "battle, so choose well.$"
 
 Facility_B4_Text_MegaStonesAndDome:
 	.string "The MEGA STONE counter at the\n"
@@ -2077,21 +2155,78 @@ Facility_B4_Text_MegaStonesAndDome:
 	.string "at the BATTLE DOME. Its doors are\l"
 	.string "open to you.$"
 
-Facility_B5_Text_BuildingComplete:
-	.string "Congratulations! You've cleared the\n"
-	.string "Main Event!\p"
+Facility_B5_Text_GauntletComplete:
+	.string "Congratulations! You've cleared\n"
+	.string "the Main Event!\p"
 	.string "Your next challenge is a Doubles\n"
-	.string "gauntlet at the BATTLE FACTORY. Its\l"
-	.string "doors are open to you.\p"
-	.string "The MEGA STONE counter has new stock,\n"
-	.string "too - stones built for Doubles.$"
+	.string "gauntlet at the BATTLE FACTORY.\l"
+	.string "Its doors are open to you.\p"
+	.string "The MEGA STONE counter has new\n"
+	.string "stock, too - stones built for\l"
+	.string "Doubles.$"
 
-Facility_B1_Text_BuildingComplete:
-	.string "That's building 1, cleared! The next\n"
-	.string "tier is open to you.$"
+Facility_B1_Text_GauntletComplete:
+	.string "That's gauntlet 1, cleared! The\n"
+	.string "next mat is open to you.$"
 
 Facility_Text_Lost:
 	.string "Tough break. The streak ends here, but\n"
 	.string "everything you earned is still yours.\p"
 	.string "Come back and try again whenever\n"
 	.string "you're ready.$"
+
+BattleFrontier_BattleTowerLobby_EventScript_ShowSinglesResults_Text:
+	.string "GAUNTLET 1 - LITTLE LEAGUE.\p"
+	.string "Singles. Boss: WARDEN HELIS.\p"
+	.string "Not yet cleared.$"
+
+BattleFrontier_BattleTowerLobby_EventScript_ShowSinglesResults_TextCleared:
+	.string "GAUNTLET 1 - LITTLE LEAGUE.\p"
+	.string "Singles. Boss: WARDEN HELIS.\p"
+	.string "Cleared by {PLAYER}!$"
+
+BattleFrontier_BattleTowerLobby_EventScript_ShowDoublesResults_Text:
+	.string "GAUNTLET 2 - THE SECOND SLOT.\p"
+	.string "Doubles. Boss: TIDEWARDEN NERYS.\p"
+	.string "Not yet cleared.$"
+
+BattleFrontier_BattleTowerLobby_EventScript_ShowDoublesResults_TextCleared:
+	.string "GAUNTLET 2 - THE SECOND SLOT.\p"
+	.string "Doubles. Boss: TIDEWARDEN NERYS.\p"
+	.string "Cleared by {PLAYER}!$"
+
+BattleFrontier_BattleTowerLobby_EventScript_ShowMultisResults_Text:
+	.string "GAUNTLET 3 - THE CHANGING SKY.\p"
+	.string "Singles. Boss: DUNEWARDEN KASRA.\p"
+	.string "Not yet cleared.$"
+
+BattleFrontier_BattleTowerLobby_EventScript_ShowMultisResults_TextCleared:
+	.string "GAUNTLET 3 - THE CHANGING SKY.\p"
+	.string "Singles. Boss: DUNEWARDEN KASRA.\p"
+	.string "Cleared by {PLAYER}!$"
+
+BattleFrontier_BattleTowerLobby_EventScript_ShowLinkMultisResults_Text:
+	.string "GAUNTLET 4 - THE TURN ORDER.\p"
+	.string "Doubles. Boss: SALON MAIDEN\n"
+	.string "ANABEL.\p"
+	.string "Not yet cleared.$"
+
+BattleFrontier_BattleTowerLobby_EventScript_ShowLinkMultisResults_TextCleared:
+	.string "GAUNTLET 4 - THE TURN ORDER.\p"
+	.string "Doubles. Boss: SALON MAIDEN\n"
+	.string "ANABEL.\p"
+	.string "Cleared by {PLAYER}!$"
+
+BattleFrontier_BattleTowerLobby_EventScript_RulesBoard_Text:
+	.string "THE TEN GAUNTLETS - RULES\p"
+	.string "Six POKéMON, all at level 50. Your\n"
+	.string "team is locked once a run begins.\p"
+	.string "Six battles, then the boss. Full\n"
+	.string "heal after every battle. Held\l"
+	.string "items come back; BAG items can't\l"
+	.string "be used.\p"
+	.string "No two POKéMON on a team may hold\n"
+	.string "the same item.\p"
+	.string "The TOWER holds gauntlets 1 to 4:\n"
+	.string "Singles, Doubles, Singles,\l"
+	.string "Doubles.$"

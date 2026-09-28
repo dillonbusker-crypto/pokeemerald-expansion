@@ -37,7 +37,7 @@ is automatic for any CPU Pokémon holding its stone.
 
 ## Unlock — end of gauntlet 5
 
-When Crownwarden Solen falls, the gauntlet 5 attendant points the player to
+When Dome Ace Tucker falls, the gauntlet 5 attendant points the player to
 the Battle Factory (gauntlet 6) and mentions the new Mega Stones. No new key
 item is needed — the Mega Ring came with gauntlet 4.
 
@@ -109,7 +109,7 @@ supporting cast: the Forces of Nature, the Tapus, the Ruin and Loyal
 quartets, Landorus-Therian and Heatran.
 
 Tornadus, Thundurus and their Therian forms; Landorus-Therian; the four Tapus;
-Heatran; Latios and Latias; Cresselia; Urshifu Rapid Strike; Regieleki and
+Heatran; Cresselia; Urshifu Rapid Strike; Regieleki and
 Regidrago; Glastrier; Enamorus-Therian; Wo-Chien and Ting-Lu; Okidogi,
 Munkidori and Fezandipiti; Articuno-Galar and Moltres-Galar; and **Ogerpon**
 (Teal form only). This build doesn't flag Ogerpon as legendary, but it is
@@ -119,7 +119,9 @@ Tornadus arrives here, not at gauntlet 7 as `gauntlet-04.md` planned. Its
 reason for waiting — trivializing gauntlet 4's Tailwind teams — no longer
 applies.
 
-**Kubfu** is left out: it's an unevolved 385-BST Pokémon.
+**Kubfu** is left out: it's an unevolved 385-BST Pokémon. **Latios and
+Latias** are left out too — they're the Artisan Cave quest's prize (see
+below).
 
 **Already moved:** the doubles staples gauntlet 4's CPU teams used
 (Incineroar, Tsareena, Dondozo and the rest) are now sold in gauntlet 4's
@@ -183,10 +185,15 @@ That brings the counter to 38 stones.
 | Tier | Pokémon |
 |---|---|
 | Premium 850 | Iron Hands, Landorus-Therian, Heatran, Urshifu Rapid Strike, Tapu Koko, Tapu Lele, Tapu Fini, Ting-Lu, Tornadus, Thundurus, Ogerpon |
-| Strong 700 | Iron Jugulis, Stakataka, Tapu Bulu, Latios, Latias, Cresselia, Tornadus-Therian, Thundurus-Therian, Regieleki, Regidrago, Okidogi, Munkidori, Fezandipiti, Moltres-Galar, Enamorus-Therian |
+| Strong 700 | Iron Jugulis, Stakataka, Tapu Bulu, Cresselia, Tornadus-Therian, Thundurus-Therian, Regieleki, Regidrago, Okidogi, Munkidori, Fezandipiti, Moltres-Galar, Enamorus-Therian |
 | Standard 550 | Articuno-Galar, Glastrier, Wo-Chien |
 | Mega bases 375 | Scovillain, Golurk, Tatsugiri |
 | Mega bases 250 | Crabominable, Drampa, Chimecho, Meowstic |
+
+**Latios and Latias aren't sold.** They're the prize of the Artisan Cave side
+quest (`easter-eggs-spec.md`), where the player picks one and the other is
+gone for good. Selling them here would undercut the choice. *(Still in the
+code's gauntlet 6 wave until the easter-egg build removes them.)*
 
 **Ability overrides:**
 
@@ -988,7 +995,7 @@ Careful Nature
 
 ---
 
-## Boss — Forgewarden Oren
+## Boss — Factory Head Noland
 
 **Pool:** gauntlet 7 plus everything prior, and one Mega the player can
 never own.

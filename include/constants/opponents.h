@@ -860,7 +860,7 @@
 #define TRAINER_BRENDAN_PLACEHOLDER         853
 #define TRAINER_MAY_PLACEHOLDER             854
 
-// Ten Buildings facility - building 1 ("Little League"), full twelve-team
+// Ten Gauntlets facility - gauntlet 1 ("Little League"), full twelve-team
 // pool plus boss. See gauntlet-01.md and src/facility.c.
 #define TRAINER_FACILITY_B1_01_EMBER         855
 #define TRAINER_FACILITY_B1_02_BROOK         856
@@ -876,7 +876,7 @@
 #define TRAINER_FACILITY_B1_12_NYX           866
 #define TRAINER_FACILITY_B1_BOSS_HELIS       867
 
-// Ten Buildings facility - building 2 vertical slice. See run-loop-spec.md
+// Ten Gauntlets facility - gauntlet 2 vertical slice. See run-loop-spec.md
 // and src/facility.c.
 #define TRAINER_FACILITY_B2_A1_FAULT         868
 #define TRAINER_FACILITY_B2_A2_UNDERTOW      869
@@ -886,7 +886,7 @@
 #define TRAINER_FACILITY_B2_D11_INVERSION    873
 #define TRAINER_FACILITY_B2_BOSS_NERYS       874
 
-// Ten Buildings facility - building 3 vertical slice. See run-loop-spec.md
+// Ten Gauntlets facility - gauntlet 3 vertical slice. See run-loop-spec.md
 // and src/facility.c.
 #define TRAINER_FACILITY_B3_A1_DOWNPOUR      875
 #define TRAINER_FACILITY_B3_A2_DELUGE        876
@@ -902,7 +902,7 @@
 #define TRAINER_FACILITY_B3_D12_STATFIELD    886
 #define TRAINER_FACILITY_B3_BOSS_KASRA       887
 
-// Ten Buildings facility - building 4 vertical slice. See run-loop-spec.md
+// Ten Gauntlets facility - gauntlet 4 vertical slice. See run-loop-spec.md
 // and src/facility.c.
 #define TRAINER_FACILITY_B4_A1_JETSTREAM     888
 #define TRAINER_FACILITY_B4_A2_HEADWIND      889
@@ -916,9 +916,9 @@
 #define TRAINER_FACILITY_B4_D10_DRAGNET      897
 #define TRAINER_FACILITY_B4_D11_STATCLING    898
 #define TRAINER_FACILITY_B4_D12_CHECKMATE    899
-#define TRAINER_FACILITY_B4_BOSS_IYLA        900
+#define TRAINER_FACILITY_B4_BOSS_ANABEL        900
 
-// Ten Buildings facility - building 5 ("The Main Event", Battle Dome). See
+// Ten Gauntlets facility - gauntlet 5 ("The Main Event", Battle Dome). See
 // gauntlet-05.md and src/facility.c.
 #define TRAINER_FACILITY_B5_A1_HEADLINER     901
 #define TRAINER_FACILITY_B5_A2_SPOTLIGHT     902
@@ -932,9 +932,9 @@
 #define TRAINER_FACILITY_B5_D10_MINEFIELD    910
 #define TRAINER_FACILITY_B5_D11_IRONWALL     911
 #define TRAINER_FACILITY_B5_D12_PRESSURE     912
-#define TRAINER_FACILITY_B5_BOSS_SOLEN       913
+#define TRAINER_FACILITY_B5_BOSS_TUCKER       913
 
-// Ten Buildings facility - building 6 ("The Assembly Line", Battle Factory).
+// Ten Gauntlets facility - gauntlet 6 ("The Assembly Line", Battle Factory).
 // See gauntlet-06.md and src/facility.c.
 #define TRAINER_FACILITY_B6_A1_MONSOON        914
 #define TRAINER_FACILITY_B6_A2_SOLSTICE       915
@@ -948,16 +948,16 @@
 #define TRAINER_FACILITY_B6_D10_BLITZ         923
 #define TRAINER_FACILITY_B6_D11_HEAVYWEIGHT   924
 #define TRAINER_FACILITY_B6_D12_CHORUS        925
-#define TRAINER_FACILITY_B6_BOSS_OREN         926
+#define TRAINER_FACILITY_B6_BOSS_NOLAND         926
 
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
 //       the system flags (Pokedex, badges, ...) start right after it, so an ID at or past this limit
 //       silently shares its "defeated" flag with a system flag. It also collides with the battle partner
 //       ID range (TRAINER_PARTNER() below / IsPartnerTrainerId() in data.h), which makes the game load a
-//       partner's team instead of the trainer's. Both happened to building 4 while this was 890.
+//       partner's team instead of the trainer's. Both happened to gauntlet 4 while this was 890.
 //
-//       Raised to 1000 once, with headroom for all ten buildings (13 trainers each, the last ending around
+//       Raised to 1000 once, with headroom for all ten gauntlets (13 trainers each, the last ending around
 //       978), so the save layout only changes this one time. Growing it shifts every flag after the
 //       trainer range and every SaveBlock1 field after flags[], so it invalidates existing saves - don't
 //       grow it again casually. Costs ~14 bytes of SaveBlock1 (304 B free, see save-data-findings.md),

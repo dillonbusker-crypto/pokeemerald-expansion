@@ -244,7 +244,7 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     if (input->pressedRButton && TryStartDexNavSearch())
         return TRUE;
 
-    // Ten Buildings: ShowLMenu() itself also checks IsFacilityRunActive() and
+    // Ten Gauntlets: ShowLMenu() itself also checks IsFacilityRunActive() and
     // bails out (see src/l_menu.c), but doing nothing there still plays the
     // window-open sound and returns TRUE here as if a menu had opened - which
     // froze the game, since whatever's polling ProcessPlayerFieldInput's

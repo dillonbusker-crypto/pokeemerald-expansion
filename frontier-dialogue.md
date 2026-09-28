@@ -2,8 +2,8 @@
 
 A pass over every NPC and sign the player can actually reach in the Battle
 Frontier, what they say today, and what they could say instead so the whole
-place feels like it belongs to the Ten Gauntlets. **Nothing here is built
-yet** — this is a proposal to react to.
+place feels like it belongs to the Ten Gauntlets. **Built** — see "Build
+notes" at the end for where the build differs from this spec.
 
 Line breaks in the proposals are loose. Final text gets reflowed to the
 GBA's ~36-characters-per-line boxes when it's implemented.
@@ -42,9 +42,9 @@ that facility's own Frontier Brain:
 | 1 | Tower, Singles mat | Singles | Little League | Warden Helis *(Tower lieutenant)* |
 | 2 | Tower, Doubles mat | Doubles | The Second Slot | Tidewarden Nerys *(Tower lieutenant)* |
 | 3 | Tower, Multi mat | Singles | The Changing Sky | Dunewarden Kasra *(Tower lieutenant)* |
-| 4 | Tower, Link Multi mat | Doubles | The Turn Order | **Salon Maiden Anabel** (was Timewarden Iyla) |
-| 5 | Battle Dome | Singles | The Main Event | **Dome Ace Tucker** (was Crownwarden Solen) |
-| 6 | Battle Factory | Doubles | The Assembly Line | **Factory Head Noland** (was Forgewarden Oren) |
+| 4 | Tower, Link Multi mat | Doubles | The Turn Order | **Salon Maiden Anabel** |
+| 5 | Battle Dome | Singles | The Main Event | **Dome Ace Tucker** |
+| 6 | Battle Factory | Doubles | The Assembly Line | **Factory Head Noland** |
 | 7 | Battle Pike | Singles | *TBD* | **Pike Queen Lucy** |
 | 8 | Battle Arena | Doubles | *TBD* | **Arena Tycoon Greta** |
 | 9 | Battle Palace | Singles | *TBD* | **Palace Maven Spenser** |
@@ -91,6 +91,10 @@ Alakazam / Snorlax, Noland's rentals-as-a-theme).
 - The Exchange Service Corner sells Pokémon outright and buys them back at
   half price. There are no rentals.
 - Mega Evolution arrives with gauntlet 5, via the Mega Ring.
+
+**No internal map names in dialogue.** The lounges are unlabeled houses to
+the player, so NPCs refer to them by landmarks and directions ("the houses
+out past the ARENA"), never "LOUNGE 3".
 
 **Tone.** The Frontier is a proving ground people *travel* to — by the Route
 103 ferry — and most of them are stuck somewhere in the middle. NPCs should
@@ -225,10 +229,10 @@ with an offhand "feel free to visit my quarters."
 | Fisherman (31,31) | Only one who chooses fishing | Keep — pure flavor. |
 | Fisherman (42,48) | Seasick on the way | "I wanted to start gauntlet 1 the moment I got off the ferry from ROUTE 103… Urrrp… Maybe after I lie down." |
 | Fat Man (38,22) | Scary girl at the Pike | "Crunch… I tried snacking in the TOWER lobby and an attendant told me the item rule applies to *me* too. Crunch…" |
-| Dome fans (11–12,9–10) | Squabbling over the DOME ACE | Same scene, new idol: fans of **Crownwarden Solen**. "When SOLEN's SALAMENCE Mega Evolved, our eyes met!" / "That was *me* it looked at!" / "Fair-weather fans! Go cheer for some Tower Warden!" 🔄 |
-| Man (8,5) | Those fans were once famous trainers | "Those three were famous trainers once. Then Crownwarden SOLEN beat them so thoroughly they became fans instead." |
+| Dome fans (11–12,9–10) | Squabbling over the DOME ACE | Same scene, new idol: fans of **Dome Ace Tucker**. "When TUCKER's SALAMENCE Mega Evolved, our eyes met!" / "That was *me* it looked at!" / "Fair-weather fans! Go cheer for some Tower Warden!" 🔄 |
+| Man (8,5) | Those fans were once famous trainers | "Those three were famous trainers once. Then DOME ACE TUCKER beat them so thoroughly they became fans instead." |
 | Pokéfan F (4,26) | Long-tailed Pokémon rumor | Easter egg about the ban list: "I heard there's a Pokémon with a paintbrush tail that's *banned* from every gauntlet! Why would they ban something so cute?" (SMEARGLE) |
-| Signs: Dome / Pike / Factory | Vanilla facility slogans | "BATTLE DOME — Gauntlet 5: THE MAIN EVENT. Crowned by Warden SOLEN." · "BATTLE FACTORY — Gauntlet 6: THE ASSEMBLY LINE." · "BATTLE PIKE — Sealed. Opens for those who clear gauntlet 6." 🔄 |
+| Signs: Dome / Pike / Factory | Vanilla facility slogans | "BATTLE DOME — Gauntlet 5: THE MAIN EVENT. Crowned by DOME ACE TUCKER." · "BATTLE FACTORY — Gauntlet 6: THE ASSEMBLY LINE." · "BATTLE PIKE — Sealed. Opens for those who clear gauntlet 6." 🔄 |
 | Mart signs | Mart slogan | Keep. |
 
 ### Outside East
@@ -280,9 +284,9 @@ with an offhand "feel free to visit my quarters."
 |---|---|---|
 | Attendant | Rewritten | Keep. |
 | Man (1,11) | Should've held a Pokémon in reserve | "I Mega Evolved my first Pokémon on turn one. Then the *real* threat came out, and I had nothing left." 💡 |
-| Lass (14,14) | Tournament winners become stars | "Clear the MAIN EVENT and people will know your name. Crownwarden SOLEN made it the most famous gauntlet on the island." |
+| Lass (14,14) | Tournament winners become stars | "Clear the MAIN EVENT and people will know your name. DOME ACE TUCKER made it the most famous gauntlet on the island." |
 | Fat Man (18,14) | Met a favorite in round one | "My first opponent led with LOPUNNY. It Mega Evolved and Fake Outed me before I'd even blinked." |
-| Maniac (8,14) | Watch the last tournament's results | "Did you hear? SOLEN's ace Mega Evolves into something that isn't even *sold* here. Word is you need a scarf and nerves of steel." 💡 |
+| Maniac (8,14) | Watch the last tournament's results | "Did you hear? TUCKER's ace Mega Evolves into something that isn't even *sold* here. Word is you need a scarf and nerves of steel." 💡 |
 | Doubles attendant | Rewritten ("not running") | Keep. |
 | Tourney tree / result monitors | Vanilla tournament data | Gauntlet 5 plaque + a "Mega Evolution rules" board: one per battle, needs the Mega Ring, the stone must match. |
 
@@ -389,7 +393,7 @@ warp-out, so they can wait until gauntlets 7–10 are designed. Direction:
 1. **Facility order for 7–10:** Pike, Arena, Palace, Pyramid (see Part 1).
 2. **The Frontier Brains are the bosses** from gauntlet 4 on; gauntlets 1–3
    keep their Tower lieutenants (see Part 1). Every boss-name reference in
-   the proposals above (Helis's Altaria, Solen's fans, "the Warden of the
+   the proposals above (Helis's Altaria, Tucker's fans, "the Warden of the
    Dome"...) follows the new names when implemented — e.g. the Outside West
    fans idolize the DOME ACE, TUCKER, as in vanilla.
 3. **Progress-reactive dialogue:** approved.
@@ -427,3 +431,47 @@ warp-out, so they can wait until gauntlets 7–10 are designed. Direction:
 
 Nothing is left open. Everything above is decided and waiting to be built
 alongside `broker-spec.md`.
+
+---
+
+## Easter eggs
+
+Designed in `easter-eggs-spec.md`: the Artisan Cave side quest (FLOTSAM, an
+ex-TEAM AQUA smuggler; the odd tree; the Broker's Master Ball; LOOKER; and a
+choice between Latios and Latias), hints toward an
+end-game battle with SCOTT, the Hall of Ten's eleventh plaque, a disguised
+Ditto, a support group for banned Pokémon, the Frontier Brains loitering
+before their battles, and a strategist who hints at each gauntlet's
+counterplay.
+
+---
+
+## Build notes
+
+Everything in Parts 1–5 is built, with these differences:
+
+- **Progress special:** `GetGauntletsClearedCount` (`src/facility.c`) —
+  gauntlets clear strictly in order, so it's also "the highest cleared".
+  Every 🔄 line branches on it; no new save data.
+- **Reception Gate guides** talk the player through their topic instead of
+  showing the old menus. The gauntlet guide names the player's *next*
+  gauntlet and where it is.
+- **Lounge 7 move tutors** now charge FP (the vanilla Battle Point prices ×
+  10), but **still teach vanilla's move lists**. Switching them to
+  tutor-only moves is left for later: their teaching path uses the
+  summary-screen move swap that the Teach TM tool's notes link to earlier
+  heap corruption (`data/scripts/debug.inc`), so it deserves its own careful
+  pass.
+- **Lounge 2's Frontier Maniac** is a progress-reactive news desk, always one
+  gauntlet ahead of the player.
+- **Kept as-is:** the Old Woman and Camper's "odd tree" hints (the Sudowoodo
+  still shakes when spoken to), the Pokémon Center nurse's vanilla trainer-
+  card lines (shared code, and they only trigger on a vanilla card rank), the
+  Wireless Club attendants, and the sealed facilities' lobby NPCs (Part 4).
+- **Dead vanilla text:** the replaced scripts (old menus, the Gambler's bets,
+  Scott's Battle Points gift) are left in their files but unreferenced, the
+  same way the vanilla Tower and Dome attendants were. That's where the
+  remaining "Battle Points" strings live; none can appear in-game.
+- **Dome extras:** the old tournament-tree board is a poster of TUCKER that
+  gets defaced ("{PLAYER} WAS HERE") once he's beaten.
+

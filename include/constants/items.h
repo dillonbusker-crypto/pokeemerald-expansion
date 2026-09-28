@@ -813,7 +813,7 @@ enum __attribute__((packed)) Item
     ITEM_TM99 = 680,
     ITEM_TM100 = 681,
 
-    // Ten Buildings: TM51-100's numeric IDs already existed but were never
+    // Ten Gauntlets: TM51-100's numeric IDs already existed but were never
     // paired with a FOREACH_TM entry (see include/constants/tms_hms.h) - no
     // move data, no name, unreachable. Raising the TM roster from the
     // vanilla 50 to 166 (Emerald Imperium's list) needed TM101-166 as new

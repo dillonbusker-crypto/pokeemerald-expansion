@@ -5,10 +5,10 @@ BattleFrontier_OutsideWest_MapScripts::
 BattleFrontier_OutsideWest_OnTransition:
 	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, 0
 	setflag FLAG_HIDE_BATTLE_TOWER_REPORTER
-	@ Ten Buildings: rounds the player's starter out to a full six and grants
-	@ starting FP. Self-guarded (see GiveFrontierStartingGrants() in
-	@ src/new_game.c), safe to call every time this map loads.
-	special GiveFrontierStartingGrants
+	@ Ten Gauntlets: nothing is granted on arrival anymore - SCOTT hands the
+	@ starting team over at his house (data/maps/BattleFrontier_ScottsHouse/
+	@ scripts.inc), after his welcome at the Reception Gate sends the player
+	@ there.
 	end
 
 BattleFrontier_OutsideWest_EventScript_FerryAttendant::
@@ -22,7 +22,7 @@ BattleFrontier_OutsideWest_EventScript_FerryAttendant::
 	goto BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination
 	end
 
-@ Ten Buildings: Slateport/Lilycove removed from this menu on purpose - see
+@ Ten Gauntlets: Slateport/Lilycove removed from this menu on purpose - see
 @ the comment on MultichoiceList_SSTidalBattleFrontier in
 @ src/data/script_menu.h. Route 103 is the only real destination for now,
 @ mirroring how the player got here in the first place.
@@ -59,7 +59,7 @@ BattleFrontier_OutsideWest_EventScript_FerryToLilycove::
 	release
 	end
 
-@ Ten Buildings: the only real destination the ferry menu offers right now -
+@ Ten Gauntlets: the only real destination the ferry menu offers right now -
 @ back the way the player came in, Route 103's own dock (see the comment on
 @ Route103_EventScript_FerryAttendant, data/maps/Route103/scripts.inc). (20, 9)
 @ lands just west of that dock's SS Tidal object, mirroring where the player
@@ -96,15 +96,33 @@ BattleFrontier_OutsideWest_EventScript_CancelFerrySelect::
 	end
 
 BattleFrontier_OutsideWest_EventScript_BattleDomeSign::
-	msgbox BattleFrontier_OutsideWest_Text_BattleDomeSign, MSGBOX_SIGN
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 4, BattleFrontier_OutsideWest_EventScript_BattleDomeSign_Cleared4
+	msgbox BattleFrontier_OutsideWest_EventScript_BattleDomeSign_Text0, MSGBOX_SIGN
+	end
+
+BattleFrontier_OutsideWest_EventScript_BattleDomeSign_Cleared4:
+	msgbox BattleFrontier_OutsideWest_EventScript_BattleDomeSign_Text4, MSGBOX_SIGN
 	end
 
 BattleFrontier_OutsideWest_EventScript_BattleFactorySign::
-	msgbox BattleFrontier_OutsideWest_Text_BattleFactorySign, MSGBOX_SIGN
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 5, BattleFrontier_OutsideWest_EventScript_BattleFactorySign_Cleared5
+	msgbox BattleFrontier_OutsideWest_EventScript_BattleFactorySign_Text0, MSGBOX_SIGN
+	end
+
+BattleFrontier_OutsideWest_EventScript_BattleFactorySign_Cleared5:
+	msgbox BattleFrontier_OutsideWest_EventScript_BattleFactorySign_Text5, MSGBOX_SIGN
 	end
 
 BattleFrontier_OutsideWest_EventScript_BattlePikeSign::
-	msgbox BattleFrontier_OutsideWest_Text_BattlePikeSign, MSGBOX_SIGN
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 6, BattleFrontier_OutsideWest_EventScript_BattlePikeSign_Cleared6
+	msgbox BattleFrontier_OutsideWest_EventScript_BattlePikeSign_Text0, MSGBOX_SIGN
+	end
+
+BattleFrontier_OutsideWest_EventScript_BattlePikeSign_Cleared6:
+	msgbox BattleFrontier_OutsideWest_EventScript_BattlePikeSign_Text6, MSGBOX_SIGN
 	end
 
 @ Unused. Of note, Battle Tower is in the East section in the final release
@@ -118,7 +136,17 @@ BattleFrontier_OutsideWest_EventScript_UnusedNPC2::
 	end
 
 BattleFrontier_OutsideWest_EventScript_Boy1::
-	msgbox BattleFrontier_OutsideWest_Text_BestOutOfAllMyFriends, MSGBOX_NPC
+	lock
+	faceplayer
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 1, BattleFrontier_OutsideWest_EventScript_Boy1_Cleared1
+	msgbox BattleFrontier_OutsideWest_EventScript_Boy1_Text0, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_Boy1_Cleared1:
+	msgbox BattleFrontier_OutsideWest_EventScript_Boy1_Text1, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_OutsideWest_EventScript_Fisherman2::
@@ -271,7 +299,23 @@ BattleFrontier_OutsideWest_EventScript_Lass::
 	end
 
 BattleFrontier_OutsideWest_EventScript_ExpertM::
-	msgbox BattleFrontier_OutsideWest_Text_WontLetGentlemenBeatMe, MSGBOX_NPC
+	lock
+	faceplayer
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 5, BattleFrontier_OutsideWest_EventScript_ExpertM_Cleared5
+	goto_if_ge VAR_RESULT, 4, BattleFrontier_OutsideWest_EventScript_ExpertM_Cleared4
+	msgbox BattleFrontier_OutsideWest_EventScript_ExpertM_Text0, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_ExpertM_Cleared5:
+	msgbox BattleFrontier_OutsideWest_EventScript_ExpertM_Text5, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_ExpertM_Cleared4:
+	msgbox BattleFrontier_OutsideWest_EventScript_ExpertM_Text4, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_OutsideWest_EventScript_Man2::
@@ -279,7 +323,17 @@ BattleFrontier_OutsideWest_EventScript_Man2::
 	end
 
 BattleFrontier_OutsideWest_EventScript_Woman1::
-	msgbox BattleFrontier_OutsideWest_Text_FinallyArrivedAtFrontier, MSGBOX_NPC
+	lock
+	faceplayer
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 2, BattleFrontier_OutsideWest_EventScript_Woman1_Cleared2
+	msgbox BattleFrontier_OutsideWest_EventScript_Woman1_Text0, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_Woman1_Cleared2:
+	msgbox BattleFrontier_OutsideWest_EventScript_Woman1_Text2, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_OutsideWest_EventScript_FatMan1::
@@ -338,7 +392,8 @@ BattleFrontier_OutsideWest_Text_ThisIsBattleTower:
 	.string "POKéMON for elimination-style matches.$"
 
 BattleFrontier_OutsideWest_Text_MayISeeYourTicket:
-	.string "Hello, are you here for the ferry?\n"
+	.string "Hello! The ferry sails back to\n"
+	.string "ROUTE 103.\p"
 	.string "May I see your TICKET?$"
 
 BattleFrontier_OutsideWest_Text_MustHaveTicketToBoard:
@@ -383,77 +438,82 @@ BattleFrontier_OutsideWest_Text_CantFindBattleTower:
 	.string "This place is just too big!$"
 
 BattleFrontier_OutsideWest_Text_GotSeasickOnWayHere:
-	.string "I wanted to take a challenge as soon\n"
-	.string "as I arrived here.\p"
-	.string "But on the way, I got seasick…\n"
-	.string "Urrrrp…$"
+	.string "I wanted to start gauntlet 1 the\n"
+	.string "moment I got off the ferry from\l"
+	.string "ROUTE 103…\p"
+	.string "Urrrrp… Maybe after I lie down.$"
 
 BattleFrontier_OutsideWest_Text_OnlyToughTrainersBroughtHere:
-	.string "It's not as if just anyone can come\n"
-	.string "here, you know?\p"
-	.string "Only those TRAINERS who've been\n"
-	.string "recognized as tough are brought here.\p"
-	.string "That's why many TRAINERS don't even\n"
-	.string "know about the BATTLE FRONTIER.$"
+	.string "Nobody stumbles onto this island\n"
+	.string "by accident.\p"
+	.string "SCOTT invites you, you take the\n"
+	.string "ferry, and then the Ten Gauntlets\l"
+	.string "decide how good you really were.$"
 
 BattleFrontier_OutsideWest_Text_SureWeCanChallengeWithNoMons:
-	.string "Hey, bro…\p"
-	.string "Are you sure we can make challenges\n"
-	.string "even if we don't have any POKéMON?$"
+	.string "Hey, bro… Do we even have six\n"
+	.string "POKéMON?$"
 
 BattleFrontier_OutsideWest_Text_BigGuySaidIllLendYouMons:
-	.string "Uh…\n"
-	.string "I'm sure it'll be okay.\p"
-	.string "I think…\p"
-	.string "But remember that big scary guy?\n"
-	.string "He said, “I'll lend you POKéMON!”$"
+	.string "Uh… The lady at the EXCHANGE\n"
+	.string "CORNER sells them, bro. For FP.\p"
+	.string "We have… zero FP.\p"
+	.string "We're gonna need a bigger plan,\n"
+	.string "bro.$"
 
 BattleFrontier_OutsideWest_Text_WhosRaisingThoseRentalMons:
-	.string "That's the BATTLE FACTORY.\n"
-	.string "You can rent strong POKéMON there.\p"
-	.string "But it makes me wonder.\n"
-	.string "Who's raising those rental POKéMON?$"
+	.string "That's the BATTLE FACTORY. It used\n"
+	.string "to rent POKéMON out.\p"
+	.string "Now it's a Doubles gauntlet where\n"
+	.string "every team is built to a plan. I\l"
+	.string "wonder who designs them all?$"
 
 BattleFrontier_OutsideWest_Text_ScaredOfPikeBecauseSeviper:
-	.string "I'm scared of going into the BATTLE\n"
-	.string "PIKE because of SEVIPER…\p"
-	.string "B-but I came all the way here, so I will\n"
-	.string "try to conquer everything!\l"
-	.string "…Shudder…$"
+	.string "The BATTLE PIKE is still sealed…\n"
+	.string "but I heard the PIKE QUEEN keeps a\l"
+	.string "SEVIPER.\p"
+	.string "I'm s-scared already, and I\n"
+	.string "haven't even cleared gauntlet 3!$"
 
 BattleFrontier_OutsideWest_Text_LetsPlayRockPaperScissors:
 	.string "Let's play rock, paper, scissors!\n"
-	.string "One, two, three!\p"
+	.string "Winner picks which mat I start\l"
+	.string "today! One, two, three!\p"
 	.string "… … … … … …$"
 
 BattleFrontier_OutsideWest_Text_WonIllTakePikeChallenge:
-	.string "Yay! I won!\n"
-	.string "I will take the BATTLE PIKE challenge!$"
+	.string "Yay! I won! I'll go take on the\n"
+	.string "Doubles mat today!$"
 
 BattleFrontier_OutsideWest_Text_LostIllPutOffPikeChallenge:
-	.string "Oh, no…\n"
-	.string "I lost.\p"
-	.string "I guess I'm not very lucky today.\n"
-	.string "I'll put off my BATTLE PIKE challenge\l"
-	.string "until tomorrow.$"
+	.string "Oh, no… I lost. Not lucky today.\p"
+	.string "Doubles can wait until tomorrow.$"
 
 BattleFrontier_OutsideWest_Text_ChooseFishingOverBattling:
-	.string "I believe I'm the only person here who,\n"
-	.string "for some unknown reason, would choose\l"
-	.string "fishing over battling.\p"
-	.string "Huh? You can't catch anything here?\n"
-	.string "That's disappointing…$"
+	.string "I believe I'm the only person here\n"
+	.string "who, for some unknown reason,\l"
+	.string "would choose fishing over\l"
+	.string "battling.\p"
+	.string "Huh? You can't catch anything\n"
+	.string "here? That's disappointing…\p"
+	.string "Though I hear there's someone way\n"
+	.string "over on the east side, out past\l"
+	.string "the ARENA, who'll sell you things\l"
+	.string "before the shop even has them.\p"
+	.string "Sounds fishy to me. And I'd know.$"
 
 BattleFrontier_OutsideWest_Text_KeepBattlingUntilIGetSymbol:
-	.string "Today, I'm going to keep battling, no\n"
-	.string "matter what, until I get a Symbol.$"
+	.string "Today, I'm going to keep battling\n"
+	.string "until I clear a gauntlet. Just\l"
+	.string "one!\p"
+	.string "Then the next… then the next…$"
 
 BattleFrontier_OutsideWest_Text_YoureOffToChallengeDome:
-	.string "Oh? You're off to challenge\n"
-	.string "the BATTLE DOME?\p"
-	.string "I'll wish you the best of luck.\n"
-	.string "Let us both win our way up and meet\l"
-	.string "in challenges.$"
+	.string "Off to the BATTLE DOME? In there,\n"
+	.string "one POKéMON on every team changes\l"
+	.string "form mid-battle.\p"
+	.string "Deciding which of yours does, and\n"
+	.string "when, is the whole art.$"
 
 BattleFrontier_OutsideWest_Text_DomeIsHereGrandpa:
 	.string "Grandpa, over here!\n"
@@ -466,10 +526,13 @@ BattleFrontier_OutsideWest_Text_WontLetGentlemenBeatMe:
 	.string "But where is the entrance?$"
 
 BattleFrontier_OutsideWest_Text_NothingHereNotLongAgo:
-	.string "There used to be nothing here not all\n"
-	.string "that long ago.\p"
-	.string "But, now look at this place! Amazing!\n"
-	.string "I'll bring my mother out to see this.$"
+	.string "There used to be seven facilities\n"
+	.string "here, each with its own FRONTIER\l"
+	.string "BRAIN.\p"
+	.string "Now it's ten gauntlets, and the\n"
+	.string "BRAINS guard the end of them.\l"
+	.string "SCOTT really doesn't do anything\l"
+	.string "halfway.$"
 
 BattleFrontier_OutsideWest_Text_FinallyArrivedAtFrontier:
 	.string "I've finally arrived at the BATTLE\n"
@@ -479,64 +542,128 @@ BattleFrontier_OutsideWest_Text_FinallyArrivedAtFrontier:
 
 BattleFrontier_OutsideWest_Text_SquareFilledWithToughPeople:
 	.string "Munch, munch…\p"
-	.string "It looks like this square's filled with\n"
-	.string "tough people.\p"
-	.string "Munch, munch…$"
+	.string "Every one of these people has a\n"
+	.string "locked team of six…\p"
+	.string "Munch… I just have snacks…$"
 
 BattleFrontier_OutsideWest_Text_MetOlderGirlAtPike:
 	.string "Crunch, munch…\p"
-	.string "A while back, I met this older girl\n"
-	.string "at the BATTLE PIKE.\p"
-	.string "She had these eyes that were scary\n"
-	.string "in a real ornery way.\p"
-	.string "Crunch, munch…\p"
-	.string "She got all furious: “Will you quit\n"
-	.string "eating!” Then she whaled on me.\p"
-	.string "It was a hair-raising kind of\n"
-	.string "scary experience, sure enough.\p"
+	.string "I tried snacking in the TOWER\n"
+	.string "lobby, and an attendant told me\l"
+	.string "the no-items rule applies to me\l"
+	.string "too.\p"
 	.string "Crunch, munch…$"
 
 BattleFrontier_OutsideWest_Text_LastTimeOurEyesMet:
 	.string "Huh? Will you listen to yourself?\n"
 	.string "That's nothing!\p"
-	.string "Why, the last time I cheered for him,\n"
-	.string "our eyes met and sparks flew!$"
+	.string "When TUCKER's SALAMENCE Mega\n"
+	.string "Evolved, TUCKER looked right at me\l"
+	.string "and sparks flew!$"
 
 BattleFrontier_OutsideWest_Text_DomeAceLookedBecauseOfMyCheering:
-	.string "Whaaaaaat?!\n"
-	.string "Pfft!\p"
-	.string "That only happened because\n"
-	.string "I happened to be sitting next to you!\p"
-	.string "The DOME ACE only looked our way\n"
+	.string "Whaaaaaat?! Pfft!\p"
+	.string "That only happened because I\n"
+	.string "happened to be sitting next to\l"
+	.string "you!\p"
+	.string "The DOME ACE looked our way\n"
 	.string "because my cheering was so loud!$"
 
 BattleFrontier_OutsideWest_Text_DomeAceIsMine:
-	.string "Oh, shush!\n"
-	.string "Keep that racket down!\p"
+	.string "Oh, shush! Keep that racket down!\p"
 	.string "You fair-weather fans should stick\n"
-	.string "to cheering for some GYM LEADER!\p"
-	.string "The DOME ACE is mine!\n"
-	.string "The only idol for me!$"
+	.string "to cheering for some TOWER warden!\p"
+	.string "The DOME ACE, TUCKER, is mine! The\n"
+	.string "only idol for me!$"
 
 BattleFrontier_OutsideWest_Text_FansOverThereUsedToBeTrainers:
-	.string "Those people squabbling over there…\p"
-	.string "It's hard to believe, but they once\n"
-	.string "were TRAINERS, and good ones, too.\p"
-	.string "They used to be incredibly tough,\n"
-	.string "and they were famous, too.\p"
-	.string "But they were obliterated by this\n"
-	.string "certain TRAINER at a tournament.\p"
-	.string "They were so thoroughly whipped,\n"
-	.string "they became smitten by the TRAINER.\p"
-	.string "Now they're just fans of the TRAINER.\n"
-	.string "They go cheer for their idol at the\l"
-	.string "BATTLE DOME every day now.$"
+	.string "Those people squabbling over\n"
+	.string "there… They were famous trainers\l"
+	.string "once.\p"
+	.string "Then the DOME ACE, TUCKER, beat\n"
+	.string "them so thoroughly at the BATTLE\l"
+	.string "DOME that they became his fans\l"
+	.string "instead.\p"
+	.string "Now they cheer for him every day.$"
 
 BattleFrontier_OutsideWest_Text_MonWithLongTailInFrontier:
-	.string "I heard a rumor that someone saw\n"
-	.string "a POKéMON with an unusually long tail\l"
-	.string "somewhere in the BATTLE FRONTIER.\p"
-	.string "It must be adorable. I'm sure of it…\p"
-	.string "Oh, challenges can wait. I feel driven\n"
-	.string "to find the delightful creature!$"
+	.string "I heard there's a POKéMON with a\n"
+	.string "paintbrush for a tail that's\l"
+	.string "banned from every gauntlet!\p"
+	.string "Why would anyone ban something so\n"
+	.string "cute? I have to find it!$"
 
+BattleFrontier_OutsideWest_EventScript_Boy1_Text1:
+	.string "I finally beat WARDEN HELIS! Then\n"
+	.string "I walked onto the Doubles mat.\p"
+	.string "Spread moves. Nobody back home\n"
+	.string "ever used spread moves.$"
+
+BattleFrontier_OutsideWest_EventScript_Boy1_Text0:
+	.string "I was the best out of all my\n"
+	.string "friends back home. Here? WARDEN\l"
+	.string "HELIS's ALTARIA swept my whole\l"
+	.string "team.\p"
+	.string "I didn't even know you could do\n"
+	.string "that.$"
+
+BattleFrontier_OutsideWest_EventScript_ExpertM_Text5:
+	.string "I found a MEGA RING. Then I found\n"
+	.string "out what Mega LOPUNNY does to a\l"
+	.string "team with no priority.\p"
+	.string "Ahem. I'm regrouping.$"
+
+BattleFrontier_OutsideWest_EventScript_ExpertM_Text4:
+	.string "The DOME's open! They say every\n"
+	.string "trainer inside can Mega Evolve.\l"
+	.string "Hmph. So can I, once I find a MEGA\l"
+	.string "RING.$"
+
+BattleFrontier_OutsideWest_EventScript_ExpertM_Text0:
+	.string "So this is the BATTLE DOME? Sealed\n"
+	.string "tight.\p"
+	.string "They say every trainer inside can\n"
+	.string "Mega Evolve. When those doors\l"
+	.string "open, I'll be ready.$"
+
+BattleFrontier_OutsideWest_EventScript_Woman1_Text2:
+	.string "…Gauntlet 2 was Doubles. Nobody\n"
+	.string "told me about Doubles.\p"
+	.string "My looks did not help at all.$"
+
+BattleFrontier_OutsideWest_EventScript_Woman1_Text0:
+	.string "I've finally arrived at the BATTLE\n"
+	.string "FRONTIER! I'm going to clear all\l"
+	.string "ten gauntlets with my looks and\l"
+	.string "ability alone!$"
+
+BattleFrontier_OutsideWest_EventScript_BattleDomeSign_Text4:
+	.string "BATTLE DOME - GAUNTLET 5: THE MAIN\n"
+	.string "EVENT.\p"
+	.string "Home of the DOME ACE, TUCKER.$"
+
+BattleFrontier_OutsideWest_EventScript_BattleDomeSign_Text0:
+	.string "BATTLE DOME - GAUNTLET 5: THE MAIN\n"
+	.string "EVENT.\p"
+	.string "Sealed. Opens for those who clear\n"
+	.string "gauntlet 4.$"
+
+BattleFrontier_OutsideWest_EventScript_BattleFactorySign_Text5:
+	.string "BATTLE FACTORY - GAUNTLET 6: THE\n"
+	.string "ASSEMBLY LINE.\p"
+	.string "Home of the FACTORY HEAD, NOLAND.$"
+
+BattleFrontier_OutsideWest_EventScript_BattleFactorySign_Text0:
+	.string "BATTLE FACTORY - GAUNTLET 6: THE\n"
+	.string "ASSEMBLY LINE.\p"
+	.string "Sealed. Opens for those who clear\n"
+	.string "gauntlet 5.$"
+
+BattleFrontier_OutsideWest_EventScript_BattlePikeSign_Text6:
+	.string "BATTLE PIKE - GAUNTLET 7.\p"
+	.string "Sealed. Still being prepared.$"
+
+BattleFrontier_OutsideWest_EventScript_BattlePikeSign_Text0:
+	.string "BATTLE PIKE - GAUNTLET 7.\p"
+	.string "Sealed. Opens for those who clear\n"
+	.string "gauntlet 6.$"

@@ -3,7 +3,7 @@
 
 #include "constants/facility_shop.h"
 
-// Ten Buildings shop, replacing the vanilla Battle Points vendors in the
+// Ten Gauntlets shop, replacing the vanilla Battle Points vendors in the
 // Exchange Service Corner. See shop-spec.md and shop-unlock-b2.md. Currency
 // is FP (gSaveBlock3Ptr->facility.progress.fp), not Battle Points or money.
 //
@@ -19,7 +19,7 @@ void FacilityShopGiveFP(void);
 // Dynamic menu staging (src/facility_shop.c's file header has the full
 // rationale). Each "Build" special filters its master data by unlock
 // progress and stages the result; the calling script then shows
-// SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC and reads the chosen row with
+// SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC and reads the chosen row with
 // FacilityShopSelectRow. field_specials.c reads the staged rows directly
 // through the four getters below while the list is on screen (name/price
 // per visible row, description for the sidebar).
@@ -30,13 +30,13 @@ void FacilityShopBuildHeldItemsMenu(void);
 // gSpecialVar_Result = FALSE if no Mega Stone is unlocked yet.
 void FacilityShopBuildMegaStonesMenu(void);
 
-// The Pokemon keeper's first screen - one row per unlocked building's shop
+// The Pokemon keeper's first screen - one row per unlocked gauntlet's shop
 // wave plus "Sell a Pokemon". gSpecialVar_0x8004 = chosen row index in;
-// FacilityShopSelectBuildingRow's gSpecialVar_Result = TRUE means the player
+// FacilityShopSelectGauntletRow's gSpecialVar_Result = TRUE means the player
 // picked Sell (go straight to the sell flow), FALSE means the wave to browse
 // is now remembered internally and the caller should show tier-select next.
-void FacilityShopBuildBuildingMenu(void);
-void FacilityShopSelectBuildingRow(void);
+void FacilityShopBuildGauntletMenu(void);
+void FacilityShopSelectGauntletRow(void);
 
 // gSpecialVar_0x8009 = FACILITY_SHOP_TIER_* in. gSpecialVar_Result = TRUE if
 // a type-filter menu was staged instead of the species list (too many
@@ -103,5 +103,34 @@ void CloseFacilityShopDescriptionWindow(void);
 // trips malloc.c's double-free assertion on an unrelated later allocation -
 // this was a real, confirmed bug, not hypothetical.
 void FacilityShopFreeMenuRows(void);
+
+// ----------------------------------------------------------------------------
+// The Broker (Lounge 3) - see broker-spec.md. Sells one piece of the next
+// gauntlet's shop wave per gauntlet: an item outright at 1.5x, or a Pokemon
+// on loan at half price. A loaner is kept if the player clears that
+// gauntlet and collected (held item returned) if a run of it ends without
+// clearing it.
+// ----------------------------------------------------------------------------
+
+// gSpecialVar_Result = BROKER_OK / _RUN_ACTIVE / _DEAL_USED / _NOTHING_LEFT.
+void FacilityBrokerCheck(void);
+// Stage three random picks from the next wave (fixed per gauntlet - seeded
+// from the gauntlet and the player's trainer ID). gSpecialVar_Result = rows
+// staged. The caller then uses the shop's own dynamic menu and
+// FacilityShopSelectRow, exactly like a keeper.
+void FacilityBrokerBuildItemMenu(void);
+void FacilityBrokerBuildMonMenu(void);
+// Marks this gauntlet's deal as spent.
+void FacilityBrokerMarkDealUsed(void);
+// Loans the species in gSpecialVar_0x8009. gSpecialVar_Result =
+// MON_GIVEN_TO_PARTY / MON_GIVEN_TO_PC / MON_CANT_GIVE; marks the deal spent
+// unless MON_CANT_GIVE.
+void FacilityBrokerLoanMon(void);
+// Called by FacilityCompleteGauntlet (kept == TRUE) and FacilityAbandonRun
+// (kept == FALSE) in src/facility.c.
+void FacilityBrokerResolveLoans(bool8 kept);
+// After a run ends: gSpecialVar_Result = BROKER_LOAN_NONE / _KEPT /
+// _COLLECTED, gStringVar1 = the loaner's species name.
+void FacilityBrokerGetLoanOutcome(void);
 
 #endif // GUARD_FACILITY_SHOP_H

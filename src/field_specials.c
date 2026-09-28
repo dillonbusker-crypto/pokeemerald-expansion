@@ -2458,7 +2458,7 @@ void ShowScrollableMultichoice(void)
         task->tScrollOffset = sElevatorScroll;
         task->tSelectedRow = sElevatorCursorPos;
         break;
-    case SCROLL_MULTI_TEN_BUILDINGS_MON_TIER_SELECT:
+    case SCROLL_MULTI_TEN_GAUNTLETS_MON_TIER_SELECT:
         task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
         task->tNumItems = 5;
         task->tLeft = 14;
@@ -2472,7 +2472,7 @@ void ShowScrollableMultichoice(void)
     // enum comment in include/constants/field_specials.h. tNumItems comes
     // from whatever src/facility_shop.c staged, not a literal, so this one
     // case covers every unlock past and future without changing.
-    case SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC:
+    case SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC:
         task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
         task->tNumItems = FacilityShopGetMenuCount();
         task->tLeft = 12;
@@ -2482,7 +2482,7 @@ void ShowScrollableMultichoice(void)
         task->tKeepOpenAfterSelect = FALSE;
         task->tTaskId = taskId;
         break;
-    case SCROLL_MULTI_TEN_BUILDINGS_POST_BATTLE:
+    case SCROLL_MULTI_TEN_GAUNTLETS_POST_BATTLE:
         task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
         task->tNumItems = 3;
         task->tLeft = 14;
@@ -2634,13 +2634,13 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
         gText_1F,
         gText_Exit,
     },
-    // Ten Buildings: no price suffix here anymore - each building's wave
+    // Ten Gauntlets: no price suffix here anymore - each gauntlet's wave
     // prices its own Premium/Strong/Standard/Budget rows differently (see
     // shop-unlock-b3.md's escalating tier prices), so a single fixed number
-    // per tier stopped being true the moment building 3's wave shipped. Sell
-    // moved up to the building-select screen (FacilityShopBuildBuildingMenu)
-    // since it isn't tied to any one building's wave.
-    [SCROLL_MULTI_TEN_BUILDINGS_MON_TIER_SELECT] =
+    // per tier stopped being true the moment gauntlet 3's wave shipped. Sell
+    // moved up to the gauntlet-select screen (FacilityShopBuildGauntletMenu)
+    // since it isn't tied to any one gauntlet's wave.
+    [SCROLL_MULTI_TEN_GAUNTLETS_MON_TIER_SELECT] =
     {
         COMPOUND_STRING("Premium"),
         COMPOUND_STRING("Strong"),
@@ -2648,10 +2648,10 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
         COMPOUND_STRING("Budget"),
         gText_Exit
     },
-    // SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC has no entry here - its rows come
+    // SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC has no entry here - its rows come
     // from src/facility_shop.c at runtime (see Task_ShowScrollableMultichoice
     // below).
-    [SCROLL_MULTI_TEN_BUILDINGS_POST_BATTLE] =
+    [SCROLL_MULTI_TEN_GAUNTLETS_POST_BATTLE] =
     {
         COMPOUND_STRING("Continue"),
         COMPOUND_STRING("Rearrange Party"),
@@ -2670,7 +2670,7 @@ static void Task_ShowScrollableMultichoice(u8 taskId)
     sScrollableMultichoice_ItemSpriteId = MAX_SPRITES;
     FillFrontierExchangeCornerWindowAndItemIcon(task->tScrollMultiId, 0);
     ShowBattleFrontierTutorWindow(task->tScrollMultiId, 0);
-    if (task->tScrollMultiId == SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC && FacilityShopMenuHasDescriptions())
+    if (task->tScrollMultiId == SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC && FacilityShopMenuHasDescriptions())
     {
         ShowFacilityShopDescriptionWindow();
         gSpecialVar_0x8004 = 0;
@@ -2684,7 +2684,7 @@ static void Task_ShowScrollableMultichoice(u8 taskId)
     {
         const u8 *text;
 
-        if (task->tScrollMultiId == SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC)
+        if (task->tScrollMultiId == SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC)
             text = FacilityShopGetMenuRowName(i);
         else
             text = sScrollableMultichoiceOptions[gSpecialVar_0x8004][i];
@@ -2697,7 +2697,7 @@ static void Task_ShowScrollableMultichoice(u8 taskId)
     // FacilityShopPrintPriceInList below) at a fixed offset past the widest
     // reasonable name, so it keeps its geometry from ShowScrollableMultichoice
     // instead of shrinking to whatever the names alone measure out to.
-    if (task->tScrollMultiId != SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC)
+    if (task->tScrollMultiId != SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC)
     {
         task->tWidth = ConvertPixelWidthToTileWidth(width);
 
@@ -2719,7 +2719,7 @@ static void Task_ShowScrollableMultichoice(u8 taskId)
     gScrollableMultichoice_ListMenuTemplate.totalItems = task->tNumItems;
     gScrollableMultichoice_ListMenuTemplate.maxShowed = task->tMaxItemsOnScreen;
     gScrollableMultichoice_ListMenuTemplate.windowId = task->tWindowId;
-    if (task->tScrollMultiId == SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC)
+    if (task->tScrollMultiId == SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC)
         gScrollableMultichoice_ListMenuTemplate.itemPrintFunc = FacilityShopPrintPriceInList;
 
     ScrollableMultichoice_UpdateScrollArrows(taskId);
@@ -2768,9 +2768,9 @@ static void FacilityShopPrintPriceInList(u8 windowId, u32 id, u8 y)
     if (id == LIST_CANCEL)
         return;
 
-    // Ten Buildings: no real row is ever 0FP, so a staged price of 0 means
+    // Ten Gauntlets: no real row is ever 0FP, so a staged price of 0 means
     // this row isn't a purchase at all - the type-filter menu's type/"All"
-    // rows and the building-select menu's building/"Sell" rows all stage 0
+    // rows and the gauntlet-select menu's gauntlet/"Sell" rows all stage 0
     // here on purpose. Skip drawing a price next to a row that isn't for
     // sale.
     price = FacilityShopGetMenuRowPrice(id);
@@ -2797,7 +2797,7 @@ static void ScrollableMultichoice_MoveCursor(s32 itemIndex, bool8 onInit, struct
         HideFrontierExchangeCornerItemIcon(task->tScrollMultiId, sFrontierExchangeCorner_NeverRead);
         FillFrontierExchangeCornerWindowAndItemIcon(task->tScrollMultiId, selection);
         ShowBattleFrontierTutorMoveDescription(task->tScrollMultiId, selection);
-        if (task->tScrollMultiId == SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC && FacilityShopMenuHasDescriptions())
+        if (task->tScrollMultiId == SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC && FacilityShopMenuHasDescriptions())
         {
             gSpecialVar_0x8004 = selection;
             UpdateFacilityShopDescriptionWindow();
@@ -3125,10 +3125,10 @@ void CloseFrontierExchangeCornerItemIconWindow(void)
     RemoveWindow(sFrontierExchangeCorner_ItemIconWindowId);
 }
 
-// Ten Buildings: used to show an icon + description sidebar for the four
+// Ten Gauntlets: used to show an icon + description sidebar for the four
 // vanilla Exchange Corner BP vendors this project replaced (see the comment
 // on enum ScrollMulti in include/constants/field_specials.h). None of the
-// SCROLL_MULTI_TEN_BUILDINGS_* menus use it, so this is a no-op now, but
+// SCROLL_MULTI_TEN_GAUNTLETS_* menus use it, so this is a no-op now, but
 // it's still called unconditionally for every scrollable multichoice
 // (see the call sites below), so it stays rather than threading a
 // conditional through both callers.
@@ -4579,7 +4579,7 @@ void GetMonAbilityOptions(void)
     gSpecialVar_Result = (ability0 != ability1 || ability0 != ability2);
 }
 
-// Ten Buildings: "Teach TM" L-menu tool. Bag space can't hold all 166 TM
+// Ten Gauntlets: "Teach TM" L-menu tool. Bag space can't hold all 166 TM
 // items (see BAG_TMHM_COUNT in include/constants/global.h), so instead of
 // granting TM items, the player teaches moves directly from this tool - pick
 // a party mon, then drill down by move type, then pick the move. Both drill-

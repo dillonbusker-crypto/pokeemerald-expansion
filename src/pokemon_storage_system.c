@@ -1624,7 +1624,7 @@ void ShowPokemonStorageSystemPC(void)
 {
     u8 taskId;
 
-    // Ten Buildings: PC access is blocked for the duration of a facility
+    // Ten Gauntlets: PC access is blocked for the duration of a facility
     // run - it would let the player swap the locked six outright. See
     // run-loop-spec.md's "Mid-run access restrictions". This is a
     // waitstate=1 special (data/specials.inc), so a refusal still has to

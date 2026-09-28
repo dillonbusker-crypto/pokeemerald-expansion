@@ -1,5 +1,5 @@
 // ============================================================================
-// Ten Buildings shop - see shop-spec.md and shop-unlock-b2.md.
+// Ten Gauntlets shop - see shop-spec.md and shop-unlock-b2.md.
 //
 // Keepers 1 (consumables), 2 (held items) and 3 (Mega Stones) are plain
 // `additem` purchases,
@@ -8,28 +8,28 @@
 // FP instead of Battle Points. Keeper 4 (Pokemon) needs this file because it
 // has to create a mon, not just hand over an item.
 //
-// Every sellable row - item or mon - carries an `unlockBuilding` field: 0
+// Every sellable row - item or mon - carries an `unlockGauntlet` field: 0
 // means available from game start, N means it doesn't show up until
-// gSaveBlock3Ptr->facility.progress.buildingsCompleted has bit (N - 1) set
-// (IsShopEntryUnlocked() below). That bit is flipped by FacilityCompleteBuilding()
-// in src/facility.c the moment a building's boss falls - before the player
+// gSaveBlock3Ptr->facility.progress.gauntletsCompleted has bit (N - 1) set
+// (IsShopEntryUnlocked() below). That bit is flipped by FacilityCompleteGauntlet()
+// in src/facility.c the moment a gauntlet's boss falls - before the player
 // can act again - so there's no separate "unlock trigger" to wire up here;
 // the shop just reads the same bitmask the run loop already maintains, live,
 // every time a keeper's menu opens. Nine more unlocks after this one are
-// just nine more rows with an unlockBuilding value, not nine more
+// just nine more rows with an unlockGauntlet value, not nine more
 // conditionals.
 //
 // Keeper 4 (Pokemon) additionally organizes its master tables by that same
-// `unlockBuilding` value, calling it a "wave": the player picks a building's
-// wave first (FacilityShopBuildBuildingMenu), then a tier within it, so
-// browsing one building's additions doesn't mean scrolling through every
-// other building's too. That's one generic building-select screen shared by
-// every building, not a new screen per building - a building's worth of new
-// mons is still just new rows with that building's unlockBuilding value.
+// `unlockGauntlet` value, calling it a "wave": the player picks a gauntlet's
+// wave first (FacilityShopBuildGauntletMenu), then a tier within it, so
+// browsing one gauntlet's additions doesn't mean scrolling through every
+// other gauntlet's too. That's one generic gauntlet-select screen shared by
+// every gauntlet, not a new screen per gauntlet - a gauntlet's worth of new
+// mons is still just new rows with that gauntlet's unlockGauntlet value.
 //
 // The list itself is generated at runtime instead of living as a
-// SCROLL_MULTI_TEN_BUILDINGS_MON_STANDARD_1..6-style static COMPOUND_STRING
-// table (see include/constants/field_specials.h's SCROLL_MULTI_TEN_BUILDINGS_
+// SCROLL_MULTI_TEN_GAUNTLETS_MON_STANDARD_1..6-style static COMPOUND_STRING
+// table (see include/constants/field_specials.h's SCROLL_MULTI_TEN_GAUNTLETS_
 // DYNAMIC comment) - a static table meant every unlock needed hand-edited
 // pagination (MAX_SCROLL_MULTI_LENGTH is 16, an artifact of that table's
 // second dimension, not a real engine limit) kept in sync by hand across two
@@ -57,6 +57,8 @@
 #include "string_util.h"
 #include "text.h"
 #include "window.h"
+#include "facility.h"
+#include "constants/region_map_sections.h"
 #include "constants/items.h"
 #include "constants/species.h"
 
@@ -64,22 +66,22 @@ struct FacilityShopMon
 {
     u16 species;
     u16 price;
-    u8 unlockBuilding; // 0 = available from game start
+    u8 unlockGauntlet; // 0 = available from game start
 };
 
 struct FacilityShopItem
 {
     u16 item;
     u16 price;
-    u8 unlockBuilding; // 0 = available from game start
+    u8 unlockGauntlet; // 0 = available from game start
     const u8 *description; // NULL if this row doesn't show one (Keeper 2's stock)
 };
 
-static bool8 IsShopEntryUnlocked(u8 unlockBuilding)
+static bool8 IsShopEntryUnlocked(u8 unlockGauntlet)
 {
-    if (unlockBuilding == 0)
+    if (unlockGauntlet == 0)
         return TRUE;
-    return (gSaveBlock3Ptr->facility.progress.buildingsCompleted & (1 << (unlockBuilding - 1))) != 0;
+    return (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << (unlockGauntlet - 1))) != 0;
 }
 
 // ----------------------------------------------------------------------------
@@ -125,7 +127,7 @@ static const struct FacilityShopItem sConsumables[] =
     { ITEM_IAPAPA_BERRY, 80,  0, sDesc_Iapapa },
     { ITEM_LIECHI_BERRY, 100, 0, sDesc_Liechi },
     { ITEM_PETAYA_BERRY, 100, 0, sDesc_Petaya },
-    // Unlocked clearing building 1 - shop-unlock-b2.md. Resist berries are
+    // Unlocked clearing gauntlet 1 - shop-unlock-b2.md. Resist berries are
     // the conceptual step here: every purchase up to now made a Pokemon
     // generically better, a resist berry is a bet on a specific threat.
     { ITEM_SITRUS_BERRY, 180, 1, sDesc_Sitrus },
@@ -176,13 +178,13 @@ static const struct FacilityShopItem sHeldItems[] =
     { ITEM_METAL_COAT,     60,  0, NULL },
     { ITEM_SILK_SCARF,     60,  0, NULL },
     { ITEM_FAIRY_FEATHER,  60,  0, NULL },
-    // Unlocked clearing building 1. Moved here from building 3 on purpose -
-    // building 2 is where Spore shows up in force, and the building that
+    // Unlocked clearing gauntlet 1. Moved here from gauntlet 3 on purpose -
+    // gauntlet 2 is where Spore shows up in force, and the gauntlet that
     // teaches a threat should sell its answer. See shop-unlock-b2.md.
     { ITEM_SAFETY_GOGGLES, 250, 1, NULL },
     { ITEM_WHITE_HERB,     150, 1, NULL },
     { ITEM_BLACK_SLUDGE,   120, 1, NULL },
-    // Unlocked clearing building 2 - shop-unlock-b3.md. The weather rocks and
+    // Unlocked clearing gauntlet 2 - shop-unlock-b3.md. The weather rocks and
     // terrain seeds are the signature purchase of this tier: the first items
     // that improve the *team* rather than one Pokemon. Eviolite is gated
     // here on purpose - NFE Pokemon have artificially low BST, so letting it
@@ -201,7 +203,7 @@ static const struct FacilityShopItem sHeldItems[] =
     { ITEM_EXPERT_BELT,   250, 2, NULL },
     { ITEM_MUSCLE_BAND,   150, 2, NULL },
     { ITEM_WISE_GLASSES,  150, 2, NULL },
-    // Unlocked clearing building 3 - shop-unlock-b4.md. Focus Sash is the
+    // Unlocked clearing gauntlet 3 - shop-unlock-b4.md. Focus Sash is the
     // signature purchase and the one to watch in playtesting - held items are
     // reusable here, so it's a permanent guaranteed-survive every battle,
     // stronger than in official play where it's consumed once and gone.
@@ -209,9 +211,9 @@ static const struct FacilityShopItem sHeldItems[] =
     { ITEM_ASSAULT_VEST,     350, 3, NULL },
     { ITEM_LIFE_ORB,         350, 3, NULL },
     { ITEM_HEAVY_DUTY_BOOTS, 300, 3, NULL },
-    // Unlocked clearing building 4 - gauntlet-05.md. Choice Scarf is the
+    // Unlocked clearing gauntlet 4 - gauntlet-05.md. Choice Scarf is the
     // signature purchase: the singles answer to every fast Mega in the
-    // building. Clear Amulet waits for building 6 (doubles, where blanking
+    // gauntlet. Clear Amulet waits for gauntlet 6 (doubles, where blanking
     // Intimidate actually teaches something).
     { ITEM_CHOICE_SCARF,     450, 4, NULL },
     { ITEM_CHOICE_BAND,      400, 4, NULL },
@@ -219,9 +221,9 @@ static const struct FacilityShopItem sHeldItems[] =
     { ITEM_WEAKNESS_POLICY,  350, 4, NULL },
     { ITEM_ROCKY_HELMET,     300, 4, NULL },
     { ITEM_MENTAL_HERB,      200, 4, NULL },
-    // Unlocked clearing building 5 - gauntlet-06.md. Doubles tools, nothing
+    // Unlocked clearing gauntlet 5 - gauntlet-06.md. Doubles tools, nothing
     // that swings a game by itself. Clear Amulet is the signature purchase:
-    // it blanks the Intimidate half of building 6's teams lean on.
+    // it blanks the Intimidate half of gauntlet 6's teams lean on.
     { ITEM_CLEAR_AMULET,       300, 5, NULL },
     { ITEM_LOADED_DICE,        300, 5, NULL },
     { ITEM_COVERT_CLOAK,       250, 5, NULL },
@@ -240,12 +242,12 @@ static const struct FacilityShopItem sHeldItems[] =
 };
 
 // ----------------------------------------------------------------------------
-// Keeper 3 - Mega Stones. Opens clearing building 4, the same moment the
-// building 4 attendant hands over the Mega Ring. Gen 6 Megas plus the
+// Keeper 3 - Mega Stones. Opens clearing gauntlet 4, the same moment the
+// gauntlet 4 attendant hands over the Mega Ring. Gen 6 Megas plus the
 // Legends: Z-A Megas that play best in singles, all at or under 600 BST
 // after evolving - see gauntlet-05.md's Bans and Keeper 3 sections for why
 // each one is in, which were cut as outclassed, and which wait for later
-// buildings (Gengar/Kangaskhan at 7, the doubles-leaning ones at 6). Every
+// gauntlets (Gengar/Kangaskhan at 7, the doubles-leaning ones at 6). Every
 // stone's base Pokemon is sold by Keeper 4 by the same wave. Plain items,
 // bought through the same flow as Keeper 2's.
 // ----------------------------------------------------------------------------
@@ -283,8 +285,8 @@ static const struct FacilityShopItem sMegaStones[] =
     // Standard - 300
     { ITEM_BEEDRILLITE,   300, 4, NULL },
     { ITEM_VICTREEBELITE, 300, 4, NULL },
-    // Unlocked clearing building 5 - gauntlet-06.md. The doubles-leaning
-    // Megas held back from building 5.
+    // Unlocked clearing gauntlet 5 - gauntlet-06.md. The doubles-leaning
+    // Megas held back from gauntlet 5.
     { ITEM_SCRAFTINITE,    600, 5, NULL },
     { ITEM_RAICHUNITE_X,   600, 5, NULL },
     { ITEM_TATSUGIRINITE,  450, 5, NULL },
@@ -299,9 +301,9 @@ static const struct FacilityShopItem sMegaStones[] =
 
 // ----------------------------------------------------------------------------
 // Keeper 4 - Pokemon. One master array per price tier, spanning every
-// building's additions to that tier - not one array per building. Building
-// 1's pool is unlockBuilding 0; shop-unlock-b2.md's additions are
-// unlockBuilding 1. Azumarill, Medicham and Linoone were never on a real ban
+// gauntlet's additions to that tier - not one array per gauntlet. Gauntlet
+// 1's pool is unlockGauntlet 0; shop-unlock-b2.md's additions are
+// unlockGauntlet 1. Azumarill, Medicham and Linoone were never on a real ban
 // list in code (see FacilityCheckEligible/the trainer pool) - "banned" at
 // tier 1 only ever meant "not in this list" - so they need no extra
 // unbanning step beyond appearing here.
@@ -335,7 +337,7 @@ static const struct FacilityShopMon sPremiumMons[] =
     { SPECIES_GENGAR,      250, 1 },
     { SPECIES_HAWLUCHA,    250, 1 },
     { SPECIES_KLEAVOR,     250, 1 },
-    // Unlocked clearing building 2 - shop-unlock-b3.md.
+    // Unlocked clearing gauntlet 2 - shop-unlock-b3.md.
     { SPECIES_VOLCARONA,      400, 2 },
     { SPECIES_FERROTHORN,     400, 2 },
     { SPECIES_GHOLDENGO,      400, 2 },
@@ -360,14 +362,14 @@ static const struct FacilityShopMon sPremiumMons[] =
     { SPECIES_URSALUNA,       400, 2 },
     { SPECIES_SNEASLER,       400, 2 },
     { SPECIES_SERPERIOR,      400, 2 },
-    // Unlocked clearing building 3 - shop-unlock-b4.md.
+    // Unlocked clearing gauntlet 3 - shop-unlock-b4.md.
     { SPECIES_ARCANINE,       500, 3 },
-    // Doubles staples building 4's CPU teams already used but the shop
+    // Doubles staples gauntlet 4's CPU teams already used but the shop
     // never sold - see shop-unlock-b4.md.
     { SPECIES_INCINEROAR,      500, 3 },
-    // Unlocked clearing building 4 - gauntlet-05.md. The 600-BST
+    // Unlocked clearing gauntlet 4 - gauntlet-05.md. The 600-BST
     // pseudo-legendaries plus the singles-relevant Paradox / Ultra Beast /
-    // Mythical picks; the Ubers-grade ones wait for building 7.
+    // Mythical picks; the Ubers-grade ones wait for gauntlet 7.
     { SPECIES_GARCHOMP,        850, 4 },
     { SPECIES_DRAGAPULT,       850, 4 },
     { SPECIES_DRAGONITE,       850, 4 },
@@ -388,7 +390,7 @@ static const struct FacilityShopMon sPremiumMons[] =
     { SPECIES_CELESTEELA,      850, 4 },
     { SPECIES_BLACEPHALON,     850, 4 },
     { SPECIES_BUZZWOLE,        850, 4 },
-    // Unlocked clearing building 5 - gauntlet-06.md. Doubles-relevant
+    // Unlocked clearing gauntlet 5 - gauntlet-06.md. Doubles-relevant
     // Paradox / Ultra Beasts and the non-Uber sub-legendaries; the
     // Ubers-grade ones (Chi-Yu, Chien-Pao, Spectrier, Zapdos-Galar, Urshifu
     // Single Strike, Landorus / Enamorus Incarnate) wait. Ogerpon is Teal
@@ -459,13 +461,13 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_PASSIMIAN,     200, 1 },
     { SPECIES_BISHARP,       200, 1 },
     // Exactly-500-BST additions - see the note in sPremiumMons. Scyther
-    // was pulled forward from the building 3 wave; it's still an Eviolite
+    // was pulled forward from the gauntlet 3 wave; it's still an Eviolite
     // target once Eviolite unlocks there.
     { SPECIES_MUK_ALOLA,     200, 1 },
     { SPECIES_CLAWITZER,     200, 1 },
     { SPECIES_BARBARACLE,    200, 1 },
     { SPECIES_SCYTHER,       200, 1 },
-    // Unlocked clearing building 2 - shop-unlock-b3.md.
+    // Unlocked clearing gauntlet 2 - shop-unlock-b3.md.
     { SPECIES_NINETALES,     300, 2 },
     { SPECIES_GIGALITH,      300, 2 },
     { SPECIES_VENUSAUR,      300, 2 },
@@ -529,7 +531,7 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_DOUBLADE,      300, 2 },
     { SPECIES_SNEASEL,       300, 2 },
     { SPECIES_DURALUDON,     300, 2 },
-    // Unlocked clearing building 3 - shop-unlock-b4.md.
+    // Unlocked clearing gauntlet 3 - shop-unlock-b4.md.
     { SPECIES_ARCHEOPS,      375, 3 },
     // Doubles staples - see the note in sPremiumMons.
     { SPECIES_TALONFLAME,      375, 3 },
@@ -540,8 +542,8 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_FARIGIRAF,       375, 3 },
     { SPECIES_ARBOLIVA,        375, 3 },
     { SPECIES_FLORGES,       375, 3 },
-    // Sub-legendaries judged safe for building 5's singles (see the
-    // building 4 legendary draft) - the rest of the 551-599 legendary /
+    // Sub-legendaries judged safe for gauntlet 5's singles (see the
+    // gauntlet 4 legendary draft) - the rest of the 551-599 legendary /
     // Paradox / UB band is held back on purpose.
     { SPECIES_ENTEI,         375, 3 },
     { SPECIES_RAIKOU,        375, 3 },
@@ -551,7 +553,7 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_AZELF,         375, 3 },
     { SPECIES_TERRAKION,     375, 3 },
     { SPECIES_COBALION,      375, 3 },
-    // Unlocked clearing building 4 - gauntlet-05.md.
+    // Unlocked clearing gauntlet 4 - gauntlet-05.md.
     { SPECIES_SALAMENCE,       700, 4 },
     { SPECIES_HYDREIGON,       700, 4 },
     { SPECIES_BAXCALIBUR,      700, 4 },
@@ -572,7 +574,7 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_DEOXYS_DEFENSE,  700, 4 },
     { SPECIES_SHAYMIN,         700, 4 },
     { SPECIES_HOOPA,           700, 4 },
-    // Unlocked clearing building 5 - gauntlet-06.md.
+    // Unlocked clearing gauntlet 5 - gauntlet-06.md.
     { SPECIES_IRON_JUGULIS,             700, 5 },
     { SPECIES_STAKATAKA,                700, 5 },
     { SPECIES_TAPU_BULU,                700, 5 },
@@ -707,7 +709,7 @@ static const struct FacilityShopMon sStandardMons[] =
     { SPECIES_ORTHWORM,   150, 1 },
     { SPECIES_TOXTRICITY, 150, 1 },
     // Exactly-500-BST additions - see the note in sPremiumMons. Stoutland
-    // was pulled forward from the building 3 wave.
+    // was pulled forward from the gauntlet 3 wave.
     { SPECIES_GOLDUCK,    150, 1 },
     { SPECIES_RAPIDASH,   150, 1 },
     { SPECIES_RAPIDASH_GALAR, 150, 1 },
@@ -717,7 +719,7 @@ static const struct FacilityShopMon sStandardMons[] =
     { SPECIES_LEAVANNY,   150, 1 },
     { SPECIES_CARBINK,    150, 1 },
     { SPECIES_STOUTLAND,  150, 1 },
-    // Unlocked clearing building 2 - shop-unlock-b3.md.
+    // Unlocked clearing gauntlet 2 - shop-unlock-b3.md.
     { SPECIES_VANILLUXE,  200, 2 },
     { SPECIES_FLOATZEL,   200, 2 },
     { SPECIES_OMASTAR,    200, 2 },
@@ -737,12 +739,12 @@ static const struct FacilityShopMon sStandardMons[] =
     { SPECIES_LAPRAS,     200, 2 },
     { SPECIES_WALREIN,    200, 2 },
     { SPECIES_SCEPTILE,   200, 2 },
-    // Building 3's Scorched team used Solrock before the shop sold it.
+    // Gauntlet 3's Scorched team used Solrock before the shop sold it.
     { SPECIES_SOLROCK,         200, 2 },
     { SPECIES_EELEKTROSS, 200, 2 },
     { SPECIES_TENTACRUEL, 200, 2 },
     { SPECIES_SIRFETCHD,  200, 2 },
-    // Unlocked clearing building 3 - shop-unlock-b4.md.
+    // Unlocked clearing gauntlet 3 - shop-unlock-b4.md.
     { SPECIES_SILVALLY,   250, 3 },
     // Doubles staples - see the note in sPremiumMons. Indeedee-F is the
     // form with Follow Me; only the male was sold before.
@@ -758,14 +760,14 @@ static const struct FacilityShopMon sStandardMons[] =
     { SPECIES_UXIE,       250, 3 },
     { SPECIES_MESPRIT,    250, 3 },
     { SPECIES_VIRIZION,   250, 3 },
-    // Unlocked clearing building 4 - gauntlet-05.md.
+    // Unlocked clearing gauntlet 4 - gauntlet-05.md.
     { SPECIES_GOODRA,          550, 4 },
     { SPECIES_GOODRA_HISUI,    550, 4 },
     { SPECIES_SCREAM_TAIL,     550, 4 },
     { SPECIES_BRUTE_BONNET,    550, 4 },
     { SPECIES_IRON_THORNS,     550, 4 },
     { SPECIES_GUZZLORD,        550, 4 },
-    // Unlocked clearing building 5 - gauntlet-06.md.
+    // Unlocked clearing gauntlet 5 - gauntlet-06.md.
     { SPECIES_ARTICUNO_GALAR,           550, 5 },
     { SPECIES_GLASTRIER,                550, 5 },
     { SPECIES_WO_CHIEN,                 550, 5 },
@@ -784,10 +786,10 @@ static const struct FacilityShopMon sBudgetMons[] =
     { SPECIES_MINUN,      100, 0 },
     { SPECIES_PACHIRISU,  100, 0 },
     { SPECIES_GRIMER,     100, 0 },
-    // Unlocked clearing building 4 - gauntlet-05.md. Base Pokemon for Mega
+    // Unlocked clearing gauntlet 4 - gauntlet-05.md. Base Pokemon for Mega
     // Stones that weren't sold yet, priced for what they are without the
     // stone (the stone carries the premium). Clefable also arrives here as
-    // a regular Pokemon - it had never been sold, and building 5's CPU
+    // a regular Pokemon - it had never been sold, and gauntlet 5's CPU
     // teams use it.
     { SPECIES_LOPUNNY,         375, 4 },
     { SPECIES_ALTARIA,         375, 4 },
@@ -799,7 +801,7 @@ static const struct FacilityShopMon sBudgetMons[] =
     { SPECIES_SHARPEDO,        250, 4 },
     { SPECIES_MALAMAR,         250, 4 },
     { SPECIES_DRAGALGE,        250, 4 },
-    // Unlocked clearing building 5 - gauntlet-06.md. Bases for the doubles
+    // Unlocked clearing gauntlet 5 - gauntlet-06.md. Bases for the doubles
     // Mega Stones.
     { SPECIES_SCOVILLAIN,               375, 5 },
     { SPECIES_GOLURK,                   375, 5 },
@@ -890,15 +892,15 @@ struct FacilityShopMenuRow
 #define FACILITY_SHOP_TYPE_ALL NUMBER_OF_MON_TYPES
 #define FACILITY_SHOP_TYPE_FILTER_THRESHOLD 20
 
-// Sentinel id for the "Sell a Pokemon" row on the building-select menu -
+// Sentinel id for the "Sell a Pokemon" row on the gauntlet-select menu -
 // keeps it out of the u8 wave range (0-9) the same way FACILITY_SHOP_TYPE_ALL
 // keeps its sentinel out of the Type range.
-#define FACILITY_SHOP_BUILDING_SELECT_SELL 0xFFFF
+#define FACILITY_SHOP_GAUNTLET_SELECT_SELL 0xFFFF
 
 static EWRAM_DATA struct FacilityShopMenuRow *sMenuRows = NULL;
 static EWRAM_DATA u16 sMenuRowCount = 0;
 static EWRAM_DATA u8 sPendingMonTier = 0; // tier remembered between BuildMonTierList and SelectMonType
-static EWRAM_DATA u8 sPendingBuildingWave = 0; // wave remembered between BuildBuildingMenu and BuildMonTierList
+static EWRAM_DATA u8 sPendingGauntletWave = 0; // wave remembered between BuildBuildingMenu and BuildMonTierList
 
 static void FreeMenuRows(void)
 {
@@ -961,7 +963,7 @@ void FacilityShopBuildConsumablesMenu(void)
     FreeMenuRows();
     for (i = 0; i < ARRAY_COUNT(sConsumables); i++)
     {
-        if (IsShopEntryUnlocked(sConsumables[i].unlockBuilding))
+        if (IsShopEntryUnlocked(sConsumables[i].unlockGauntlet))
             count++;
     }
 
@@ -969,7 +971,7 @@ void FacilityShopBuildConsumablesMenu(void)
     sMenuRowCount = count;
     for (i = 0, count = 0; i < ARRAY_COUNT(sConsumables); i++)
     {
-        if (!IsShopEntryUnlocked(sConsumables[i].unlockBuilding))
+        if (!IsShopEntryUnlocked(sConsumables[i].unlockGauntlet))
             continue;
         sMenuRows[count].id = sConsumables[i].item;
         sMenuRows[count].price = sConsumables[i].price;
@@ -986,7 +988,7 @@ void FacilityShopBuildHeldItemsMenu(void)
     FreeMenuRows();
     for (i = 0; i < ARRAY_COUNT(sHeldItems); i++)
     {
-        if (IsShopEntryUnlocked(sHeldItems[i].unlockBuilding))
+        if (IsShopEntryUnlocked(sHeldItems[i].unlockGauntlet))
             count++;
     }
 
@@ -994,7 +996,7 @@ void FacilityShopBuildHeldItemsMenu(void)
     sMenuRowCount = count;
     for (i = 0, count = 0; i < ARRAY_COUNT(sHeldItems); i++)
     {
-        if (!IsShopEntryUnlocked(sHeldItems[i].unlockBuilding))
+        if (!IsShopEntryUnlocked(sHeldItems[i].unlockGauntlet))
             continue;
         sMenuRows[count].id = sHeldItems[i].item;
         sMenuRows[count].price = sHeldItems[i].price;
@@ -1013,7 +1015,7 @@ void FacilityShopBuildMegaStonesMenu(void)
     FreeMenuRows();
     for (i = 0; i < ARRAY_COUNT(sMegaStones); i++)
     {
-        if (IsShopEntryUnlocked(sMegaStones[i].unlockBuilding))
+        if (IsShopEntryUnlocked(sMegaStones[i].unlockGauntlet))
             count++;
     }
 
@@ -1025,7 +1027,7 @@ void FacilityShopBuildMegaStonesMenu(void)
     sMenuRowCount = count;
     for (i = 0, count = 0; i < ARRAY_COUNT(sMegaStones); i++)
     {
-        if (!IsShopEntryUnlocked(sMegaStones[i].unlockBuilding))
+        if (!IsShopEntryUnlocked(sMegaStones[i].unlockGauntlet))
             continue;
         sMenuRows[count].id = sMegaStones[i].item;
         sMenuRows[count].price = sMegaStones[i].price;
@@ -1035,17 +1037,17 @@ void FacilityShopBuildMegaStonesMenu(void)
     }
 }
 
-// A mon is in the currently-browsed building submenu if its wave is the one
-// the player picked on the building-select screen. IsShopEntryUnlocked is a
-// belt-and-suspenders check - sPendingBuildingWave can't be set to a wave
-// that isn't unlocked (FacilityShopBuildBuildingMenu only ever offers
+// A mon is in the currently-browsed gauntlet submenu if its wave is the one
+// the player picked on the gauntlet-select screen. IsShopEntryUnlocked is a
+// belt-and-suspenders check - sPendingGauntletWave can't be set to a wave
+// that isn't unlocked (FacilityShopBuildGauntletMenu only ever offers
 // unlocked waves), but the check is one word and worth keeping honest.
 static bool8 IsMonInPendingWave(const struct FacilityShopMon *mon)
 {
-    return mon->unlockBuilding == sPendingBuildingWave && IsShopEntryUnlocked(mon->unlockBuilding);
+    return mon->unlockGauntlet == sPendingGauntletWave && IsShopEntryUnlocked(mon->unlockGauntlet);
 }
 
-// Stages the final species list for the remembered tier/building wave,
+// Stages the final species list for the remembered tier/gauntlet wave,
 // optionally restricted to one primary type. typeFilter ==
 // FACILITY_SHOP_TYPE_ALL means no restriction.
 static u16 StageMonTier(u8 tier, u8 typeFilter)
@@ -1084,7 +1086,7 @@ static u16 StageMonTier(u8 tier, u8 typeFilter)
 static const u8 sText_TypeFilterAll[] = _("All");
 
 // Stages the type-filter menu: one row per distinct primary type actually
-// present among the tier's currently-browsed building wave, plus "All" up
+// present among the tier's currently-browsed gauntlet wave, plus "All" up
 // front.
 static void StageMonTypeMenu(u8 tier)
 {
@@ -1124,15 +1126,15 @@ static void StageMonTypeMenu(u8 tier)
     }
 }
 
-// gSpecialVar_0x8009 = FACILITY_SHOP_TIER_* in. sPendingBuildingWave must
-// already be set (FacilityShopSelectBuildingRow does this before the caller
+// gSpecialVar_0x8009 = FACILITY_SHOP_TIER_* in. sPendingGauntletWave must
+// already be set (FacilityShopSelectGauntletRow does this before the caller
 // ever reaches the tier-select screen).
 // gSpecialVar_Result = TRUE if this tier/wave combination has more mons than
 // fit in one screenful of browsing and a type-filter menu was staged instead
 // of the species list directly - the caller shows that menu and then calls
 // FacilityShopSelectMonType with the chosen row before showing the (now
 // staged) species list. FALSE means the species list is already staged and
-// ready to show. Splitting the master tables by building wave first means
+// ready to show. Splitting the master tables by gauntlet wave first means
 // this threshold rarely trips anymore - it's kept for the rare wave whose
 // single tier is still a big pool on its own.
 void FacilityShopBuildMonTierList(void)
@@ -1184,19 +1186,19 @@ void FacilityShopSelectRow(void)
 }
 
 // ----------------------------------------------------------------------------
-// Building-select menu - the screen above tier-select. One row per building
-// whose shop wave (unlockBuilding value) is unlocked and actually has a mon
-// in some tier, plus "Sell a Pokemon". Adding a building's worth of new mons
-// is exactly one more line in sBuildingWaveNames (and the unlockBuilding
+// Gauntlet-select menu - the screen above tier-select. One row per gauntlet
+// whose shop wave (unlockGauntlet value) is unlocked and actually has a mon
+// in some tier, plus "Sell a Pokemon". Adding a gauntlet's worth of new mons
+// is exactly one more line in sGauntletWaveNames (and the unlockGauntlet
 // values already on those rows do the rest) - no other change needed here.
 // ----------------------------------------------------------------------------
 
 // One name per shop wave. Wave N is the stock that unlocks on clearing
 // gauntlet N, i.e. what the player buys *for* gauntlet N+1 - so wave 0 is
 // "Gauntlet 1". All ten are listed up front: a wave with no name here never
-// appears in the menu at all (FacilityShopBuildBuildingMenu only walks this
+// appears in the menu at all (FacilityShopBuildGauntletMenu only walks this
 // table), which silently hid gauntlets 5 and 6's Pokemon while it stopped at 4.
-static const u8 *const sBuildingWaveNames[] =
+static const u8 *const sGauntletWaveNames[] =
 {
     COMPOUND_STRING("Gauntlet 1 Pokemon"),
     COMPOUND_STRING("Gauntlet 2 Pokemon"),
@@ -1214,10 +1216,10 @@ static const u8 sText_SellAPokemon[] = _("Sell a Pokemon");
 
 // Guards against a wave number that's unlocked (in the IsShopEntryUnlocked
 // sense) but was never actually given any Pokemon of its own - e.g. a future
-// building whose shop-unlock wave is items-only at Keeper 4's counter.
-// Showing a building option that opens onto an empty tier list would be a
+// gauntlet whose shop-unlock wave is items-only at Keeper 4's counter.
+// Showing a gauntlet option that opens onto an empty tier list would be a
 // dead end, so it just doesn't appear.
-static bool8 BuildingWaveHasAnyMon(u8 wave)
+static bool8 GauntletWaveHasAnyMon(u8 wave)
 {
     u32 tier, i;
 
@@ -1225,23 +1227,23 @@ static bool8 BuildingWaveHasAnyMon(u8 wave)
     {
         for (i = 0; i < sMonTierSizes[tier]; i++)
         {
-            if (sMonTiers[tier][i].unlockBuilding == wave)
+            if (sMonTiers[tier][i].unlockGauntlet == wave)
                 return TRUE;
         }
     }
     return FALSE;
 }
 
-// The Pokemon keeper's first screen. Stages one row per unlocked building
-// wave plus "Sell a Pokemon" - see FacilityShopSelectBuildingRow for what the
+// The Pokemon keeper's first screen. Stages one row per unlocked gauntlet
+// wave plus "Sell a Pokemon" - see FacilityShopSelectGauntletRow for what the
 // caller does with the chosen row.
-void FacilityShopBuildBuildingMenu(void)
+void FacilityShopBuildGauntletMenu(void)
 {
     u16 i, count = 0;
 
-    for (i = 0; i < ARRAY_COUNT(sBuildingWaveNames); i++)
+    for (i = 0; i < ARRAY_COUNT(sGauntletWaveNames); i++)
     {
-        if (IsShopEntryUnlocked(i) && BuildingWaveHasAnyMon(i))
+        if (IsShopEntryUnlocked(i) && GauntletWaveHasAnyMon(i))
             count++;
     }
     count++; // Sell a Pokemon
@@ -1250,38 +1252,38 @@ void FacilityShopBuildBuildingMenu(void)
     sMenuRows = Alloc(count * sizeof(struct FacilityShopMenuRow));
     sMenuRowCount = count;
 
-    for (i = 0, count = 0; i < ARRAY_COUNT(sBuildingWaveNames); i++)
+    for (i = 0, count = 0; i < ARRAY_COUNT(sGauntletWaveNames); i++)
     {
-        if (!IsShopEntryUnlocked(i) || !BuildingWaveHasAnyMon(i))
+        if (!IsShopEntryUnlocked(i) || !GauntletWaveHasAnyMon(i))
             continue;
         sMenuRows[count].id = i;
         sMenuRows[count].price = 0;
-        sMenuRows[count].name = sBuildingWaveNames[i];
+        sMenuRows[count].name = sGauntletWaveNames[i];
         sMenuRows[count].description = NULL;
         count++;
     }
-    sMenuRows[count].id = FACILITY_SHOP_BUILDING_SELECT_SELL;
+    sMenuRows[count].id = FACILITY_SHOP_GAUNTLET_SELECT_SELL;
     sMenuRows[count].price = 0;
     sMenuRows[count].name = sText_SellAPokemon;
     sMenuRows[count].description = NULL;
 }
 
-// gSpecialVar_0x8004 = chosen row index into the just-shown building menu.
+// gSpecialVar_0x8004 = chosen row index into the just-shown gauntlet menu.
 // gSpecialVar_Result = TRUE means the player picked "Sell a Pokemon" - the
-// caller goes straight to the sell flow. FALSE means sPendingBuildingWave is
+// caller goes straight to the sell flow. FALSE means sPendingGauntletWave is
 // now set and the caller should show tier-select next.
-void FacilityShopSelectBuildingRow(void)
+void FacilityShopSelectGauntletRow(void)
 {
     u16 index = gSpecialVar_0x8004;
     u16 id = sMenuRows[index].id;
 
-    if (id == FACILITY_SHOP_BUILDING_SELECT_SELL)
+    if (id == FACILITY_SHOP_GAUNTLET_SELECT_SELL)
     {
         gSpecialVar_Result = TRUE;
     }
     else
     {
-        sPendingBuildingWave = id;
+        sPendingGauntletWave = id;
         gSpecialVar_Result = FALSE;
     }
 }
@@ -1311,12 +1313,13 @@ void FacilityShopGiveFP(void)
 // answered).
 //
 // No held item on the mon - the player buys their own from the shop.
-void FacilityShopBuyMon(void)
+// Shared by the Pokemon keeper and the Broker's loans, so a Pokemon is built
+// the same way whichever counter it came from.
+static void CreateShopMon(struct Pokemon *mon, u16 species)
 {
     struct PokemonTemplate template = {0};
-    struct Pokemon mon;
 
-    template.species = gSpecialVar_0x8009;
+    template.species = species;
     template.level = 50;
     template.gender = MON_GENDER_RANDOM;
     template.nature = NATURE_HARDY;
@@ -1334,12 +1337,19 @@ void FacilityShopBuyMon(void)
     template.moves[2] = MOVE_DEFAULT;
     template.moves[3] = MOVE_DEFAULT;
 
-    CreateMonFromTemplate(&mon, &template);
+    CreateMonFromTemplate(mon, &template);
+}
+
+void FacilityShopBuyMon(void)
+{
+    struct Pokemon mon;
+
+    CreateShopMon(&mon, gSpecialVar_0x8009);
     gSpecialVar_Result = GiveCapturedMonToPlayer(&mon);
 }
 
 // Sell-back price lookup scans every tier regardless of unlock status -
-// buildingsCompleted bits only ever get set, never cleared, so a mon the
+// gauntletsCompleted bits only ever get set, never cleared, so a mon the
 // player already owns was necessarily bought (or granted) while its row was
 // unlocked; there's no path where a currently-owned mon's row could have
 // since re-locked.
@@ -1366,14 +1376,31 @@ static bool8 FindMonTierPrice(u16 species, u16 *price)
 // to nothing." Selling itself only ever touches the party (a boxed mon isn't
 // offered here at all - see ChoosePartyMon in the sell script), so this is
 // purely a "would this leave the player with too few Pokemon anywhere" check.
+static bool8 IsBrokerLoanMon(struct BoxPokemon *boxMon);
+
+// Broker loaners don't count - they may be collected when the run ends, and
+// the whole point of this count is guaranteeing six Pokemon the player will
+// still own.
 static u32 CountAllOwnedMons(void)
 {
-    u32 total = gPartiesCount[B_TRAINER_PLAYER];
-    u32 i;
+    u32 total = 0;
+    u32 box, pos, i;
 
-    for (i = 0; i < TOTAL_BOXES_COUNT; i++)
-        total += CountMonsInBox(i);
-
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        struct BoxPokemon *boxMon = &gParties[B_TRAINER_PLAYER][i].box;
+        if (GetBoxMonData(boxMon, MON_DATA_SPECIES) != SPECIES_NONE && !IsBrokerLoanMon(boxMon))
+            total++;
+    }
+    for (box = 0; box < TOTAL_BOXES_COUNT; box++)
+    {
+        for (pos = 0; pos < IN_BOX_COUNT; pos++)
+        {
+            struct BoxPokemon *boxMon = GetBoxedMonPtr(box, pos);
+            if (GetBoxMonData(boxMon, MON_DATA_SPECIES) != SPECIES_NONE && !IsBrokerLoanMon(boxMon))
+                total++;
+        }
+    }
     return total;
 }
 
@@ -1383,6 +1410,12 @@ void FacilityShopSellMonPrompt(void)
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][slot];
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
     u16 price;
+
+    if (IsBrokerLoanMon(&mon->box))
+    {
+        gSpecialVar_Result = SELL_MON_BROKER_LOAN;
+        return;
+    }
 
     if (!FindMonTierPrice(species, &price))
     {
@@ -1510,4 +1543,245 @@ void CloseFacilityShopDescriptionWindow(void)
 {
     ClearStdWindowAndFrameToTransparent(sFacilityShopDescWindowId, TRUE);
     RemoveWindow(sFacilityShopDescWindowId);
+}
+
+// ============================================================================
+// The Broker - Lounge 3. See broker-spec.md.
+//
+// Stock is the NEXT gauntlet's shop wave: the player has cleared N
+// gauntlets, the shop shows waves 0..N, and the Broker sells from wave N+1.
+// Three items and three Pokemon are picked from it with a small generator
+// seeded from N and the player's trainer ID, so the picks never change on a
+// reload - only when the next wave becomes his stock.
+//
+// A loaner is identified by its data, not a saved slot: Original Trainer
+// "BROKER" plus the in-game-trade met location. Keeping one re-tags the OT
+// as the player (leaving the OT ID - and so shininess - alone), which also
+// makes it an ordinary roster Pokemon from then on.
+// ============================================================================
+
+#define BROKER_STOCK_PER_SHELF 3
+#define BROKER_MAX_CANDIDATES  256
+
+static const u8 sText_BrokerOTName[] = _("BROKER");
+
+static EWRAM_DATA u8 sBrokerLoanOutcome = BROKER_LOAN_NONE;
+static EWRAM_DATA u16 sBrokerLoanSpecies = SPECIES_NONE;
+
+static u8 BrokerNextWave(void)
+{
+    return GetGauntletsClearedCount() + 1;
+}
+
+static bool8 IsBrokerLoanMon(struct BoxPokemon *boxMon)
+{
+    u8 otName[PLAYER_NAME_LENGTH + 1];
+
+    if (GetBoxMonData(boxMon, MON_DATA_SPECIES) == SPECIES_NONE)
+        return FALSE;
+    if (GetBoxMonData(boxMon, MON_DATA_MET_LOCATION) != METLOC_IN_GAME_TRADE)
+        return FALSE;
+    GetBoxMonData(boxMon, MON_DATA_OT_NAME, otName);
+    return StringCompare(otName, sText_BrokerOTName) == 0;
+}
+
+void FacilityBrokerCheck(void)
+{
+    u8 cleared = GetGauntletsClearedCount();
+
+    if (IsFacilityRunActive())
+        gSpecialVar_Result = BROKER_RUN_ACTIVE;
+    else if (cleared >= 10)
+        gSpecialVar_Result = BROKER_NOTHING_LEFT;
+    else if (gSaveBlock3Ptr->facility.progress.brokerDealsUsed & (1 << cleared))
+        gSpecialVar_Result = BROKER_DEAL_USED;
+    else
+        gSpecialVar_Result = BROKER_OK;
+}
+
+void FacilityBrokerMarkDealUsed(void)
+{
+    gSaveBlock3Ptr->facility.progress.brokerDealsUsed |= (1 << GetGauntletsClearedCount());
+}
+
+static u32 BrokerRandom(u32 *state)
+{
+    *state = *state * 1103515245 + 12345;
+    return (*state >> 16) & 0x7FFF;
+}
+
+// Picks up to BROKER_STOCK_PER_SHELF distinct entries out of `count`
+// candidates, deterministically for this gauntlet and this player.
+static u8 BrokerPick(u16 count, u8 shelf, u16 *picked)
+{
+    u32 state = (u32)BrokerNextWave() * 7919 + shelf * 104729 + READ_OTID_FROM_SAVE;
+    u8 n = 0;
+
+    while (n < BROKER_STOCK_PER_SHELF && n < count)
+    {
+        u16 idx = BrokerRandom(&state) % count;
+        u8 j;
+        bool8 dup = FALSE;
+
+        for (j = 0; j < n; j++)
+        {
+            if (picked[j] == idx)
+                dup = TRUE;
+        }
+        if (!dup)
+            picked[n++] = idx;
+    }
+    return n;
+}
+
+static u16 BrokerItemPrice(u16 shopPrice)
+{
+    return ((shopPrice * 3 / 2) + 5) / 10 * 10;
+}
+
+void FacilityBrokerBuildItemMenu(void)
+{
+    static const struct FacilityShopItem *const sShelves[] = { sConsumables, sHeldItems, sMegaStones };
+    static const u16 sShelfSizes[] = { ARRAY_COUNT(sConsumables), ARRAY_COUNT(sHeldItems), ARRAY_COUNT(sMegaStones) };
+    const struct FacilityShopItem *candidates[BROKER_MAX_CANDIDATES];
+    u16 picked[BROKER_STOCK_PER_SHELF];
+    u8 wave = BrokerNextWave();
+    bool8 hasMegaRing = CheckBagHasItem(ITEM_MEGA_RING, 1);
+    u16 count = 0;
+    u32 shelf, i;
+    u8 n;
+
+    for (shelf = 0; shelf < ARRAY_COUNT(sShelves); shelf++)
+    {
+        // No Mega Stones until the player can actually use one.
+        if (sShelves[shelf] == sMegaStones && !hasMegaRing)
+            continue;
+        for (i = 0; i < sShelfSizes[shelf] && count < BROKER_MAX_CANDIDATES; i++)
+        {
+            if (sShelves[shelf][i].unlockGauntlet == wave)
+                candidates[count++] = &sShelves[shelf][i];
+        }
+    }
+
+    FreeMenuRows();
+    n = BrokerPick(count, 0, picked);
+    gSpecialVar_Result = n;
+    if (n == 0)
+        return;
+    sMenuRows = Alloc(n * sizeof(struct FacilityShopMenuRow));
+    sMenuRowCount = n;
+    for (i = 0; i < n; i++)
+    {
+        sMenuRows[i].id = candidates[picked[i]]->item;
+        sMenuRows[i].price = BrokerItemPrice(candidates[picked[i]]->price);
+        sMenuRows[i].name = GetItemName(candidates[picked[i]]->item);
+        sMenuRows[i].description = NULL;
+    }
+}
+
+void FacilityBrokerBuildMonMenu(void)
+{
+    const struct FacilityShopMon *candidates[BROKER_MAX_CANDIDATES];
+    u16 picked[BROKER_STOCK_PER_SHELF];
+    u8 wave = BrokerNextWave();
+    u16 count = 0;
+    u32 tier, i;
+    u8 n;
+
+    for (tier = 0; tier < ARRAY_COUNT(sMonTiers); tier++)
+    {
+        for (i = 0; i < sMonTierSizes[tier] && count < BROKER_MAX_CANDIDATES; i++)
+        {
+            if (sMonTiers[tier][i].unlockGauntlet == wave)
+                candidates[count++] = &sMonTiers[tier][i];
+        }
+    }
+
+    FreeMenuRows();
+    n = BrokerPick(count, 1, picked);
+    gSpecialVar_Result = n;
+    if (n == 0)
+        return;
+    sMenuRows = Alloc(n * sizeof(struct FacilityShopMenuRow));
+    sMenuRowCount = n;
+    for (i = 0; i < n; i++)
+    {
+        sMenuRows[i].id = candidates[picked[i]]->species;
+        sMenuRows[i].price = candidates[picked[i]]->price / 2;
+        sMenuRows[i].name = GetSpeciesName(candidates[picked[i]]->species);
+        sMenuRows[i].description = NULL;
+    }
+}
+
+void FacilityBrokerLoanMon(void)
+{
+    struct Pokemon mon;
+    u8 metLocation = METLOC_IN_GAME_TRADE;
+
+    CreateShopMon(&mon, gSpecialVar_0x8009);
+    SetMonData(&mon, MON_DATA_OT_NAME, sText_BrokerOTName);
+    SetMonData(&mon, MON_DATA_MET_LOCATION, &metLocation);
+    gSpecialVar_Result = GiveCapturedMonToPlayer(&mon);
+    if (gSpecialVar_Result != MON_CANT_GIVE)
+        FacilityBrokerMarkDealUsed();
+}
+
+static void ResolveBrokerLoan(struct BoxPokemon *boxMon, bool8 kept)
+{
+    sBrokerLoanSpecies = GetBoxMonData(boxMon, MON_DATA_SPECIES);
+    if (kept)
+    {
+        u8 gender = gSaveBlock2Ptr->playerGender;
+        SetBoxMonData(boxMon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
+        SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gender);
+        sBrokerLoanOutcome = BROKER_LOAN_KEPT;
+    }
+    else
+    {
+        u16 item = GetBoxMonData(boxMon, MON_DATA_HELD_ITEM);
+        if (item != ITEM_NONE)
+            AddBagItem(item, 1);
+        ZeroBoxMonData(boxMon);
+        sBrokerLoanOutcome = BROKER_LOAN_COLLECTED;
+    }
+}
+
+void FacilityBrokerResolveLoans(bool8 kept)
+{
+    u32 box, pos, i;
+    bool8 partyChanged = FALSE;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        struct BoxPokemon *boxMon = &gParties[B_TRAINER_PLAYER][i].box;
+        if (IsBrokerLoanMon(boxMon))
+        {
+            ResolveBrokerLoan(boxMon, kept);
+            if (!kept)
+                ZeroMonData(&gParties[B_TRAINER_PLAYER][i]);
+            partyChanged = TRUE;
+        }
+    }
+    for (box = 0; box < TOTAL_BOXES_COUNT; box++)
+    {
+        for (pos = 0; pos < IN_BOX_COUNT; pos++)
+        {
+            struct BoxPokemon *boxMon = GetBoxedMonPtr(box, pos);
+            if (IsBrokerLoanMon(boxMon))
+                ResolveBrokerLoan(boxMon, kept);
+        }
+    }
+    if (partyChanged && !kept)
+    {
+        CompactPartySlots();
+        CalculatePlayerPartyCount();
+    }
+}
+
+void FacilityBrokerGetLoanOutcome(void)
+{
+    gSpecialVar_Result = sBrokerLoanOutcome;
+    if (sBrokerLoanOutcome != BROKER_LOAN_NONE)
+        StringCopy(gStringVar1, GetSpeciesName(sBrokerLoanSpecies));
+    sBrokerLoanOutcome = BROKER_LOAN_NONE;
 }

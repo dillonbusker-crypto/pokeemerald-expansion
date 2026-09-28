@@ -14,12 +14,21 @@ BattleFrontier_Lounge4_EventScript_Man::
 	end
 
 BattleFrontier_Lounge4_Text_WonderIfInterviewsAiring:
-	.string "I wonder if they'll be airing interviews\n"
-	.string "with tough TRAINERS today?$"
+	.string "I wonder if they'll be airing\n"
+	.string "interviews with the FRONTIER\l"
+	.string "BRAINS today?$"
 
 BattleFrontier_Lounge4_Text_IfIOpenedRestaurantHere:
 	.string "If I opened a restaurant here,\n"
-	.string "it'd make money for sure.$"
+	.string "it'd make money for sure.\p"
+	.string "Somebody's already running a\n"
+	.string "business out of one of those\l"
+	.string "houses on the far east side, past\l"
+	.string "the ARENA…\p"
+	.string "Whatever he's selling, it isn't\n"
+	.string "food. And the customers always\l"
+	.string "leave looking over their\l"
+	.string "shoulders.$"
 
 BattleFrontier_Lounge4_Text_NeedBreatherAfterBattles:
 	.string "Whew…\p"

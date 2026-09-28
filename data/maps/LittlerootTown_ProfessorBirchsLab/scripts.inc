@@ -506,7 +506,7 @@ EventScript_RegisterProfBirch::
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedex::
-	@ Ten Buildings: rival already ran here from Route 103 furious about the
+	@ Ten Gauntlets: rival already ran here from Route 103 furious about the
 	@ player's pre-built level 50 starter (see Route103's post-battle text) -
 	@ this is where Birch actually answers her, and the player overhears the
 	@ whole level cap / no exp gain / L-menu explanation as a side effect.
@@ -527,7 +527,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedex::
 	checkplayergender
 	call_if_eq VAR_RESULT, MALE, LittlerootTown_ProfessorBirchsLab_EventScript_MayAnnouncesFivePokemon
 	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_ProfessorBirchsLab_EventScript_BrendanAnnouncesFivePokemon
-	@ Ten Buildings: frontier ticket handoff moved here from Route103's
+	@ Ten Gauntlets: frontier ticket handoff moved here from Route103's
 	@ post-battle script, so it reads as part of the lab return scene instead
 	@ of firing on the route. See CLAUDE.md.
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchOffersFrontierChallenge, MSGBOX_DEFAULT
@@ -548,7 +548,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_BrendanDemandsAnswers::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_BrendanDemandsAnswers, MSGBOX_DEFAULT
 	return
 
-@ Ten Buildings: no longer hands over 5 POKé BALLS - the five starting mons
+@ Ten Gauntlets: no longer hands over 5 POKé BALLS - the five starting mons
 @ this is foreshadowing are granted directly once the player reaches the
 @ Frontier (GiveFrontierStartingGrants() in src/new_game.c, called from
 @ BattleFrontier_OutsideWest's on-transition script). This is announcement
@@ -853,14 +853,17 @@ LittlerootTown_ProfessorBirchsLab_Text_CountlessPokemonAwait:
 
 LittlerootTown_ProfessorBirchsLab_Text_MayGotPokedexTooReceivingPokemon:
 	.string "MAY: Okay. Okay, fine.\p"
-	.string "I still think it's a little bit of a\n"
-	.string "cheap shortcut, but I get it now.\p"
-	.string "Dad says you're getting five more\n"
-	.string "POKéMON built the exact same way once\l"
-	.string "you reach the FRONTIER. Must be nice.\p"
+	.string "I still think it's a little bit of\n"
+	.string "a cheap shortcut, but I get it\l"
+	.string "now.\p"
+	.string "Dad says SCOTT's giving you five\n"
+	.string "more POKéMON built the exact same\l"
+	.string "way once you reach the FRONTIER.\l"
+	.string "Must be nice.\p"
 	.string "{PLAYER}{KUN}, once I've got the hang of\n"
-	.string "that STAT EDITOR thing myself, we're\l"
-	.string "having a real rematch. Count on it!$"
+	.string "that STAT EDITOR thing myself,\l"
+	.string "we're having a real rematch. Count\l"
+	.string "on it!$"
 
 LittlerootTown_ProfessorBirchsLab_Text_MayWhereShouldIGoNext:
 	.string "MAY: I wonder where I should go look\n"
@@ -868,14 +871,16 @@ LittlerootTown_ProfessorBirchsLab_Text_MayWhereShouldIGoNext:
 
 LittlerootTown_ProfessorBirchsLab_Text_BrendanGotPokedexTooReceivingPokemon:
 	.string "BRENDAN: …Fine. I get it now.\p"
-	.string "Still feels like a shortcut to me, but\n"
-	.string "whatever.\p"
-	.string "Dad says you're getting five more\n"
-	.string "POKéMON built the exact same way once\l"
-	.string "you reach the FRONTIER. Must be nice.\p"
-	.string "{PLAYER}, soon as I figure out that STAT\n"
-	.string "EDITOR myself, we're settling this for\l"
-	.string "real. Don't think this is over.$"
+	.string "Still feels like a shortcut to me,\n"
+	.string "but whatever.\p"
+	.string "Dad says SCOTT's giving you five\n"
+	.string "more POKéMON built the exact same\l"
+	.string "way once you reach the FRONTIER.\l"
+	.string "Must be nice.\p"
+	.string "{PLAYER}, soon as I figure out that\n"
+	.string "STAT EDITOR myself, we're settling\l"
+	.string "this for real. Don't think this is\l"
+	.string "over.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_BrendanWhereShouldIGoNext:
 	.string "BRENDAN: Where should I look for\n"

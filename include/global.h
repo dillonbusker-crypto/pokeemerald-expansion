@@ -254,9 +254,9 @@ struct NPCFollower
 #include "constants/items.h"
 #define ITEM_FLAGS_COUNT ((ITEMS_COUNT / 8) + ((ITEMS_COUNT % 8) ? 1 : 0))
 
-// Ten Buildings facility run state. See run-loop-spec.md.
+// Ten Gauntlets facility run state. See run-loop-spec.md.
 //
-// Only meaningful while active == TRUE - nothing reads building/battleNum/
+// Only meaningful while active == TRUE - nothing reads gauntlet/battleNum/
 // drawnTeams without checking active first (see IsFacilityRunActive() in
 // src/facility.c, the single shared check every mid-run restriction and the
 // battle loop itself go through).
@@ -275,9 +275,9 @@ struct NPCFollower
 struct FacilityRun
 {
     bool8 active;
-    u8 building;         // 0-9
+    u8 gauntlet;         // 0-9
     u8 battleNum;        // 1-7 (7 = boss)
-    u8 drawnTeams[6];    // shuffled draw from the active building's pool;
+    u8 drawnTeams[6];    // shuffled draw from the active gauntlet's pool;
                          // drawnTeams[battleNum - 1] is "next up" while
                          // battleNum <= 6
 };
@@ -286,13 +286,16 @@ struct FacilityRun
 struct FacilityProgress
 {
     u16 fp;
-    u16 buildingsCompleted; // bitmask, 1 bit per building (10 used of 16)
+    u16 gauntletsCompleted; // bitmask, 1 bit per gauntlet (10 used of 16)
     bool8 startingGrantsGiven; // see GiveFrontierStartingGrants() in src/new_game.c
     // Bitmask, one bit per non-Tower Battle Frontier facility door - see the
     // FACILITY_DOOR_* constants in src/facility.c. All zero (all doors
     // locked) until something sets a bit; nothing does yet, which is
     // intentional - see IsFacilityDoorUnlocked() in src/facility.c.
     u8 unlockedFacilityDoors;
+    // Bitmask, one bit per gauntlet: set once the player has made their one
+    // deal with the Broker (Lounge 3) for that gauntlet. See broker-spec.md.
+    u16 brokerDealsUsed;
 };
 
 struct FacilitySaveData

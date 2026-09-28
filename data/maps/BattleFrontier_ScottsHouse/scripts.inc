@@ -1,14 +1,180 @@
 BattleFrontier_ScottsHouse_MapScripts::
 	.byte 0
 
+@ Ten Gauntlets: SCOTT is the host of the Ten Gauntlets. First visit, he
+@ hands over the starting team (five Pokemon, 300 FP and the HMs - see
+@ GiveFrontierStartingMon() in src/new_game.c), one Pokemon at a time. After
+@ that, he has one line per number of gauntlets cleared. The vanilla branches
+@ below (Battle Points gift, Symbol berries, Shields) are unreferenced now.
 BattleFrontier_ScottsHouse_EventScript_Scott::
 	lock
 	faceplayer
-	goto_if_set FLAG_TEMP_4, BattleFrontier_ScottsHouse_EventScript_GivenBerry
-	goto_if_set FLAG_TEMP_3, BattleFrontier_ScottsHouse_EventScript_GivenShield
-	goto_if_set FLAG_TEMP_2, BattleFrontier_ScottsHouse_EventScript_GivenBattlePoints
-	goto BattleFrontier_ScottsHouse_EventScript_CheckGiveItems
+	specialvar VAR_RESULT, HasReceivedFrontierStartingGrants
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_ScottsHouse_EventScript_GiveStartingTeam
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	switch VAR_RESULT
+	case 0, BattleFrontier_ScottsHouse_EventScript_Progress0
+	case 1, BattleFrontier_ScottsHouse_EventScript_Progress1
+	case 2, BattleFrontier_ScottsHouse_EventScript_Progress2
+	case 3, BattleFrontier_ScottsHouse_EventScript_Progress3
+	case 4, BattleFrontier_ScottsHouse_EventScript_Progress4
+	case 5, BattleFrontier_ScottsHouse_EventScript_Progress5
+	case 10, BattleFrontier_ScottsHouse_EventScript_Progress10
+	msgbox BattleFrontier_ScottsHouse_Text_Progress6Plus, MSGBOX_DEFAULT
+	release
 	end
+
+BattleFrontier_ScottsHouse_EventScript_GiveStartingTeam::
+	msgbox BattleFrontier_ScottsHouse_Text_HereIsYourTeam, MSGBOX_DEFAULT
+	setvar VAR_0x8004, 0
+BattleFrontier_ScottsHouse_EventScript_GiveStartingMonLoop::
+	special GiveFrontierStartingMon
+	playfanfare MUS_OBTAIN_ITEM
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, BattleFrontier_ScottsHouse_EventScript_StartingMonToPC
+	message BattleFrontier_ScottsHouse_Text_ReceivedMon
+	goto BattleFrontier_ScottsHouse_EventScript_StartingMonNext
+BattleFrontier_ScottsHouse_EventScript_StartingMonToPC::
+	message BattleFrontier_ScottsHouse_Text_ReceivedMonToPC
+BattleFrontier_ScottsHouse_EventScript_StartingMonNext::
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	addvar VAR_0x8004, 1
+	goto_if_lt VAR_0x8004, 5, BattleFrontier_ScottsHouse_EventScript_GiveStartingMonLoop
+	special GiveFrontierStartingFPAndHMs
+	msgbox BattleFrontier_ScottsHouse_Text_HereIsFPAndHMs, MSGBOX_DEFAULT
+	msgbox BattleFrontier_ScottsHouse_Text_NowYouHaveSix, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ScottsHouse_EventScript_Progress0::
+	msgbox BattleFrontier_ScottsHouse_Text_Progress0, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ScottsHouse_EventScript_Progress1::
+	msgbox BattleFrontier_ScottsHouse_Text_Progress1, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ScottsHouse_EventScript_Progress2::
+	msgbox BattleFrontier_ScottsHouse_Text_Progress2, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ScottsHouse_EventScript_Progress3::
+	msgbox BattleFrontier_ScottsHouse_Text_Progress3, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ScottsHouse_EventScript_Progress4::
+	msgbox BattleFrontier_ScottsHouse_Text_Progress4, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ScottsHouse_EventScript_Progress5::
+	msgbox BattleFrontier_ScottsHouse_Text_Progress5, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ScottsHouse_EventScript_Progress10::
+	msgbox BattleFrontier_ScottsHouse_Text_Progress10, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ScottsHouse_Text_HereIsYourTeam:
+	.string "SCOTT: There you are, {PLAYER}{KUN}!\p"
+	.string "Every challenger needs six POKéMON\n"
+	.string "to enter a gauntlet, and you've\l"
+	.string "only brought one.\p"
+	.string "So I put together a few of my own\n"
+	.string "favorites to round you out.\p"
+	.string "They're no champions, but they're\n"
+	.string "honest workers. Look after them!$"
+
+BattleFrontier_ScottsHouse_Text_ReceivedMon:
+	.string "{PLAYER} received {STR_VAR_1}!$"
+
+BattleFrontier_ScottsHouse_Text_ReceivedMonToPC:
+	.string "{PLAYER} received {STR_VAR_1}!\n"
+	.string "It was sent to the PC.$"
+
+BattleFrontier_ScottsHouse_Text_HereIsFPAndHMs:
+	.string "SCOTT: And a little something to\n"
+	.string "spend - 300 FP, plus a set of HMs.\p"
+	.string "When you can afford better POKéMON,\n"
+	.string "the EXCHANGE CORNER will take these\l"
+	.string "off your hands. No hard feelings.$"
+
+BattleFrontier_ScottsHouse_Text_NowYouHaveSix:
+	.string "Now you've got six. The BATTLE\n"
+	.string "TOWER is waiting. Go show me I was\l"
+	.string "right about you!$"
+
+BattleFrontier_ScottsHouse_Text_Progress0:
+	.string "SCOTT: The BATTLE TOWER's first\n"
+	.string "mat is where everyone starts. Six\l"
+	.string "battles, then WARDEN HELIS.\p"
+	.string "Seven facilities used to test\n"
+	.string "seven different skills. I wanted\l"
+	.string "one ladder that tests all of them,\l"
+	.string "in order.\p"
+	.string "That's the Ten Gauntlets.$"
+
+BattleFrontier_ScottsHouse_Text_Progress1:
+	.string "SCOTT: You got past HELIS! I knew\n"
+	.string "it!\p"
+	.string "The next mat is DOUBLES. Two\n"
+	.string "POKéMON on each side changes\l"
+	.string "everything you think you know.\l"
+	.string "Don't get comfortable.$"
+
+BattleFrontier_ScottsHouse_Text_Progress2:
+	.string "SCOTT: Two gauntlets down!\p"
+	.string "The third mat is about the sky\n"
+	.string "itself. Rain, sun, sand, snow...\l"
+	.string "In there, the weather is a weapon.$"
+
+BattleFrontier_ScottsHouse_Text_Progress3:
+	.string "SCOTT: Three! Now it gets serious.\p"
+	.string "The last TOWER mat belongs to\n"
+	.string "ANABEL. She's the first of my\l"
+	.string "FRONTIER BRAINS, and she doesn't\l"
+	.string "lose often.$"
+
+BattleFrontier_ScottsHouse_Text_Progress4:
+	.string "SCOTT: You beat ANABEL! Heheh...\n"
+	.string "I'll admit, I didn't see that\l"
+	.string "coming so soon.\p"
+	.string "The BATTLE DOME is open to you\n"
+	.string "now. TUCKER loves an audience.\l"
+	.string "Give him one worth remembering.$"
+
+BattleFrontier_ScottsHouse_Text_Progress5:
+	.string "SCOTT: The DOME ACE himself,\n"
+	.string "beaten!\p"
+	.string "Next is the BATTLE FACTORY. NOLAND\n"
+	.string "builds every team on that line to\l"
+	.string "a plan. Find the plan, break it.$"
+
+BattleFrontier_ScottsHouse_Text_Progress6Plus:
+	.string "SCOTT: Heheh... You're further\n"
+	.string "along than anyone I've ever\l"
+	.string "brought here.\p"
+	.string "The rest of the FRONTIER is still\n"
+	.string "being prepared for you. When the\l"
+	.string "next door opens, you'll be the\l"
+	.string "first to know.$"
+
+BattleFrontier_ScottsHouse_Text_Progress10:
+	.string "SCOTT: All ten gauntlets... All\n"
+	.string "seven of my BRAINS...\p"
+	.string "I built this place to find one\n"
+	.string "trainer who could do that. And now\l"
+	.string "that I've found you... Heheh.\p"
+	.string "There's something after the tenth\n"
+	.string "that I haven't told anyone about.\l"
+	.string "Not yet.$"
 
 BattleFrontier_ScottsHouse_EventScript_CheckGiveItems::
 	goto_if_unset FLAG_SCOTT_GIVES_BATTLE_POINTS, BattleFrontier_ScottsHouse_EventScript_WelcomeToFrontier

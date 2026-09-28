@@ -5,15 +5,133 @@ BattleFrontier_Lounge3_MapScripts::
 	.set BET_AMOUNT_10, 10
 	.set BET_AMOUNT_15, 15
 
+@ Ten Gauntlets: the Gambler is now the Broker (broker-spec.md). One deal
+@ per gauntlet from the next gauntlet's shop wave: an item at 1.5x, or a
+@ Pokemon on loan at half price. The vanilla betting flow below is
+@ unreachable now.
 BattleFrontier_Lounge3_EventScript_Gambler::
 	lock
 	faceplayer
-	goto_if_set FLAG_MET_BATTLE_FRONTIER_GAMBLER, BattleFrontier_Lounge3_EventScript_AlreadyMetGambler
-	call BattleFrontier_Lounge3_EventScript_CountSilverSymbols
-	goto_if_le VAR_0x8004, 2, BattleFrontier_Lounge3_EventScript_NotEnoughSilverSymbols
+	special FacilityBrokerCheck
+	switch VAR_RESULT
+	case BROKER_RUN_ACTIVE, BattleFrontier_Lounge3_EventScript_Broker_RunActive
+	case BROKER_DEAL_USED, BattleFrontier_Lounge3_EventScript_Broker_DealUsed
+	case BROKER_NOTHING_LEFT, BattleFrontier_Lounge3_EventScript_Broker_NothingLeft
+	goto_if_set FLAG_MET_BATTLE_FRONTIER_GAMBLER, BattleFrontier_Lounge3_EventScript_Broker_Greet
 	setflag FLAG_MET_BATTLE_FRONTIER_GAMBLER
-	msgbox BattleFrontier_Lounge3_Text_YouLookToughExplainGambling, MSGBOX_DEFAULT
-	goto BattleFrontier_Lounge3_EventScript_AskToEnterChallenge
+	msgbox BattleFrontier_Lounge3_Text_BrokerIntro, MSGBOX_DEFAULT
+	goto BattleFrontier_Lounge3_EventScript_Broker_Open
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_Greet:
+	msgbox BattleFrontier_Lounge3_Text_BrokerGreet, MSGBOX_DEFAULT
+BattleFrontier_Lounge3_EventScript_Broker_Open:
+	special ShowFacilityFPWindow
+BattleFrontier_Lounge3_EventScript_Broker_ChooseShelf:
+	message BattleFrontier_Lounge3_Text_BrokerWhichShelf
+	waitmessage
+	dynmultipush BattleFrontier_Lounge3_Text_BrokerShelfItem, 0
+	dynmultipush BattleFrontier_Lounge3_Text_BrokerShelfMon, 1
+	dynmultipush BattleFrontier_Lounge3_Text_BrokerShelfNothing, 2
+	dynmultistack 0, 0, FALSE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	switch VAR_RESULT
+	case 0, BattleFrontier_Lounge3_EventScript_Broker_Items
+	case 1, BattleFrontier_Lounge3_EventScript_Broker_Mons
+	goto BattleFrontier_Lounge3_EventScript_Broker_Goodbye
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_Items:
+	special FacilityBrokerBuildItemMenu
+	goto_if_eq VAR_RESULT, 0, BattleFrontier_Lounge3_EventScript_Broker_NoStock
+	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC
+	special ShowScrollableMultichoice
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_Lounge3_EventScript_Broker_ChooseShelf
+	copyvar VAR_0x8004, VAR_RESULT
+	special FacilityShopSelectRow
+	buffernumberstring STR_VAR_2, VAR_0x8008
+	msgbox BattleFrontier_Lounge3_Text_BrokerConfirmItem, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge3_EventScript_Broker_Items
+	special FacilityShopGetFP
+	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_Lounge3_EventScript_Broker_NotEnoughFP
+	checkitemspace VAR_0x8009
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_Lounge3_EventScript_Broker_BagFull
+	copyvar VAR_0x8004, VAR_0x8008
+	special FacilityShopTakeFP
+	special UpdateFacilityFPWindow
+	additem VAR_0x8009
+	special FacilityBrokerMarkDealUsed
+	playse SE_SHOP
+	msgbox BattleFrontier_Lounge3_Text_BrokerItemDone, MSGBOX_DEFAULT
+	goto BattleFrontier_Lounge3_EventScript_Broker_Goodbye
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_Mons:
+	special FacilityBrokerBuildMonMenu
+	goto_if_eq VAR_RESULT, 0, BattleFrontier_Lounge3_EventScript_Broker_NoStock
+	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC
+	special ShowScrollableMultichoice
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_Lounge3_EventScript_Broker_ChooseShelf
+	copyvar VAR_0x8004, VAR_RESULT
+	special FacilityShopSelectRow
+	buffernumberstring STR_VAR_2, VAR_0x8008
+	msgbox BattleFrontier_Lounge3_Text_BrokerConfirmMon, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge3_EventScript_Broker_Mons
+	special FacilityShopGetFP
+	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_Lounge3_EventScript_Broker_NotEnoughFP
+	special FacilityBrokerLoanMon
+	goto_if_eq VAR_RESULT, MON_CANT_GIVE, BattleFrontier_Lounge3_EventScript_Broker_NoRoom
+	copyvar VAR_0x8004, VAR_0x8008
+	special FacilityShopTakeFP
+	special UpdateFacilityFPWindow
+	playfanfare MUS_OBTAIN_ITEM
+	message BattleFrontier_Lounge3_Text_BrokerMonReceived
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	msgbox BattleFrontier_Lounge3_Text_BrokerMonDone, MSGBOX_DEFAULT
+	goto BattleFrontier_Lounge3_EventScript_Broker_Goodbye
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_NoStock:
+	msgbox BattleFrontier_Lounge3_Text_BrokerNoStock, MSGBOX_DEFAULT
+	goto BattleFrontier_Lounge3_EventScript_Broker_ChooseShelf
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_NotEnoughFP:
+	msgbox BattleFrontier_Lounge3_Text_BrokerNotEnoughFP, MSGBOX_DEFAULT
+	goto BattleFrontier_Lounge3_EventScript_Broker_ChooseShelf
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_BagFull:
+	msgbox BattleFrontier_Lounge3_Text_BrokerBagFull, MSGBOX_DEFAULT
+	goto BattleFrontier_Lounge3_EventScript_Broker_ChooseShelf
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_NoRoom:
+	msgbox BattleFrontier_Lounge3_Text_BrokerNoRoom, MSGBOX_DEFAULT
+	goto BattleFrontier_Lounge3_EventScript_Broker_ChooseShelf
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_Goodbye:
+	special CloseFacilityFPWindow
+	special FacilityShopFreeMenuRows
+	msgbox BattleFrontier_Lounge3_Text_BrokerGoodbye, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_RunActive:
+	msgbox BattleFrontier_Lounge3_Text_BrokerRunActive, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_DealUsed:
+	msgbox BattleFrontier_Lounge3_Text_BrokerDealUsed, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_NothingLeft:
+	msgbox BattleFrontier_Lounge3_Text_BrokerNothingLeft, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_Lounge3_EventScript_AskToEnterChallenge::
@@ -449,20 +567,112 @@ BattleFrontier_Lounge3_Text_Oh::
 	.string "Oh…$"
 
 BattleFrontier_Lounge3_Text_BackedWrongTrainer::
-	.string "I backed the wrong TRAINER again!\p"
-	.string "Maybe I should be battling normally\n"
-	.string "like everyone else…$"
+	.string "He loaned me a POKéMON, and I lost\n"
+	.string "my run…\p"
+	.string "A man in a dark coat was waiting\n"
+	.string "outside. Just like that, it was\l"
+	.string "gone.$"
 
 BattleFrontier_Lounge3_Text_TrainerGoodButRattled::
-	.string "That TRAINER…\p"
-	.string "He's good, but he gets rattled too\n"
-	.string "easily to survive the BATTLE DOME…$"
+	.string "I bought a CHOICE SCARF off him a\n"
+	.string "whole gauntlet early.\p"
+	.string "I still don't know where he gets\n"
+	.string "them.$"
 
 BattleFrontier_Lounge3_Text_KnowWinnerWhenISeeOne::
-	.string "Giggle!\n"
-	.string "I know a winner when I see one!$"
+	.string "Giggle! I cleared the gauntlet\n"
+	.string "with his POKéMON, so now it's mine\l"
+	.string "for good!$"
 
 BattleFrontier_Lounge3_Text_ShouldBeTakingChallenges::
-	.string "Those TRAINERS…\n"
-	.string "What are they doing?\l"
-	.string "They should be taking challenges.$"
+	.string "That man in the corner… I don't\n"
+	.string "trust him one bit.$"
+
+BattleFrontier_Lounge3_Text_BrokerIntro:
+	.string "Psst. Over here.\p"
+	.string "The EXCHANGE CORNER won't stock\n"
+	.string "the good stuff until you've\l"
+	.string "cleared the next gauntlet. Me? I\l"
+	.string "know a guy on the delivery crew.\p"
+	.string "One deal per gauntlet. An item,\n"
+	.string "full price plus my cut… or a\l"
+	.string "POKéMON, half price, on loan.\p"
+	.string "Clear the gauntlet and the\n"
+	.string "POKéMON's yours. Lose, and it\l"
+	.string "comes back to me.\p"
+	.string "…And you didn't hear any of this\n"
+	.string "from me.$"
+
+BattleFrontier_Lounge3_Text_BrokerGreet:
+	.string "Psst. Back for something special?$"
+
+BattleFrontier_Lounge3_Text_BrokerWhichShelf:
+	.string "So, what'll it be?$"
+
+BattleFrontier_Lounge3_Text_BrokerShelfItem:
+	.string "An item$"
+
+BattleFrontier_Lounge3_Text_BrokerShelfMon:
+	.string "A POKéMON$"
+
+BattleFrontier_Lounge3_Text_BrokerShelfNothing:
+	.string "Nothing$"
+
+BattleFrontier_Lounge3_Text_BrokerConfirmItem:
+	.string "The {STR_VAR_1}? That'll be\n"
+	.string "{STR_VAR_2} FP, my cut included.\l"
+	.string "Deal?$"
+
+BattleFrontier_Lounge3_Text_BrokerConfirmMon:
+	.string "{STR_VAR_1}, on loan, for {STR_VAR_2}\n"
+	.string "FP.\p"
+	.string "Clear the next gauntlet and it's\n"
+	.string "yours. Lose, and it comes back to\l"
+	.string "me. Deal?$"
+
+BattleFrontier_Lounge3_Text_BrokerItemDone:
+	.string "Pleasure doing business. Now\n"
+	.string "scram, before somebody sees us.$"
+
+BattleFrontier_Lounge3_Text_BrokerMonReceived:
+	.string "{PLAYER} received {STR_VAR_1} on\n"
+	.string "loan!$"
+
+BattleFrontier_Lounge3_Text_BrokerMonDone:
+	.string "Look after it. It's still mine\n"
+	.string "until you clear that gauntlet.$"
+
+BattleFrontier_Lounge3_Text_BrokerNoStock:
+	.string "Nothing on that shelf this time.\n"
+	.string "Try the other one.$"
+
+BattleFrontier_Lounge3_Text_BrokerNotEnoughFP:
+	.string "You can't afford it. I don't do\n"
+	.string "credit.$"
+
+BattleFrontier_Lounge3_Text_BrokerBagFull:
+	.string "Your BAG's full. Come back with\n"
+	.string "some room.$"
+
+BattleFrontier_Lounge3_Text_BrokerNoRoom:
+	.string "You've got nowhere to put it.\n"
+	.string "Clear some space first.$"
+
+BattleFrontier_Lounge3_Text_BrokerGoodbye:
+	.string "Remember: you didn't hear it from\n"
+	.string "me.$"
+
+BattleFrontier_Lounge3_Text_BrokerRunActive:
+	.string "Not while you're mid-run. Too many\n"
+	.string "eyes on you. Come back after.$"
+
+BattleFrontier_Lounge3_Text_BrokerDealUsed:
+	.string "I said one deal. Come back when\n"
+	.string "the next gauntlet's open. I'll\l"
+	.string "have new stock by then.$"
+
+BattleFrontier_Lounge3_Text_BrokerNothingLeft:
+	.string "You've cleared every gauntlet?\n"
+	.string "…Then there's nothing left I can\l"
+	.string "get you.\p"
+	.string "Retirement, maybe.$"

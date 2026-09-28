@@ -28,11 +28,11 @@ gSpecials::
 	def_special FacilityAwardBattleFP
 	def_special FacilityGetBattleWonInfo
 	def_special FacilityAdvanceBattleNum
-	def_special FacilityCompleteBuilding
+	def_special FacilityCompleteGauntlet
 	def_special FacilityAbandonRun
-	def_special GetFacilityRunBuilding
-	def_special IsFacilityRunActiveForBuilding
-	def_special IsFacilityRunActiveForDifferentBuilding
+	def_special GetFacilityRunGauntlet
+	def_special IsFacilityRunActiveForGauntlet
+	def_special IsFacilityRunActiveForDifferentGauntlet
 	def_special IsDoublesMatUnlocked
 	def_special IsMultisMatUnlocked
 	def_special IsLinkMultisMatUnlocked
@@ -50,8 +50,14 @@ gSpecials::
 	def_special FacilityShopBuildConsumablesMenu
 	def_special FacilityShopBuildHeldItemsMenu
 	def_special FacilityShopBuildMegaStonesMenu
-	def_special FacilityShopBuildBuildingMenu
-	def_special FacilityShopSelectBuildingRow
+	def_special FacilityBrokerCheck
+	def_special FacilityBrokerBuildItemMenu
+	def_special FacilityBrokerBuildMonMenu
+	def_special FacilityBrokerMarkDealUsed
+	def_special FacilityBrokerLoanMon
+	def_special FacilityBrokerGetLoanOutcome
+	def_special FacilityShopBuildGauntletMenu
+	def_special FacilityShopSelectGauntletRow
 	def_special FacilityShopBuildMonTierList
 	def_special FacilityShopSelectMonType
 	def_special FacilityShopSelectRow
@@ -65,7 +71,10 @@ gSpecials::
 	def_special FacilityShopBuyMon
 	def_special FacilityShopSellMonPrompt
 	def_special FacilityShopSellMon
-	def_special GiveFrontierStartingGrants
+	def_special GiveFrontierStartingMon
+	def_special GiveFrontierStartingFPAndHMs
+	def_special HasReceivedFrontierStartingGrants
+	def_special GetGauntletsClearedCount
 	def_special SetCableClubWarp
 	def_special DoCableClubWarp, waitstate=1
 	def_special ReturnFromLinkRoom, waitstate=1

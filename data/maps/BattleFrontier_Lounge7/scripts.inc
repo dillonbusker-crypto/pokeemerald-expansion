@@ -2,6 +2,8 @@ BattleFrontier_Lounge7_MapScripts::
 	.byte 0
 
 @special ChooseMonForMoveTutor
+@ Ten Gauntlets: the tutors charge FP now (the vanilla Battle Point prices
+@ times ten). Their move lists are still vanilla's - see frontier-dialogue.md.
 BattleFrontier_Lounge7_EventScript_LeftMoveTutor::
 	lock
 	faceplayer
@@ -20,7 +22,7 @@ BattleFrontier_Lounge7_EventScript_AlreadyMetLeftTutor::
 BattleFrontier_Lounge7_EventScript_ChooseLeftTutorMove::
 	message BattleFrontier_Lounge7_Text_TeachWhichMove
 	waitmessage
-	special ShowBattlePointsWindow
+	special ShowFacilityFPWindow
 	setvar VAR_TEMP_FRONTIER_TUTOR_ID, 0
 	setvar VAR_0x8004, SCROLL_MULTI_BF_MOVE_TUTOR_1
 	setvar VAR_0x8006, 0
@@ -65,61 +67,61 @@ BattleFrontier_Lounge7_EventScript_ChooseNewLeftTutorMove::
 	end
 
 BattleFrontier_Lounge7_EventScript_Softboiled::
-	setvar VAR_0x8008, 16
+	setvar VAR_0x8008, 160
 	setvar VAR_0x8005, MOVE_SOFT_BOILED
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_SeismicToss::
-	setvar VAR_0x8008, 24
+	setvar VAR_0x8008, 240
 	setvar VAR_0x8005, MOVE_SEISMIC_TOSS
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_DreamEater::
-	setvar VAR_0x8008, 24
+	setvar VAR_0x8008, 240
 	setvar VAR_0x8005, MOVE_DREAM_EATER
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_MegaPunch::
-	setvar VAR_0x8008, 24
+	setvar VAR_0x8008, 240
 	setvar VAR_0x8005, MOVE_MEGA_PUNCH
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_MegaKick::
-	setvar VAR_0x8008, 48
+	setvar VAR_0x8008, 480
 	setvar VAR_0x8005, MOVE_MEGA_KICK
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_BodySlam::
-	setvar VAR_0x8008, 48
+	setvar VAR_0x8008, 480
 	setvar VAR_0x8005, MOVE_BODY_SLAM
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_RockSlide::
-	setvar VAR_0x8008, 48
+	setvar VAR_0x8008, 480
 	setvar VAR_0x8005, MOVE_ROCK_SLIDE
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_Counter::
-	setvar VAR_0x8008, 48
+	setvar VAR_0x8008, 480
 	setvar VAR_0x8005, MOVE_COUNTER
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_ThunderWave::
-	setvar VAR_0x8008, 48
+	setvar VAR_0x8008, 480
 	setvar VAR_0x8005, MOVE_THUNDER_WAVE
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_SwordsDance::
-	setvar VAR_0x8008, 48
+	setvar VAR_0x8008, 480
 	setvar VAR_0x8005, MOVE_SWORDS_DANCE
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
@@ -142,7 +144,7 @@ BattleFrontier_Lounge7_EventScript_AlreadyMetRightTutor::
 BattleFrontier_Lounge7_EventScript_ChooseRightTutorMove::
 	message BattleFrontier_Lounge7_Text_TeachWhichMove
 	waitmessage
-	special ShowBattlePointsWindow
+	special ShowFacilityFPWindow
 	setvar VAR_TEMP_FRONTIER_TUTOR_ID, 1
 	setvar VAR_0x8004, SCROLL_MULTI_BF_MOVE_TUTOR_2
 	setvar VAR_0x8006, 0
@@ -187,68 +189,68 @@ BattleFrontier_Lounge7_EventScript_ChooseNewRightTutorMove::
 	end
 
 BattleFrontier_Lounge7_EventScript_DefenseCurl::
-	setvar VAR_0x8008, 16
+	setvar VAR_0x8008, 160
 	setvar VAR_0x8005, MOVE_DEFENSE_CURL
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_Snore::
-	setvar VAR_0x8008, 24
+	setvar VAR_0x8008, 240
 	setvar VAR_0x8005, MOVE_SNORE
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_MudSlap::
-	setvar VAR_0x8008, 24
+	setvar VAR_0x8008, 240
 	setvar VAR_0x8005, MOVE_MUD_SLAP
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_Swift::
-	setvar VAR_0x8008, 24
+	setvar VAR_0x8008, 240
 	setvar VAR_0x8005, MOVE_SWIFT
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_IcyWind::
-	setvar VAR_0x8008, 24
+	setvar VAR_0x8008, 240
 	setvar VAR_0x8005, MOVE_ICY_WIND
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_Endure::
-	setvar VAR_0x8008, 48
+	setvar VAR_0x8008, 480
 	setvar VAR_0x8005, MOVE_ENDURE
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_PsychUp::
-	setvar VAR_0x8008, 48
+	setvar VAR_0x8008, 480
 	setvar VAR_0x8005, MOVE_PSYCH_UP
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_IcePunch::
-	setvar VAR_0x8008, 48
+	setvar VAR_0x8008, 480
 	setvar VAR_0x8005, MOVE_ICE_PUNCH
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_ThunderPunch::
-	setvar VAR_0x8008, 48
+	setvar VAR_0x8008, 480
 	setvar VAR_0x8005, MOVE_THUNDER_PUNCH
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_FirePunch::
-	setvar VAR_0x8008, 48
+	setvar VAR_0x8008, 480
 	setvar VAR_0x8005, MOVE_FIRE_PUNCH
 	goto BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection
 	end
 
 BattleFrontier_Lounge7_EventScript_ExitTutorMoveSelect::
 	special CloseBattleFrontierTutorWindow
-	special CloseBattlePointsWindow
+	special CloseFacilityFPWindow
 	msgbox BattleFrontier_Lounge7_Text_YouDontWantTo, MSGBOX_DEFAULT
 	release
 	end
@@ -267,7 +269,8 @@ BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection::
 	buffernumberstring STR_VAR_2, VAR_0x8008
 	msgbox BattleFrontier_Lounge7_Text_MoveWillBeXBattlePoints, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge7_EventScript_ChooseNewMove
-	specialvar VAR_TEMP_1, GetFrontierBattlePoints
+	special FacilityShopGetFP
+	copyvar VAR_TEMP_1, VAR_RESULT
 	goto_if_ge VAR_TEMP_1, VAR_0x8008, BattleFrontier_Lounge7_EventScript_TeachTutorMove
 	msgbox BattleFrontier_Lounge7_Text_HaventGotEnoughPoints, MSGBOX_DEFAULT
 	goto BattleFrontier_Lounge7_EventScript_ChooseNewMove
@@ -277,14 +280,14 @@ BattleFrontier_Lounge7_EventScript_ConfirmMoveSelection::
 BattleFrontier_Lounge7_EventScript_TeachTutorMove::
 	msgbox BattleFrontier_Lounge7_Text_TeachMoveToWhichMon, MSGBOX_DEFAULT
 	fadescreen FADE_TO_BLACK
-	special CloseBattlePointsWindow
+	special CloseFacilityFPWindow
 	special CloseBattleFrontierTutorWindow
 	chooseboxmon SELECT_PC_MON_MOVE_TUTOR
 	waitstate
 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_Lounge7_EventScript_CancelChooseMon
 	msgbox BattleFrontier_Lounge7_Text_IllTakeBattlePoints, MSGBOX_DEFAULT
 	copyvar VAR_0x8004, VAR_0x8008
-	special TakeFrontierBattlePoints
+	special FacilityShopTakeFP
 	release
 	end
 
@@ -303,21 +306,17 @@ BattleFrontier_Lounge7_EventScript_Gentleman::
 
 BattleFrontier_Lounge7_Text_LeftTutorIntro:
 	.string "Buhahaha!\p"
-	.string "You couldn't tell it from looking now,\n"
-	.string "but I used to be one tough TRAINER.\p"
-	.string "I had a reputation as the toughest\n"
-	.string "BEAUTY around, I tell you!\p"
-	.string "… … … … … …\p"
-	.string "What is it now?\n"
-	.string "You don't believe me.\p"
-	.string "I'm not like that blowhard woman over\n"
-	.string "there. I'm actually talented!\p"
-	.string "Let me prove it to you.\n"
-	.string "I can teach your POKéMON special and\l"
-	.string "yet cute moves.\p"
+	.string "You couldn't tell it from looking\n"
+	.string "now, but I used to be one tough\l"
+	.string "trainer. The toughest BEAUTY\l"
+	.string "around, I tell you!\p"
+	.string "I'm not like that blowhard woman\n"
+	.string "over there. I can teach your\l"
+	.string "POKéMON special and yet cute\l"
+	.string "moves.\p"
 	.string "But my lessons don't come free.\n"
-	.string "How about paying for the moves I teach\l"
-	.string "with a wee bit of Battle Points?$"
+	.string "How about paying for them with a\l"
+	.string "wee bit of FP?$"
 
 BattleFrontier_Lounge7_Text_LeftTutorWelcomeBack:
 	.string "Buhahaha!\p"
@@ -329,20 +328,21 @@ BattleFrontier_Lounge7_Text_TeachWhichMove:
 	.string "Which move should I teach?$"
 
 BattleFrontier_Lounge7_Text_MoveWillBeXBattlePoints:
-	.string "The move {STR_VAR_1}, is it?\n"
-	.string "That will be {STR_VAR_2} Battle Points, okay?$"
+	.string "The move {STR_VAR_1}, is it?\p"
+	.string "That will be {STR_VAR_2} FP. Is that\n"
+	.string "okay?$"
 
 BattleFrontier_Lounge7_Text_TeachMoveToWhichMon:
 	.string "Fine, fine, now pick the POKéMON\n"
 	.string "I should teach the move to.$"
 
 BattleFrontier_Lounge7_Text_HaventGotEnoughPoints:
-	.string "What the…\n"
-	.string "You haven't got enough Battle Points!$"
+	.string "You haven't got enough FP for that\n"
+	.string "one, dear.$"
 
 BattleFrontier_Lounge7_Text_IllTakeBattlePoints:
-	.string "Do you see how skilled I am now?\n"
-	.string "I'll take your Battle Points, thanks!$"
+	.string "Buhahaha! Then I'll take your FP.\n"
+	.string "A pleasure!$"
 
 BattleFrontier_Lounge7_Text_YouDontWantTo:
 	.string "What's that?\n"
@@ -352,21 +352,15 @@ BattleFrontier_Lounge7_Text_YouDontWantTo:
 
 BattleFrontier_Lounge7_Text_RightTutorIntro:
 	.string "Ihihihi!\p"
-	.string "I know it's hard to see now, but I used\n"
-	.string "to be one fantastic TRAINER.\p"
-	.string "I had a reputation as the most\n"
-	.string "invincible SWIMMER around, I tell you!\p"
-	.string "… … … … … …\p"
-	.string "What's wrong?\n"
-	.string "You don't believe me.\p"
-	.string "I'm not like that buffoonish woman over\n"
-	.string "there. I'm actually experienced!\p"
-	.string "I can prove it to you.\n"
-	.string "I can teach your POKéMON hard and\l"
-	.string "yet pretty moves.\p"
+	.string "I know it's hard to see now, but I\n"
+	.string "used to be the most invincible\l"
+	.string "SWIMMER around, I tell you!\p"
+	.string "I'm not like that buffoonish woman\n"
+	.string "over there. I can teach your\l"
+	.string "POKéMON hard and yet pretty moves.\p"
 	.string "But my lessons don't come free.\n"
-	.string "How about paying for the moves I teach\l"
-	.string "with a wee bit of Battle Points?$"
+	.string "How about paying for them with a\l"
+	.string "wee bit of FP?$"
 
 BattleFrontier_Lounge7_Text_RightTutorWelcomeBack:
 	.string "Ihihihi!\p"

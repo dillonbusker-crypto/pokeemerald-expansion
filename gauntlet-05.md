@@ -36,7 +36,7 @@ Mega Evolution is automatic for any CPU Pokémon holding its stone.
 
 ## Unlock ceremony — end of gauntlet 4
 
-When Timewarden Iyla falls, the gauntlet 4 attendant does three things:
+When Salon Maiden Anabel falls, the gauntlet 4 attendant does three things:
 
 1. **Gives the player the Mega Ring** (`ITEM_MEGA_RING`, a key item). Without
    it the player can't Mega Evolve at all: `CanMegaEvolve()` in
@@ -1015,7 +1015,7 @@ Calm Nature
 
 ---
 
-## Boss — Crownwarden Solen
+## Boss — Dome Ace Tucker
 
 **Pool:** gauntlet 6 (≤600, limited Megas) plus everything prior, and one Mega
 the player can never own.

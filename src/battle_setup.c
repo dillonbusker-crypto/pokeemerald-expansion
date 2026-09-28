@@ -999,9 +999,9 @@ enum BattleTransition GetSpecialBattleTransition(enum BattleTransitionGroup id)
     return sBattleTransitionTable_BattleFrontier[var % ARRAY_COUNT(sBattleTransitionTable_BattleFrontier)];
 }
 
-// Ten Buildings: gauntlet-01.md-pool starters given at the project's flat
+// Ten Gauntlets: gauntlet-01.md-pool starters given at the project's flat
 // level 50 instead of the vanilla level-5 base stages, via
-// CreateMonFromTemplate() (the same pattern GiveBuilding2CounterTeam() in
+// CreateMonFromTemplate() (the same pattern GiveGauntlet2CounterTeam() in
 // src/new_game.c uses) rather than ScriptGiveMon(), since ScriptGiveMon only
 // auto-fills a level-up learnset and can't set a fixed competitive spread.
 // Indexed the same way GetStarterPokemon()/sStarterMon (starter_choose.c)
@@ -1069,7 +1069,7 @@ static void CB2_GiveStarter(void)
     CreateMonFromTemplate(&gParties[B_TRAINER_PLAYER][0], &sStarterTemplates[gSpecialVar_Result]);
     gPartiesCount[B_TRAINER_PLAYER] = 1;
 
-    // Ten Buildings: badges granted here, not on frontier arrival, so the
+    // Ten Gauntlets: badges granted here, not on frontier arrival, so the
     // level-50 starter obeys through the Route 101 rescue battle and the
     // Route 103 rival battle that follow immediately after. See CLAUDE.md -
     // this is what lets TESTING_DISABLE_OBEDIENCE be retired for good rather
@@ -1570,7 +1570,7 @@ void BattleSetup_StartTrainerBattle(void)
         gBattleTypeFlags |= BATTLE_TYPE_DOUBLE;
     }
 
-    // Ten Buildings: every battle fought during an active facility run counts
+    // Ten Gauntlets: every battle fought during an active facility run counts
     // as a Frontier battle (BATTLE_TYPE_FRONTIER is a composite of several
     // specific flags - BATTLE_TYPE_BATTLE_TOWER is the closest fit - not a
     // standalone bit, so this is the only way to get it set). This is what
@@ -1702,7 +1702,7 @@ static void CB2_EndTrainerBattle(void)
     }
     else if (IsPlayerDefeated(gBattleOutcome))
     {
-        // Ten Buildings: losing during a facility run ends the run (see the
+        // Ten Gauntlets: losing during a facility run ends the run (see the
         // continuation script after each facility trainerbattle, which reads
         // GetBattleOutcome() to tell win from loss), it doesn't white the
         // player out - same as the real Battle Tower, which never whites you

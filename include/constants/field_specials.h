@@ -37,10 +37,10 @@ enum SSTidalState
 #define SS_TIDAL_MAX_STEPS 205
 
 // Scrollable Multichoice Menus
-// Ten Buildings: the four vanilla Exchange Corner BP vendors (decor x2,
+// Ten Gauntlets: the four vanilla Exchange Corner BP vendors (decor x2,
 // vitamins, hold items) that used to live right after
 // SCROLL_MULTI_POKEMON_FAN_CLUB_RATER are gone - replaced by the
-// SCROLL_MULTI_TEN_BUILDINGS_* menus below. Their data lived in
+// SCROLL_MULTI_TEN_GAUNTLETS_* menus below. Their data lived in
 // src/data/battle_frontier/battle_frontier_exchange_corner.h, now deleted.
 enum ScrollMulti
 {
@@ -55,8 +55,8 @@ enum ScrollMulti
     SCROLL_MULTI_BATTLE_TENT_RULES,
     SCROLL_MULTI_BADGES,
     SCROLL_MULTI_SILPHCO_FLOORS,
-    // Ten Buildings shop (shop-spec.md), Exchange Service Corner keepers.
-    // SCROLL_MULTI_TEN_BUILDINGS_MON_TIER_SELECT and _POST_BATTLE are small,
+    // Ten Gauntlets shop (shop-spec.md), Exchange Service Corner keepers.
+    // SCROLL_MULTI_TEN_GAUNTLETS_MON_TIER_SELECT and _POST_BATTLE are small,
     // fixed-content menus and stay static. Everything else - consumables,
     // held items, every Pokemon tier and its optional type filter - is one
     // dynamically-built list, staged by src/facility_shop.c and read via
@@ -65,9 +65,9 @@ enum ScrollMulti
     // nine more unlocks without a new enum value or a new
     // ShowScrollableMultichoice case each time - see shop-spec.md and
     // shop-unlock-b2.md.
-    SCROLL_MULTI_TEN_BUILDINGS_MON_TIER_SELECT,
-    SCROLL_MULTI_TEN_BUILDINGS_DYNAMIC,
-    SCROLL_MULTI_TEN_BUILDINGS_POST_BATTLE,
+    SCROLL_MULTI_TEN_GAUNTLETS_MON_TIER_SELECT,
+    SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC,
+    SCROLL_MULTI_TEN_GAUNTLETS_POST_BATTLE,
 };
 
 #define MAX_SCROLL_MULTI_ON_SCREEN 6
@@ -131,7 +131,7 @@ enum {
     TEMPLATE_POSITION
 };
 
-// Ten Buildings: TeachTMMove()'s result (src/field_specials.c), read by
+// Ten Gauntlets: TeachTMMove()'s result (src/field_specials.c), read by
 // Debug_EventScript_TeachTM (data/scripts/debug.inc). TEACH_TM_NEEDS_REPLACE
 // means the mon already has 4 moves - the script then shows its own
 // dynmultichoice slot picker and calls ReplaceTMMoveSlot() directly, rather

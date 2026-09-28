@@ -357,8 +357,8 @@ BattleFrontier_BattleArenaLobby_EventScript_ExitRules::
 	releaseall
 	end
 
-@ Ten Buildings: every non-Tower facility is locked until it's this
-@ building's turn. IsBattleArenaUnlocked always reads FALSE right now -
+@ Ten Gauntlets: every non-Tower facility is locked until it's this
+@ gauntlet's turn. IsBattleArenaUnlocked always reads FALSE right now -
 @ nothing sets that bit yet, since the unlock schedule isn't designed. See
 @ CLAUDE.md and shop-spec.md's unlock-schedule table.
 BattleFrontier_BattleArenaLobby_EventScript_CheckLocked::

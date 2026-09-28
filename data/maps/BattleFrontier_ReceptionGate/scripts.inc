@@ -130,11 +130,24 @@ BattleFrontier_ReceptionGate_EventScript_Greeter::
 	release
 	end
 
+@ Ten Gauntlets: the facility guide is now the gauntlet guide - no menu,
+@ just where the player's next gauntlet is. The vanilla facility menu below
+@ (ChooseFacilityToLearnAbout) is unreferenced now.
 BattleFrontier_ReceptionGate_EventScript_FacilityGuide::
 	lock
 	faceplayer
-	msgbox BattleFrontier_ReceptionGate_Text_YourGuideToFacilities, MSGBOX_DEFAULT
-	goto BattleFrontier_ReceptionGate_EventScript_ChooseFacilityToLearnAbout
+	msgbox BattleFrontier_ReceptionGate_Text_GauntletGuideIntro, MSGBOX_DEFAULT
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	switch VAR_RESULT
+	case 0, BattleFrontier_ReceptionGate_EventScript_NextGauntlet1
+	case 1, BattleFrontier_ReceptionGate_EventScript_NextGauntlet2
+	case 2, BattleFrontier_ReceptionGate_EventScript_NextGauntlet3
+	case 3, BattleFrontier_ReceptionGate_EventScript_NextGauntlet4
+	case 4, BattleFrontier_ReceptionGate_EventScript_NextGauntlet5
+	case 5, BattleFrontier_ReceptionGate_EventScript_NextGauntlet6
+	case 10, BattleFrontier_ReceptionGate_EventScript_AllGauntletsCleared
+	msgbox BattleFrontier_ReceptionGate_Text_NextGauntletNotReady, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_ReceptionGate_EventScript_ChooseFacilityToLearnAbout::
@@ -206,11 +219,52 @@ BattleFrontier_ReceptionGate_EventScript_ExitFacilityGuide::
 	release
 	end
 
+@ Ten Gauntlets: the rules guide walks through the Ten Gauntlets rules in
+@ order. The vanilla rules menu below (ChooseRuleToLearnAbout) is
+@ unreferenced now.
 BattleFrontier_ReceptionGate_EventScript_RulesGuide::
 	lock
 	faceplayer
-	msgbox BattleFrontier_ReceptionGate_Text_YourGuideToRules, MSGBOX_DEFAULT
-	goto BattleFrontier_ReceptionGate_EventScript_ChooseRuleToLearnAbout
+	msgbox BattleFrontier_ReceptionGate_Text_RulesGuideIntro, MSGBOX_DEFAULT
+	msgbox BattleFrontier_ReceptionGate_Text_RulesTeam, MSGBOX_DEFAULT
+	msgbox BattleFrontier_ReceptionGate_Text_RulesBattles, MSGBOX_DEFAULT
+	msgbox BattleFrontier_ReceptionGate_Text_RulesItems, MSGBOX_DEFAULT
+	msgbox BattleFrontier_ReceptionGate_Text_RulesLosing, MSGBOX_DEFAULT
+	release
+	end
+BattleFrontier_ReceptionGate_EventScript_NextGauntlet1::
+	msgbox BattleFrontier_ReceptionGate_Text_NextGauntlet1, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ReceptionGate_EventScript_NextGauntlet2::
+	msgbox BattleFrontier_ReceptionGate_Text_NextGauntlet2, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ReceptionGate_EventScript_NextGauntlet3::
+	msgbox BattleFrontier_ReceptionGate_Text_NextGauntlet3, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ReceptionGate_EventScript_NextGauntlet4::
+	msgbox BattleFrontier_ReceptionGate_Text_NextGauntlet4, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ReceptionGate_EventScript_NextGauntlet5::
+	msgbox BattleFrontier_ReceptionGate_Text_NextGauntlet5, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ReceptionGate_EventScript_NextGauntlet6::
+	msgbox BattleFrontier_ReceptionGate_Text_NextGauntlet6, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ReceptionGate_EventScript_AllGauntletsCleared::
+	msgbox BattleFrontier_ReceptionGate_Text_AllGauntletsCleared, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_ReceptionGate_EventScript_ChooseRuleToLearnAbout::
@@ -257,11 +311,16 @@ BattleFrontier_ReceptionGate_EventScript_ExitRulesGuide::
 	release
 	end
 
+@ Ten Gauntlets: the FRONTIER PASS guide is now the FP and roster guide.
+@ The vanilla FRONTIER PASS menu below is unreferenced now.
 BattleFrontier_ReceptionGate_EventScript_FrontierPassGuide::
 	lock
 	faceplayer
-	msgbox BattleFrontier_ReceptionGate_Text_YourGuideToFrontierPass, MSGBOX_DEFAULT
-	goto BattleFrontier_ReceptionGate_EventScript_ChooseFrontierPassInfoToLearnAbout
+	msgbox BattleFrontier_ReceptionGate_Text_FPGuideIntro, MSGBOX_DEFAULT
+	msgbox BattleFrontier_ReceptionGate_Text_FPGuideEarning, MSGBOX_DEFAULT
+	msgbox BattleFrontier_ReceptionGate_Text_FPGuideRoster, MSGBOX_DEFAULT
+	msgbox BattleFrontier_ReceptionGate_Text_FPGuideTools, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_ReceptionGate_EventScript_ChooseFrontierPassInfoToLearnAbout::
@@ -301,8 +360,10 @@ BattleFrontier_ReceptionGate_Text_FirstTimeHereThisWay:
 	.string "Please step this way!$"
 
 BattleFrontier_ReceptionGate_Text_WelcomeToBattleFrontier:
-	.string "The front lines of POKéMON battling!\n"
-	.string "Welcome to the BATTLE FRONTIER!$"
+	.string "The front lines of POKéMON\n"
+	.string "battling! Welcome to the BATTLE\l"
+	.string "FRONTIER, home of the Ten\l"
+	.string "Gauntlets!$"
 
 BattleFrontier_ReceptionGate_Text_IssueFrontierPass:
 	.string "For a first-time visitor, we issue\n"
@@ -320,8 +381,8 @@ BattleFrontier_ReceptionGate_Text_PlacedTrainerCardInFrontierPass:
 	.string "in the FRONTIER PASS.$"
 
 BattleFrontier_ReceptionGate_Text_EnjoyBattleFrontier:
-	.string "We hope you enjoy all that the BATTLE\n"
-	.string "FRONTIER has to offer!$"
+	.string "Ten gauntlets, and only one way\n"
+	.string "through: forward. Good luck!$"
 
 BattleFrontier_ReceptionGate_Text_IfItIsntPlayerYouCame:
 	.string "???: Well, if it isn't {PLAYER}{KUN}!\n"
@@ -331,7 +392,7 @@ BattleFrontier_ReceptionGate_Text_OhMrScottGoodDay:
 	.string "GUIDE: Oh! MR. SCOTT, sir!\n"
 	.string "Good day to you, sir!$"
 
-@ Ten Buildings: this whole speech used to be one giant string with 15 \p
+@ Ten Gauntlets: this whole speech used to be one giant string with 15 \p
 @ pages. msgbox expands its text into the fixed 1000-byte gStringVar4
 @ buffer (StringExpandPlaceholders, src/field_message_box.c) regardless of
 @ length - that one string ran to ~1950 raw characters and silently
@@ -343,20 +404,23 @@ BattleFrontier_ReceptionGate_Text_OhMrScottGoodDay:
 BattleFrontier_ReceptionGate_Text_ScottGreatToSeeYouHere:
 	.string "SCOTT: It's great to see you here,\n"
 	.string "it really is!\p"
-	.string "Let me tell you how things work around\n"
-	.string "here, because this circuit isn't like\l"
-	.string "anything you've faced before.\p"
-	.string "Forget GYMS and BADGES. Here, there are\n"
-	.string "ten buildings, and battling your way\l"
-	.string "through them is the whole game.\p"
-	.string "Each building throws six trainers at\n"
-	.string "you, drawn at random from a pool of\l"
-	.string "twelve. Beat all six, and that\l"
-	.string "building's boss is waiting for you.\p"
-	.string "Beat the boss, and the building's\n"
-	.string "cleared - for good. There's no going\l"
-	.string "back in for a rematch, so bring your\l"
-	.string "best team every time.$"
+	.string "Let me tell you how things work\n"
+	.string "around here, because this circuit\l"
+	.string "isn't like anything you've faced\l"
+	.string "before.\p"
+	.string "Forget GYMS and BADGES. Here,\n"
+	.string "there are ten gauntlets, and\l"
+	.string "battling your way through them is\l"
+	.string "the whole game.\p"
+	.string "Each gauntlet throws six trainers\n"
+	.string "at you, drawn at random from a\l"
+	.string "pool of twelve. Beat all six, and\l"
+	.string "that gauntlet's boss is waiting\l"
+	.string "for you.\p"
+	.string "Beat the boss, and the gauntlet's\n"
+	.string "cleared - for good. There's no\l"
+	.string "going back in for a rematch, so\l"
+	.string "bring your best team every time.$"
 
 BattleFrontier_ReceptionGate_Text_ScottExplainsBattleRules:
 	.string "You'll get a full heal between every\n"
@@ -375,35 +439,37 @@ BattleFrontier_ReceptionGate_Text_ScottExplainsBattleRules:
 	.string "and MEGAS.$"
 
 BattleFrontier_ReceptionGate_Text_ScottExplainsShop:
-	.string "Spend that FP right here with us, at\n"
-	.string "the EXCHANGE SERVICE CORNER just\l"
-	.string "outside. Four keepers, four specialties -\l"
-	.string "Consumables, Held Items, MEGA STONES,\l"
-	.string "and POKéMON.\p"
-	.string "Everything you buy there is yours for\n"
-	.string "good, no renting. And if a POKéMON\l"
-	.string "isn't working out for you, that same\l"
-	.string "keeper will buy it back for half what\l"
-	.string "you paid.\p"
-	.string "Right now you're only seeing what's on\n"
-	.string "the shelves for building one. Clear more\l"
-	.string "buildings, and better stock comes out\l"
-	.string "from the back.$"
+	.string "Spend that FP right here with us,\n"
+	.string "at the EXCHANGE SERVICE CORNER\l"
+	.string "just outside. Four keepers, four\l"
+	.string "specialties - Consumables, Held\l"
+	.string "Items, MEGA STONES, and POKéMON.\p"
+	.string "Everything you buy there is yours\n"
+	.string "for good, no renting. And if a\l"
+	.string "POKéMON isn't working out for you,\l"
+	.string "that same keeper will buy it back\l"
+	.string "for half what you paid.\p"
+	.string "Right now you're only seeing\n"
+	.string "what's on the shelves for gauntlet\l"
+	.string "one. Clear more gauntlets, and\l"
+	.string "better stock comes out from the\l"
+	.string "back.$"
 
 BattleFrontier_ReceptionGate_Text_ScottExplainsWhereToStart:
 	.string "As for where to start - the BATTLE\n"
-	.string "TOWER is the one you want. Head back\l"
-	.string "outside and look for it. That's the\l"
-	.string "only door open right now.\p"
-	.string "The other nine buildings are locked up\n"
-	.string "tight. Clear what's in front of you, and\l"
-	.string "they'll open up one at a time.\p"
-	.string "Ten buildings. Get through all of them,\n"
-	.string "and you'll have earned some real\l"
-	.string "bragging rights. Good luck out there,\l"
-	.string "{PLAYER}{KUN}!\p"
-	.string "I also have my quarters here, so feel\n"
-	.string "free to visit if you have time.$"
+	.string "TOWER holds the first four\l"
+	.string "gauntlets. The other doors are\l"
+	.string "locked up tight. Clear what's in\l"
+	.string "front of you, and they'll open up\l"
+	.string "one at a time.\p"
+	.string "But before you go anywhere near\n"
+	.string "the TOWER, come by my house. It's\l"
+	.string "at the north end of the plaza,\l"
+	.string "past the BATTLE PIKE.\p"
+	.string "One POKéMON won't get you through\n"
+	.string "the door of gauntlet one - I've\l"
+	.string "got something for you. See you\l"
+	.string "there, {PLAYER}{KUN}!$"
 
 BattleFrontier_ReceptionGate_Text_YourGuideToFacilities:
 	.string "I'm your guide to the various facilities\n"
@@ -570,3 +636,129 @@ BattleFrontier_ReceptionGate_Text_BattlePointsInfo:
 	.string "for prizes at the EXCHANGE SERVICE\l"
 	.string "CORNER.$"
 
+BattleFrontier_ReceptionGate_Text_GauntletGuideIntro:
+	.string "I'm your guide to the Ten\n"
+	.string "Gauntlets!\p"
+	.string "The BATTLE TOWER holds the first\n"
+	.string "four, one on each mat. After that,\l"
+	.string "each of the other facilities holds\l"
+	.string "one: the DOME, the FACTORY, the\l"
+	.string "PIKE, the ARENA, the PALACE and\l"
+	.string "the PYRAMID.\p"
+	.string "Singles and Doubles take turns,\n"
+	.string "and each gauntlet opens once you\l"
+	.string "clear the one before it.$"
+
+BattleFrontier_ReceptionGate_Text_NextGauntlet1:
+	.string "Your first gauntlet is LITTLE\n"
+	.string "LEAGUE, on the BATTLE TOWER's\l"
+	.string "first mat. Singles.\p"
+	.string "The TOWER is the big building on\n"
+	.string "the east side of the FRONTIER.$"
+
+BattleFrontier_ReceptionGate_Text_NextGauntlet2:
+	.string "Next up is THE SECOND SLOT, on the\n"
+	.string "BATTLE TOWER's second mat. It's\l"
+	.string "Doubles!$"
+
+BattleFrontier_ReceptionGate_Text_NextGauntlet3:
+	.string "Next up is THE CHANGING SKY, on\n"
+	.string "the BATTLE TOWER's third mat.\l"
+	.string "Singles, and the weather matters\l"
+	.string "in there.$"
+
+BattleFrontier_ReceptionGate_Text_NextGauntlet4:
+	.string "Next up is THE TURN ORDER, the\n"
+	.string "BATTLE TOWER's last mat. Doubles.\l"
+	.string "The SALON MAIDEN, ANABEL, is\l"
+	.string "waiting at the end.$"
+
+BattleFrontier_ReceptionGate_Text_NextGauntlet5:
+	.string "Next up is THE MAIN EVENT, at the\n"
+	.string "BATTLE DOME. Singles, and the DOME\l"
+	.string "ACE, TUCKER, is waiting at the\l"
+	.string "end.\p"
+	.string "The DOME is the big round building\n"
+	.string "on the west side of the FRONTIER.$"
+
+BattleFrontier_ReceptionGate_Text_NextGauntlet6:
+	.string "Next up is THE ASSEMBLY LINE, at\n"
+	.string "the BATTLE FACTORY. Doubles, with\l"
+	.string "the FACTORY HEAD, NOLAND, at the\l"
+	.string "end.\p"
+	.string "The FACTORY is on the west side of\n"
+	.string "the FRONTIER.$"
+
+BattleFrontier_ReceptionGate_Text_NextGauntletNotReady:
+	.string "You've come further than anyone!\n"
+	.string "The next gauntlet is still being\l"
+	.string "prepared. Please check back soon.$"
+
+BattleFrontier_ReceptionGate_Text_AllGauntletsCleared:
+	.string "You've cleared all ten gauntlets…\p"
+	.string "I've never said that to anyone\n"
+	.string "before. Congratulations!$"
+
+BattleFrontier_ReceptionGate_Text_RulesGuideIntro:
+	.string "I'm your guide to the rules of the\n"
+	.string "Ten Gauntlets. Here's everything\l"
+	.string "you need to know!$"
+
+BattleFrontier_ReceptionGate_Text_RulesTeam:
+	.string "Your whole party of six enters,\n"
+	.string "and every POKéMON battles at level\l"
+	.string "50.\p"
+	.string "Once a run begins, your team is\n"
+	.string "locked in until it ends.$"
+
+BattleFrontier_ReceptionGate_Text_RulesBattles:
+	.string "Each gauntlet is six battles,\n"
+	.string "drawn at random from twelve, then\l"
+	.string "its boss.\p"
+	.string "You're fully healed after every\n"
+	.string "battle.$"
+
+BattleFrontier_ReceptionGate_Text_RulesItems:
+	.string "Items in your BAG can't be used\n"
+	.string "during a run. Held items can, and\l"
+	.string "they come back after every battle.\p"
+	.string "No two POKéMON on a team may hold\n"
+	.string "the same item. That goes for your\l"
+	.string "opponents, too.$"
+
+BattleFrontier_ReceptionGate_Text_RulesLosing:
+	.string "If you lose, the run ends, but you\n"
+	.string "keep your team and every FP you've\l"
+	.string "earned.\p"
+	.string "Beat the boss and the gauntlet is\n"
+	.string "cleared for good. There's no going\l"
+	.string "back in, only forward!$"
+
+BattleFrontier_ReceptionGate_Text_FPGuideIntro:
+	.string "I'm your guide to FP and your\n"
+	.string "roster!$"
+
+BattleFrontier_ReceptionGate_Text_FPGuideEarning:
+	.string "FP, FRONTIER POINTS, are earned\n"
+	.string "for every battle you win, and\l"
+	.string "clearing a gauntlet pays out much\l"
+	.string "more.\p"
+	.string "You keep everything you've earned,\n"
+	.string "even if you lose.$"
+
+BattleFrontier_ReceptionGate_Text_FPGuideRoster:
+	.string "Spend FP at the EXCHANGE SERVICE\n"
+	.string "CORNER on POKéMON, held items and\l"
+	.string "MEGA STONES. Everything you buy is\l"
+	.string "yours for good.\p"
+	.string "If a POKéMON isn't working out,\n"
+	.string "the keeper will buy it back for\l"
+	.string "half what it cost.$"
+
+BattleFrontier_ReceptionGate_Text_FPGuideTools:
+	.string "Press the L BUTTON outside a run\n"
+	.string "to open your trainer tools.\p"
+	.string "You can change a POKéMON's stats,\n"
+	.string "nature, HIDDEN POWER, ability and\l"
+	.string "moves, so every POKéMON you buy\l"
+	.string "can be built exactly how you like.$"

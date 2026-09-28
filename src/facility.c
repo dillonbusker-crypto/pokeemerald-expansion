@@ -1,19 +1,20 @@
 // ============================================================================
-// Ten Buildings facility run loop. See run-loop-spec.md for the full design.
+// Ten Gauntlets facility run loop. See run-loop-spec.md for the full design.
 //
-// Building 1 ("Little League", gauntlet-01.md) has its full twelve-team
-// pool and boss. Building 2 ("The Second Slot", gauntlet-02.md) has 6 of
+// Gauntlet 1 ("Little League", gauntlet-01.md) has its full twelve-team
+// pool and boss. Gauntlet 2 ("The Second Slot", gauntlet-02.md) has 6 of
 // its twelve pool teams for now (A1, A2, B4, B6, C7, D11) - the shuffle
-// below operates on whatever poolSize the active building declares, so
-// adding the remaining six later is a data change only. Buildings 3 and 4
-// use the Battle Tower's other two mats; building 5 ("The Main Event",
+// below operates on whatever poolSize the active gauntlet declares, so
+// adding the remaining six later is a data change only. Gauntlets 3 and 4
+// use the Battle Tower's other two mats; gauntlet 5 ("The Main Event",
 // gauntlet-05.md) is the first outside the Tower, run from the Battle Dome
-// lobby with the same shared run-loop scripts; building 6 ("The Assembly
+// lobby with the same shared run-loop scripts; gauntlet 6 ("The Assembly
 // Line", gauntlet-06.md) runs the same way from the Battle Factory lobby.
 // ============================================================================
 
 #include "global.h"
 #include "facility.h"
+#include "facility_shop.h"
 #include "assertf.h"
 #include "event_data.h"
 #include "frontier_util.h"
@@ -33,14 +34,14 @@
 // include/constants/opponents.h. Fails the build instead of failing silently.
 STATIC_ASSERT(TRAINERS_COUNT <= MAX_TRAINERS_COUNT, TrainerIdsMustFitBelowMaxTrainersCount);
 
-struct FacilityBuildingData
+struct FacilityGauntletData
 {
     const u16 *pool;
     u8 poolSize;
     u16 boss;
 };
 
-static const u16 sBuilding1Pool[] =
+static const u16 sGauntlet1Pool[] =
 {
     TRAINER_FACILITY_B1_01_EMBER,
     TRAINER_FACILITY_B1_02_BROOK,
@@ -56,7 +57,7 @@ static const u16 sBuilding1Pool[] =
     TRAINER_FACILITY_B1_12_NYX,
 };
 
-static const u16 sBuilding2Pool[] =
+static const u16 sGauntlet2Pool[] =
 {
     TRAINER_FACILITY_B2_A1_FAULT,
     TRAINER_FACILITY_B2_A2_UNDERTOW,
@@ -66,7 +67,7 @@ static const u16 sBuilding2Pool[] =
     TRAINER_FACILITY_B2_D11_INVERSION,
 };
 
-static const u16 sBuilding3Pool[] =
+static const u16 sGauntlet3Pool[] =
 {
     TRAINER_FACILITY_B3_A1_DOWNPOUR,
     TRAINER_FACILITY_B3_A2_DELUGE,
@@ -82,7 +83,7 @@ static const u16 sBuilding3Pool[] =
     TRAINER_FACILITY_B3_D12_STATFIELD,
 };
 
-static const u16 sBuilding4Pool[] =
+static const u16 sGauntlet4Pool[] =
 {
     TRAINER_FACILITY_B4_A1_JETSTREAM,
     TRAINER_FACILITY_B4_A2_HEADWIND,
@@ -98,7 +99,7 @@ static const u16 sBuilding4Pool[] =
     TRAINER_FACILITY_B4_D12_CHECKMATE,
 };
 
-static const u16 sBuilding5Pool[] =
+static const u16 sGauntlet5Pool[] =
 {
     TRAINER_FACILITY_B5_A1_HEADLINER,
     TRAINER_FACILITY_B5_A2_SPOTLIGHT,
@@ -114,7 +115,7 @@ static const u16 sBuilding5Pool[] =
     TRAINER_FACILITY_B5_D12_PRESSURE,
 };
 
-static const u16 sBuilding6Pool[] =
+static const u16 sGauntlet6Pool[] =
 {
     TRAINER_FACILITY_B6_A1_MONSOON,
     TRAINER_FACILITY_B6_A2_SOLSTICE,
@@ -130,14 +131,14 @@ static const u16 sBuilding6Pool[] =
     TRAINER_FACILITY_B6_D12_CHORUS,
 };
 
-static const struct FacilityBuildingData sFacilityBuildings[] =
+static const struct FacilityGauntletData sFacilityGauntlets[] =
 {
-    [FACILITY_BUILDING_1] = { sBuilding1Pool, ARRAY_COUNT(sBuilding1Pool), TRAINER_FACILITY_B1_BOSS_HELIS },
-    [FACILITY_BUILDING_2] = { sBuilding2Pool, ARRAY_COUNT(sBuilding2Pool), TRAINER_FACILITY_B2_BOSS_NERYS },
-    [FACILITY_BUILDING_3] = { sBuilding3Pool, ARRAY_COUNT(sBuilding3Pool), TRAINER_FACILITY_B3_BOSS_KASRA },
-    [FACILITY_BUILDING_4] = { sBuilding4Pool, ARRAY_COUNT(sBuilding4Pool), TRAINER_FACILITY_B4_BOSS_IYLA },
-    [FACILITY_BUILDING_5] = { sBuilding5Pool, ARRAY_COUNT(sBuilding5Pool), TRAINER_FACILITY_B5_BOSS_SOLEN },
-    [FACILITY_BUILDING_6] = { sBuilding6Pool, ARRAY_COUNT(sBuilding6Pool), TRAINER_FACILITY_B6_BOSS_OREN },
+    [FACILITY_GAUNTLET_1] = { sGauntlet1Pool, ARRAY_COUNT(sGauntlet1Pool), TRAINER_FACILITY_B1_BOSS_HELIS },
+    [FACILITY_GAUNTLET_2] = { sGauntlet2Pool, ARRAY_COUNT(sGauntlet2Pool), TRAINER_FACILITY_B2_BOSS_NERYS },
+    [FACILITY_GAUNTLET_3] = { sGauntlet3Pool, ARRAY_COUNT(sGauntlet3Pool), TRAINER_FACILITY_B3_BOSS_KASRA },
+    [FACILITY_GAUNTLET_4] = { sGauntlet4Pool, ARRAY_COUNT(sGauntlet4Pool), TRAINER_FACILITY_B4_BOSS_ANABEL },
+    [FACILITY_GAUNTLET_5] = { sGauntlet5Pool, ARRAY_COUNT(sGauntlet5Pool), TRAINER_FACILITY_B5_BOSS_TUCKER },
+    [FACILITY_GAUNTLET_6] = { sGauntlet6Pool, ARRAY_COUNT(sGauntlet6Pool), TRAINER_FACILITY_B6_BOSS_NOLAND },
 };
 
 bool8 IsFacilityRunActive(void)
@@ -145,7 +146,7 @@ bool8 IsFacilityRunActive(void)
     return gSaveBlock3Ptr->facility.run.active;
 }
 
-// Ten Buildings trainers (TRAINER_FACILITY_* constants) live in the regular,
+// Ten Gauntlets trainers (TRAINER_FACILITY_* constants) live in the regular,
 // modern gTrainers[] table - the trainers.party "Competitive Format" the
 // project relies on for exact fixed movesets doesn't generate the legacy,
 // separate gFacilityTrainers/gBattleFrontierTrainers array (a much smaller,
@@ -161,9 +162,9 @@ bool8 IsFacilityBattleTrainer(u16 trainerId)
 {
     u32 i, j;
 
-    for (i = 0; i < ARRAY_COUNT(sFacilityBuildings); i++)
+    for (i = 0; i < ARRAY_COUNT(sFacilityGauntlets); i++)
     {
-        const struct FacilityBuildingData *data = &sFacilityBuildings[i];
+        const struct FacilityGauntletData *data = &sFacilityGauntlets[i];
 
         if (data->pool == NULL)
             continue;
@@ -182,13 +183,13 @@ bool8 IsFacilityBattleTrainer(u16 trainerId)
 // start (see the six BattleFrontier_Battle*Lobby OnFrame checks). The Tower
 // needs no bit; its lobby has no lock check at all.
 //
-// A facility that hosts a building opens when the building before it is
-// cleared, read straight from buildingsCompleted - the same bitmask the
+// A facility that hosts a gauntlet opens when the gauntlet before it is
+// cleared, read straight from gauntletsCompleted - the same bitmask the
 // Tower mats use (IsDoublesMatUnlocked() etc.), so there's no second piece
 // of state a script could forget to set. The door bits in
 // gSaveBlock3Ptr->facility.progress.unlockedFacilityDoors are still honored
 // as an extra way in (nothing sets them yet), for any door that ever needs
-// opening outside the building order.
+// opening outside the gauntlet order.
 #define FACILITY_DOOR_DOME    (1 << 0)
 #define FACILITY_DOOR_FACTORY (1 << 1)
 #define FACILITY_DOOR_PIKE    (1 << 2)
@@ -201,18 +202,18 @@ static bool8 IsFacilityDoorUnlocked(u8 door)
     return (gSaveBlock3Ptr->facility.progress.unlockedFacilityDoors & door) != 0;
 }
 
-// The Dome hosts building 5, so it opens when building 4 is cleared.
+// The Dome hosts gauntlet 5, so it opens when gauntlet 4 is cleared.
 void IsBattleDomeUnlocked(void)
 {
     gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_DOME)
-        || (gSaveBlock3Ptr->facility.progress.buildingsCompleted & (1 << FACILITY_BUILDING_4)) != 0;
+        || (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << FACILITY_GAUNTLET_4)) != 0;
 }
 
-// The Factory hosts building 6, so it opens when building 5 is cleared.
+// The Factory hosts gauntlet 6, so it opens when gauntlet 5 is cleared.
 void IsBattleFactoryUnlocked(void)
 {
     gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_FACTORY)
-        || (gSaveBlock3Ptr->facility.progress.buildingsCompleted & (1 << FACILITY_BUILDING_5)) != 0;
+        || (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << FACILITY_GAUNTLET_5)) != 0;
 }
 
 void IsBattlePikeUnlocked(void)
@@ -242,10 +243,10 @@ void FacilityCheckEligible(void)
 
 // The Fisher-Yates draw below only guarantees the drawn *indices* are
 // distinct - it can't catch the same trainer being listed twice in a
-// building's pool data (an easy mistake once a pool grows to its full 12
+// gauntlet's pool data (an easy mistake once a pool grows to its full 12
 // entries). That would be a programmer error, not a player-reachable state,
 // so it's an assertf rather than something handled at runtime.
-static void AssertPoolTrainersAreUnique(const struct FacilityBuildingData *data)
+static void AssertPoolTrainersAreUnique(const struct FacilityGauntletData *data)
 {
     u32 i, j;
 
@@ -258,7 +259,7 @@ static void AssertPoolTrainersAreUnique(const struct FacilityBuildingData *data)
 }
 
 // Clears the "already defeated" flag (the same one vanilla NPCs use to
-// refuse a rematch) for every trainer in the building's pool and its boss.
+// refuse a rematch) for every trainer in the gauntlet's pool and its boss.
 // Without this, beating a trainer in one run leaves them permanently flagged
 // defeated, so the *next* run that draws them skips the battle entirely and
 // routes into BattleSetup_GetScriptAddrAfterBattle()'s no-custom-return-
@@ -273,7 +274,7 @@ static void AssertPoolTrainersAreUnique(const struct FacilityBuildingData *data)
 // within a run) and battleNum only ever advances forward
 // (FacilityAdvanceBattleNum), so a trainer's flag never even gets set again
 // until after the run that beat them has ended.
-static void ClearPoolTrainerFlags(const struct FacilityBuildingData *data)
+static void ClearPoolTrainerFlags(const struct FacilityGauntletData *data)
 {
     u32 i;
 
@@ -284,14 +285,14 @@ static void ClearPoolTrainerFlags(const struct FacilityBuildingData *data)
 
 void FacilityStartRun(void)
 {
-    u8 building = gSpecialVar_0x8004;
-    const struct FacilityBuildingData *buildingData = &sFacilityBuildings[building];
+    u8 gauntlet = gSpecialVar_0x8004;
+    const struct FacilityGauntletData *gauntletData = &sFacilityGauntlets[gauntlet];
     u8 pool[FACILITY_MAX_POOL_SIZE];
-    u8 poolSize = buildingData->poolSize;
+    u8 poolSize = gauntletData->poolSize;
     u32 i;
 
-    AssertPoolTrainersAreUnique(buildingData);
-    ClearPoolTrainerFlags(buildingData);
+    AssertPoolTrainersAreUnique(gauntletData);
+    ClearPoolTrainerFlags(gauntletData);
 
     for (i = 0; i < poolSize; i++)
         pool[i] = i;
@@ -310,46 +311,63 @@ void FacilityStartRun(void)
     for (i = 0; i < 6 && i < poolSize; i++)
         gSaveBlock3Ptr->facility.run.drawnTeams[i] = pool[i];
 
-    gSaveBlock3Ptr->facility.run.building = building;
+    gSaveBlock3Ptr->facility.run.gauntlet = gauntlet;
     gSaveBlock3Ptr->facility.run.battleNum = 1;
     gSaveBlock3Ptr->facility.run.active = TRUE;
 
     SaveFacilityHeldItems();
 }
 
-void GetFacilityRunBuilding(void)
+// specialvar: how many gauntlets are cleared (0-10). Gauntlets clear strictly
+// in order, so this is also "the highest gauntlet cleared". Every
+// progress-reactive NPC line in the Frontier keys off this - see
+// frontier-dialogue.md, Part 2.
+u16 GetGauntletsClearedCount(void)
 {
-    gSpecialVar_Result = gSaveBlock3Ptr->facility.run.building;
+    u16 bits = gSaveBlock3Ptr->facility.progress.gauntletsCompleted;
+    u16 count = 0;
+
+    while (bits)
+    {
+        count += bits & 1;
+        bits >>= 1;
+    }
+    return count;
 }
 
-void IsFacilityRunActiveForBuilding(void)
+void GetFacilityRunGauntlet(void)
 {
-    gSpecialVar_Result = gSaveBlock3Ptr->facility.run.active
-        && gSaveBlock3Ptr->facility.run.building == gSpecialVar_0x8004;
+    gSpecialVar_Result = gSaveBlock3Ptr->facility.run.gauntlet;
 }
 
-void IsFacilityRunActiveForDifferentBuilding(void)
+void IsFacilityRunActiveForGauntlet(void)
 {
     gSpecialVar_Result = gSaveBlock3Ptr->facility.run.active
-        && gSaveBlock3Ptr->facility.run.building != gSpecialVar_0x8004;
+        && gSaveBlock3Ptr->facility.run.gauntlet == gSpecialVar_0x8004;
+}
+
+void IsFacilityRunActiveForDifferentGauntlet(void)
+{
+    gSpecialVar_Result = gSaveBlock3Ptr->facility.run.active
+        && gSaveBlock3Ptr->facility.run.gauntlet != gSpecialVar_0x8004;
 }
 
 void IsDoublesMatUnlocked(void)
 {
-    gSpecialVar_Result = (gSaveBlock3Ptr->facility.progress.buildingsCompleted & (1 << FACILITY_BUILDING_1)) != 0;
+    gSpecialVar_Result = (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << FACILITY_GAUNTLET_1)) != 0;
 }
 
-// Building 3 (Multis mat) unlocks clearing building 2, building 4 (Link
-// Multis mat) unlocks clearing building 3 - same one-building-ahead gating
-// IsDoublesMatUnlocked already uses for building 2.
+// Gauntlet 3 (Multis mat) unlocks clearing gauntlet 2, gauntlet 4 (Link
+// Multis mat) unlocks clearing gauntlet 3 - same one-gauntlet-ahead gating
+// IsDoublesMatUnlocked already uses for gauntlet 2.
 void IsMultisMatUnlocked(void)
 {
-    gSpecialVar_Result = (gSaveBlock3Ptr->facility.progress.buildingsCompleted & (1 << FACILITY_BUILDING_2)) != 0;
+    gSpecialVar_Result = (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << FACILITY_GAUNTLET_2)) != 0;
 }
 
 void IsLinkMultisMatUnlocked(void)
 {
-    gSpecialVar_Result = (gSaveBlock3Ptr->facility.progress.buildingsCompleted & (1 << FACILITY_BUILDING_3)) != 0;
+    gSpecialVar_Result = (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << FACILITY_GAUNTLET_3)) != 0;
 }
 
 void FacilityIsBossBattle(void)
@@ -363,13 +381,13 @@ void FacilityGetDrawnPoolIndex(void)
     gSpecialVar_Result = gSaveBlock3Ptr->facility.run.drawnTeams[battleNum - 1];
 }
 
-// Flat across all ten buildings - not the "10/100 x building number" formula
+// Flat across all ten gauntlets - not the "10/100 x gauntlet number" formula
 // in battle-tower-design-v2.md, which hadn't been played against actual shop
 // prices yet. Retuned again once shop-spec.md's economy section (and the
 // tier-2 pricing ladder in that doc) was worked out against these numbers:
 // a full clear (6 wins + boss) pays 900 FP, matching that doc exactly. u16
 // gSaveBlock3Ptr->facility.progress.fp tops out at 65535 - even a player who
-// clears every building without ever spending banks at most 300 (starting
+// clears every gauntlet without ever spending banks at most 300 (starting
 // grant) + 9000 (ten full clears) = 9300, comfortably inside that ceiling
 // with room to spare.
 #define FACILITY_FP_PER_BATTLE 75
@@ -381,7 +399,7 @@ void FacilityAwardBattleFP(void)
     gSaveBlock3Ptr->facility.progress.fp = (fp > 0xFFFF) ? 0xFFFF : fp;
 }
 
-// Ten Buildings: called right after a pool-battle win, before
+// Ten Gauntlets: called right after a pool-battle win, before
 // FacilityAdvanceBattleNum bumps battleNum past it - gStringVar1 gets the
 // ordinal ("1st".."6th") for the battle just won, gSpecialVar_0x8008 gets
 // the FP just awarded (kept in sync with FACILITY_FP_PER_BATTLE rather than
@@ -409,24 +427,26 @@ void FacilityAdvanceBattleNum(void)
     gSaveBlock3Ptr->facility.run.battleNum++;
 }
 
-void FacilityCompleteBuilding(void)
+void FacilityCompleteGauntlet(void)
 {
-    u8 building = gSaveBlock3Ptr->facility.run.building;
+    u8 gauntlet = gSaveBlock3Ptr->facility.run.gauntlet;
     u32 fp = gSaveBlock3Ptr->facility.progress.fp + FACILITY_FP_PER_BOSS;
 
     gSaveBlock3Ptr->facility.progress.fp = (fp > 0xFFFF) ? 0xFFFF : fp;
-    gSaveBlock3Ptr->facility.progress.buildingsCompleted |= (1 << building);
+    gSaveBlock3Ptr->facility.progress.gauntletsCompleted |= (1 << gauntlet);
     gSaveBlock3Ptr->facility.run.active = FALSE;
+    FacilityBrokerResolveLoans(TRUE);
 }
 
 void FacilityAbandonRun(void)
 {
     // Covers both a loss and a deliberate quit - run-loop-spec.md treats them
     // identically (FP already banked from prior wins is kept, the streak
-    // just ends). Nothing else needs resetting: building/battleNum/
+    // just ends). Nothing else needs resetting: gauntlet/battleNum/
     // drawnTeams are only ever read after checking active, so stale values
     // left behind are harmless.
     gSaveBlock3Ptr->facility.run.active = FALSE;
+    FacilityBrokerResolveLoans(FALSE);
 }
 
 // Quiet save - no "Saving... don't turn off the power" popup. Used after a
@@ -446,7 +466,7 @@ void FacilitySilentSave(void)
 // (src/party_menu.c) uses for the vanilla Frontier's own mid-challenge
 // reorder feature. That indirection is only honored by the Frontier's own
 // battle setup path; plain trainerbattle_single/_double (what every Ten
-// Buildings battle uses) reads gParties[B_TRAINER_PLAYER][] directly, so a
+// Gauntlets battle uses) reads gParties[B_TRAINER_PLAYER][] directly, so a
 // real swap is the only one guaranteed to actually change lead order here.
 void FacilitySwapPartyMonSlots(void)
 {

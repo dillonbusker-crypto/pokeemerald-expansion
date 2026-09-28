@@ -54,7 +54,7 @@
 #define P_EV_CAP                         GEN_LATEST  // Since Gen 6, the max EVs per stat is 252 instead of 255.
 #define P_SHOW_TERA_TYPE                 GEN_8       // Since Gen 9, the Tera Type is shown on the summary screen.
 #define P_TM_LITERACY                    GEN_LATEST  // Since Gen 6, TM illiterate Pokémon can learn TMs that teach moves that are in their level-up learnsets.
-// Ten Buildings: on. No overworld HM puzzles in a battle-only hack, so
+// Ten Gauntlets: on. No overworld HM puzzles in a battle-only hack, so
 // there's no reason a move like Surf or Waterfall should be permanently
 // stuck in a moveset once taught.
 #define P_CAN_FORGET_HIDDEN_MOVE         TRUE        // If TRUE, Pokémon can forget any move, even if it is an HM.

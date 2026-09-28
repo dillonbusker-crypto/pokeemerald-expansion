@@ -151,17 +151,16 @@ BattleFrontier_Lounge1_EventScript_Boy2::
 	end
 
 BattleFrontier_Lounge1_Text_PokemonBreederIntro:
-	.string "For 70 years I have raised POKéMON!\n"
-	.string "I am the man they revere as\l"
-	.string "the legendary top POKéMON BREEDER!\p"
-	.string "If you ever become as seasoned as me,\n"
-	.string "you'll see the abilities of POKéMON\l"
-	.string "at a glance.\p"
-	.string "You're a TRAINER. Doesn't it interest\n"
-	.string "you to know your own POKéMON's\l"
-	.string "abilities?\p"
-	.string "Here!\n"
-	.string "Let's have a look at your POKéMON!$"
+	.string "For 70 years I have raised\n"
+	.string "POKéMON! I am the man they revere\l"
+	.string "as the legendary top POKéMON\l"
+	.string "BREEDER!\p"
+	.string "These days anyone can tune their\n"
+	.string "POKéMON with the FRONTIER's tools.\l"
+	.string "But an old eye still sees things a\l"
+	.string "menu doesn't.\p"
+	.string "Here! Let's have a look at your\n"
+	.string "POKéMON!$"
 
 BattleFrontier_Lounge1_Text_AverageAbility:
 	.string "…Hmm…\p"

@@ -1314,7 +1314,7 @@ static void RecordItemPurchase(u8 taskId)
 
 void CreatePokemartMenu(const u16 *itemsForSale)
 {
-    // Ten Buildings: shops are blocked for the duration of a facility run -
+    // Ten Gauntlets: shops are blocked for the duration of a facility run -
     // buying a counter to the locked team mid-run defeats the point. See
     // run-loop-spec.md's "Mid-run access restrictions". CreatePokemartMenu()
     // is invoked via the pokemart script macro, which stops the calling

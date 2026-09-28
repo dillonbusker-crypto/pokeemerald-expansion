@@ -117,13 +117,12 @@ BattleFrontier_BattleTowerLobby_Text_InterviewRequest::
 	.string "your impressions on battling?$"
 
 BattleFrontier_BattleTowerLobby_Text_HowDidBattleTowerTurnOut::
-	.string "You will? Really?\n"
-	.string "Thank you!\l"
-	.string "Then, uh…\p"
-	.string "How did things turn out in\n"
-	.string "the BATTLE TOWER today?\p"
-	.string "Were you satisfied with the battle?\n"
-	.string "Or are you unhappy?$"
+	.string "You will? Really? Thank you! Then,\n"
+	.string "uh…\p"
+	.string "How did your last gauntlet turn\n"
+	.string "out today?\p"
+	.string "Were you satisfied with the\n"
+	.string "battle? Or are you unhappy?$"
 
 BattleFrontier_BattleTowerLobby_Text_SorryWeDisturbedYou::
 	.string "Oh…\n"

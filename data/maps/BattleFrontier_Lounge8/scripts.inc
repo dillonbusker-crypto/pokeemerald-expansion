@@ -14,25 +14,23 @@ BattleFrontier_Lounge8_EventScript_NinjaBoy::
 	end
 
 BattleFrontier_Lounge8_Text_WhatATrainerNeeds:
-	.string "What a TRAINER needs…\p"
-	.string "Knowledge…\n"
-	.string "Strategy…\l"
-	.string "Luck…\l"
-	.string "Guts…\l"
-	.string "Spirit…\l"
-	.string "Bravery…\l"
-	.string "And ability…\p"
+	.string "What a trainer needs…\p"
+	.string "Knowledge… Strategy… Luck… Guts…\n"
+	.string "Spirit… Bravery… And ability…\p"
 	.string "Well, I'm all set in every way!\n"
-	.string "I'll be unstoppable at every building!\p"
-	.string "Huh? POKéMON?\n"
-	.string "What's that?$"
+	.string "I'll clear all ten gauntlets!\p"
+	.string "Huh? Six POKéMON? At level 50? Hm.$"
 
 BattleFrontier_Lounge8_Text_KnowAboutFrontierBrains:
 	.string "Do you know about the FRONTIER\n"
 	.string "BRAINS?\p"
-	.string "That's what SCOTT calls the seven\n"
-	.string "special TRAINERS that run the seven\l"
-	.string "facilities in the BATTLE FRONTIER.$"
+	.string "They used to run the seven\n"
+	.string "facilities here. Now they guard\l"
+	.string "the end of the Ten Gauntlets, from\l"
+	.string "gauntlet 4 on.\p"
+	.string "The first three are guarded by\n"
+	.string "ANABEL's TOWER wardens: HELIS,\l"
+	.string "NERYS and KASRA.$"
 
 BattleFrontier_Lounge8_Text_ToldMeIHaveTalentForBattling:
 	.string "At the BATTLE TOWER, an older girl\n"

@@ -472,7 +472,7 @@ Debug_EventScript_SetHiddenNature::
 	releaseall
 	end
 
-@ Ten Buildings: added the PARTY_SIZE/egg guards (matching every other tool
+@ Ten Gauntlets: added the PARTY_SIZE/egg guards (matching every other tool
 @ here) and the "only one ability" branch - GetMonAbilityOptions (src/
 @ field_specials.c) replaces the callnative DebugNative_GetAbilityNames used
 @ before, since it also reports whether the mon's three ability slots are
@@ -621,7 +621,7 @@ Debug_EventScript_OpenStatEditor::
 	releaseall
 	end
 
-@ Ten Buildings: this used to run MOVE_RELEARNER_ALL_LEGAL_MOVES - a custom
+@ Ten Gauntlets: this used to run MOVE_RELEARNER_ALL_LEGAL_MOVES - a custom
 @ relearn state combining level-up (whole pre-evolution chain) + egg + TM/HM
 @ + tutor moves into one pool, the same set Pokemon Showdown would allow.
 @ Retired after repeated heap corruption traced back to it (garbled move-list
@@ -688,7 +688,7 @@ Debug_EventScript_Text_NoEggMoves:
 	.string "This POKéMON has no egg moves\n"
 	.string "left to learn.$"
 
-@ Ten Buildings: "Teach TM" - see the comment on GiveFrontierStartingGrants()
+@ Ten Gauntlets: "Teach TM" - see the comment on GiveFrontierStartingGrants()
 @ in src/new_game.c for why this replaced handing out TM items. Two-stage
 @ drill-down (type, then move) built from PushTMTypeMenuOptions/
 @ PushTMMoveMenuOptionsForType (src/field_specials.c), which push onto the

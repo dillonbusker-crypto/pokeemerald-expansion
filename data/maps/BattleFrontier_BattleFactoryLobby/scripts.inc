@@ -241,19 +241,17 @@ BattleFrontier_BattleFactoryLobby_EventScript_ExplainDoublesChallenge::
 	return
 
 BattleFrontier_BattleFactoryLobby_EventScript_ShowSinglesResults::
-	lockall
-	frontier_results FRONTIER_FACILITY_FACTORY, FRONTIER_MODE_SINGLES
-	waitbuttonpress
-	special RemoveRecordsWindow
-	releaseall
+	msgbox BattleFrontier_BattleFactoryLobby_EventScript_ShowSinglesResults_Text, MSGBOX_SIGN
 	end
 
 BattleFrontier_BattleFactoryLobby_EventScript_ShowDoublesResults::
-	lockall
-	frontier_results FRONTIER_FACILITY_FACTORY, FRONTIER_MODE_DOUBLES
-	waitbuttonpress
-	special RemoveRecordsWindow
-	releaseall
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 6, BattleFrontier_BattleFactoryLobby_EventScript_ShowDoublesResults_Cleared
+	msgbox BattleFrontier_BattleFactoryLobby_EventScript_ShowDoublesResults_Text, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattleFactoryLobby_EventScript_ShowDoublesResults_Cleared:
+	msgbox BattleFrontier_BattleFactoryLobby_EventScript_ShowDoublesResults_TextCleared, MSGBOX_SIGN
 	end
 
 BattleFrontier_BattleFactoryLobby_EventScript_Woman::
@@ -275,9 +273,7 @@ BattleFrontier_BattleFactoryLobby_EventScript_FatMan::
 	end
 
 BattleFrontier_BattleFactoryLobby_EventScript_RulesBoard::
-	lockall
-	msgbox BattleFrontier_BattleFactoryLobby_Text_RulesAreListed, MSGBOX_DEFAULT
-	goto BattleFrontier_BattleFactoryLobby_EventScript_ReadRulesBoard
+	msgbox BattleFrontier_BattleFactoryLobby_EventScript_RulesBoard_Text, MSGBOX_SIGN
 	end
 
 BattleFrontier_BattleFactoryLobby_EventScript_ReadRulesBoard::
@@ -323,8 +319,8 @@ BattleFrontier_BattleFactoryLobby_EventScript_ExitRules::
 	releaseall
 	end
 
-@ Ten Buildings: every non-Tower facility is locked until it's this
-@ building's turn. IsBattleFactoryUnlocked always reads FALSE right now -
+@ Ten Gauntlets: every non-Tower facility is locked until it's this
+@ gauntlet's turn. IsBattleFactoryUnlocked always reads FALSE right now -
 @ nothing sets that bit yet, since the unlock schedule isn't designed. See
 @ CLAUDE.md and shop-spec.md's unlock-schedule table.
 BattleFrontier_BattleFactoryLobby_EventScript_CheckLocked::
@@ -493,34 +489,30 @@ BattleFrontier_BattleFactoryLobby_Text_RecordLastMatch:
 	.string "FRONTIER PASS?$"
 
 BattleFrontier_BattleFactoryLobby_Text_NeedKnowledgeOfMonsMoves:
-	.string "Hi!\n"
-	.string "You, there!\p"
-	.string "Are you thinking that the events here\n"
-	.string "are easy since you don't need to have\l"
-	.string "a raised team of POKéMON?\p"
-	.string "I wouldn't be too sure about winning\n"
-	.string "that easily.\p"
-	.string "If you don't have thorough knowledge\n"
-	.string "about POKéMON and their moves,\l"
-	.string "it will be tough to keep winning.$"
+	.string "Hi! You, there!\p"
+	.string "Every team in here is built around\n"
+	.string "one plan: weather, terrain, TRICK\l"
+	.string "ROOM, or raw power.\p"
+	.string "Spot the plan on turn one, and\n"
+	.string "you're halfway there.$"
 
 BattleFrontier_BattleFactoryLobby_Text_SwappedForWeakMon:
-	.string "I swapped for a weak POKéMON…\n"
-	.string "I thought it was a good kind to have…\p"
-	.string "They wiped the floor with us…$"
+	.string "I brought my Singles team to a\n"
+	.string "Doubles gauntlet…\p"
+	.string "Spread moves hit both of my\n"
+	.string "POKéMON. Every single turn.$"
 
 BattleFrontier_BattleFactoryLobby_Text_NeedToCheckOpponentsMons:
-	.string "Things haven't been going my way\n"
-	.string "at all.\p"
-	.string "You need to check your opponent's\n"
-	.string "POKéMON during battle to see if\l"
-	.string "they're any good.$"
+	.string "Their PELIPPER set up rain, and I\n"
+	.string "just kept attacking…\p"
+	.string "I should have taken the weather\n"
+	.string "away first.$"
 
 BattleFrontier_BattleFactoryLobby_Text_CantFigureOutStaffHints:
-	.string "You know how the staff here give you\n"
-	.string "a few hints about your next opponent?\p"
-	.string "Well, I'm a full-grown man, but I have\n"
-	.string "trouble figuring out their hints.$"
+	.string "I hear the FACTORY HEAD's team\n"
+	.string "runs on sunshine.\p"
+	.string "…I'm going to go stand in the rain\n"
+	.string "for a while.$"
 
 @ Unused
 BattleFrontier_BattleFactoryLobby_Text_RentalMonsAreVaried:
@@ -575,11 +567,11 @@ BattleFrontier_BattleFactoryLobby_Text_ExplainOpenLvRules:
 	.string "are all Level 100.$"
 
 @ ============================================================================
-@ Ten Buildings: building 6 ("The Assembly Line", gauntlet-06.md). Same
-@ pattern as the Battle Dome's building 5: the Factory is only the location
-@ (no rentals or swapping), and its Doubles attendant runs building 6
+@ Ten Gauntlets: gauntlet 6 ("The Assembly Line", gauntlet-06.md). Same
+@ pattern as the Battle Dome's gauntlet 5: the Factory is only the location
+@ (no rentals or swapping), and its Doubles attendant runs gauntlet 6
 @ through the shared run-loop scripts in data/maps/BattleFrontier_
-@ BattleTowerLobby/scripts.inc. The Factory opens when building 5 is
+@ BattleTowerLobby/scripts.inc. The Factory opens when gauntlet 5 is
 @ cleared (IsBattleFactoryUnlocked() in src/facility.c), so the lobby's
 @ OnFrame check already turns the player away before then.
 @
@@ -590,24 +582,24 @@ BattleFrontier_BattleFactoryLobby_Text_ExplainOpenLvRules:
 BattleFrontier_BattleFactoryLobby_EventScript_FacilityAttendantB6::
 	lock
 	faceplayer
-	setvar VAR_0x8004, FACILITY_BUILDING_6
-	special IsFacilityRunActiveForBuilding
+	setvar VAR_0x8004, FACILITY_GAUNTLET_6
+	special IsFacilityRunActiveForGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
-	special IsFacilityRunActiveForDifferentBuilding
+	special IsFacilityRunActiveForDifferentGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_B6_Text_AskEnter, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, Facility_Decline
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
-	setvar VAR_0x8004, FACILITY_BUILDING_6
+	setvar VAR_0x8004, FACILITY_GAUNTLET_6
 	special FacilityStartRun
 	call Common_EventScript_SaveGame
 	goto Facility_DoBattle
 	end
 
 @ The vanilla Singles challenge would run the real Battle Factory's rental
-@ logic, outside the Ten Buildings run loop - so this attendant just turns
+@ logic, outside the Ten Gauntlets run loop - so this attendant just turns
 @ the player away.
 BattleFrontier_BattleFactoryLobby_EventScript_SinglesAttendantClosed::
 	lock
@@ -681,25 +673,56 @@ Facility_B6_Battle_CHORUS:
 	end
 
 Facility_Battle_Boss_B6:
-	trainerbattle_double TRAINER_FACILITY_B6_BOSS_OREN, Facility_B6_Text_BossIntro, Facility_B6_Text_BossDefeat, Facility_Text_NotEnoughMons, Facility_AfterBossBattle
+	trainerbattle_double TRAINER_FACILITY_B6_BOSS_NOLAND, Facility_B6_Text_BossIntro, Facility_B6_Text_BossDefeat, Facility_Text_NotEnoughMons, Facility_AfterBossBattle
 	end
 
 Facility_B6_Text_AskEnter:
-	.string "Welcome to the Assembly Line!\p"
-	.string "This is a Doubles gauntlet - six battles,\n"
-	.string "then a boss. Your whole party of six\l"
-	.string "enters, and it's locked once you begin.\p"
-	.string "Every team here is built to a plan.\n"
-	.string "Ready to start?$"
+	.string "Welcome to gauntlet 6, THE\n"
+	.string "ASSEMBLY LINE!\p"
+	.string "This is a Doubles gauntlet - six\n"
+	.string "battles, then a boss. Your whole\l"
+	.string "party of six enters, and it's\l"
+	.string "locked once you begin.\p"
+	.string "Every team here is built to a\n"
+	.string "plan. Ready to start?$"
 
 Facility_B6_Text_BossIntro:
-	.string "Every team off this line runs on one\n"
-	.string "part. Mine runs on the sun.$"
+	.string "Hey there! I'm NOLAND, the FACTORY\n"
+	.string "HEAD.\p"
+	.string "Every team off this line runs on\n"
+	.string "one part. Mine runs on the sun.\p"
+	.string "Find the part and break it.\n"
+	.string "Simple, right? Ha!$"
 
 Facility_B6_Text_BossDefeat:
-	.string "You broke the part that mattered.$"
+	.string "Ha! You found the part that\n"
+	.string "mattered. Nice work!$"
 
 BattleFrontier_BattleFactoryLobby_Text_SinglesClosed:
 	.string "The Singles challenge isn't running\n"
 	.string "right now. Please see my colleague\l"
 	.string "for the Assembly Line.$"
+
+BattleFrontier_BattleFactoryLobby_EventScript_ShowSinglesResults_Text:
+	.string "The Singles challenge isn't\n"
+	.string "running right now.$"
+
+BattleFrontier_BattleFactoryLobby_EventScript_ShowDoublesResults_Text:
+	.string "GAUNTLET 6 - THE ASSEMBLY LINE.\p"
+	.string "Doubles. Boss: FACTORY HEAD\n"
+	.string "NOLAND.\p"
+	.string "Not yet cleared.$"
+
+BattleFrontier_BattleFactoryLobby_EventScript_ShowDoublesResults_TextCleared:
+	.string "GAUNTLET 6 - THE ASSEMBLY LINE.\p"
+	.string "Doubles. Boss: FACTORY HEAD\n"
+	.string "NOLAND.\p"
+	.string "Cleared by {PLAYER}!$"
+
+BattleFrontier_BattleFactoryLobby_EventScript_RulesBoard_Text:
+	.string "THE ASSEMBLY LINE\p"
+	.string "Every team off this line is built\n"
+	.string "to one of four plans: WEATHER,\l"
+	.string "TERRAIN, TRICK ROOM, or RAW POWER.\p"
+	.string "Find the part the plan runs on,\n"
+	.string "and break it.$"

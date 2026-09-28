@@ -326,30 +326,27 @@ BattleFrontier_BattleDomeLobby_Movement_PlayerEnterDoor:
 	step_end
 
 BattleFrontier_BattleDomeLobby_EventScript_ShowSinglesResults::
-	lockall
-	frontier_results FRONTIER_FACILITY_DOME, FRONTIER_MODE_SINGLES
-	waitbuttonpress
-	special RemoveRecordsWindow
-	releaseall
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 5, BattleFrontier_BattleDomeLobby_EventScript_ShowSinglesResults_Cleared
+	msgbox BattleFrontier_BattleDomeLobby_EventScript_ShowSinglesResults_Text, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattleDomeLobby_EventScript_ShowSinglesResults_Cleared:
+	msgbox BattleFrontier_BattleDomeLobby_EventScript_ShowSinglesResults_TextCleared, MSGBOX_SIGN
 	end
 
 BattleFrontier_BattleDomeLobby_EventScript_ShowDoublesResults::
-	lockall
-	frontier_results FRONTIER_FACILITY_DOME, FRONTIER_MODE_DOUBLES
-	waitbuttonpress
-	special RemoveRecordsWindow
-	releaseall
+	msgbox BattleFrontier_BattleDomeLobby_EventScript_ShowDoublesResults_Text, MSGBOX_SIGN
 	end
 
 BattleFrontier_BattleDomeLobby_EventScript_ShowPrevTourneyTree::
-	dome_get DOME_DATA_PREV_TOURNEY_TYPE
-	call_if_eq VAR_RESULT, 0, BattleFrontier_BattleDomeLobby_EventScript_PrevTourneyResultsSinglesLv50
-	call_if_eq VAR_RESULT, 1, BattleFrontier_BattleDomeLobby_EventScript_PrevTourneyResultsDoublesLv50
-	call_if_eq VAR_RESULT, 2, BattleFrontier_BattleDomeLobby_EventScript_PrevTourneyResultsSinglesLvOpen
-	call_if_eq VAR_RESULT, 3, BattleFrontier_BattleDomeLobby_EventScript_PrevTourneyResultsDoublesLvOpen
-	fadescreen FADE_TO_BLACK
-	dome_showprevtourneytree
-	waitstate
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 5, BattleFrontier_BattleDomeLobby_EventScript_ShowPrevTourneyTree_Cleared
+	msgbox BattleFrontier_BattleDomeLobby_EventScript_ShowPrevTourneyTree_Text, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattleDomeLobby_EventScript_ShowPrevTourneyTree_Cleared:
+	msgbox BattleFrontier_BattleDomeLobby_EventScript_ShowPrevTourneyTree_TextCleared, MSGBOX_SIGN
 	end
 
 BattleFrontier_BattleDomeLobby_EventScript_PrevTourneyResultsSinglesLv50::
@@ -401,9 +398,7 @@ BattleFrontier_OutsideWest_EventScript_UnderConstructionSign::
 	end
 
 BattleFrontier_BattleDomeLobby_EventScript_RulesBoard::
-	lockall
-	msgbox BattleFrontier_BattleDomeLobby_Text_RulesAreListed, MSGBOX_DEFAULT
-	goto BattleFrontier_BattleDomeLobby_EventScript_ReadRulesBoard
+	msgbox BattleFrontier_BattleDomeLobby_EventScript_RulesBoard_Text, MSGBOX_SIGN
 	end
 
 BattleFrontier_BattleDomeLobby_EventScript_ReadRulesBoard::
@@ -437,8 +432,8 @@ BattleFrontier_BattleDomeLobby_EventScript_ExitRules::
 	releaseall
 	end
 
-@ Ten Buildings: every non-Tower facility is locked until it's this
-@ building's turn. IsBattleDomeUnlocked always reads FALSE right now -
+@ Ten Gauntlets: every non-Tower facility is locked until it's this
+@ gauntlet's turn. IsBattleDomeUnlocked always reads FALSE right now -
 @ nothing sets that bit yet, since the unlock schedule isn't designed. See
 @ CLAUDE.md and shop-spec.md's unlock-schedule table.
 BattleFrontier_BattleDomeLobby_EventScript_CheckLocked::
@@ -621,16 +616,17 @@ BattleFrontier_BattleDomeLobby_Text_PrevTourneyResultsDoublesLvOpen:
 	.string "Open Level DOUBLE BATTLE Tournament.$"
 
 BattleFrontier_BattleDomeLobby_Text_LastWinnerWasTough:
-	.string "Did you see it?\n"
-	.string "The last Battle Tournament?\p"
-	.string "The winner, {STR_VAR_1}, was seriously\n"
-	.string "tough.\p"
-	.string "You should check out the results\n"
-	.string "on the monitor beside the PC.$"
+	.string "Did you hear? TUCKER's ace Mega\n"
+	.string "Evolves into something the\l"
+	.string "EXCHANGE CORNER doesn't even sell!\p"
+	.string "Word is you need a scarf and\n"
+	.string "nerves of steel.$"
 
 BattleFrontier_OutsideWest_Text_LongDreamedAboutBattleFrontier:
-	.string "The BATTLE FRONTIER…\n"
-	.string "I've long dreamed about a place like it.$"
+	.string "Ten gauntlets of nothing but\n"
+	.string "battling…\p"
+	.string "I've dreamed of a place like this\n"
+	.string "my whole life.$"
 
 @ Functionally unused
 BattleFrontier_OutsideWest_Text_BattleDomeSign2:
@@ -643,25 +639,25 @@ BattleFrontier_OutsideWest_Text_QuestionMarkUnderConstruction:
 	.string "Under Construction!$"
 
 BattleFrontier_BattleDomeLobby_Text_WinnersGainReputation:
-	.string "When a TRAINER chains tournament\n"
-	.string "wins at the BATTLE DOME, he or she\l"
-	.string "gains a reputation as a star.\p"
-	.string "Tough TRAINERS are drawn by that\n"
-	.string "reputation to the BATTLE DOME.\p"
-	.string "A true superstar is a TRAINER who\n"
-	.string "can keep winning tournaments.$"
+	.string "Clear THE MAIN EVENT and everyone\n"
+	.string "on this island will know your\l"
+	.string "name.\p"
+	.string "The DOME ACE, TUCKER, made it the\n"
+	.string "most famous gauntlet in the\l"
+	.string "FRONTIER.$"
 
 BattleFrontier_BattleDomeLobby_Text_TrashedInFirstRound:
-	.string "I ran into one of the tournament\n"
-	.string "favorites in the very first round.\p"
-	.string "Of course I got trashed…$"
+	.string "My first opponent led with\n"
+	.string "LOPUNNY.\p"
+	.string "It Mega Evolved and hit me with\n"
+	.string "Fake Out before I'd even blinked.$"
 
 BattleFrontier_BattleDomeLobby_Text_NeedToCheckOpponentCarefully:
-	.string "I would've won if I'd kept this POKéMON\n"
-	.string "held in reserve.\p"
-	.string "You need to check your opponent's\n"
-	.string "POKéMON carefully before choosing\l"
-	.string "your battling POKéMON.$"
+	.string "I Mega Evolved my first POKéMON on\n"
+	.string "turn one.\p"
+	.string "Then the real threat came out, and\n"
+	.string "I had nothing left to answer it\l"
+	.string "with.$"
 
 BattleFrontier_BattleDomeLobby_Text_CongratsDefeatedTucker:
 	.string "Congratulations!\p"
@@ -710,13 +706,13 @@ BattleFrontier_BattleDomeLobby_Text_ExplainDoubleKORules:
 	.string "the match and declare the winner.$"
 
 @ ============================================================================
-@ Ten Buildings: building 5 ("The Main Event", gauntlet-05.md). The Dome is
+@ Ten Gauntlets: gauntlet 5 ("The Main Event", gauntlet-05.md). The Dome is
 @ only the location - the vanilla tournament (brackets, 3v3, team preview)
-@ isn't used. The Singles attendant runs building 5 through the same shared
+@ isn't used. The Singles attendant runs gauntlet 5 through the same shared
 @ run-loop scripts the Battle Tower lobby uses (Facility_DoBattle and
 @ everything after it, in data/maps/BattleFrontier_BattleTowerLobby/
 @ scripts.inc - every map's scripts assemble into one file, so those labels
-@ are reachable from here). The Dome opens when building 4 is cleared (see
+@ are reachable from here). The Dome opens when gauntlet 4 is cleared (see
 @ IsBattleDomeUnlocked() in src/facility.c), so this attendant needs no
 @ lock check of its own - the lobby's OnFrame check already turns the
 @ player away before then.
@@ -728,24 +724,24 @@ BattleFrontier_BattleDomeLobby_Text_ExplainDoubleKORules:
 BattleFrontier_BattleDomeLobby_EventScript_FacilityAttendantB5::
 	lock
 	faceplayer
-	setvar VAR_0x8004, FACILITY_BUILDING_5
-	special IsFacilityRunActiveForBuilding
+	setvar VAR_0x8004, FACILITY_GAUNTLET_5
+	special IsFacilityRunActiveForGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
-	special IsFacilityRunActiveForDifferentBuilding
+	special IsFacilityRunActiveForDifferentGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_B5_Text_AskEnter, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, Facility_Decline
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
-	setvar VAR_0x8004, FACILITY_BUILDING_5
+	setvar VAR_0x8004, FACILITY_GAUNTLET_5
 	special FacilityStartRun
 	call Common_EventScript_SaveGame
 	goto Facility_DoBattle
 	end
 
 @ The vanilla Doubles tournament would run the real Battle Dome's own
-@ challenge logic, outside the Ten Buildings run loop entirely - so the
+@ challenge logic, outside the Ten Gauntlets run loop entirely - so the
 @ Doubles attendant just turns the player away.
 BattleFrontier_BattleDomeLobby_EventScript_DoublesAttendantClosed::
 	lock
@@ -819,25 +815,66 @@ Facility_B5_Battle_PRESSURE:
 	end
 
 Facility_Battle_Boss_B5:
-	trainerbattle_single TRAINER_FACILITY_B5_BOSS_SOLEN, Facility_B5_Text_BossIntro, Facility_B5_Text_BossDefeat, Facility_AfterBossBattle
+	trainerbattle_single TRAINER_FACILITY_B5_BOSS_TUCKER, Facility_B5_Text_BossIntro, Facility_B5_Text_BossDefeat, Facility_AfterBossBattle
 	end
 
 Facility_B5_Text_AskEnter:
-	.string "Welcome to the Main Event!\p"
-	.string "This is a Singles gauntlet - six battles,\n"
-	.string "then a boss. Your whole party of six\l"
-	.string "enters, and it's locked once you begin.\p"
-	.string "Every opponent here can Mega Evolve.\n"
-	.string "Ready to start?$"
+	.string "Welcome to gauntlet 5, THE MAIN\n"
+	.string "EVENT!\p"
+	.string "This is a Singles gauntlet - six\n"
+	.string "battles, then a boss. Your whole\l"
+	.string "party of six enters, and it's\l"
+	.string "locked once you begin.\p"
+	.string "Every opponent here can Mega\n"
+	.string "Evolve. Ready to start?$"
 
 Facility_B5_Text_BossIntro:
-	.string "You made it to the main event.\p"
-	.string "Let's see whose crown this is.$"
+	.string "Ladies and gentlemen, your DOME\n"
+	.string "ACE, TUCKER!\p"
+	.string "And my challenger made it all the\n"
+	.string "way to the main event. Let's give\l"
+	.string "them a show they'll never forget!$"
 
 Facility_B5_Text_BossDefeat:
-	.string "The crown is yours.$"
+	.string "What a finish! Take a bow - the\n"
+	.string "crown is yours today.$"
 
 BattleFrontier_BattleDomeLobby_Text_DoublesClosed:
 	.string "The Doubles tournament isn't running\n"
 	.string "right now. Please see my colleague\l"
 	.string "for the Main Event.$"
+
+BattleFrontier_BattleDomeLobby_EventScript_ShowSinglesResults_Text:
+	.string "GAUNTLET 5 - THE MAIN EVENT.\p"
+	.string "Singles. Boss: DOME ACE TUCKER.\p"
+	.string "Not yet cleared.$"
+
+BattleFrontier_BattleDomeLobby_EventScript_ShowSinglesResults_TextCleared:
+	.string "GAUNTLET 5 - THE MAIN EVENT.\p"
+	.string "Singles. Boss: DOME ACE TUCKER.\p"
+	.string "Cleared by {PLAYER}!$"
+
+BattleFrontier_BattleDomeLobby_EventScript_ShowPrevTourneyTree_Text:
+	.string "A poster of the DOME ACE, TUCKER,\n"
+	.string "mid-bow.\p"
+	.string "“Undefeated in THE MAIN EVENT!”$"
+
+BattleFrontier_BattleDomeLobby_EventScript_ShowPrevTourneyTree_TextCleared:
+	.string "A poster of the DOME ACE, TUCKER,\n"
+	.string "mid-bow.\p"
+	.string "Someone has scrawled “{PLAYER} WAS\n"
+	.string "HERE” across the word\l"
+	.string "“Undefeated.”$"
+
+BattleFrontier_BattleDomeLobby_EventScript_ShowDoublesResults_Text:
+	.string "The Doubles tournament isn't\n"
+	.string "running right now.$"
+
+BattleFrontier_BattleDomeLobby_EventScript_RulesBoard_Text:
+	.string "MEGA EVOLUTION - RULES\p"
+	.string "A POKéMON needs its own MEGA\n"
+	.string "STONE, and its trainer needs a\l"
+	.string "MEGA RING.\p"
+	.string "Only one POKéMON per trainer can\n"
+	.string "Mega Evolve each battle. Choose\l"
+	.string "wisely!$"

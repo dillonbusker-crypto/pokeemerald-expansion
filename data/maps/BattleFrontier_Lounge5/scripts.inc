@@ -42,10 +42,10 @@ BattleFrontier_Lounge5_EventScript_LittleBoy::
 	end
 
 BattleFrontier_Lounge5_Text_NatureGirlGreeting::
-	.string "Ehehe!\n"
-	.string "I can tell what POKéMON are thinking!\p"
-	.string "Please!\n"
-	.string "Can I see your POKéMON?$"
+	.string "Ehehe! I can tell what POKéMON are\n"
+	.string "thinking! Some of them even want\l"
+	.string "to change shape!\p"
+	.string "Please! Can I see your POKéMON?$"
 
 BattleFrontier_Lounge5_Text_NatureGirlNoneShown::
 	.string "Boo!\n"

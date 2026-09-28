@@ -1312,7 +1312,7 @@ static void PrintContestStringOnCard(void)
         PrintStatOnBackOfCard(4, gText_WonContestsWFriends, sData->textNumLinkContests, sTrainerCardStatColors);
 }
 
-// Ten Buildings: this hack never touches gSaveBlock2Ptr->frontier.
+// Ten Gauntlets: this hack never touches gSaveBlock2Ptr->frontier.
 // cardBattlePoints (frontierBP below), since Battle Points aren't a
 // currency here - FP is. That line on the card would otherwise just
 // always be blank (frontierBP permanently 0), so it shows the player's FP

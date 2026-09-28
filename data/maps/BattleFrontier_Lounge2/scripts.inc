@@ -10,10 +10,51 @@ BattleFrontier_Lounge2_MapScripts::
 BattleFrontier_Lounge2_EventScript_FrontierManiac::
 	lock
 	faceplayer
-	goto_if_set FLAG_MET_BATTLE_FRONTIER_MANIAC, BattleFrontier_Lounge2_EventScript_AlreadyMetManiac
-	setflag FLAG_MET_BATTLE_FRONTIER_MANIAC
-	msgbox BattleFrontier_Lounge2_Text_FrontierManiacIntro, MSGBOX_DEFAULT
-	goto BattleFrontier_Lounge2_EventScript_GiveAdvice
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 10, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared10
+	goto_if_ge VAR_RESULT, 6, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared6
+	goto_if_ge VAR_RESULT, 5, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared5
+	goto_if_ge VAR_RESULT, 4, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared4
+	goto_if_ge VAR_RESULT, 3, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared3
+	goto_if_ge VAR_RESULT, 2, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared2
+	goto_if_ge VAR_RESULT, 1, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared1
+	msgbox BattleFrontier_Lounge2_EventScript_FrontierManiac_Text0, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared10:
+	msgbox BattleFrontier_Lounge2_EventScript_FrontierManiac_Text10, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared6:
+	msgbox BattleFrontier_Lounge2_EventScript_FrontierManiac_Text6, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared5:
+	msgbox BattleFrontier_Lounge2_EventScript_FrontierManiac_Text5, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared4:
+	msgbox BattleFrontier_Lounge2_EventScript_FrontierManiac_Text4, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared3:
+	msgbox BattleFrontier_Lounge2_EventScript_FrontierManiac_Text3, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared2:
+	msgbox BattleFrontier_Lounge2_EventScript_FrontierManiac_Text2, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared1:
+	msgbox BattleFrontier_Lounge2_EventScript_FrontierManiac_Text1, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_Lounge2_EventScript_AlreadyMetManiac::
@@ -367,3 +408,57 @@ BattleFrontier_Lounge2_Text_ThisPlaceIsScaringMe::
 	.string "…What is this place?\n"
 	.string "It's scaring me…$"
 
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Text10:
+	.string "Howdy! The latest word?\p"
+	.string "…It's you. You ARE the latest\n"
+	.string "word. Everyone's talking about the\l"
+	.string "trainer who cleared all ten\l"
+	.string "gauntlets!$"
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Text6:
+	.string "Howdy! Big news: there is no news!\p"
+	.string "The rest of the FRONTIER is still\n"
+	.string "sealed. The rumor is the PIKE\l"
+	.string "QUEEN, LUCY, is next.$"
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Text5:
+	.string "Howdy! The latest word?\p"
+	.string "The FACTORY HEAD, NOLAND, builds\n"
+	.string "his whole team around the sun.\l"
+	.string "Rain on his parade, and it all\l"
+	.string "falls apart.$"
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Text4:
+	.string "Howdy! The latest word?\p"
+	.string "The DOME ACE, TUCKER, has an ace\n"
+	.string "that Mega Evolves into something\l"
+	.string "no shop sells. Something faster\l"
+	.string "than a SCARF… almost.$"
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Text3:
+	.string "Howdy! The latest word?\p"
+	.string "The SALON MAIDEN, ANABEL, is\n"
+	.string "waiting at the top of the TOWER.\l"
+	.string "They say she decides who moves\l"
+	.string "first, every single turn.$"
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Text2:
+	.string "Howdy! The latest word?\p"
+	.string "DUNEWARDEN KASRA lives and dies by\n"
+	.string "sandstorms. Take the sand away,\l"
+	.string "and her whole team slows down.$"
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Text1:
+	.string "Howdy! The latest word?\p"
+	.string "Gauntlet 2 is Doubles, and\n"
+	.string "TIDEWARDEN NERYS runs a rain team.\l"
+	.string "Her POKéMON get twice as fast when\l"
+	.string "it's pouring.$"
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Text0:
+	.string "Howdy! When it comes to FRONTIER\n"
+	.string "news, I'm no. 1!\p"
+	.string "Word is gauntlet 1's boss, WARDEN\n"
+	.string "HELIS, keeps an ALTARIA. Give it\l"
+	.string "one free turn to Dragon Dance, and\l"
+	.string "it sweeps.$"

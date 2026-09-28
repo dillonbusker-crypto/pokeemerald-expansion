@@ -6,7 +6,15 @@ outright at a premium, or a Pokémon on loan — before that gauntlet is cleared
 It hands the player a small share of the power gap the design otherwise
 reserves for bosses, at a price and with a risk.
 
-**Not built yet.** Decided with the owner; ready to implement.
+**Built.** The Lounge 3 script is `BattleFrontier_Lounge3_EventScript_Gambler`
+(the old label, kept so the map needn't change); the logic is the
+`FacilityBroker*` specials at the end of `src/facility_shop.c`; loans resolve
+in `FacilityCompleteGauntlet()` / `FacilityAbandonRun()` (`src/facility.c`),
+and `Facility_BrokerLoanNews` (Battle Tower lobby scripts) reports the result
+after every run. A loaner is identified by Original Trainer "BROKER" **plus**
+the in-game-trade met location, so a player who names themselves BROKER is
+safe; keeping one re-tags only the OT name and gender, so it can't change
+shininess.
 
 ---
 
@@ -139,5 +147,15 @@ real Pokémon exist to pick from.
 
 **Lounge 3 regulars:** the three watchers become his nervous customers —
 "I bought a CHOICE SCARF off him a whole gauntlet early. I still don't know
-where he gets them." Elsewhere, the Exchange Corner's Sailor warns: "Don't
-buy from that guy in LOUNGE 3!"
+where he gets them." Elsewhere, the Exchange Corner's Sailor warns the player
+off him with vague directions — "that shady type who hangs around the houses
+out past the ARENA, on the far east side." Two more NPCs spread the rumor: the
+Fisherman in the Outside West plaza ("someone way over on the east side, out
+past the ARENA, who'll sell you things before the shop even has them…
+Sounds fishy to me") and the Cook in the house at the east edge of Outside
+West ("somebody's already running a business out of one of those houses on
+the far east side… whatever he's selling, it isn't food").
+
+**Never say "Lounge" in player-facing text.** The lounges are unlabeled
+houses to the player, so NPCs point toward the Broker with directions and
+landmarks, not a room number. "Lounge 3" is an internal map name only.

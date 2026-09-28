@@ -110,7 +110,7 @@ static const u8 sStarterLabelCoords[STARTER_MON_COUNT][2] =
     {8, 4},
 };
 
-// Ten Buildings: swapped for three building-1-pool mons at the player's
+// Ten Gauntlets: swapped for three gauntlet-1-pool mons at the player's
 // starting level instead of the vanilla base-stage/level-5 starters. See
 // gauntlet-01.md and CLAUDE.md.
 #define GRASS_STARTER (IS_FRLG ? SPECIES_BULBASAUR  : SPECIES_QUILLADIN)

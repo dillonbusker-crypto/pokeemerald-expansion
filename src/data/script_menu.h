@@ -303,7 +303,7 @@ static const struct MenuAction MultichoiceList_SSTidalSlateportWithBF[] =
     {gText_Exit},
 };
 
-// Ten Buildings: Slateport and Lilycove are disabled here on purpose - the
+// Ten Gauntlets: Slateport and Lilycove are disabled here on purpose - the
 // only way back out is the way the player came in, Route 103's own dock (see
 // data/maps/Route103/scripts.inc and BattleFrontier_OutsideWest/scripts.inc's
 // EventScript_ChooseFerryDestination). Revisit once the other coastal towns

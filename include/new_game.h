@@ -12,6 +12,8 @@ void CopyTrainerId(u8 *dst, u8 *src);
 void NewGameInitData(void);
 void ResetMenuAndMonGlobals(void);
 void Sav2_ClearSetDefault(void);
-void GiveFrontierStartingGrants(void);
+void GiveFrontierStartingMon(void);
+void GiveFrontierStartingFPAndHMs(void);
+u16 HasReceivedFrontierStartingGrants(void);
 
 #endif // GUARD_NEW_GAME_H
