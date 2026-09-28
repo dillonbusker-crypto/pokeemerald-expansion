@@ -31,9 +31,14 @@ Florges, Archeops and Silvally are the only additions the cap raise brings.
 
 **In practice this matters less than it looked**, for one reason: building 3
 was singles. The player spent tier 3 buying singles Pokémon. Everything in the
-501–550 band that defines competitive *doubles* — Incineroar, Rillaboom,
-Togekiss, Hatterene, Grimmsnarl, Gholdengo, Porygon2, Tsareena, Dondozo — was
-technically purchasable at tier 3 and almost certainly wasn't purchased.
+501–550 band that defines competitive *doubles* — Rillaboom, Togekiss,
+Hatterene, Grimmsnarl, Gholdengo, Porygon2 — was purchasable at tier 3 and
+almost certainly wasn't purchased.
+
+The doubles staples this building's CPU teams lean on — Incineroar, Tsareena,
+Dondozo, Talonflame, Conkeldurr and others — arrive in the shop *with*
+building 4 (see `shop-unlock-b4.md`). They were missing from the shop until
+then even though these teams used them.
 
 So the shop has plenty to offer even though the cap barely moved. Building 4's
 identity is the **format shift plus four new items**, not the cap.
@@ -425,7 +430,7 @@ the Trick Room and Ice Shard can't revenge the sweepers. Follow Me covers the
 setup turn.
 
 ```
-Indeedee @ Sitrus Berry
+Indeedee-F @ Sitrus Berry
 Ability: Psychic Surge
 EVs: 252 HP / 252 SpA / 4 Def
 Quiet Nature
@@ -552,7 +557,7 @@ Psychic Terrain, and the terrain blanks every Fake Out and priority move the
 player brought.
 
 ```
-Indeedee @ Sitrus Berry
+Indeedee-F @ Sitrus Berry
 Ability: Psychic Surge
 EVs: 252 HP / 252 SpA / 4 Def
 Modest Nature
@@ -877,7 +882,7 @@ Baxcalibur and Dragonite.
 **AI:** omniscient, proactive switching, no ace flag.
 
 ```
-Indeedee @ Focus Sash
+Indeedee-F @ Focus Sash
 Ability: Psychic Surge
 EVs: 252 HP / 252 SpA / 4 Def
 Quiet Nature

@@ -19569,7 +19569,7 @@ Music: Male
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
-Indeedee @ Sitrus Berry
+Indeedee-F @ Sitrus Berry
 Ability: Psychic Surge
 Level: 50
 EVs: 252 HP / 252 SpA / 4 Def
@@ -19707,7 +19707,7 @@ Music: Male
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
-Indeedee @ Sitrus Berry
+Indeedee-F @ Sitrus Berry
 Ability: Psychic Surge
 Level: 50
 EVs: 252 HP / 252 SpA / 4 Def
@@ -20052,7 +20052,7 @@ Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 
-Indeedee @ Focus Sash
+Indeedee-F @ Focus Sash
 Ability: Psychic Surge
 Level: 50
 EVs: 252 HP / 252 SpA / 4 Def
@@ -20150,7 +20150,7 @@ Jolly Nature
 - Return
 - Ice Punch
 
-Dragapult @ Life Orb
+Dragapult @ Choice Specs
 Ability: Infiltrator
 Level: 50
 EVs: 252 SpA / 4 SpD / 252 Spe
@@ -20170,7 +20170,7 @@ Timid Nature
 - Dazzling Gleam
 - Energy Ball
 
-Weavile @ Muscle Band
+Weavile @ Life Orb
 Ability: Pressure
 Level: 50
 EVs: 252 Atk / 4 SpD / 252 Spe
@@ -20238,7 +20238,7 @@ Modest Nature
 - Earth Power
 - Sludge Bomb
 
-Iron Crown @ Expert Belt
+Iron Crown @ Choice Specs
 Ability: Quark Drive
 Level: 50
 EVs: 252 SpA / 4 SpD / 252 Spe
@@ -20296,7 +20296,7 @@ Adamant Nature
 - Play Rough
 - Knock Off
 
-Dragonite @ Weakness Policy
+Dragonite @ Heavy-Duty Boots
 Ability: Multiscale
 Level: 50
 EVs: 252 Atk / 4 Def / 252 Spe
@@ -20898,7 +20898,7 @@ Jolly Nature
 - Ice Spinner
 - Knock Off
 
-Tyranitar @ Leftovers
+Tyranitar @ Smooth Rock
 Ability: Sand Stream
 Level: 50
 EVs: 252 HP / 4 Atk / 252 SpD
@@ -20908,7 +20908,7 @@ Careful Nature
 - Stone Edge
 - Thunder Wave
 
-Gholdengo @ Expert Belt
+Gholdengo @ Leftovers
 Ability: Good as Gold
 Level: 50
 EVs: 252 SpA / 4 SpD / 252 Spe

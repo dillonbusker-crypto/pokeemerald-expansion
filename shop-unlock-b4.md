@@ -20,9 +20,9 @@ because the player couldn't buy them yet.
 
 There's a second, quieter source of new options: building 3 was singles, so the
 player spent that tier buying singles Pokémon. Everything in the 501–550 band
-that defines competitive *doubles* — Incineroar, Rillaboom, Togekiss, Hatterene,
-Grimmsnarl, Gholdengo, Porygon2, Tsareena, Dondozo — was already purchasable and
-almost certainly wasn't purchased. The shop has plenty to offer even though the
+that defines competitive *doubles* — Rillaboom, Togekiss, Hatterene, Grimmsnarl,
+Gholdengo, Porygon2 — was already purchasable and almost certainly wasn't
+purchased. The shop has plenty to offer even though the
 cap barely moved.
 
 **Worth surfacing in-game.** An NPC line or shop banner pointing the player back
@@ -79,6 +79,26 @@ second consecutive unlock where the Mega keeper has nothing.
 | Archeops | 375 | Enormous attack stats, but Defeatist halves them below 50% HP |
 | Florges | 375 | Bulky Fairy special wall with Calm Mind and Wish |
 | Silvally | 250 | Typing changes by held memory disc; flexible but unremarkable |
+
+### Doubles staples
+
+Pokémon building 4's CPU teams use that the shop had never sold. They arrive
+here so the player can buy what they face.
+
+| Pokémon | FP | Notes |
+|---|---|---|
+| Incineroar | 500 | Sold with Intimidate |
+| Talonflame | 375 | Sold with Gale Wings |
+| Tsareena | 375 | Sold with Queenly Majesty |
+| Farigiraf | 375 | Sold with Armor Tail |
+| Dondozo, Conkeldurr, Glimmora, Arboliva | 375 | |
+| Coalossal | 250 | Sold with Flame Body |
+| Indeedee-F | 250 | Sold with Psychic Surge. The form with Follow Me |
+| Mr. Rime, Dracozolt, Galvantula | 250 | |
+
+Solrock went into building 3's wave instead, since building 3's Scorched team
+uses it. The male Indeedee (sold since building 2) now also comes with
+Psychic Surge.
 
 ### Legendaries
 

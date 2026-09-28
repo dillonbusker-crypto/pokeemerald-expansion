@@ -332,6 +332,9 @@ static const struct FacilityShopMon sPremiumMons[] =
     { SPECIES_SERPERIOR,      400, 2 },
     // Unlocked clearing building 3 - shop-unlock-b4.md.
     { SPECIES_ARCANINE,       500, 3 },
+    // Doubles staples building 4's CPU teams already used but the shop
+    // never sold - see shop-unlock-b4.md.
+    { SPECIES_INCINEROAR,      500, 3 },
     // Unlocked clearing building 4 - building-05.md. The 600-BST
     // pseudo-legendaries plus the singles-relevant Paradox / Ultra Beast /
     // Mythical picks; the Ubers-grade ones wait for building 7.
@@ -482,6 +485,14 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_DURALUDON,     300, 2 },
     // Unlocked clearing building 3 - shop-unlock-b4.md.
     { SPECIES_ARCHEOPS,      375, 3 },
+    // Doubles staples - see the note in sPremiumMons.
+    { SPECIES_TALONFLAME,      375, 3 },
+    { SPECIES_TSAREENA,        375, 3 },
+    { SPECIES_DONDOZO,         375, 3 },
+    { SPECIES_CONKELDURR,      375, 3 },
+    { SPECIES_GLIMMORA,        375, 3 },
+    { SPECIES_FARIGIRAF,       375, 3 },
+    { SPECIES_ARBOLIVA,        375, 3 },
     { SPECIES_FLORGES,       375, 3 },
     // Sub-legendaries judged safe for building 5's singles (see the
     // building 4 legendary draft) - the rest of the 551-599 legendary /
@@ -664,11 +675,20 @@ static const struct FacilityShopMon sStandardMons[] =
     { SPECIES_LAPRAS,     200, 2 },
     { SPECIES_WALREIN,    200, 2 },
     { SPECIES_SCEPTILE,   200, 2 },
+    // Building 3's Scorched team used Solrock before the shop sold it.
+    { SPECIES_SOLROCK,         200, 2 },
     { SPECIES_EELEKTROSS, 200, 2 },
     { SPECIES_TENTACRUEL, 200, 2 },
     { SPECIES_SIRFETCHD,  200, 2 },
     // Unlocked clearing building 3 - shop-unlock-b4.md.
     { SPECIES_SILVALLY,   250, 3 },
+    // Doubles staples - see the note in sPremiumMons. Indeedee-F is the
+    // form with Follow Me; only the male was sold before.
+    { SPECIES_COALOSSAL,       250, 3 },
+    { SPECIES_MR_RIME,         250, 3 },
+    { SPECIES_DRACOZOLT,       250, 3 },
+    { SPECIES_GALVANTULA,      250, 3 },
+    { SPECIES_INDEEDEE_F,      250, 3 },
     { SPECIES_ARTICUNO,   250, 3 },
     { SPECIES_REGIROCK,   250, 3 },
     { SPECIES_REGICE,     250, 3 },
@@ -752,6 +772,13 @@ static const struct { u16 species; u8 abilityNum; } sAbilityOverrides[] =
     { SPECIES_SUICUNE,   2 }, // Inner Focus, as Entei
     { SPECIES_ZAPDOS,    2 }, // Static, not Pressure
     { SPECIES_MOLTRES,   2 }, // Flame Body, not Pressure
+    { SPECIES_INCINEROAR, 2 }, // Intimidate, not Blaze
+    { SPECIES_TALONFLAME, 2 }, // Gale Wings, not Flame Body
+    { SPECIES_TSAREENA,  1 }, // Queenly Majesty, not Leaf Guard
+    { SPECIES_FARIGIRAF, 1 }, // Armor Tail, not Cud Chew
+    { SPECIES_COALOSSAL, 1 }, // Flame Body, not Steam Engine
+    { SPECIES_INDEEDEE_F, 2 }, // Psychic Surge - the reason to buy it
+    { SPECIES_INDEEDEE_M, 2 }, // Psychic Surge, as Indeedee-F
     { SPECIES_GARCHOMP,  2 }, // Rough Skin, not Sand Veil
     { SPECIES_DRAGONITE, 2 }, // Multiscale, not Inner Focus
     { SPECIES_CLEFABLE,  1 }, // Magic Guard, not Cute Charm

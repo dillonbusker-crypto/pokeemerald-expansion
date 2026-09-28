@@ -82,7 +82,7 @@ Lucario, Ceruledge, Hydrapple *(Regenerator)*, Golisopod, Feraligatr
 Vanilluxe, Floatzel, Omastar, Poliwrath, Gorebyss, Huntail, Exeggutor,
 Lilligant, Victreebel, Shiftry, Sawsbuck, Cherrim, Charizard, Magmortar,
 Blaziken, Beartic, Lapras, Walrein, Sceptile, Dusclops, Eelektross,
-Tentacruel, Sirfetch'd
+Tentacruel, Sirfetch'd, Solrock
 
 ### Eviolite targets — 300 FP
 

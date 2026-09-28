@@ -272,7 +272,7 @@ Jolly Nature
 - Return
 - Ice Punch
 
-Dragapult @ Life Orb
+Dragapult @ Choice Specs
 Ability: Infiltrator
 EVs: 252 SpA / 4 SpD / 252 Spe
 Timid Nature
@@ -290,7 +290,7 @@ Timid Nature
 - Dazzling Gleam
 - Energy Ball
 
-Weavile @ Muscle Band
+Weavile @ Life Orb
 Ability: Pressure
 EVs: 252 Atk / 4 SpD / 252 Spe
 Jolly Nature
@@ -352,7 +352,7 @@ Modest Nature
 - Earth Power
 - Sludge Bomb
 
-Iron Crown @ Expert Belt
+Iron Crown @ Choice Specs
 Ability: Quark Drive
 EVs: 252 SpA / 4 SpD / 252 Spe
 Timid Nature
@@ -404,7 +404,7 @@ Adamant Nature
 - Play Rough
 - Knock Off
 
-Dragonite @ Weakness Policy
+Dragonite @ Heavy-Duty Boots
 Ability: Multiscale
 EVs: 252 Atk / 4 Def / 252 Spe
 Adamant Nature
@@ -976,7 +976,7 @@ Jolly Nature
 - Ice Spinner
 - Knock Off
 
-Tyranitar @ Leftovers
+Tyranitar @ Smooth Rock
 Ability: Sand Stream
 EVs: 252 HP / 4 Atk / 252 SpD
 Careful Nature
@@ -985,7 +985,7 @@ Careful Nature
 - Stone Edge
 - Thunder Wave
 
-Gholdengo @ Expert Belt
+Gholdengo @ Leftovers
 Ability: Good as Gold
 EVs: 252 SpA / 4 SpD / 252 Spe
 Timid Nature
