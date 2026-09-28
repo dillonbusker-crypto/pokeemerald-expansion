@@ -145,13 +145,13 @@ Adamant Nature
 - Rock Slide
 - Protect
 
-Jumpluff (no item)
-Ability: Infiltrator
-EVs: 252 HP / 4 Def / 252 Spe
+Hawlucha @ Coba Berry
+Ability: Unburden
+EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
 - Acrobatics
-- Sleep Powder
-- Leech Seed
+- Close Combat
+- Swords Dance
 - Protect
 
 Vikavolt @ Magnet
@@ -206,14 +206,14 @@ Adamant Nature
 - Wide Guard
 - Protect
 
-Toxapex @ Passho Berry
-Ability: Regenerator
-EVs: 252 HP / 252 Def / 4 SpD
-Bold Nature
-- Scald
-- Toxic
-- Recover
-- Haze
+Clawitzer @ Wise Glasses
+Ability: Mega Launcher
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Water Pulse
+- Aura Sphere
+- Heal Pulse
+- Protect
 
 Barraskewda @ Sharp Beak
 Ability: Swift Swim
@@ -317,13 +317,13 @@ Adamant Nature
 - Superpower
 - Protect
 
-Mimikyu @ Spell Tag
-Ability: Disguise
-EVs: 252 Atk / 4 Def / 252 Spe
-Jolly Nature
-- Play Rough
-- Shadow Sneak
-- Swords Dance
+Gengar @ Spell Tag
+Ability: Cursed Body
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Shadow Ball
+- Sludge Bomb
+- Icy Wind
 - Protect
 
 Bronzong @ Occa Berry
@@ -430,13 +430,13 @@ Bold Nature
 - Thunder Wave
 - Protect
 
-Araquanid @ Mystic Water
-Ability: Water Bubble
-EVs: 252 HP / 252 Atk / 4 Def
-Adamant Nature
-- Liquidation
-- Leech Life
-- Wide Guard
+Kleavor @ Silver Powder
+Ability: Sharpness
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Stone Axe
+- X-Scissor
+- Swords Dance
 - Protect
 
 Vikavolt @ Magnet
@@ -534,13 +534,13 @@ Adamant Nature
 - Aqua Jet
 - Protect
 
-Golem @ Passho Berry
-Ability: Sturdy
-EVs: 252 HP / 252 Atk / 4 Def
+Muk-Alola @ Shuca Berry
+Ability: Poison Touch
+EVs: 252 HP / 252 Atk / 4 SpD
 Adamant Nature
-- Earthquake
-- Rock Slide
-- Explosion
+- Poison Jab
+- Snarl
+- Shadow Sneak
 - Protect
 ```
 
@@ -777,13 +777,13 @@ Quiet Nature
 - Yawn
 - Protect
 
-Araquanid @ Mystic Water
-Ability: Water Bubble
-EVs: 252 HP / 252 Atk / 4 Def
-Brave Nature
-- Liquidation
-- Leech Life
-- Wide Guard
+Wailord @ Mystic Water
+Ability: Pressure
+EVs: 252 HP / 252 SpA / 4 Def
+Quiet Nature
+- Water Spout
+- Ice Beam
+- Hydro Pump
 - Protect
 
 Bewear @ Silk Scarf
