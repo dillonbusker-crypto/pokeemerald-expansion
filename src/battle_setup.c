@@ -1529,7 +1529,10 @@ void BattleSetup_StartTrainerBattle(void)
         }
     }
 
-    if (TRAINER_BATTLE_PARAM.earlyRival && GetRivalBattleFlags() & RIVAL_BATTLE_TUTORIAL)
+    // Ten Gauntlets: RIVAL_BATTLE_TUTORIAL (3) includes the RIVAL_BATTLE_HEAL_AFTER bit (1), so a plain
+    // "& RIVAL_BATTLE_TUTORIAL" also matched heal-after-only battles and turned them into the tutorial
+    // first battle - which replaces the opponent's party with a level 2 wild Zigzagoon. Require both bits.
+    if (TRAINER_BATTLE_PARAM.earlyRival && (GetRivalBattleFlags() & RIVAL_BATTLE_TUTORIAL) == RIVAL_BATTLE_TUTORIAL)
         gBattleTypeFlags |= BATTLE_TYPE_FIRST_BATTLE;
 
     if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)

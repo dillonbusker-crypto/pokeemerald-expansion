@@ -38,11 +38,11 @@ BattleFrontier_PokemonCenter_1F_EventScript_Skitty::
 	end
 
 BattleFrontier_PokemonCenter_1F_Text_NeverSeenPokemon:
-	.string "Someone here was using a POKéMON\n"
-	.string "from a region I've never even\l"
-	.string "heard of!\p"
-	.string "The EXCHANGE CORNER sells POKéMON\n"
-	.string "from everywhere.$"
+	.string "I saw two POKéMON flying low over\n"
+	.string "the southern sea... a red one and\l"
+	.string "a blue one, fast as jets!\p"
+	.string "Where do you think they were\n"
+	.string "going?$"
 
 BattleFrontier_PokemonCenter_1F_Text_NextStopBattleArena:
 	.string "Okay! Next stop, gauntlet 3! I'd\n"

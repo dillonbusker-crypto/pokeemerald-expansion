@@ -949,6 +949,13 @@
 #define TRAINER_FACILITY_B6_D11_HEAVYWEIGHT   924
 #define TRAINER_FACILITY_B6_D12_CHORUS        925
 #define TRAINER_FACILITY_B6_BOSS_NOLAND         926
+// The rival's rematch outside the Battle Tower (one per rival and starter).
+#define TRAINER_FRONTIER_RIVAL_MAY_FIRE         927
+#define TRAINER_FRONTIER_RIVAL_MAY_WATER        928
+#define TRAINER_FRONTIER_RIVAL_MAY_GRASS        929
+#define TRAINER_FRONTIER_RIVAL_BRENDAN_FIRE     930
+#define TRAINER_FRONTIER_RIVAL_BRENDAN_WATER    931
+#define TRAINER_FRONTIER_RIVAL_BRENDAN_GRASS    932
 
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
@@ -957,13 +964,13 @@
 //       ID range (TRAINER_PARTNER() below / IsPartnerTrainerId() in data.h), which makes the game load a
 //       partner's team instead of the trainer's. Both happened to gauntlet 4 while this was 890.
 //
-//       Raised to 1000 once, with headroom for all ten gauntlets (13 trainers each, the last ending around
-//       978), so the save layout only changes this one time. Growing it shifts every flag after the
-//       trainer range and every SaveBlock1 field after flags[], so it invalidates existing saves - don't
-//       grow it again casually. Costs ~14 bytes of SaveBlock1 (304 B free, see save-data-findings.md),
-//       checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
+//       Raised to 1000 once, with headroom for all ten gauntlets (13 trainers each) plus the 6 rival
+//       rematch trainers, the last ending around 984, so the save layout only changes this one time.
+//       Growing it shifts every flag after the trainer range and every SaveBlock1 field after flags[],
+//       so it invalidates existing saves - don't grow it again casually. Costs ~14 bytes of SaveBlock1
+//       (304 B free, see save-data-findings.md), checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
 
-#define TRAINERS_COUNT_EMERALD     927
+#define TRAINERS_COUNT_EMERALD     933
 #define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG

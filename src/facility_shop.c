@@ -578,8 +578,6 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_IRON_JUGULIS,             700, 5 },
     { SPECIES_STAKATAKA,                700, 5 },
     { SPECIES_TAPU_BULU,                700, 5 },
-    { SPECIES_LATIOS,                   700, 5 },
-    { SPECIES_LATIAS,                   700, 5 },
     { SPECIES_CRESSELIA,                700, 5 },
     { SPECIES_TORNADUS_THERIAN,         700, 5 },
     { SPECIES_THUNDURUS_THERIAN,        700, 5 },

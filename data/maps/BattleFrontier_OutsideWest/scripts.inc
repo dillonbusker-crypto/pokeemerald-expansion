@@ -9,7 +9,136 @@ BattleFrontier_OutsideWest_OnTransition:
 	@ starting team over at his house (data/maps/BattleFrontier_ScottsHouse/
 	@ scripts.inc), after his welcome at the Reception Gate sends the player
 	@ there.
+	@ Ten Gauntlets: the Frontier Brains only show up once their facility is
+	@ open (easter-eggs-spec.md, #8), and the Ditto's true form stays hidden
+	@ until it gives itself away (#4).
+	setflag FLAG_TEMP_3
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	call_if_lt VAR_RESULT, 4, BattleFrontier_OutsideWest_EventScript_HideTucker
+	call_if_lt VAR_RESULT, 5, BattleFrontier_OutsideWest_EventScript_HideNoland
 	end
+
+BattleFrontier_OutsideWest_EventScript_HideTucker::
+	setflag FLAG_TEMP_1
+	return
+
+BattleFrontier_OutsideWest_EventScript_HideNoland::
+	setflag FLAG_TEMP_2
+	return
+
+BattleFrontier_OutsideWest_EventScript_Woman1SawDitto::
+	msgbox BattleFrontier_OutsideWest_Text_DittoBanned, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_Tucker::
+	lock
+	faceplayer
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 5, BattleFrontier_OutsideWest_EventScript_TuckerBeaten
+	msgbox BattleFrontier_OutsideWest_Text_TuckerBefore, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_TuckerBeaten::
+	msgbox BattleFrontier_OutsideWest_Text_TuckerAfter, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_Noland::
+	lock
+	faceplayer
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 6, BattleFrontier_OutsideWest_EventScript_NolandBeaten
+	msgbox BattleFrontier_OutsideWest_Text_NolandBefore, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_NolandBeaten::
+	msgbox BattleFrontier_OutsideWest_Text_NolandAfter, MSGBOX_DEFAULT
+	release
+	end
+
+@ The first talk gets the ferry attendant's greeting, word for word. The
+@ second gives the game away: it turns back into a DITTO and bounces off,
+@ away from the player. VAR_TEMP_1 counts talks this visit; VAR_TEMP_2 lets
+@ the woman nearby comment on it until the player leaves the area.
+BattleFrontier_OutsideWest_EventScript_DittoDisguise::
+	lock
+	faceplayer
+	goto_if_eq VAR_TEMP_1, 1, BattleFrontier_OutsideWest_EventScript_DittoReveal
+	setvar VAR_TEMP_1, 1
+	msgbox BattleFrontier_OutsideWest_Text_MayISeeYourTicket, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_DittoReveal::
+	msgbox BattleFrontier_OutsideWest_Text_DittoGivesItselfAway, MSGBOX_DEFAULT
+	closemessage
+	clearflag FLAG_TEMP_3
+	addobject LOCALID_FRONTIER_DITTO
+	removeobject LOCALID_FRONTIER_DITTO_DISGUISE
+	setflag FLAG_FRONTIER_DITTO_REVEALED
+	playmoncry SPECIES_DITTO, CRY_MODE_NORMAL
+	waitmoncry
+	setvar VAR_TEMP_2, 1
+	specialvar VAR_RESULT, GetPlayerFacingDirection
+	switch VAR_RESULT
+	case DIR_NORTH, BattleFrontier_OutsideWest_EventScript_DittoBounceNorth
+	case DIR_SOUTH, BattleFrontier_OutsideWest_EventScript_DittoBounceSouth
+	case DIR_WEST, BattleFrontier_OutsideWest_EventScript_DittoBounceWest
+	applymovement LOCALID_FRONTIER_DITTO, BattleFrontier_OutsideWest_Movement_DittoBounceEast
+	goto BattleFrontier_OutsideWest_EventScript_DittoGone
+	end
+
+BattleFrontier_OutsideWest_EventScript_DittoBounceNorth::
+	applymovement LOCALID_FRONTIER_DITTO, BattleFrontier_OutsideWest_Movement_DittoBounceNorth
+	goto BattleFrontier_OutsideWest_EventScript_DittoGone
+	end
+
+BattleFrontier_OutsideWest_EventScript_DittoBounceSouth::
+	applymovement LOCALID_FRONTIER_DITTO, BattleFrontier_OutsideWest_Movement_DittoBounceSouth
+	goto BattleFrontier_OutsideWest_EventScript_DittoGone
+	end
+
+BattleFrontier_OutsideWest_EventScript_DittoBounceWest::
+	applymovement LOCALID_FRONTIER_DITTO, BattleFrontier_OutsideWest_Movement_DittoBounceWest
+	goto BattleFrontier_OutsideWest_EventScript_DittoGone
+	end
+
+BattleFrontier_OutsideWest_EventScript_DittoGone::
+	waitmovement 0
+	removeobject LOCALID_FRONTIER_DITTO
+	release
+	end
+
+BattleFrontier_OutsideWest_Movement_DittoBounceNorth:
+	jump_in_place_down
+	jump_2_up
+	jump_2_up
+	jump_2_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_DittoBounceSouth:
+	jump_in_place_down
+	jump_2_down
+	jump_2_down
+	jump_2_down
+	step_end
+
+BattleFrontier_OutsideWest_Movement_DittoBounceWest:
+	jump_in_place_down
+	jump_2_left
+	jump_2_left
+	jump_2_left
+	step_end
+
+BattleFrontier_OutsideWest_Movement_DittoBounceEast:
+	jump_in_place_down
+	jump_2_right
+	jump_2_right
+	jump_2_right
+	step_end
 
 BattleFrontier_OutsideWest_EventScript_FerryAttendant::
 	lock
@@ -325,6 +454,7 @@ BattleFrontier_OutsideWest_EventScript_Man2::
 BattleFrontier_OutsideWest_EventScript_Woman1::
 	lock
 	faceplayer
+	goto_if_eq VAR_TEMP_2, 1, BattleFrontier_OutsideWest_EventScript_Woman1SawDitto
 	specialvar VAR_RESULT, GetGauntletsClearedCount
 	goto_if_ge VAR_RESULT, 2, BattleFrontier_OutsideWest_EventScript_Woman1_Cleared2
 	msgbox BattleFrontier_OutsideWest_EventScript_Woman1_Text0, MSGBOX_DEFAULT
@@ -589,9 +719,14 @@ BattleFrontier_OutsideWest_Text_FansOverThereUsedToBeTrainers:
 BattleFrontier_OutsideWest_Text_MonWithLongTailInFrontier:
 	.string "I heard there's a POKéMON with a\n"
 	.string "paintbrush for a tail that's\l"
-	.string "banned from every gauntlet!\p"
-	.string "Why would anyone ban something so\n"
-	.string "cute? I have to find it!$"
+	.string "banned from every gauntlet! Why\l"
+	.string "would anyone ban something so\l"
+	.string "cute? I have to find it!\p"
+	.string "They say they used to live in a\n"
+	.string "cave on the west side... the one\l"
+	.string "you can only reach by water.\p"
+	.string "But they're all gone now.\n"
+	.string "Something else moved in.$"
 
 BattleFrontier_OutsideWest_EventScript_Boy1_Text1:
 	.string "I finally beat WARDEN HELIS! Then\n"
@@ -667,3 +802,39 @@ BattleFrontier_OutsideWest_EventScript_BattlePikeSign_Text0:
 	.string "BATTLE PIKE - GAUNTLET 7.\p"
 	.string "Sealed. Opens for those who clear\n"
 	.string "gauntlet 6.$"
+
+BattleFrontier_OutsideWest_Text_DittoGivesItselfAway:
+	.string "...\p"
+	.string "......\p"
+	.string "...Ditto!$"
+
+BattleFrontier_OutsideWest_Text_DittoBanned:
+	.string "Did you see that? A DITTO!\p"
+	.string "Banned from every gauntlet.\n"
+	.string "...Can't imagine why.$"
+
+BattleFrontier_OutsideWest_Text_TuckerBefore:
+	.string "TUCKER is practicing his bows.\p"
+	.string "Oh! Audience of one? I'll take it.\p"
+	.string "See you in the main event!$"
+
+BattleFrontier_OutsideWest_Text_TuckerAfter:
+	.string "Encore, encore! ...No? Fair\n"
+	.string "enough. You earned the crown.\p"
+	.string "...You know who taught me to put\n"
+	.string "on a show? Ask SCOTT sometime.\l"
+	.string "Watch what face he makes.$"
+
+BattleFrontier_OutsideWest_Text_NolandBefore:
+	.string "NOLAND is tinkering with a\n"
+	.string "machine.\p"
+	.string "Every team's built on one part.\n"
+	.string "Figure out which, and you're\l"
+	.string "halfway home.$"
+
+BattleFrontier_OutsideWest_Text_NolandAfter:
+	.string "You broke my best line. I'm\n"
+	.string "rebuilding it better. Ha!\p"
+	.string "Say... ever ask SCOTT why he never\n"
+	.string "runs his own gauntlets? I did,\l"
+	.string "once. He just laughed.$"

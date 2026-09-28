@@ -313,3 +313,22 @@ BattleFrontier_RankingHall_EventScript_NinjaBoy_Text0:
 	.string "…Not yet? If you saw a friend's\n"
 	.string "name up here, I bet it would make\l"
 	.string "you work harder!$"
+
+@ Ten Gauntlets: the eleventh plaque, past the other ten
+@ (easter-eggs-spec.md, #3).
+BattleFrontier_RankingHall_EventScript_EleventhPlaque::
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 10, BattleFrontier_RankingHall_EventScript_EleventhPlaqueScott
+	msgbox BattleFrontier_RankingHall_Text_EleventhPlaque, MSGBOX_SIGN
+	end
+
+BattleFrontier_RankingHall_EventScript_EleventhPlaqueScott::
+	msgbox BattleFrontier_RankingHall_Text_EleventhPlaqueScott, MSGBOX_SIGN
+	end
+
+BattleFrontier_RankingHall_Text_EleventhPlaque:
+	.string "GAUNTLET ?? - ??????$"
+
+BattleFrontier_RankingHall_Text_EleventhPlaqueScott:
+	.string "SCOTT.\p"
+	.string "- Undefeated -$"

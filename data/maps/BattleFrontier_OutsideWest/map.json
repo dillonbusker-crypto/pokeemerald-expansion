@@ -340,6 +340,62 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "BattleFrontier_OutsideWest_EventScript_PokefanF",
       "flag": "0"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_TUCKER",
+      "graphics_id": "OBJ_EVENT_GFX_TUCKER",
+      "x": 21,
+      "y": 17,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "BattleFrontier_OutsideWest_EventScript_Tucker",
+      "flag": "FLAG_TEMP_1"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_NOLAND",
+      "graphics_id": "OBJ_EVENT_GFX_NOLAND",
+      "x": 13,
+      "y": 38,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "BattleFrontier_OutsideWest_EventScript_Noland",
+      "flag": "FLAG_TEMP_2"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_DITTO_DISGUISE",
+      "graphics_id": "OBJ_EVENT_GFX_WOMAN_1",
+      "x": 42,
+      "y": 41,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "BattleFrontier_OutsideWest_EventScript_DittoDisguise",
+      "flag": "FLAG_FRONTIER_DITTO_REVEALED"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_DITTO",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(DITTO)",
+      "x": 42,
+      "y": 41,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_TEMP_3"
     }
   ],
   "warp_events": [

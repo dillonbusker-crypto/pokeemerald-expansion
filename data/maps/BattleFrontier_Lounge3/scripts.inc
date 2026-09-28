@@ -9,14 +9,54 @@ BattleFrontier_Lounge3_MapScripts::
 @ per gauntlet from the next gauntlet's shop wave: an item at 1.5x, or a
 @ Pokemon on loan at half price. The vanilla betting flow below is
 @ unreachable now.
+@ VAR_TEMP_2 holds the gauntlet deal's status (BROKER_*), VAR_TEMP_3 whether
+@ the Artisan Cave side quest's MASTER BALL is on offer (easter-eggs-spec.md,
+@ #1). The MASTER BALL doesn't use up the gauntlet's deal.
 BattleFrontier_Lounge3_EventScript_Gambler::
 	lock
 	faceplayer
 	special FacilityBrokerCheck
-	switch VAR_RESULT
-	case BROKER_RUN_ACTIVE, BattleFrontier_Lounge3_EventScript_Broker_RunActive
-	case BROKER_DEAL_USED, BattleFrontier_Lounge3_EventScript_Broker_DealUsed
-	case BROKER_NOTHING_LEFT, BattleFrontier_Lounge3_EventScript_Broker_NothingLeft
+	goto_if_eq VAR_RESULT, BROKER_RUN_ACTIVE, BattleFrontier_Lounge3_EventScript_Broker_RunActive
+	copyvar VAR_TEMP_2, VAR_RESULT
+	call_if_eq VAR_ARTISAN_QUEST_STEP, 3, BattleFrontier_Lounge3_EventScript_Broker_FlotsamSentYou
+	call BattleFrontier_Lounge3_EventScript_Broker_CheckMasterBall
+	goto_if_eq VAR_TEMP_2, BROKER_OK, BattleFrontier_Lounge3_EventScript_Broker_DealOpen
+	goto_if_eq VAR_TEMP_3, TRUE, BattleFrontier_Lounge3_EventScript_Broker_OnlyMasterBall
+	goto_if_eq VAR_TEMP_2, BROKER_DEAL_USED, BattleFrontier_Lounge3_EventScript_Broker_DealUsed
+	goto BattleFrontier_Lounge3_EventScript_Broker_NothingLeft
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_FlotsamSentYou::
+	msgbox BattleFrontier_Lounge3_Text_BrokerFlotsamSentYou, MSGBOX_DEFAULT
+	setvar VAR_ARTISAN_QUEST_STEP, 4
+	return
+
+BattleFrontier_Lounge3_EventScript_Broker_CheckMasterBall::
+	setvar VAR_TEMP_3, FALSE
+	goto_if_lt VAR_ARTISAN_QUEST_STEP, 4, Common_EventScript_NopReturn
+	goto_if_set FLAG_ARTISAN_LATI_CAUGHT, Common_EventScript_NopReturn
+	checkitem ITEM_MASTER_BALL
+	goto_if_eq VAR_RESULT, TRUE, Common_EventScript_NopReturn
+	checkpcitem ITEM_MASTER_BALL
+	goto_if_eq VAR_RESULT, TRUE, Common_EventScript_NopReturn
+	setvar VAR_TEMP_3, TRUE
+	return
+
+BattleFrontier_Lounge3_EventScript_Broker_OnlyMasterBall::
+	call_if_eq VAR_TEMP_2, BROKER_DEAL_USED, BattleFrontier_Lounge3_EventScript_Broker_OnlyMasterBallDealUsed
+	call_if_eq VAR_TEMP_2, BROKER_NOTHING_LEFT, BattleFrontier_Lounge3_EventScript_Broker_OnlyMasterBallNothingLeft
+	goto BattleFrontier_Lounge3_EventScript_Broker_Open
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_OnlyMasterBallDealUsed::
+	msgbox BattleFrontier_Lounge3_Text_BrokerOnlyMasterBall, MSGBOX_DEFAULT
+	return
+
+BattleFrontier_Lounge3_EventScript_Broker_OnlyMasterBallNothingLeft::
+	msgbox BattleFrontier_Lounge3_Text_BrokerOnlyMasterBallNothingLeft, MSGBOX_DEFAULT
+	return
+
+BattleFrontier_Lounge3_EventScript_Broker_DealOpen::
 	goto_if_set FLAG_MET_BATTLE_FRONTIER_GAMBLER, BattleFrontier_Lounge3_EventScript_Broker_Greet
 	setflag FLAG_MET_BATTLE_FRONTIER_GAMBLER
 	msgbox BattleFrontier_Lounge3_Text_BrokerIntro, MSGBOX_DEFAULT
@@ -30,13 +70,42 @@ BattleFrontier_Lounge3_EventScript_Broker_Open:
 BattleFrontier_Lounge3_EventScript_Broker_ChooseShelf:
 	message BattleFrontier_Lounge3_Text_BrokerWhichShelf
 	waitmessage
-	dynmultipush BattleFrontier_Lounge3_Text_BrokerShelfItem, 0
-	dynmultipush BattleFrontier_Lounge3_Text_BrokerShelfMon, 1
+	call_if_eq VAR_TEMP_2, BROKER_OK, BattleFrontier_Lounge3_EventScript_Broker_PushDealShelves
+	call_if_eq VAR_TEMP_3, TRUE, BattleFrontier_Lounge3_EventScript_Broker_PushIllegalShelf
 	dynmultipush BattleFrontier_Lounge3_Text_BrokerShelfNothing, 2
-	dynmultistack 0, 0, FALSE, 3, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	dynmultistack 0, 0, FALSE, 4, FALSE, 0, DYN_MULTICHOICE_CB_NONE
 	switch VAR_RESULT
 	case 0, BattleFrontier_Lounge3_EventScript_Broker_Items
 	case 1, BattleFrontier_Lounge3_EventScript_Broker_Mons
+	case 3, BattleFrontier_Lounge3_EventScript_Broker_MasterBall
+	goto BattleFrontier_Lounge3_EventScript_Broker_Goodbye
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_PushDealShelves::
+	dynmultipush BattleFrontier_Lounge3_Text_BrokerShelfItem, 0
+	dynmultipush BattleFrontier_Lounge3_Text_BrokerShelfMon, 1
+	return
+
+BattleFrontier_Lounge3_EventScript_Broker_PushIllegalShelf::
+	dynmultipush BattleFrontier_Lounge3_Text_BrokerShelfIllegal, 3
+	return
+
+BattleFrontier_Lounge3_EventScript_Broker_MasterBall::
+	msgbox BattleFrontier_Lounge3_Text_BrokerConfirmMasterBall, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge3_EventScript_Broker_ChooseShelf
+	setvar VAR_0x8008, 1000
+	special FacilityShopGetFP
+	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_Lounge3_EventScript_Broker_NotEnoughFP
+	checkitemspace ITEM_MASTER_BALL
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_Lounge3_EventScript_Broker_BagFull
+	setvar VAR_0x8004, 1000
+	special FacilityShopTakeFP
+	special UpdateFacilityFPWindow
+	additem ITEM_MASTER_BALL
+	setvar VAR_TEMP_3, FALSE
+	playse SE_SHOP
+	msgbox BattleFrontier_Lounge3_Text_BrokerMasterBallDone, MSGBOX_DEFAULT
+	goto_if_eq VAR_TEMP_2, BROKER_OK, BattleFrontier_Lounge3_EventScript_Broker_ChooseShelf
 	goto BattleFrontier_Lounge3_EventScript_Broker_Goodbye
 	end
 
@@ -676,3 +745,35 @@ BattleFrontier_Lounge3_Text_BrokerNothingLeft:
 	.string "…Then there's nothing left I can\l"
 	.string "get you.\p"
 	.string "Retirement, maybe.$"
+
+BattleFrontier_Lounge3_Text_BrokerFlotsamSentYou:
+	.string "...FLOTSAM sent you? That kid\n"
+	.string "never could keep his mouth shut.\p"
+	.string "Fine. For a friend of a friend,\n"
+	.string "I've got something special under\l"
+	.string "the counter.$"
+
+BattleFrontier_Lounge3_Text_BrokerOnlyMasterBall:
+	.string "You already made your deal this\n"
+	.string "gauntlet. ...But that's not why\l"
+	.string "you're here, is it?$"
+
+BattleFrontier_Lounge3_Text_BrokerShelfIllegal:
+	.string "Illegal item$"
+
+BattleFrontier_Lounge3_Text_BrokerConfirmMasterBall:
+	.string "A MASTER BALL. 1,000 FP.\p"
+	.string "Where'd I get it? Where do you\n"
+	.string "think?\p"
+	.string "Deal?$"
+
+BattleFrontier_Lounge3_Text_BrokerMasterBallDone:
+	.string "Pleasure. ...And if anyone asks,\n"
+	.string "you found it.$"
+
+BattleFrontier_Lounge3_Text_BrokerOnlyMasterBallNothingLeft:
+	.string "You've cleared every gauntlet?\n"
+	.string "Then there's nothing left I can\l"
+	.string "get you...\p"
+	.string "...Except the one thing you came\n"
+	.string "for.$"

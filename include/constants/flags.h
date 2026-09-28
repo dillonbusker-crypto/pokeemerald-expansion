@@ -51,9 +51,9 @@
 
 #else
 
-#define FLAG_UNUSED_0x020    0x20 // Unused Flag
-#define FLAG_UNUSED_0x021    0x21 // Unused Flag
-#define FLAG_UNUSED_0x022    0x22 // Unused Flag
+#define FLAG_ARTISAN_LATI_CAUGHT    0x20 // Ten Gauntlets: Latios or Latias caught; the other has flown off
+#define FLAG_FRONTIER_DITTO_REVEALED    0x21 // Ten Gauntlets: the disguised Ditto has given itself away
+#define FLAG_FRONTIER_RIVAL_REMATCH_DONE    0x22 // Ten Gauntlets: the rival has been beaten outside the Battle Tower
 #define FLAG_UNUSED_0x023    0x23 // Unused Flag
 #define FLAG_UNUSED_0x024    0x24 // Unused Flag
 #define FLAG_UNUSED_0x025    0x25 // Unused Flag

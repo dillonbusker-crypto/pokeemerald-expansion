@@ -21929,3 +21929,425 @@ Jolly Nature
 - Close Combat
 - Rock Slide
 - Ice Spinner
+
+/* Ten Gauntlets: the rival's rematch outside the Battle Tower. The Route 103
+ * battle was a level 50 starter against their level 5 one; this is the fair
+ * fight they demand. Same level, same IVs, no held items (the player's
+ * starting team has none either), species from gauntlet 1's pool. The ace is
+ * the rival's starter at its middle stage, chosen to beat the player's
+ * starter: FIRE if the player took Quilladin (VAR_STARTER_MON 0), WATER for
+ * Combusken (1), GRASS for Frogadier (2). */
+
+=== TRAINER_FRONTIER_RIVAL_MAY_FIRE ===
+Name: MAY
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices
+
+Mightyena
+Ability: Intimidate
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Crunch
+- Play Rough
+- Sucker Punch
+- Ice Fang
+
+Masquerain
+Ability: Intimidate
+Level: 50
+EVs: 252 SpA / 4 Def / 252 Spe
+Timid Nature
+- Air Slash
+- Bug Buzz
+- Ice Beam
+- Stun Spore
+
+Corsola
+Ability: Natural Cure
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Scald
+- Power Gem
+- Recover
+- Stealth Rock
+
+Kirlia
+Ability: Trace
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psychic
+- Dazzling Gleam
+- Shadow Ball
+- Calm Mind
+
+Plusle
+Ability: Lightning Rod
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Thunderbolt
+- Grass Knot
+- Nasty Plot
+- Encore
+
+Combusken
+Ability: Blaze
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Flare Blitz
+- Sky Uppercut
+- Rock Slide
+- Quick Attack
+
+=== TRAINER_FRONTIER_RIVAL_MAY_WATER ===
+Name: MAY
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices
+
+Mightyena
+Ability: Intimidate
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Crunch
+- Play Rough
+- Sucker Punch
+- Ice Fang
+
+Masquerain
+Ability: Intimidate
+Level: 50
+EVs: 252 SpA / 4 Def / 252 Spe
+Timid Nature
+- Air Slash
+- Bug Buzz
+- Ice Beam
+- Stun Spore
+
+Corsola
+Ability: Natural Cure
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Scald
+- Power Gem
+- Recover
+- Stealth Rock
+
+Kirlia
+Ability: Trace
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psychic
+- Dazzling Gleam
+- Shadow Ball
+- Calm Mind
+
+Plusle
+Ability: Lightning Rod
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Thunderbolt
+- Grass Knot
+- Nasty Plot
+- Encore
+
+Marshtomp
+Ability: Torrent
+Level: 50
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+- Liquidation
+- Earthquake
+- Rock Slide
+- Yawn
+
+=== TRAINER_FRONTIER_RIVAL_MAY_GRASS ===
+Name: MAY
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices
+
+Mightyena
+Ability: Intimidate
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Crunch
+- Play Rough
+- Sucker Punch
+- Ice Fang
+
+Masquerain
+Ability: Intimidate
+Level: 50
+EVs: 252 SpA / 4 Def / 252 Spe
+Timid Nature
+- Air Slash
+- Bug Buzz
+- Ice Beam
+- Stun Spore
+
+Corsola
+Ability: Natural Cure
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Scald
+- Power Gem
+- Recover
+- Stealth Rock
+
+Kirlia
+Ability: Trace
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psychic
+- Dazzling Gleam
+- Shadow Ball
+- Calm Mind
+
+Plusle
+Ability: Lightning Rod
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Thunderbolt
+- Grass Knot
+- Nasty Plot
+- Encore
+
+Grovyle
+Ability: Overgrow
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Leaf Blade
+- X-Scissor
+- Brick Break
+- Quick Attack
+
+=== TRAINER_FRONTIER_RIVAL_BRENDAN_FIRE ===
+Name: BRENDAN
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices
+
+Mightyena
+Ability: Intimidate
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Crunch
+- Play Rough
+- Sucker Punch
+- Ice Fang
+
+Masquerain
+Ability: Intimidate
+Level: 50
+EVs: 252 SpA / 4 Def / 252 Spe
+Timid Nature
+- Air Slash
+- Bug Buzz
+- Ice Beam
+- Stun Spore
+
+Corsola
+Ability: Natural Cure
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Scald
+- Power Gem
+- Recover
+- Stealth Rock
+
+Kirlia
+Ability: Trace
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psychic
+- Dazzling Gleam
+- Shadow Ball
+- Calm Mind
+
+Plusle
+Ability: Lightning Rod
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Thunderbolt
+- Grass Knot
+- Nasty Plot
+- Encore
+
+Combusken
+Ability: Blaze
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Flare Blitz
+- Sky Uppercut
+- Rock Slide
+- Quick Attack
+
+=== TRAINER_FRONTIER_RIVAL_BRENDAN_WATER ===
+Name: BRENDAN
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices
+
+Mightyena
+Ability: Intimidate
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Crunch
+- Play Rough
+- Sucker Punch
+- Ice Fang
+
+Masquerain
+Ability: Intimidate
+Level: 50
+EVs: 252 SpA / 4 Def / 252 Spe
+Timid Nature
+- Air Slash
+- Bug Buzz
+- Ice Beam
+- Stun Spore
+
+Corsola
+Ability: Natural Cure
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Scald
+- Power Gem
+- Recover
+- Stealth Rock
+
+Kirlia
+Ability: Trace
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psychic
+- Dazzling Gleam
+- Shadow Ball
+- Calm Mind
+
+Plusle
+Ability: Lightning Rod
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Thunderbolt
+- Grass Knot
+- Nasty Plot
+- Encore
+
+Marshtomp
+Ability: Torrent
+Level: 50
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+- Liquidation
+- Earthquake
+- Rock Slide
+- Yawn
+
+=== TRAINER_FRONTIER_RIVAL_BRENDAN_GRASS ===
+Name: BRENDAN
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices
+
+Mightyena
+Ability: Intimidate
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Crunch
+- Play Rough
+- Sucker Punch
+- Ice Fang
+
+Masquerain
+Ability: Intimidate
+Level: 50
+EVs: 252 SpA / 4 Def / 252 Spe
+Timid Nature
+- Air Slash
+- Bug Buzz
+- Ice Beam
+- Stun Spore
+
+Corsola
+Ability: Natural Cure
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Scald
+- Power Gem
+- Recover
+- Stealth Rock
+
+Kirlia
+Ability: Trace
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psychic
+- Dazzling Gleam
+- Shadow Ball
+- Calm Mind
+
+Plusle
+Ability: Lightning Rod
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Thunderbolt
+- Grass Knot
+- Nasty Plot
+- Encore
+
+Grovyle
+Ability: Overgrow
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Leaf Blade
+- X-Scissor
+- Brick Break
+- Quick Attack

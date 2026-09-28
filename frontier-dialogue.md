@@ -475,3 +475,25 @@ Everything in Parts 1–5 is built, with these differences:
 - **Dome extras:** the old tournament-tree board is a poster of TUCKER that
   gets defaced ("{PLAYER} WAS HERE") once he's beaten.
 
+
+---
+
+## The rival's rematch (built)
+
+The Route 103 battle is a sham: the player's level 50 starter against the
+rival's level 5 one. Once SCOTT has handed over the starting team, the rival
+(MAY for a male player, BRENDAN for a female one) stands in front of the
+Battle Tower door and won't move until the player accepts a fair rematch.
+
+- **Script:** `BattleFrontier_OutsideEast_EventScript_Rival`. Visibility is set up
+  in `BattleFrontier_OutsideEast_EventScript_SetupRival` (needs
+  `HasReceivedFrontierStartingGrants`, hidden once
+  `FLAG_FRONTIER_RIVAL_REMATCH_DONE` is set).
+- **Loss:** `trainerbattle_earlyrival` with `RIVAL_BATTLE_HEAL_AFTER`, so there's
+  no whiteout. The team is healed and the rival stays for another try.
+- **Win:** the rival storms off, the party is healed, and the Tower opens.
+- **Teams:** `TRAINER_FRONTIER_RIVAL_{MAY,BRENDAN}_{FIRE,WATER,GRASS}` in
+  `src/data/trainers.party`. Level 50, 31 IVs, no held items, gauntlet 1 pool
+  species. Mightyena, Masquerain, Corsola, Kirlia, Plusle, then the rival's
+  starter at its middle stage, picked to beat the player's starter (Combusken
+  vs Quilladin, Marshtomp vs Combusken, Grovyle vs Frogadier).

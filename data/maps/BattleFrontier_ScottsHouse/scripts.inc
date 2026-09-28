@@ -511,3 +511,25 @@ BattleFrontier_ScottsHouse_Text_ComeBackForThisLater:
 	.string "Oops, well, if you have too much\n"
 	.string "stuff, come back for this later.$"
 
+@ Ten Gauntlets: a hint at the SCOTT battle after gauntlet 10
+@ (easter-eggs-spec.md, #2).
+BattleFrontier_ScottsHouse_EventScript_PokeBallShelf::
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 10, BattleFrontier_ScottsHouse_EventScript_PokeBallShelfTwitch
+	msgbox BattleFrontier_ScottsHouse_Text_PokeBallShelf, MSGBOX_SIGN
+	end
+
+BattleFrontier_ScottsHouse_EventScript_PokeBallShelfTwitch::
+	msgbox BattleFrontier_ScottsHouse_Text_PokeBallShelfTwitch, MSGBOX_SIGN
+	end
+
+BattleFrontier_ScottsHouse_Text_PokeBallShelf:
+	.string "Six POKé BALLS, polished to a\n"
+	.string "shine.\p"
+	.string "Not a single scratch on any of\n"
+	.string "them.$"
+
+BattleFrontier_ScottsHouse_Text_PokeBallShelfTwitch:
+	.string "Six POKé BALLS, polished to a\n"
+	.string "shine.\p"
+	.string "...One of them twitches.$"

@@ -300,25 +300,16 @@ Route103_Text_MayLetsBattle:
 	.string "a TRAINER is like.$"
 
 Route103_Text_MayDefeated:
-	.string "…\p"
-	.string "…Huh?\p"
-	.string "Wait, that's not right. My POKéMON\n"
-	.string "didn't even get to move!\p"
-	.string "{PLAYER}{KUN}, how is your POKéMON\n"
-	.string "already that strong? You just got it\l"
-	.string "from my dad!$"
+	.string "...Huh?\p"
+	.string "My POKéMON didn't even get to\n"
+	.string "move!$"
 
 Route103_Text_MayTimeToHeadBack:
-	.string "MAY: …\p"
-	.string "Okay, something is not right here.\p"
-	.string "My dad wouldn't just hand a brand-new\n"
-	.string "TRAINER a POKéMON that strong. Not\l"
-	.string "without a reason.\p"
-	.string "I'm going to go ask him myself,\n"
-	.string "right now!\p"
-	.string "{PLAYER}{KUN}, you'd better come, too.\n"
-	.string "I want to hear this explanation as\l"
-	.string "much as you do!$"
+	.string "MAY: A level 50 POKéMON, straight\n"
+	.string "out of my dad's bag? That's not\l"
+	.string "normal. Not even close.\p"
+	.string "I want answers. {PLAYER}{KUN}, you're\n"
+	.string "coming with me... back to the LAB!$"
 
 Route103_Text_BrendanRoute103Pokemon:
 	.string "BRENDAN: Okay, so it's this one and\n"
@@ -333,23 +324,16 @@ Route103_Text_BrendanLetsBattle:
 	.string "about!$"
 
 Route103_Text_BrendanDefeated:
-	.string "…\p"
-	.string "Wait, hold on.\p"
-	.string "My POKéMON didn't land a single hit.\n"
-	.string "That's not normal.\p"
-	.string "{PLAYER}, how is your POKéMON already\n"
-	.string "that strong? Dad just gave it to you!$"
+	.string "...Wait, what?\p"
+	.string "My POKéMON didn't land a single\n"
+	.string "hit!$"
 
 Route103_Text_BrendanTimeToHeadBack:
-	.string "BRENDAN: …\p"
-	.string "Okay, that's not normal.\p"
-	.string "Dad wouldn't just hand a brand-new\n"
-	.string "TRAINER a POKéMON that strong for no\l"
-	.string "reason.\p"
-	.string "I'm going straight to the LAB to ask\n"
-	.string "him myself.\p"
-	.string "{PLAYER}, you'd better come along.\n"
-	.string "I want to hear this explanation too!$"
+	.string "BRENDAN: A level 50 POKéMON,\n"
+	.string "straight out of Dad's bag? That's\l"
+	.string "not normal.\p"
+	.string "I want answers. {PLAYER}, you're\n"
+	.string "coming with me... back to the LAB!$"
 
 Route103_Text_ShouldHaveBroughtPotion:
 	.string "My POKéMON is staggeringly tired…\n"

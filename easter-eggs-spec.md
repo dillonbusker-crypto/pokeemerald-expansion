@@ -1,18 +1,18 @@
 # Battle Frontier — Easter Eggs & the Artisan Cave Side Quest
 
-Decided with the owner. **Not built yet** — to be built alongside the rest
-of the world-building work. Follows the world bible in `frontier-dialogue.md`
+Decided with the owner. **Built** (see "As built" at the end for where
+everything lives and the two places the build departs from the design). Follows the world bible in `frontier-dialogue.md`
 (including: no internal map names like "Lounge 3" in dialogue).
 
 | # | Easter egg | Status |
 |---|---|---|
-| 1 | The Artisan Cave side quest (replaces the odd-tree idea) | Designed below |
-| 2 | Hints toward an end-game battle with SCOTT | Designed below; the battle itself comes after gauntlet 10 |
-| 3 | The Hall of Ten's eleventh plaque | Designed below (part of the SCOTT hints) |
-| 4 | A Ditto disguised as an NPC | Designed below |
-| 5 | The banned Pokémon support group | Designed below |
-| 8 | The Frontier Brains loitering before their battles | Designed below |
-| 9 | A strategist who hints at the current gauntlet's counterplay | Designed below |
+| 1 | The Artisan Cave side quest (replaces the odd-tree idea) | Built |
+| 2 | Hints toward an end-game battle with SCOTT | Hints built; the battle itself comes after gauntlet 10 |
+| 3 | The Hall of Ten's eleventh plaque | Built |
+| 4 | A Ditto disguised as an NPC | Built |
+| 5 | The banned Pokémon support group | Built |
+| 8 | The Frontier Brains loitering before their battles | Built |
+| 9 | A strategist who hints at the current gauntlet's counterplay | Built |
 
 (#6 was dropped; #7 is replaced by #1.)
 
@@ -30,8 +30,9 @@ they keep one, and the other is gone for good.
 Checked against the map data:
 
 - **Artisan Cave has two entrances.** The **East** one (Outside East, (28, 7))
-  is at the top of a narrow corridor beside the Hall of Ten, and is
-  currently reachable **on foot**. The **West** one (Outside West, (39, 55))
+  is at the top of a narrow corridor beside the Hall of Ten. It is
+  **exit-only**: a one-way ledge (row 9) drops the player into the corridor,
+  and nothing climbs back up. The **West** one (Outside West, (39, 55))
   is on a small landing reachable **only by water**.
 - **The odd tree (the Sudowoodo, Outside East (54, 62)) is a real gate.** It
   stands on the only land tile that touches a pool below the plaza. That pool
@@ -263,3 +264,41 @@ the answer.
 3. **SCOTT's team** will be an Ubers-grade, deliberately broken team in the
    same spirit as gauntlet 10's boss. It gets designed with gauntlet 10; only
    the hints (#2 and #3) are built before then.
+
+---
+
+## As built
+
+**Two design pieces were dropped** after checking the map data: the East
+entrance's ledge is one-way, so the cave can't be entered from the plaza,
+and walking out through it always gets the player home.
+
+- **No construction worker.** The ledge already blocks the East entrance
+  from outside, which was his whole job.
+- **No Waterfall check.** Its purpose was soft-lock safety, and the cave's
+  exit already provides that. The quest needs only **Surf**: ride down the
+  waterfall, surf to the landing, go through the cave, walk out East and hop
+  the ledge. The Camper's rumor now describes the ledge rather than a
+  rockslide.
+
+**Save state:** `VAR_ARTISAN_QUEST_STEP` (was `VAR_UNUSED_0x404E`; 0 none,
+1 pail given, 2 tree fled, 3 FLOTSAM named the Broker, 4 Broker reacted,
+7 caught), `FLAG_ARTISAN_LATI_CAUGHT` (0x20), `FLAG_FRONTIER_DITTO_REVEALED`
+(0x21). No "Master Ball bought" flag was needed: the Broker offers it while
+the quest is at step 4+, nothing is caught, and there's no Master Ball in the
+bag or PC.
+
+| Piece | Where |
+|---|---|
+| FLOTSAM / LOOKER | Outside East (54, 59), the dead-end nub off the path down to the tree. Swapped by temp flags in `BattleFrontier_OutsideEast_OnTransition` |
+| Odd tree | `BattleFrontier_OutsideEast_EventScript_Sudowoodo` (talk, with the pail) and `_WaterSudowoodo` (also run by the bag's WAILMER PAIL, `src/item_use.c`). It jumps away; no battle |
+| Broker | `BattleFrontier_Lounge3_EventScript_Gambler`: FLOTSAM reaction, "Illegal item" shelf, MASTER BALL for 1,000 FP |
+| Latios / Latias | Artisan Cave B1F (16, 46) / (17, 46), just inside the West entrance. L50 wild battles; temp hide flags, so a fainted one returns on re-entry |
+| Shop | Latios and Latias removed from gauntlet 6's wave (`src/facility_shop.c`) |
+| Wild Smeargle | Both Artisan Cave encounter tables deleted from `src/data/wild_encounters.json` |
+| Rumors | Old Woman (Outside East), Camper (Outside East corridor), Pokéfan F (Outside West), School Kid (Pokémon Center) |
+| Brains | ANABEL (19, 14) beside the Tower door, always; TUCKER (21, 17) beside the Dome once gauntlet 4 is cleared; NOLAND (13, 38) at the Factory once gauntlet 5 is cleared. Each changes lines once beaten, with a SCOTT remark. LUCY, GRETA, SPENSER and BRANDON get added with their gauntlets |
+| Ditto | Outside West (42, 41), a WOMAN_1 who recites the ferry attendant's greeting; the second talk reveals it, and it bounces away from the player. The wandering woman at (33, 41) comments until the player leaves the area |
+| Support group | Lounge 9, in a circle around SMEARGLE's empty seat |
+| Strategist | Lounge 4's Man, one hint per gauntlets-cleared count |
+| SCOTT hints | Hall of Ten eleventh plaque (26, 2) at the head of the hall; Poké Ball shelf in SCOTT's house (4, 1) |

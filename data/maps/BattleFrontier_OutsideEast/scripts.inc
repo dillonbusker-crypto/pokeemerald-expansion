@@ -17,11 +17,227 @@ BattleFrontier_OutsideEast_OnTransition:
 	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, 0
 	setflag FLAG_HIDE_BATTLE_TOWER_REPORTER
 	call_if_unset FLAG_DEFEATED_SUDOWOODO, BattleFrontier_OutsideEast_EventScript_ShowSudowoodo
+	call_if_set FLAG_ARTISAN_LATI_CAUGHT, BattleFrontier_OutsideEast_EventScript_HideFlotsam
+	call_if_unset FLAG_ARTISAN_LATI_CAUGHT, BattleFrontier_OutsideEast_EventScript_HideLooker
+	call BattleFrontier_OutsideEast_EventScript_SetupRival
 	end
+
+@ Ten Gauntlets: the rival blocks the Battle Tower door, demanding a fair
+@ rematch for ROUTE 103, from the moment SCOTT has handed over the starting
+@ team until the player beats them. MAY for a male player, BRENDAN for a
+@ female one.
+BattleFrontier_OutsideEast_EventScript_SetupRival::
+	setflag FLAG_TEMP_3
+	setflag FLAG_TEMP_4
+	goto_if_set FLAG_FRONTIER_RIVAL_REMATCH_DONE, Common_EventScript_NopReturn
+	specialvar VAR_RESULT, HasReceivedFrontierStartingGrants
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, BattleFrontier_OutsideEast_EventScript_ShowRivalMay
+	clearflag FLAG_TEMP_4
+	return
+
+BattleFrontier_OutsideEast_EventScript_ShowRivalMay::
+	clearflag FLAG_TEMP_3
+	return
+
+@ Ten Gauntlets: the Artisan Cave side quest (easter-eggs-spec.md, #1).
+@ FLOTSAM stands on the dead-end path above the odd tree until Latios or
+@ Latias is caught; LOOKER takes his spot afterwards.
+BattleFrontier_OutsideEast_EventScript_HideFlotsam::
+	setflag FLAG_TEMP_1
+	return
+
+BattleFrontier_OutsideEast_EventScript_HideLooker::
+	setflag FLAG_TEMP_2
+	return
 
 BattleFrontier_OutsideEast_EventScript_ShowSudowoodo::
 	clearflag FLAG_HIDE_BATTLE_FRONTIER_SUDOWOODO
 	return
+
+BattleFrontier_OutsideEast_EventScript_Rival::
+	lock
+	faceplayer
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, BattleFrontier_OutsideEast_EventScript_RivalMay
+	goto BattleFrontier_OutsideEast_EventScript_RivalBrendan
+	end
+
+BattleFrontier_OutsideEast_EventScript_RivalMay::
+	playbgm MUS_ENCOUNTER_MAY, TRUE
+	msgbox BattleFrontier_OutsideEast_Text_MayRematch, MSGBOX_DEFAULT
+	closemessage
+	switch VAR_STARTER_MON
+	case 1, BattleFrontier_OutsideEast_EventScript_MayBattleWater
+	case 2, BattleFrontier_OutsideEast_EventScript_MayBattleGrass
+	goto BattleFrontier_OutsideEast_EventScript_MayBattleFire
+	end
+
+BattleFrontier_OutsideEast_EventScript_MayBattleFire::
+	trainerbattle_earlyrival TRAINER_FRONTIER_RIVAL_MAY_FIRE, RIVAL_BATTLE_HEAL_AFTER, BattleFrontier_OutsideEast_Text_MayDefeated, BattleFrontier_OutsideEast_Text_MayWon
+	goto BattleFrontier_OutsideEast_EventScript_MayAfterBattle
+	end
+
+BattleFrontier_OutsideEast_EventScript_MayBattleWater::
+	trainerbattle_earlyrival TRAINER_FRONTIER_RIVAL_MAY_WATER, RIVAL_BATTLE_HEAL_AFTER, BattleFrontier_OutsideEast_Text_MayDefeated, BattleFrontier_OutsideEast_Text_MayWon
+	goto BattleFrontier_OutsideEast_EventScript_MayAfterBattle
+	end
+
+BattleFrontier_OutsideEast_EventScript_MayBattleGrass::
+	trainerbattle_earlyrival TRAINER_FRONTIER_RIVAL_MAY_GRASS, RIVAL_BATTLE_HEAL_AFTER, BattleFrontier_OutsideEast_Text_MayDefeated, BattleFrontier_OutsideEast_Text_MayWon
+	goto BattleFrontier_OutsideEast_EventScript_MayAfterBattle
+	end
+
+BattleFrontier_OutsideEast_EventScript_MayAfterBattle::
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideEast_EventScript_MayPlayerLost
+	msgbox BattleFrontier_OutsideEast_Text_MayStormsOff, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_0x8008, LOCALID_FRONTIER_RIVAL_MAY
+	goto BattleFrontier_OutsideEast_EventScript_RivalStormOff
+	end
+
+BattleFrontier_OutsideEast_EventScript_MayPlayerLost::
+	msgbox BattleFrontier_OutsideEast_Text_MayAgain, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_RivalBrendan::
+	playbgm MUS_ENCOUNTER_BRENDAN, TRUE
+	msgbox BattleFrontier_OutsideEast_Text_BrendanRematch, MSGBOX_DEFAULT
+	closemessage
+	switch VAR_STARTER_MON
+	case 1, BattleFrontier_OutsideEast_EventScript_BrendanBattleWater
+	case 2, BattleFrontier_OutsideEast_EventScript_BrendanBattleGrass
+	goto BattleFrontier_OutsideEast_EventScript_BrendanBattleFire
+	end
+
+BattleFrontier_OutsideEast_EventScript_BrendanBattleFire::
+	trainerbattle_earlyrival TRAINER_FRONTIER_RIVAL_BRENDAN_FIRE, RIVAL_BATTLE_HEAL_AFTER, BattleFrontier_OutsideEast_Text_BrendanDefeated, BattleFrontier_OutsideEast_Text_BrendanWon
+	goto BattleFrontier_OutsideEast_EventScript_BrendanAfterBattle
+	end
+
+BattleFrontier_OutsideEast_EventScript_BrendanBattleWater::
+	trainerbattle_earlyrival TRAINER_FRONTIER_RIVAL_BRENDAN_WATER, RIVAL_BATTLE_HEAL_AFTER, BattleFrontier_OutsideEast_Text_BrendanDefeated, BattleFrontier_OutsideEast_Text_BrendanWon
+	goto BattleFrontier_OutsideEast_EventScript_BrendanAfterBattle
+	end
+
+BattleFrontier_OutsideEast_EventScript_BrendanBattleGrass::
+	trainerbattle_earlyrival TRAINER_FRONTIER_RIVAL_BRENDAN_GRASS, RIVAL_BATTLE_HEAL_AFTER, BattleFrontier_OutsideEast_Text_BrendanDefeated, BattleFrontier_OutsideEast_Text_BrendanWon
+	goto BattleFrontier_OutsideEast_EventScript_BrendanAfterBattle
+	end
+
+BattleFrontier_OutsideEast_EventScript_BrendanAfterBattle::
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideEast_EventScript_BrendanPlayerLost
+	msgbox BattleFrontier_OutsideEast_Text_BrendanStormsOff, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_0x8008, LOCALID_FRONTIER_RIVAL_BRENDAN
+	goto BattleFrontier_OutsideEast_EventScript_RivalStormOff
+	end
+
+BattleFrontier_OutsideEast_EventScript_BrendanPlayerLost::
+	msgbox BattleFrontier_OutsideEast_Text_BrendanAgain, MSGBOX_DEFAULT
+	release
+	end
+
+@ VAR_0x8008 = the rival's local ID. They walk off along the row, away from
+@ whichever side the player is talking from, so they never walk through them.
+BattleFrontier_OutsideEast_EventScript_RivalStormOff::
+	setflag FLAG_FRONTIER_RIVAL_REMATCH_DONE
+	special HealPlayerParty
+	specialvar VAR_RESULT, GetPlayerFacingDirection
+	goto_if_eq VAR_RESULT, DIR_EAST, BattleFrontier_OutsideEast_EventScript_RivalStormOffRight
+	applymovement VAR_0x8008, BattleFrontier_OutsideEast_Movement_RivalStormOffLeft
+	goto BattleFrontier_OutsideEast_EventScript_RivalGone
+	end
+
+BattleFrontier_OutsideEast_EventScript_RivalStormOffRight::
+	applymovement VAR_0x8008, BattleFrontier_OutsideEast_Movement_RivalStormOffRight
+BattleFrontier_OutsideEast_EventScript_RivalGone::
+	waitmovement 0
+	removeobject VAR_0x8008
+	fadedefaultbgm
+	release
+	end
+
+BattleFrontier_OutsideEast_Movement_RivalStormOffLeft:
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	step_end
+
+BattleFrontier_OutsideEast_Movement_RivalStormOffRight:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+BattleFrontier_OutsideEast_EventScript_Flotsam::
+	lock
+	faceplayer
+	switch VAR_ARTISAN_QUEST_STEP
+	case 0, BattleFrontier_OutsideEast_EventScript_FlotsamPitch
+	case 1, BattleFrontier_OutsideEast_EventScript_FlotsamWaterIt
+	case 2, BattleFrontier_OutsideEast_EventScript_FlotsamScared
+	msgbox BattleFrontier_OutsideEast_Text_FlotsamDoneHelping, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_FlotsamPitch::
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 3, BattleFrontier_OutsideEast_EventScript_FlotsamGivePail
+	msgbox BattleFrontier_OutsideEast_Text_FlotsamNobody, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_FlotsamGivePail::
+	msgbox BattleFrontier_OutsideEast_Text_FlotsamPitch, MSGBOX_DEFAULT
+	giveitem ITEM_WAILMER_PAIL
+	setvar VAR_ARTISAN_QUEST_STEP, 1
+	msgbox BattleFrontier_OutsideEast_Text_FlotsamDidntGetThis, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_FlotsamWaterIt::
+	msgbox BattleFrontier_OutsideEast_Text_FlotsamWaterIt, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_FlotsamScared::
+	msgbox BattleFrontier_OutsideEast_Text_FlotsamScared, MSGBOX_DEFAULT
+	setvar VAR_ARTISAN_QUEST_STEP, 3
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_Looker::
+	msgbox BattleFrontier_OutsideEast_Text_Looker, MSGBOX_NPC
+	end
+
+@ Ten Gauntlets: the Frontier Brains loiter outside their own facilities
+@ (easter-eggs-spec.md, #8). ANABEL is gauntlet 4's boss.
+BattleFrontier_OutsideEast_EventScript_Anabel::
+	lock
+	faceplayer
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 4, BattleFrontier_OutsideEast_EventScript_AnabelBeaten
+	msgbox BattleFrontier_OutsideEast_Text_AnabelBefore, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_AnabelBeaten::
+	msgbox BattleFrontier_OutsideEast_Text_AnabelAfter, MSGBOX_DEFAULT
+	release
+	end
 
 BattleFrontier_OutsideEast_EventScript_BattleTowerSign::
 	msgbox BattleFrontier_OutsideEast_Text_BattleTowerSign, MSGBOX_SIGN
@@ -144,9 +360,16 @@ BattleFrontier_OutsideEast_EventScript_Sudowoodo::
 	playse SE_SUDOWOODO_SHAKE
 	applymovement LOCALID_FRONTIER_SUDOWOODO, BattleFrontier_OutsideEast_Movement_SudowoodoShake
 	waitmovement 0
+	checkitem ITEM_WAILMER_PAIL
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_OutsideEast_EventScript_SudowoodoEnd
+	msgbox BattleFrontier_OutsideEast_Text_UseWailmerPail, MSGBOX_YESNO
+	closemessage
+	goto_if_eq VAR_RESULT, YES, BattleFrontier_OutsideEast_EventScript_WaterSudowoodo
+BattleFrontier_OutsideEast_EventScript_SudowoodoEnd:
 	release
 	end
 
+@ Also run by src/item_use.c when the WAILMER PAIL is used from the bag.
 BattleFrontier_OutsideEast_EventScript_WaterSudowoodo::
 	lock
 	faceplayer
@@ -155,29 +378,26 @@ BattleFrontier_OutsideEast_EventScript_WaterSudowoodo::
 	playse SE_SUDOWOODO_SHAKE
 	applymovement LOCALID_FRONTIER_SUDOWOODO, BattleFrontier_OutsideEast_Movement_SudowoodoShake
 	waitmovement 0
-	msgbox gText_Sudowoodo_Attacked, MSGBOX_DEFAULT
-	closemessage
-	waitse
 	playmoncry SPECIES_SUDOWOODO, CRY_MODE_ENCOUNTER
-	delay 40
 	waitmoncry
-	setvar VAR_LAST_TALKED, LOCALID_FRONTIER_SUDOWOODO
-	setwildbattle SPECIES_SUDOWOODO, 40
-	setflag FLAG_SYS_CTRL_OBJ_DELETE
-	dowildbattle
-	clearflag FLAG_SYS_CTRL_OBJ_DELETE
-	specialvar VAR_RESULT, GetBattleOutcome
-	goto_if_eq VAR_RESULT, B_OUTCOME_WON, BattleFrontier_OutsideEast_EventScript_DefeatedSudowoodo
-	goto_if_eq VAR_RESULT, B_OUTCOME_RAN, BattleFrontier_OutsideEast_EventScript_DefeatedSudowoodo
-	goto_if_eq VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED, BattleFrontier_OutsideEast_EventScript_DefeatedSudowoodo
+	applymovement LOCALID_FRONTIER_SUDOWOODO, BattleFrontier_OutsideEast_Movement_SudowoodoFlee
+	waitmovement 0
+	removeobject LOCALID_FRONTIER_SUDOWOODO
 	setflag FLAG_DEFEATED_SUDOWOODO
+	call_if_lt VAR_ARTISAN_QUEST_STEP, 2, BattleFrontier_OutsideEast_EventScript_SudowoodoFled
+	msgbox BattleFrontier_OutsideEast_Text_SudowoodoFled, MSGBOX_DEFAULT
 	release
 	end
 
-BattleFrontier_OutsideEast_EventScript_DefeatedSudowoodo::
-	setflag FLAG_DEFEATED_SUDOWOODO
-	goto Common_EventScript_RemoveStaticPokemon
-	end
+BattleFrontier_OutsideEast_EventScript_SudowoodoFled::
+	setvar VAR_ARTISAN_QUEST_STEP, 2
+	return
+
+BattleFrontier_OutsideEast_Movement_SudowoodoFlee:
+	jump_in_place_down
+	jump_2_up
+	jump_2_up
+	step_end
 
 BattleFrontier_OutsideEast_Movement_SudowoodoShake:
 	face_right
@@ -284,12 +504,21 @@ BattleFrontier_OutsideEast_EventScript_OldWoman::
 	faceplayer
 	goto_if_set FLAG_DEFEATED_SUDOWOODO, BattleFrontier_OutsideEast_EventScript_OldWomanSudowoodoGone
 	msgbox BattleFrontier_OutsideEast_Text_OddTreeHereSeemsToWiggle, MSGBOX_DEFAULT
+	goto BattleFrontier_OutsideEast_EventScript_OldWomanShiftyMan
+	end
+
+BattleFrontier_OutsideEast_EventScript_OldWomanShiftyMan::
+	goto_if_set FLAG_ARTISAN_LATI_CAUGHT, BattleFrontier_OutsideEast_EventScript_OldWomanEnd
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_lt VAR_RESULT, 3, BattleFrontier_OutsideEast_EventScript_OldWomanEnd
+	msgbox BattleFrontier_OutsideEast_Text_ShiftyMan, MSGBOX_DEFAULT
+BattleFrontier_OutsideEast_EventScript_OldWomanEnd:
 	release
 	end
 
 BattleFrontier_OutsideEast_EventScript_OldWomanSudowoodoGone::
 	msgbox BattleFrontier_OutsideEast_Text_OnceAnOddTreePastHere, MSGBOX_DEFAULT
-	release
+	goto BattleFrontier_OutsideEast_EventScript_OldWomanShiftyMan
 	end
 
 BattleFrontier_OutsideEast_EventScript_Camper::
@@ -493,12 +722,12 @@ BattleFrontier_OutsideEast_Text_OnceAnOddTreePastHere:
 	.string "an odd tree past here.$"
 
 BattleFrontier_OutsideEast_Text_StickyMonWithLongTail:
-	.string "I…\n"
-	.string "I saw it!\p"
-	.string "There was a sticky sort of a POKéMON\n"
-	.string "with a long tail up ahead!\p"
-	.string "It was hiding under a boulder, and\n"
-	.string "it kept staring at me!$"
+	.string "That ledge up there drops down\n"
+	.string "from a cave. You can hop off it,\l"
+	.string "but nobody's ever climbed up.\p"
+	.string "...I swear I heard something\n"
+	.string "singing in there, though. Two\l"
+	.string "voices.$"
 
 BattleFrontier_OutsideEast_EventScript_TriathleteF_Text4:
 	.string "Speed is everything! …At least it\n"
@@ -583,3 +812,153 @@ BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Text0:
 	.string "BATTLE PYRAMID - GAUNTLET 10.\p"
 	.string "Sealed. Opens for those who clear\n"
 	.string "gauntlet 9.$"
+
+BattleFrontier_OutsideEast_Text_UseWailmerPail:
+	.string "It's an odd tree...\p"
+	.string "Water it with the WAILMER PAIL?$"
+
+BattleFrontier_OutsideEast_Text_SudowoodoFled:
+	.string "{PLAYER} watered the odd tree. It\n"
+	.string "shrieked... it was a SUDOWOODO!\p"
+	.string "It fled for good.$"
+
+BattleFrontier_OutsideEast_Text_ShiftyMan:
+	.string "...And lately there's been a\n"
+	.string "shifty-looking man skulking down\l"
+	.string "the path to it. Up to no good, I'd\l"
+	.string "wager.$"
+
+BattleFrontier_OutsideEast_Text_FlotsamNobody:
+	.string "Huh? You? Nobody's heard of you.\p"
+	.string "Come back once you've taken down\n"
+	.string "three of the FRONTIER's bosses.\l"
+	.string "Then maybe we'll talk.$"
+
+BattleFrontier_OutsideEast_Text_FlotsamPitch:
+	.string "...Psst. You're the one taking\n"
+	.string "down the FRONTIER's bosses, right?\p"
+	.string "There's a cave out west you can\n"
+	.string "only reach by sea. Two rare\l"
+	.string "POKéMON are nesting in there... a\l"
+	.string "red one and a blue one.\p"
+	.string "I'd grab 'em myself, but...\n"
+	.string "there's this tree. And I can't\l"
+	.string "swim. Long story.\p"
+	.string "That tree's no tree. It's standing\n"
+	.string "on the only way down to the water.\l"
+	.string "Here... water it.$"
+
+BattleFrontier_OutsideEast_Text_FlotsamDidntGetThis:
+	.string "You didn't get that from me.$"
+
+BattleFrontier_OutsideEast_Text_FlotsamWaterIt:
+	.string "What are you waiting for? Water\n"
+	.string "the tree down there.\p"
+	.string "...Quietly!$"
+
+BattleFrontier_OutsideEast_Text_FlotsamScared:
+	.string "You actually did it? People SAW\n"
+	.string "you! If anyone asks, I don't know\l"
+	.string "you.\p"
+	.string "...Look, I'm out. But there's a\n"
+	.string "guy who's been doing this a lot\l"
+	.string "longer than me. I used to run\l"
+	.string "crates for him.\p"
+	.string "Tell him FLOTSAM sent you.\p"
+	.string "...Actually, don't.$"
+
+BattleFrontier_OutsideEast_Text_FlotsamDoneHelping:
+	.string "I said I'm DONE helping.\p"
+	.string "You've got that fancy trainer\n"
+	.string "menu, don't you? Figure it out\l"
+	.string "yourself.$"
+
+BattleFrontier_OutsideEast_Text_Looker:
+	.string "I am LOOKER, of the International\n"
+	.string "Police!\p"
+	.string "We have been tracking this FLOTSAM\n"
+	.string "for weeks. Illegal sales...\l"
+	.string "tampering with protected\l"
+	.string "POKéMON...\p"
+	.string "We took him in this very morning.\p"
+	.string "...You would not happen to know\n"
+	.string "anything about that, would you?\p"
+	.string "...No? Hmm. Very well. Carry on.$"
+
+BattleFrontier_OutsideEast_Text_AnabelBefore:
+	.string "The last mat is mine.\p"
+	.string "Take your time on the first three.\n"
+	.string "I'll know when you're ready.$"
+
+BattleFrontier_OutsideEast_Text_AnabelAfter:
+	.string "You've got the TOWER. Now let's\n"
+	.string "see what the rest of them make of\l"
+	.string "you.\p"
+	.string "...Has SCOTT ever told you who\n"
+	.string "taught all of us?$"
+
+BattleFrontier_OutsideEast_Text_MayRematch:
+	.string "MAY: There you are, {PLAYER}{KUN}!\p"
+	.string "I told you I'd come. I built a\n"
+	.string "real team this time, with the same\l"
+	.string "tools you've got.\p"
+	.string "Level 50, same as yours. Same\n"
+	.string "rules. No tricks.\p"
+	.string "Route 103 doesn't count. You're\n"
+	.string "not setting foot in that TOWER\l"
+	.string "until we settle this!$"
+
+BattleFrontier_OutsideEast_Text_MayDefeated:
+	.string "...No. No way.\p"
+	.string "I lost. For real this time.$"
+
+BattleFrontier_OutsideEast_Text_MayWon:
+	.string "Ha! NOW that's a real battle!$"
+
+BattleFrontier_OutsideEast_Text_MayAgain:
+	.string "MAY: See? Not so easy when it's\n"
+	.string "fair!\p"
+	.string "I healed your team. I'm not\n"
+	.string "letting you blame a technicality.\p"
+	.string "Whenever you're ready... we go\n"
+	.string "again!$"
+
+BattleFrontier_OutsideEast_Text_MayStormsOff:
+	.string "MAY: ...Fine. FINE. You won.\p"
+	.string "Don't get comfortable! Those\n"
+	.string "gauntlets are going to chew you\l"
+	.string "up...\p"
+	.string "And I'll be watching when they do!$"
+
+BattleFrontier_OutsideEast_Text_BrendanRematch:
+	.string "BRENDAN: There you are, {PLAYER}!\p"
+	.string "I told you I'd come. I built a\n"
+	.string "real team this time, with the same\l"
+	.string "tools you've got.\p"
+	.string "Level 50, same as yours. Same\n"
+	.string "rules. No tricks.\p"
+	.string "Route 103 doesn't count. You're\n"
+	.string "not setting foot in that TOWER\l"
+	.string "until we settle this!$"
+
+BattleFrontier_OutsideEast_Text_BrendanDefeated:
+	.string "...No. No way.\p"
+	.string "I lost. For real this time.$"
+
+BattleFrontier_OutsideEast_Text_BrendanWon:
+	.string "Ha! NOW that's a real battle!$"
+
+BattleFrontier_OutsideEast_Text_BrendanAgain:
+	.string "BRENDAN: See? Not so easy when\n"
+	.string "it's fair!\p"
+	.string "I healed your team. I'm not\n"
+	.string "letting you blame a technicality.\p"
+	.string "Whenever you're ready... we go\n"
+	.string "again!$"
+
+BattleFrontier_OutsideEast_Text_BrendanStormsOff:
+	.string "BRENDAN: ...Fine. FINE. You won.\p"
+	.string "Don't get comfortable! Those\n"
+	.string "gauntlets are going to chew you\l"
+	.string "up...\p"
+	.string "And I'll be watching when they do!$"
