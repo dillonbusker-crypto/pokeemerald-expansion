@@ -158,13 +158,13 @@ bool8 IsFacilityRunActive(void)
 // battle_message.c when the game needed to print this trainer's name
 // mid-battle. See battle_message.c's BATTLE_TYPE_FRONTIER checks, which
 // this is used to route our own trainers around.
-// Story battles outside a run - the rival's rematch and NORMAN, both in front
-// of the Battle Tower (frontier-dialogue.md) - are fought under Frontier
+// Story battles outside a run - the rival's rematch and NORMAN in front of
+// the Battle Tower (frontier-dialogue.md), FLOTSAM at the waterfall - are fought under Frontier
 // rules (Set style, no bag), so they carry the same battle type as a run and
 // need the same routing below.
 bool8 IsFrontierStoryTrainer(u16 trainerId)
 {
-    return trainerId >= TRAINER_FRONTIER_RIVAL_MAY_FIRE && trainerId <= TRAINER_FRONTIER_NORMAN;
+    return trainerId >= TRAINER_FRONTIER_RIVAL_MAY_FIRE && trainerId <= TRAINER_FRONTIER_FLOTSAM;
 }
 
 bool8 IsFacilityBattleTrainer(u16 trainerId)

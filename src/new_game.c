@@ -327,7 +327,7 @@ static const struct PokemonTemplate sFrontierStartingFive[] =
         .origin = GIFTMON_ORIGIN,
         .evs = { [STAT_HP] = 252, [STAT_DEF] = 4, [STAT_SPATK] = 252 },
         .ivs = IVS_31,
-        .moves = { MOVE_SURF, MOVE_THUNDERBOLT, MOVE_ICE_BEAM, MOVE_CONFUSE_RAY },
+        .moves = { MOVE_SCALD, MOVE_THUNDERBOLT, MOVE_ICE_BEAM, MOVE_CONFUSE_RAY }, // not Surf - SCOTT bans HMs (easter-eggs-spec.md)
     },
     {
         .species = SPECIES_GRAVELER,
@@ -392,7 +392,9 @@ void GiveFrontierStartingMon(void)
     gSpecialVar_Result = GiveCapturedMonToPlayer(&mon);
 }
 
-// The rest of Scott's welcome gift: starting FP and the HMs. Marks the
+// The rest of Scott's welcome gift: starting FP (no HMs - SCOTT bans them on
+// the Frontier, and learning Surf is part of the Artisan Cave side quest,
+// easter-eggs-spec.md; the name is kept so the script needn't change). Marks the
 // whole grant as given - the script calls this last, after all five
 // Pokemon, and checks HasReceivedFrontierStartingGrants() before starting,
 // so none of it can ever happen twice.
@@ -402,23 +404,31 @@ void GiveFrontierStartingFPAndHMs(void)
 
     gSaveBlock3Ptr->facility.progress.fp = (fp > 0xFFFF) ? 0xFFFF : fp;
 
-    // Ten Gauntlets: with the Move Editor retired (see l_menu.c), the L-menu's
-    // Move Relearner only ever offers a species' own level-up learnset - the
-    // player's other way to round out a moveset is TMs. The TM/HM bag pocket
-    // (BAG_TMHM_COUNT, include/constants/global.h) can only hold 64 distinct
-    // item types within SaveBlock1's fixed sector budget - nowhere near
-    // Emerald Imperium's 166-move TM list this project uses (see
-    // include/constants/tms_hms.h's FOREACH_TM) - so TMs are no longer bag
-    // items the player carries. They're taught directly via the L-menu's
-    // "Teach TM" tool (data/scripts/debug.inc, Debug_EventScript_TeachTM),
-    // which drills down by move type and calls the same CanTeachMoveBoxMon
-    // special every vanilla Move Tutor uses. HMs stay as real bag items -
-    // only 8 of them, nowhere near the pocket cap.
-#define GRANT_HM(id) AddBagItem(ITEM_HM_##id, 99);
-    FOREACH_HM(GRANT_HM)
-#undef GRANT_HM
+    // Ten Gauntlets: TMs aren't bag items - the L-menu's "Teach TM" tool
+    // teaches them directly (data/scripts/debug.inc, Debug_EventScript_TeachTM,
+    // FOREACH_TM only). HMs aren't given at all: SCOTT bans them, so Surf
+    // only comes from a species' level-up learnset via the Move Relearner.
 
     gSaveBlock3Ptr->facility.progress.startingGrantsGiven = TRUE;
+}
+
+// SCOTT bans HMs on the Frontier. Saves from before the ban got all eight
+// with the starting team; this takes them back (called on arriving in the
+// Frontier's outdoor areas - harmless once the bag has none).
+void RemoveFrontierHMs(void)
+{
+#define TAKE_HM(id) RemoveBagItem(ITEM_HM_##id, CountTotalItemQuantityInBag(ITEM_HM_##id));
+    FOREACH_HM(TAKE_HM)
+#undef TAKE_HM
+}
+
+// The florist's Leafeon trade (easter-eggs-spec.md): removes the party
+// Pokemon in slot gSpecialVar_0x8004 and closes the gap.
+void FrontierFloristTakeMon(void)
+{
+    ZeroMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004]);
+    CompactPartySlots();
+    CalculatePlayerPartyCount();
 }
 
 // specialvar: TRUE once Scott has handed over the starting team.

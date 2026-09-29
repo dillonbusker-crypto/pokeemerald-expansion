@@ -74,6 +74,8 @@ gSpecials::
 	def_special FacilityShopSellMon
 	def_special GiveFrontierStartingMon
 	def_special GiveFrontierStartingFPAndHMs
+	def_special RemoveFrontierHMs
+	def_special FrontierFloristTakeMon
 	def_special HasReceivedFrontierStartingGrants
 	def_special GetGauntletsClearedCount
 	def_special SetCableClubWarp

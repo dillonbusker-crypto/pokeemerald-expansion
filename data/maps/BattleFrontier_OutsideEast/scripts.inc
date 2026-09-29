@@ -17,8 +17,11 @@ BattleFrontier_OutsideEast_OnTransition:
 	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, 0
 	setflag FLAG_HIDE_BATTLE_TOWER_REPORTER
 	call_if_unset FLAG_DEFEATED_SUDOWOODO, BattleFrontier_OutsideEast_EventScript_ShowSudowoodo
-	call_if_set FLAG_ARTISAN_LATI_CAUGHT, BattleFrontier_OutsideEast_EventScript_HideFlotsam
+	call_if_ge VAR_ARTISAN_QUEST_STEP, 5, BattleFrontier_OutsideEast_EventScript_HideFlotsam
 	call_if_unset FLAG_ARTISAN_LATI_CAUGHT, BattleFrontier_OutsideEast_EventScript_HideLooker
+	setflag FLAG_TEMP_6
+	call_if_eq VAR_ARTISAN_QUEST_STEP, 5, BattleFrontier_OutsideEast_EventScript_ShowFlotsamAtWaterfall
+	call BattleFrontier_OutsideEast_EventScript_RemoveHMs
 	call BattleFrontier_OutsideEast_EventScript_SetupRival
 	setflag FLAG_TEMP_5
 	call_if_eq VAR_NORMAN_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_ShowNorman
@@ -48,8 +51,21 @@ BattleFrontier_OutsideEast_EventScript_ShowRivalMay::
 	return
 
 @ Ten Gauntlets: the Artisan Cave side quest (easter-eggs-spec.md, #1).
-@ FLOTSAM stands on the dead-end path above the odd tree until Latios or
-@ Latias is caught; LOOKER takes his spot afterwards.
+@ VAR_ARTISAN_QUEST_STEP: 0 none, 1 FLOTSAM's pitch, 2 odd tree gone,
+@ 3 FLOTSAM named the Broker, 4 Broker reacted, 5 MASTER BALL bought (FLOTSAM
+@ blocks the waterfall), 6 FLOTSAM beaten, 7 Latios/Latias caught.
+@ FLOTSAM stands on the dead-end path above the odd tree until step 5, then on
+@ the tree's old spot (the only way down to the water) until he's beaten.
+@ LOOKER takes his first spot once a Lati is caught.
+BattleFrontier_OutsideEast_EventScript_ShowFlotsamAtWaterfall::
+	clearflag FLAG_TEMP_6
+	return
+
+@ SCOTT bans HMs on the Frontier - takes back the ones older saves got.
+BattleFrontier_OutsideEast_EventScript_RemoveHMs::
+	special RemoveFrontierHMs
+	return
+
 BattleFrontier_OutsideEast_EventScript_HideFlotsam::
 	setflag FLAG_TEMP_1
 	return
@@ -266,37 +282,129 @@ BattleFrontier_OutsideEast_Movement_NormanLeavesRight:
 BattleFrontier_OutsideEast_EventScript_Flotsam::
 	lock
 	faceplayer
-	switch VAR_ARTISAN_QUEST_STEP
-	case 0, BattleFrontier_OutsideEast_EventScript_FlotsamPitch
-	case 1, BattleFrontier_OutsideEast_EventScript_FlotsamWaterIt
-	case 2, BattleFrontier_OutsideEast_EventScript_FlotsamScared
-	msgbox BattleFrontier_OutsideEast_Text_FlotsamDoneHelping, MSGBOX_DEFAULT
-	release
-	end
-
-BattleFrontier_OutsideEast_EventScript_FlotsamPitch::
+	goto_if_ge VAR_ARTISAN_QUEST_STEP, 3, BattleFrontier_OutsideEast_EventScript_FlotsamFindBroker
+	goto_if_set FLAG_DEFEATED_SUDOWOODO, BattleFrontier_OutsideEast_EventScript_FlotsamParanoid
+	goto_if_eq VAR_ARTISAN_QUEST_STEP, 1, BattleFrontier_OutsideEast_EventScript_FlotsamFigureItOut
 	specialvar VAR_RESULT, GetGauntletsClearedCount
-	goto_if_ge VAR_RESULT, 3, BattleFrontier_OutsideEast_EventScript_FlotsamGivePail
+	goto_if_ge VAR_RESULT, 3, BattleFrontier_OutsideEast_EventScript_FlotsamPitch
 	msgbox BattleFrontier_OutsideEast_Text_FlotsamNobody, MSGBOX_DEFAULT
 	release
 	end
 
-BattleFrontier_OutsideEast_EventScript_FlotsamGivePail::
+BattleFrontier_OutsideEast_EventScript_FlotsamPitch::
 	msgbox BattleFrontier_OutsideEast_Text_FlotsamPitch, MSGBOX_DEFAULT
-	giveitem ITEM_WAILMER_PAIL
 	setvar VAR_ARTISAN_QUEST_STEP, 1
-	msgbox BattleFrontier_OutsideEast_Text_FlotsamDidntGetThis, MSGBOX_DEFAULT
 	release
 	end
 
-BattleFrontier_OutsideEast_EventScript_FlotsamWaterIt::
+BattleFrontier_OutsideEast_EventScript_FlotsamFigureItOut::
 	msgbox BattleFrontier_OutsideEast_Text_FlotsamWaterIt, MSGBOX_DEFAULT
 	release
 	end
 
-BattleFrontier_OutsideEast_EventScript_FlotsamScared::
+BattleFrontier_OutsideEast_EventScript_FlotsamParanoid::
 	msgbox BattleFrontier_OutsideEast_Text_FlotsamScared, MSGBOX_DEFAULT
 	setvar VAR_ARTISAN_QUEST_STEP, 3
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_FlotsamFindBroker::
+	msgbox BattleFrontier_OutsideEast_Text_FlotsamDoneHelping, MSGBOX_DEFAULT
+	release
+	end
+
+@ Step 5: FLOTSAM turns on the player at the waterfall. Frontier rules
+@ (IsFrontierStoryTrainer()); a loss heals and lets the player try again.
+BattleFrontier_OutsideEast_EventScript_FlotsamBetrayal::
+	lock
+	faceplayer
+	special SaveFacilityHeldItems
+	msgbox BattleFrontier_OutsideEast_Text_FlotsamBetrayal, MSGBOX_DEFAULT
+	closemessage
+	trainerbattle_earlyrival TRAINER_FRONTIER_FLOTSAM, RIVAL_BATTLE_HEAL_AFTER, BattleFrontier_OutsideEast_Text_FlotsamDefeated, BattleFrontier_OutsideEast_Text_FlotsamWon
+	copyvar VAR_TEMP_5, VAR_RESULT
+	special RestoreFacilityHeldItems
+	goto_if_eq VAR_TEMP_5, TRUE, BattleFrontier_OutsideEast_EventScript_FlotsamPlayerLost
+	special HealPlayerParty
+	msgbox BattleFrontier_OutsideEast_Text_FlotsamSore, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_FRONTIER_FLOTSAM_WATERFALL, BattleFrontier_OutsideEast_Movement_FlotsamFlees
+	waitmovement 0
+	removeobject LOCALID_FRONTIER_FLOTSAM_WATERFALL
+	setvar VAR_ARTISAN_QUEST_STEP, 6
+	msgbox BattleFrontier_OutsideEast_Text_FlotsamDroppedFP, MSGBOX_DEFAULT
+	setvar VAR_0x8004, 300
+	special FacilityShopGiveFP
+	playfanfare MUS_OBTAIN_ITEM
+	message BattleFrontier_OutsideEast_Text_FoundFlotsamFP
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_FlotsamPlayerLost::
+	msgbox BattleFrontier_OutsideEast_Text_FlotsamAgain, MSGBOX_DEFAULT
+	release
+	end
+
+@ He leaps up the cliff behind him, away from the player.
+BattleFrontier_OutsideEast_Movement_FlotsamFlees:
+	jump_in_place_down
+	jump_2_up
+	jump_2_up
+	set_invisible
+	step_end
+
+@ Ten Gauntlets: the florist (easter-eggs-spec.md, #1) trades the WAILMER PAIL
+@ for a LEAFEON - the way past the odd tree. Replaces the vanilla Rich Boy.
+BattleFrontier_OutsideEast_EventScript_Florist::
+	lock
+	faceplayer
+	goto_if_set FLAG_FRONTIER_FLORIST_TRADED, BattleFrontier_OutsideEast_EventScript_FloristThanks
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 3, BattleFrontier_OutsideEast_EventScript_FloristAsk
+	msgbox BattleFrontier_OutsideEast_Text_FloristBefore, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_FloristAsk::
+	msgbox BattleFrontier_OutsideEast_Text_FloristWantsLeafeon, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideEast_EventScript_FloristNoLeafeon
+	msgbox BattleFrontier_OutsideEast_Text_FloristShowMe, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, BattleFrontier_OutsideEast_EventScript_FloristNoLeafeon
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_ne VAR_RESULT, SPECIES_LEAFEON, BattleFrontier_OutsideEast_EventScript_FloristNotLeafeon
+	getpartysize
+	goto_if_lt VAR_RESULT, 2, BattleFrontier_OutsideEast_EventScript_FloristOnlyMon
+	msgbox BattleFrontier_OutsideEast_Text_FloristOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideEast_EventScript_FloristNoLeafeon
+	special FrontierFloristTakeMon
+	msgbox BattleFrontier_OutsideEast_Text_FloristTakesLeafeon, MSGBOX_DEFAULT
+	giveitem ITEM_WAILMER_PAIL
+	setflag FLAG_FRONTIER_FLORIST_TRADED
+	msgbox BattleFrontier_OutsideEast_Text_FloristThanks, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_FloristNoLeafeon::
+	msgbox BattleFrontier_OutsideEast_Text_FloristNoLeafeon, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_FloristNotLeafeon::
+	msgbox BattleFrontier_OutsideEast_Text_FloristNotLeafeon, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_FloristOnlyMon::
+	msgbox BattleFrontier_OutsideEast_Text_FloristOnlyMon, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_FloristThanks::
+	msgbox BattleFrontier_OutsideEast_Text_FloristThanks, MSGBOX_DEFAULT
 	release
 	end
 
@@ -910,61 +1018,73 @@ BattleFrontier_OutsideEast_Text_ShiftyMan:
 	.string "wager.$"
 
 BattleFrontier_OutsideEast_Text_FlotsamNobody:
-	.string "Huh? You? Nobody's heard of you.\p"
-	.string "Come back once you've taken down\n"
-	.string "three of the FRONTIER's bosses.\l"
-	.string "Then maybe we'll talk.$"
+	.string "Huh? What am I doing? None of your\n"
+	.string "business, kid.\p"
+	.string "...Tell you what. Beat a few of\n"
+	.string "the FRONTIER's bosses, and maybe\l"
+	.string "I'll loop you in. Only if you're\l"
+	.string "up for it.$"
 
 BattleFrontier_OutsideEast_Text_FlotsamPitch:
-	.string "...Psst. You're the one taking\n"
-	.string "down the FRONTIER's bosses, right?\p"
-	.string "There's a cave out west you can\n"
-	.string "only reach by sea. Two rare\l"
-	.string "POKéMON are nesting in there... a\l"
-	.string "red one and a blue one.\p"
-	.string "I'd grab 'em myself, but...\n"
-	.string "there's this tree. And I can't\l"
-	.string "swim. Long story.\p"
-	.string "That tree's no tree. It's standing\n"
-	.string "on the only way down to the water.\l"
-	.string "Here... water it.$"
+	.string "Well, well, well. Three bosses on\n"
+	.string "your resume.\p"
+	.string "Maybe you're good enough to help\n"
+	.string "me out after all.\p"
+	.string "Look down the waterfall, toward\n"
+	.string "the west. There's a cave.\p"
+	.string "I was going to keep the spoils all\n"
+	.string "to myself... but technically,\l"
+	.string "there's enough to share.\p"
+	.string "Problem is, this tree down here\n"
+	.string "just won't budge. And the florist\l"
+	.string "in town refuses to talk to me.\p"
+	.string "Figure that out, and I'll consider\n"
+	.string "us in business.$"
 
-BattleFrontier_OutsideEast_Text_FlotsamDidntGetThis:
-	.string "You didn't get that from me.$"
 
 BattleFrontier_OutsideEast_Text_FlotsamWaterIt:
-	.string "What are you waiting for? Water\n"
-	.string "the tree down there.\p"
-	.string "...Quietly!$"
+	.string "That tree's still standing on the\n"
+	.string "only way down to the water.\p"
+	.string "The florist in town knows how to\n"
+	.string "move it. She just won't tell ME.$"
 
 BattleFrontier_OutsideEast_Text_FlotsamScared:
-	.string "You actually did it? People SAW\n"
-	.string "you! If anyone asks, I don't know\l"
-	.string "you.\p"
-	.string "...Look, I'm out. But there's a\n"
-	.string "guy who's been doing this a lot\l"
-	.string "longer than me. I used to run\l"
-	.string "crates for him.\p"
-	.string "Tell him FLOTSAM sent you.\p"
-	.string "...Actually, don't.$"
+	.string "You got rid of the tree? ...People\n"
+	.string "SAW you!\p"
+	.string "They're watching. I can feel it.\n"
+	.string "Somebody's always watching on this\l"
+	.string "island...\p"
+	.string "Forget it. I'm getting cold feet.\n"
+	.string "I'm out. You should probably quit\l"
+	.string "too.\p"
+	.string "...But if you're feeling lucky, go\n"
+	.string "see the BROKER. He's been doing\l"
+	.string "this a lot longer than me.\p"
+	.string "I haven't met with him in a long\n"
+	.string "time, though. No idea where he's\l"
+	.string "set up shop these days.$"
 
 BattleFrontier_OutsideEast_Text_FlotsamDoneHelping:
-	.string "I said I'm DONE helping.\p"
-	.string "You've got that fancy trainer\n"
-	.string "menu, don't you? Figure it out\l"
-	.string "yourself.$"
+	.string "I told you, I'm out.\p"
+	.string "If you want in, find the BROKER. I\n"
+	.string "don't know where he is anymore.$"
 
 BattleFrontier_OutsideEast_Text_Looker:
 	.string "I am LOOKER, of the International\n"
 	.string "Police!\p"
-	.string "We have been tracking this FLOTSAM\n"
-	.string "for weeks. Illegal sales...\l"
-	.string "tampering with protected\l"
+	.string "We caught this FLOTSAM trying to\n"
+	.string "slip off the FRONTIER. Illegal\l"
+	.string "sales... tampering with protected\l"
 	.string "POKéMON...\p"
-	.string "We took him in this very morning.\p"
-	.string "...You would not happen to know\n"
-	.string "anything about that, would you?\p"
-	.string "...No? Hmm. Very well. Carry on.$"
+	.string "Every one of his POKéMON had been\n"
+	.string "wiped out. An easy capture, for\l"
+	.string "once!\p"
+	.string "...But someone beat him first. Who\n"
+	.string "could have been strong enough, I\l"
+	.string "wonder?\p"
+	.string "...You would not happen to know,\n"
+	.string "would you? ...No? Hmm. Very well.\l"
+	.string "Carry on.$"
 
 BattleFrontier_OutsideEast_Text_AnabelBefore:
 	.string "The last mat is mine.\p"
@@ -1092,3 +1212,96 @@ BattleFrontier_OutsideEast_Text_NormanGoingHome:
 	.string "NORMAN: Don't tell your mother.\p"
 	.string "I'm heading home to LITTLEROOT.\n"
 	.string "Come and see us when you can.$"
+
+BattleFrontier_OutsideEast_Text_FlotsamBetrayal:
+	.string "FLOTSAM: Well, look who it is. And\n"
+	.string "with a MASTER BALL, too...\p"
+	.string "Yeah, I had a change of heart.\n"
+	.string "I've been thinking. Why share?\p"
+	.string "I'm done being a small-timer. I'll\n"
+	.string "risk it all.\p"
+	.string "Here's the plan: I beat you, I\n"
+	.string "take that MASTER BALL, and I go\l"
+	.string "claim the prize in that cave. All\l"
+	.string "for myself.\p"
+	.string "Nothing personal, kid!$"
+
+BattleFrontier_OutsideEast_Text_FlotsamDefeated:
+	.string "No... NO! Not to a kid!$"
+
+BattleFrontier_OutsideEast_Text_FlotsamWon:
+	.string "Heh. The MASTER BALL's as good as\n"
+	.string "mine.$"
+
+BattleFrontier_OutsideEast_Text_FlotsamAgain:
+	.string "FLOTSAM: Your POKéMON look healthy\n"
+	.string "enough to lose again.\p"
+	.string "Come back whenever you want to\n"
+	.string "hand over that MASTER BALL!$"
+
+BattleFrontier_OutsideEast_Text_FlotsamSore:
+	.string "FLOTSAM: I can't believe I lost to\n"
+	.string "a kid...\p"
+	.string "Heh. Doesn't matter anyway. SCOTT\n"
+	.string "bans HMs on the FRONTIER. Without\l"
+	.string "SURF, you'll never get down to\l"
+	.string "that cave.\p"
+	.string "...Wait a second. Are you the one\n"
+	.string "who's got that fancy L menu?\p"
+	.string "...Whatever. I'm out of here!$"
+
+BattleFrontier_OutsideEast_Text_FlotsamDroppedFP:
+	.string "FLOTSAM dropped something in his\n"
+	.string "hurry...$"
+
+BattleFrontier_OutsideEast_Text_FoundFlotsamFP:
+	.string "{PLAYER} found 300 FP!$"
+
+BattleFrontier_OutsideEast_Text_FloristBefore:
+	.string "I really want a LEAFEON to help\n"
+	.string "with my flowers... but I'm not\l"
+	.string "strong enough to beat the TOWER's\l"
+	.string "third boss.\p"
+	.string "You look strong. Maybe if you\n"
+	.string "could beat it, you could help me?\p"
+	.string "...Oh, never mind me. I'm getting\n"
+	.string "ahead of myself.$"
+
+BattleFrontier_OutsideEast_Text_FloristWantsLeafeon:
+	.string "A LEAFEON would be perfect for my\n"
+	.string "flowers.\p"
+	.string "But the EXCHANGE CORNER only sells\n"
+	.string "them once you've cleared gauntlet\l"
+	.string "2, and I'm just not strong enough.\p"
+	.string "...Do you have a LEAFEON?$"
+
+BattleFrontier_OutsideEast_Text_FloristShowMe:
+	.string "Really? Let me see!$"
+
+BattleFrontier_OutsideEast_Text_FloristNotLeafeon:
+	.string "Oh... that isn't a LEAFEON.$"
+
+BattleFrontier_OutsideEast_Text_FloristOnlyMon:
+	.string "I couldn't take your only POKéMON!$"
+
+BattleFrontier_OutsideEast_Text_FloristNoLeafeon:
+	.string "Oh... If you ever get a LEAFEON,\n"
+	.string "please come and see me!$"
+
+BattleFrontier_OutsideEast_Text_FloristOffer:
+	.string "Oh, it's beautiful!\p"
+	.string "I'll trade you your LEAFEON for a\n"
+	.string "very special item, if you're\l"
+	.string "willing.$"
+
+BattleFrontier_OutsideEast_Text_FloristTakesLeafeon:
+	.string "Thank you so much! Here, this is\n"
+	.string "for you.$"
+
+BattleFrontier_OutsideEast_Text_FloristThanks:
+	.string "LEAFEON is doing wonders for my\n"
+	.string "flowers!\p"
+	.string "That WAILMER PAIL has watered a\n"
+	.string "lot of odd things in its time... I\l"
+	.string "hear there's a tree down by the\l"
+	.string "water that could use a drink.$"

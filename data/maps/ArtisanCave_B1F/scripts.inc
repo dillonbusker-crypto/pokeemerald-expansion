@@ -6,10 +6,12 @@ ArtisanCave_B1F_MapScripts::
 ArtisanCave_B1F_OnTransition:
 	setflag FLAG_LANDMARK_ARTISAN_CAVE
 	call_if_set FLAG_ARTISAN_LATI_CAUGHT, ArtisanCave_B1F_EventScript_HideLatis
+	call_if_lt VAR_ARTISAN_QUEST_STEP, 6, ArtisanCave_B1F_EventScript_HideLatis
 	end
 
 @ Ten Gauntlets: the Artisan Cave side quest (easter-eggs-spec.md, #1).
-@ Latios and Latias wait just inside the west entrance. Either one is a
+@ Latios and Latias wait just inside the west entrance, once FLOTSAM has
+@ been beaten at the waterfall (quest step 6). Either one is a
 @ level 50 wild battle; catching one sends the other off for good. A
 @ fainted one only disappears until the player next enters the cave, since
 @ their hide flags are temporary ones. Both are shiny - P_FLAG_FORCE_SHINY

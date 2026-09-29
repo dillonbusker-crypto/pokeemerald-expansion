@@ -13,6 +13,7 @@ BattleFrontier_OutsideWest_OnTransition:
 	@ open (easter-eggs-spec.md, #8), and the Ditto's true form stays hidden
 	@ until it gives itself away (#4).
 	setflag FLAG_TEMP_3
+	special RemoveFrontierHMs
 	specialvar VAR_RESULT, GetGauntletsClearedCount
 	call_if_lt VAR_RESULT, 4, BattleFrontier_OutsideWest_EventScript_HideTucker
 	call_if_lt VAR_RESULT, 5, BattleFrontier_OutsideWest_EventScript_HideNoland

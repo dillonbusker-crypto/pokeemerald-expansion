@@ -126,7 +126,7 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_RICH_BOY",
+      "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
       "x": 45,
       "y": 47,
       "elevation": 3,
@@ -135,7 +135,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "BattleFrontier_OutsideEast_EventScript_RichBoy",
+      "script": "BattleFrontier_OutsideEast_EventScript_Florist",
       "flag": "0"
     },
     {
@@ -443,6 +443,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "BattleFrontier_OutsideEast_EventScript_Norman",
       "flag": "FLAG_TEMP_5"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_FLOTSAM_WATERFALL",
+      "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
+      "x": 54,
+      "y": 62,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "BattleFrontier_OutsideEast_EventScript_FlotsamBetrayal",
+      "flag": "FLAG_TEMP_6"
     }
   ],
   "warp_events": [

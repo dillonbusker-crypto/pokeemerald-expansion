@@ -22427,3 +22427,77 @@ Careful Nature
 - Icy Wind
 - Encore
 - Protect
+
+/* Ten Gauntlets: FLOTSAM betrays the player at the waterfall once they've
+ * bought the Broker's MASTER BALL (easter-eggs-spec.md). An ex-TEAM AQUA
+ * grunt with ARCHIE's ORAS core (Crobat, Muk, Mega Sharpedo) filled out to
+ * gauntlet 4 strength. Mega Sharpedo is the player's first Mega encounter,
+ * arriving before they can Mega Evolve themselves - on purpose. Singles. */
+=== TRAINER_FRONTIER_FLOTSAM ===
+Name: FLOTSAM
+Class: Team Aqua
+Pic: Aqua Grunt M
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices
+
+Crobat @ Sitrus Berry
+Ability: Infiltrator
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Brave Bird
+- Cross Poison
+- U-turn
+- Roost
+
+Muk-Alola @ Black Sludge
+Ability: Poison Touch
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Knock Off
+- Gunk Shot
+- Drain Punch
+- Shadow Sneak
+
+Crawdaunt @ Life Orb
+Ability: Adaptability
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Crabhammer
+- Knock Off
+- Aqua Jet
+- Swords Dance
+
+Kingdra @ Mystic Water
+Ability: Sniper
+Level: 50
+EVs: 252 SpA / 4 Def / 252 Spe
+Modest Nature
+- Draco Meteor
+- Hydro Pump
+- Ice Beam
+- Flip Turn
+
+Weavile @ Never-Melt Ice
+Ability: Pressure
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Triple Axel
+- Knock Off
+- Ice Shard
+- Low Kick
+
+Sharpedo @ Sharpedonite
+Ability: Speed Boost
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Crunch
+- Liquidation
+- Psychic Fangs
+- Ice Fang

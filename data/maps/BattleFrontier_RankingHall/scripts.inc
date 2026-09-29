@@ -1,5 +1,43 @@
 BattleFrontier_RankingHall_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_RankingHall_OnTransition
 	.byte 0
+
+@ Ten Gauntlets: STEVEN waits by the eleventh plaque once gauntlet 2 is
+@ cleared, until the player has spoken to him (frontier-dialogue.md). Keyed
+@ off the cleared count, not just the attendant's hint, so a save that
+@ cleared gauntlet 2 before this existed still finds him.
+BattleFrontier_RankingHall_OnTransition:
+	setflag FLAG_TEMP_1
+	goto_if_ge VAR_STEVEN_STORY_STATE, 2, BattleFrontier_RankingHall_EventScript_NoSteven
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_lt VAR_RESULT, 2, BattleFrontier_RankingHall_EventScript_NoSteven
+	clearflag FLAG_TEMP_1
+BattleFrontier_RankingHall_EventScript_NoSteven:
+	end
+
+BattleFrontier_RankingHall_EventScript_Steven::
+	lock
+	faceplayer
+	msgbox BattleFrontier_RankingHall_Text_StevenIntro, MSGBOX_DEFAULT
+	msgbox BattleFrontier_RankingHall_Text_StevenAsksBadges, MSGBOX_DEFAULT
+	msgbox BattleFrontier_RankingHall_Text_ShowedBadges, MSGBOX_DEFAULT
+	msgbox BattleFrontier_RankingHall_Text_StevenCounterfeit, MSGBOX_DEFAULT
+	closemessage
+	turnobject LOCALID_RANKING_HALL_STEVEN, DIR_EAST
+	delay 30
+	msgbox BattleFrontier_RankingHall_Text_StevenPlaque, MSGBOX_DEFAULT
+	applymovement LOCALID_RANKING_HALL_STEVEN, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox BattleFrontier_RankingHall_Text_StevenGift, MSGBOX_DEFAULT
+	giveitem ITEM_EVIOLITE
+	msgbox BattleFrontier_RankingHall_Text_StevenFavor, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_STEVEN_STORY_STATE, 2
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_RANKING_HALL_STEVEN
+	fadescreen FADE_FROM_BLACK
+	release
+	end
 
 BattleFrontier_RankingHall_EventScript_TowerSinglesRecords::
 	@ Ten Gauntlets: a Hall of Ten plaque - gauntlet 1's boss, and the
@@ -332,3 +370,66 @@ BattleFrontier_RankingHall_Text_EleventhPlaque:
 BattleFrontier_RankingHall_Text_EleventhPlaqueScott:
 	.string "SCOTT.\p"
 	.string "- Undefeated -$"
+
+BattleFrontier_RankingHall_Text_StevenIntro:
+	.string "STEVEN: Ah, there you are. That\n"
+	.string "was quite a battle against JUAN.\p"
+	.string "I'm STEVEN. A friend of mine,\n"
+	.string "WALLACE, asked me to come here\l"
+	.string "quietly.\p"
+	.string "JUAN was his teacher. WALLACE\n"
+	.string "wants to know why he walked away\l"
+	.string "from the SOOTOPOLIS GYM to guard a\l"
+	.string "mat on this island.\p"
+	.string "JUAN wouldn't tell me much. Only\n"
+	.string "that SCOTT made him an offer he\l"
+	.string "couldn't refuse...\p"
+	.string "And that I'd understand, if I\n"
+	.string "asked him again after the tenth\l"
+	.string "gauntlet.$"
+
+BattleFrontier_RankingHall_Text_StevenAsksBadges:
+	.string "STEVEN: I have a favor to ask. May\n"
+	.string "I see your BADGE case?$"
+
+BattleFrontier_RankingHall_Text_ShowedBadges:
+	.string "{PLAYER} showed STEVEN the BADGE\n"
+	.string "case.$"
+
+BattleFrontier_RankingHall_Text_StevenCounterfeit:
+	.string "STEVEN: ...\p"
+	.string "These aren't GYM BADGES. The\n"
+	.string "weight is wrong. The metal is\l"
+	.string "wrong.\p"
+	.string "I've handled nearly every stone in\n"
+	.string "HOENN, and these didn't come from\l"
+	.string "any of them.\p"
+	.string "Your father was right. They're\n"
+	.string "counterfeit.\p"
+	.string "But whoever made them knew exactly\n"
+	.string "what they were doing. There's\l"
+	.string "something set into the alloy...\l"
+	.string "I've only ever seen it in one\l"
+	.string "place. It looks like a shard of...\p"
+	.string "...No. Not until I'm sure.$"
+
+BattleFrontier_RankingHall_Text_StevenPlaque:
+	.string "STEVEN: And this plaque. The other\n"
+	.string "ten are brass.\p"
+	.string "This one is MEGA STONE ore.\p"
+	.string "Who mounts a plaque made of MEGA\n"
+	.string "STONE ore at the head of a hall...\l"
+	.string "and leaves it blank?$"
+
+BattleFrontier_RankingHall_Text_StevenGift:
+	.string "STEVEN: I've kept you long enough.\n"
+	.string "Here... for the gauntlets ahead.\l"
+	.string "It's a stone, of sorts. I think\l"
+	.string "you'll find it useful.$"
+
+BattleFrontier_RankingHall_Text_StevenFavor:
+	.string "STEVEN: Keep beating these\n"
+	.string "gauntlets, {PLAYER}. The closer you\l"
+	.string "get to the top, the more SCOTT\l"
+	.string "will have to show his hand.\p"
+	.string "I'll be around.$"

@@ -1897,6 +1897,22 @@ Facility_RearrangeParty:
 	end
 
 @ Ten Gauntlets: no re-entry once a gauntlet is cleared (CLAUDE.md).
+@ Ten Gauntlets: STEVEN's event (frontier-dialogue.md). JUAN has one line for
+@ his old student WALLACE, then the attendant points the player to the Hall
+@ of Ten.
+Facility_B2_GauntletComplete:
+	msgbox Facility_B2_Text_JuanApology, MSGBOX_DEFAULT
+	msgbox Facility_Text_GauntletComplete, MSGBOX_DEFAULT
+	call_if_eq VAR_STEVEN_STORY_STATE, 0, Facility_B2_StevenHook
+	call Facility_BrokerLoanNews
+	releaseall
+	end
+
+Facility_B2_StevenHook:
+	msgbox Facility_B2_Text_StevenHook, MSGBOX_DEFAULT
+	setvar VAR_STEVEN_STORY_STATE, 1
+	return
+
 Facility_B1_Commotion:
 	msgbox Facility_B1_Text_Commotion, MSGBOX_DEFAULT
 	setvar VAR_NORMAN_STORY_STATE, 1
@@ -1943,6 +1959,7 @@ Facility_AfterBossBattle:
 	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_4, Facility_B4_GauntletComplete
 	call Common_EventScript_SaveGame
 	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_1, Facility_B1_GauntletComplete
+	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_2, Facility_B2_GauntletComplete
 	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_5, Facility_B5_GauntletComplete
 	msgbox Facility_Text_GauntletComplete, MSGBOX_DEFAULT
 	call Facility_BrokerLoanNews
@@ -2309,3 +2326,16 @@ Facility_B2_Text_NormanCameIn:
 	.string "enough... and that he was going to\l"
 	.string "go put a stop to it.\p"
 	.string "Maybe you should go see SCOTT.$"
+
+Facility_B2_Text_JuanApology:
+	.string "JUAN: ...Should you ever meet\n"
+	.string "WALLACE...\p"
+	.string "Tell him I'm sorry.$"
+
+Facility_B2_Text_StevenHook:
+	.string "Oh, one more thing. A man in a\n"
+	.string "suit watched your whole battle\l"
+	.string "from the back of the lobby.\p"
+	.string "He left before it ended, but he\n"
+	.string "asked me to tell you he'd be\l"
+	.string "waiting in the HALL OF TEN.$"

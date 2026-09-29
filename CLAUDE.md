@@ -234,6 +234,8 @@ actual headers:
 - **Don't refactor or clean up unrelated code.** Keep diffs small and readable.
 - **Don't strip the vanilla story yet.** That's a later, deliberate step.
 - **Don't enable Tera, Z-Moves or Dynamax.** Megas only is a locked decision.
+- **The whole story lives in `storyline.md`** (the receptor, Scott, both endings,
+  what's built vs planned). Read it before writing any story beat.
 - **World-building lives in `frontier-dialogue.md` and `broker-spec.md`.**
   Frontier NPCs react to progress through the `GetGauntletsClearedCount`
   special; keep new lines consistent with the world bible there (Part 1).

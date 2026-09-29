@@ -175,10 +175,14 @@ BattleFrontier_ScottsHouse_Text_ReceivedMonToPC:
 
 BattleFrontier_ScottsHouse_Text_HereIsFPAndHMs:
 	.string "SCOTT: And a little something to\n"
-	.string "spend - 300 FP, plus a set of HMs.\p"
-	.string "When you can afford better POKéMON,\n"
-	.string "the EXCHANGE CORNER will take these\l"
-	.string "off your hands. No hard feelings.$"
+	.string "spend: 300 FP.\p"
+	.string "When you can afford better\n"
+	.string "POKéMON, the EXCHANGE CORNER will\l"
+	.string "take these off your hands. No hard\l"
+	.string "feelings.\p"
+	.string "One rule, though. No HMs on my\n"
+	.string "island. Everyone battles on the\l"
+	.string "same terms here.$"
 
 BattleFrontier_ScottsHouse_Text_NowYouHaveSix:
 	.string "Now you've got six. The BATTLE\n"

@@ -302,3 +302,27 @@ bag or PC.
 | Support group | Lounge 9, in a circle around SMEARGLE's empty seat |
 | Strategist | Lounge 4's Man, one hint per gauntlets-cleared count |
 | SCOTT hints | Hall of Ten eleventh plaque (26, 2) at the head of the hall; Poké Ball shelf in SCOTT's house (4, 1) |
+
+---
+
+## Revision: the florist, the betrayal, and no HMs (built)
+
+Supersedes the step table above where they differ.
+
+**SCOTT bans HMs.** None are given with the starting team, older saves lose
+them on entering the Frontier's outdoor maps (`RemoveFrontierHMs`), and the
+starting Chinchou runs Scald instead of Surf. Surf now comes only from
+level-up learnsets via the L-menu's Move Relearner: Slowbro and Slowking (Lv
+30), Milotic (40), Tentacruel (46), all sold by gauntlet 2. ("Teach TM" only
+covers `FOREACH_TM`, which has no HM moves.)
+
+| Step | What happens |
+|---|---|
+| 0 | FLOTSAM, before 3 bosses: "None of your business... beat a few bosses and maybe I'll loop you in." After 3: the pitch (cave down the waterfall, the tree, the florist who won't talk to him). No pail. |
+| 1 | **The florist** (replaces the Rich Boy above the Battle Palace, (45, 47)): before 3 bosses she hints and cuts herself off; after, she asks for a LEAFEON (yes/no, party pick, yes/no) and trades it for the WAILMER PAIL (`FLAG_FRONTIER_FLORIST_TRADED`). |
+| 2 | The tree flees when watered (unchanged). |
+| 3 | FLOTSAM is paranoid, quits, and points to the BROKER - but doesn't know where he is now. |
+| 4 | The BROKER reacts ("FLOTSAM sent you?") and offers the MASTER BALL (800 FP). |
+| 5 | Buying it (or already having one) puts FLOTSAM on the tree's old tile - the only way down to the water. He betrays the player: a singles battle, Frontier rules, heal-and-retry on a loss (`TRAINER_FRONTIER_FLOTSAM`: Crobat, Alolan Muk, Crawdaunt, Kingdra, Weavile, **Mega Sharpedo** - the player's first Mega encounter, before they have the Mega Ring). |
+| 6 | Beaten, he sneers that SCOTT bans HMs so the player can't Surf, clocks the L menu, and bolts - dropping 300 FP. Latios and Latias only appear from this step on. |
+| 7 | Caught. LOOKER: FLOTSAM was caught leaving the Frontier with every POKéMON wiped out - who beat him? |

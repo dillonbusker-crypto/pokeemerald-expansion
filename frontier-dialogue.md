@@ -530,3 +530,28 @@ at the Doubles mat, 3 SCOTT's house scene done, 4 NORMAN beaten.
 
 Open threads for later: the counterfeit BADGES (BIRCH told the player the
 GYM LEADERS agreed), SCOTT's threat to NORMAN, and the rumors about SCOTT.
+
+---
+
+## STEVEN after gauntlet 2 (built)
+
+One story beat per boss: NORMAN after gauntlet 1, STEVEN after gauntlet 2,
+FLOTSAM after gauntlet 3 (`easter-eggs-spec.md`). Tracked by
+`VAR_STEVEN_STORY_STATE` (0 none, 1 attendant's hint, 2 met).
+
+1. **JUAN's cameo** (`Facility_B2_GauntletComplete`): "Should you ever meet
+   WALLACE... Tell him I'm sorry." Then the attendant: a man in a suit watched
+   the battle and is waiting in the HALL OF TEN.
+2. **The HALL OF TEN:** STEVEN stands beside the eleventh plaque (now a real,
+   visible plaque at the head of the hall, (26, 2)-(26, 3); read from
+   (26, 4)). He appears whenever gauntlet 2 is cleared and he hasn't been
+   met, so older saves see him too.
+   - WALLACE sent him: JUAN was WALLACE's teacher. JUAN only said SCOTT made
+     an offer he couldn't refuse, and to ask again after the tenth gauntlet.
+   - He examines the BADGE case: counterfeit, as NORMAN said. Something set
+     into the alloy "looks like a shard of..." - he stops. (Planned reveal:
+     KEY STONE shards, which would also explain why every POKéMON obeys.)
+   - The eleventh plaque is MEGA STONE ore, not brass, and blank.
+   - Gives an EVIOLITE; "Keep beating these gauntlets... I'll be around."
+3. **Open threads:** the shard, the plaque, JUAN's "after the tenth", and
+   STEVEN returning (e.g. handing over the MEGA RING after gauntlet 4).

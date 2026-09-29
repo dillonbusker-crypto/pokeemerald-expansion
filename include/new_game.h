@@ -14,6 +14,8 @@ void ResetMenuAndMonGlobals(void);
 void Sav2_ClearSetDefault(void);
 void GiveFrontierStartingMon(void);
 void GiveFrontierStartingFPAndHMs(void);
+void RemoveFrontierHMs(void);
+void FrontierFloristTakeMon(void);
 u16 HasReceivedFrontierStartingGrants(void);
 
 #endif // GUARD_NEW_GAME_H

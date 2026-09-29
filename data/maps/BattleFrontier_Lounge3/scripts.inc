@@ -19,6 +19,7 @@ BattleFrontier_Lounge3_EventScript_Gambler::
 	goto_if_eq VAR_RESULT, BROKER_RUN_ACTIVE, BattleFrontier_Lounge3_EventScript_Broker_RunActive
 	copyvar VAR_TEMP_2, VAR_RESULT
 	call_if_eq VAR_ARTISAN_QUEST_STEP, 3, BattleFrontier_Lounge3_EventScript_Broker_FlotsamSentYou
+	call_if_eq VAR_ARTISAN_QUEST_STEP, 4, BattleFrontier_Lounge3_EventScript_Broker_CheckAlreadyHasBall
 	call BattleFrontier_Lounge3_EventScript_Broker_CheckMasterBall
 	goto_if_eq VAR_TEMP_2, BROKER_OK, BattleFrontier_Lounge3_EventScript_Broker_DealOpen
 	goto_if_eq VAR_TEMP_3, TRUE, BattleFrontier_Lounge3_EventScript_Broker_OnlyMasterBall
@@ -29,6 +30,19 @@ BattleFrontier_Lounge3_EventScript_Gambler::
 BattleFrontier_Lounge3_EventScript_Broker_FlotsamSentYou::
 	msgbox BattleFrontier_Lounge3_Text_BrokerFlotsamSentYou, MSGBOX_DEFAULT
 	setvar VAR_ARTISAN_QUEST_STEP, 4
+	return
+
+@ Step 5 (FLOTSAM waits at the waterfall) follows buying the MASTER BALL -
+@ or, if the player somehow already has one, just coming here for it.
+BattleFrontier_Lounge3_EventScript_Broker_CheckAlreadyHasBall::
+	checkitem ITEM_MASTER_BALL
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_Lounge3_EventScript_Broker_MasterBallInHand
+	checkpcitem ITEM_MASTER_BALL
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_Lounge3_EventScript_Broker_MasterBallInHand
+	return
+
+BattleFrontier_Lounge3_EventScript_Broker_MasterBallInHand::
+	setvar VAR_ARTISAN_QUEST_STEP, 5
 	return
 
 BattleFrontier_Lounge3_EventScript_Broker_CheckMasterBall::
@@ -103,6 +117,7 @@ BattleFrontier_Lounge3_EventScript_Broker_MasterBall::
 	special UpdateFacilityFPWindow
 	additem ITEM_MASTER_BALL
 	setvar VAR_TEMP_3, FALSE
+	call_if_eq VAR_ARTISAN_QUEST_STEP, 4, BattleFrontier_Lounge3_EventScript_Broker_MasterBallInHand
 	playse SE_SHOP
 	msgbox BattleFrontier_Lounge3_Text_BrokerMasterBallDone, MSGBOX_DEFAULT
 	goto_if_eq VAR_TEMP_2, BROKER_OK, BattleFrontier_Lounge3_EventScript_Broker_ChooseShelf
