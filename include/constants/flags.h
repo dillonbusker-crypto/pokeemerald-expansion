@@ -54,8 +54,8 @@
 #define FLAG_ARTISAN_LATI_CAUGHT    0x20 // Ten Gauntlets: Latios or Latias caught; the other has flown off
 #define FLAG_FRONTIER_DITTO_REVEALED    0x21 // Ten Gauntlets: the disguised Ditto has given itself away
 #define FLAG_FRONTIER_RIVAL_REMATCH_DONE    0x22 // Ten Gauntlets: the rival has been beaten outside the Battle Tower
-#define FLAG_UNUSED_0x023    0x23 // Unused Flag
-#define FLAG_UNUSED_0x024    0x24 // Unused Flag
+#define FLAG_RECEIVED_SCOTT_PP_MAX    0x23 // Ten Gauntlets: SCOTT has handed over the 99 PP MAX
+#define FLAG_ITEM_ARTISAN_CAVE_1F_SOUL_DEW    0x24 // Ten Gauntlets: the Soul Dew that replaced the Carbos ball, with its own flag so existing saves see it
 #define FLAG_UNUSED_0x025    0x25 // Unused Flag
 #define FLAG_UNUSED_0x026    0x26 // Unused Flag
 #define FLAG_UNUSED_0x027    0x27 // Unused Flag

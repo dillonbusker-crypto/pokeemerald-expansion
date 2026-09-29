@@ -93,12 +93,12 @@ BattleFrontier_Lounge3_EventScript_Broker_PushIllegalShelf::
 BattleFrontier_Lounge3_EventScript_Broker_MasterBall::
 	msgbox BattleFrontier_Lounge3_Text_BrokerConfirmMasterBall, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge3_EventScript_Broker_ChooseShelf
-	setvar VAR_0x8008, 1000
+	setvar VAR_0x8008, 800
 	special FacilityShopGetFP
 	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_Lounge3_EventScript_Broker_NotEnoughFP
 	checkitemspace ITEM_MASTER_BALL
 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_Lounge3_EventScript_Broker_BagFull
-	setvar VAR_0x8004, 1000
+	setvar VAR_0x8004, 800
 	special FacilityShopTakeFP
 	special UpdateFacilityFPWindow
 	additem ITEM_MASTER_BALL
@@ -762,7 +762,7 @@ BattleFrontier_Lounge3_Text_BrokerShelfIllegal:
 	.string "Illegal item$"
 
 BattleFrontier_Lounge3_Text_BrokerConfirmMasterBall:
-	.string "A MASTER BALL. 1,000 FP.\p"
+	.string "A MASTER BALL. 800 FP.\p"
 	.string "Where'd I get it? Where do you\n"
 	.string "think?\p"
 	.string "Deal?$"

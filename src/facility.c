@@ -158,9 +158,20 @@ bool8 IsFacilityRunActive(void)
 // battle_message.c when the game needed to print this trainer's name
 // mid-battle. See battle_message.c's BATTLE_TYPE_FRONTIER checks, which
 // this is used to route our own trainers around.
+// The rival's rematch outside the Battle Tower (frontier-dialogue.md) is
+// fought under Frontier rules - Set style, no bag - so it carries the same
+// battle type as a run and needs the same routing below.
+bool8 IsFrontierRivalTrainer(u16 trainerId)
+{
+    return trainerId >= TRAINER_FRONTIER_RIVAL_MAY_FIRE && trainerId <= TRAINER_FRONTIER_RIVAL_BRENDAN_GRASS;
+}
+
 bool8 IsFacilityBattleTrainer(u16 trainerId)
 {
     u32 i, j;
+
+    if (IsFrontierRivalTrainer(trainerId))
+        return TRUE;
 
     for (i = 0; i < ARRAY_COUNT(sFacilityGauntlets); i++)
     {
@@ -338,6 +349,14 @@ u16 GetGauntletsClearedCount(void)
 void GetFacilityRunGauntlet(void)
 {
     gSpecialVar_Result = gSaveBlock3Ptr->facility.run.gauntlet;
+}
+
+// specialvar-style: VAR_0x8004 = gauntlet. A cleared gauntlet can't be
+// re-entered (CLAUDE.md, "Re-entry: none") - every attendant checks this
+// before offering a run.
+void IsFacilityGauntletCompleted(void)
+{
+    gSpecialVar_Result = (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << gSpecialVar_0x8004)) != 0;
 }
 
 void IsFacilityRunActiveForGauntlet(void)

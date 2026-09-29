@@ -12,7 +12,9 @@ ArtisanCave_B1F_OnTransition:
 @ Latios and Latias wait just inside the west entrance. Either one is a
 @ level 50 wild battle; catching one sends the other off for good. A
 @ fainted one only disappears until the player next enters the cave, since
-@ their hide flags are temporary ones.
+@ their hide flags are temporary ones. Both are shiny - P_FLAG_FORCE_SHINY
+@ is a temp flag, so it can't outlive the battle even on a whiteout. It
+@ must be set before setwildbattle, which rolls the Pokemon immediately.
 ArtisanCave_B1F_OnResume:
 	call_if_set FLAG_SYS_CTRL_OBJ_DELETE, ArtisanCave_B1F_EventScript_TryRemoveLati
 	end
@@ -39,9 +41,11 @@ ArtisanCave_B1F_EventScript_Latios::
 	playmoncry SPECIES_LATIOS, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
+	setflag P_FLAG_FORCE_SHINY
 	setwildbattle SPECIES_LATIOS, 50
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	dowildbattle
+	clearflag P_FLAG_FORCE_SHINY
 	clearflag FLAG_SYS_CTRL_OBJ_DELETE
 	specialvar VAR_RESULT, GetBattleOutcome
 	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, ArtisanCave_B1F_EventScript_CaughtLatios
@@ -67,9 +71,11 @@ ArtisanCave_B1F_EventScript_Latias::
 	playmoncry SPECIES_LATIAS, CRY_MODE_ENCOUNTER
 	delay 40
 	waitmoncry
+	setflag P_FLAG_FORCE_SHINY
 	setwildbattle SPECIES_LATIAS, 50
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	dowildbattle
+	clearflag P_FLAG_FORCE_SHINY
 	clearflag FLAG_SYS_CTRL_OBJ_DELETE
 	specialvar VAR_RESULT, GetBattleOutcome
 	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, ArtisanCave_B1F_EventScript_CaughtLatias

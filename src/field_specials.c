@@ -2716,6 +2716,13 @@ static void Task_ShowScrollableMultichoice(u8 taskId)
     task->tWindowId = windowId;
     SetStandardWindowBorderStyle(windowId, FALSE);
 
+    // Ten Gauntlets: the list menu assumes it never shows more rows than it
+    // has items. Short lists (the 3-row post-battle menu, the 5-row tier
+    // menu, small dynamic shop/Broker lists) let the cursor run onto blank
+    // rows and scroll, so the row reading "Rearrange Party" could return
+    // "Quit". Never show more rows than there are items.
+    if (task->tMaxItemsOnScreen > task->tNumItems)
+        task->tMaxItemsOnScreen = task->tNumItems;
     gScrollableMultichoice_ListMenuTemplate.totalItems = task->tNumItems;
     gScrollableMultichoice_ListMenuTemplate.maxShowed = task->tMaxItemsOnScreen;
     gScrollableMultichoice_ListMenuTemplate.windowId = task->tWindowId;

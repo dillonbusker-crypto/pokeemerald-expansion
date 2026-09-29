@@ -56,9 +56,13 @@ BattleFrontier_OutsideEast_EventScript_ShowSudowoodo::
 	clearflag FLAG_HIDE_BATTLE_FRONTIER_SUDOWOODO
 	return
 
+@ Fought under Frontier rules: the battle itself gets the Frontier battle
+@ type (IsFrontierRivalTrainer() in src/battle_setup.c - Set style, no bag),
+@ and held items used up in it come back afterwards, same as in a run.
 BattleFrontier_OutsideEast_EventScript_Rival::
 	lock
 	faceplayer
+	special SaveFacilityHeldItems
 	checkplayergender
 	goto_if_eq VAR_RESULT, MALE, BattleFrontier_OutsideEast_EventScript_RivalMay
 	goto BattleFrontier_OutsideEast_EventScript_RivalBrendan
@@ -90,7 +94,9 @@ BattleFrontier_OutsideEast_EventScript_MayBattleGrass::
 	end
 
 BattleFrontier_OutsideEast_EventScript_MayAfterBattle::
-	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideEast_EventScript_MayPlayerLost
+	copyvar VAR_TEMP_5, VAR_RESULT
+	special RestoreFacilityHeldItems
+	goto_if_eq VAR_TEMP_5, TRUE, BattleFrontier_OutsideEast_EventScript_MayPlayerLost
 	msgbox BattleFrontier_OutsideEast_Text_MayStormsOff, MSGBOX_DEFAULT
 	closemessage
 	setvar VAR_0x8008, LOCALID_FRONTIER_RIVAL_MAY
@@ -128,7 +134,9 @@ BattleFrontier_OutsideEast_EventScript_BrendanBattleGrass::
 	end
 
 BattleFrontier_OutsideEast_EventScript_BrendanAfterBattle::
-	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideEast_EventScript_BrendanPlayerLost
+	copyvar VAR_TEMP_5, VAR_RESULT
+	special RestoreFacilityHeldItems
+	goto_if_eq VAR_TEMP_5, TRUE, BattleFrontier_OutsideEast_EventScript_BrendanPlayerLost
 	msgbox BattleFrontier_OutsideEast_Text_BrendanStormsOff, MSGBOX_DEFAULT
 	closemessage
 	setvar VAR_0x8008, LOCALID_FRONTIER_RIVAL_BRENDAN

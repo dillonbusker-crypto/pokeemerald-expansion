@@ -31,6 +31,7 @@ gSpecials::
 	def_special FacilityCompleteGauntlet
 	def_special FacilityAbandonRun
 	def_special GetFacilityRunGauntlet
+	def_special IsFacilityGauntletCompleted
 	def_special IsFacilityRunActiveForGauntlet
 	def_special IsFacilityRunActiveForDifferentGauntlet
 	def_special IsDoublesMatUnlocked

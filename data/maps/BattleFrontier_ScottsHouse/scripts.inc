@@ -11,6 +11,7 @@ BattleFrontier_ScottsHouse_EventScript_Scott::
 	faceplayer
 	specialvar VAR_RESULT, HasReceivedFrontierStartingGrants
 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_ScottsHouse_EventScript_GiveStartingTeam
+	call_if_unset FLAG_RECEIVED_SCOTT_PP_MAX, BattleFrontier_ScottsHouse_EventScript_GivePPMax
 	specialvar VAR_RESULT, GetGauntletsClearedCount
 	switch VAR_RESULT
 	case 0, BattleFrontier_ScottsHouse_EventScript_Progress0
@@ -44,8 +45,20 @@ BattleFrontier_ScottsHouse_EventScript_StartingMonNext::
 	special GiveFrontierStartingFPAndHMs
 	msgbox BattleFrontier_ScottsHouse_Text_HereIsFPAndHMs, MSGBOX_DEFAULT
 	msgbox BattleFrontier_ScottsHouse_Text_NowYouHaveSix, MSGBOX_DEFAULT
+	call BattleFrontier_ScottsHouse_EventScript_GivePPMax
 	release
 	end
+
+@ Ten Gauntlets: 99 PP MAX, so every move can run at full PP. Given with the
+@ starting team, or on the next talk for a save that got the team before
+@ this existed.
+BattleFrontier_ScottsHouse_EventScript_GivePPMax::
+	msgbox BattleFrontier_ScottsHouse_Text_HereIsPPMax, MSGBOX_DEFAULT
+	giveitem ITEM_PP_MAX, 99
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
+	setflag FLAG_RECEIVED_SCOTT_PP_MAX
+	msgbox BattleFrontier_ScottsHouse_Text_UsePPMax, MSGBOX_DEFAULT
+	return
 
 BattleFrontier_ScottsHouse_EventScript_Progress0::
 	msgbox BattleFrontier_ScottsHouse_Text_Progress0, MSGBOX_DEFAULT
@@ -533,3 +546,12 @@ BattleFrontier_ScottsHouse_Text_PokeBallShelfTwitch:
 	.string "Six POKé BALLS, polished to a\n"
 	.string "shine.\p"
 	.string "...One of them twitches.$"
+
+BattleFrontier_ScottsHouse_Text_HereIsPPMax:
+	.string "SCOTT: Oh, and take these. Every\n"
+	.string "challenger gets a supply.$"
+
+BattleFrontier_ScottsHouse_Text_UsePPMax:
+	.string "Run out of PP halfway through a\n"
+	.string "gauntlet and you'll wish you'd\l"
+	.string "used them. Max out every move.$"

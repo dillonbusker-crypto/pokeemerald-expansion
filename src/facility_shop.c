@@ -1716,10 +1716,33 @@ void FacilityBrokerLoanMon(void)
     struct Pokemon mon;
     u8 metLocation = METLOC_IN_GAME_TRADE;
 
+    u8 otGender = MALE;
+    u32 i;
+
     CreateShopMon(&mon, gSpecialVar_0x8009);
     SetMonData(&mon, MON_DATA_OT_NAME, sText_BrokerOTName);
+    SetMonData(&mon, MON_DATA_OT_GENDER, &otGender);
     SetMonData(&mon, MON_DATA_MET_LOCATION, &metLocation);
-    gSpecialVar_Result = GiveCapturedMonToPlayer(&mon);
+
+    // Not GiveCapturedMonToPlayer(): it stamps the player's name over the
+    // OT, which erased the "BROKER" tag - the loaner then read as the
+    // player's own and was never collected. Same party-then-PC placement,
+    // minus the re-stamp.
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES) == SPECIES_NONE)
+            break;
+    }
+    if (i < PARTY_SIZE)
+    {
+        CopyMon(&gParties[B_TRAINER_PLAYER][i], &mon, sizeof(mon));
+        gPartiesCount[B_TRAINER_PLAYER] = i + 1;
+        gSpecialVar_Result = MON_GIVEN_TO_PARTY;
+    }
+    else
+    {
+        gSpecialVar_Result = CopyMonToPC(&mon);
+    }
     if (gSpecialVar_Result != MON_CANT_GIVE)
         FacilityBrokerMarkDealUsed();
 }

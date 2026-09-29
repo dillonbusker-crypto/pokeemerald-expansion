@@ -30,8 +30,8 @@
     },
     {
       "local_id": "LOCALID_ARTISAN_LATIOS",
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(LATIOS)",
-      "x": 16,
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES_SHINY(LATIOS)",
+      "x": 15,
       "y": 46,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
@@ -44,7 +44,7 @@
     },
     {
       "local_id": "LOCALID_ARTISAN_LATIAS",
-      "graphics_id": "OBJ_EVENT_GFX_SPECIES(LATIAS)",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES_SHINY(LATIAS)",
       "x": 17,
       "y": 46,
       "elevation": 3,

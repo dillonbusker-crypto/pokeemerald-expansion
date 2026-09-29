@@ -324,6 +324,8 @@ BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB3::
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
 	special IsFacilityRunActiveForDifferentGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	special IsFacilityGauntletCompleted
+	goto_if_eq VAR_RESULT, TRUE, Facility_AlreadyCleared
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_B3_Text_AskEnter, MSGBOX_YESNO
@@ -345,6 +347,8 @@ BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB4::
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
 	special IsFacilityRunActiveForDifferentGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	special IsFacilityGauntletCompleted
+	goto_if_eq VAR_RESULT, TRUE, Facility_AlreadyCleared
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_B4_Text_AskEnter, MSGBOX_YESNO
@@ -1485,6 +1489,8 @@ BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB1::
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
 	special IsFacilityRunActiveForDifferentGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	special IsFacilityGauntletCompleted
+	goto_if_eq VAR_RESULT, TRUE, Facility_AlreadyCleared
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_B1_Text_AskEnter, MSGBOX_YESNO
@@ -1510,6 +1516,8 @@ BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB2::
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
 	special IsFacilityRunActiveForDifferentGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	special IsFacilityGauntletCompleted
+	goto_if_eq VAR_RESULT, TRUE, Facility_AlreadyCleared
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_Text_AskEnter, MSGBOX_YESNO
@@ -1887,6 +1895,12 @@ Facility_RearrangeParty:
 	goto Facility_PostWinMenu
 	end
 
+@ Ten Gauntlets: no re-entry once a gauntlet is cleared (CLAUDE.md).
+Facility_AlreadyCleared:
+	msgbox Facility_Text_AlreadyCleared, MSGBOX_DEFAULT
+	release
+	end
+
 Facility_ConfirmQuit:
 	msgbox Facility_Text_ConfirmQuit, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, Facility_PostWinMenu
@@ -2230,3 +2244,9 @@ BattleFrontier_BattleTowerLobby_EventScript_RulesBoard_Text:
 	.string "The TOWER holds gauntlets 1 to 4:\n"
 	.string "Singles, Doubles, Singles,\l"
 	.string "Doubles.$"
+
+Facility_Text_AlreadyCleared:
+	.string "You've already cleared this\n"
+	.string "gauntlet.\p"
+	.string "There's no going back here. Only\n"
+	.string "forward!$"

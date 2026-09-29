@@ -944,22 +944,35 @@ static u32 GetRelearnerLevelUpMoves(struct BoxPokemon *mon, u16 *moves)
     return numMoves;
 }
 
+// Ten Gauntlets: egg moves are gathered from every stage of the family, not
+// just its root. Baby Pokemon keep their own, shorter lists - Happiny's lacks
+// Chansey's Seismic Toss, Azurill's and Wynaut's miss moves too - so reading
+// only the root hid real egg moves from Blissey and friends.
+static bool32 IsMoveInList(const u16 *moves, u32 numMoves, u16 move)
+{
+    for (u32 i = 0; i < numMoves; i++)
+    {
+        if (moves[i] == move)
+            return TRUE;
+    }
+    return FALSE;
+}
+
 static u32 GetRelearnerEggMoves(struct BoxPokemon *mon, u16 *moves)
 {
     enum Species species = GetBoxMonData(mon, MON_DATA_SPECIES);
     u32 numMoves = 0;
-    while (GetSpeciesPreEvolution(species) != SPECIES_NONE)
-        species = GetSpeciesPreEvolution(species);
 
-    const u16 *eggMoves = GetSpeciesEggMoves(species);
-
-    if (eggMoves[0] == MOVE_UNAVAILABLE)
-        return 0;
-
-    for (u32 i = 0; eggMoves[i] != MOVE_UNAVAILABLE; i++)
+    while (species != SPECIES_NONE)
     {
-        if (!BoxMonKnowsMove(mon, eggMoves[i]))
-            moves[numMoves++] = eggMoves[i];
+        const u16 *eggMoves = GetSpeciesEggMoves(species);
+
+        for (u32 i = 0; eggMoves[i] != MOVE_UNAVAILABLE && numMoves < MAX_RELEARNER_MOVES; i++)
+        {
+            if (!BoxMonKnowsMove(mon, eggMoves[i]) && !IsMoveInList(moves, numMoves, eggMoves[i]))
+                moves[numMoves++] = eggMoves[i];
+        }
+        species = GetSpeciesPreEvolution(species);
     }
 
     return numMoves;
@@ -1061,18 +1074,17 @@ static bool32 HasRelearnerLevelUpMoves(struct BoxPokemon *boxMon)
 static bool32 HasRelearnerEggMoves(struct BoxPokemon *boxMon)
 {
     enum Species species = GetBoxMonData(boxMon, MON_DATA_SPECIES);
-    while (GetSpeciesPreEvolution(species) != SPECIES_NONE)
-        species = GetSpeciesPreEvolution(species);
 
-    const u16 *eggMoves = GetSpeciesEggMoves(species);
-
-    if (eggMoves[0] == MOVE_UNAVAILABLE)
-        return FALSE;
-
-    for (u32 i = 0; eggMoves[i] != MOVE_UNAVAILABLE; i++)
+    while (species != SPECIES_NONE)
     {
-        if (!BoxMonKnowsMove(boxMon, eggMoves[i]))
-            return TRUE;
+        const u16 *eggMoves = GetSpeciesEggMoves(species);
+
+        for (u32 i = 0; eggMoves[i] != MOVE_UNAVAILABLE; i++)
+        {
+            if (!BoxMonKnowsMove(boxMon, eggMoves[i]))
+                return TRUE;
+        }
+        species = GetSpeciesPreEvolution(species);
     }
 
     return FALSE;

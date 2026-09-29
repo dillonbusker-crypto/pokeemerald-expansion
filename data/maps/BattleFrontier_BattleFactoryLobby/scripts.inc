@@ -587,6 +587,8 @@ BattleFrontier_BattleFactoryLobby_EventScript_FacilityAttendantB6::
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
 	special IsFacilityRunActiveForDifferentGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	special IsFacilityGauntletCompleted
+	goto_if_eq VAR_RESULT, TRUE, Facility_AlreadyCleared
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_B6_Text_AskEnter, MSGBOX_YESNO

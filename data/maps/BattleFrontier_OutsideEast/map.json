@@ -376,7 +376,7 @@
     },
     {
       "local_id": "LOCALID_FRONTIER_LOOKER",
-      "graphics_id": "OBJ_EVENT_GFX_POLICEMAN",
+      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
       "x": 54,
       "y": 59,
       "elevation": 3,
