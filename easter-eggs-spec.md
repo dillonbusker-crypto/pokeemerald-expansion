@@ -21,7 +21,7 @@ everything lives and the two places the build departs from the design). Follows 
 ## 1. The Artisan Cave side quest
 
 **Unlocks once gauntlet 4 is unlocked** — that is, after the third boss
-(DUNEWARDEN KASRA) falls. A small crime story told across the
+(DUNEWARDEN ROXANNE) falls. A small crime story told across the
 Frontier, ending with the player choosing between **Latios and Latias** —
 they keep one, and the other is gone for good.
 

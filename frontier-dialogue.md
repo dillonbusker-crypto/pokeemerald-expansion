@@ -39,9 +39,9 @@ that facility's own Frontier Brain:
 
 | Gauntlet | Facility | Format | Name | Boss |
 |---|---|---|---|---|
-| 1 | Tower, Singles mat | Singles | Little League | Warden Helis *(Tower lieutenant)* |
-| 2 | Tower, Doubles mat | Doubles | The Second Slot | Tidewarden Nerys *(Tower lieutenant)* |
-| 3 | Tower, Multi mat | Singles | The Changing Sky | Dunewarden Kasra *(Tower lieutenant)* |
+| 1 | Tower, Singles mat | Singles | Little League | Warden Winona *(Tower lieutenant)* |
+| 2 | Tower, Doubles mat | Doubles | The Second Slot | Tidewarden Juan *(Tower lieutenant)* |
+| 3 | Tower, Multi mat | Singles | The Changing Sky | Dunewarden Roxanne *(Tower lieutenant)* |
 | 4 | Tower, Link Multi mat | Doubles | The Turn Order | **Salon Maiden Anabel** |
 | 5 | Battle Dome | Singles | The Main Event | **Dome Ace Tucker** |
 | 6 | Battle Factory | Doubles | The Assembly Line | **Factory Head Noland** |
@@ -65,8 +65,8 @@ They're the island's celebrities — NPCs gossip about them, fear them, and
 are fans of them. The vanilla Dome fans' "DOME ACE" lines already work
 almost as-is, now pointing at the gauntlet 5 boss.
 
-**Gauntlets 1–3** are guarded by the **Tower lieutenants** — Helis, Nerys
-and Kasra, the Warden-titled trainers Anabel keeps between new challengers
+**Gauntlets 1–3** are guarded by the **Tower lieutenants** — Winona, Juan
+and Roxanne, the Warden-titled trainers Anabel keeps between new challengers
 and herself. "Warden" becomes their rank.
 
 **Implementation direction (not built yet):** the Brains' battle sprites
@@ -99,7 +99,7 @@ out past the ARENA"), never "LOUNGE 3".
 **Tone.** The Frontier is a proving ground people *travel* to — by the Route
 103 ferry — and most of them are stuck somewhere in the middle. NPCs should
 feel like other challengers at other points on the same ladder: someone who
-just lost to Helis's Altaria, someone saving FP for a Choice Scarf, someone
+just lost to Winona's Altaria, someone saving FP for a Choice Scarf, someone
 who has only ever *heard* about the Pyramid.
 
 ---
@@ -212,7 +212,7 @@ with an offhand "feel free to visit my quarters."
 
 | NPC | Now | Proposed |
 |---|---|---|
-| Boy (26,38) | "Best of all my friends, useless here" | "Back home I never lost. Here? Warden Helis's ALTARIA swept my whole team. I didn't even know you *could* do that." |
+| Boy (26,38) | "Best of all my friends, useless here" | "Back home I never lost. Here? Warden Winona's ALTARIA swept my whole team. I didn't even know you *could* do that." |
 | Ferry attendant | Ferry, needs TICKET | Keep the function, point it home: "The ferry sails back to ROUTE 103. Your team, your FP — all of it will be waiting when you return." |
 | Expert M (26,20) | "Is this the Dome? I won't let GENTLEMEN beat me" | "So this is the BATTLE DOME… They say every trainer inside can Mega Evolve. Hmph. So can I, once I find that Mega Ring." 🔄 (Late: "I found the Ring. Then I found out what Mega Lopunny does. Ahem.") |
 | Man (27,30) | Only tough trainers are brought here | "Nobody stumbles onto this island. SCOTT invites you, you take the ferry, and then the Ten Gauntlets decide how good you really were." |
@@ -254,7 +254,7 @@ with an offhand "feel free to visit my quarters."
 | Maniac (42,34) | Came for a pretty girl at the Arena | Keep — the payoff still works once the Arena opens. |
 | Girl (51,53) | Important old man with awesome POKéMON | "An important-looking old man goes into the PALACE sometimes, even though it's sealed. His POKéMON look… legendary." (foreshadows gauntlet 9) |
 | Psychic M (62,18) | Made-up Pyramid legend | Keep the gag, retarget: "The legend of the PYRAMID! When a trainer clears nine gauntlets, the PYRAMID KING shall appear! …I just made that up. Or did I?" |
-| Man + Woman (10–11,21) | He lost badly at the Tower | "He'd never lost once. Then he met Warden HELIS." / "It was one ALTARIA! ONE!" 💡 (Early only; later: "…He's on gauntlet 3 now. Don't mention sandstorms.") 🔄 |
+| Man + Woman (10–11,21) | He lost badly at the Tower | "He'd never lost once. Then he met Warden WINONA." / "It was one ALTARIA! ONE!" 💡 (Early only; later: "…He's on gauntlet 3 now. Don't mention sandstorms.") 🔄 |
 | Woman (16,30) | Enough BP for a plush doll | "I finally saved up enough FP! Choice Scarf or a new POKéMON… Choice Scarf or a new POKéMON…" 🔄 |
 | Black Belt (33,14) | Wants his name in the Ranking Hall | "So this is the HALL OF TEN! Beat a gauntlet's boss and your name goes up on its plaque. I'm going to be the reason one of those changes!" |
 | Couple (54,31–32) | Multi Battle Room, power of love | Retarget to doubles: "Doubles is *made* for us, darling! You Fake Out, I Protect!" / "…That's not how it works, but I love you." 💡 |
@@ -276,7 +276,7 @@ with an offhand "feel free to visit my quarters."
 | Reporter | Interviews about the Tower | Keep; she interviews about "your last gauntlet". |
 | Apprentice | Vanilla Apprentice feature | **Hidden (decided).** It's a vanilla Tower / record-mixing system that can't work here. |
 | Rules board | Vanilla Tower rules | Ten Gauntlets rules, with a Tower page: "Four mats, four gauntlets. Singles, Doubles, Singles, Doubles." |
-| Four result signs | Vanilla streak records | Gauntlet plaques: "Mat 3 — THE CHANGING SKY. Warden: DUNEWARDEN KASRA. Status: Cleared." 🔄 |
+| Four result signs | Vanilla streak records | Gauntlet plaques: "Mat 3 — THE CHANGING SKY. Warden: DUNEWARDEN ROXANNE. Status: Cleared." 🔄 |
 
 ### Battle Dome lobby (gauntlet 5)
 
@@ -393,7 +393,7 @@ warp-out, so they can wait until gauntlets 7–10 are designed. Direction:
 1. **Facility order for 7–10:** Pike, Arena, Palace, Pyramid (see Part 1).
 2. **The Frontier Brains are the bosses** from gauntlet 4 on; gauntlets 1–3
    keep their Tower lieutenants (see Part 1). Every boss-name reference in
-   the proposals above (Helis's Altaria, Tucker's fans, "the Warden of the
+   the proposals above (Winona's Altaria, Tucker's fans, "the Warden of the
    Dome"...) follows the new names when implemented — e.g. the Outside West
    fans idolize the DOME ACE, TUCKER, as in vanilla.
 3. **Progress-reactive dialogue:** approved.
@@ -497,3 +497,36 @@ Battle Tower door and won't move until the player accepts a fair rematch.
   species. Mightyena, Masquerain, Corsola, Kirlia, Plusle, then the rival's
   starter at its middle stage, picked to beat the player's starter (Combusken
   vs Quilladin, Marshtomp vs Combusken, Grovyle vs Frogadier).
+
+---
+
+## NORMAN's storyline (built)
+
+Tracked by `VAR_NORMAN_STORY_STATE`: 0 none, 1 gauntlet 1 cleared, 2 heard
+at the Doubles mat, 3 SCOTT's house scene done, 4 NORMAN beaten.
+
+1. **Foreshadowing.** MOM, handing over the Running Shoes, has heard about
+   the Ten Gauntlets from BIRCH: "Your father is going to be upset."
+2. **Gauntlet 1 cleared** (`Facility_B1_GauntletComplete`): the attendant
+   mentions a commotion at the Doubles mat. State 1.
+3. **Gauntlet 2 attendant** (`Facility_B2_NormanBlock`): refuses until state
+   4. NORMAN demanded she stop the player, and said SCOTT has been "playing
+   games with other people's children". State 2. This check sits after the
+   completed-gauntlet check, so a save with gauntlet 2 already cleared is
+   never blocked, and one that cleared gauntlet 1 before this existed still
+   gets the storyline.
+4. **SCOTT's house** (states 1-2): NORMAN is there; walking up (row 5
+   triggers) plays the argument. NORMAN calls the BADGES counterfeit, SCOTT
+   threatens him and says he could wipe him out, NORMAN storms out, and SCOTT
+   apologizes. State 3.
+5. **Battle Tower door** (state 3): NORMAN blocks it. He's a doubles battle,
+   Frontier rules, heal-and-retry on a loss (`TRAINER_FRONTIER_NORMAN`). The
+   team is scaled to gauntlet 2 plus Slaking and Clefable (Normal until
+   Gen 6); Clefable Skill Swaps its Magic Guard onto Slaking, taking Truant. On a win he warns the player about SCOTT and gives
+   300 FP "borrowed" from SCOTT's wallet. State 4.
+6. **Home** (state 4): NORMAN wanders the player's house in LITTLEROOT
+   (the vanilla DAD object, re-decided on every transition because each
+   house map is also the rival's house for the other gender).
+
+Open threads for later: the counterfeit BADGES (BIRCH told the player the
+GYM LEADERS agreed), SCOTT's threat to NORMAN, and the rumors about SCOTT.

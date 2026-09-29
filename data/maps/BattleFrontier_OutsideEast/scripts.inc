@@ -20,7 +20,13 @@ BattleFrontier_OutsideEast_OnTransition:
 	call_if_set FLAG_ARTISAN_LATI_CAUGHT, BattleFrontier_OutsideEast_EventScript_HideFlotsam
 	call_if_unset FLAG_ARTISAN_LATI_CAUGHT, BattleFrontier_OutsideEast_EventScript_HideLooker
 	call BattleFrontier_OutsideEast_EventScript_SetupRival
+	setflag FLAG_TEMP_5
+	call_if_eq VAR_NORMAN_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_ShowNorman
 	end
+
+BattleFrontier_OutsideEast_EventScript_ShowNorman::
+	clearflag FLAG_TEMP_5
+	return
 
 @ Ten Gauntlets: the rival blocks the Battle Tower door, demanding a fair
 @ rematch for ROUTE 103, from the moment SCOTT has handed over the starting
@@ -188,6 +194,73 @@ BattleFrontier_OutsideEast_Movement_RivalStormOffRight:
 	walk_fast_right
 	walk_fast_right
 	walk_fast_right
+	step_end
+
+@ Ten Gauntlets: NORMAN blocks the Battle Tower after the scene at SCOTT's
+@ house (VAR_NORMAN_STORY_STATE 3), and won't let the player on to gauntlet 2
+@ until they beat him. Frontier rules like the rival's rematch; a loss heals
+@ and lets the player try again. See frontier-dialogue.md.
+BattleFrontier_OutsideEast_EventScript_Norman::
+	lock
+	faceplayer
+	special SaveFacilityHeldItems
+	msgbox BattleFrontier_OutsideEast_Text_NormanChallenge, MSGBOX_DEFAULT
+	closemessage
+	trainerbattle_earlyrival TRAINER_FRONTIER_NORMAN, RIVAL_BATTLE_HEAL_AFTER, BattleFrontier_OutsideEast_Text_NormanDefeated, BattleFrontier_OutsideEast_Text_NormanWon
+	copyvar VAR_TEMP_5, VAR_RESULT
+	special RestoreFacilityHeldItems
+	goto_if_eq VAR_TEMP_5, TRUE, BattleFrontier_OutsideEast_EventScript_NormanPlayerLost
+	special HealPlayerParty
+	msgbox BattleFrontier_OutsideEast_Text_NormanWarning, MSGBOX_DEFAULT
+	setvar VAR_0x8004, 300
+	special FacilityShopGiveFP
+	playfanfare MUS_OBTAIN_ITEM
+	message BattleFrontier_OutsideEast_Text_ReceivedNormanFP
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	msgbox BattleFrontier_OutsideEast_Text_NormanGoingHome, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_NORMAN_STORY_STATE, 4
+	specialvar VAR_RESULT, GetPlayerFacingDirection
+	goto_if_eq VAR_RESULT, DIR_EAST, BattleFrontier_OutsideEast_EventScript_NormanLeavesRight
+	applymovement LOCALID_FRONTIER_NORMAN, BattleFrontier_OutsideEast_Movement_NormanLeavesLeft
+	goto BattleFrontier_OutsideEast_EventScript_NormanGone
+	end
+
+BattleFrontier_OutsideEast_EventScript_NormanLeavesRight::
+	applymovement LOCALID_FRONTIER_NORMAN, BattleFrontier_OutsideEast_Movement_NormanLeavesRight
+BattleFrontier_OutsideEast_EventScript_NormanGone::
+	waitmovement 0
+	removeobject LOCALID_FRONTIER_NORMAN
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_NormanPlayerLost::
+	msgbox BattleFrontier_OutsideEast_Text_NormanAgain, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_Movement_NormanLeavesLeft:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+BattleFrontier_OutsideEast_Movement_NormanLeavesRight:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
 	step_end
 
 BattleFrontier_OutsideEast_EventScript_Flotsam::
@@ -766,7 +839,7 @@ BattleFrontier_OutsideEast_EventScript_Man3_Text3:
 BattleFrontier_OutsideEast_EventScript_Man3_Text0:
 	.string "Man! Oh man! I'd never lost once\n"
 	.string "before!\p"
-	.string "Then I met WARDEN HELIS. I got\n"
+	.string "Then I met WARDEN WINONA. I got\n"
 	.string "wiped out with no saving grace at\l"
 	.string "all!$"
 
@@ -778,7 +851,7 @@ BattleFrontier_OutsideEast_EventScript_Woman1_Text3:
 
 BattleFrontier_OutsideEast_EventScript_Woman1_Text0:
 	.string "He'd never lost once. Then he met\n"
-	.string "WARDEN HELIS on the first mat.\p"
+	.string "WARDEN WINONA on the first mat.\p"
 	.string "It was one ALTARIA. ONE!\p"
 	.string "Watch out for that one if you're\n"
 	.string "headed to the TOWER.$"
@@ -970,3 +1043,52 @@ BattleFrontier_OutsideEast_Text_BrendanStormsOff:
 	.string "gauntlets are going to chew you\l"
 	.string "up...\p"
 	.string "And I'll be watching when they do!$"
+
+BattleFrontier_OutsideEast_Text_NormanChallenge:
+	.string "NORMAN: {PLAYER}.\p"
+	.string "I owe you an honest word. All I\n"
+	.string "ever wanted was for you to have\l"
+	.string "the adventure of a lifetime. Eight\l"
+	.string "GYMS, the open road... the way I\l"
+	.string "had it.\p"
+	.string "But if this is the path you've\n"
+	.string "chosen, then I'll support it. On\l"
+	.string "one condition.\p"
+	.string "I won't let you go any further\n"
+	.string "until I know you can protect\l"
+	.string "yourself.\p"
+	.string "They fight two on two in there. So\n"
+	.string "will we. Show me, {PLAYER}!$"
+
+BattleFrontier_OutsideEast_Text_NormanDefeated:
+	.string "...Hah. You've grown.$"
+
+BattleFrontier_OutsideEast_Text_NormanWon:
+	.string "Not yet. You're not ready yet.$"
+
+BattleFrontier_OutsideEast_Text_NormanAgain:
+	.string "NORMAN: Your team's healed.\p"
+	.string "Think about what went wrong. Then\n"
+	.string "come back and show me again. I'll\l"
+	.string "be right here.$"
+
+BattleFrontier_OutsideEast_Text_NormanWarning:
+	.string "NORMAN: ...You can protect\n"
+	.string "yourself. I can see that now.\p"
+	.string "But listen to me, {PLAYER}. Watch\n"
+	.string "out for SCOTT.\p"
+	.string "I've heard rumors about him.\n"
+	.string "Strange ones. Something about all\l"
+	.string "of this just isn't right.\p"
+	.string "Keep your eyes open.\p"
+	.string "...Oh, and here. Consider it a\n"
+	.string "reward. I, ah... borrowed it from\l"
+	.string "SCOTT's wallet on my way out.$"
+
+BattleFrontier_OutsideEast_Text_ReceivedNormanFP:
+	.string "{PLAYER} received 300 FP!$"
+
+BattleFrontier_OutsideEast_Text_NormanGoingHome:
+	.string "NORMAN: Don't tell your mother.\p"
+	.string "I'm heading home to LITTLEROOT.\n"
+	.string "Come and see us when you can.$"

@@ -671,3 +671,29 @@ PlayersHouse_1F_Movement_PlayerApproachTVForLatiFemale:
 EventScript_RunningShoesManual::
 	msgbox PlayersHouse_1F_Text_RunningShoesManual, MSGBOX_SIGN
 	end
+
+@ Ten Gauntlets: after NORMAN is beaten outside the Battle Tower
+@ (VAR_NORMAN_STORY_STATE 4), he's home in LITTLEROOT - in the player's house
+@ only. Both houses have a DAD object sharing FLAG_HIDE_PLAYERS_HOUSE_DAD,
+@ and each map doubles as the rival's house for the other gender, so every
+@ transition re-decides it. VAR_0x8004 = the gender whose house this is.
+PlayersHouse_1F_EventScript_SetupDad::
+	setflag FLAG_HIDE_PLAYERS_HOUSE_DAD
+	goto_if_lt VAR_NORMAN_STORY_STATE, 4, Common_EventScript_NopReturn
+	checkplayergender
+	goto_if_ne VAR_RESULT, VAR_0x8004, Common_EventScript_NopReturn
+	clearflag FLAG_HIDE_PLAYERS_HOUSE_DAD
+	return
+
+PlayersHouse_1F_EventScript_Dad::
+	msgbox PlayersHouse_1F_Text_DadHome, MSGBOX_NPC
+	end
+
+PlayersHouse_1F_Text_DadHome:
+	.string "DAD: {PLAYER}! Home for a visit?\p"
+	.string "The house feels a lot bigger with\n"
+	.string "you gone. Your mother keeps the TV\l"
+	.string "on the FRONTIER all day.\p"
+	.string "...Remember what I told you about\n"
+	.string "SCOTT. Keep your eyes open out\l"
+	.string "there.$"

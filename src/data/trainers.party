@@ -17779,12 +17779,12 @@ Timid Nature
 - Will-O-Wisp
 - Calm Mind
 
-=== TRAINER_FACILITY_B1_BOSS_HELIS ===
-Name: HELIS
-Class: Expert
-Pic: Expert M
-Gender: Male
-Music: Male
+=== TRAINER_FACILITY_B1_BOSS_WINONA ===
+Name: WINONA
+Class: Warden
+Pic: Leader Winona
+Gender: Female
+Music: Female
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 
 Hariyama @ Black Belt
@@ -17850,8 +17850,8 @@ Jolly Nature
 
 === TRAINER_FACILITY_B2_A1_FAULT ===
 Name: FAULT
-Class: Youngster
-Pic: Youngster
+Class: Hiker
+Pic: Hiker
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -17919,8 +17919,8 @@ Quiet Nature
 
 === TRAINER_FACILITY_B2_A2_UNDERTOW ===
 Name: UNDERTOW
-Class: Youngster
-Pic: Youngster
+Class: Swimmer M
+Pic: Swimmer M
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -17988,10 +17988,10 @@ Jolly Nature
 
 === TRAINER_FACILITY_B2_B4_SPORECLOUD ===
 Name: SPORECLOUD
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Aroma Lady
+Pic: Aroma Lady
+Gender: Female
+Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices
 
@@ -18057,10 +18057,10 @@ Adamant Nature
 
 === TRAINER_FACILITY_B2_B6_LIGHTNINGROD ===
 Name: LIGHTROD
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Parasol Lady
+Pic: Parasol Lady
+Gender: Female
+Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices
 
@@ -18126,8 +18126,8 @@ Modest Nature
 
 === TRAINER_FACILITY_B2_C7_OPENINGACT ===
 Name: OPENACT
-Class: Youngster
-Pic: Youngster
+Class: Ninja Boy
+Pic: Ninja Boy
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -18195,8 +18195,8 @@ Adamant Nature
 
 === TRAINER_FACILITY_B2_D11_INVERSION ===
 Name: INVERSION
-Class: Youngster
-Pic: Youngster
+Class: Psychic
+Pic: Psychic M
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -18262,10 +18262,10 @@ Brave Nature
 - Ice Punch
 - Protect
 
-=== TRAINER_FACILITY_B2_BOSS_NERYS ===
-Name: NERYS
-Class: Youngster
-Pic: Youngster
+=== TRAINER_FACILITY_B2_BOSS_JUAN ===
+Name: JUAN
+Class: Warden
+Pic: Leader Juan
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -18333,8 +18333,8 @@ Adamant Nature
 
 === TRAINER_FACILITY_B3_A1_DOWNPOUR ===
 Name: DOWNPOUR
-Class: Youngster
-Pic: Youngster
+Class: Sailor
+Pic: Sailor
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -18401,8 +18401,8 @@ Modest Nature
 
 === TRAINER_FACILITY_B3_A2_DELUGE ===
 Name: DELUGE
-Class: Youngster
-Pic: Youngster
+Class: Fisherman
+Pic: Fisherman
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -18469,8 +18469,8 @@ Adamant Nature
 
 === TRAINER_FACILITY_B3_A3_THUNDER ===
 Name: THUNDER
-Class: Youngster
-Pic: Youngster
+Class: Guitarist
+Pic: Guitarist
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -18537,10 +18537,10 @@ Timid Nature
 
 === TRAINER_FACILITY_B3_B4_SOLARFLARE ===
 Name: SOLARFLARE
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Pkmn Ranger
+Pic: Pokemon Ranger F
+Gender: Female
+Music: Female
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
 Ninetales @ Heat Rock
@@ -18605,8 +18605,8 @@ Adamant Nature
 
 === TRAINER_FACILITY_B3_B5_HEATHAZE ===
 Name: HEATHAZE
-Class: Youngster
-Pic: Youngster
+Class: Kindler
+Pic: Kindler
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -18673,8 +18673,8 @@ Adamant Nature
 
 === TRAINER_FACILITY_B3_B6_SCORCHED ===
 Name: SCORCHED
-Class: Youngster
-Pic: Youngster
+Class: Ruin Maniac
+Pic: Ruin Maniac
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -18741,8 +18741,8 @@ Timid Nature
 
 === TRAINER_FACILITY_B3_C7_DUSTSTORM ===
 Name: DUSTSTORM
-Class: Youngster
-Pic: Youngster
+Class: Camper
+Pic: Camper
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -18809,8 +18809,8 @@ Bold Nature
 
 === TRAINER_FACILITY_B3_C8_ATTRITION ===
 Name: ATTRITION
-Class: Youngster
-Pic: Youngster
+Class: Gentleman
+Pic: Gentleman
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -18877,8 +18877,8 @@ Bold Nature
 
 === TRAINER_FACILITY_B3_C9_GRIT ===
 Name: GRIT
-Class: Youngster
-Pic: Youngster
+Class: Hiker
+Pic: Hiker
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -18945,8 +18945,8 @@ Bold Nature
 
 === TRAINER_FACILITY_B3_D10_WHITEOUT ===
 Name: WHITEOUT
-Class: Youngster
-Pic: Youngster
+Class: Pkmn Ranger
+Pic: Pokemon Ranger M
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -19013,10 +19013,10 @@ Timid Nature
 
 === TRAINER_FACILITY_B3_D11_OVERGROWTH ===
 Name: OVERGROWTH
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Picnicker
+Pic: Picnicker
+Gender: Female
+Music: Female
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
 Rillaboom @ Miracle Seed
@@ -19081,8 +19081,8 @@ Jolly Nature
 
 === TRAINER_FACILITY_B3_D12_STATFIELD ===
 Name: STATFIELD
-Class: Youngster
-Pic: Youngster
+Class: Pokemaniac
+Pic: Pokemaniac
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -19147,10 +19147,10 @@ Modest Nature
 - Volt Switch
 - Will-O-Wisp
 
-=== TRAINER_FACILITY_B3_BOSS_KASRA ===
-Name: KASRA
-Class: Expert
-Pic: Expert F
+=== TRAINER_FACILITY_B3_BOSS_ROXANNE ===
+Name: ROXANNE
+Class: Warden
+Pic: Leader Roxanne
 Gender: Female
 Music: Female
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
@@ -19217,8 +19217,8 @@ Timid Nature
 
 === TRAINER_FACILITY_B4_A1_JETSTREAM ===
 Name: JETSTREAM
-Class: Youngster
-Pic: Youngster
+Class: Bird Keeper
+Pic: Bird Keeper
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -19286,10 +19286,10 @@ Adamant Nature
 
 === TRAINER_FACILITY_B4_A2_HEADWIND ===
 Name: HEADWIND
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Triathlete
+Pic: Swimming Triathlete F
+Gender: Female
+Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
@@ -19355,8 +19355,8 @@ Jolly Nature
 
 === TRAINER_FACILITY_B4_A3_CROSSWIND ===
 Name: CROSSWIND
-Class: Youngster
-Pic: Youngster
+Class: Triathlete
+Pic: Cycling Triathlete M
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -19424,8 +19424,8 @@ Jolly Nature
 
 === TRAINER_FACILITY_B4_B4_STANDSTILL ===
 Name: STANDSTILL
-Class: Youngster
-Pic: Youngster
+Class: Old Couple
+Pic: Old Couple
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -19493,8 +19493,8 @@ Brave Nature
 
 === TRAINER_FACILITY_B4_B5_DEADWEIGHT ===
 Name: DEADWEIGHT
-Class: Youngster
-Pic: Youngster
+Class: Ruin Maniac
+Pic: Ruin Maniac
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -19562,10 +19562,10 @@ Brave Nature
 
 === TRAINER_FACILITY_B4_B6_SLOWBURN ===
 Name: SLOWBURN
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Psychic
+Pic: Psychic F
+Gender: Female
+Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
@@ -19631,10 +19631,10 @@ Quiet Nature
 
 === TRAINER_FACILITY_B4_C7_VERDANT ===
 Name: VERDANT
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Pkmn Breeder
+Pic: Pokemon Breeder F
+Gender: Female
+Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
@@ -19700,10 +19700,10 @@ Modest Nature
 
 === TRAINER_FACILITY_B4_C8_MINDFIELD ===
 Name: MINDFIELD
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Hex Maniac
+Pic: Hex Maniac
+Gender: Female
+Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
@@ -19769,8 +19769,8 @@ Timid Nature
 
 === TRAINER_FACILITY_B4_C9_LIVEWIRE ===
 Name: LIVEWIRE
-Class: Youngster
-Pic: Youngster
+Class: Guitarist
+Pic: Guitarist
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -19838,8 +19838,8 @@ Adamant Nature
 
 === TRAINER_FACILITY_B4_D10_DRAGNET ===
 Name: DRAGNET
-Class: Youngster
-Pic: Youngster
+Class: Cooltrainer
+Pic: Cooltrainer M
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -19907,10 +19907,10 @@ Adamant Nature
 
 === TRAINER_FACILITY_B4_D11_STATCLING ===
 Name: STATCLING
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Lady
+Pic: Lady
+Gender: Female
+Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
@@ -19976,8 +19976,8 @@ Adamant Nature
 
 === TRAINER_FACILITY_B4_D12_CHECKMATE ===
 Name: CHECKMATE
-Class: Youngster
-Pic: Youngster
+Class: Gentleman
+Pic: Gentleman
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -20124,8 +20124,8 @@ on the boss - see gauntlet-01.md for why.
 
 === TRAINER_FACILITY_B5_A1_HEADLINER ===
 Name: HEADLINER
-Class: Youngster
-Pic: Youngster
+Class: Cooltrainer
+Pic: Cooltrainer M
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -20192,10 +20192,10 @@ Jolly Nature
 
 === TRAINER_FACILITY_B5_A2_SPOTLIGHT ===
 Name: SPOTLIGHT
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Cooltrainer
+Pic: Cooltrainer F
+Gender: Female
+Music: Female
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
 Alakazam @ Alakazite
@@ -20260,10 +20260,10 @@ Timid Nature
 
 === TRAINER_FACILITY_B5_A3_QUICKDRAW ===
 Name: QUICKDRAW
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Battle Girl
+Pic: Battle Girl
+Gender: Female
+Music: Female
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
 Medicham @ Medichamite
@@ -20328,8 +20328,8 @@ Jolly Nature
 
 === TRAINER_FACILITY_B5_B4_ASCENSION ===
 Name: ASCENSION
-Class: Youngster
-Pic: Youngster
+Class: Dragon Tamer
+Pic: Dragon Tamer
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -20396,10 +20396,10 @@ Modest Nature
 
 === TRAINER_FACILITY_B5_B5_CRESCENDO ===
 Name: CRESCENDO
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Beauty
+Pic: Beauty
+Gender: Female
+Music: Female
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
 Clefable @ Clefablite
@@ -20464,8 +20464,8 @@ Timid Nature
 
 === TRAINER_FACILITY_B5_B6_BULWARK ===
 Name: BULWARK
-Class: Youngster
-Pic: Youngster
+Class: Expert
+Pic: Expert M
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -20532,8 +20532,8 @@ Impish Nature
 
 === TRAINER_FACILITY_B5_C7_LOCKEDIN ===
 Name: LOCKED IN
-Class: Youngster
-Pic: Youngster
+Class: Rich Boy
+Pic: Rich Boy
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -20600,8 +20600,8 @@ Careful Nature
 
 === TRAINER_FACILITY_B5_C8_MOMENTUM ===
 Name: MOMENTUM
-Class: Youngster
-Pic: Youngster
+Class: Triathlete
+Pic: Running Triathlete M
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -20668,8 +20668,8 @@ Jolly Nature
 
 === TRAINER_FACILITY_B5_C9_SLEIGHT ===
 Name: SLEIGHT
-Class: Youngster
-Pic: Youngster
+Class: Psychic
+Pic: Psychic M
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -20736,8 +20736,8 @@ Bold Nature
 
 === TRAINER_FACILITY_B5_D10_MINEFIELD ===
 Name: MINEFIELD
-Class: Youngster
-Pic: Youngster
+Class: Hiker
+Pic: Hiker
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -20804,10 +20804,10 @@ Impish Nature
 
 === TRAINER_FACILITY_B5_D11_IRONWALL ===
 Name: IRON WALL
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Expert
+Pic: Expert F
+Gender: Female
+Music: Female
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
 Sableye @ Sablenite
@@ -20872,8 +20872,8 @@ Bold Nature
 
 === TRAINER_FACILITY_B5_D12_PRESSURE ===
 Name: PRESSURE
-Class: Youngster
-Pic: Youngster
+Class: Black Belt
+Pic: Black Belt
 Gender: Male
 Music: Male
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
@@ -21017,8 +21017,8 @@ match gauntlet 5's; the boss adds omniscience, no ace flag.
 
 === TRAINER_FACILITY_B6_A1_MONSOON ===
 Name: MONSOON
-Class: Youngster
-Pic: Youngster
+Class: Sailor
+Pic: Sailor
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -21086,8 +21086,8 @@ Adamant Nature
 
 === TRAINER_FACILITY_B6_A2_SOLSTICE ===
 Name: SOLSTICE
-Class: Youngster
-Pic: Youngster
+Class: Kindler
+Pic: Kindler
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -21155,10 +21155,10 @@ Careful Nature
 
 === TRAINER_FACILITY_B6_A3_WHITEOUT ===
 Name: WHITEOUT
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Pkmn Ranger
+Pic: Pokemon Ranger F
+Gender: Female
+Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
@@ -21224,8 +21224,8 @@ Adamant Nature
 
 === TRAINER_FACILITY_B6_B4_LIVEWIRE ===
 Name: LIVE WIRE
-Class: Youngster
-Pic: Youngster
+Class: Guitarist
+Pic: Guitarist
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -21293,10 +21293,10 @@ Timid Nature
 
 === TRAINER_FACILITY_B6_B5_MINDSCAPE ===
 Name: MINDSCAPE
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Psychic
+Pic: Psychic F
+Gender: Female
+Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
@@ -21362,8 +21362,8 @@ Adamant Nature
 
 === TRAINER_FACILITY_B6_B6_OVERGROWTH ===
 Name: OVERGROWTH
-Class: Youngster
-Pic: Youngster
+Class: Pkmn Breeder
+Pic: Pokemon Breeder M
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -21431,8 +21431,8 @@ Jolly Nature
 
 === TRAINER_FACILITY_B6_C7_STANDING ===
 Name: STANDING
-Class: Youngster
-Pic: Youngster
+Class: Sis And Bro
+Pic: Sis And Bro
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -21506,10 +21506,10 @@ Quiet Nature
 
 === TRAINER_FACILITY_B6_C8_NIGHTSHIFT ===
 Name: NIGHTSHIFT
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Hex Maniac
+Pic: Hex Maniac
+Gender: Female
+Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
@@ -21581,8 +21581,8 @@ Relaxed Nature
 
 === TRAINER_FACILITY_B6_C9_SLOWBURN ===
 Name: SLOW BURN
-Class: Youngster
-Pic: Youngster
+Class: Young Couple
+Pic: Young Couple
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -21656,8 +21656,8 @@ Sassy Nature
 
 === TRAINER_FACILITY_B6_D10_BLITZ ===
 Name: BLITZ
-Class: Youngster
-Pic: Youngster
+Class: Cooltrainer
+Pic: Cooltrainer M
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -21725,8 +21725,8 @@ Timid Nature
 
 === TRAINER_FACILITY_B6_D11_HEAVYWEIGHT ===
 Name: HEAVIES
-Class: Youngster
-Pic: Youngster
+Class: Black Belt
+Pic: Black Belt
 Gender: Male
 Music: Male
 Double Battle: Yes
@@ -21794,10 +21794,10 @@ Timid Nature
 
 === TRAINER_FACILITY_B6_D12_CHORUS ===
 Name: CHORUS
-Class: Youngster
-Pic: Youngster
-Gender: Male
-Music: Male
+Class: Twins
+Pic: Twins
+Gender: Female
+Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
@@ -22351,3 +22351,79 @@ Jolly Nature
 - X-Scissor
 - Brick Break
 - Quick Attack
+
+/* Ten Gauntlets: NORMAN blocks the Battle Tower once the player has cleared
+ * gauntlet 1 and seen him argue with SCOTT (frontier-dialogue.md). Doubles,
+ * scaled like a gauntlet 2 team - species and items buyable by then - except
+ * Slaking and Clefable (a Normal type until Gen 6, so still on brand). The
+ * lead is the lesson: Clefable Skill Swaps its Magic Guard onto Slaking and
+ * takes Truant, then Follow Me soaks hits - stop it (Fake Out, Taunt, a KO)
+ * or face a Slaking that never loafs. */
+=== TRAINER_FRONTIER_NORMAN ===
+Name: NORMAN
+Class: Leader
+Pic: Leader Norman
+Gender: Male
+Music: Male
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices
+
+Slaking @ Chople Berry
+Ability: Truant
+Level: 50
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+- Double-Edge
+- Rock Slide
+- Knock Off
+- Protect
+
+Clefable @ Sitrus Berry
+Ability: Magic Guard
+Level: 50
+EVs: 252 HP / 4 Def / 252 SpD
+Calm Nature
+- Skill Swap
+- Follow Me
+- Moonblast
+- Protect
+
+Exploud @ Silk Scarf
+Ability: Scrappy
+Level: 50
+EVs: 252 HP / 252 SpA / 4 Def
+Modest Nature
+- Hyper Voice
+- Flamethrower
+- Ice Beam
+- Protect
+
+Ambipom @ Lum Berry
+Ability: Technician
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Fake Out
+- Double Hit
+- Knock Off
+- U-turn
+
+Bewear @ Liechi Berry
+Ability: Fluffy
+Level: 50
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+- Drain Punch
+- Double-Edge
+- Shadow Claw
+- Protect
+
+Spinda @ Leftovers
+Ability: Own Tempo
+Level: 50
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Fake Out
+- Icy Wind
+- Encore
+- Protect

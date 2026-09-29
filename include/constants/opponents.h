@@ -874,7 +874,7 @@
 #define TRAINER_FACILITY_B1_10_DEX           864
 #define TRAINER_FACILITY_B1_11_QUARRY        865
 #define TRAINER_FACILITY_B1_12_NYX           866
-#define TRAINER_FACILITY_B1_BOSS_HELIS       867
+#define TRAINER_FACILITY_B1_BOSS_WINONA       867
 
 // Ten Gauntlets facility - gauntlet 2 vertical slice. See run-loop-spec.md
 // and src/facility.c.
@@ -884,7 +884,7 @@
 #define TRAINER_FACILITY_B2_B6_LIGHTNINGROD  871
 #define TRAINER_FACILITY_B2_C7_OPENINGACT    872
 #define TRAINER_FACILITY_B2_D11_INVERSION    873
-#define TRAINER_FACILITY_B2_BOSS_NERYS       874
+#define TRAINER_FACILITY_B2_BOSS_JUAN       874
 
 // Ten Gauntlets facility - gauntlet 3 vertical slice. See run-loop-spec.md
 // and src/facility.c.
@@ -900,7 +900,7 @@
 #define TRAINER_FACILITY_B3_D10_WHITEOUT     884
 #define TRAINER_FACILITY_B3_D11_OVERGROWTH   885
 #define TRAINER_FACILITY_B3_D12_STATFIELD    886
-#define TRAINER_FACILITY_B3_BOSS_KASRA       887
+#define TRAINER_FACILITY_B3_BOSS_ROXANNE       887
 
 // Ten Gauntlets facility - gauntlet 4 vertical slice. See run-loop-spec.md
 // and src/facility.c.
@@ -956,6 +956,8 @@
 #define TRAINER_FRONTIER_RIVAL_BRENDAN_FIRE     930
 #define TRAINER_FRONTIER_RIVAL_BRENDAN_WATER    931
 #define TRAINER_FRONTIER_RIVAL_BRENDAN_GRASS    932
+// NORMAN, blocking the Battle Tower before gauntlet 2 (frontier-dialogue.md).
+#define TRAINER_FRONTIER_NORMAN                 933
 
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
@@ -964,13 +966,13 @@
 //       ID range (TRAINER_PARTNER() below / IsPartnerTrainerId() in data.h), which makes the game load a
 //       partner's team instead of the trainer's. Both happened to gauntlet 4 while this was 890.
 //
-//       Raised to 1000 once, with headroom for all ten gauntlets (13 trainers each) plus the 6 rival
-//       rematch trainers, the last ending around 984, so the save layout only changes this one time.
+//       Raised to 1000 once, with headroom for all ten gauntlets (13 trainers each) plus the 7 story
+//       trainers (rival rematch, NORMAN), the last ending around 985, so the save layout only changes this one time.
 //       Growing it shifts every flag after the trainer range and every SaveBlock1 field after flags[],
 //       so it invalidates existing saves - don't grow it again casually. Costs ~14 bytes of SaveBlock1
 //       (304 B free, see save-data-findings.md), checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
 
-#define TRAINERS_COUNT_EMERALD     933
+#define TRAINERS_COUNT_EMERALD     934
 #define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG

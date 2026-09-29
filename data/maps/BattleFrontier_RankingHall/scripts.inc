@@ -203,32 +203,32 @@ BattleFrontier_RankingHall_Text_MyNamesNotUpThere:
 
 BattleFrontier_RankingHall_EventScript_TowerSinglesRecords_Text:
 	.string "GAUNTLET 1 - LITTLE LEAGUE.\p"
-	.string "Boss: WARDEN HELIS.\p"
+	.string "Boss: WARDEN WINONA.\p"
 	.string "- Undefeated -$"
 
 BattleFrontier_RankingHall_EventScript_TowerSinglesRecords_TextBeaten:
 	.string "GAUNTLET 1 - LITTLE LEAGUE.\p"
-	.string "Boss: WARDEN HELIS.\p"
+	.string "Boss: WARDEN WINONA.\p"
 	.string "Defeated by {PLAYER}.$"
 
 BattleFrontier_RankingHall_EventScript_TowerDoublesRecords_Text:
 	.string "GAUNTLET 2 - THE SECOND SLOT.\p"
-	.string "Boss: TIDEWARDEN NERYS.\p"
+	.string "Boss: TIDEWARDEN JUAN.\p"
 	.string "- Undefeated -$"
 
 BattleFrontier_RankingHall_EventScript_TowerDoublesRecords_TextBeaten:
 	.string "GAUNTLET 2 - THE SECOND SLOT.\p"
-	.string "Boss: TIDEWARDEN NERYS.\p"
+	.string "Boss: TIDEWARDEN JUAN.\p"
 	.string "Defeated by {PLAYER}.$"
 
 BattleFrontier_RankingHall_EventScript_TowerMultisRecords_Text:
 	.string "GAUNTLET 3 - THE CHANGING SKY.\p"
-	.string "Boss: DUNEWARDEN KASRA.\p"
+	.string "Boss: DUNEWARDEN ROXANNE.\p"
 	.string "- Undefeated -$"
 
 BattleFrontier_RankingHall_EventScript_TowerMultisRecords_TextBeaten:
 	.string "GAUNTLET 3 - THE CHANGING SKY.\p"
-	.string "Boss: DUNEWARDEN KASRA.\p"
+	.string "Boss: DUNEWARDEN ROXANNE.\p"
 	.string "Defeated by {PLAYER}.$"
 
 BattleFrontier_RankingHall_EventScript_TowerLinkRecords_Text:

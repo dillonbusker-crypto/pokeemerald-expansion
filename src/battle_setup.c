@@ -1593,9 +1593,9 @@ void BattleSetup_StartTrainerBattle(void)
     // IsFacilityBattleTrainer() to route our trainers around those lookups
     // instead. See src/facility.c's comment on that function for the crash
     // this caused (SWANNA send-out message, TRAINER_FACILITY_B2_A1_FAULT).
-    // The rival's rematch outside the Tower is fought under the same rules,
-    // though it isn't part of a run.
-    if (IsFacilityRunActive() || IsFrontierRivalTrainer(TRAINER_BATTLE_PARAM.opponentA))
+    // The story battles outside the Tower (the rival, NORMAN) are fought
+    // under the same rules, though they aren't part of a run.
+    if (IsFacilityRunActive() || IsFrontierStoryTrainer(TRAINER_BATTLE_PARAM.opponentA))
         gBattleTypeFlags |= BATTLE_TYPE_BATTLE_TOWER;
 
     sNoOfPossibleTrainerRetScripts = gNoOfApproachingTrainers;

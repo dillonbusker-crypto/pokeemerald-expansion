@@ -957,13 +957,21 @@ LittlerootTown_Text_MomExplainsLMenu:
 	.string "need it.$"
 
 LittlerootTown_Text_ComeHomeIfAnythingHappens:
-	.string "… … … … … … … …\n"
-	.string "… … … … … … … …\p"
-	.string "To think that you have your very own\n"
-	.string "POKéMON now…\l"
-	.string "Your father will be overjoyed.\p"
-	.string "…But please be careful.\n"
-	.string "If anything happens, you can come home.\p"
+	.string "... ... ... ... ... ...\p"
+	.string "To think that you have your very\n"
+	.string "own POKéMON now...\p"
+	.string "Oh, and PROF. BIRCH was telling me\n"
+	.string "about some new challenge at the\l"
+	.string "BATTLE FRONTIER. The TEN\l"
+	.string "GAUNTLETS, he called it.\p"
+	.string "He seems to think it would suit\n"
+	.string "you perfectly.\p"
+	.string "...Your father is going to be\n"
+	.string "upset. He had such plans for your\l"
+	.string "first adventure.\p"
+	.string "Well. Never mind that now. If\n"
+	.string "anything happens, you can always\l"
+	.string "come home.\p"
 	.string "Go on, go get them, honey!$"
 
 LittlerootTown_Text_CanUsePCToStoreItems:

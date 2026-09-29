@@ -884,7 +884,7 @@ Modest Nature
 
 ---
 
-## Boss — Dunewarden Kasra
+## Boss — Dunewarden Roxanne
 
 **Pool:** gauntlet 4 (≤599) plus everything prior.
 
@@ -955,7 +955,7 @@ Timid Nature
 ### The strategic dependency
 
 A boss should have a dependency the player can attack, not a handicap that
-weakens it. Kasra is fully optimized — every set here is one a competitive
+weakens it. Roxanne is fully optimized — every set here is one a competitive
 player would actually run. What it has instead is a **load-bearing condition**:
 
 **The team is built on sand.** Excadrill without Sand Rush is a 88-base-Speed

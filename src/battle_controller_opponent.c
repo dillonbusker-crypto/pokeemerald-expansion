@@ -40,6 +40,7 @@
 #include "constants/trainers.h"
 #include "trainer_hill.h"
 #include "trainer_tower.h"
+#include "facility.h"
 #include "test_runner.h"
 #include "test/battle.h"
 
@@ -338,7 +339,12 @@ static u32 OpponentGetTrainerPicId(enum BattlerId battlerId)
             trainerPicId = GetTrainerHillTrainerFrontSpriteId(TRAINER_BATTLE_PARAM.opponentA);
         }
     }
-    else if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
+    // Ten Gauntlets: our trainers carry BATTLE_TYPE_FRONTIER but live in the
+    // regular gTrainers[] table, not the legacy Frontier one this branch
+    // indexes (see IsFacilityBattleTrainer() in src/facility.c) - that read
+    // garbage and drew every gauntlet trainer as a Bug Catcher. Skip it so
+    // they use their own trainers.party Pic below.
+    else if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER && !IsFacilityBattleTrainer(TRAINER_BATTLE_PARAM.opponentA))
     {
         if (gBattleTypeFlags & (BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_TOWER_LINK_MULTI))
         {

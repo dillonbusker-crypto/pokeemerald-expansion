@@ -860,7 +860,7 @@ Quiet Nature
 
 ---
 
-## Boss — Tidewarden Nerys
+## Boss — Tidewarden Juan
 
 **Pool:** gauntlet 3 (≤550 BST) plus everything prior.
 

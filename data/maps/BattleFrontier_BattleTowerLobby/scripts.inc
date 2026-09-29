@@ -1518,6 +1518,7 @@ BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB2::
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
 	special IsFacilityGauntletCompleted
 	goto_if_eq VAR_RESULT, TRUE, Facility_AlreadyCleared
+	goto_if_lt VAR_NORMAN_STORY_STATE, 4, Facility_B2_NormanBlock
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_Text_AskEnter, MSGBOX_YESNO
@@ -1596,15 +1597,15 @@ Facility_Battle_Boss:
 	goto Facility_Battle_Boss_B6
 
 Facility_Battle_Boss_B1:
-	trainerbattle_single TRAINER_FACILITY_B1_BOSS_HELIS, Facility_B1_Text_BossIntro, Facility_B1_Text_BossDefeat, Facility_AfterBossBattle
+	trainerbattle_single TRAINER_FACILITY_B1_BOSS_WINONA, Facility_B1_Text_BossIntro, Facility_B1_Text_BossDefeat, Facility_AfterBossBattle
 	end
 
 Facility_Battle_Boss_B2:
-	trainerbattle_double TRAINER_FACILITY_B2_BOSS_NERYS, Facility_Text_BossIntro, Facility_Text_BossDefeat, Facility_Text_NotEnoughMons, Facility_AfterBossBattle
+	trainerbattle_double TRAINER_FACILITY_B2_BOSS_JUAN, Facility_Text_BossIntro, Facility_Text_BossDefeat, Facility_Text_NotEnoughMons, Facility_AfterBossBattle
 	end
 
 Facility_Battle_Boss_B3:
-	trainerbattle_single TRAINER_FACILITY_B3_BOSS_KASRA, Facility_B3_Text_BossIntro, Facility_B3_Text_BossDefeat, Facility_AfterBossBattle
+	trainerbattle_single TRAINER_FACILITY_B3_BOSS_ROXANNE, Facility_B3_Text_BossIntro, Facility_B3_Text_BossDefeat, Facility_AfterBossBattle
 	end
 
 Facility_Battle_Boss_B4:
@@ -1896,6 +1897,25 @@ Facility_RearrangeParty:
 	end
 
 @ Ten Gauntlets: no re-entry once a gauntlet is cleared (CLAUDE.md).
+Facility_B1_Commotion:
+	msgbox Facility_B1_Text_Commotion, MSGBOX_DEFAULT
+	setvar VAR_NORMAN_STORY_STATE, 1
+	return
+
+@ Ten Gauntlets: NORMAN has told the Doubles mat attendant not to let the
+@ player through. Until he's beaten outside the Tower, gauntlet 2 stays shut.
+@ Only reached with gauntlet 1 cleared and gauntlet 2 not, so a save that
+@ cleared gauntlet 1 before this storyline existed still gets it.
+Facility_B2_NormanBlock:
+	msgbox Facility_B2_Text_NormanCameIn, MSGBOX_DEFAULT
+	call_if_lt VAR_NORMAN_STORY_STATE, 2, Facility_B2_HeardAboutNorman
+	release
+	end
+
+Facility_B2_HeardAboutNorman:
+	setvar VAR_NORMAN_STORY_STATE, 2
+	return
+
 Facility_AlreadyCleared:
 	msgbox Facility_Text_AlreadyCleared, MSGBOX_DEFAULT
 	release
@@ -1957,6 +1977,8 @@ Facility_B4_GauntletComplete:
 
 Facility_B1_GauntletComplete:
 	msgbox Facility_B1_Text_GauntletComplete, MSGBOX_DEFAULT
+	@ Ten Gauntlets: NORMAN's storyline starts here (frontier-dialogue.md).
+	call_if_eq VAR_NORMAN_STORY_STATE, 0, Facility_B1_Commotion
 	call Facility_BrokerLoanNews
 	releaseall
 	end
@@ -2100,28 +2122,38 @@ Facility_Text_NotEnoughMons:
 	.string "POKéMON able to battle.$"
 
 Facility_Text_BossIntro:
-	.string "I'm Tidewarden Nerys - the last one\n"
-	.string "standing between you and the next tier.\p"
-	.string "Let's see what you've got!$"
+	.string "I'm JUAN, once the GYM LEADER of\n"
+	.string "SOOTOPOLIS. Now, TIDEWARDEN of the\l"
+	.string "TEN GAUNTLETS.\p"
+	.string "The rain falls on everyone\n"
+	.string "equally. Let us see who dances in\l"
+	.string "it!$"
 
 Facility_B1_Text_BossIntro:
-	.string "I'm Warden Helis. I've been waiting\n"
-	.string "for someone worth the trouble.\p"
-	.string "Let's see what you've got!$"
+	.string "I'm WINONA. I used to lead the GYM\n"
+	.string "in FORTREE CITY.\p"
+	.string "Now I'm a WARDEN here. SCOTT made\n"
+	.string "me an offer, and the sky over this\l"
+	.string "island is bigger than any GYM.\p"
+	.string "Show me you can fly!$"
 
 Facility_Text_BossDefeat:
-	.string "The tide turns. Well earned.$"
+	.string "The tide turns. Magnificent.$"
 
 Facility_B1_Text_BossDefeat:
-	.string "Heh. Not bad at all.$"
+	.string "You flew higher than I did. Well\n"
+	.string "earned.$"
 
 Facility_B3_Text_BossIntro:
-	.string "I'm Dunewarden Kasra. The sand doesn't\n"
-	.string "settle until one of us does.\p"
-	.string "Let's see what you've got!$"
+	.string "I'm ROXANNE. I led the GYM in\n"
+	.string "RUSTBORO... and I'm still\l"
+	.string "teaching. Just a harder lesson.\p"
+	.string "As DUNEWARDEN, my exam is simple:\n"
+	.string "the sand doesn't settle until one\l"
+	.string "of us does.$"
 
 Facility_B3_Text_BossDefeat:
-	.string "The wind's changed. Well fought.$"
+	.string "The wind's changed. You pass.$"
 
 Facility_B4_Text_BossIntro:
 	.string "I'm ANABEL, the SALON MAIDEN. This\n"
@@ -2191,32 +2223,32 @@ Facility_Text_Lost:
 
 BattleFrontier_BattleTowerLobby_EventScript_ShowSinglesResults_Text:
 	.string "GAUNTLET 1 - LITTLE LEAGUE.\p"
-	.string "Singles. Boss: WARDEN HELIS.\p"
+	.string "Singles. Boss: WARDEN WINONA.\p"
 	.string "Not yet cleared.$"
 
 BattleFrontier_BattleTowerLobby_EventScript_ShowSinglesResults_TextCleared:
 	.string "GAUNTLET 1 - LITTLE LEAGUE.\p"
-	.string "Singles. Boss: WARDEN HELIS.\p"
+	.string "Singles. Boss: WARDEN WINONA.\p"
 	.string "Cleared by {PLAYER}!$"
 
 BattleFrontier_BattleTowerLobby_EventScript_ShowDoublesResults_Text:
 	.string "GAUNTLET 2 - THE SECOND SLOT.\p"
-	.string "Doubles. Boss: TIDEWARDEN NERYS.\p"
+	.string "Doubles. Boss: TIDEWARDEN JUAN.\p"
 	.string "Not yet cleared.$"
 
 BattleFrontier_BattleTowerLobby_EventScript_ShowDoublesResults_TextCleared:
 	.string "GAUNTLET 2 - THE SECOND SLOT.\p"
-	.string "Doubles. Boss: TIDEWARDEN NERYS.\p"
+	.string "Doubles. Boss: TIDEWARDEN JUAN.\p"
 	.string "Cleared by {PLAYER}!$"
 
 BattleFrontier_BattleTowerLobby_EventScript_ShowMultisResults_Text:
 	.string "GAUNTLET 3 - THE CHANGING SKY.\p"
-	.string "Singles. Boss: DUNEWARDEN KASRA.\p"
+	.string "Singles. Boss: DUNEWARDEN ROXANNE.\p"
 	.string "Not yet cleared.$"
 
 BattleFrontier_BattleTowerLobby_EventScript_ShowMultisResults_TextCleared:
 	.string "GAUNTLET 3 - THE CHANGING SKY.\p"
-	.string "Singles. Boss: DUNEWARDEN KASRA.\p"
+	.string "Singles. Boss: DUNEWARDEN ROXANNE.\p"
 	.string "Cleared by {PLAYER}!$"
 
 BattleFrontier_BattleTowerLobby_EventScript_ShowLinkMultisResults_Text:
@@ -2250,3 +2282,30 @@ Facility_Text_AlreadyCleared:
 	.string "gauntlet.\p"
 	.string "There's no going back here. Only\n"
 	.string "forward!$"
+
+Facility_B1_Text_Commotion:
+	.string "...Oh! While you were battling,\n"
+	.string "there was quite a commotion over\l"
+	.string "at the DOUBLES mat.\p"
+	.string "Some man stormed in and started\n"
+	.string "shouting at the attendant there.\l"
+	.string "You might want to go and see what\l"
+	.string "happened.$"
+
+Facility_B2_Text_NormanCameIn:
+	.string "Oh... you're {PLAYER}, aren't you?\p"
+	.string "I'm sorry. I can't let you take on\n"
+	.string "this gauntlet.\p"
+	.string "A GYM LEADER came in while you\n"
+	.string "were battling. NORMAN, from\l"
+	.string "PETALBURG. He demanded that I not\l"
+	.string "let you challenge any more\l"
+	.string "gauntlets.\p"
+	.string "I tried to explain the rules, but\n"
+	.string "he wouldn't hear it.\p"
+	.string "On his way out, he said SCOTT has\n"
+	.string "been playing games with other\l"
+	.string "people's children for long\l"
+	.string "enough... and that he was going to\l"
+	.string "go put a stop to it.\p"
+	.string "Maybe you should go see SCOTT.$"

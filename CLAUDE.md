@@ -192,7 +192,7 @@ tuned correctly. This is a throwaway test harness, not the real facility.
    (older C struct format). This decides how the teams get entered.
 2. **Replace a sacrificial early trainer** — Youngster Calvin on Route 102 is
    the suggestion, since he's reachable within two minutes of a new game and
-   is a single battle — with Warden Helis's six from `gauntlet-01.md`. All at
+   is a single battle — with Warden Winona's six from `gauntlet-01.md`. All at
    level 50, with the specified natures, EVs, IVs, abilities, items and moves.
 3. **Set the boss AI flags:** full offensive intelligence, smart replacement
    choice, and omniscient. Altaria in slot six flagged as the ace so the AI
@@ -237,6 +237,15 @@ actual headers:
 - **World-building lives in `frontier-dialogue.md` and `broker-spec.md`.**
   Frontier NPCs react to progress through the `GetGauntletsClearedCount`
   special; keep new lines consistent with the world bible there (Part 1).
+- **Every facility trainer gets a real Class and Pic.** In `src/data/trainers.party`,
+  pick a class/pic that fits the team's theme (Hiker for an Earthquake team,
+  Sailor for rain, Kindler for sun...) - never leave the placeholder
+  Youngster. Bosses: gauntlets 1-3 are Gym Leaders turned Wardens (class
+  `Warden`, their Leader pic: WINONA, JUAN, ROXANNE); gauntlets 4-10 are the
+  Frontier Brains with their own class and pic. Our trainers only show their
+  own pic because `OpponentGetTrainerPicId()` (`src/battle_controller_opponent.c`)
+  skips the legacy Frontier lookup for `IsFacilityBattleTrainer()` IDs - any
+  new trainer battled under Frontier rules must be covered by that function.
 - **Say "gauntlet", not "building".** The ten sets of battles are gauntlets
   (the project is the Ten Gauntlets). "Building" means only the physical
   Frontier structures. Some code names still say "building"
@@ -248,7 +257,7 @@ actual headers:
 ## What comes after
 
 Once the boss is playable and tuned, the gate for moving on is the owner
-beating Helis using only gauntlet 1's pool. Then gauntlets 2 through 10 get
+beating Winona using only gauntlet 1's pool. Then gauntlets 2 through 10 get
 designed, and separately the real facility gets built — the point economy, the
 shop, the purchase and roster UI, and the save data to hold a permanently owned
 collection.

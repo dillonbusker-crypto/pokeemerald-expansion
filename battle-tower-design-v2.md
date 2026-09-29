@@ -68,9 +68,9 @@ lieutenants.
 
 | # | Facility | Boss |
 |---|---|---|
-| 1 | Battle Tower, Singles mat | Warden Helis (Tower lieutenant) |
-| 2 | Battle Tower, Doubles mat | Tidewarden Nerys (Tower lieutenant) |
-| 3 | Battle Tower, Multi mat | Dunewarden Kasra (Tower lieutenant) |
+| 1 | Battle Tower, Singles mat | Warden Winona (Tower lieutenant) |
+| 2 | Battle Tower, Doubles mat | Tidewarden Juan (Tower lieutenant) |
+| 3 | Battle Tower, Multi mat | Dunewarden Roxanne (Tower lieutenant) |
 | 4 | Battle Tower, Link Multi mat | Salon Maiden Anabel |
 | 5 | Battle Dome | Dome Ace Tucker |
 | 6 | Battle Factory | Factory Head Noland |

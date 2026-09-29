@@ -13,7 +13,7 @@ bool8 IsFacilityRunActive(void);
 // needs this to route our trainers around the real Battle Frontier's
 // trainerId-indexed lookups.
 bool8 IsFacilityBattleTrainer(u16 trainerId);
-bool8 IsFrontierRivalTrainer(u16 trainerId);
+bool8 IsFrontierStoryTrainer(u16 trainerId);
 
 void FacilityCheckEligible(void);
 // gSpecialVar_0x8004 = FACILITY_GAUNTLET_* to start a run for.

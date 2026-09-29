@@ -444,21 +444,21 @@ BattleFrontier_Lounge2_EventScript_FrontierManiac_Text3:
 
 BattleFrontier_Lounge2_EventScript_FrontierManiac_Text2:
 	.string "Howdy! The latest word?\p"
-	.string "DUNEWARDEN KASRA lives and dies by\n"
+	.string "DUNEWARDEN ROXANNE lives and dies by\n"
 	.string "sandstorms. Take the sand away,\l"
 	.string "and her whole team slows down.$"
 
 BattleFrontier_Lounge2_EventScript_FrontierManiac_Text1:
 	.string "Howdy! The latest word?\p"
 	.string "Gauntlet 2 is Doubles, and\n"
-	.string "TIDEWARDEN NERYS runs a rain team.\l"
-	.string "Her POKéMON get twice as fast when\l"
+	.string "TIDEWARDEN JUAN runs a rain team.\l"
+	.string "His POKéMON get twice as fast when\l"
 	.string "it's pouring.$"
 
 BattleFrontier_Lounge2_EventScript_FrontierManiac_Text0:
 	.string "Howdy! When it comes to FRONTIER\n"
 	.string "news, I'm no. 1!\p"
 	.string "Word is gauntlet 1's boss, WARDEN\n"
-	.string "HELIS, keeps an ALTARIA. Give it\l"
+	.string "WINONA, keeps an ALTARIA. Give it\l"
 	.string "one free turn to Dragon Dance, and\l"
 	.string "it sweeps.$"

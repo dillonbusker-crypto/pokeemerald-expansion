@@ -1027,7 +1027,7 @@ one clean turn. That's the power gap: a Mega the player can't buy, plus
 Every set is fully optimized.
 
 **AI:** omniscient, proactive switching. **No ace flag** — the same call made
-for Helis: forcing Salamence to wait until it's the last Pokémon left would
+for Winona: forcing Salamence to wait until it's the last Pokémon left would
 hand the player free turns to prepare for it. The AI brings it in when the
 path is clear.
 
@@ -1103,7 +1103,7 @@ Mega Salamence is just slower than a **Jolly Choice Scarf Garchomp**, a
 Pokémon and item the player can buy this gauntlet. That's the intended
 answer, sitting in the same shop that just unlocked. A fully optimized boss
 could run Jolly; this one leaves one door open on purpose, the same way
-Kasra's team depended on sand.
+Roxanne's team depended on sand.
 
 ### Counterplay available at tier 5
 

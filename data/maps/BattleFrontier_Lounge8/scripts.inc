@@ -22,15 +22,17 @@ BattleFrontier_Lounge8_Text_WhatATrainerNeeds:
 	.string "Huh? Six POKéMON? At level 50? Hm.$"
 
 BattleFrontier_Lounge8_Text_KnowAboutFrontierBrains:
-	.string "Do you know about the FRONTIER\n"
 	.string "BRAINS?\p"
 	.string "They used to run the seven\n"
 	.string "facilities here. Now they guard\l"
 	.string "the end of the Ten Gauntlets, from\l"
 	.string "gauntlet 4 on.\p"
 	.string "The first three are guarded by\n"
-	.string "ANABEL's TOWER wardens: HELIS,\l"
-	.string "NERYS and KASRA.$"
+	.string "ANABEL's TOWER WARDENS... and get\l"
+	.string "this, they're GYM LEADERS! WINONA,\l"
+	.string "JUAN and ROXANNE.\p"
+	.string "I wonder what SCOTT offered them\n"
+	.string "to leave their GYMS?$"
 
 BattleFrontier_Lounge8_Text_ToldMeIHaveTalentForBattling:
 	.string "At the BATTLE TOWER, an older girl\n"

@@ -1,6 +1,6 @@
 # Shop Unlock — After Gauntlet 1
 
-What the four Exchange Corner keepers gain the moment Warden Helis falls. This
+What the four Exchange Corner keepers gain the moment Warden Winona falls. This
 is the player's first unlock, and the only one before the difficulty starts
 climbing, so it should land as a real jump.
 

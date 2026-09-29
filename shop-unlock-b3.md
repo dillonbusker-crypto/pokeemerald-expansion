@@ -1,6 +1,6 @@
 # Shop Unlock — After Gauntlet 2
 
-What the keepers gain when Tidewarden Nerys falls. This is the biggest single
+What the keepers gain when Tidewarden Juan falls. This is the biggest single
 jump in the shop's life: the cap moves from 500 to 550, which is where most of
 competitive Pokémon actually lives.
 

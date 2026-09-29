@@ -1,6 +1,6 @@
 # Shop Unlock — After Gauntlet 3
 
-What the keepers gain when Dunewarden Kasra falls.
+What the keepers gain when Dunewarden Roxanne falls.
 
 **Gate:** gauntlet 3 marked complete.
 

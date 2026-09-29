@@ -6,13 +6,13 @@ Two parts: a prompt to paste into Claude Code, and the replacement C function.
 
 ## PART 1 — Paste this into Claude Code
 
-> Set up the gauntlet 2 boss fight for playtesting, same pattern as the Helis
+> Set up the gauntlet 2 boss fight for playtesting, same pattern as the Winona
 > test. Read `gauntlet-02.md` for the full details.
 >
-> **Boss trainer.** Replace whichever sacrificial trainer we used for Helis
-> with Tidewarden Nerys, the gauntlet 2 boss. The six Pokémon, natures, EVs,
+> **Boss trainer.** Replace whichever sacrificial trainer we used for Winona
+> with Tidewarden Juan, the gauntlet 2 boss. The six Pokémon, natures, EVs,
 > abilities, items and movesets are all in `gauntlet-02.md` under "Boss —
-> Tidewarden Nerys". All at level 50 with 31 IVs.
+> Tidewarden Juan". All at level 50 with 31 IVs.
 >
 > **This is a DOUBLE battle, not a single.** Gauntlet 2 is the first doubles
 > facility. Make sure the trainer's double-battle field is set, and if the
@@ -20,7 +20,7 @@ Two parts: a prompt to paste into Claude Code, and the replacement C function.
 > double-battle trainer instead or set the flag and confirm the overworld
 > script still works. Tell me which approach you took.
 >
-> **AI flags:** same as Helis — full offensive intelligence, smart replacement
+> **AI flags:** same as Winona — full offensive intelligence, smart replacement
 > choice, proactive switching, and omniscient. No ace flag. Also check whether
 > this version of the expansion has a separate doubles-awareness AI flag and
 > enable it if so.

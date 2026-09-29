@@ -164,7 +164,7 @@ void ResetMenuAndMonGlobals(void)
 // Test-team injector for Gauntlet 2 boss playtesting.
 //
 // Throwaway harness, not the real facility: gives the player the benchmark
-// counter-team from gauntlet-02.md so Tidewarden Nerys (placed on Youngster
+// counter-team from gauntlet-02.md so Tidewarden Juan (placed on Youngster
 // Calvin's Route 102 encounter, see src/data/trainers.party) can be tested
 // for tuning. Delete the call in NewGameInitData() below to remove it later;
 // this function can stay harmlessly.

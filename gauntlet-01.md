@@ -875,7 +875,7 @@ Timid Nature
 
 ---
 
-## Boss — Warden Helis
+## Boss — Warden Winona
 
 **Pool:** gauntlet 2 (≤500 BST) plus everything from gauntlet 1.
 
@@ -970,7 +970,7 @@ can't interact with is a wall.
 ## Optimal counter-team for the boss
 
 Built only from gauntlet 1's pool, items and bans. Item clause compliant. This
-is the benchmark: if this team can't beat Helis reliably, the boss needs
+is the benchmark: if this team can't beat Winona reliably, the boss needs
 tuning.
 
 ```
@@ -1037,7 +1037,7 @@ down Roost and Leech Seed. Foul Play uses Altaria's own Dragon Dance boosts
 against it.
 
 **Ferroseed** resists Water, Grass, Dragon and Flying, which walls Crawdaunt
-and Altaria simultaneously. Nothing on Helis's team carries a Fire move, so its
+and Altaria simultaneously. Nothing on Winona's team carries a Fire move, so its
 main weakness is unexploited. Gyro Ball off minimum speed hits a +1 Altaria
 hard.
 

@@ -133,9 +133,9 @@ static const u16 sGauntlet6Pool[] =
 
 static const struct FacilityGauntletData sFacilityGauntlets[] =
 {
-    [FACILITY_GAUNTLET_1] = { sGauntlet1Pool, ARRAY_COUNT(sGauntlet1Pool), TRAINER_FACILITY_B1_BOSS_HELIS },
-    [FACILITY_GAUNTLET_2] = { sGauntlet2Pool, ARRAY_COUNT(sGauntlet2Pool), TRAINER_FACILITY_B2_BOSS_NERYS },
-    [FACILITY_GAUNTLET_3] = { sGauntlet3Pool, ARRAY_COUNT(sGauntlet3Pool), TRAINER_FACILITY_B3_BOSS_KASRA },
+    [FACILITY_GAUNTLET_1] = { sGauntlet1Pool, ARRAY_COUNT(sGauntlet1Pool), TRAINER_FACILITY_B1_BOSS_WINONA },
+    [FACILITY_GAUNTLET_2] = { sGauntlet2Pool, ARRAY_COUNT(sGauntlet2Pool), TRAINER_FACILITY_B2_BOSS_JUAN },
+    [FACILITY_GAUNTLET_3] = { sGauntlet3Pool, ARRAY_COUNT(sGauntlet3Pool), TRAINER_FACILITY_B3_BOSS_ROXANNE },
     [FACILITY_GAUNTLET_4] = { sGauntlet4Pool, ARRAY_COUNT(sGauntlet4Pool), TRAINER_FACILITY_B4_BOSS_ANABEL },
     [FACILITY_GAUNTLET_5] = { sGauntlet5Pool, ARRAY_COUNT(sGauntlet5Pool), TRAINER_FACILITY_B5_BOSS_TUCKER },
     [FACILITY_GAUNTLET_6] = { sGauntlet6Pool, ARRAY_COUNT(sGauntlet6Pool), TRAINER_FACILITY_B6_BOSS_NOLAND },
@@ -158,19 +158,20 @@ bool8 IsFacilityRunActive(void)
 // battle_message.c when the game needed to print this trainer's name
 // mid-battle. See battle_message.c's BATTLE_TYPE_FRONTIER checks, which
 // this is used to route our own trainers around.
-// The rival's rematch outside the Battle Tower (frontier-dialogue.md) is
-// fought under Frontier rules - Set style, no bag - so it carries the same
-// battle type as a run and needs the same routing below.
-bool8 IsFrontierRivalTrainer(u16 trainerId)
+// Story battles outside a run - the rival's rematch and NORMAN, both in front
+// of the Battle Tower (frontier-dialogue.md) - are fought under Frontier
+// rules (Set style, no bag), so they carry the same battle type as a run and
+// need the same routing below.
+bool8 IsFrontierStoryTrainer(u16 trainerId)
 {
-    return trainerId >= TRAINER_FRONTIER_RIVAL_MAY_FIRE && trainerId <= TRAINER_FRONTIER_RIVAL_BRENDAN_GRASS;
+    return trainerId >= TRAINER_FRONTIER_RIVAL_MAY_FIRE && trainerId <= TRAINER_FRONTIER_NORMAN;
 }
 
 bool8 IsFacilityBattleTrainer(u16 trainerId)
 {
     u32 i, j;
 
-    if (IsFrontierRivalTrainer(trainerId))
+    if (IsFrontierStoryTrainer(trainerId))
         return TRUE;
 
     for (i = 0; i < ARRAY_COUNT(sFacilityGauntlets); i++)

@@ -1,5 +1,66 @@
 BattleFrontier_ScottsHouse_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_ScottsHouse_OnTransition
 	.byte 0
+
+@ Ten Gauntlets: NORMAN's storyline (frontier-dialogue.md). After gauntlet 1
+@ is cleared, NORMAN is here arguing with SCOTT; walking up to them (the
+@ row-5 triggers, VAR_TEMP_1 = 1) plays the scene.
+BattleFrontier_ScottsHouse_OnTransition:
+	setflag FLAG_TEMP_1
+	setvar VAR_TEMP_1, 0
+	goto_if_lt VAR_NORMAN_STORY_STATE, 1, BattleFrontier_ScottsHouse_EventScript_NoNorman
+	goto_if_gt VAR_NORMAN_STORY_STATE, 2, BattleFrontier_ScottsHouse_EventScript_NoNorman
+	clearflag FLAG_TEMP_1
+	setvar VAR_TEMP_1, 1
+BattleFrontier_ScottsHouse_EventScript_NoNorman:
+	end
+
+BattleFrontier_ScottsHouse_EventScript_NormanScene::
+	lockall
+	setvar VAR_TEMP_1, 0
+	turnobject LOCALID_PLAYER, DIR_NORTH
+	turnobject LOCALID_SCOTTS_HOUSE_SCOTT, DIR_EAST
+	turnobject LOCALID_SCOTTS_HOUSE_NORMAN, DIR_WEST
+	msgbox BattleFrontier_ScottsHouse_Text_NormanAdventure, MSGBOX_DEFAULT
+	msgbox BattleFrontier_ScottsHouse_Text_ScottWatchYourTone, MSGBOX_DEFAULT
+	msgbox BattleFrontier_ScottsHouse_Text_ScottPlayerBeatBoss, MSGBOX_DEFAULT
+	closemessage
+	turnobject LOCALID_SCOTTS_HOUSE_NORMAN, DIR_SOUTH
+	applymovement LOCALID_SCOTTS_HOUSE_NORMAN, Common_Movement_ExclamationMark
+	waitmovement 0
+	msgbox BattleFrontier_ScottsHouse_Text_NormanNoticesPlayer, MSGBOX_DEFAULT
+	closemessage
+	getplayerxy VAR_0x8004, VAR_0x8005
+	call_if_eq VAR_0x8004, 4, BattleFrontier_ScottsHouse_EventScript_PlayerStepAside
+	applymovement LOCALID_SCOTTS_HOUSE_NORMAN, BattleFrontier_ScottsHouse_Movement_NormanStormsOut
+	waitmovement 0
+	playse SE_EXIT
+	removeobject LOCALID_SCOTTS_HOUSE_NORMAN
+	delay 30
+	applymovement LOCALID_SCOTTS_HOUSE_SCOTT, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox BattleFrontier_ScottsHouse_Text_ScottApologizes, MSGBOX_DEFAULT
+	setvar VAR_NORMAN_STORY_STATE, 3
+	releaseall
+	end
+
+BattleFrontier_ScottsHouse_EventScript_PlayerStepAside::
+	applymovement LOCALID_PLAYER, BattleFrontier_ScottsHouse_Movement_PlayerStepAside
+	waitmovement 0
+	return
+
+BattleFrontier_ScottsHouse_Movement_PlayerStepAside:
+	walk_left
+	walk_in_place_faster_right
+	step_end
+
+BattleFrontier_ScottsHouse_Movement_NormanStormsOut:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_left
+	walk_fast_down
+	step_end
 
 @ Ten Gauntlets: SCOTT is the host of the Ten Gauntlets. First visit, he
 @ hands over the starting team (five Pokemon, 300 FP and the HMs - see
@@ -127,7 +188,7 @@ BattleFrontier_ScottsHouse_Text_NowYouHaveSix:
 BattleFrontier_ScottsHouse_Text_Progress0:
 	.string "SCOTT: The BATTLE TOWER's first\n"
 	.string "mat is where everyone starts. Six\l"
-	.string "battles, then WARDEN HELIS.\p"
+	.string "battles, then WARDEN WINONA.\p"
 	.string "Seven facilities used to test\n"
 	.string "seven different skills. I wanted\l"
 	.string "one ladder that tests all of them,\l"
@@ -135,7 +196,7 @@ BattleFrontier_ScottsHouse_Text_Progress0:
 	.string "That's the Ten Gauntlets.$"
 
 BattleFrontier_ScottsHouse_Text_Progress1:
-	.string "SCOTT: You got past HELIS! I knew\n"
+	.string "SCOTT: You got past WINONA! I knew\n"
 	.string "it!\p"
 	.string "The next mat is DOUBLES. Two\n"
 	.string "POKéMON on each side changes\l"
@@ -555,3 +616,41 @@ BattleFrontier_ScottsHouse_Text_UsePPMax:
 	.string "Run out of PP halfway through a\n"
 	.string "gauntlet and you'll wish you'd\l"
 	.string "used them. Max out every move.$"
+
+BattleFrontier_ScottsHouse_Text_NormanAdventure:
+	.string "NORMAN: My child was supposed to\n"
+	.string "be going on a POKéMON adventure,\l"
+	.string "SCOTT. Not a POKéMON experiment!\p"
+	.string "And those BADGES. Counterfeits!\n"
+	.string "You handed them to BIRCH like\l"
+	.string "party favors.\p"
+	.string "The GYM LEADERS never agreed to\n"
+	.string "any of this. You had no right!$"
+
+BattleFrontier_ScottsHouse_Text_ScottWatchYourTone:
+	.string "SCOTT: ...Watch your tone, NORMAN.\p"
+	.string "You run a GYM in a small town.\n"
+	.string "Stay in your place.\p"
+	.string "If I wanted to, I could wipe out\n"
+	.string "your whole team before you\l"
+	.string "finished sending it out. Don't\l"
+	.string "make me remind you.$"
+
+BattleFrontier_ScottsHouse_Text_ScottPlayerBeatBoss:
+	.string "SCOTT: Besides... {PLAYER} just\n"
+	.string "beat my first WARDEN.\p"
+	.string "And from what I hear, they're\n"
+	.string "having the time of their life.\l"
+	.string "Isn't that what you wanted for\l"
+	.string "them?$"
+
+BattleFrontier_ScottsHouse_Text_NormanNoticesPlayer:
+	.string "NORMAN: {PLAYER}...\p"
+	.string "...This isn't over, SCOTT.$"
+
+BattleFrontier_ScottsHouse_Text_ScottApologizes:
+	.string "SCOTT: Ah... {PLAYER}. Sorry you\n"
+	.string "had to see that.\p"
+	.string "Your father's a proud man. He'll\n"
+	.string "cool off, I promise.\p"
+	.string "Give him a little time.$"

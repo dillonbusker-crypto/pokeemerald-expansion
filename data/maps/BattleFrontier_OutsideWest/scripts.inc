@@ -729,7 +729,7 @@ BattleFrontier_OutsideWest_Text_MonWithLongTailInFrontier:
 	.string "Something else moved in.$"
 
 BattleFrontier_OutsideWest_EventScript_Boy1_Text1:
-	.string "I finally beat WARDEN HELIS! Then\n"
+	.string "I finally beat WARDEN WINONA! Then\n"
 	.string "I walked onto the Doubles mat.\p"
 	.string "Spread moves. Nobody back home\n"
 	.string "ever used spread moves.$"
@@ -737,7 +737,7 @@ BattleFrontier_OutsideWest_EventScript_Boy1_Text1:
 BattleFrontier_OutsideWest_EventScript_Boy1_Text0:
 	.string "I was the best out of all my\n"
 	.string "friends back home. Here? WARDEN\l"
-	.string "HELIS's ALTARIA swept my whole\l"
+	.string "WINONA's ALTARIA swept my whole\l"
 	.string "team.\p"
 	.string "I didn't even know you could do\n"
 	.string "that.$"
