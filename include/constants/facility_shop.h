@@ -25,7 +25,6 @@ enum
 };
 
 // FacilityShopSellMonPrompt() also refuses the Broker's loaners.
-#define SELL_MON_BROKER_LOAN (SELL_MON_NOT_ENOUGH_OWNED + 1)
 
 // The Broker (broker-spec.md). FacilityBrokerCheck()'s result.
 enum
@@ -34,14 +33,6 @@ enum
     BROKER_RUN_ACTIVE,
     BROKER_DEAL_USED,
     BROKER_NOTHING_LEFT,
-};
-
-// FacilityBrokerGetLoanOutcome()'s result, after a run ends.
-enum
-{
-    BROKER_LOAN_NONE,
-    BROKER_LOAN_KEPT,
-    BROKER_LOAN_COLLECTED,
 };
 
 #endif // GUARD_CONSTANTS_FACILITY_SHOP_H

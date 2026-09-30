@@ -1906,7 +1906,6 @@ Facility_B2_GauntletComplete:
 	msgbox Facility_B2_Text_JuanApology, MSGBOX_DEFAULT
 	msgbox Facility_Text_GauntletComplete, MSGBOX_DEFAULT
 	call_if_eq VAR_STEVEN_STORY_STATE, 0, Facility_B2_StevenHook
-	call Facility_BrokerLoanNews
 	releaseall
 	end
 
@@ -1958,7 +1957,6 @@ Facility_ConfirmQuit:
 	special FacilityAbandonRun
 	call Common_EventScript_SaveGame
 	msgbox Facility_Text_QuitConfirmed, MSGBOX_DEFAULT
-	call Facility_BrokerLoanNews
 	releaseall
 	end
 
@@ -1976,7 +1974,6 @@ Facility_AfterBossBattle:
 	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_2, Facility_B2_GauntletComplete
 	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_5, Facility_B5_GauntletComplete
 	msgbox Facility_Text_GauntletComplete, MSGBOX_DEFAULT
-	call Facility_BrokerLoanNews
 	releaseall
 	end
 
@@ -1985,7 +1982,6 @@ Facility_AfterBossBattle:
 @ item to hand over - the Mega Ring came with gauntlet 4.
 Facility_B5_GauntletComplete:
 	msgbox Facility_B5_Text_GauntletComplete, MSGBOX_DEFAULT
-	call Facility_BrokerLoanNews
 	releaseall
 	end
 
@@ -2003,7 +1999,6 @@ Facility_B4_GauntletComplete:
 	call Common_EventScript_SaveGame
 	msgbox Facility_B4_Text_MegaStonesAndDome, MSGBOX_DEFAULT
 	call_if_eq VAR_STEVEN_STORY_STATE, 2, Facility_B4_StevenHook
-	call Facility_BrokerLoanNews
 	releaseall
 	end
 
@@ -2011,7 +2006,6 @@ Facility_B1_GauntletComplete:
 	msgbox Facility_B1_Text_GauntletComplete, MSGBOX_DEFAULT
 	@ Ten Gauntlets: NORMAN's storyline starts here (frontier-dialogue.md).
 	call_if_eq VAR_NORMAN_STORY_STATE, 0, Facility_B1_Commotion
-	call Facility_BrokerLoanNews
 	releaseall
 	end
 
@@ -2026,38 +2020,9 @@ Facility_Lost:
 	special FacilityAbandonRun
 	special FacilitySilentSave
 	msgbox Facility_Text_Lost, MSGBOX_DEFAULT
-	call Facility_BrokerLoanNews
 	releaseall
 	end
 
-@ Ten Gauntlets: after any run ends, tell the player what happened to a
-@ Broker loaner (broker-spec.md) - kept for clearing the gauntlet, or
-@ collected for not. FacilityCompleteGauntlet/FacilityAbandonRun already
-@ resolved it; this only reports.
-Facility_BrokerLoanNews:
-	special FacilityBrokerGetLoanOutcome
-	goto_if_eq VAR_RESULT, BROKER_LOAN_KEPT, Facility_BrokerLoanKept
-	goto_if_eq VAR_RESULT, BROKER_LOAN_COLLECTED, Facility_BrokerLoanCollected
-	return
-
-Facility_BrokerLoanKept:
-	msgbox Facility_Text_BrokerLoanKept, MSGBOX_DEFAULT
-	return
-
-Facility_BrokerLoanCollected:
-	msgbox Facility_Text_BrokerLoanCollected, MSGBOX_DEFAULT
-	return
-
-Facility_Text_BrokerLoanKept:
-	.string "A note from the BROKER was waiting:\n"
-	.string "“Keep {STR_VAR_1}. You earned it.\l"
-	.string "…Pleasure doing business.”$"
-
-Facility_Text_BrokerLoanCollected:
-	.string "A man in a dark coat was waiting\n"
-	.string "outside.\p"
-	.string "“{STR_VAR_1} goes back to the\n"
-	.string "BROKER. Nothing personal.”$"
 
 Facility_Text_AskEnter:
 	.string "Welcome to gauntlet 2, THE SECOND\n"

@@ -1311,7 +1311,7 @@ void FacilityShopGiveFP(void)
 // answered).
 //
 // No held item on the mon - the player buys their own from the shop.
-// Shared by the Pokemon keeper and the Broker's loans, so a Pokemon is built
+// Shared by the Pokemon keeper and the Broker, so a Pokemon is built
 // the same way whichever counter it came from.
 static void CreateShopMon(struct Pokemon *mon, u16 species)
 {
@@ -1374,11 +1374,6 @@ static bool8 FindMonTierPrice(u16 species, u16 *price)
 // to nothing." Selling itself only ever touches the party (a boxed mon isn't
 // offered here at all - see ChoosePartyMon in the sell script), so this is
 // purely a "would this leave the player with too few Pokemon anywhere" check.
-static bool8 IsBrokerLoanMon(struct BoxPokemon *boxMon);
-
-// Broker loaners don't count - they may be collected when the run ends, and
-// the whole point of this count is guaranteeing six Pokemon the player will
-// still own.
 static u32 CountAllOwnedMons(void)
 {
     u32 total = 0;
@@ -1387,7 +1382,7 @@ static u32 CountAllOwnedMons(void)
     for (i = 0; i < PARTY_SIZE; i++)
     {
         struct BoxPokemon *boxMon = &gParties[B_TRAINER_PLAYER][i].box;
-        if (GetBoxMonData(boxMon, MON_DATA_SPECIES) != SPECIES_NONE && !IsBrokerLoanMon(boxMon))
+        if (GetBoxMonData(boxMon, MON_DATA_SPECIES) != SPECIES_NONE)
             total++;
     }
     for (box = 0; box < TOTAL_BOXES_COUNT; box++)
@@ -1395,7 +1390,7 @@ static u32 CountAllOwnedMons(void)
         for (pos = 0; pos < IN_BOX_COUNT; pos++)
         {
             struct BoxPokemon *boxMon = GetBoxedMonPtr(box, pos);
-            if (GetBoxMonData(boxMon, MON_DATA_SPECIES) != SPECIES_NONE && !IsBrokerLoanMon(boxMon))
+            if (GetBoxMonData(boxMon, MON_DATA_SPECIES) != SPECIES_NONE)
                 total++;
         }
     }
@@ -1408,12 +1403,6 @@ void FacilityShopSellMonPrompt(void)
     struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][slot];
     u16 species = GetMonData(mon, MON_DATA_SPECIES);
     u16 price;
-
-    if (IsBrokerLoanMon(&mon->box))
-    {
-        gSpecialVar_Result = SELL_MON_BROKER_LOAN;
-        return;
-    }
 
     if (!FindMonTierPrice(species, &price))
     {
@@ -1552,10 +1541,9 @@ void CloseFacilityShopDescriptionWindow(void)
 // seeded from N and the player's trainer ID, so the picks never change on a
 // reload - only when the next wave becomes his stock.
 //
-// A loaner is identified by its data, not a saved slot: Original Trainer
-// "BROKER" plus the in-game-trade met location. Keeping one re-tags the OT
-// as the player (leaving the OT ID - and so shininess - alone), which also
-// makes it an ordinary roster Pokemon from then on.
+// Pokemon he sells are the player's to keep, tagged Original Trainer
+// "BROKER" with the in-game-trade met location (so they count as chipped -
+// see IsFrontierChippedMon() in src/facility.c).
 // ============================================================================
 
 #define BROKER_STOCK_PER_SHELF 3
@@ -1563,24 +1551,10 @@ void CloseFacilityShopDescriptionWindow(void)
 
 static const u8 sText_BrokerOTName[] = _("BROKER");
 
-static EWRAM_DATA u8 sBrokerLoanOutcome = BROKER_LOAN_NONE;
-static EWRAM_DATA u16 sBrokerLoanSpecies = SPECIES_NONE;
 
 static u8 BrokerNextWave(void)
 {
     return GetGauntletsClearedCount() + 1;
-}
-
-static bool8 IsBrokerLoanMon(struct BoxPokemon *boxMon)
-{
-    u8 otName[PLAYER_NAME_LENGTH + 1];
-
-    if (GetBoxMonData(boxMon, MON_DATA_SPECIES) == SPECIES_NONE)
-        return FALSE;
-    if (GetBoxMonData(boxMon, MON_DATA_MET_LOCATION) != METLOC_IN_GAME_TRADE)
-        return FALSE;
-    GetBoxMonData(boxMon, MON_DATA_OT_NAME, otName);
-    return StringCompare(otName, sText_BrokerOTName) == 0;
 }
 
 void FacilityBrokerCheck(void)
@@ -1632,9 +1606,11 @@ static u8 BrokerPick(u16 count, u8 shelf, u16 *picked)
     return n;
 }
 
-static u16 BrokerItemPrice(u16 shopPrice)
+// The Broker's markup (broker-spec.md): 1.2x the shop price, rounded to the
+// nearest 10 FP - for items and Pokemon alike.
+static u16 BrokerPrice(u16 shopPrice)
 {
-    return ((shopPrice * 3 / 2) + 5) / 10 * 10;
+    return ((shopPrice * 6 / 5) + 5) / 10 * 10;
 }
 
 void FacilityBrokerBuildItemMenu(void)
@@ -1671,7 +1647,7 @@ void FacilityBrokerBuildItemMenu(void)
     for (i = 0; i < n; i++)
     {
         sMenuRows[i].id = candidates[picked[i]]->item;
-        sMenuRows[i].price = BrokerItemPrice(candidates[picked[i]]->price);
+        sMenuRows[i].price = BrokerPrice(candidates[picked[i]]->price);
         sMenuRows[i].name = GetItemName(candidates[picked[i]]->item);
         sMenuRows[i].description = NULL;
     }
@@ -1705,17 +1681,16 @@ void FacilityBrokerBuildMonMenu(void)
     for (i = 0; i < n; i++)
     {
         sMenuRows[i].id = candidates[picked[i]]->species;
-        sMenuRows[i].price = candidates[picked[i]]->price / 2;
+        sMenuRows[i].price = BrokerPrice(candidates[picked[i]]->price);
         sMenuRows[i].name = GetSpeciesName(candidates[picked[i]]->species);
         sMenuRows[i].description = NULL;
     }
 }
 
-void FacilityBrokerLoanMon(void)
+void FacilityBrokerSellMon(void)
 {
     struct Pokemon mon;
     u8 metLocation = METLOC_IN_GAME_TRADE;
-
     u8 otGender = MALE;
     u32 i;
 
@@ -1725,9 +1700,8 @@ void FacilityBrokerLoanMon(void)
     SetMonData(&mon, MON_DATA_MET_LOCATION, &metLocation);
 
     // Not GiveCapturedMonToPlayer(): it stamps the player's name over the
-    // OT, which erased the "BROKER" tag - the loaner then read as the
-    // player's own and was never collected. Same party-then-PC placement,
-    // minus the re-stamp.
+    // OT, erasing the "BROKER" tag. Same party-then-PC placement, minus the
+    // re-stamp.
     for (i = 0; i < PARTY_SIZE; i++)
     {
         if (GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES) == SPECIES_NONE)
@@ -1747,62 +1721,3 @@ void FacilityBrokerLoanMon(void)
         FacilityBrokerMarkDealUsed();
 }
 
-static void ResolveBrokerLoan(struct BoxPokemon *boxMon, bool8 kept)
-{
-    sBrokerLoanSpecies = GetBoxMonData(boxMon, MON_DATA_SPECIES);
-    if (kept)
-    {
-        u8 gender = gSaveBlock2Ptr->playerGender;
-        SetBoxMonData(boxMon, MON_DATA_OT_NAME, gSaveBlock2Ptr->playerName);
-        SetBoxMonData(boxMon, MON_DATA_OT_GENDER, &gender);
-        sBrokerLoanOutcome = BROKER_LOAN_KEPT;
-    }
-    else
-    {
-        u16 item = GetBoxMonData(boxMon, MON_DATA_HELD_ITEM);
-        if (item != ITEM_NONE)
-            AddBagItem(item, 1);
-        ZeroBoxMonData(boxMon);
-        sBrokerLoanOutcome = BROKER_LOAN_COLLECTED;
-    }
-}
-
-void FacilityBrokerResolveLoans(bool8 kept)
-{
-    u32 box, pos, i;
-    bool8 partyChanged = FALSE;
-
-    for (i = 0; i < PARTY_SIZE; i++)
-    {
-        struct BoxPokemon *boxMon = &gParties[B_TRAINER_PLAYER][i].box;
-        if (IsBrokerLoanMon(boxMon))
-        {
-            ResolveBrokerLoan(boxMon, kept);
-            if (!kept)
-                ZeroMonData(&gParties[B_TRAINER_PLAYER][i]);
-            partyChanged = TRUE;
-        }
-    }
-    for (box = 0; box < TOTAL_BOXES_COUNT; box++)
-    {
-        for (pos = 0; pos < IN_BOX_COUNT; pos++)
-        {
-            struct BoxPokemon *boxMon = GetBoxedMonPtr(box, pos);
-            if (IsBrokerLoanMon(boxMon))
-                ResolveBrokerLoan(boxMon, kept);
-        }
-    }
-    if (partyChanged && !kept)
-    {
-        CompactPartySlots();
-        CalculatePlayerPartyCount();
-    }
-}
-
-void FacilityBrokerGetLoanOutcome(void)
-{
-    gSpecialVar_Result = sBrokerLoanOutcome;
-    if (sBrokerLoanOutcome != BROKER_LOAN_NONE)
-        StringCopy(gStringVar1, GetSpeciesName(sBrokerLoanSpecies));
-    sBrokerLoanOutcome = BROKER_LOAN_NONE;
-}

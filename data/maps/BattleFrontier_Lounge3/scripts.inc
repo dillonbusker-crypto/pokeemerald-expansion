@@ -6,9 +6,9 @@ BattleFrontier_Lounge3_MapScripts::
 	.set BET_AMOUNT_15, 15
 
 @ Ten Gauntlets: the Gambler is now the Broker (broker-spec.md). One deal
-@ per gauntlet from the next gauntlet's shop wave: an item at 1.5x, or a
-@ Pokemon on loan at half price. The vanilla betting flow below is
-@ unreachable now.
+@ per gauntlet from the next gauntlet's shop wave: an item or a Pokemon, at
+@ 1.2x, the player's to keep (Pokemon are tagged OT "BROKER"). The vanilla
+@ betting flow below is unreachable now.
 @ VAR_TEMP_2 holds the gauntlet deal's status (BROKER_*), VAR_TEMP_3 whether
 @ the Artisan Cave side quest's MASTER BALL is on offer (easter-eggs-spec.md,
 @ #1). The MASTER BALL doesn't use up the gauntlet's deal.
@@ -181,7 +181,7 @@ BattleFrontier_Lounge3_EventScript_Broker_Mons:
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge3_EventScript_Broker_Mons
 	special FacilityShopGetFP
 	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_Lounge3_EventScript_Broker_NotEnoughFP
-	special FacilityBrokerLoanMon
+	special FacilityBrokerSellMon
 	goto_if_eq VAR_RESULT, MON_CANT_GIVE, BattleFrontier_Lounge3_EventScript_Broker_NoRoom
 	copyvar VAR_0x8004, VAR_0x8008
 	special FacilityShopTakeFP
@@ -670,11 +670,10 @@ BattleFrontier_Lounge3_Text_Oh::
 	.string "Oh…$"
 
 BattleFrontier_Lounge3_Text_BackedWrongTrainer::
-	.string "He loaned me a POKéMON, and I lost\n"
-	.string "my run…\p"
-	.string "A man in a dark coat was waiting\n"
-	.string "outside. Just like that, it was\l"
-	.string "gone.$"
+	.string "I bought a POKéMON off him a whole\n"
+	.string "gauntlet early.\p"
+	.string "It still says BROKER on its\n"
+	.string "papers. Gives me the creeps.$"
 
 BattleFrontier_Lounge3_Text_TrainerGoodButRattled::
 	.string "I bought a CHOICE SCARF off him a\n"
@@ -683,9 +682,9 @@ BattleFrontier_Lounge3_Text_TrainerGoodButRattled::
 	.string "them.$"
 
 BattleFrontier_Lounge3_Text_KnowWinnerWhenISeeOne::
-	.string "Giggle! I cleared the gauntlet\n"
-	.string "with his POKéMON, so now it's mine\l"
-	.string "for good!$"
+	.string "Giggle! His prices are steep, but\n"
+	.string "I got my POKéMON before anyone\l"
+	.string "else could!$"
 
 BattleFrontier_Lounge3_Text_ShouldBeTakingChallenges::
 	.string "That man in the corner… I don't\n"
@@ -697,13 +696,10 @@ BattleFrontier_Lounge3_Text_BrokerIntro:
 	.string "the good stuff until you've\l"
 	.string "cleared the next gauntlet. Me? I\l"
 	.string "know a guy on the delivery crew.\p"
-	.string "One deal per gauntlet. An item,\n"
-	.string "full price plus my cut… or a\l"
-	.string "POKéMON, half price, on loan.\p"
-	.string "Clear the gauntlet and the\n"
-	.string "POKéMON's yours. Lose, and it\l"
-	.string "comes back to me.\p"
-	.string "…And you didn't hear any of this\n"
+	.string "One deal per gauntlet. An item or\n"
+	.string "a POKéMON, yours to keep. Full\l"
+	.string "price, plus my cut.\p"
+	.string "...And you didn't hear any of this\n"
 	.string "from me.$"
 
 BattleFrontier_Lounge3_Text_BrokerGreet:
@@ -727,23 +723,20 @@ BattleFrontier_Lounge3_Text_BrokerConfirmItem:
 	.string "Deal?$"
 
 BattleFrontier_Lounge3_Text_BrokerConfirmMon:
-	.string "{STR_VAR_1}, on loan, for {STR_VAR_2}\n"
-	.string "FP.\p"
-	.string "Clear the next gauntlet and it's\n"
-	.string "yours. Lose, and it comes back to\l"
-	.string "me. Deal?$"
+	.string "{STR_VAR_1}, for {STR_VAR_2} FP, my\n"
+	.string "cut included. It's yours to keep.\p"
+	.string "Deal?$"
 
 BattleFrontier_Lounge3_Text_BrokerItemDone:
 	.string "Pleasure doing business. Now\n"
 	.string "scram, before somebody sees us.$"
 
 BattleFrontier_Lounge3_Text_BrokerMonReceived:
-	.string "{PLAYER} received {STR_VAR_1} on\n"
-	.string "loan!$"
+	.string "{PLAYER} received {STR_VAR_1}!$"
 
 BattleFrontier_Lounge3_Text_BrokerMonDone:
-	.string "Look after it. It's still mine\n"
-	.string "until you clear that gauntlet.$"
+	.string "It's all yours. Try not to tell\n"
+	.string "anyone where you got it.$"
 
 BattleFrontier_Lounge3_Text_BrokerNoStock:
 	.string "Nothing on that shelf this time.\n"

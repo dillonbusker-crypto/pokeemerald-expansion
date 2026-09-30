@@ -484,7 +484,6 @@ void FacilityCompleteGauntlet(void)
     gSaveBlock3Ptr->facility.progress.fp = (fp > 0xFFFF) ? 0xFFFF : fp;
     gSaveBlock3Ptr->facility.progress.gauntletsCompleted |= (1 << gauntlet);
     gSaveBlock3Ptr->facility.run.active = FALSE;
-    FacilityBrokerResolveLoans(TRUE);
 }
 
 void FacilityAbandonRun(void)
@@ -495,7 +494,6 @@ void FacilityAbandonRun(void)
     // drawnTeams are only ever read after checking active, so stale values
     // left behind are harmless.
     gSaveBlock3Ptr->facility.run.active = FALSE;
-    FacilityBrokerResolveLoans(FALSE);
 }
 
 // Quiet save - no "Saving... don't turn off the power" popup. Used after a

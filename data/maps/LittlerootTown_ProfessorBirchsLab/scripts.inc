@@ -717,13 +717,14 @@ LittlerootTown_ProfessorBirchsLab_Text_LikeYouToHavePokemon:
 	.string "{PLAYER} received the {STR_VAR_1}!$"
 
 LittlerootTown_ProfessorBirchsLab_Text_ThisOneIsSpecial:
-	.string "PROF. BIRCH: Oh, and don't mind if that\n"
-	.string "{STR_VAR_1} seems a little more…\l"
-	.string "seasoned than you'd expect.\p"
-	.string "Let's just say I've been running a few\n"
-	.string "experiments of my own. I'll explain\l"
-	.string "everything once you're back from\l"
-	.string "seeing {RIVAL}.$"
+	.string "PROF. BIRCH: Oh, and don't mind if\n"
+	.string "that {STR_VAR_1} seems a little\l"
+	.string "more... seasoned than you'd\l"
+	.string "expect.\p"
+	.string "It came to me from the BATTLE\n"
+	.string "FRONTIER.\p"
+	.string "I'll explain everything once\n"
+	.string "you've been to see {RIVAL}.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_WhyNotGiveNicknameToMon:
 	.string "PROF. BIRCH: While you're at it, why not\n"
@@ -790,9 +791,10 @@ LittlerootTown_ProfessorBirchsLab_Text_BirchExplainsLMenu:
 	.string "teach egg moves and TMs, and\l"
 	.string "switch abilities.\p"
 	.string "That {STR_VAR_1} of yours, {PLAYER}{KUN}?\n"
-	.string "I built it with that very menu.\l"
-	.string "That's why it was already level\l"
-	.string "50.$"
+	.string "It came from the FRONTIER, and I\l"
+	.string "finished building it with that\l"
+	.string "very menu. That's why it was\l"
+	.string "already level 50.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_HeardYouBeatRivalTakePokedex:
 	.string "PROF. BIRCH: Oh, and {PLAYER}{KUN}, take\n"

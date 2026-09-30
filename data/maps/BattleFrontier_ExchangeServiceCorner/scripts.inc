@@ -363,7 +363,6 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonToSell::
 	case SELL_MON_NOT_SELLABLE, BattleFrontier_ExchangeServiceCorner_EventScript_CantSellMon
 	case SELL_MON_HOLDING_ITEM, BattleFrontier_ExchangeServiceCorner_EventScript_CantSellHoldingItem
 	case SELL_MON_NOT_ENOUGH_OWNED, BattleFrontier_ExchangeServiceCorner_EventScript_CantSellNotEnoughOwned
-	case SELL_MON_BROKER_LOAN, BattleFrontier_ExchangeServiceCorner_EventScript_CantSellBrokerLoan
 	buffernumberstring STR_VAR_2, VAR_0x8008
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmSell, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
@@ -573,17 +572,6 @@ BattleFrontier_ExchangeServiceCorner_Text_MoreFPForClearingGauntlets:
 	.string "same FP, win or lose the run\l"
 	.string "later. It's clearing a whole\l"
 	.string "gauntlet that really pays out.$"
-
-@ Ten Gauntlets: the Broker's loaners can't be sold (broker-spec.md).
-BattleFrontier_ExchangeServiceCorner_EventScript_CantSellBrokerLoan::
-	msgbox BattleFrontier_ExchangeServiceCorner_Text_CantSellBrokerLoan, MSGBOX_DEFAULT
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
-	end
-
-BattleFrontier_ExchangeServiceCorner_Text_CantSellBrokerLoan:
-	.string "Hold on - this POKéMON's Original\n"
-	.string "Trainer is the BROKER.\p"
-	.string "That one's not yours to sell.$"
 
 @ ----------------------------------------------------------------------------
 @ Ten Gauntlets: the Frontier's "POS is down" while the Artisan Cave quest is

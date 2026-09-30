@@ -56,8 +56,7 @@ gSpecials::
 	def_special FacilityBrokerBuildItemMenu
 	def_special FacilityBrokerBuildMonMenu
 	def_special FacilityBrokerMarkDealUsed
-	def_special FacilityBrokerLoanMon
-	def_special FacilityBrokerGetLoanOutcome
+	def_special FacilityBrokerSellMon
 	def_special FacilityShopBuildGauntletMenu
 	def_special FacilityShopSelectGauntletRow
 	def_special FacilityShopBuildMonTierList

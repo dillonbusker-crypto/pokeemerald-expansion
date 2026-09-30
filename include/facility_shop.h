@@ -106,10 +106,8 @@ void FacilityShopFreeMenuRows(void);
 
 // ----------------------------------------------------------------------------
 // The Broker (Lounge 3) - see broker-spec.md. Sells one piece of the next
-// gauntlet's shop wave per gauntlet: an item outright at 1.5x, or a Pokemon
-// on loan at half price. A loaner is kept if the player clears that
-// gauntlet and collected (held item returned) if a run of it ends without
-// clearing it.
+// gauntlet's shop wave per gauntlet: an item or a Pokemon at 1.2x, the
+// player's to keep. Pokemon are tagged OT "BROKER".
 // ----------------------------------------------------------------------------
 
 // gSpecialVar_Result = BROKER_OK / _RUN_ACTIVE / _DEAL_USED / _NOTHING_LEFT.
@@ -122,15 +120,10 @@ void FacilityBrokerBuildItemMenu(void);
 void FacilityBrokerBuildMonMenu(void);
 // Marks this gauntlet's deal as spent.
 void FacilityBrokerMarkDealUsed(void);
-// Loans the species in gSpecialVar_0x8009. gSpecialVar_Result =
+// Sells the species in gSpecialVar_0x8009 - the player's to keep, tagged OT
+// "BROKER" (broker-spec.md). gSpecialVar_Result =
 // MON_GIVEN_TO_PARTY / MON_GIVEN_TO_PC / MON_CANT_GIVE; marks the deal spent
 // unless MON_CANT_GIVE.
-void FacilityBrokerLoanMon(void);
-// Called by FacilityCompleteGauntlet (kept == TRUE) and FacilityAbandonRun
-// (kept == FALSE) in src/facility.c.
-void FacilityBrokerResolveLoans(bool8 kept);
-// After a run ends: gSpecialVar_Result = BROKER_LOAN_NONE / _KEPT /
-// _COLLECTED, gStringVar1 = the loaner's species name.
-void FacilityBrokerGetLoanOutcome(void);
+void FacilityBrokerSellMon(void);
 
 #endif // GUARD_FACILITY_SHOP_H
