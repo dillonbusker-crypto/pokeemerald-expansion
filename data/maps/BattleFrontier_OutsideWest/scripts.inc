@@ -14,6 +14,7 @@ BattleFrontier_OutsideWest_OnTransition:
 	@ until it gives itself away (#4).
 	setflag FLAG_TEMP_3
 	special RemoveFrontierHMs
+	call BattleFrontier_OutsideWest_EventScript_ArmMasterBallCheck
 	specialvar VAR_RESULT, GetGauntletsClearedCount
 	call_if_lt VAR_RESULT, 4, BattleFrontier_OutsideWest_EventScript_HideTucker
 	call_if_lt VAR_RESULT, 5, BattleFrontier_OutsideWest_EventScript_HideNoland
@@ -839,3 +840,37 @@ BattleFrontier_OutsideWest_Text_NolandAfter:
 	.string "Say... ever ask SCOTT why he never\n"
 	.string "runs his own gauntlets? I did,\l"
 	.string "once. He just laughed.$"
+
+
+@ Ten Gauntlets: the tile in front of Artisan Cave's west entrance. While the
+@ Latis are waiting (FLOTSAM beaten, none caught), the player can't walk in
+@ without a MASTER BALL in the bag - inside, the Lati battle is catch-only and
+@ the exits are blocked, so going in without one is a soft lock. Only blocks
+@ walking north, into the door: coming out, a push "back" would walk the
+@ player straight into the door again.
+BattleFrontier_OutsideWest_EventScript_ArmMasterBallCheck::
+	setvar VAR_TEMP_3, 1
+	goto_if_set FLAG_ARTISAN_LATI_CAUGHT, Common_EventScript_NopReturn
+	goto_if_lt VAR_ARTISAN_QUEST_STEP, 6, Common_EventScript_NopReturn
+	setvar VAR_TEMP_3, 0
+	return
+
+BattleFrontier_OutsideWest_EventScript_NeedMasterBall::
+	checkitem ITEM_MASTER_BALL
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideWest_EventScript_NeedMasterBallEnd
+	specialvar VAR_RESULT, GetPlayerFacingDirection
+	goto_if_ne VAR_RESULT, DIR_NORTH, BattleFrontier_OutsideWest_EventScript_NeedMasterBallEnd
+	lockall
+	msgbox BattleFrontier_OutsideWest_Text_NeedMasterBall, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYER, Common_Movement_WalkDown
+	waitmovement 0
+	releaseall
+BattleFrontier_OutsideWest_EventScript_NeedMasterBallEnd:
+	end
+
+BattleFrontier_OutsideWest_Text_NeedMasterBall:
+	.string "Something powerful is waiting in\n"
+	.string "there...\p"
+	.string "I shouldn't go in without a MASTER\n"
+	.string "BALL in my bag.$"

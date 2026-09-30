@@ -44,6 +44,8 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ConsumablesKeeper::
 	faceplayer
 	specialvar VAR_RESULT, IsFacilityRunActive
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_ShopClosedMidRun
+	specialvar VAR_RESULT, IsFrontierPOSDown
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_POSDown
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_WelcomeConsumables, MSGBOX_DEFAULT
 	special ShowFacilityFPWindow
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseConsumable
@@ -99,6 +101,8 @@ BattleFrontier_ExchangeServiceCorner_EventScript_HeldItemsKeeper::
 	faceplayer
 	specialvar VAR_RESULT, IsFacilityRunActive
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_ShopClosedMidRun
+	specialvar VAR_RESULT, IsFrontierPOSDown
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_POSDown
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_WelcomeHeldItems, MSGBOX_DEFAULT
 	special ShowFacilityFPWindow
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseHeldItem
@@ -157,6 +161,8 @@ BattleFrontier_ExchangeServiceCorner_EventScript_MegaStoneKeeper::
 	faceplayer
 	specialvar VAR_RESULT, IsFacilityRunActive
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_ShopClosedMidRun
+	specialvar VAR_RESULT, IsFrontierPOSDown
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_POSDown
 	special FacilityShopBuildMegaStonesMenu
 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_ExchangeServiceCorner_EventScript_MegaStonesComingLater
 	checkitem ITEM_MEGA_RING
@@ -225,6 +231,8 @@ BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeper::
 	faceplayer
 	specialvar VAR_RESULT, IsFacilityRunActive
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_ShopClosedMidRun
+	specialvar VAR_RESULT, IsFrontierPOSDown
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeperPOSDown
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemon, MSGBOX_DEFAULT
 	special ShowFacilityFPWindow
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
@@ -576,3 +584,153 @@ BattleFrontier_ExchangeServiceCorner_Text_CantSellBrokerLoan:
 	.string "Hold on - this POKéMON's Original\n"
 	.string "Trainer is the BROKER.\p"
 	.string "That one's not yours to sell.$"
+
+@ ----------------------------------------------------------------------------
+@ Ten Gauntlets: the Frontier's "POS is down" while the Artisan Cave quest is
+@ required and unfinished (IsFrontierPOSDown, easter-eggs-spec.md). Nothing is
+@ for sale, so the 900 FP from gauntlet 3 can only go on the quest. The
+@ Pokemon keeper is the exception: one LEAFEON once the florist has asked for
+@ one, then - once FLOTSAM is beaten (step 6) - the four POKeMON that learn
+@ SURF by level-up, so a player without one can still reach the cave.
+@ ----------------------------------------------------------------------------
+BattleFrontier_ExchangeServiceCorner_EventScript_POSDown::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_POSDown, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeperPOSDown::
+	goto_if_ge VAR_ARTISAN_QUEST_STEP, 6, BattleFrontier_ExchangeServiceCorner_EventScript_SurfStock
+	goto_if_set FLAG_FRONTIER_FLORIST_TRADED, BattleFrontier_ExchangeServiceCorner_EventScript_POSDown
+	goto_if_set FLAG_FRONTIER_FLORIST_ASKED, BattleFrontier_ExchangeServiceCorner_EventScript_OfferLeafeon
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_POSDownLeafeon, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_OfferLeafeon::
+	special ShowFacilityFPWindow
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_OfferLeafeon, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_POSDownGoodbye
+	setvar VAR_0x8008, 300
+	setvar VAR_0x8009, SPECIES_LEAFEON
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_POSDownBuy
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_SurfStock::
+	special ShowFacilityFPWindow
+	message BattleFrontier_ExchangeServiceCorner_Text_SurfStock
+	waitmessage
+	dynmultipush BattleFrontier_ExchangeServiceCorner_Text_StockSlowbro, 0
+	dynmultipush BattleFrontier_ExchangeServiceCorner_Text_StockSlowking, 1
+	dynmultipush BattleFrontier_ExchangeServiceCorner_Text_StockTentacruel, 2
+	dynmultipush BattleFrontier_ExchangeServiceCorner_Text_StockMilotic, 3
+	dynmultipush BattleFrontier_ExchangeServiceCorner_Text_StockNothing, 4
+	dynmultistack 0, 0, FALSE, 5, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	switch VAR_RESULT
+	case 0, BattleFrontier_ExchangeServiceCorner_EventScript_StockSlowbro
+	case 1, BattleFrontier_ExchangeServiceCorner_EventScript_StockSlowking
+	case 2, BattleFrontier_ExchangeServiceCorner_EventScript_StockTentacruel
+	case 3, BattleFrontier_ExchangeServiceCorner_EventScript_StockMilotic
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_POSDownGoodbye
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_StockSlowbro::
+	setvar VAR_0x8008, 150
+	setvar VAR_0x8009, SPECIES_SLOWBRO
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_POSDownConfirm
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_StockSlowking::
+	setvar VAR_0x8008, 150
+	setvar VAR_0x8009, SPECIES_SLOWKING
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_POSDownConfirm
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_StockTentacruel::
+	setvar VAR_0x8008, 200
+	setvar VAR_0x8009, SPECIES_TENTACRUEL
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_POSDownConfirm
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_StockMilotic::
+	setvar VAR_0x8008, 400
+	setvar VAR_0x8009, SPECIES_MILOTIC
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_POSDownConfirm
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_POSDownConfirm::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmPurchase, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_POSDownGoodbye
+@ VAR_0x8008 = price, VAR_0x8009 = species.
+BattleFrontier_ExchangeServiceCorner_EventScript_POSDownBuy::
+	special FacilityShopGetFP
+	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_ExchangeServiceCorner_EventScript_POSDownNoFP
+	special FacilityShopBuyMon
+	goto_if_eq VAR_RESULT, MON_CANT_GIVE, BattleFrontier_ExchangeServiceCorner_EventScript_POSDownNoRoom
+	copyvar VAR_TEMP_1, VAR_RESULT
+	copyvar VAR_0x8004, VAR_0x8008
+	special FacilityShopTakeFP
+	special UpdateFacilityFPWindow
+	playse SE_SHOP
+	goto_if_eq VAR_TEMP_1, MON_GIVEN_TO_PC, BattleFrontier_ExchangeServiceCorner_EventScript_POSDownToPC
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_HereIsYourMon, MSGBOX_DEFAULT
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_POSDownGoodbye
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_POSDownToPC::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_SentMonToPC, MSGBOX_DEFAULT
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_POSDownGoodbye
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_POSDownNoFP::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_DontHaveEnoughFP, MSGBOX_DEFAULT
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_POSDownGoodbye
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_POSDownNoRoom::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_NoRoomForMon, MSGBOX_DEFAULT
+BattleFrontier_ExchangeServiceCorner_EventScript_POSDownGoodbye::
+	special CloseFacilityFPWindow
+	release
+	end
+
+BattleFrontier_ExchangeServiceCorner_Text_POSDown:
+	.string "I'm so sorry! Our POS system is\n"
+	.string "down, along with the rest of the\l"
+	.string "island's. We can't sell anything\l"
+	.string "right now.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_POSDownLeafeon:
+	.string "I'm so sorry! Our POS system is\n"
+	.string "down. We can't sell anything right\l"
+	.string "now.\p"
+	.string "...Well, except for some reason\n"
+	.string "this one LEAFEON keeps showing up\l"
+	.string "as available. You probably don't\l"
+	.string "want it, though.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_OfferLeafeon:
+	.string "The system's still down... but\n"
+	.string "that LEAFEON is somehow still\l"
+	.string "showing up. I can sell you that\l"
+	.string "one, for 300 FP.\p"
+	.string "Would you like it?$"
+
+BattleFrontier_ExchangeServiceCorner_Text_SurfStock:
+	.string "Good news! Part of the system came\n"
+	.string "back up. I can sell just these few\l"
+	.string "WATER POKéMON for now.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_StockSlowbro:
+	.string "SLOWBRO 150 FP$"
+
+BattleFrontier_ExchangeServiceCorner_Text_StockSlowking:
+	.string "SLOWKING 150 FP$"
+
+BattleFrontier_ExchangeServiceCorner_Text_StockTentacruel:
+	.string "TENTACRUEL 200 FP$"
+
+BattleFrontier_ExchangeServiceCorner_Text_StockMilotic:
+	.string "MILOTIC 400 FP$"
+
+BattleFrontier_ExchangeServiceCorner_Text_StockNothing:
+	.string "Nothing$"

@@ -369,6 +369,7 @@ BattleFrontier_OutsideEast_EventScript_Florist::
 	end
 
 BattleFrontier_OutsideEast_EventScript_FloristAsk::
+	setflag FLAG_FRONTIER_FLORIST_ASKED
 	msgbox BattleFrontier_OutsideEast_Text_FloristWantsLeafeon, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideEast_EventScript_FloristNoLeafeon
 	msgbox BattleFrontier_OutsideEast_Text_FloristShowMe, MSGBOX_DEFAULT

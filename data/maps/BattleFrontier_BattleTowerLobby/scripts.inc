@@ -342,6 +342,8 @@ BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB4::
 	faceplayer
 	special IsLinkMultisMatUnlocked
 	goto_if_eq VAR_RESULT, FALSE, Facility_MatLocked
+	specialvar VAR_RESULT, IsFrontierPOSDown
+	goto_if_eq VAR_RESULT, TRUE, Facility_B4_POSDown
 	setvar VAR_0x8004, FACILITY_GAUNTLET_4
 	special IsFacilityRunActiveForGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
@@ -1932,6 +1934,14 @@ Facility_B2_HeardAboutNorman:
 	setvar VAR_NORMAN_STORY_STATE, 2
 	return
 
+@ Ten Gauntlets: gauntlet 4 stays shut until the Artisan Cave quest is done
+@ (IsFrontierPOSDown). The hint points at the Old Woman by the odd tree, whose
+@ rumor leads to FLOTSAM.
+Facility_B4_POSDown:
+	msgbox Facility_B4_Text_POSDown, MSGBOX_DEFAULT
+	release
+	end
+
 Facility_AlreadyCleared:
 	msgbox Facility_Text_AlreadyCleared, MSGBOX_DEFAULT
 	release
@@ -2339,3 +2349,13 @@ Facility_B2_Text_StevenHook:
 	.string "He left before it ended, but he\n"
 	.string "asked me to tell you he'd be\l"
 	.string "waiting in the HALL OF TEN.$"
+
+Facility_B4_Text_POSDown:
+	.string "I'm sorry. The LINK MULTI mat is\n"
+	.string "closed. The whole island's system\l"
+	.string "went down, and nothing's running\l"
+	.string "until it's fixed.\p"
+	.string "Folks say there's been someone\n"
+	.string "shady hanging around out past the\l"
+	.string "PALACE lately. I bet he knows\l"
+	.string "something about it.$"

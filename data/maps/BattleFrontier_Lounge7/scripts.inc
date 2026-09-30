@@ -7,6 +7,8 @@ BattleFrontier_Lounge7_MapScripts::
 BattleFrontier_Lounge7_EventScript_LeftMoveTutor::
 	lock
 	faceplayer
+	specialvar VAR_RESULT, IsFrontierPOSDown
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_Lounge7_EventScript_TutorPOSDown
 	setvar VAR_TEMP_C, SCROLL_MULTI_BF_MOVE_TUTOR_1
 	goto_if_set FLAG_MET_FRONTIER_BEAUTY_MOVE_TUTOR, BattleFrontier_Lounge7_EventScript_AlreadyMetLeftTutor
 	msgbox BattleFrontier_Lounge7_Text_LeftTutorIntro, MSGBOX_DEFAULT
@@ -129,6 +131,8 @@ BattleFrontier_Lounge7_EventScript_SwordsDance::
 BattleFrontier_Lounge7_EventScript_RightMoveTutor::
 	lock
 	faceplayer
+	specialvar VAR_RESULT, IsFrontierPOSDown
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_Lounge7_EventScript_TutorPOSDown
 	setvar VAR_TEMP_C, SCROLL_MULTI_BF_MOVE_TUTOR_2
 	goto_if_set FLAG_MET_FRONTIER_SWIMMER_MOVE_TUTOR, BattleFrontier_Lounge7_EventScript_AlreadyMetRightTutor
 	msgbox BattleFrontier_Lounge7_Text_RightTutorIntro, MSGBOX_DEFAULT
@@ -485,3 +489,15 @@ BattleFrontier_Lounge7_Text_FirePunchDesc::
 	.string "A fiery punch\n"
 	.string "that may burn\n"
 	.string "the foe.$"
+
+@ Ten Gauntlets: tutors charge FP, so they close while the Frontier's system
+@ is down during the Artisan Cave quest (IsFrontierPOSDown).
+BattleFrontier_Lounge7_EventScript_TutorPOSDown::
+	msgbox BattleFrontier_Lounge7_Text_TutorPOSDown, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge7_Text_TutorPOSDown:
+	.string "Sorry, dear. The FP registers are\n"
+	.string "down all over the island. I can't\l"
+	.string "take payment until they're fixed.$"

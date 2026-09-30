@@ -355,6 +355,17 @@ void GetFacilityRunGauntlet(void)
 // specialvar-style: VAR_0x8004 = gauntlet. A cleared gauntlet can't be
 // re-entered (CLAUDE.md, "Re-entry: none") - every attendant checks this
 // before offering a run.
+// specialvar: TRUE while the Artisan Cave quest is required and unfinished -
+// gauntlet 3 cleared, no Latias/Latios caught yet (easter-eggs-spec.md). The
+// Frontier's "POS is down": the shop, the Broker's deals, the move tutors and
+// gauntlet 4's mat all close, so the 900 FP from clearing gauntlet 3 can only
+// go on the quest (a LEAFEON, 300, and the Broker's MASTER BALL, 600) and the
+// player can't spend themselves into a soft lock.
+bool16 IsFrontierPOSDown(void)
+{
+    return GetGauntletsClearedCount() >= 3 && !FlagGet(FLAG_ARTISAN_LATI_CAUGHT);
+}
+
 void IsFacilityGauntletCompleted(void)
 {
     gSpecialVar_Result = (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << gSpecialVar_0x8004)) != 0;

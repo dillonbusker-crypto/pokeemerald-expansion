@@ -477,7 +477,17 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 39,
+      "y": 56,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "BattleFrontier_OutsideWest_EventScript_NeedMasterBall"
+    }
+  ],
   "bg_events": [
     {
       "type": "sign",

@@ -3882,6 +3882,16 @@ static void HandleTurnActionSelectionState(void)
                 switch (gBattleResources->bufferB[battler][1])
                 {
                 case B_ACTION_USE_MOVE:
+                    // Ten Gauntlets: catch-only battle - see FLAG_CATCH_ONLY_BATTLE.
+                    if (FlagGet(FLAG_CATCH_ONLY_BATTLE))
+                    {
+                        RecordedBattle_ClearBattlerAction(battler, 1);
+                        gSelectionBattleScripts[battler] = BattleScript_ActionSelectionCatchOnly;
+                        gBattleCommunication[battler] = STATE_SELECTION_SCRIPT;
+                        gBattleStruct->battlerState[battler].selectionScriptFinished = FALSE;
+                        gBattleStruct->stateIdAfterSelScript[battler] = STATE_BEFORE_ACTION_CHOSEN;
+                        return;
+                    }
                     if (AreAllMovesUnusable(battler))
                     {
                         gBattleCommunication[battler] = STATE_SELECTION_SCRIPT;
@@ -4047,7 +4057,16 @@ static void HandleTurnActionSelectionState(void)
                     break;
                 }
 
-                if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
+                if (FlagGet(FLAG_CATCH_ONLY_BATTLE) && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)
+                {
+                    // Ten Gauntlets: catch-only battle - see FLAG_CATCH_ONLY_BATTLE.
+                    gSelectionBattleScripts[battler] = BattleScript_ActionSelectionCatchOnly;
+                    gBattleCommunication[battler] = STATE_SELECTION_SCRIPT;
+                    gBattleStruct->battlerState[battler].selectionScriptFinished = FALSE;
+                    gBattleStruct->stateIdAfterSelScript[battler] = STATE_BEFORE_ACTION_CHOSEN;
+                    return;
+                }
+                else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
                     && gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_TRAINER_HILL)
                     && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)
                 {

@@ -22431,7 +22431,8 @@ Careful Nature
 /* Ten Gauntlets: FLOTSAM betrays the player at the waterfall once they've
  * bought the Broker's MASTER BALL (easter-eggs-spec.md). An ex-TEAM AQUA
  * grunt with ARCHIE's ORAS core (Crobat, Muk, Mega Sharpedo) filled out to
- * gauntlet 4 strength. Mega Sharpedo is the player's first Mega encounter,
+ * gauntlet 3 strength - species and items buyable by then, since the shop is
+ * down during the quest - except Mega Sharpedo. Mega Sharpedo is the player's first Mega encounter,
  * arriving before they can Mega Evolve themselves - on purpose. Singles. */
 === TRAINER_FRONTIER_FLOTSAM ===
 Name: FLOTSAM
@@ -22462,7 +22463,7 @@ Adamant Nature
 - Drain Punch
 - Shadow Sneak
 
-Crawdaunt @ Life Orb
+Crawdaunt @ Muscle Band
 Ability: Adaptability
 Level: 50
 EVs: 252 Atk / 4 Def / 252 Spe

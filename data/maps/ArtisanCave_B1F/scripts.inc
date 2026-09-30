@@ -7,6 +7,14 @@ ArtisanCave_B1F_OnTransition:
 	setflag FLAG_LANDMARK_ARTISAN_CAVE
 	call_if_set FLAG_ARTISAN_LATI_CAUGHT, ArtisanCave_B1F_EventScript_HideLatis
 	call_if_lt VAR_ARTISAN_QUEST_STEP, 6, ArtisanCave_B1F_EventScript_HideLatis
+	@ The exits (the west entrance, and the ladder toward the east one) are
+	@ blocked until the player has battled a Lati - only while the Latis are
+	@ actually here, so nobody arriving early can be trapped.
+	setvar VAR_TEMP_4, 1
+	goto_if_set FLAG_ARTISAN_LATI_CAUGHT, ArtisanCave_B1F_EventScript_TransitionEnd
+	goto_if_lt VAR_ARTISAN_QUEST_STEP, 6, ArtisanCave_B1F_EventScript_TransitionEnd
+	setvar VAR_TEMP_4, 0
+ArtisanCave_B1F_EventScript_TransitionEnd:
 	end
 
 @ Ten Gauntlets: the Artisan Cave side quest (easter-eggs-spec.md, #1).
@@ -46,7 +54,10 @@ ArtisanCave_B1F_EventScript_Latios::
 	setflag P_FLAG_FORCE_SHINY
 	setwildbattle SPECIES_LATIOS, 50
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
+	setflag FLAG_CATCH_ONLY_BATTLE
 	dowildbattle
+	clearflag FLAG_CATCH_ONLY_BATTLE
+	setvar VAR_TEMP_4, 1
 	clearflag P_FLAG_FORCE_SHINY
 	clearflag FLAG_SYS_CTRL_OBJ_DELETE
 	specialvar VAR_RESULT, GetBattleOutcome
@@ -76,7 +87,10 @@ ArtisanCave_B1F_EventScript_Latias::
 	setflag P_FLAG_FORCE_SHINY
 	setwildbattle SPECIES_LATIAS, 50
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
+	setflag FLAG_CATCH_ONLY_BATTLE
 	dowildbattle
+	clearflag FLAG_CATCH_ONLY_BATTLE
+	setvar VAR_TEMP_4, 1
 	clearflag P_FLAG_FORCE_SHINY
 	clearflag FLAG_SYS_CTRL_OBJ_DELETE
 	specialvar VAR_RESULT, GetBattleOutcome
@@ -110,3 +124,37 @@ ArtisanCave_B1F_Text_LatiasFlewOff:
 ArtisanCave_B1F_Text_LatiosFlewOff:
 	.string "LATIOS let out a cry and flew off\n"
 	.string "deep into the cave...$"
+
+ArtisanCave_B1F_EventScript_StayInCave::
+	lockall
+	msgbox ArtisanCave_B1F_Text_StayInCave, MSGBOX_DEFAULT
+	closemessage
+	specialvar VAR_RESULT, GetPlayerFacingDirection
+	switch VAR_RESULT
+	case DIR_NORTH, ArtisanCave_B1F_EventScript_StepBackDown
+	case DIR_WEST, ArtisanCave_B1F_EventScript_StepBackRight
+	case DIR_EAST, ArtisanCave_B1F_EventScript_StepBackLeft
+	applymovement LOCALID_PLAYER, Common_Movement_WalkUp
+	goto ArtisanCave_B1F_EventScript_StayInCaveEnd
+	end
+
+ArtisanCave_B1F_EventScript_StepBackDown::
+	applymovement LOCALID_PLAYER, Common_Movement_WalkDown
+	goto ArtisanCave_B1F_EventScript_StayInCaveEnd
+	end
+
+ArtisanCave_B1F_EventScript_StepBackRight::
+	applymovement LOCALID_PLAYER, Common_Movement_WalkRight
+	goto ArtisanCave_B1F_EventScript_StayInCaveEnd
+	end
+
+ArtisanCave_B1F_EventScript_StepBackLeft::
+	applymovement LOCALID_PLAYER, Common_Movement_WalkLeft
+ArtisanCave_B1F_EventScript_StayInCaveEnd::
+	waitmovement 0
+	releaseall
+	end
+
+ArtisanCave_B1F_Text_StayInCave:
+	.string "I should probably stay in the\n"
+	.string "cave.$"

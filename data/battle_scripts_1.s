@@ -5497,6 +5497,12 @@ BattleScript_BerryFocusEnergy::
 	waitabilitypopup
 	return
 
+@ Ten Gauntlets: FLAG_CATCH_ONLY_BATTLE refuses Fight and Run (the Latios/
+@ Latias battle in Artisan Cave).
+BattleScript_ActionSelectionCatchOnly::
+	printselectionstring STRINGID_CATCHONLYBATTLE
+	endselectionscript
+
 BattleScript_ActionSelectionItemsCantBeUsed::
 	printselectionstring STRINGID_ITEMSCANTBEUSEDNOW
 	endselectionscript

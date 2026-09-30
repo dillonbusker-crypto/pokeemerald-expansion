@@ -57,7 +57,10 @@
 #define FLAG_RECEIVED_SCOTT_PP_MAX    0x23 // Ten Gauntlets: SCOTT has handed over the 99 PP MAX
 #define FLAG_ITEM_ARTISAN_CAVE_1F_SOUL_DEW    0x24 // Ten Gauntlets: the Soul Dew that replaced the Carbos ball, with its own flag so existing saves see it
 #define FLAG_FRONTIER_FLORIST_TRADED    0x25 // Ten Gauntlets: the florist traded the WAILMER PAIL for a LEAFEON
-#define FLAG_UNUSED_0x026    0x26 // Unused Flag
+// Ten Gauntlets: set around the Latios/Latias battle - Fight and Run are refused
+// ("catch-only"). A temp flag, so a white-out or any map change clears it.
+#define FLAG_CATCH_ONLY_BATTLE    FLAG_TEMP_9
+#define FLAG_FRONTIER_FLORIST_ASKED    0x26 // Ten Gauntlets: the florist has asked for a LEAFEON (unlocks buying one while the shop is down)
 #define FLAG_UNUSED_0x027    0x27 // Unused Flag
 #define FLAG_UNUSED_0x028    0x28 // Unused Flag
 #define FLAG_UNUSED_0x029    0x29 // Unused Flag

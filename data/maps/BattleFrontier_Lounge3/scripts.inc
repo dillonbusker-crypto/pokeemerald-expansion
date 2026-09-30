@@ -21,10 +21,29 @@ BattleFrontier_Lounge3_EventScript_Gambler::
 	call_if_eq VAR_ARTISAN_QUEST_STEP, 3, BattleFrontier_Lounge3_EventScript_Broker_FlotsamSentYou
 	call_if_eq VAR_ARTISAN_QUEST_STEP, 4, BattleFrontier_Lounge3_EventScript_Broker_CheckAlreadyHasBall
 	call BattleFrontier_Lounge3_EventScript_Broker_CheckMasterBall
+	specialvar VAR_RESULT, IsFrontierPOSDown
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_Lounge3_EventScript_Broker_POSDown
 	goto_if_eq VAR_TEMP_2, BROKER_OK, BattleFrontier_Lounge3_EventScript_Broker_DealOpen
 	goto_if_eq VAR_TEMP_3, TRUE, BattleFrontier_Lounge3_EventScript_Broker_OnlyMasterBall
 	goto_if_eq VAR_TEMP_2, BROKER_DEAL_USED, BattleFrontier_Lounge3_EventScript_Broker_DealUsed
 	goto BattleFrontier_Lounge3_EventScript_Broker_NothingLeft
+	end
+
+@ While the Frontier's system is down (IsFrontierPOSDown), the Broker's
+@ regular deals are off too - only the MASTER BALL, so the player's FP can't
+@ drain before they can afford it. Until FLOTSAM has sent the player (step 3,
+@ which CheckMasterBall above turns into an offer), and again once the ball is
+@ bought, he's just "busy".
+BattleFrontier_Lounge3_EventScript_Broker_POSDown::
+	goto_if_eq VAR_TEMP_3, FALSE, BattleFrontier_Lounge3_EventScript_Broker_POSDownNothing
+	msgbox BattleFrontier_Lounge3_Text_BrokerPOSDown, MSGBOX_DEFAULT
+	setvar VAR_TEMP_2, BROKER_RUN_ACTIVE
+	goto BattleFrontier_Lounge3_EventScript_Broker_Open
+	end
+
+BattleFrontier_Lounge3_EventScript_Broker_POSDownNothing::
+	msgbox BattleFrontier_Lounge3_Text_BrokerPOSDownNothing, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_Lounge3_EventScript_Broker_FlotsamSentYou::
@@ -107,12 +126,12 @@ BattleFrontier_Lounge3_EventScript_Broker_PushIllegalShelf::
 BattleFrontier_Lounge3_EventScript_Broker_MasterBall::
 	msgbox BattleFrontier_Lounge3_Text_BrokerConfirmMasterBall, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge3_EventScript_Broker_ChooseShelf
-	setvar VAR_0x8008, 800
+	setvar VAR_0x8008, 600
 	special FacilityShopGetFP
 	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_Lounge3_EventScript_Broker_NotEnoughFP
 	checkitemspace ITEM_MASTER_BALL
 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_Lounge3_EventScript_Broker_BagFull
-	setvar VAR_0x8004, 800
+	setvar VAR_0x8004, 600
 	special FacilityShopTakeFP
 	special UpdateFacilityFPWindow
 	additem ITEM_MASTER_BALL
@@ -777,7 +796,7 @@ BattleFrontier_Lounge3_Text_BrokerShelfIllegal:
 	.string "Illegal item$"
 
 BattleFrontier_Lounge3_Text_BrokerConfirmMasterBall:
-	.string "A MASTER BALL. 800 FP.\p"
+	.string "A MASTER BALL. 600 FP.\p"
 	.string "Where'd I get it? Where do you\n"
 	.string "think?\p"
 	.string "Deal?$"
@@ -792,3 +811,16 @@ BattleFrontier_Lounge3_Text_BrokerOnlyMasterBallNothingLeft:
 	.string "get you...\p"
 	.string "...Except the one thing you came\n"
 	.string "for.$"
+
+BattleFrontier_Lounge3_Text_BrokerPOSDown:
+	.string "Supply lines are dead. The whole\n"
+	.string "island's system went down, and my\l"
+	.string "guy on the delivery crew can't\l"
+	.string "move a thing.\p"
+	.string "...All I've got is what's under\n"
+	.string "the counter.$"
+
+BattleFrontier_Lounge3_Text_BrokerPOSDownNothing:
+	.string "Not now, kid. I'm busy.\p"
+	.string "Come back when you've actually got\n"
+	.string "business with me.$"

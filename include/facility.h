@@ -45,6 +45,8 @@ void GetFacilityRunGauntlet(void);
 
 // specialvar: number of gauntlets cleared (0-10). See frontier-dialogue.md.
 u16 GetGauntletsClearedCount(void);
+// specialvar: TRUE while the required Artisan Cave quest locks the shop.
+bool16 IsFrontierPOSDown(void);
 
 // gSpecialVar_0x8004 = FACILITY_GAUNTLET_* this mat represents in.
 // IsFacilityRunActiveForGauntlet: TRUE if a run is active AND it's for

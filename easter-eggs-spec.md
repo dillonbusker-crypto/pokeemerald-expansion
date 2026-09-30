@@ -326,3 +326,33 @@ covers `FOREACH_TM`, which has no HM moves.)
 | 5 | Buying it (or already having one) puts FLOTSAM on the tree's old tile - the only way down to the water. He betrays the player: a singles battle, Frontier rules, heal-and-retry on a loss (`TRAINER_FRONTIER_FLOTSAM`: Crobat, Alolan Muk, Crawdaunt, Kingdra, Weavile, **Mega Sharpedo** - the player's first Mega encounter, before they have the Mega Ring). |
 | 6 | Beaten, he sneers that SCOTT bans HMs so the player can't Surf, clocks the L menu, and bolts - dropping 300 FP. Latios and Latias only appear from this step on. |
 | 7 | Caught. LOOKER: FLOTSAM was caught leaving the Frontier with every POKéMON wiped out - who beat him? |
+
+---
+
+## Revision: the quest is required, and the shop is down (built)
+
+**Gauntlet 4 stays locked until a Latias or Latios is caught.** While the
+quest is required and unfinished (gauntlet 3 cleared, `FLAG_ARTISAN_LATI_CAUGHT`
+unset), `IsFrontierPOSDown()` is TRUE: the island's "POS system is down".
+
+- **The economy is exact.** Clearing gauntlet 3 pays 900 FP (six pool wins at
+  75, plus 450 for the boss). The quest costs exactly that: a LEAFEON (300) and
+  the Broker's MASTER BALL (now **600**). Every other FP sink is shut so the
+  player can't spend themselves into a soft lock:
+  - **Exchange Corner:** every keeper says the POS is down. The Pokémon keeper
+    mentions one LEAFEON that "keeps showing up" (you probably don't want
+    it), and sells it for 300 FP once the florist has asked for one
+    (`FLAG_FRONTIER_FLORIST_ASKED`).
+  - **The Broker:** regular deals are off; only the MASTER BALL "under the
+    counter".
+  - **Lounge 7 move tutors:** closed ("the FP registers are down").
+  - **Gauntlet 4's attendant:** the mat is closed, with a hint toward the
+    PALACE, where the Old Woman's rumor leads to FLOTSAM.
+- **Surf can't soft-lock either.** Once FLOTSAM is beaten (step 6) the Pokémon
+  keeper's system is "partly back up" and sells only the four level-up SURF
+  learners: Slowbro and Slowking (150), Tentacruel (200), Milotic (400).
+  FLOTSAM's dropped 300 FP covers the cheaper three.
+- **FLOTSAM is gauntlet 3 strength:** every species and item buyable by then
+  (Crawdaunt's Life Orb became a Muscle Band), with Mega Sharpedo as the one
+  deliberate exception.
+- Catching the Lati turns the system back on everywhere.

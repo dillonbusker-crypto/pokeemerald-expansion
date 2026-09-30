@@ -73,7 +73,35 @@
       "dest_warp_id": "1"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 8,
+      "y": 48,
+      "elevation": 0,
+      "var": "VAR_TEMP_4",
+      "var_value": "0",
+      "script": "ArtisanCave_B1F_EventScript_StayInCave"
+    },
+    {
+      "type": "trigger",
+      "x": 37,
+      "y": 5,
+      "elevation": 0,
+      "var": "VAR_TEMP_4",
+      "var_value": "0",
+      "script": "ArtisanCave_B1F_EventScript_StayInCave"
+    },
+    {
+      "type": "trigger",
+      "x": 38,
+      "y": 6,
+      "elevation": 0,
+      "var": "VAR_TEMP_4",
+      "var_value": "0",
+      "script": "ArtisanCave_B1F_EventScript_StayInCave"
+    }
+  ],
   "bg_events": [
     {
       "type": "hidden_item",
