@@ -381,9 +381,11 @@ OldaleTown_Text_ThisIsAPokemonMart:
 	.string "a promotional item.$"
 
 OldaleTown_Text_PotionExplanation:
-	.string "A POTION can be used anytime, so it's\n"
-	.string "even more useful than a POKéMON CENTER\l"
-	.string "in certain situations.$"
+	.string "Honestly, nobody buys POTIONS\n"
+	.string "anymore. Not since those DEVON\l"
+	.string "POKéNAVs started healing POKéMON\l"
+	.string "after every battle.\p"
+	.string "Here, have one on the house.$"
 
 OldaleTown_Text_WaitDontComeInHere:
 	.string "Aaaaah! Wait!\n"

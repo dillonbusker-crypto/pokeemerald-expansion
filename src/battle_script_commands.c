@@ -1,4 +1,5 @@
 #include "global.h"
+#include "facility.h"
 #include "battle.h"
 #include "battle_hold_effects.h"
 #include "battle_message.h"
@@ -2105,7 +2106,9 @@ FEATURE_FLAG_ASSERT(I_EXP_SHARE_FLAG, YouNeedToSetTheExpShareFlagToAnUnusedFlag)
 
 static bool32 BattleTypeAllowsExp(void)
 {
-    if (TESTING_DISABLE_EXP_GAIN) // see include/config/battle.h
+    // Ten Gauntlets: no Experience until the badges are real (see
+    // FrontierStoryAllowsExp() in src/facility.c).
+    if (!FrontierStoryAllowsExp())
         return FALSE;
     if (RECORDED_WILD_BATTLE)
         return TRUE;
@@ -2265,6 +2268,12 @@ static void Cmd_getexp(void)
             if ((holdEffect != HOLD_EFFECT_EXP_SHARE && !wasSentOut && !IsGen6ExpShareEnabled())
              || GetMonData(&gParties[B_TRAINER_PLAYER][*expMonId], MON_DATA_SPECIES_OR_EGG) == SPECIES_EGG)
             {
+                gBattleScripting.getexpState = 5;
+                gBattleStruct->battlerExpReward = 0;
+            }
+            else if (IsFrontierChippedMon(&gParties[B_TRAINER_PLAYER][*expMonId]))
+            {
+                // Ten Gauntlets: a shard chip takes this Pokemon's growth.
                 gBattleScripting.getexpState = 5;
                 gBattleStruct->battlerExpReward = 0;
             }

@@ -15183,6 +15183,25 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_GoGoggles,
     },
 
+    // Ten Gauntlets: FLOTSAM's device, handed over by LOOKER (storyline.md).
+    // Scrambles every PokeNav's auto-heal in a short radius. A story prop:
+    // the player can't use it, and story battles only mention it.
+    [ITEM_SCRAMBLER] =
+    {
+        .name = ITEM_NAME("Scrambler"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "Jams the auto-heal\n"
+            "of every PokéNav\n"
+            "close by."),
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .iconPic = gItemIcon_DevonScope,
+        .iconPalette = gItemIconPalette_DevonScope,
+    },
+
     [ITEM_DEVON_SCOPE] =
     {
         .name = ITEM_NAME("Devon Scope"),

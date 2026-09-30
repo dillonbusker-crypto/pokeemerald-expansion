@@ -3939,6 +3939,16 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_USE_ITEM:
+                    // Ten Gauntlets: fight-only battle - see FLAG_FIGHT_ONLY_BATTLE.
+                    if (FlagGet(FLAG_FIGHT_ONLY_BATTLE))
+                    {
+                        RecordedBattle_ClearBattlerAction(battler, 1);
+                        gSelectionBattleScripts[battler] = BattleScript_ActionSelectionFightOnly;
+                        gBattleCommunication[battler] = STATE_SELECTION_SCRIPT;
+                        gBattleStruct->battlerState[battler].selectionScriptFinished = FALSE;
+                        gBattleStruct->stateIdAfterSelScript[battler] = STATE_BEFORE_ACTION_CHOSEN;
+                        return;
+                    }
                     if (ShouldBattleRestrictionsApply(battler) && !IsAllowedToUseBag())
                     {
                         RecordedBattle_ClearBattlerAction(battler, 1);
@@ -3971,6 +3981,16 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_SWITCH:
+                    // Ten Gauntlets: fight-only battle - see FLAG_FIGHT_ONLY_BATTLE.
+                    if (FlagGet(FLAG_FIGHT_ONLY_BATTLE))
+                    {
+                        RecordedBattle_ClearBattlerAction(battler, 1);
+                        gSelectionBattleScripts[battler] = BattleScript_ActionSelectionFightOnly;
+                        gBattleCommunication[battler] = STATE_SELECTION_SCRIPT;
+                        gBattleStruct->battlerState[battler].selectionScriptFinished = FALSE;
+                        gBattleStruct->stateIdAfterSelScript[battler] = STATE_BEFORE_ACTION_CHOSEN;
+                        return;
+                    }
                     gBattleStruct->battlerPartyIndexes[battler] = gBattlerPartyIndexes[battler];
                     if (gBattleTypeFlags & BATTLE_TYPE_ARENA
                         || gBattleStruct->battlerState[battler].commanderSpecies != SPECIES_NONE
@@ -4057,10 +4077,10 @@ static void HandleTurnActionSelectionState(void)
                     break;
                 }
 
-                if (FlagGet(FLAG_CATCH_ONLY_BATTLE) && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)
+                if ((FlagGet(FLAG_CATCH_ONLY_BATTLE) || FlagGet(FLAG_FIGHT_ONLY_BATTLE)) && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)
                 {
-                    // Ten Gauntlets: catch-only battle - see FLAG_CATCH_ONLY_BATTLE.
-                    gSelectionBattleScripts[battler] = BattleScript_ActionSelectionCatchOnly;
+                    // Ten Gauntlets: catch-only / fight-only battle - see the flags.
+                    gSelectionBattleScripts[battler] = FlagGet(FLAG_CATCH_ONLY_BATTLE) ? BattleScript_ActionSelectionCatchOnly : BattleScript_ActionSelectionFightOnly;
                     gBattleCommunication[battler] = STATE_SELECTION_SCRIPT;
                     gBattleStruct->battlerState[battler].selectionScriptFinished = FALSE;
                     gBattleStruct->stateIdAfterSelScript[battler] = STATE_BEFORE_ACTION_CHOSEN;

@@ -60,10 +60,13 @@
 // Ten Gauntlets: set around the Latios/Latias battle - Fight and Run are refused
 // ("catch-only"). A temp flag, so a white-out or any map change clears it.
 #define FLAG_CATCH_ONLY_BATTLE    FLAG_TEMP_9
+// Ten Gauntlets: set around STEVEN's gauntlet 4 test - Bag, switching and Run
+// are refused ("fight-only"). A temp flag, like the one above.
+#define FLAG_FIGHT_ONLY_BATTLE    FLAG_TEMP_A
 #define FLAG_FRONTIER_FLORIST_ASKED    0x26 // Ten Gauntlets: the florist has asked for a LEAFEON (unlocks buying one while the shop is down)
-#define FLAG_UNUSED_0x027    0x27 // Unused Flag
-#define FLAG_UNUSED_0x028    0x28 // Unused Flag
-#define FLAG_UNUSED_0x029    0x29 // Unused Flag
+#define FLAG_REAL_BADGES    0x27 // Ten Gauntlets: STEVEN swapped the counterfeit badges for real ones (gauntlet 4) - Experience can flow again
+#define FLAG_FRONTIER_FIRST_PATIENT    0x28 // Ten Gauntlets: the Frontier nurse has had her first patient in a long time
+#define FLAG_STEVEN_HAS_LATIOS    0x29 // Ten Gauntlets: STEVEN is keeping a LATIOS (clear: a LATIAS) until before gauntlet 10
 #define FLAG_UNUSED_0x02A    0x2A // Unused Flag
 #define FLAG_UNUSED_0x02B    0x2B // Unused Flag
 #define FLAG_UNUSED_0x02C    0x2C // Unused Flag

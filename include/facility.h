@@ -3,6 +3,8 @@
 
 #include "constants/facility.h"
 
+struct Pokemon;
+
 // The shared "is a run active" check. Every mid-run restriction (L-menu, PC,
 // shop) and the BATTLE_TYPE_BATTLE_TOWER-on-facility-battles hook in
 // src/battle_setup.c go through this single function - see run-loop-spec.md.
@@ -47,6 +49,9 @@ void GetFacilityRunGauntlet(void);
 u16 GetGauntletsClearedCount(void);
 // specialvar: TRUE while the required Artisan Cave quest locks the shop.
 bool16 IsFrontierPOSDown(void);
+// The story's Experience rule - see src/facility.c.
+bool32 FrontierStoryAllowsExp(void);
+bool32 IsFrontierChippedMon(struct Pokemon *mon);
 
 // gSpecialVar_0x8004 = FACILITY_GAUNTLET_* this mat represents in.
 // IsFacilityRunActiveForGauntlet: TRUE if a run is active AND it's for

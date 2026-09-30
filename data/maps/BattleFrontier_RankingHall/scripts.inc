@@ -8,9 +8,16 @@ BattleFrontier_RankingHall_MapScripts::
 @ cleared gauntlet 2 before this existed still finds him.
 BattleFrontier_RankingHall_OnTransition:
 	setflag FLAG_TEMP_1
-	goto_if_ge VAR_STEVEN_STORY_STATE, 2, BattleFrontier_RankingHall_EventScript_NoSteven
 	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_STEVEN_STORY_STATE, 3, BattleFrontier_RankingHall_EventScript_NoSteven
+	goto_if_eq VAR_STEVEN_STORY_STATE, 2, BattleFrontier_RankingHall_EventScript_StevenBackAfterG4
 	goto_if_lt VAR_RESULT, 2, BattleFrontier_RankingHall_EventScript_NoSteven
+	clearflag FLAG_TEMP_1
+	end
+
+@ Back after gauntlet 4 (VAR_STEVEN_STORY_STATE 2 -> 3).
+BattleFrontier_RankingHall_EventScript_StevenBackAfterG4:
+	goto_if_lt VAR_RESULT, 4, BattleFrontier_RankingHall_EventScript_NoSteven
 	clearflag FLAG_TEMP_1
 BattleFrontier_RankingHall_EventScript_NoSteven:
 	end
@@ -18,10 +25,17 @@ BattleFrontier_RankingHall_EventScript_NoSteven:
 BattleFrontier_RankingHall_EventScript_Steven::
 	lock
 	faceplayer
+	goto_if_eq VAR_STEVEN_STORY_STATE, 2, BattleFrontier_RankingHall_EventScript_StevenG4
 	msgbox BattleFrontier_RankingHall_Text_StevenIntro, MSGBOX_DEFAULT
 	msgbox BattleFrontier_RankingHall_Text_StevenAsksBadges, MSGBOX_DEFAULT
 	msgbox BattleFrontier_RankingHall_Text_ShowedBadges, MSGBOX_DEFAULT
 	msgbox BattleFrontier_RankingHall_Text_StevenCounterfeit, MSGBOX_DEFAULT
+	msgbox BattleFrontier_RankingHall_Text_StevenTakesRainBadge, MSGBOX_DEFAULT
+	playse SE_PIN
+	message BattleFrontier_RankingHall_Text_GaveRainBadge
+	waitmessage
+	waitbuttonpress
+	clearflag FLAG_BADGE08_GET
 	closemessage
 	turnobject LOCALID_RANKING_HALL_STEVEN, DIR_EAST
 	delay 30
@@ -31,6 +45,8 @@ BattleFrontier_RankingHall_EventScript_Steven::
 	msgbox BattleFrontier_RankingHall_Text_StevenGift, MSGBOX_DEFAULT
 	giveitem ITEM_EVIOLITE
 	msgbox BattleFrontier_RankingHall_Text_StevenFavor, MSGBOX_DEFAULT
+	msgbox BattleFrontier_RankingHall_Text_StevenAsksHelp, MSGBOX_DEFAULT
+	msgbox BattleFrontier_RankingHall_Text_AgreedToHelp, MSGBOX_DEFAULT
 	closemessage
 	setvar VAR_STEVEN_STORY_STATE, 2
 	fadescreen FADE_TO_BLACK
@@ -433,3 +449,182 @@ BattleFrontier_RankingHall_Text_StevenFavor:
 	.string "get to the top, the more SCOTT\l"
 	.string "will have to show his hand.\p"
 	.string "I'll be around.$"
+
+@ Ten Gauntlets: STEVEN after gauntlet 4 (storyline.md). He confirms the
+@ shards, swaps the counterfeit badges for real ones (FLAG_REAL_BADGES, which
+@ lets Experience flow - see FrontierStoryAllowsExp()), looks at the
+@ SCRAMBLER, and tests the one Pokemon without a chip: the Latias or Latios
+@ from Artisan Cave, which must lead the party. It battles a wild ARON with
+@ no Bag, switching or running (FLAG_FIGHT_ONLY_BATTLE) and gains Experience.
+@ Then he takes it for safekeeping - a Pokemon growing past 50 on SCOTT's
+@ island would give the game away - and gives a METAGROSS @ METAGROSSITE,
+@ bought from the Broker. The trade isn't a choice.
+BattleFrontier_RankingHall_EventScript_StevenG4::
+	goto_if_set FLAG_REAL_BADGES, BattleFrontier_RankingHall_EventScript_StevenG4Test
+	msgbox BattleFrontier_RankingHall_Text_StevenG4Confirm, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_BADGE
+	message BattleFrontier_RankingHall_Text_GotRealBadges
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	setflag FLAG_BADGE08_GET
+	setflag FLAG_REAL_BADGES
+	checkitem ITEM_SCRAMBLER
+	call_if_eq VAR_RESULT, TRUE, BattleFrontier_RankingHall_EventScript_StevenSeesScrambler
+	msgbox BattleFrontier_RankingHall_Text_StevenNoticesLati, MSGBOX_DEFAULT
+BattleFrontier_RankingHall_EventScript_StevenG4Test::
+	setvar VAR_0x8004, 0
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_eq VAR_RESULT, SPECIES_LATIAS, BattleFrontier_RankingHall_EventScript_StevenG4Battle
+	goto_if_eq VAR_RESULT, SPECIES_LATIOS, BattleFrontier_RankingHall_EventScript_StevenG4Battle
+	msgbox BattleFrontier_RankingHall_Text_StevenLatiInFront, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_RankingHall_EventScript_StevenG4Battle::
+	copyvar VAR_TEMP_1, VAR_RESULT
+	bufferspeciesname STR_VAR_1, VAR_TEMP_1
+	msgbox BattleFrontier_RankingHall_Text_StevenTestBattle, MSGBOX_DEFAULT
+	closemessage
+	special HealPlayerParty
+	setflag FLAG_FIGHT_ONLY_BATTLE
+	setwildbattle SPECIES_ARON, 10
+	dowildbattle
+	clearflag FLAG_FIGHT_ONLY_BATTLE
+	msgbox BattleFrontier_RankingHall_Text_StevenTestResult, MSGBOX_DEFAULT
+	msgbox BattleFrontier_RankingHall_Text_StevenTrade, MSGBOX_DEFAULT
+	setvar VAR_0x8004, 0
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	call_if_eq VAR_RESULT, SPECIES_LATIOS, BattleFrontier_RankingHall_EventScript_StevenKeepsLatios
+	special FrontierFloristTakeMon
+	message BattleFrontier_RankingHall_Text_HandedOverLati
+	waitmessage
+	waitbuttonpress
+	givemon SPECIES_METAGROSS, 50, ITEM_METAGROSSITE
+	playfanfare MUS_OBTAIN_ITEM
+	message BattleFrontier_RankingHall_Text_ReceivedMetagross
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	bufferspeciesname STR_VAR_1, VAR_TEMP_1
+	msgbox BattleFrontier_RankingHall_Text_StevenG4Goodbye, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_STEVEN_STORY_STATE, 3
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_RANKING_HALL_STEVEN
+	fadescreen FADE_FROM_BLACK
+	release
+	end
+
+BattleFrontier_RankingHall_EventScript_StevenKeepsLatios::
+	setflag FLAG_STEVEN_HAS_LATIOS
+	return
+
+BattleFrontier_RankingHall_EventScript_StevenSeesScrambler::
+	msgbox BattleFrontier_RankingHall_Text_StevenScrambler, MSGBOX_DEFAULT
+	return
+
+BattleFrontier_RankingHall_Text_StevenTakesRainBadge:
+	.string "STEVEN: May I borrow one of these?\n"
+	.string "I'd like to study it properly.\p"
+	.string "This one. The RAIN BADGE... JUAN's\n"
+	.string "own badge, from SOOTOPOLIS.\l"
+	.string "Fitting.$"
+
+BattleFrontier_RankingHall_Text_GaveRainBadge:
+	.string "{PLAYER} handed the RAIN BADGE to\n"
+	.string "STEVEN.$"
+
+BattleFrontier_RankingHall_Text_StevenAsksHelp:
+	.string "STEVEN: {PLAYER}... I could use\n"
+	.string "someone on the inside. Someone\l"
+	.string "SCOTT is watching, who can keep an\l"
+	.string "eye on him in return.\p"
+	.string "Will you work with me?$"
+
+BattleFrontier_RankingHall_Text_AgreedToHelp:
+	.string "{PLAYER} agreed to work with\n"
+	.string "STEVEN.$"
+
+BattleFrontier_RankingHall_Text_StevenG4Confirm:
+	.string "STEVEN: {PLAYER}. I was right.\p"
+	.string "There are KEY STONE shards in the\n"
+	.string "alloy. And while I carried your\l"
+	.string "RAIN BADGE, my own POKéMON stopped\l"
+	.string "gaining Experience. Not one point.\p"
+	.string "Those badges are feeding on your\n"
+	.string "POKéMON's growth.\p"
+	.string "So they're going. WALLACE pulled\n"
+	.string "some strings with the GYMS.\l"
+	.string "Here... the real ones.$"
+
+BattleFrontier_RankingHall_Text_GotRealBadges:
+	.string "{PLAYER}'s BADGES were replaced\n"
+	.string "with real ones!$"
+
+BattleFrontier_RankingHall_Text_StevenScrambler:
+	.string "STEVEN: And LOOKER's device... a\n"
+	.string "SCRAMBLER. It jams the PokéNav's\l"
+	.string "auto-heal.\p"
+	.string "That's DEVON technology. I'd know\n"
+	.string "it anywhere. I'll look into how\l"
+	.string "FLOTSAM got his hands on one.$"
+
+BattleFrontier_RankingHall_Text_StevenNoticesLati:
+	.string "STEVEN: Now... your LATIAS or\n"
+	.string "LATIOS. It came from the wild, not\l"
+	.string "from SCOTT.\p"
+	.string "I want to test something.$"
+
+BattleFrontier_RankingHall_Text_StevenLatiInFront:
+	.string "STEVEN: Put your LATIAS or LATIOS\n"
+	.string "at the front of your party, then\l"
+	.string "come and see me.$"
+
+BattleFrontier_RankingHall_Text_StevenTestBattle:
+	.string "STEVEN: I caught this ARON on my\n"
+	.string "way here. Battle it with your\l"
+	.string "{STR_VAR_1}, and don't hold back.\p"
+	.string "Let me patch your team up first.$"
+
+BattleFrontier_RankingHall_Text_StevenTestResult:
+	.string "STEVEN: Did you see? It gained\n"
+	.string "Experience!\p"
+	.string "The badges were holding it back.\n"
+	.string "And yet the rest of your POKéMON\l"
+	.string "still won't grow, even with real\l"
+	.string "badges...\p"
+	.string "Something else is holding them\n"
+	.string "back. WALLACE and I will find out\l"
+	.string "what.$"
+
+BattleFrontier_RankingHall_Text_StevenTrade:
+	.string "STEVEN: But this worries me. A\n"
+	.string "POKéMON climbing past level 50 on\l"
+	.string "SCOTT's island is exactly what\l"
+	.string "would make him suspicious.\p"
+	.string "You need to keep beating the\n"
+	.string "gauntlets as if nothing has\l"
+	.string "changed.\p"
+	.string "So I'll keep your {STR_VAR_1}\n"
+	.string "somewhere safe. In exchange, take\l"
+	.string "this. My own edge, for you.\p"
+	.string "I bought it from the BROKER, so\n"
+	.string "nothing leads back to SCOTT's\l"
+	.string "shop.$"
+
+BattleFrontier_RankingHall_Text_HandedOverLati:
+	.string "{PLAYER} handed the {STR_VAR_1} over\n"
+	.string "to STEVEN.$"
+
+BattleFrontier_RankingHall_Text_ReceivedMetagross:
+	.string "{PLAYER} received a METAGROSS\n"
+	.string "holding a METAGROSSITE!$"
+
+BattleFrontier_RankingHall_Text_StevenG4Goodbye:
+	.string "STEVEN: With that MEGA RING,\n"
+	.string "METAGROSS can Mega Evolve. Use it\l"
+	.string "well.\p"
+	.string "Keep climbing, {PLAYER}. I'll look\n"
+	.string "after your {STR_VAR_1} until the\l"
+	.string "time is right.$"

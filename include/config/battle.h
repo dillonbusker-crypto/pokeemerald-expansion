@@ -1,23 +1,6 @@
 #ifndef GUARD_CONFIG_BATTLE_H
 #define GUARD_CONFIG_BATTLE_H
 
-// ============================================================================
-// TEMPORARY — Building 1 boss playtest harness. See CLAUDE.md.
-// No equivalent on/off switch exists elsewhere in this file, so this gates a
-// direct patch in the exp code instead: TESTING_DISABLE_EXP_GAIN ->
-// BattleTypeAllowsExp() in src/battle_script_commands.c always returns
-// FALSE, so no Pokémon can level up mid-fight and skew the test.
-// Set back to FALSE (or delete this block and the one call site it gates)
-// once the boss is tuned and this harness is torn out.
-//
-// TESTING_DISABLE_OBEDIENCE, which used to live here, was reverted for good:
-// the player now receives all 8 badges at starter receipt (see
-// CB2_GiveStarter in src/battle_setup.c), so real obedience checks in
-// GetAttackerObedienceForAction() (src/battle_util.c) already pass at level
-// 50 without a test shim.
-#define TESTING_DISABLE_EXP_GAIN    TRUE
-// ============================================================================
-
 // Calculation settings
 #define B_CRIT_CHANCE               GEN_LATEST // Chances of landing a critical hit. See CalcCritChanceStage. Gen6+ chances guarantee a crit at 3 or more stages. Gen1 chances are based on half of the user's base Speed.
 #define B_CRIT_MULTIPLIER           GEN_LATEST // In Gen6+, critical hits increase damage by 1.5x instead of 2x.

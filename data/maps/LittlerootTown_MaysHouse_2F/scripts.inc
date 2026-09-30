@@ -9,6 +9,7 @@ LittlerootTown_MaysHouse_2F_OnTransition:
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 4, PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet
 	call SecretBase_EventScript_SetDecorationFlags
 	setvar VAR_SECRET_BASE_INITIALIZED, 0
+	call_if_ge VAR_LITTLEROOT_RIVAL_STATE, 4, LittlerootTown_MaysHouse_2F_EventScript_PlaceRival
 	end
 
 LittlerootTown_MaysHouse_2F_EventScript_CheckShouldUpdateMayPos::
@@ -235,6 +236,7 @@ LittlerootTown_MaysHouse_2F_Movement_PlayerWatchMayEast:
 
 RivalsHouse_2F_EventScript_Rival::
 	lockall
+	goto_if_set FLAG_FRONTIER_RIVAL_REMATCH_DONE, RivalsHouse_2F_EventScript_RivalAfterRematch
 	goto_if_set FLAG_MET_RIVAL_LILYCOVE, RivalsHouse_2F_EventScript_RivalPostLilycove
 	checkplayergender
 	goto_if_eq VAR_RESULT, MALE, RivalsHouse_2F_EventScript_May
@@ -394,3 +396,47 @@ RivalsHouse_2F_Text_BrendanWhereShouldIGoNext:
 	.string "Hey, {PLAYER}, if I see you while I'm out\n"
 	.string "catching POKéMON, I can pitch you a\l"
 	.string "battle if you'd like.$"
+
+@ Ten Gauntlets: after the lab scene the rival is off at the Frontier, waiting
+@ at the Battle Tower door. Once the player has beaten them there, they're
+@ back home training. Only in the rival's own house (the other gender's).
+LittlerootTown_MaysHouse_2F_EventScript_PlaceRival::
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_BEDROOM
+	goto_if_unset FLAG_FRONTIER_RIVAL_REMATCH_DONE, Common_EventScript_NopReturn
+	checkplayergender
+	goto_if_ne VAR_RESULT, MALE, Common_EventScript_NopReturn
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_RIVAL_BEDROOM
+	return
+
+@ Ten Gauntlets: home after losing the rematch outside the Battle Tower.
+RivalsHouse_2F_EventScript_RivalAfterRematch::
+	checkplayergender
+	goto_if_eq VAR_RESULT, FEMALE, RivalsHouse_2F_EventScript_BrendanAfterRematch
+	msgbox RivalsHouse_2F_Text_MayAfterRematch, MSGBOX_DEFAULT
+	releaseall
+	end
+
+RivalsHouse_2F_EventScript_BrendanAfterRematch::
+	msgbox RivalsHouse_2F_Text_BrendanAfterRematch, MSGBOX_DEFAULT
+	releaseall
+	end
+
+RivalsHouse_2F_Text_MayAfterRematch:
+	.string "MAY: ...Don't look at me like\n"
+	.string "that. I lost fair and square this\l"
+	.string "time.\p"
+	.string "So I'm training. Properly.\p"
+	.string "And {PLAYER}{KUN}? Something's off with\n"
+	.string "my dad. He won't talk to me about\l"
+	.string "it. If you hear anything at the\l"
+	.string "FRONTIER... tell me.$"
+
+RivalsHouse_2F_Text_BrendanAfterRematch:
+	.string "BRENDAN: ...Yeah, yeah. You won.\n"
+	.string "Fair and square.\p"
+	.string "So I'm training. Properly this\n"
+	.string "time.\p"
+	.string "And {PLAYER}? Something's up with\n"
+	.string "my dad. He won't tell me anything.\l"
+	.string "If you hear something at the\l"
+	.string "FRONTIER... let me know.$"

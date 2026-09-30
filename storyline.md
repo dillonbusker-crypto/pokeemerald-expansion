@@ -229,15 +229,15 @@ EXP**, and follows the player to Sky Pillar.
 | Opening | Birch's lab: the level 50 starter, the L menu, the badges, the ticket. Mom foreshadows: "Your father is going to be upset." The Route 103 "sham" battle. | ✅ |
 | Arrival | Scott hands over five more Pokémon at his house, and bans HMs. The rival blocks the Tower demanding a fair rematch. | ✅ |
 | Gauntlet 1 (Winona) | **Norman.** A commotion at the Doubles mat; his argument with Scott; Norman tests the player in doubles and warns them about Scott. | ✅ |
-| Gauntlet 2 (Juan) | **Steven.** Juan's apology to Wallace. Steven in the Hall of Ten: counterfeit badges, a shard in the alloy, and the Mega Stone plaque. He **takes the 8th badge back with him to study**: the Rain Badge, Juan's own badge from Sootopolis. **The player agrees to work with Steven.** | ✅ 🔧 |
-| Gauntlet 3 (Roxanne) | **Flotsam and the Eon Duo.** The florist, the tree, the Broker's Master Ball, Flotsam's betrayal **with the Scrambler** (Mega Sharpedo), Surf by level-up, the cave. **Looker gives the player the Scrambler.** Now **required**: gauntlet 4 stays locked until a Latias or Latios is caught. | ✅ 🔧 |
+| Gauntlet 2 (Juan) | **Steven.** Juan's apology to Wallace. Steven in the Hall of Ten: counterfeit badges, a shard in the alloy, and the Mega Stone plaque. He **takes the 8th badge back with him to study**: the Rain Badge, Juan's own badge from Sootopolis. **The player agrees to work with Steven.** | ✅ |
+| Gauntlet 3 (Roxanne) | **Flotsam and the Eon Duo.** The florist, the tree, the Broker's Master Ball, Flotsam's betrayal **with the Scrambler** (Mega Sharpedo), Surf by level-up, the cave. **Looker gives the player the Scrambler.** Now **required**: gauntlet 4 stays locked until a Latias or Latios is caught. | ✅ |
 | After the catch | A rumor NPC: "I heard something crying out in that cave one night… and then nothing." That's the other Lati, taken by Scott. | 📝 |
-| Gauntlet 4 (Anabel) | **Steven returns.** See below. | 📝 |
+| Gauntlet 4 (Anabel) | **Steven returns.** See below. | ✅ |
 | Gauntlets 5–8 | Beats to design, building toward Devon and the Crown. Ideas: Scott's first cold reaction to the player; NPCs noticing their Pokémon "seem tired lately"; the rival and Birch's confession. | 📝 ❓ |
 | Before gauntlet 10 | **Steven gives the Lati back**, with its Mega Stone (Latiasite or Latiosite). This close to the end, the risk of Scott noticing is worth the edge. It can gain Experience again, since the player's badges are real and it has no chip. | 📝 |
 | Gauntlet 10 (Brandon) | **The Mega Pillar is fully charged.** | 📝 |
 
-### After gauntlet 4: Steven's test 📝
+### After gauntlet 4: Steven's test ✅
 
 Steven comes back, in the Hall of Ten.
 
@@ -441,11 +441,11 @@ happy ending.
 | What | Change |
 |---|---|
 | Scott's house | Six Poké Balls on a shelf → **one Master Ball on a pedestal**; "A replica. For show." |
-| Flotsam's betrayal | Add the Scrambler line |
-| Looker | Gives the player the Scrambler (Steven should look at it; the player mentions meeting him) |
-| Steven after gauntlet 2 | Also takes the 8th badge (the Rain Badge) to study, and the player agrees to work with him. Mechanically this clears `FLAG_BADGE08_GET`. With seven badges, obedience holds up to level 70, so level 50 Pokémon are unaffected. |
-| Gauntlet 4 attendant | Refuses until the Artisan Cave quest is done (a Latias or Latios caught: `FLAG_ARTISAN_LATI_CAUGHT`). The quest's text should make clear it's the way forward. |
-| Pokémon Center nurse | "Out of work" grumble, plus the "first patient in a long time" line after a white-out |
+| Flotsam's betrayal | ✅ The Scrambler line; a real battle (no heal on a win, a white-out on a loss) |
+| Looker | ✅ Gives the player the Scrambler (a key item, not usable) |
+| Steven after gauntlet 2 | ✅ Also takes the 8th badge (the Rain Badge) to study, and the player agrees to work with him. Mechanically this clears `FLAG_BADGE08_GET`. With seven badges, obedience holds up to level 70, so level 50 Pokémon are unaffected. |
+| Gauntlet 4 attendant | ✅ Refuses until the Artisan Cave quest is done (a Latias or Latios caught: `FLAG_ARTISAN_LATI_CAUGHT`). The quest's text should make clear it's the way forward. |
+| Pokémon Center nurse | ✅ "First patient in a long time" after the first white-out. 📝 The "out of work" grumble on a normal visit. |
 | Auto-heal lore | The PokéNav (Devon) heals, not the badges. Update any line that says otherwise. |
 | The eleventh plaque | Stays; it's now the face of the Mega Pillar |
 | Hall of Ten after gauntlet 10 | Rewrite: the "SCOTT — Undefeated" reveal doesn't fit the new ending |

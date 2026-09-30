@@ -422,3 +422,22 @@ Route103_Text_FrontierFerryNoTicket:
 
 Route103_Text_FrontierFerrySailAnotherTime:
 	.string "All right. Come back when you're ready.$"
+
+@ Ten Gauntlets: a wall of current across the sea at x = 42 keeps the player
+@ from surfing east to Route 110 and the rest of Hoenn (checked: every route
+@ east crosses this column; the southern water toward OLDALE stays open).
+@ Pushes the player back west.
+Route103_EventScript_EastCurrent::
+	lockall
+	msgbox Route103_Text_EastCurrent, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYER, Common_Movement_WalkLeft
+	waitmovement 0
+	releaseall
+	end
+
+Route103_Text_EastCurrent:
+	.string "The current is too strong to go\n"
+	.string "any further east.\p"
+	.string "The FRONTIER ferry is the only\n"
+	.string "safe way across these waters.$"

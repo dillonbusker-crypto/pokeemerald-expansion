@@ -9,6 +9,7 @@ LittlerootTown_BrendansHouse_2F_OnTransition:
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 4, PlayersHouse_2F_EventScript_BlockStairsUntilClockIsSet
 	call SecretBase_EventScript_SetDecorationFlags
 	setvar VAR_SECRET_BASE_INITIALIZED, 0
+	call_if_ge VAR_LITTLEROOT_RIVAL_STATE, 4, LittlerootTown_BrendansHouse_2F_EventScript_PlaceRival
 	end
 
 LittlerootTown_BrendansHouse_2F_EventScript_CheckShouldUpdateBrendanPos::
@@ -299,3 +300,14 @@ PlayersHouse_2F_Text_ItsAGameCube:
 	.string "It's a Nintendo GameCube.\p"
 	.string "A Game Boy Advance is connected to\n"
 	.string "serve as the Controller.$"
+
+@ Ten Gauntlets: after the lab scene the rival is off at the Frontier, waiting
+@ at the Battle Tower door. Once the player has beaten them there, they're
+@ back home training. Only in the rival's own house (the other gender's).
+LittlerootTown_BrendansHouse_2F_EventScript_PlaceRival::
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_BEDROOM
+	goto_if_unset FLAG_FRONTIER_RIVAL_REMATCH_DONE, Common_EventScript_NopReturn
+	checkplayergender
+	goto_if_ne VAR_RESULT, FEMALE, Common_EventScript_NopReturn
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_BEDROOM
+	return

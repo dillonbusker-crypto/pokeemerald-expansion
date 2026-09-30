@@ -44,10 +44,10 @@ OldaleTown_PokemonCenter_1F_Text_TrainersCanUsePC:
 	.string "to use it, too.$"
 
 OldaleTown_PokemonCenter_1F_Text_PokemonCentersAreGreat:
-	.string "POKéMON CENTERS are great!\p"
-	.string "You can use their services as much\n"
-	.string "as you like, and it's all for free.\l"
-	.string "You never have to worry!$"
+	.string "Nobody comes to POKéMON CENTERS\n"
+	.string "anymore. My POKéNAV heals my\l"
+	.string "POKéMON after every battle!\p"
+	.string "DEVON really thinks of everything.$"
 
 OldaleTown_PokemonCenter_1F_Text_WirelessClubNotAvailable:
 	.string "The POKéMON WIRELESS CLUB on\n"

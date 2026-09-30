@@ -24,6 +24,7 @@
 #include "strings.h"
 #include "string_util.h"
 #include "constants/flags.h"
+#include "constants/region_map_sections.h"
 #include "constants/trainers.h"
 
 #define FACILITY_MAX_POOL_SIZE 12
@@ -361,6 +362,23 @@ void GetFacilityRunGauntlet(void)
 // gauntlet 4's mat all close, so the 900 FP from clearing gauntlet 3 can only
 // go on the quest (a LEAFEON, 300, and the Broker's MASTER BALL, 600) and the
 // player can't spend themselves into a soft lock.
+// The story's Experience rule (storyline.md). The counterfeit badges take
+// every Pokemon's growth, so nothing gains Experience until STEVEN swaps them
+// for real ones after gauntlet 4 (FLAG_REAL_BADGES). Even then, every Pokemon
+// that came from the Frontier - the shop, SCOTT, BIRCH's starter - carries a
+// shard chip, and stays frozen. The only one without a chip is the Latias or
+// Latios caught wild in Artisan Cave, which is exactly how STEVEN proves it.
+// (The New Mauville overclock will lift the chip rule later.)
+bool32 FrontierStoryAllowsExp(void)
+{
+    return FlagGet(FLAG_REAL_BADGES);
+}
+
+bool32 IsFrontierChippedMon(struct Pokemon *mon)
+{
+    return GetMonData(mon, MON_DATA_MET_LOCATION) != MAPSEC_ARTISAN_CAVE;
+}
+
 bool16 IsFrontierPOSDown(void)
 {
     return GetGauntletsClearedCount() >= 3 && !FlagGet(FLAG_ARTISAN_LATI_CAUGHT);

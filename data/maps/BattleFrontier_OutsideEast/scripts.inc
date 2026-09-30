@@ -22,6 +22,7 @@ BattleFrontier_OutsideEast_OnTransition:
 	setflag FLAG_TEMP_6
 	call_if_eq VAR_ARTISAN_QUEST_STEP, 5, BattleFrontier_OutsideEast_EventScript_ShowFlotsamAtWaterfall
 	call BattleFrontier_OutsideEast_EventScript_RemoveHMs
+	setrespawn HEAL_LOCATION_BATTLE_FRONTIER_OUTSIDE_EAST
 	call BattleFrontier_OutsideEast_EventScript_SetupRival
 	setflag FLAG_TEMP_5
 	call_if_eq VAR_NORMAN_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_ShowNorman
@@ -313,19 +314,17 @@ BattleFrontier_OutsideEast_EventScript_FlotsamFindBroker::
 	release
 	end
 
-@ Step 5: FLOTSAM turns on the player at the waterfall. Frontier rules
-@ (IsFrontierStoryTrainer()); a loss heals and lets the player try again.
+@ Step 5: FLOTSAM turns on the player at the waterfall, with the SCRAMBLER
+@ jamming both PokeNavs' auto-heal. It's a real battle (storyline.md): no heal
+@ after a win - the player can visit Nurse Joy - and a loss is a real white-
+@ out back to the Frontier's Pokemon Center. Frontier rules otherwise
+@ (IsFrontierStoryTrainer()).
 BattleFrontier_OutsideEast_EventScript_FlotsamBetrayal::
 	lock
 	faceplayer
-	special SaveFacilityHeldItems
 	msgbox BattleFrontier_OutsideEast_Text_FlotsamBetrayal, MSGBOX_DEFAULT
 	closemessage
-	trainerbattle_earlyrival TRAINER_FRONTIER_FLOTSAM, RIVAL_BATTLE_HEAL_AFTER, BattleFrontier_OutsideEast_Text_FlotsamDefeated, BattleFrontier_OutsideEast_Text_FlotsamWon
-	copyvar VAR_TEMP_5, VAR_RESULT
-	special RestoreFacilityHeldItems
-	goto_if_eq VAR_TEMP_5, TRUE, BattleFrontier_OutsideEast_EventScript_FlotsamPlayerLost
-	special HealPlayerParty
+	trainerbattle_no_intro TRAINER_FRONTIER_FLOTSAM, BattleFrontier_OutsideEast_Text_FlotsamDefeated
 	msgbox BattleFrontier_OutsideEast_Text_FlotsamSore, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_FRONTIER_FLOTSAM_WATERFALL, BattleFrontier_OutsideEast_Movement_FlotsamFlees
@@ -340,11 +339,6 @@ BattleFrontier_OutsideEast_EventScript_FlotsamBetrayal::
 	waitmessage
 	waitfanfare
 	waitbuttonpress
-	release
-	end
-
-BattleFrontier_OutsideEast_EventScript_FlotsamPlayerLost::
-	msgbox BattleFrontier_OutsideEast_Text_FlotsamAgain, MSGBOX_DEFAULT
 	release
 	end
 
@@ -410,7 +404,20 @@ BattleFrontier_OutsideEast_EventScript_FloristThanks::
 	end
 
 BattleFrontier_OutsideEast_EventScript_Looker::
-	msgbox BattleFrontier_OutsideEast_Text_Looker, MSGBOX_NPC
+	lock
+	faceplayer
+	checkitem ITEM_SCRAMBLER
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideEast_EventScript_LookerAgain
+	msgbox BattleFrontier_OutsideEast_Text_Looker, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_LookerScrambler, MSGBOX_DEFAULT
+	giveitem ITEM_SCRAMBLER
+	msgbox BattleFrontier_OutsideEast_Text_LookerScramblerAfter, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_LookerAgain::
+	msgbox BattleFrontier_OutsideEast_Text_LookerAgain, MSGBOX_DEFAULT
+	release
 	end
 
 @ Ten Gauntlets: the Frontier Brains loiter outside their own facilities
@@ -1225,20 +1232,16 @@ BattleFrontier_OutsideEast_Text_FlotsamBetrayal:
 	.string "take that MASTER BALL, and I go\l"
 	.string "claim the prize in that cave. All\l"
 	.string "for myself.\p"
-	.string "Nothing personal, kid!$"
+	.string "And don't think you can just\n"
+	.string "auto-heal after this one, kid. See\l"
+	.string "this? It's a SCRAMBLER. Your\l"
+	.string "PokéNav's jammed. Mine too... but\l"
+	.string "who's counting?$"
 
 BattleFrontier_OutsideEast_Text_FlotsamDefeated:
 	.string "No... NO! Not to a kid!$"
 
-BattleFrontier_OutsideEast_Text_FlotsamWon:
-	.string "Heh. The MASTER BALL's as good as\n"
-	.string "mine.$"
 
-BattleFrontier_OutsideEast_Text_FlotsamAgain:
-	.string "FLOTSAM: Your POKéMON look healthy\n"
-	.string "enough to lose again.\p"
-	.string "Come back whenever you want to\n"
-	.string "hand over that MASTER BALL!$"
 
 BattleFrontier_OutsideEast_Text_FlotsamSore:
 	.string "FLOTSAM: I can't believe I lost to\n"
@@ -1306,3 +1309,27 @@ BattleFrontier_OutsideEast_Text_FloristThanks:
 	.string "lot of odd things in its time... I\l"
 	.string "hear there's a tree down by the\l"
 	.string "water that could use a drink.$"
+
+BattleFrontier_OutsideEast_Text_LookerScrambler:
+	.string "LOOKER: We also found this on him.\n"
+	.string "A device that jams the auto-heal\l"
+	.string "of every PokéNav nearby. A\l"
+	.string "SCRAMBLER, he called it.\p"
+	.string "I have never seen anything like\n"
+	.string "it. Someone who knows machines\l"
+	.string "ought to take a look... someone\l"
+	.string "like STEVEN STONE.\p"
+	.string "...You have met STEVEN? In the\n"
+	.string "HALL OF TEN? Magnifique! Then you\l"
+	.string "shall show it to him for me.$"
+
+BattleFrontier_OutsideEast_Text_LookerScramblerAfter:
+	.string "LOOKER: Keep it safe. And if\n"
+	.string "STEVEN learns anything... you know\l"
+	.string "where to find me.$"
+
+BattleFrontier_OutsideEast_Text_LookerAgain:
+	.string "LOOKER: FLOTSAM is in custody. But\n"
+	.string "the one who beat him... I still\l"
+	.string "wonder.\p"
+	.string "...Carry on.$"

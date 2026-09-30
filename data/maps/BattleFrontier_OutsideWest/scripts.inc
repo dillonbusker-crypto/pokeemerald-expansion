@@ -14,6 +14,9 @@ BattleFrontier_OutsideWest_OnTransition:
 	@ until it gives itself away (#4).
 	setflag FLAG_TEMP_3
 	special RemoveFrontierHMs
+	@ White-outs (the SCRAMBLER's story battles) land at the Frontier's
+	@ Pokemon Center, never back home in LITTLEROOT.
+	setrespawn HEAL_LOCATION_BATTLE_FRONTIER_OUTSIDE_EAST
 	call BattleFrontier_OutsideWest_EventScript_ArmMasterBallCheck
 	specialvar VAR_RESULT, GetGauntletsClearedCount
 	call_if_lt VAR_RESULT, 4, BattleFrontier_OutsideWest_EventScript_HideTucker

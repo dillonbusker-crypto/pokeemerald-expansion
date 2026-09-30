@@ -1134,6 +1134,12 @@ enum __attribute__((packed)) Item
     ITEM_BAXCALIBRITE = 871,
     ITEM_TATSUGIRINITE = 872,
     ITEM_GLIMMORANITE = 873,
+    // Ten Gauntlets: story key item (storyline.md). 940, not 874: TM101-166
+    // already use 874-939 (declared out of order above), and every ID at or
+    // past ITEMS_COUNT is treated as invalid (SanitizeItemId, item icons), so
+    // ITEMS_COUNT has to sit past all of them - which also stops
+    // ITEM_FIELD_ARROW from sharing TM101's ID.
+    ITEM_SCRAMBLER = 940,
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,

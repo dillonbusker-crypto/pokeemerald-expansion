@@ -5503,6 +5503,12 @@ BattleScript_ActionSelectionCatchOnly::
 	printselectionstring STRINGID_CATCHONLYBATTLE
 	endselectionscript
 
+@ Ten Gauntlets: FLAG_FIGHT_ONLY_BATTLE refuses Bag, switching and Run
+@ (STEVEN's gauntlet 4 test).
+BattleScript_ActionSelectionFightOnly::
+	printselectionstring STRINGID_FIGHTONLYBATTLE
+	endselectionscript
+
 BattleScript_ActionSelectionItemsCantBeUsed::
 	printselectionstring STRINGID_ITEMSCANTBEUSEDNOW
 	endselectionscript

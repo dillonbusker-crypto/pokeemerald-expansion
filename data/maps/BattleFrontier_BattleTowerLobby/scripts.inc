@@ -1915,6 +1915,10 @@ Facility_B2_StevenHook:
 	setvar VAR_STEVEN_STORY_STATE, 1
 	return
 
+Facility_B4_StevenHook:
+	msgbox Facility_B4_Text_StevenHook, MSGBOX_DEFAULT
+	return
+
 Facility_B1_Commotion:
 	msgbox Facility_B1_Text_Commotion, MSGBOX_DEFAULT
 	setvar VAR_NORMAN_STORY_STATE, 1
@@ -1998,6 +2002,7 @@ Facility_B4_GauntletComplete:
 	giveitem ITEM_MEGA_RING
 	call Common_EventScript_SaveGame
 	msgbox Facility_B4_Text_MegaStonesAndDome, MSGBOX_DEFAULT
+	call_if_eq VAR_STEVEN_STORY_STATE, 2, Facility_B4_StevenHook
 	call Facility_BrokerLoanNews
 	releaseall
 	end
@@ -2359,3 +2364,8 @@ Facility_B4_Text_POSDown:
 	.string "shady hanging around out past the\l"
 	.string "PALACE lately. I bet he knows\l"
 	.string "something about it.$"
+
+Facility_B4_Text_StevenHook:
+	.string "Oh, and that man in the suit is\n"
+	.string "back. He asked me to tell you he's\l"
+	.string "waiting in the HALL OF TEN again.$"

@@ -130,26 +130,21 @@ stop loading correctly. The raise to 1000 already required a New Game.
 
 ---
 
-## ⚠️ Temporary test-only patch — currently ON, must be reverted before shipping
+## Experience is a story rule, not a config switch
 
-One engine behavior is still hard-disabled so the gauntlet 1 boss test
-harness gives a clean read. No existing on/off switch for it anywhere else in
-the codebase, so it's a small, clearly-marked direct patch rather than a
-config flip:
+The old `TESTING_DISABLE_EXP_GAIN` test patch is gone. Experience now follows
+the story (`storyline.md`), in `FrontierStoryAllowsExp()` and
+`IsFrontierChippedMon()` (`src/facility.c`), called from
+`BattleTypeAllowsExp()` and the per-Pokémon step of the exp code
+(`src/battle_script_commands.c`):
 
-| | |
-|---|---|
-| Switch | `include/config/battle.h`, near the top: `TESTING_DISABLE_EXP_GAIN`, `TRUE` |
-| Exp gain | `BattleTypeAllowsExp()` in `src/battle_script_commands.c` — returns `FALSE` unconditionally when the flag is on, so no Pokémon can level up mid-fight and skew the test |
-
-**To revert:** flip the define to `FALSE`, or delete the config block and the
-one guarded `if` at the top of `BattleTypeAllowsExp()`. Additive, so removal
-is a clean, small diff.
-
-**Do not carry this into the real facility** without deciding on purpose
-whether the shipped game wants exp gain on or off — it was switched off
-purely so the boss tuning test isn't contaminated by mid-battle level-ups,
-not as a design decision for the shipped game.
+- **No Experience at all** until Steven swaps the counterfeit badges for real
+  ones after gauntlet 4 (`FLAG_REAL_BADGES`).
+- **Even then, "chipped" Pokémon never gain any.** A Pokémon counts as chipped
+  unless its met location is Artisan Cave, so only the wild-caught Latias or
+  Latios can grow. The New Mauville overclock (planned) lifts the chip rule.
+- Facility battles never give Experience anyway (vanilla excludes
+  `BATTLE_TYPE_FRONTIER`).
 
 **Obedience is no longer test-patched — this is now real, not a shim.**
 `TESTING_DISABLE_OBEDIENCE` has been removed entirely (was `GetAttackerObedienceForAction()`

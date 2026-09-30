@@ -52,8 +52,10 @@ OldaleTown_Mart_EventScript_Boy::
 	end
 
 OldaleTown_Mart_Text_PokeBallsAreSoldOut:
-	.string "The clerk says they're all sold out.\n"
-	.string "I can't buy any POKé BALLS.$"
+	.string "The clerk says a man in a suit\n"
+	.string "bought every single POKé BALL they\l"
+	.string "had.\p"
+	.string "Who needs that many?$"
 
 OldaleTown_Mart_Text_ImGoingToBuyPokeBalls:
 	.string "I'm going to buy a bunch of POKé BALLS\n"

@@ -518,6 +518,15 @@ LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedex::
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchExplainsLMenu, MSGBOX_DEFAULT
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_HeardYouBeatRivalTakePokedex, MSGBOX_DEFAULT
 	call LittlerootTown_ProfessorBirchsLab_EventScript_ReceivePokedex
+	@ Ten Gauntlets: the PokeNav's auto-heal (a DEVON feature) is what heals
+	@ the player between battles in the story (storyline.md), so they need one.
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchGivesPokenav, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message LittlerootTown_ProfessorBirchsLab_Text_ReceivedPokenav
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	setflag FLAG_SYS_POKENAV_GET
 	@ Ten Gauntlets: Birch finishes (badges, SCOTT, the ticket) before the
 	@ rival steps up for the last word, which sets up the rematch outside the
 	@ Battle Tower (BattleFrontier_OutsideEast_EventScript_Rival).
@@ -532,6 +541,9 @@ LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedex::
 	call_if_eq VAR_RESULT, MALE, LittlerootTown_ProfessorBirchsLab_EventScript_MayAnnouncesFivePokemon
 	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_ProfessorBirchsLab_EventScript_BrendanAnnouncesFivePokemon
 	setvar VAR_BIRCH_LAB_STATE, 5
+	@ Ten Gauntlets: the rival heads for the Frontier too (their rematch waits
+	@ at the Battle Tower door) - gone from the lab from here on.
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
 	setflag FLAG_ADVENTURE_STARTED
 	setvar VAR_OLDALE_TOWN_STATE, 1
 	setvar VAR_LITTLEROOT_RIVAL_STATE, 4
@@ -670,28 +682,24 @@ LittlerootTown_ProfessorBirchsLab_EventScript_ScottAboardSSTidalCall::
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchAwayOnFieldwork:
 	.string "Hunh? PROF. BIRCH?\p"
-	.string "The PROF's away on fieldwork.\n"
-	.string "Ergo, he isn't here.\p"
-	.string "Oh, let me explain what fieldwork is.\p"
-	.string "It is to study things in the natural\n"
-	.string "environment, like fields and mountains,\l"
-	.string "instead of a laboratory.\p"
-	.string "The PROF isn't one for doing desk work.\n"
-	.string "He's the type of person who would\l"
-	.string "rather go outside and experience\l"
-	.string "things than read about them here.$"
+	.string "He's gone to meet the sponsor\n"
+	.string "again. Ergo, he isn't here.\p"
+	.string "He used to go out on fieldwork. I\n"
+	.string "miss that.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchIsntOneForDeskWork:
-	.string "The PROF isn't one for doing desk work.\n"
-	.string "He's the type of person who would\l"
-	.string "rather go outside and experience\l"
-	.string "things than read about them here.$"
+	.string "The PROF never used to be one for\n"
+	.string "desk work. Now he won't leave that\l"
+	.string "machine.\p"
+	.string "I asked him once what it measures.\n"
+	.string "He just said, “Please don't ask.”$"
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchEnjoysRivalsHelpToo:
-	.string "PROF. BIRCH is studying the habitats\n"
-	.string "and distribution of POKéMON.\p"
-	.string "The PROF enjoys {RIVAL}'s help, too.\n"
-	.string "There's a lot of love there.$"
+	.string "PROF. BIRCH used to study the\n"
+	.string "habitats of wild POKéMON.\p"
+	.string "These days it's all this bond\n"
+	.string "research for our new sponsor. He\l"
+	.string "barely sleeps.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_LikeYouToHavePokemon:
 	.string "PROF. BIRCH: So, {PLAYER}{KUN}.\p"
@@ -741,12 +749,9 @@ LittlerootTown_ProfessorBirchsLab_Text_DontBeThatWay:
 	.string "You should go meet my kid.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_BirchRivalGoneHome:
-	.string "PROF. BIRCH: {RIVAL}?\n"
-	.string "Gone home, I think.\p"
-	.string "Or maybe that kid's scrabbling around\n"
-	.string "in tall grass again somewhere…\p"
-	.string "If you or your POKéMON get tired,\n"
-	.string "you should get some rest at home.$"
+	.string "PROF. BIRCH: {RIVAL}? Off at the\n"
+	.string "FRONTIER, I think.\p"
+	.string "...I do wish they'd stay home.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_MayDemandsAnswers:
 	.string "MAY: Dad! {PLAYER}{KUN}'s POKéMON is\n"
@@ -828,10 +833,12 @@ LittlerootTown_ProfessorBirchsLab_Text_BirchOffersFrontierChallenge:
 	.string "leaves from the dock on ROUTE 103.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_CountlessPokemonAwait:
-	.string "PROF. BIRCH: Countless POKéMON\n"
-	.string "await you!\p"
-	.string "Argh, I'm getting the itch to get out\n"
-	.string "and do fieldwork again!$"
+	.string "PROF. BIRCH: Oh... {PLAYER}{KUN}. How\n"
+	.string "are the gauntlets?\p"
+	.string "Good. That's good. Just... keep\n"
+	.string "winning, all right?\p"
+	.string "...Don't mind me. I haven't been\n"
+	.string "sleeping much.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_MayGotPokedexTooReceivingPokemon:
 	.string "MAY: Okay. Fine. I get it now.\p"
@@ -858,8 +865,9 @@ LittlerootTown_ProfessorBirchsLab_Text_BrendanWhereShouldIGoNext:
 	.string "POKéMON next…$"
 
 LittlerootTown_ProfessorBirchsLab_Text_SeriousLookingMachine:
-	.string "It's a serious-looking machine.\n"
-	.string "The PROF must use this for research.$"
+	.string "It's a serious-looking machine. A\n"
+	.string "sticker on the side reads:\l"
+	.string "PROPERTY OF DEVON CORPORATION.$"
 
 LittlerootTown_ProfessorBirchsLab_Text_PCUsedForResearch:
 	.string "It's a PC used for research.\n"
@@ -1048,3 +1056,15 @@ LittlerootTown_ProfessorBirchsLab_Text_ScottAboardSSTidalCall:
 	.string "we meet. I'll be waiting!\p"
 	.string "… … … … … …\n"
 	.string "… … … … … Click!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_BirchGivesPokenav:
+	.string "PROF. BIRCH: And this came\n"
+	.string "straight from DEVON: their newest\l"
+	.string "POKéNAV.\p"
+	.string "It heals your POKéMON after every\n"
+	.string "battle, all on its own. Every\l"
+	.string "TRAINER at the FRONTIER carries\l"
+	.string "one.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_ReceivedPokenav:
+	.string "{PLAYER} received the POKéNAV!$"
