@@ -882,11 +882,11 @@ BattleFrontier_BattlePalaceLobby_Text_G7Maniac:
 	.string "had.$"
 
 BattleFrontier_BattlePalaceLobby_Text_G7Man:
-	.string "The PALACE MAVEN saves his best\n"
-	.string "POKéMON for last.\p"
-	.string "And it only gets stronger with\n"
-	.string "every one it knocks out. Keep\l"
-	.string "something in reserve.$"
+	.string "The PALACE MAVEN doesn't hold\n"
+	.string "anything back.\p"
+	.string "I heard he has a legendary\n"
+	.string "POKéMON. A real one, from the old\l"
+	.string "stories.$"
 
 BattleFrontier_BattlePalaceLobby_Text_G7Beauty:
 	.string "I lost to a team where every\n"

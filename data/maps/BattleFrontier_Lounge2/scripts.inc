@@ -423,10 +423,10 @@ BattleFrontier_Lounge2_EventScript_FrontierManiac_Text10:
 
 BattleFrontier_Lounge2_EventScript_FrontierManiac_Text6:
 	.string "Howdy! The latest word?\p"
-	.string "The PALACE MAVEN, SPENSER, saves\n"
-	.string "his best for last. They say his\l"
-	.string "final POKéMON gets stronger with\l"
-	.string "every knockout.$"
+	.string "The PALACE MAVEN, SPENSER, brings\n"
+	.string "a legendary POKéMON to his\l"
+	.string "battles. Its sword alone is worth\l"
+	.string "fearing.$"
 
 BattleFrontier_Lounge2_EventScript_FrontierManiac_Text5:
 	.string "Howdy! The latest word?\p"

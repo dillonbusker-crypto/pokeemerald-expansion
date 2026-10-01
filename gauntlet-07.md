@@ -1053,109 +1053,103 @@ Sassy Nature
 
 ## Boss — Palace Maven Spenser
 
-**Pool:** gauntlet 8 plus everything prior, and one Mega the player can't own
-yet: **Mega Magearna** (700, Soul-Heart). Magearnite arrives in wave 7, so
-it's out of reach until Spenser falls.
+**Pool:** everything, with no theme and no cap: **the strongest singles team
+the game can field**. One box-art legendary, **Zacian** (Crowned, with the
+Rusted Sword), and one Mega the player can't own yet, **Mega Zeraora** (700,
+153 Speed): Zeraorite arrives in wave 7, after Spenser falls. Scott's
+legendaries (Rayquaza, Groudon, Kyogre, Mewtwo) stay his.
 
-**Gimmick: the more that falls, the stronger they get.** The Palace is about
-a Pokémon's heart, and so is this team. **Houndstone's Last Respects** gains
-50 power for every teammate already fainted, so it hits hardest late.
-**Mega Magearna** is held back as the ace and comes in last: **Soul-Heart**
-raises its Sp. Atk every time a Pokémon faints *while it's on the field*, so
-each of the player's Pokémon it knocks out makes it stronger. Spenser's
-signature Suicune holds the middle with Calm Mind.
+**Gimmick: everything, all at once.** Ting-Lu lays Stealth Rock and Spikes.
+Crowned Zacian (Intrepid Sword, +1 Attack on entry) Swords Dances and sweeps
+with Behemoth Blade. Mega Zeraora outspeeds almost anything. Chien-Pao's
+Sword of Ruin lowers the player's Defense for every physical hit. Great Tusk
+clears the player's hazards; Choice Specs Flutter Mane breaks special walls.
 
-**AI:** omniscient, proactive switching. **Ace flag on Magearna**
-(`AI_FLAG_ACE_POKEMON`, last party slot). Unlike Winona's Altaria or Tucker's
-Salamence, holding it back is the point: it arrives when the player's team is
-worn down and every knockout feeds it.
+**AI:** omniscient, proactive switching. No ace flag.
 
 ```
-Gliscor @ Toxic Orb
-Ability: Poison Heal
-EVs: 252 HP / 4 Atk / 252 Def
-Impish Nature
+Ting-Lu @ Leftovers
+Ability: Vessel of Ruin
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
 - Stealth Rock
-- Earthquake
-- Knock Off
-- Protect
+- Ruination
+- Whirlwind
+- Spikes
 
-Suicune @ Leftovers
-Ability: Pressure
-EVs: 252 HP / 252 Def / 4 SpA
-Bold Nature
-- Calm Mind
-- Scald
-- Ice Beam
-- Protect
+Zacian @ Rusted Sword
+Ability: Intrepid Sword
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Iron Head
+- Play Rough
+- Close Combat
+
+Zeraora @ Zeraorite
+Ability: Volt Absorb
+EVs: 252 Atk / 4 SpA / 252 Spe
+Jolly Nature
+- Plasma Fists
+- Close Combat
+- Knock Off
+- Volt Switch
+
+Flutter Mane @ Choice Specs
+Ability: Protosynthesis
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Moonblast
+- Shadow Ball
+- Mystical Fire
+- Thunderbolt
 
 Great Tusk @ Booster Energy
 Ability: Protosynthesis
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
-- Headlong Rush
-- Close Combat
-- Ice Spinner
 - Rapid Spin
+- Headlong Rush
+- Ice Spinner
+- Close Combat
 
-Dragonite @ Heavy-Duty Boots
-Ability: Multiscale
+Chien-Pao @ Focus Sash
+Ability: Sword of Ruin
 EVs: 252 Atk / 4 Def / 252 Spe
-Adamant Nature
-- Dragon Dance
-- Extreme Speed
-- Earthquake
-- Fire Punch
-
-Houndstone @ Choice Band
-Ability: Fluffy
-EVs: 252 HP / 252 Atk / 4 Def
-Adamant Nature
-- Last Respects
-- Shadow Sneak
-- Body Press
-- Play Rough
-
-Magearna @ Magearnite
-Ability: Soul-Heart
-EVs: 252 HP / 252 SpA / 4 SpD
-Modest Nature
-- Calm Mind
-- Fleur Cannon
-- Flash Cannon
-- Aura Sphere
-
+Jolly Nature
+- Swords Dance
+- Icicle Crash
+- Sucker Punch
+- Sacred Sword
 ```
+
+*(Zacian holds the Rusted Sword, so it becomes Crowned Zacian at the start of
+battle, and Iron Head becomes Behemoth Blade.)*
 
 ### The strategic dependency
 
-**Both closers feed on knockouts.** Houndstone's Last Respects is 50 power
-per fallen teammate: 250 by the time four are down, with Choice Band behind
-it. Then Magearna arrives last, and every one of the player's Pokémon it
-knocks out raises its Sp. Atk. Fleur Cannon's own Sp. Atk drop is paid back
-by the next faint.
+**Hazards in, then a sweep.** Ting-Lu's rocks and Spikes chip every switch;
+Great Tusk spins away the player's. Then Zacian, Mega Zeraora or Chien-Pao
+sets up or cleans, each faster or stronger than anything the player can
+normally field. Sword of Ruin makes every physical hit land harder.
 
-The fix is to **keep healthy answers in reserve** for the last two. A player
-who burns through their team breaking Gliscor, Suicune, Great Tusk and
-Dragonite meets a 250-power Last Respects and then a Magearna they can't
-stop. Suicune and Gliscor are there to make that hard: Suicune sets up while
-the player tries to break through, Gliscor sets rocks and wears the team
-down.
+The fix is to **stop the setup** (Taunt, phazing, Unaware, priority on the
+Focus Sash) and keep hazards off your side.
 
 ### Counterplay available at tier 7
 
-- **Fire and Ground for Magearna** (Steel/Fairy): Heatran (Air Balloon dodges
-  Gliscor and Great Tusk), Great Tusk, Landorus, Gouging Fire
-- **Dark and Ghost for Houndstone** (Ghost): Urshifu's Wicked Blow, Chien-Pao,
-  Roaring Moon, Dragapult. **Normal types** are immune to Last Respects and
-  Shadow Sneak. Psychic Terrain (Tapu Lele) blocks Shadow Sneak. Fluffy halves
-  contact damage but doubles Fire damage, so special Fire breaks it
-- **Taunt or Encore** stops Suicune's Calm Mind; Electric and Grass break it
-- **Ice for Gliscor and Dragonite**: Iron Bundle's Freeze-Dry, Baxcalibur.
-  Multiscale breaks to hazards or a multi-hit move
-- **Unaware** (Skeledirge, Dondozo) ignores every boost on the team
-- **Rocky Helmet and Rough Skin** punish Houndstone's and Great Tusk's contact
-  moves
+- **Fire and Ground for Zacian** (Fairy/Steel): Heatran (Air Balloon),
+  Gouging Fire, Great Tusk, Landorus. Unaware walls (Skeledirge, Dondozo)
+  ignore its Swords Dance
+- **Ground for Mega Zeraora**; it's frail (75/80 defences), so priority and
+  Scarf users finish it
+- **Fighting, Fire, Steel and Fairy for Chien-Pao**; Focus Sash breaks to
+  hazards or a multi-hit move
+- **Steel for Flutter Mane**: Gholdengo, Kingambit, Heatran
+- **Water, Grass and Ice for Ting-Lu**; Defog or Rapid Spin for its hazards.
+  **Ghost types** (Gholdengo, Dragapult, Flutter Mane) block Great Tusk's
+  Rapid Spin, so the player's own hazards stay up
+- **Taunt** stops Ting-Lu's hazards and Zacian's and Chien-Pao's Swords Dance
 
 ---
 
@@ -1220,11 +1214,12 @@ Impish Nature
 - U-turn
 ```
 
-**Against Spenser:** Heatran walls Magearna and breaks it with Magma Storm,
-and its Fire attacks punch through Houndstone's Fluffy; Urshifu's Wicked
-Blow removes Houndstone; Iron Bundle's Freeze-Dry handles
-Gliscor, Dragonite and Great Tusk; Raging Bolt beats Suicune; Corviknight
-Defogs Gliscor's rocks and walls Great Tusk. **Against the pool:** Corviknight
+**Against Spenser:** Heatran (Air Balloon) walls Zacian and Flutter Mane and
+breaks Zacian with Earth Power and Magma Storm; Urshifu's Close Combat and
+Wicked Blow remove Chien-Pao and Ting-Lu; Iron Bundle's Hydro Pump and
+Freeze-Dry handle Great Tusk and Ting-Lu; Mega Lucario's Extreme Speed
+finishes Mega Zeraora and breaks Chien-Pao's Focus Sash with Close Combat;
+Corviknight Defogs Ting-Lu's hazards. **Against the pool:** Corviknight
 answers B4's Ruin team and Group A's ground attackers, Lucario's Extreme
 Speed picks off B6's frail speed demons, and Heatran traps D11's stall walls.
 
@@ -1239,10 +1234,9 @@ Speed picks off B6's frail speed demons, and Heatran traps D11's stall walls.
    Shell is sold this wave; make sure the player has reason to know it.
 3. **Two Unaware walls (D11).** Stall against the AI can drag. If battles run
    too long, swap Dondozo for an attacker.
-4. **The boss's closers (Houndstone, then ace Magearna).** Check the ace flag
-   really holds Magearna to the end, and whether a 250-power Last Respects
-   followed by a snowballing Magearna is too much once the player is down to
-   two or three Pokémon.
+4. **The uncapped boss.** Crowned Zacian and Mega Zeraora are a deliberate
+   jump above the pool. Check it's beatable with wave 6 and earlier; the
+   counter-team above is the benchmark.
 5. **Booster Energy on pool teams (A3, B5).** It's sold this wave, so pool
    teams may carry it. Check the AI uses Raging Bolt and Flutter Mane's boosts
    sensibly.

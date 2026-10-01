@@ -23341,64 +23341,64 @@ Pic: Palace Maven Spenser
 Gender: Male
 Music: Male
 Double Battle: No
-AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient / Ace Pokemon
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 
-Gliscor @ Toxic Orb
-Ability: Poison Heal
+Ting-Lu @ Leftovers
+Ability: Vessel of Ruin
 Level: 50
-EVs: 252 HP / 4 Atk / 252 Def
-Impish Nature
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
 - Stealth Rock
-- Earthquake
-- Knock Off
-- Protect
+- Ruination
+- Whirlwind
+- Spikes
 
-Suicune @ Leftovers
-Ability: Pressure
+Zacian @ Rusted Sword
+Ability: Intrepid Sword
 Level: 50
-EVs: 252 HP / 252 Def / 4 SpA
-Bold Nature
-- Calm Mind
-- Scald
-- Ice Beam
-- Protect
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Iron Head
+- Play Rough
+- Close Combat
+
+Zeraora @ Zeraorite
+Ability: Volt Absorb
+Level: 50
+EVs: 252 Atk / 4 SpA / 252 Spe
+Jolly Nature
+- Plasma Fists
+- Close Combat
+- Knock Off
+- Volt Switch
+
+Flutter Mane @ Choice Specs
+Ability: Protosynthesis
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Moonblast
+- Shadow Ball
+- Mystical Fire
+- Thunderbolt
 
 Great Tusk @ Booster Energy
 Ability: Protosynthesis
 Level: 50
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
-- Headlong Rush
-- Close Combat
-- Ice Spinner
 - Rapid Spin
+- Headlong Rush
+- Ice Spinner
+- Close Combat
 
-Dragonite @ Heavy-Duty Boots
-Ability: Multiscale
+Chien-Pao @ Focus Sash
+Ability: Sword of Ruin
 Level: 50
 EVs: 252 Atk / 4 Def / 252 Spe
-Adamant Nature
-- Dragon Dance
-- Extreme Speed
-- Earthquake
-- Fire Punch
-
-Houndstone @ Choice Band
-Ability: Fluffy
-Level: 50
-EVs: 252 HP / 252 Atk / 4 Def
-Adamant Nature
-- Last Respects
-- Shadow Sneak
-- Body Press
-- Play Rough
-
-Magearna @ Magearnite
-Ability: Soul-Heart
-Level: 50
-EVs: 252 HP / 252 SpA / 4 SpD
-Modest Nature
-- Calm Mind
-- Fleur Cannon
-- Flash Cannon
-- Aura Sphere
+Jolly Nature
+- Swords Dance
+- Icicle Crash
+- Sucker Punch
+- Sacred Sword
