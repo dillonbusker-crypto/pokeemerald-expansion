@@ -18,6 +18,7 @@ BattleFrontier_Lounge3_EventScript_Gambler::
 	special FacilityBrokerCheck
 	goto_if_eq VAR_RESULT, BROKER_RUN_ACTIVE, BattleFrontier_Lounge3_EventScript_Broker_RunActive
 	copyvar VAR_TEMP_2, VAR_RESULT
+	call_if_ge VAR_STEVEN_STORY_STATE, 3, BattleFrontier_Lounge3_EventScript_Broker_StevenCameBy
 	call_if_eq VAR_ARTISAN_QUEST_STEP, 3, BattleFrontier_Lounge3_EventScript_Broker_FlotsamSentYou
 	call_if_eq VAR_ARTISAN_QUEST_STEP, 4, BattleFrontier_Lounge3_EventScript_Broker_CheckAlreadyHasBall
 	call BattleFrontier_Lounge3_EventScript_Broker_CheckMasterBall
@@ -28,6 +29,15 @@ BattleFrontier_Lounge3_EventScript_Gambler::
 	goto_if_eq VAR_TEMP_2, BROKER_DEAL_USED, BattleFrontier_Lounge3_EventScript_Broker_DealUsed
 	goto BattleFrontier_Lounge3_EventScript_Broker_NothingLeft
 	end
+
+@ Ten Gauntlets: once, after STEVEN's trade (gauntlet 4), the Broker
+@ mentions the METAGROSS STEVEN borrowed - the one now in the player's party,
+@ "BROKER" still on its papers (storyline.md).
+BattleFrontier_Lounge3_EventScript_Broker_StevenCameBy::
+	goto_if_set FLAG_BROKER_STEVEN_MENTION, Common_EventScript_NopReturn
+	msgbox BattleFrontier_Lounge3_Text_BrokerStevenCameBy, MSGBOX_DEFAULT
+	setflag FLAG_BROKER_STEVEN_MENTION
+	return
 
 @ While the Frontier's system is down (IsFrontierPOSDown), the Broker's
 @ regular deals are off too - only the MASTER BALL, so the player's FP can't
@@ -817,3 +827,22 @@ BattleFrontier_Lounge3_Text_BrokerPOSDownNothing:
 	.string "Not now, kid. I'm busy.\p"
 	.string "Come back when you've actually got\n"
 	.string "business with me.$"
+
+BattleFrontier_Lounge3_Text_BrokerStevenCameBy:
+	.string "Oh, it's you. STEVEN came by the\n"
+	.string "other day. Wanted to borrow a\l"
+	.string "METAGROSS.\p"
+	.string "...And now here it is in your\n"
+	.string "party, still with my name on its\l"
+	.string "papers. Figures.\p"
+	.string "Me and STEVEN go way back. Back\n"
+	.string "when folks still called me the\l"
+	.string "GAMBLER.\p"
+	.string "He put a heavy bet on himself\n"
+	.string "beating the BATTLE TOWER's BRAIN.\l"
+	.string "Wildest gamble I ever took.\p"
+	.string "Then he won. Paying up was not\n"
+	.string "fun, I'll tell you that.\p"
+	.string "But we've been friends ever since.\n"
+	.string "So keep it. Just don't go telling\l"
+	.string "anyone where it came from.$"

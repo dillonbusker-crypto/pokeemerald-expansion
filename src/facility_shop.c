@@ -45,6 +45,7 @@
 // ============================================================================
 
 #include "global.h"
+#include "random.h"
 #include "facility_shop.h"
 #include "battle_main.h"
 #include "event_data.h"
@@ -1666,6 +1667,11 @@ void FacilityBrokerBuildMonMenu(void)
     {
         for (i = 0; i < sMonTierSizes[tier] && count < BROKER_MAX_CANDIDATES; i++)
         {
+            // No Metagross on gauntlet 4 - STEVEN gives the player one right
+            // after it, and they mustn't see it coming. The normal shop
+            // still sells it from gauntlet 5 on.
+            if (wave == FACILITY_GAUNTLET_4 + 1 && sMonTiers[tier][i].species == SPECIES_METAGROSS)
+                continue;
             if (sMonTiers[tier][i].unlockGauntlet == wave)
                 candidates[count++] = &sMonTiers[tier][i];
         }
@@ -1721,3 +1727,76 @@ void FacilityBrokerSellMon(void)
         FacilityBrokerMarkDealUsed();
 }
 
+// STEVEN's METAGROSS (after gauntlet 4) was borrowed from the Broker, so it
+// carries his tag too. Called right after givemon: retags the last Pokemon in
+// the party. There's always room - STEVEN takes the Lati first.
+void FacilityTagLastPartyMonBroker(void)
+{
+    u8 metLocation = METLOC_IN_GAME_TRADE;
+    u8 otGender = MALE;
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][CalculatePlayerPartyCount() - 1];
+
+    SetMonData(mon, MON_DATA_OT_NAME, sText_BrokerOTName);
+    SetMonData(mon, MON_DATA_OT_GENDER, &otGender);
+    SetMonData(mon, MON_DATA_MET_LOCATION, &metLocation);
+}
+
+// ============================================================================
+// The Lounge 6 trader, the Broker's cousin (frontier-dialogue.md). Once per
+// gauntlet, for 200 FP, she trades one of the player's party Pokemon for a
+// random Pokemon from the next gauntlet's shop wave - the same stock the Broker draws from - and the
+// player doesn't know which until it's done. The traded-away Pokemon's held
+// item goes back to the bag. The new one is built like any shop Pokemon.
+// ============================================================================
+static u16 CollectTraderCandidates(const struct FacilityShopMon **candidates)
+{
+    u8 wave = BrokerNextWave();
+    u16 count = 0;
+    u32 tier, i;
+
+    for (tier = 0; tier < ARRAY_COUNT(sMonTiers); tier++)
+    {
+        for (i = 0; i < sMonTierSizes[tier] && count < BROKER_MAX_CANDIDATES; i++)
+        {
+            // No Metagross while the player is on gauntlet 4: STEVEN gives
+            // them one (with its Mega Stone) right after it.
+            if (wave == FACILITY_GAUNTLET_4 + 1 && sMonTiers[tier][i].species == SPECIES_METAGROSS)
+                continue;
+            if (sMonTiers[tier][i].unlockGauntlet == wave)
+                candidates[count++] = &sMonTiers[tier][i];
+        }
+    }
+    return count;
+}
+
+// specialvar: TRUE if the next gauntlet's wave has any Pokemon to trade for.
+u16 FacilityTraderHasStock(void)
+{
+    const struct FacilityShopMon *candidates[BROKER_MAX_CANDIDATES];
+    return CollectTraderCandidates(candidates) != 0;
+}
+
+// gSpecialVar_0x8004 = party slot. Replaces that Pokemon in place (party size
+// unchanged). gStringVar1 = the traded-away Pokemon's nickname, gStringVar2 =
+// the new species' name. gSpecialVar_Result = the new species, or
+// SPECIES_NONE if there was nothing to trade for.
+void FacilityTraderTrade(void)
+{
+    const struct FacilityShopMon *candidates[BROKER_MAX_CANDIDATES];
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004];
+    u16 count = CollectTraderCandidates(candidates);
+    u16 species, item;
+
+    gSpecialVar_Result = SPECIES_NONE;
+    if (count == 0)
+        return;
+    species = candidates[Random() % count]->species;
+    item = GetMonData(mon, MON_DATA_HELD_ITEM);
+    if (item != ITEM_NONE)
+        AddBagItem(item, 1);
+    GetMonData(mon, MON_DATA_NICKNAME, gStringVar1);
+    StringGet_Nickname(gStringVar1);
+    StringCopy(gStringVar2, GetSpeciesName(species));
+    CreateShopMon(mon, species);
+    gSpecialVar_Result = species;
+}

@@ -600,6 +600,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_OfferLeafeon::
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_POSDownGoodbye
 	setvar VAR_0x8008, 300
 	setvar VAR_0x8009, SPECIES_LEAFEON
+	bufferspeciesname STR_VAR_1, VAR_0x8009
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_POSDownBuy
 	end
 
@@ -645,7 +646,11 @@ BattleFrontier_ExchangeServiceCorner_EventScript_StockMilotic::
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_POSDownConfirm
 	end
 
+@ Every message below prints {STR_VAR_1}, so the species name has to be
+@ buffered here - the normal shop menu does it when a row is picked, but this
+@ path doesn't go through that menu (it showed a stale name otherwise).
 BattleFrontier_ExchangeServiceCorner_EventScript_POSDownConfirm::
+	bufferspeciesname STR_VAR_1, VAR_0x8009
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmPurchase, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_POSDownGoodbye
 @ VAR_0x8008 = price, VAR_0x8009 = species.

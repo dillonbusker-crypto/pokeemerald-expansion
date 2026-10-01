@@ -457,6 +457,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "BattleFrontier_OutsideEast_EventScript_FlotsamBetrayal",
       "flag": "FLAG_TEMP_6"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_SCOTT",
+      "graphics_id": "OBJ_EVENT_GFX_SCOTT",
+      "x": 8,
+      "y": 15,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_TEMP_7"
     }
   ],
   "warp_events": [
@@ -559,7 +573,17 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 16,
+      "y": 15,
+      "elevation": 0,
+      "var": "VAR_TEMP_6",
+      "var_value": "0",
+      "script": "BattleFrontier_OutsideEast_EventScript_ScottCaveWarning"
+    }
+  ],
   "bg_events": [
     {
       "type": "sign",

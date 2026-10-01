@@ -426,6 +426,12 @@ void RemoveFrontierHMs(void)
 // Pokemon in slot gSpecialVar_0x8004 and closes the gap.
 void FrontierFloristTakeMon(void)
 {
+    u16 item = GetMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004], MON_DATA_HELD_ITEM);
+
+    // Whatever it's holding (a Leafeon's item, the Lati's Soul Dew...) stays
+    // with the player.
+    if (item != ITEM_NONE)
+        AddBagItem(item, 1);
     ZeroMonData(&gParties[B_TRAINER_PLAYER][gSpecialVar_0x8004]);
     CompactPartySlots();
     CalculatePlayerPartyCount();

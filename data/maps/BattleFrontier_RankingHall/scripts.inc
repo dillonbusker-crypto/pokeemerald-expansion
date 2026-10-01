@@ -458,7 +458,7 @@ BattleFrontier_RankingHall_Text_StevenFavor:
 @ no Bag, switching or running (FLAG_FIGHT_ONLY_BATTLE) and gains Experience.
 @ Then he takes it for safekeeping - a Pokemon growing past 50 on SCOTT's
 @ island would give the game away - and gives a METAGROSS @ METAGROSSITE,
-@ bought from the Broker. The trade isn't a choice.
+@ borrowed from the Broker to test (it doesn't grow either: it's chipped). The trade isn't a choice.
 BattleFrontier_RankingHall_EventScript_StevenG4::
 	goto_if_set FLAG_REAL_BADGES, BattleFrontier_RankingHall_EventScript_StevenG4Test
 	msgbox BattleFrontier_RankingHall_Text_StevenG4Confirm, MSGBOX_DEFAULT
@@ -501,6 +501,7 @@ BattleFrontier_RankingHall_EventScript_StevenG4Battle::
 	waitmessage
 	waitbuttonpress
 	givemon SPECIES_METAGROSS, 50, ITEM_METAGROSSITE
+	special FacilityTagLastPartyMonBroker
 	playfanfare MUS_OBTAIN_ITEM
 	message BattleFrontier_RankingHall_Text_ReceivedMetagross
 	waitmessage
@@ -590,28 +591,40 @@ BattleFrontier_RankingHall_Text_StevenTestBattle:
 BattleFrontier_RankingHall_Text_StevenTestResult:
 	.string "STEVEN: Did you see? It gained\n"
 	.string "Experience!\p"
-	.string "The badges were holding it back.\n"
-	.string "And yet the rest of your POKéMON\l"
-	.string "still won't grow, even with real\l"
-	.string "badges...\p"
-	.string "Something else is holding them\n"
-	.string "back. WALLACE and I will find out\l"
-	.string "what.$"
+	.string "So it was the badges. With them\n"
+	.string "gone, your {STR_VAR_1} can grow. It\l"
+	.string "was caught in the wild, so nothing\l"
+	.string "else is holding it back.\p"
+	.string "But I don't think the badges are\n"
+	.string "the whole story. Something's wrong\l"
+	.string "with the POKéMON from the FRONTIER\l"
+	.string "shop too.\p"
+	.string "I borrowed a METAGROSS from the\n"
+	.string "BROKER to check. It didn't gain a\l"
+	.string "single point, even while I wasn't\l"
+	.string "carrying the badges.\p"
+	.string "WALLACE and I will find out why.$"
 
 BattleFrontier_RankingHall_Text_StevenTrade:
-	.string "STEVEN: But this worries me. A\n"
+	.string "STEVEN: For now, that METAGROSS\n"
+	.string "will be more use to you than it is\l"
+	.string "to me.\p"
+	.string "And your {STR_VAR_1} worries me. A\n"
 	.string "POKéMON climbing past level 50 on\l"
 	.string "SCOTT's island is exactly what\l"
 	.string "would make him suspicious.\p"
-	.string "You need to keep beating the\n"
-	.string "gauntlets as if nothing has\l"
-	.string "changed.\p"
-	.string "So I'll keep your {STR_VAR_1}\n"
-	.string "somewhere safe. In exchange, take\l"
-	.string "this. My own edge, for you.\p"
-	.string "I bought it from the BROKER, so\n"
-	.string "nothing leads back to SCOTT's\l"
-	.string "shop.$"
+	.string "It seems SCOTT has taken a special\n"
+	.string "interest in you, {PLAYER}. In you,\l"
+	.string "and in how far you get through his\l"
+	.string "gauntlets.\p"
+	.string "So for now, keep progressing. Keep\n"
+	.string "beating the gauntlets as if\l"
+	.string "nothing has changed, and we'll see\l"
+	.string "what he does next.\p"
+	.string "I'll hold on to your {STR_VAR_1}\n"
+	.string "for the time being. Take\l"
+	.string "METAGROSS, along with its MEGA\l"
+	.string "STONE.$"
 
 BattleFrontier_RankingHall_Text_HandedOverLati:
 	.string "{PLAYER} handed the {STR_VAR_1} over\n"

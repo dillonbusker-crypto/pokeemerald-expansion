@@ -1140,6 +1140,7 @@ enum __attribute__((packed)) Item
     // ITEMS_COUNT has to sit past all of them - which also stops
     // ITEM_FIELD_ARROW from sharing TM101's ID.
     ITEM_SCRAMBLER = 940,
+    ITEM_SECOND_WIND = 941, // Ten Gauntlets: one retry of a lost gauntlet battle, boss included (Lounge 7)
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,

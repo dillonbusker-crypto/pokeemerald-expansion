@@ -3883,7 +3883,9 @@ static void HandleTurnActionSelectionState(void)
                 {
                 case B_ACTION_USE_MOVE:
                     // Ten Gauntlets: catch-only battle - see FLAG_CATCH_ONLY_BATTLE.
-                    if (FlagGet(FLAG_CATCH_ONLY_BATTLE))
+                    // The player's side only: refusing the wild Pokemon's own
+                    // move would loop its action selection forever (a freeze).
+                    if (FlagGet(FLAG_CATCH_ONLY_BATTLE) && IsOnPlayerSide(battler))
                     {
                         RecordedBattle_ClearBattlerAction(battler, 1);
                         gSelectionBattleScripts[battler] = BattleScript_ActionSelectionCatchOnly;
@@ -3940,7 +3942,8 @@ static void HandleTurnActionSelectionState(void)
                     break;
                 case B_ACTION_USE_ITEM:
                     // Ten Gauntlets: fight-only battle - see FLAG_FIGHT_ONLY_BATTLE.
-                    if (FlagGet(FLAG_FIGHT_ONLY_BATTLE))
+                    // The player's side only, like the catch-only check.
+                    if (FlagGet(FLAG_FIGHT_ONLY_BATTLE) && IsOnPlayerSide(battler))
                     {
                         RecordedBattle_ClearBattlerAction(battler, 1);
                         gSelectionBattleScripts[battler] = BattleScript_ActionSelectionFightOnly;
@@ -3982,7 +3985,8 @@ static void HandleTurnActionSelectionState(void)
                     break;
                 case B_ACTION_SWITCH:
                     // Ten Gauntlets: fight-only battle - see FLAG_FIGHT_ONLY_BATTLE.
-                    if (FlagGet(FLAG_FIGHT_ONLY_BATTLE))
+                    // The player's side only, like the catch-only check.
+                    if (FlagGet(FLAG_FIGHT_ONLY_BATTLE) && IsOnPlayerSide(battler))
                     {
                         RecordedBattle_ClearBattlerAction(battler, 1);
                         gSelectionBattleScripts[battler] = BattleScript_ActionSelectionFightOnly;
@@ -4077,7 +4081,7 @@ static void HandleTurnActionSelectionState(void)
                     break;
                 }
 
-                if ((FlagGet(FLAG_CATCH_ONLY_BATTLE) || FlagGet(FLAG_FIGHT_ONLY_BATTLE)) && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)
+                if ((FlagGet(FLAG_CATCH_ONLY_BATTLE) || FlagGet(FLAG_FIGHT_ONLY_BATTLE)) && IsOnPlayerSide(battler) && gBattleResources->bufferB[battler][1] == B_ACTION_RUN)
                 {
                     // Ten Gauntlets: catch-only / fight-only battle - see the flags.
                     gSelectionBattleScripts[battler] = FlagGet(FLAG_CATCH_ONLY_BATTLE) ? BattleScript_ActionSelectionCatchOnly : BattleScript_ActionSelectionFightOnly;

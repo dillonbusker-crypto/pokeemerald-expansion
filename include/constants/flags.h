@@ -67,9 +67,9 @@
 #define FLAG_REAL_BADGES    0x27 // Ten Gauntlets: STEVEN swapped the counterfeit badges for real ones (gauntlet 4) - Experience can flow again
 #define FLAG_FRONTIER_FIRST_PATIENT    0x28 // Ten Gauntlets: the Frontier nurse has had her first patient in a long time
 #define FLAG_STEVEN_HAS_LATIOS    0x29 // Ten Gauntlets: STEVEN is keeping a LATIOS (clear: a LATIAS) until before gauntlet 10
-#define FLAG_UNUSED_0x02A    0x2A // Unused Flag
-#define FLAG_UNUSED_0x02B    0x2B // Unused Flag
-#define FLAG_UNUSED_0x02C    0x2C // Unused Flag
+#define FLAG_ARTISAN_SUITS_SEEN    0x2A // Ten Gauntlets: SCOTT's men in Artisan Cave have caught the player
+#define FLAG_SCOTT_CAVE_WARNING    0x2B // Ten Gauntlets: SCOTT has told the player about the ruckus in Artisan Cave
+#define FLAG_BROKER_STEVEN_MENTION    0x2C // Ten Gauntlets: the Broker has mentioned STEVEN borrowing his METAGROSS
 #define FLAG_UNUSED_0x02D    0x2D // Unused Flag
 #define FLAG_UNUSED_0x02E    0x2E // Unused Flag
 #define FLAG_UNUSED_0x02F    0x2F // Unused Flag

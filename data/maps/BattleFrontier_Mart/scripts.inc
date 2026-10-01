@@ -1,13 +1,12 @@
 BattleFrontier_Mart_MapScripts::
 	.byte 0
 
+@ Ten Gauntlets: the shelves are bare - men in suits bought up the stock
+@ (storyline.md). The vanilla pokemart list below is unreferenced now.
 BattleFrontier_Mart_EventScript_Clerk::
 	lock
 	faceplayer
-	message gText_HowMayIServeYou
-	waitmessage
-	pokemart BattleFrontier_Mart_Pokemart
-	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Mart_Text_BoughtOut, MSGBOX_DEFAULT
 	release
 	end
 
@@ -46,8 +45,12 @@ BattleFrontier_Mart_EventScript_Boy::
 BattleFrontier_Mart_Text_ChaperonGrandson:
 	.string "We came here to chaperon our\n"
 	.string "grandson.\p"
-	.string "But since we're here, we thought\n"
-	.string "we should get some souvenirs.$"
+	.string "We took him to a fortune-teller\n"
+	.string "out west, past the BATTLE DOME.\l"
+	.string "She told him every POKéMON the\l"
+	.string "boss would use!\p"
+	.string "200 FP, mind you. But he says it\n"
+	.string "was worth every point.$"
 
 BattleFrontier_Mart_Text_ProteinMakeNiceGift:
 	.string "Dear, what do you think of this?\n"
@@ -56,9 +59,22 @@ BattleFrontier_Mart_Text_ProteinMakeNiceGift:
 	.string "It sounds delicious, doesn't it?$"
 
 BattleFrontier_Mart_Text_FacilitiesDontAllowItems:
-	.string "BAG items don't work during a run.\n"
-	.string "Only what your POKéMON are\l"
-	.string "holding.\p"
-	.string "So why am I buying POTIONS?\n"
-	.string "…Habit.$"
+	.string "I came in to buy POTIONS out of\n"
+	.string "habit. BAG items don't even work\l"
+	.string "during a run.\p"
+	.string "...Doesn't matter. The shelves are\n"
+	.string "empty anyway.$"
 
+BattleFrontier_Mart_Text_BoughtOut:
+	.string "Welcome... I'm sorry, but we have\n"
+	.string "nothing to sell.\p"
+	.string "Some men in suits came in and\n"
+	.string "bought up all our stock. We\l"
+	.string "haven't had a delivery since.\p"
+	.string "If you need something, try the\n"
+	.string "EXCHANGE SERVICE CORNER.\p"
+	.string "...Though I hear some of our\n"
+	.string "missing deliveries turn up in the\l"
+	.string "hands of a man who sells things\l"
+	.string "before anyone else has them.\p"
+	.string "I didn't tell you that.$"

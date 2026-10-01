@@ -42,6 +42,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "BattleFrontier_ScottsHouse_EventScript_NormanScene",
       "flag": "FLAG_TEMP_1"
+    },
+    {
+      "local_id": "LOCALID_SCOTTS_HOUSE_MASTER_BALL",
+      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "x": 4,
+      "y": 2,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "BattleFrontier_ScottsHouse_EventScript_MasterBall",
+      "flag": "0"
     }
   ],
   "warp_events": [
@@ -107,14 +121,5 @@
       "script": "BattleFrontier_ScottsHouse_EventScript_NormanScene"
     }
   ],
-  "bg_events": [
-    {
-      "type": "sign",
-      "x": 4,
-      "y": 1,
-      "elevation": 0,
-      "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
-      "script": "BattleFrontier_ScottsHouse_EventScript_PokeBallShelf"
-    }
-  ]
+  "bg_events": []
 }

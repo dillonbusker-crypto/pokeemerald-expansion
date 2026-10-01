@@ -501,3 +501,154 @@ BattleFrontier_Lounge7_Text_TutorPOSDown:
 	.string "Sorry, dear. The FP registers are\n"
 	.string "down all over the island. I can't\l"
 	.string "take payment until they're fixed.$"
+
+@ Ten Gauntlets: the two former move tutors (storyline.md, broker-spec.md
+@ for the FP counter). Both close while the island's "POS is down" during the
+@ Artisan Cave quest (IsFrontierPOSDown).
+@
+@ The SECOND WIND seller: 300 FP for a key item that retries one lost
+@ battle in a run, boss included (Facility_Lost, Battle Tower lobby). One at a time.
+BattleFrontier_Lounge7_EventScript_SecondWindSeller::
+	lock
+	faceplayer
+	specialvar VAR_RESULT, IsFrontierPOSDown
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_Lounge7_EventScript_TutorPOSDown
+	checkitem ITEM_SECOND_WIND
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_Lounge7_EventScript_AlreadyHaveSecondWind
+	special ShowFacilityFPWindow
+	msgbox BattleFrontier_Lounge7_Text_OfferSecondWind, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge7_EventScript_LadyGoodbye
+	setvar VAR_0x8008, 300
+	special FacilityShopGetFP
+	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_Lounge7_EventScript_LadyNoFP
+	setvar VAR_0x8004, 300
+	special FacilityShopTakeFP
+	special UpdateFacilityFPWindow
+	playse SE_SHOP
+	giveitem ITEM_SECOND_WIND
+	msgbox BattleFrontier_Lounge7_Text_SecondWindBought, MSGBOX_DEFAULT
+	goto BattleFrontier_Lounge7_EventScript_LadyGoodbye
+	end
+
+BattleFrontier_Lounge7_EventScript_AlreadyHaveSecondWind::
+	msgbox BattleFrontier_Lounge7_Text_AlreadyHaveSecondWind, MSGBOX_DEFAULT
+	release
+	end
+
+@ The psychic: 200 FP to read the current gauntlet boss's team - species,
+@ held item and ability. Once paid, free repeats until that boss is beaten
+@ (VAR_PSYCHIC_READ_GAUNTLET holds the gauntlet she was paid for).
+BattleFrontier_Lounge7_EventScript_Psychic::
+	lock
+	faceplayer
+	specialvar VAR_RESULT, IsFrontierPOSDown
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_Lounge7_EventScript_TutorPOSDown
+	specialvar VAR_TEMP_1, FacilityPsychicGetBoss
+	goto_if_eq VAR_TEMP_1, 0, BattleFrontier_Lounge7_EventScript_PsychicNoBoss
+	goto_if_eq VAR_PSYCHIC_READ_GAUNTLET, VAR_TEMP_1, BattleFrontier_Lounge7_EventScript_PsychicFreeReading
+	special ShowFacilityFPWindow
+	msgbox BattleFrontier_Lounge7_Text_PsychicOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge7_EventScript_LadyGoodbye
+	setvar VAR_0x8008, 200
+	special FacilityShopGetFP
+	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_Lounge7_EventScript_LadyNoFP
+	setvar VAR_0x8004, 200
+	special FacilityShopTakeFP
+	special UpdateFacilityFPWindow
+	playse SE_SHOP
+	copyvar VAR_PSYCHIC_READ_GAUNTLET, VAR_TEMP_1
+	special CloseFacilityFPWindow
+	goto BattleFrontier_Lounge7_EventScript_PsychicReading
+	end
+
+BattleFrontier_Lounge7_EventScript_PsychicFreeReading::
+	msgbox BattleFrontier_Lounge7_Text_PsychicAgain, MSGBOX_DEFAULT
+BattleFrontier_Lounge7_EventScript_PsychicReading::
+	specialvar VAR_TEMP_1, FacilityPsychicGetBoss
+	msgbox BattleFrontier_Lounge7_Text_PsychicSees, MSGBOX_DEFAULT
+	setvar VAR_0x8004, 0
+BattleFrontier_Lounge7_EventScript_PsychicNextMon::
+	special FacilityPsychicGetBossMon
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_Lounge7_EventScript_PsychicDone
+	goto_if_eq VAR_0x8005, FALSE, BattleFrontier_Lounge7_EventScript_PsychicMonNoAbility
+	msgbox BattleFrontier_Lounge7_Text_PsychicMon, MSGBOX_DEFAULT
+	goto BattleFrontier_Lounge7_EventScript_PsychicAdvance
+	end
+
+BattleFrontier_Lounge7_EventScript_PsychicMonNoAbility::
+	msgbox BattleFrontier_Lounge7_Text_PsychicMonNoAbility, MSGBOX_DEFAULT
+BattleFrontier_Lounge7_EventScript_PsychicAdvance::
+	addvar VAR_0x8004, 1
+	goto BattleFrontier_Lounge7_EventScript_PsychicNextMon
+	end
+
+BattleFrontier_Lounge7_EventScript_PsychicDone::
+	msgbox BattleFrontier_Lounge7_Text_PsychicDone, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge7_EventScript_PsychicNoBoss::
+	msgbox BattleFrontier_Lounge7_Text_PsychicNoBoss, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge7_EventScript_LadyNoFP::
+	msgbox BattleFrontier_Lounge7_Text_LadyNoFP, MSGBOX_DEFAULT
+BattleFrontier_Lounge7_EventScript_LadyGoodbye::
+	special CloseFacilityFPWindow
+	release
+	end
+
+BattleFrontier_Lounge7_Text_OfferSecondWind:
+	.string "I was a nurse, once. Those\n"
+	.string "POKéNAVs heal a POKéMON's body\l"
+	.string "after a battle... but not its\l"
+	.string "spirit.\p"
+	.string "I can give you a SECOND WIND. Lose\n"
+	.string "a battle in a gauntlet, even\l"
+	.string "against the boss, and you'll get\l"
+	.string "one more try at it.\p"
+	.string "300 FP. Would you like one?$"
+
+BattleFrontier_Lounge7_Text_SecondWindBought:
+	.string "Keep it close. You'll know when\n"
+	.string "you need it.$"
+
+BattleFrontier_Lounge7_Text_AlreadyHaveSecondWind:
+	.string "You already have a SECOND WIND,\n"
+	.string "dear. One's all I can give you at\l"
+	.string "a time.$"
+
+BattleFrontier_Lounge7_Text_PsychicOffer:
+	.string "I see the one who waits at the end\n"
+	.string "of your gauntlet... {STR_VAR_1}.\p"
+	.string "For 200 FP, I will show you their\n"
+	.string "whole team. Once I have seen it, I\l"
+	.string "will repeat it for free, until\l"
+	.string "they fall.$"
+
+BattleFrontier_Lounge7_Text_PsychicAgain:
+	.string "The vision is still clear. Listen\n"
+	.string "well...$"
+
+BattleFrontier_Lounge7_Text_PsychicSees:
+	.string "{STR_VAR_1} will send out...$"
+
+BattleFrontier_Lounge7_Text_PsychicMon:
+	.string "{STR_VAR_1}, holding {STR_VAR_2}. Its\n"
+	.string "ability... {STR_VAR_3}.$"
+
+BattleFrontier_Lounge7_Text_PsychicMonNoAbility:
+	.string "{STR_VAR_1}, holding {STR_VAR_2}.$"
+
+BattleFrontier_Lounge7_Text_PsychicDone:
+	.string "...That is all I see. The rest is\n"
+	.string "up to you.$"
+
+BattleFrontier_Lounge7_Text_PsychicNoBoss:
+	.string "The path ahead is clouded... There\n"
+	.string "is no one left for me to see. Not\l"
+	.string "yet.$"
+
+BattleFrontier_Lounge7_Text_LadyNoFP:
+	.string "Oh dear. You don't have enough FP.$"

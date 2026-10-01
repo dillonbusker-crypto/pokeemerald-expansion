@@ -141,7 +141,7 @@ battles. This story explains why.
   To him, the perfect team is the most powerful Pokémon in existence. **Raw
   power, no balance.**
 
-**His house** 🔧: instead of six polished Poké Balls, a single **Master Ball
+**His house** ✅: instead of six polished Poké Balls, a single **Master Ball
 on a pedestal**. Examining it before the ending gets Scott's reply: "A
 replica. For show." It isn't. It's the ball he uses on Rayquaza.
 
@@ -252,20 +252,27 @@ Steven comes back, in the Hall of Ten.
    on their team that came from the wild, not from Scott. He releases a weak
    wild Pokémon he caught nearby, an **Aron**, and has the player battle it with
    the Lati. **The Lati gains Experience.** Theory confirmed: the badges were
-   holding it back, and nothing else is. Steven also notes the player's other
-   Pokémon still won't grow, even with real badges. Something else is holding
-   *them* back, which he'll chase down with Wallace (the chips, found at
-   Devon).
-5. **The worry.** A Lati that keeps growing would be a real edge through the
+   holding it back, and because it was caught wild, nothing else is. But
+   something is wrong with the **Frontier shop's Pokémon** too: Steven
+   **borrowed a Metagross from the Broker**, and it gained no Experience even
+   while he wasn't carrying the badges. He'll chase that down with Wallace
+   (the chips, found at Devon).
+5. **Lay low.** At this point the Metagross is more use to the player than to
+   him. And a Lati that keeps growing would be a real edge through the
    gauntlets, but a Pokémon climbing past level 50 on Scott's island is exactly
-   what would make him suspicious. Steven needs the player to **keep beating
-   gauntlets as if nothing has changed.**
-6. **The trade.** Steven takes the Lati for safekeeping, and gives the
-   player his own edge in exchange: a **Metagross holding a Metagrossite**,
-   bought from the Broker so nothing traces back to Scott's shop. It isn't a
+   what would make him suspicious. **Scott seems to have taken a special
+   interest in the player** and their progress through the gauntlets, so for
+   now Steven needs the player to **keep progressing as if nothing has
+   changed**, and see what Scott does next.
+6. **The trade.** Steven holds on to the Lati for the time being, and gives
+   the player the **Metagross, holding a Metagrossite** (OT "BROKER"). It isn't a
    choice. Steven is the most powerful trainer in Hoenn, and the player
    complies. Mega Metagross arrives just as the Mega Ring does (after gauntlet
    4), so it's usable right away.
+7. **The Broker, after.** The next time the player visits him, he mentions
+   Steven borrowing the Metagross, and their history: Steven once won the
+   wildest bet the Gambler ever took, on beating the Battle Tower's Brain
+   (`broker-spec.md`).
 
 **The player always has a Lati by now.** The Artisan Cave quest is required:
 gauntlet 4 stays locked until a Latias or Latios is caught.
@@ -440,10 +447,14 @@ happy ending.
 
 | What | Change |
 |---|---|
-| Scott's house | Six Poké Balls on a shelf → **one Master Ball on a pedestal**; "A replica. For show." |
+| Scott's house | ✅ **One Master Ball on a pedestal** (a grey stand against the back wall); "A replica. For show." |
 | Flotsam's betrayal | ✅ The Scrambler line; a real battle (no heal on a win, a white-out on a loss) |
 | Looker | ✅ Gives the player the Scrambler (a key item, not usable) |
+| Scott at the Tower door | ✅ After the Lati is caught, the next time the player steps up to the Battle Tower door, Scott walks in from off-screen: reports of a ruckus in Artisan Cave, he's sending men in to investigate, "You wouldn't know anything about that?" Then he walks off. Plays once (`FLAG_SCOTT_CAVE_WARNING`). |
+| Scott's men in the cave | ✅ Once Scott has sent them and the player has the Scrambler, two men in suits stand in Artisan Cave B1F. Getting close plays a one-time "Hey! You! FRONTIER personnel only." scene; after that they just say "Scram, kid." They stay until gauntlet 4 is cleared. |
+| Artisan Cave closed | ✅ After gauntlet 4, the cave entrance is blocked: "FRONTIER staff has closed the cave." |
 | Steven after gauntlet 2 | ✅ Also takes the 8th badge (the Rain Badge) to study, and the player agrees to work with him. Mechanically this clears `FLAG_BADGE08_GET`. With seven badges, obedience holds up to level 70, so level 50 Pokémon are unaffected. |
+| Gauntlet 3 mat | ✅ Stays shut until the player has met Steven in the Hall of Ten (`VAR_STEVEN_STORY_STATE` 2). The attendant: "He wants to see you in the HALL OF TEN before you go any further." |
 | Gauntlet 4 attendant | ✅ Refuses until the Artisan Cave quest is done (a Latias or Latios caught: `FLAG_ARTISAN_LATI_CAUGHT`). The quest's text should make clear it's the way forward. |
 | Pokémon Center nurse | ✅ "First patient in a long time" after the first white-out. 📝 The "out of work" grumble on a normal visit. |
 | Auto-heal lore | The PokéNav (Devon) heals, not the badges. Update any line that says otherwise. |
@@ -483,7 +494,7 @@ happy ending.
   Birch, which needs a marker on each such Pokémon.
 - **Steven's test battle** is a wild battle (a scripted Aron), so it costs no
   trainer ID.
-- **The required quest costs exactly what gauntlet 3 pays (900 FP):** a
+- **The required quest costs 900 FP of the 1,200 gauntlet 3 pays:** a
   Leafeon (300) and the Master Ball (600). ✅ Built: while the quest is
   unfinished, the island's "POS is down" and every other FP sink is closed
   (see `easter-eggs-spec.md`).

@@ -335,10 +335,11 @@ covers `FOREACH_TM`, which has no HM moves.)
 quest is required and unfinished (gauntlet 3 cleared, `FLAG_ARTISAN_LATI_CAUGHT`
 unset), `IsFrontierPOSDown()` is TRUE: the island's "POS system is down".
 
-- **The economy is exact.** Clearing gauntlet 3 pays 900 FP (six pool wins at
-  75, plus 450 for the boss). The quest costs exactly that: a LEAFEON (300) and
-  the Broker's MASTER BALL (now **600**). Every other FP sink is shut so the
-  player can't spend themselves into a soft lock:
+- **The economy is protected, with room to spare.** Clearing gauntlet 3 pays
+  1,200 FP (six pool wins at 100, plus 600 for the boss). The quest costs 900:
+  a LEAFEON (300) and the Broker's MASTER BALL (**600**). Every other FP sink
+  is shut until the Lati is caught, so the player can't spend themselves into
+  a soft lock, and the spare 300 simply carries over:
   - **Exchange Corner:** every keeper says the POS is down. The Pokémon keeper
     mentions one LEAFEON that "keeps showing up" (you probably don't want
     it), and sells it for 300 FP once the florist has asked for one
@@ -355,4 +356,16 @@ unset), `IsFrontierPOSDown()` is TRUE: the island's "POS system is down".
 - **FLOTSAM is gauntlet 3 strength:** every species and item buyable by then
   (Crawdaunt's Life Orb became a Muscle Band), with Mega Sharpedo as the one
   deliberate exception.
-- Catching the Lati turns the system back on everywhere.
+- **The system comes back on once the player collects the SCRAMBLER from
+  LOOKER** (who appears after the catch), not at the catch itself, so the
+  player can't skip him. Until then, gauntlet 4's attendant points to "a
+  detective from the International Police… out past the PALACE".
+- **Scott's men.** After the catch, Scott stops the player at the Battle Tower
+  door to mention a ruckus in the cave and that he's sending men in. That
+  nudges the player back toward the cave and LOOKER. With the SCRAMBLER in hand,
+  two men in suits are waiting in B1F (a one-time scene, then "Scram, kid").
+  They leave once gauntlet 4 is cleared, and the cave closes for good:
+  "FRONTIER staff has closed the cave."
+- **Metagross is never offered on gauntlet 4**, by the Broker or his cousin.
+  Steven hands one over right after it. The normal shop still sells it from
+  gauntlet 5 on.

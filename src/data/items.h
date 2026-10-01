@@ -15202,6 +15202,26 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_DevonScope,
     },
 
+    // Ten Gauntlets: sold in the little house west of the Battle Dome (Lounge 7).
+    // Used up when the player loses a battle in a gauntlet run (boss
+    // included): the team is healed and the battle is fought again, streak
+    // intact. One at a time. Only the facility scripts use it.
+    [ITEM_SECOND_WIND] =
+    {
+        .name = ITEM_NAME("Second Wind"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "One more try at a\n"
+            "lost gauntlet battle,\n"
+            "even the boss."),
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .iconPic = gItemIcon_RevivalHerb,
+        .iconPalette = gItemIconPalette_RevivalHerb,
+    },
+
     [ITEM_DEVON_SCOPE] =
     {
         .name = ITEM_NAME("Devon Scope"),

@@ -573,10 +573,12 @@ BattleFrontier_OutsideWest_Text_CantFindBattleTower:
 	.string "This place is just too big!$"
 
 BattleFrontier_OutsideWest_Text_GotSeasickOnWayHere:
-	.string "I wanted to start gauntlet 1 the\n"
-	.string "moment I got off the ferry from\l"
-	.string "ROUTE 103…\p"
-	.string "Urrrrp… Maybe after I lie down.$"
+	.string "A fortune-teller out west, past\n"
+	.string "the BATTLE DOME, told me I'd get\l"
+	.string "seasick on the ferry.\p"
+	.string "Urrrrp... She was right. They say\n"
+	.string "she can see who's waiting at the\l"
+	.string "end of your gauntlet, too.$"
 
 BattleFrontier_OutsideWest_Text_OnlyToughTrainersBroughtHere:
 	.string "Nobody stumbles onto this island\n"
@@ -676,10 +678,14 @@ BattleFrontier_OutsideWest_Text_FinallyArrivedAtFrontier:
 	.string "my looks and ability!$"
 
 BattleFrontier_OutsideWest_Text_SquareFilledWithToughPeople:
-	.string "Munch, munch…\p"
-	.string "Every one of these people has a\n"
-	.string "locked team of six…\p"
-	.string "Munch… I just have snacks…$"
+	.string "Munch, munch...\p"
+	.string "There's an old nurse in the little\n"
+	.string "house on the far west edge, just\l"
+	.string "past the BATTLE DOME.\p"
+	.string "She sells something she calls a\n"
+	.string "SECOND WIND. Lose a battle in a\l"
+	.string "gauntlet, and you get one more\l"
+	.string "try. Munch...$"
 
 BattleFrontier_OutsideWest_Text_MetOlderGirlAtPike:
 	.string "Crunch, munch…\p"
@@ -853,12 +859,21 @@ BattleFrontier_OutsideWest_Text_NolandAfter:
 @ player straight into the door again.
 BattleFrontier_OutsideWest_EventScript_ArmMasterBallCheck::
 	setvar VAR_TEMP_3, 1
+	@ After gauntlet 4, FRONTIER staff have closed the cave for good.
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 4, BattleFrontier_OutsideWest_EventScript_ArmCaveClosed
 	goto_if_set FLAG_ARTISAN_LATI_CAUGHT, Common_EventScript_NopReturn
 	goto_if_lt VAR_ARTISAN_QUEST_STEP, 6, Common_EventScript_NopReturn
 	setvar VAR_TEMP_3, 0
 	return
 
+BattleFrontier_OutsideWest_EventScript_ArmCaveClosed::
+	setvar VAR_TEMP_3, 0
+	return
+
 BattleFrontier_OutsideWest_EventScript_NeedMasterBall::
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 4, BattleFrontier_OutsideWest_EventScript_CaveClosed
 	checkitem ITEM_MASTER_BALL
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideWest_EventScript_NeedMasterBallEnd
 	specialvar VAR_RESULT, GetPlayerFacingDirection
@@ -872,8 +887,25 @@ BattleFrontier_OutsideWest_EventScript_NeedMasterBall::
 BattleFrontier_OutsideWest_EventScript_NeedMasterBallEnd:
 	end
 
+BattleFrontier_OutsideWest_EventScript_CaveClosed::
+	specialvar VAR_RESULT, GetPlayerFacingDirection
+	goto_if_ne VAR_RESULT, DIR_NORTH, BattleFrontier_OutsideWest_EventScript_NeedMasterBallEnd
+	lockall
+	msgbox BattleFrontier_OutsideWest_Text_CaveClosed, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYER, Common_Movement_WalkDown
+	waitmovement 0
+	releaseall
+	end
+
 BattleFrontier_OutsideWest_Text_NeedMasterBall:
 	.string "Something powerful is waiting in\n"
 	.string "there...\p"
 	.string "I shouldn't go in without a MASTER\n"
 	.string "BALL in my bag.$"
+
+BattleFrontier_OutsideWest_Text_CaveClosed:
+	.string "A sign is posted over the\n"
+	.string "entrance:\p"
+	.string "“FRONTIER staff has closed the\n"
+	.string "cave.”$"

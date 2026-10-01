@@ -23,6 +23,7 @@ BattleFrontier_OutsideEast_OnTransition:
 	call_if_eq VAR_ARTISAN_QUEST_STEP, 5, BattleFrontier_OutsideEast_EventScript_ShowFlotsamAtWaterfall
 	call BattleFrontier_OutsideEast_EventScript_RemoveHMs
 	setrespawn HEAL_LOCATION_BATTLE_FRONTIER_OUTSIDE_EAST
+	call BattleFrontier_OutsideEast_EventScript_ArmScottCaveWarning
 	call BattleFrontier_OutsideEast_EventScript_SetupRival
 	setflag FLAG_TEMP_5
 	call_if_eq VAR_NORMAN_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_ShowNorman
@@ -822,8 +823,11 @@ BattleFrontier_OutsideEast_Text_FastOnBikeAndBattles:
 	.string "an eye!$"
 
 BattleFrontier_OutsideEast_Text_BetterThanDaddyAtPokemon:
-	.string "I'm better than my daddy\n"
-	.string "at POKéMON.$"
+	.string "My daddy says a witch lives in a\n"
+	.string "house way out west, past the\l"
+	.string "BATTLE DOME!\p"
+	.string "She can see the future! Isn't that\n"
+	.string "spooky?$"
 
 BattleFrontier_OutsideEast_Text_GoRackUpSomeWinsForDaddy:
 	.string "Go on, my baby sweetie!\n"
@@ -1137,7 +1141,11 @@ BattleFrontier_OutsideEast_Text_MayStormsOff:
 	.string "Don't get comfortable! Those\n"
 	.string "gauntlets are going to chew you\l"
 	.string "up...\p"
-	.string "And I'll be watching when they do!$"
+	.string "...And one more thing. This\n"
+	.string "FRONTIER is a crazy place. Spend\l"
+	.string "some time talking to the locals.\p"
+	.string "You'd be amazed what people around\n"
+	.string "here know. I'll be watching!$"
 
 BattleFrontier_OutsideEast_Text_BrendanRematch:
 	.string "BRENDAN: There you are, {PLAYER}!\p"
@@ -1170,7 +1178,11 @@ BattleFrontier_OutsideEast_Text_BrendanStormsOff:
 	.string "Don't get comfortable! Those\n"
 	.string "gauntlets are going to chew you\l"
 	.string "up...\p"
-	.string "And I'll be watching when they do!$"
+	.string "...And one more thing. This\n"
+	.string "FRONTIER is a crazy place. Spend\l"
+	.string "some time talking to the locals.\p"
+	.string "You'd be amazed what people around\n"
+	.string "here know. I'll be watching!$"
 
 BattleFrontier_OutsideEast_Text_NormanChallenge:
 	.string "NORMAN: {PLAYER}.\p"
@@ -1333,3 +1345,75 @@ BattleFrontier_OutsideEast_Text_LookerAgain:
 	.string "the one who beat him... I still\l"
 	.string "wonder.\p"
 	.string "...Carry on.$"
+
+@ Ten Gauntlets: after the Lati is caught, the next time the player steps up
+@ to the Battle Tower door, SCOTT walks in from off-screen: he's heard about a
+@ ruckus in Artisan Cave and is sending his men in (storyline.md). That points
+@ the player back to the cave, LOOKER and the SCRAMBLER - and the men in suits
+@ only appear once this scene has played (ArtisanCave_B1F).
+BattleFrontier_OutsideEast_EventScript_ArmScottCaveWarning::
+	setflag FLAG_TEMP_7
+	setvar VAR_TEMP_6, 1
+	goto_if_unset FLAG_ARTISAN_LATI_CAUGHT, Common_EventScript_NopReturn
+	goto_if_set FLAG_SCOTT_CAVE_WARNING, Common_EventScript_NopReturn
+	setvar VAR_TEMP_6, 0
+	return
+
+BattleFrontier_OutsideEast_EventScript_ScottCaveWarning::
+	setvar VAR_TEMP_6, 1
+	@ Re-check, in case the trigger was armed by a save from an older build.
+	goto_if_unset FLAG_ARTISAN_LATI_CAUGHT, BattleFrontier_OutsideEast_EventScript_ScottCaveWarningEnd
+	goto_if_set FLAG_SCOTT_CAVE_WARNING, BattleFrontier_OutsideEast_EventScript_ScottCaveWarningEnd
+	lockall
+	clearflag FLAG_TEMP_7
+	addobject LOCALID_FRONTIER_SCOTT
+	applymovement LOCALID_FRONTIER_SCOTT, BattleFrontier_OutsideEast_Movement_ScottWalksUp
+	waitmovement 0
+	turnobject LOCALID_PLAYER, DIR_WEST
+	msgbox BattleFrontier_OutsideEast_Text_ScottCaveWarning, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_FRONTIER_SCOTT, BattleFrontier_OutsideEast_Movement_ScottWalksAway
+	waitmovement 0
+	removeobject LOCALID_FRONTIER_SCOTT
+	setflag FLAG_SCOTT_CAVE_WARNING
+	releaseall
+	end
+
+BattleFrontier_OutsideEast_EventScript_ScottCaveWarningEnd:
+	end
+
+@ From (8, 15), just off-screen, to (15, 15), beside the player at the door.
+BattleFrontier_OutsideEast_Movement_ScottWalksUp:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+BattleFrontier_OutsideEast_Movement_ScottWalksAway:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+BattleFrontier_OutsideEast_Text_ScottCaveWarning:
+	.string "SCOTT: Ah, {PLAYER}. Glad I caught\n"
+	.string "you.\p"
+	.string "Strange news today. I've had\n"
+	.string "reports of a ruckus in ARTISAN\l"
+	.string "CAVE. A battle... and something\l"
+	.string "flying off into the dark.\p"
+	.string "That cave is FRONTIER property.\n"
+	.string "I'm sending some of my men in to\l"
+	.string "investigate.\p"
+	.string "...You wouldn't know anything\n"
+	.string "about that, would you?\p"
+	.string "No? Of course not. Good luck in\n"
+	.string "there, {PLAYER}.$"

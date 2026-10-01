@@ -45,9 +45,13 @@ BattleFrontier_PokemonCenter_1F_Text_NeverSeenPokemon:
 	.string "going?$"
 
 BattleFrontier_PokemonCenter_1F_Text_NextStopBattleArena:
-	.string "Okay! Next stop, gauntlet 3! I'd\n"
-	.string "better check my six before I lock\l"
-	.string "them in.$"
+	.string "The nurse here told me an old\n"
+	.string "colleague of hers retired to the\l"
+	.string "little house on the far west edge,\l"
+	.string "past the BATTLE DOME.\p"
+	.string "Says she sells a SECOND WIND now.\n"
+	.string "One more try at a battle you lost.\l"
+	.string "Can you believe it?$"
 
 BattleFrontier_PokemonCenter_1F_Text_GoingThroughEveryChallenge:
 	.string "Giggle… I'm going through every\n"

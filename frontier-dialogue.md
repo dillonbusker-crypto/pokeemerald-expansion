@@ -555,3 +555,64 @@ FLOTSAM after gauntlet 3 (`easter-eggs-spec.md`). Tracked by
    - Gives an EVIOLITE; "Keep beating these gauntlets... I'll be around."
 3. **Open threads:** the shard, the plaque, JUAN's "after the tenth", and
    STEVEN returning (e.g. handing over the MEGA RING after gauntlet 4).
+
+---
+
+## The little house west of the Battle Dome: two services (built)
+
+The vanilla move tutors in Lounge 7 are repurposed. Both charge FP and close
+while the island's "POS is down" during the Artisan Cave quest.
+
+- **The SECOND WIND** (the left lady, a former nurse): **300 FP** for a key
+  item, one at a time (`ITEM_SECOND_WIND`). If the player loses a pool battle
+  during a run, `Facility_Lost` offers to use it: the team is healed and the
+  same battle is fought again, streak intact. It works on the boss too:
+  clearing all six pool battles effectively earns two shots at the boss.
+  The idea: once a team is good enough, spare FP from lost runs buys a safety
+  net.
+- **The psychic** (the right lady, now a Hex Maniac sprite): **200 FP** to read
+  the current gauntlet boss's team, each Pokémon's species, held item and
+  ability (`FacilityPsychicGetBoss()` / `FacilityPsychicGetBossMon()`). Once
+  paid, she repeats it free until that boss is beaten
+  (`VAR_PSYCHIC_READ_GAUNTLET` holds the gauntlet she was paid for). Past the
+  last built gauntlet, "the path ahead is clouded".
+
+**How players find them.** Five filler NPCs point the way, all with the same
+directions (the little house on the far west edge, past the BATTLE DOME),
+never "Lounge 7": the snacking Fat Man in the west plaza and the Pokémon
+Center regular (the nurse and her SECOND WIND), the seasick Fisherman, the
+Twin on the east side and the chaperoning Old Man in the Mart (the
+fortune-teller). The rival's line after the Tower rematch nudges the player
+to talk to the locals.
+
+---
+
+## The Broker's cousin: blind trades (built)
+
+The vanilla Meowth trader in Lounge 6 is now **the Broker's cousin** ("Family
+business, you could say" - she never says where he is). **Once per gauntlet,
+for 200 FP**, she trades one of the player's party Pokémon for a **random
+Pokémon from the next gauntlet's shop wave** (the Broker's stock), revealed
+only after the trade (`FacilityTraderTrade()`, `src/facility_shop.c`;
+`VAR_TRADER_LAST_GAUNTLET`).
+
+- The traded-away Pokémon's held item goes back to the bag.
+- She refuses the Latias/Latios (Steven needs it), LEAFEON (the florist's quest
+  needs one) and Eggs, won't trade mid-run, and closes while the island's POS
+  is down (it costs FP).
+
+---
+
+## FP rewards scale by gauntlet (built)
+
+| Gauntlets | Per pool win | Boss | Full clear |
+|---|---|---|---|
+| 1–2 | 75 | 450 | 900 |
+| 3 | 100 | 600 | 1,200 |
+| 4 on | 150 | 900 | 1,800 |
+
+`FacilityBattleFP()` / `FacilityBossFP()` in `src/facility.c`. The win
+message reads the amount from the same function, so it always matches.
+
+Neither the Broker nor his cousin offers a Metagross while the player is on gauntlet 4:
+Steven gives one right after it.

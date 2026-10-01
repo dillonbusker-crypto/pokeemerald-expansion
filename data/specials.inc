@@ -33,6 +33,8 @@ gSpecials::
 	def_special GetFacilityRunGauntlet
 	def_special IsFacilityGauntletCompleted
 	def_special IsFrontierPOSDown
+	def_special FacilityPsychicGetBoss
+	def_special FacilityPsychicGetBossMon
 	def_special IsFacilityRunActiveForGauntlet
 	def_special IsFacilityRunActiveForDifferentGauntlet
 	def_special IsDoublesMatUnlocked
@@ -57,6 +59,9 @@ gSpecials::
 	def_special FacilityBrokerBuildMonMenu
 	def_special FacilityBrokerMarkDealUsed
 	def_special FacilityBrokerSellMon
+	def_special FacilityTagLastPartyMonBroker
+	def_special FacilityTraderHasStock
+	def_special FacilityTraderTrade
 	def_special FacilityShopBuildGauntletMenu
 	def_special FacilityShopSelectGauntletRow
 	def_special FacilityShopBuildMonTierList

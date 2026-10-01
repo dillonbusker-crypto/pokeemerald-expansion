@@ -109,6 +109,13 @@ The Broker plays a part in the required quest (`easter-eggs-spec.md`):
 > You've cleared every gauntlet? …Then there's nothing left I can get you.
 > Retirement, maybe.
 
+**After Steven's trade (gauntlet 4), once:** Steven borrowed a Metagross from
+him, and now it's in the player's party with "BROKER" still on its papers.
+They go way back: when the Broker was still known as the Gambler, Steven bet
+heavily on himself beating the Battle Tower's Brain. It was the wildest gamble
+the Broker ever took, Steven won, and paying up was not fun. They've been
+friends ever since. (`FLAG_BROKER_STEVEN_MENTION`)
+
 **Lounge 3 regulars** are his nervous customers: one bought a CHOICE SCARF a
 whole gauntlet early; one has a POKéMON that "still says BROKER on its
 papers"; one grumbles his prices are steep.

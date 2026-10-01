@@ -16,6 +16,8 @@
 #include "facility.h"
 #include "facility_shop.h"
 #include "assertf.h"
+#include "data.h"
+#include "item.h"
 #include "event_data.h"
 #include "frontier_util.h"
 #include "pokemon.h"
@@ -357,7 +359,9 @@ void GetFacilityRunGauntlet(void)
 // re-entered (CLAUDE.md, "Re-entry: none") - every attendant checks this
 // before offering a run.
 // specialvar: TRUE while the Artisan Cave quest is required and unfinished -
-// gauntlet 3 cleared, no Latias/Latios caught yet (easter-eggs-spec.md). The
+// gauntlet 3 cleared, and the player hasn't yet collected the SCRAMBLER from
+// LOOKER (who only appears once a Latias/Latios is caught), so the quest only
+// ends once they've picked it up (easter-eggs-spec.md, storyline.md). The
 // Frontier's "POS is down": the shop, the Broker's deals, the move tutors and
 // gauntlet 4's mat all close, so the 900 FP from clearing gauntlet 3 can only
 // go on the quest (a LEAFEON, 300, and the Broker's MASTER BALL, 600) and the
@@ -381,7 +385,7 @@ bool32 IsFrontierChippedMon(struct Pokemon *mon)
 
 bool16 IsFrontierPOSDown(void)
 {
-    return GetGauntletsClearedCount() >= 3 && !FlagGet(FLAG_ARTISAN_LATI_CAUGHT);
+    return GetGauntletsClearedCount() >= 3 && !CheckBagHasItem(ITEM_SCRAMBLER, 1);
 }
 
 void IsFacilityGauntletCompleted(void)
@@ -419,6 +423,48 @@ void IsLinkMultisMatUnlocked(void)
     gSpecialVar_Result = (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << FACILITY_GAUNTLET_3)) != 0;
 }
 
+// The psychic in Lounge 7 reads the current gauntlet's boss (the next one
+// the player hasn't cleared). specialvar: the gauntlet number (1-10), or 0 if
+// every built gauntlet is cleared. Also buffers the boss's name into
+// gStringVar1.
+u16 FacilityPsychicGetBoss(void)
+{
+    u16 gauntlet = GetGauntletsClearedCount();
+
+    if (gauntlet >= ARRAY_COUNT(sFacilityGauntlets))
+        return 0;
+    StringCopy(gStringVar1, GetTrainerNameFromId(sFacilityGauntlets[gauntlet].boss));
+    return gauntlet + 1;
+}
+
+// gSpecialVar_0x8004 = party slot. gSpecialVar_Result = FALSE past the end of
+// the boss's party; otherwise TRUE, with the Pokemon's species, held item and
+// ability buffered into gStringVar1-3 (gSpecialVar_0x8005 = FALSE if the
+// party data leaves the ability to the species default).
+void FacilityPsychicGetBossMon(void)
+{
+    u16 gauntlet = GetGauntletsClearedCount();
+    const struct Trainer *boss;
+    const struct TrainerMon *mon;
+
+    gSpecialVar_Result = FALSE;
+    if (gauntlet >= ARRAY_COUNT(sFacilityGauntlets))
+        return;
+    boss = GetTrainerStructFromId(sFacilityGauntlets[gauntlet].boss);
+    if (gSpecialVar_0x8004 >= boss->partySize)
+        return;
+    mon = &boss->party[gSpecialVar_0x8004];
+    StringCopy(gStringVar1, GetSpeciesName(mon->species));
+    if (mon->heldItem != ITEM_NONE)
+        StringCopy(gStringVar2, GetItemName(mon->heldItem));
+    else
+        StringCopy(gStringVar2, COMPOUND_STRING("nothing"));
+    gSpecialVar_0x8005 = (mon->ability != ABILITY_NONE);
+    if (gSpecialVar_0x8005)
+        StringCopy(gStringVar3, gAbilitiesInfo[mon->ability].name);
+    gSpecialVar_Result = TRUE;
+}
+
 void FacilityIsBossBattle(void)
 {
     gSpecialVar_Result = (gSaveBlock3Ptr->facility.run.battleNum == 7);
@@ -439,20 +485,40 @@ void FacilityGetDrawnPoolIndex(void)
 // clears every gauntlet without ever spending banks at most 300 (starting
 // grant) + 9000 (ten full clears) = 9300, comfortably inside that ceiling
 // with room to spare.
-#define FACILITY_FP_PER_BATTLE 75
-#define FACILITY_FP_PER_BOSS   450
+// Rewards scale up as the shop gets pricier: gauntlets 1-2 pay 75 a win and
+// 450 for the boss (900 for a full clear), gauntlet 3 pays 100 and 600
+// (1200), and gauntlet 4 on pays 150 and 900 (1800). Even a player who never
+// spends banks at most 300 + 900*2 + 1200 + 1800*7 = 15900 FP, well inside
+// the u16 ceiling.
+static u16 FacilityBattleFP(u8 gauntlet)
+{
+    if (gauntlet >= FACILITY_GAUNTLET_4)
+        return 150;
+    if (gauntlet == FACILITY_GAUNTLET_3)
+        return 100;
+    return 75;
+}
+
+static u16 FacilityBossFP(u8 gauntlet)
+{
+    if (gauntlet >= FACILITY_GAUNTLET_4)
+        return 900;
+    if (gauntlet == FACILITY_GAUNTLET_3)
+        return 600;
+    return 450;
+}
 
 void FacilityAwardBattleFP(void)
 {
-    u32 fp = gSaveBlock3Ptr->facility.progress.fp + FACILITY_FP_PER_BATTLE;
+    u32 fp = gSaveBlock3Ptr->facility.progress.fp + FacilityBattleFP(gSaveBlock3Ptr->facility.run.gauntlet);
     gSaveBlock3Ptr->facility.progress.fp = (fp > 0xFFFF) ? 0xFFFF : fp;
 }
 
 // Ten Gauntlets: called right after a pool-battle win, before
 // FacilityAdvanceBattleNum bumps battleNum past it - gStringVar1 gets the
 // ordinal ("1st".."6th") for the battle just won, gSpecialVar_0x8008 gets
-// the FP just awarded (kept in sync with FACILITY_FP_PER_BATTLE rather than
-// hardcoding "75" in the message text), and gSpecialVar_Result is TRUE only
+// the FP just awarded (from FacilityBattleFP() rather than a number
+// hardcoded in the message text), and gSpecialVar_Result is TRUE only
 // on the 6th win, when the boss is up next - matches the literal 7 in
 // FacilityIsBossBattle() above (battleNum reaches 7 once this 6th win is
 // counted).
@@ -467,7 +533,7 @@ void FacilityGetBattleWonInfo(void)
     u8 battleNum = gSaveBlock3Ptr->facility.run.battleNum;
 
     StringCopy(gStringVar1, sOrdinals[battleNum - 1]);
-    gSpecialVar_0x8008 = FACILITY_FP_PER_BATTLE;
+    gSpecialVar_0x8008 = FacilityBattleFP(gSaveBlock3Ptr->facility.run.gauntlet);
     gSpecialVar_Result = (battleNum == 6);
 }
 
@@ -479,7 +545,7 @@ void FacilityAdvanceBattleNum(void)
 void FacilityCompleteGauntlet(void)
 {
     u8 gauntlet = gSaveBlock3Ptr->facility.run.gauntlet;
-    u32 fp = gSaveBlock3Ptr->facility.progress.fp + FACILITY_FP_PER_BOSS;
+    u32 fp = gSaveBlock3Ptr->facility.progress.fp + FacilityBossFP(gauntlet);
 
     gSaveBlock3Ptr->facility.progress.fp = (fp > 0xFFFF) ? 0xFFFF : fp;
     gSaveBlock3Ptr->facility.progress.gauntletsCompleted |= (1 << gauntlet);

@@ -21,6 +21,9 @@ void FacilityCheckEligible(void);
 // gSpecialVar_0x8004 = FACILITY_GAUNTLET_* to start a run for.
 void FacilityStartRun(void);
 void FacilityIsBossBattle(void);
+// The Lounge 7 psychic's boss reading - see src/facility.c.
+u16 FacilityPsychicGetBoss(void);
+void FacilityPsychicGetBossMon(void);
 void FacilityGetDrawnPoolIndex(void);
 void FacilityAwardBattleFP(void);
 // gStringVar1 = ordinal ("1st".."6th") for the pool battle just won,

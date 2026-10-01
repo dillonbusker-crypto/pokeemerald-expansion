@@ -5,6 +5,7 @@ ArtisanCave_B1F_MapScripts::
 
 ArtisanCave_B1F_OnTransition:
 	setflag FLAG_LANDMARK_ARTISAN_CAVE
+	call ArtisanCave_B1F_EventScript_PlaceSuits
 	call_if_set FLAG_ARTISAN_LATI_CAUGHT, ArtisanCave_B1F_EventScript_HideLatis
 	call_if_lt VAR_ARTISAN_QUEST_STEP, 6, ArtisanCave_B1F_EventScript_HideLatis
 	@ The exits (the west entrance, and the ladder toward the east one) are
@@ -158,3 +159,62 @@ ArtisanCave_B1F_EventScript_StayInCaveEnd::
 ArtisanCave_B1F_Text_StayInCave:
 	.string "I should probably stay in the\n"
 	.string "cave.$"
+
+@ Ten Gauntlets: SCOTT's men (storyline.md). Once SCOTT has said he's sending
+@ them (FLAG_SCOTT_CAVE_WARNING, at the Battle Tower door) and the player has
+@ the SCRAMBLER from LOOKER, and until gauntlet 4 is cleared, two men in suits search the
+@ room where the Latis were. Walking up to them plays their scene once
+@ (FLAG_ARTISAN_SUITS_SEEN); after that they just tell the player to scram.
+@ After gauntlet 4, the cave is closed (BattleFrontier_OutsideWest).
+ArtisanCave_B1F_EventScript_PlaceSuits::
+	setflag FLAG_TEMP_3
+	setvar VAR_TEMP_5, 1
+	goto_if_unset FLAG_SCOTT_CAVE_WARNING, Common_EventScript_NopReturn
+	checkitem ITEM_SCRAMBLER
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 4, Common_EventScript_NopReturn
+	clearflag FLAG_TEMP_3
+	goto_if_set FLAG_ARTISAN_SUITS_SEEN, Common_EventScript_NopReturn
+	setvar VAR_TEMP_5, 0
+	return
+
+ArtisanCave_B1F_EventScript_SuitsNoticePlayer::
+	lockall
+	setvar VAR_TEMP_5, 1
+	msgbox ArtisanCave_B1F_Text_SuitsTalk, MSGBOX_DEFAULT
+	closemessage
+	playse SE_PIN
+	applymovement LOCALID_ARTISAN_SUIT_1, Common_Movement_ExclamationMark
+	applymovement LOCALID_ARTISAN_SUIT_2, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_ARTISAN_SUIT_1, Common_Movement_FacePlayer
+	applymovement LOCALID_ARTISAN_SUIT_2, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox ArtisanCave_B1F_Text_SuitsSpotPlayer, MSGBOX_DEFAULT
+	setflag FLAG_ARTISAN_SUITS_SEEN
+	releaseall
+	end
+
+ArtisanCave_B1F_EventScript_Suit::
+	msgbox ArtisanCave_B1F_Text_SuitScram, MSGBOX_NPC
+	end
+
+ArtisanCave_B1F_Text_SuitsTalk:
+	.string "MAN IN SUIT: There should've been\n"
+	.string "two of them in here.\p"
+	.string "OTHER MAN: We were lucky to catch\n"
+	.string "the other one before it escaped\l"
+	.string "the cave.\p"
+	.string "MAN IN SUIT: Yeah. SCOTT would've\n"
+	.string "had our heads if we'd lost both.$"
+
+ArtisanCave_B1F_Text_SuitsSpotPlayer:
+	.string "MAN IN SUIT: Hey! You! You\n"
+	.string "shouldn't be in here.\p"
+	.string "This cave is for FRONTIER\n"
+	.string "personnel only.$"
+
+ArtisanCave_B1F_Text_SuitScram:
+	.string "Scram, kid. FRONTIER personnel\n"
+	.string "only.$"

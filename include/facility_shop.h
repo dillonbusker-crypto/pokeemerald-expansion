@@ -125,5 +125,10 @@ void FacilityBrokerMarkDealUsed(void);
 // MON_GIVEN_TO_PARTY / MON_GIVEN_TO_PC / MON_CANT_GIVE; marks the deal spent
 // unless MON_CANT_GIVE.
 void FacilityBrokerSellMon(void);
+void FacilityTagLastPartyMonBroker(void);
+
+// The Lounge 6 trader - see src/facility_shop.c.
+u16 FacilityTraderHasStock(void);
+void FacilityTraderTrade(void);
 
 #endif // GUARD_FACILITY_SHOP_H

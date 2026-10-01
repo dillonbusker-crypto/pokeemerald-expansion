@@ -319,6 +319,7 @@ BattleFrontier_BattleTowerLobby_EventScript_FacilityAttendantB3::
 	faceplayer
 	special IsMultisMatUnlocked
 	goto_if_eq VAR_RESULT, FALSE, Facility_MatLocked
+	goto_if_lt VAR_STEVEN_STORY_STATE, 2, Facility_B3_StevenWaiting
 	setvar VAR_0x8004, FACILITY_GAUNTLET_3
 	special IsFacilityRunActiveForGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
@@ -1914,6 +1915,15 @@ Facility_B2_StevenHook:
 	setvar VAR_STEVEN_STORY_STATE, 1
 	return
 
+@ Ten Gauntlets: gauntlet 3 stays shut until the player has met STEVEN in
+@ the Hall of Ten (VAR_STEVEN_STORY_STATE 2). The mat only opens once
+@ gauntlet 2 is cleared, so a save from before the hook existed (state 0)
+@ is held here too, and the Hall still has STEVEN waiting for it.
+Facility_B3_StevenWaiting:
+	msgbox Facility_B3_Text_StevenWaiting, MSGBOX_DEFAULT
+	release
+	end
+
 Facility_B4_StevenHook:
 	msgbox Facility_B4_Text_StevenHook, MSGBOX_DEFAULT
 	return
@@ -1941,7 +1951,15 @@ Facility_B2_HeardAboutNorman:
 @ (IsFrontierPOSDown). The hint points at the Old Woman by the odd tree, whose
 @ rumor leads to FLOTSAM.
 Facility_B4_POSDown:
+	goto_if_set FLAG_ARTISAN_LATI_CAUGHT, Facility_B4_POSDownLooker
 	msgbox Facility_B4_Text_POSDown, MSGBOX_DEFAULT
+	release
+	end
+
+@ After the catch, the system stays down until the player collects the
+@ SCRAMBLER from LOOKER, who now stands where FLOTSAM did.
+Facility_B4_POSDownLooker:
+	msgbox Facility_B4_Text_POSDownLooker, MSGBOX_DEFAULT
 	release
 	end
 
@@ -2015,6 +2033,20 @@ Facility_B1_GauntletComplete:
 @ way (FacilityAbandonRun doesn't touch FP - see run-loop-spec.md's
 @ "Losing" section).
 Facility_Lost:
+	@ Ten Gauntlets: a SECOND WIND (Lounge 7) gives one retry of a lost
+	@ battle - pool or boss - healed, same opponent, streak intact.
+	checkitem ITEM_SECOND_WIND
+	goto_if_eq VAR_RESULT, FALSE, Facility_LostForGood
+	msgbox Facility_Text_UseSecondWind, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Facility_LostForGood
+	removeitem ITEM_SECOND_WIND
+	special HealPlayerParty
+	special RestoreFacilityHeldItems
+	msgbox Facility_Text_SecondWindUsed, MSGBOX_DEFAULT
+	goto Facility_DoBattle
+	end
+
+Facility_LostForGood:
 	special HealPlayerParty
 	special RestoreFacilityHeldItems
 	special FacilityAbandonRun
@@ -2334,3 +2366,32 @@ Facility_B4_Text_StevenHook:
 	.string "Oh, and that man in the suit is\n"
 	.string "back. He asked me to tell you he's\l"
 	.string "waiting in the HALL OF TEN again.$"
+
+Facility_Text_UseSecondWind:
+	.string "You still have a SECOND WIND.\p"
+	.string "Use it to fight this battle again?$"
+
+Facility_Text_SecondWindUsed:
+	.string "{PLAYER} used the SECOND WIND!\p"
+	.string "The team caught its breath. Back\n"
+	.string "into the battle!$"
+
+Facility_B4_Text_POSDownLooker:
+	.string "I'm sorry. The LINK MULTI mat is\n"
+	.string "still closed. The system's still\l"
+	.string "down.\p"
+	.string "They say a detective from the\n"
+	.string "International Police is\l"
+	.string "investigating out past the PALACE.\l"
+	.string "Maybe he knows when it'll be\l"
+	.string "fixed.$"
+
+Facility_B3_Text_StevenWaiting:
+	.string "I'm sorry, I can't let you onto\n"
+	.string "this mat just yet.\p"
+	.string "The man in the suit was very\n"
+	.string "clear. He wants to see you in the\l"
+	.string "HALL OF TEN before you go any\l"
+	.string "further.\p"
+	.string "I'd go see him. He didn't strike\n"
+	.string "me as someone who likes to wait.$"
