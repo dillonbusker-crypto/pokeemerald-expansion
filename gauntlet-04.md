@@ -109,6 +109,38 @@ more multi-hit onto CPU teams rather than nerfing the item.
 
 ---
 
+## Later shop additions (built): never-sold Pokémon moved down from the gauntlet 7 draft
+
+Pokémon nobody had got round to selling, placed in the earliest gauntlet
+whose cap and power level fit (`gauntlet-07.md`). Built in
+`src/facility_shop.c`; the ability is the shop's (hidden abilities only where
+they're the reason to use the Pokémon).
+
+| Pokémon | FP | Ability |
+|---|---|---|
+| Cinderace | 500 | Libero |
+| Greninja, Meowscarada | 500 | Protean |
+| Maushold, Sinistcha, Armarouge, Hisuian Typhlosion | 375 | default |
+| Basculegion | 375 | Adaptability |
+| Hisuian Samurott | 375 | Sharpness |
+
+**Suggested CPU changes (not applied):**
+
+- **A1 Jetstream: Noivern → Hisuian Typhlosion.** Eruption under Tailwind is
+  exactly what a Tailwind team wants from its special attacker.
+- **A2 Headwind: Barraskewda → Basculegion** (Swift Swim for the CPU). A
+  sturdier rain sweeper with Last Respects as the game goes on.
+- **B5 Deadweight: Araquanid → Sinistcha.** A second Trick Room setter, with
+  Rage Powder to protect Dusclops and Hospitality to heal its partners.
+- **C8 Mindfield: Azelf → Armarouge.** Expanding Force under Psychic Terrain
+  plus Wide Guard, on a bulkier body than Azelf's.
+
+**Boss (Anabel, gauntlet 5's pool):** no change suggested. Armarouge could
+replace Hatterene for Expanding Force under her Psychic Surge, but Hatterene's
+Trick Room is part of her "turn order" theme.
+
+---
+
 ## Group A — Tailwind
 
 ### A1. Jetstream — Prankster Tailwind

@@ -85,6 +85,35 @@ improve a Pokémon, which is the exact mental shift doubles demands.
 
 ---
 
+## Later shop additions (built): never-sold Pokémon moved down from the gauntlet 7 draft
+
+Pokémon nobody had got round to selling, placed in the earliest gauntlet
+whose cap and power level fit (`gauntlet-07.md`). Built in
+`src/facility_shop.c`; the ability is the shop's (hidden abilities only where
+they're the reason to use the Pokémon).
+
+| Pokémon | FP | Ability |
+|---|---|---|
+| Kilowattrel | 200 | Competitive |
+| Banette, Glalie | 150 | Insomnia, Inner Focus |
+| Audino | 150 | Regenerator |
+| Falinks | 150 | Defiant |
+
+**Suggested CPU changes (not applied):**
+
+- **A1 Fault: Swanna → Kilowattrel.** Another Flying type immune to the
+  Earthquake core, but with Tailwind, Electroweb and Competitive against
+  Intimidate. A straight upgrade on the same job.
+- **D11 Inversion: Wailord → Audino** (optional). A Trick Room body with
+  Heal Pulse and Regenerator in place of a frail big-HP Water type.
+
+**Boss (Juan, gauntlet 3's pool): Kabutops → Primarina** with Liquid Voice
+Hyper Voice. A rain-boosted Water spread move that hits both sides, and Fairy
+coverage the team lacks. Kingdra, Seismitoad and Ludicolo still carry Swift
+Swim.
+
+---
+
 ## AI flags
 
 Same as gauntlet 1, with one addition: **the doubles-awareness flag**, if your

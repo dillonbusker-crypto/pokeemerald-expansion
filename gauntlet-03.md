@@ -133,6 +133,45 @@ the gauntlet.
 
 ---
 
+## Later shop additions (built): never-sold Pokémon moved down from the gauntlet 7 draft
+
+Pokémon nobody had got round to selling, placed in the earliest gauntlet
+whose cap and power level fit (`gauntlet-07.md`). Built in
+`src/facility_shop.c`; the ability is the shop's (hidden abilities only where
+they're the reason to use the Pokémon).
+
+| Pokémon | FP | Ability |
+|---|---|---|
+| Skeledirge | 400 | Unaware |
+| Primarina | 400 | Liquid Voice |
+| Galarian Slowking | 400 | Regenerator |
+| Inteleon, Decidueye, Samurott, Delphox, Hisuian Zoroark | 300 | default |
+| Quaquaval | 300 | Moxie |
+| Typhlosion | 300 | Flash Fire |
+| Emboar | 300 | Reckless |
+| Chesnaught | 300 | Bulletproof |
+| Overqwil | 300 | Intimidate |
+| Meganium, Blastoise, Steelix, Aggron, Chandelure, Pyroar | 200 | default |
+| Scolipede | 200 | Speed Boost |
+
+**Suggested CPU changes (not applied):**
+
+- **B4 Solarflare: Victreebel → Typhlosion.** The team is five Grass
+  Chlorophyll types and Ninetales; a sun-boosted Eruption gives it a real
+  Fire attacker besides the weather setter.
+- **C8 Attrition: Dusclops → Skeledirge.** The stall team's Ghost, but with
+  Unaware, Will-O-Wisp and Slack Off. It's one of the best stall Pokémon
+  there is, and it fits the gauntlet's "wear you down" sand team.
+- **A2 Deluge: Poliwrath → Primarina** (optional). A stronger rain attacker
+  for the bulky rain team.
+- **A1 Downpour:** Overqwil works there with Swift Swim (CPU teams aren't
+  limited to the shop's ability), but the team is already well built.
+
+**Boss (Roxanne, gauntlet 4's pool):** no change. None of the new Pokémon
+improve her sand team.
+
+---
+
 ## Group A — Rain
 
 ### A1. Downpour — rain offense

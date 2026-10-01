@@ -363,11 +363,21 @@ static const struct FacilityShopMon sPremiumMons[] =
     { SPECIES_URSALUNA,       400, 2 },
     { SPECIES_SNEASLER,       400, 2 },
     { SPECIES_SERPERIOR,      400, 2 },
+    // Moved down from the gauntlet 7 draft (gauntlet-07.md): never sold, not too
+    // strong - gauntlet 3's pool.
+    { SPECIES_SKELEDIRGE,             400, 2 },
+    { SPECIES_PRIMARINA,              400, 2 },
+    { SPECIES_SLOWKING_GALAR,         400, 2 },
     // Unlocked clearing gauntlet 3 - shop-unlock-b4.md.
     { SPECIES_ARCANINE,       500, 3 },
     // Doubles staples gauntlet 4's CPU teams already used but the shop
     // never sold - see shop-unlock-b4.md.
     { SPECIES_INCINEROAR,      500, 3 },
+    // Moved down from the gauntlet 7 draft (gauntlet-07.md): never sold, not too
+    // strong - gauntlet 4's pool.
+    { SPECIES_CINDERACE,              500, 3 },
+    { SPECIES_GRENINJA,               500, 3 },
+    { SPECIES_MEOWSCARADA,            500, 3 },
     // Unlocked clearing gauntlet 4 - gauntlet-05.md. The 600-BST
     // pseudo-legendaries plus the singles-relevant Paradox / Ultra Beast /
     // Mythical picks; the Ubers-grade ones wait for gauntlet 7.
@@ -468,6 +478,9 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_CLAWITZER,     200, 1 },
     { SPECIES_BARBARACLE,    200, 1 },
     { SPECIES_SCYTHER,       200, 1 },
+    // Moved down from the gauntlet 7 draft (gauntlet-07.md): never sold, not too
+    // strong - gauntlet 2's pool.
+    { SPECIES_KILOWATTREL,            200, 1 },
     // Unlocked clearing gauntlet 2 - shop-unlock-b3.md.
     { SPECIES_NINETALES,     300, 2 },
     { SPECIES_GIGALITH,      300, 2 },
@@ -532,6 +545,18 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_DOUBLADE,      300, 2 },
     { SPECIES_SNEASEL,       300, 2 },
     { SPECIES_DURALUDON,     300, 2 },
+    // Moved down from the gauntlet 7 draft (gauntlet-07.md): never sold, not too
+    // strong - gauntlet 3's pool.
+    { SPECIES_INTELEON,               300, 2 },
+    { SPECIES_QUAQUAVAL,              300, 2 },
+    { SPECIES_DECIDUEYE,              300, 2 },
+    { SPECIES_TYPHLOSION,             300, 2 },
+    { SPECIES_SAMUROTT,               300, 2 },
+    { SPECIES_EMBOAR,                 300, 2 },
+    { SPECIES_CHESNAUGHT,             300, 2 },
+    { SPECIES_DELPHOX,                300, 2 },
+    { SPECIES_ZOROARK_HISUI,          300, 2 },
+    { SPECIES_OVERQWIL,               300, 2 },
     // Unlocked clearing gauntlet 3 - shop-unlock-b4.md.
     { SPECIES_ARCHEOPS,      375, 3 },
     // Doubles staples - see the note in sPremiumMons.
@@ -554,6 +579,14 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_AZELF,         375, 3 },
     { SPECIES_TERRAKION,     375, 3 },
     { SPECIES_COBALION,      375, 3 },
+    // Moved down from the gauntlet 7 draft (gauntlet-07.md): never sold, not too
+    // strong - gauntlet 4's pool.
+    { SPECIES_MAUSHOLD,               375, 3 },
+    { SPECIES_SINISTCHA_UNREMARKABLE, 375, 3 },
+    { SPECIES_ARMAROUGE,              375, 3 },
+    { SPECIES_BASCULEGION_M,          375, 3 },
+    { SPECIES_TYPHLOSION_HISUI,       375, 3 },
+    { SPECIES_SAMUROTT_HISUI,         375, 3 },
     // Unlocked clearing gauntlet 4 - gauntlet-05.md.
     { SPECIES_SALAMENCE,       700, 4 },
     { SPECIES_HYDREIGON,       700, 4 },
@@ -589,6 +622,9 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_FEZANDIPITI,              700, 5 },
     { SPECIES_MOLTRES_GALAR,            700, 5 },
     { SPECIES_ENAMORUS_THERIAN,         700, 5 },
+    // Moved down from the gauntlet 7 draft (gauntlet-07.md): never sold, not too
+    // strong - gauntlet 6's pool.
+    { SPECIES_URSALUNA_BLOODMOON,     700, 5 },
 };
 
 static const struct FacilityShopMon sStandardMons[] =
@@ -718,6 +754,12 @@ static const struct FacilityShopMon sStandardMons[] =
     { SPECIES_LEAVANNY,   150, 1 },
     { SPECIES_CARBINK,    150, 1 },
     { SPECIES_STOUTLAND,  150, 1 },
+    // Moved down from the gauntlet 7 draft (gauntlet-07.md): never sold, not too
+    // strong - gauntlet 2's pool.
+    { SPECIES_BANETTE,                150, 1 },
+    { SPECIES_GLALIE,                 150, 1 },
+    { SPECIES_AUDINO,                 150, 1 },
+    { SPECIES_FALINKS,                150, 1 },
     // Unlocked clearing gauntlet 2 - shop-unlock-b3.md.
     { SPECIES_VANILLUXE,  200, 2 },
     { SPECIES_FLOATZEL,   200, 2 },
@@ -743,6 +785,15 @@ static const struct FacilityShopMon sStandardMons[] =
     { SPECIES_EELEKTROSS, 200, 2 },
     { SPECIES_TENTACRUEL, 200, 2 },
     { SPECIES_SIRFETCHD,  200, 2 },
+    // Moved down from the gauntlet 7 draft (gauntlet-07.md): never sold, not too
+    // strong - gauntlet 3's pool.
+    { SPECIES_MEGANIUM,               200, 2 },
+    { SPECIES_BLASTOISE,              200, 2 },
+    { SPECIES_STEELIX,                200, 2 },
+    { SPECIES_AGGRON,                 200, 2 },
+    { SPECIES_CHANDELURE,             200, 2 },
+    { SPECIES_PYROAR,                 200, 2 },
+    { SPECIES_SCOLIPEDE,              200, 2 },
     // Unlocked clearing gauntlet 3 - shop-unlock-b4.md.
     { SPECIES_SILVALLY,   250, 3 },
     // Doubles staples - see the note in sPremiumMons. Indeedee-F is the
@@ -865,6 +916,25 @@ static const struct { u16 species; u8 abilityNum; } sAbilityOverrides[] =
     { SPECIES_DRAGALGE,  2 }, // Adaptability, not Poison Point
     { SPECIES_TATSUGIRI, 2 }, // Storm Drain, not Commander
     { SPECIES_MEOWSTIC,  2 }, // Prankster, not Keen Eye
+    // The never-sold leftovers moved down from the gauntlet 7 draft
+    // (gauntlet-07.md): the hidden ability is the reason to use these.
+    { SPECIES_AUDINO,         1 }, // Regenerator, not Healer
+    { SPECIES_FALINKS,        2 }, // Defiant, not Battle Armor
+    { SPECIES_KILOWATTREL,    2 }, // Competitive, not Wind Power
+    { SPECIES_SLOWKING_GALAR, 2 }, // Regenerator, not Curious Medicine
+    { SPECIES_TYPHLOSION,     2 }, // Flash Fire, not Blaze
+    { SPECIES_EMBOAR,         2 }, // Reckless, not Blaze
+    { SPECIES_CHESNAUGHT,     2 }, // Bulletproof, not Overgrow
+    { SPECIES_SKELEDIRGE,     2 }, // Unaware, not Blaze
+    { SPECIES_QUAQUAVAL,      2 }, // Moxie, not Torrent
+    { SPECIES_PRIMARINA,      2 }, // Liquid Voice, not Torrent
+    { SPECIES_OVERQWIL,       2 }, // Intimidate, not Poison Point
+    { SPECIES_SCOLIPEDE,      2 }, // Speed Boost, not Poison Point
+    { SPECIES_CINDERACE,      2 }, // Libero, not Blaze
+    { SPECIES_GRENINJA,       2 }, // Protean, not Torrent (never Battle Bond)
+    { SPECIES_MEOWSCARADA,    2 }, // Protean, not Overgrow
+    { SPECIES_BASCULEGION_M,  1 }, // Adaptability, not Swift Swim
+    { SPECIES_SAMUROTT_HISUI, 2 }, // Sharpness, not Torrent
 };
 
 static u8 GetShopMonAbilityNum(u16 species)

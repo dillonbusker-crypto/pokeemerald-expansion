@@ -210,6 +210,29 @@ code's gauntlet 6 wave until the easter-egg build removes them.)*
 
 ---
 
+## Later shop additions (built): never-sold Pokémon moved down from the gauntlet 7 draft
+
+Pokémon nobody had got round to selling, placed in the earliest gauntlet
+whose cap and power level fit (`gauntlet-07.md`). Built in
+`src/facility_shop.c`; the ability is the shop's (hidden abilities only where
+they're the reason to use the Pokémon).
+
+| Pokémon | FP | Ability |
+|---|---|---|
+| Ursaluna-Bloodmoon | 700 | Mind's Eye |
+
+**Suggested CPU change (not applied):**
+
+- **D11 Heavyweights: Hydreigon → Ursaluna-Bloodmoon.** A second raw-power
+  special attacker that ignores Protect-stalling through bulk, with Blood
+  Moon. It can't use Blood Moon twice in a row, so it holds Life Orb, not
+  Choice Specs.
+
+**Boss (Lucy, gauntlet 7's pool):** no change. Bloodmoon is raw power, not
+disruption.
+
+---
+
 ## Group A — Weather
 
 ### A1. Monsoon — rain, with Storm Drain on your own side
