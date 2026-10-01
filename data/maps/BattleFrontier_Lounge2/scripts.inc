@@ -11,7 +11,7 @@ BattleFrontier_Lounge2_EventScript_FrontierManiac::
 	lock
 	faceplayer
 	specialvar VAR_RESULT, GetGauntletsClearedCount
-	goto_if_ge VAR_RESULT, 10, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared10
+	goto_if_ge VAR_RESULT, 8, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared10
 	goto_if_ge VAR_RESULT, 6, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared6
 	goto_if_ge VAR_RESULT, 5, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared5
 	goto_if_ge VAR_RESULT, 4, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared4
@@ -410,23 +410,23 @@ BattleFrontier_Lounge2_Text_ThisPlaceIsScaringMe::
 
 BattleFrontier_Lounge2_EventScript_FrontierManiac_Text10:
 	.string "Howdy! The latest word?\p"
-	.string "…It's you. You ARE the latest\n"
+	.string "...It's you. You ARE the latest\n"
 	.string "word. Everyone's talking about the\l"
-	.string "trainer who cleared all ten\l"
+	.string "trainer who cleared all eight\l"
 	.string "gauntlets!$"
 
 BattleFrontier_Lounge2_EventScript_FrontierManiac_Text6:
 	.string "Howdy! Big news: there is no news!\p"
 	.string "The rest of the FRONTIER is still\n"
-	.string "sealed. The rumor is the PIKE\l"
-	.string "QUEEN, LUCY, is next.$"
+	.string "sealed. The rumor is the PALACE\l"
+	.string "MAVEN, SPENSER, is next.$"
 
 BattleFrontier_Lounge2_EventScript_FrontierManiac_Text5:
 	.string "Howdy! The latest word?\p"
-	.string "The FACTORY HEAD, NOLAND, builds\n"
-	.string "his whole team around the sun.\l"
-	.string "Rain on his parade, and it all\l"
-	.string "falls apart.$"
+	.string "The PIKE QUEEN, LUCY, wears you\n"
+	.string "down: burns, paralysis, sleep...\l"
+	.string "and a GENGAR that won't let you\l"
+	.string "switch out.$"
 
 BattleFrontier_Lounge2_EventScript_FrontierManiac_Text4:
 	.string "Howdy! The latest word?\p"

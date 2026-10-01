@@ -1198,7 +1198,7 @@ void FacilityShopSelectRow(void)
 
 // One name per shop wave. Wave N is the stock that unlocks on clearing
 // gauntlet N, i.e. what the player buys *for* gauntlet N+1 - so wave 0 is
-// "Gauntlet 1". All ten are listed up front: a wave with no name here never
+// "Gauntlet 1". All eight are listed up front: a wave with no name here never
 // appears in the menu at all (FacilityShopBuildGauntletMenu only walks this
 // table), which silently hid gauntlets 5 and 6's Pokemon while it stopped at 4.
 static const u8 *const sGauntletWaveNames[] =
@@ -1211,8 +1211,6 @@ static const u8 *const sGauntletWaveNames[] =
     COMPOUND_STRING("Gauntlet 6 Pokemon"),
     COMPOUND_STRING("Gauntlet 7 Pokemon"),
     COMPOUND_STRING("Gauntlet 8 Pokemon"),
-    COMPOUND_STRING("Gauntlet 9 Pokemon"),
-    COMPOUND_STRING("Gauntlet 10 Pokemon"),
 };
 
 static const u8 sText_SellAPokemon[] = _("Sell a Pokemon");
@@ -1568,7 +1566,7 @@ void FacilityBrokerCheck(void)
 
     if (IsFacilityRunActive())
         gSpecialVar_Result = BROKER_RUN_ACTIVE;
-    else if (cleared >= 10)
+    else if (cleared >= 8) // all eight gauntlets cleared
         gSpecialVar_Result = BROKER_NOTHING_LEFT;
     else if (gSaveBlock3Ptr->facility.progress.brokerDealsUsed & (1 << cleared))
         gSpecialVar_Result = BROKER_DEAL_USED;

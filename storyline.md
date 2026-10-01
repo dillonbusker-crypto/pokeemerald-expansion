@@ -251,7 +251,7 @@ EXP**, and follows the player to Sky Pillar.
 | Opening | Birch's lab: the level 50 starter, the L menu, the badges, the ticket. Mom foreshadows: "Your father is going to be upset." The Route 103 "sham" battle. | ✅ |
 | Arrival | Scott hands over five more Pokémon at his house, and bans HMs. The rival blocks the Tower demanding a fair rematch. | ✅ |
 | Gauntlet 1 (Winona) | **Norman.** A commotion at the Doubles mat; his argument with Scott; Norman tests the player in doubles and warns them about Scott. | ✅ |
-| Gauntlet 2 (Juan) | **Steven.** Juan's apology to Wallace. Steven **outside the Battle Factory** (moving there from the Hall, 🔧): counterfeit badges, a shard in the alloy, and Mega Stone ore in the walls of a "Devon staff only" building. He **takes the 8th badge back with him to study**: the Rain Badge, Juan's own badge from Sootopolis. **The player agrees to work with Steven.** | ✅ |
+| Gauntlet 2 (Juan) | **Steven.** Juan's apology to Wallace. Steven **outside the Battle Factory** (✅ at (12, 39), Outside West): counterfeit badges, a shard in the alloy, and Mega Stone ore in the walls of a "Devon staff only" building. He **takes the 8th badge back with him to study**: the Rain Badge, Juan's own badge from Sootopolis. **The player agrees to work with Steven.** | ✅ |
 | Gauntlet 3 (Roxanne) | **Flotsam and the Eon Duo.** The florist, the tree, the Broker's Master Ball, Flotsam's betrayal **with the Scrambler** (Mega Sharpedo), Surf by level-up, the cave. **Looker gives the player the Scrambler.** Now **required**: gauntlet 4 stays locked until a Latias or Latios is caught. | ✅ |
 | After the catch | A rumor NPC: "I heard something crying out in that cave one night… and then nothing." That's the other Lati, taken by Scott. | 📝 |
 | Gauntlet 4 (Anabel) | **Steven returns.** See below. | ✅ |
@@ -263,9 +263,9 @@ EXP**, and follows the player to Sky Pillar.
 
 ### After gauntlet 4: Steven's test ✅
 
-Steven comes back. **Moving (🔧):** he waits in the **top-right corner of
-Outside East, above the Pyramid** (a spot a later event will reuse), not the
-Hall. The gauntlet 4 attendant tells the player he "walked off toward the
+Steven comes back. ✅ He waits on the **ledge above the Pyramid** at
+(65, 5) in Outside East, the reachable top-right spot (the true corner,
+x 68–71, y 1–4, is walled off; a later event may open it), not the Hall. The gauntlet 4 attendant tells the player he "walked off toward the
 PYRAMID", gauntlet 8's building.
 
 1. **The suspicion, confirmed.** There are Key Stone shards in the badges. While
@@ -315,10 +315,10 @@ Tracked by `VAR_BIRCH_STORY_STATE`: 0 none, 1 the gauntlet 6 door scene, 2
 the lab door, 3 inside the lab, 4 Wallace flies off and the rival stays, 5 the
 family scene, 6 Scott at the gauntlet 6 door.
 
-**Moving (🔧):** built at the Battle Factory door, since the Factory hosted
-gauntlet 6. Gauntlet 6 now runs in the **Battle Pike**, so both door scenes
-(steps 1 and 9) move to the **Pike** door, and the "system down" message to
-the Pike's attendant. Read "Factory" below as "Pike". The tie-in improves:
+**Moved (✅):** first built at the Battle Factory door, since the Factory
+hosted gauntlet 6. Gauntlet 6 now runs in the **Battle Pike**, so both door
+scenes (steps 1 and 9) play at the **Pike** door, and the "system down"
+message comes from the Pike's attendant. Read "Factory" below as "Pike". The tie-in improves:
 Stone paused gauntlet 6 from Devon's control room in the Factory.
 
 1. **The Factory door** (gauntlet 6's building, opens once gauntlet 5 is
@@ -560,15 +560,15 @@ happy ending.
 | Flotsam's betrayal | ✅ The Scrambler line; a real battle (no heal on a win, a white-out on a loss) |
 | Looker | ✅ Gives the player the Scrambler (a key item, not usable) |
 | Scott at the Tower door | ✅ After the Lati is caught, the next time the player steps up to the Battle Tower door, Scott walks in from off-screen: reports of a ruckus in Artisan Cave, he's sending men in to investigate, "You wouldn't know anything about that?" Then he walks off. Plays once (`FLAG_SCOTT_CAVE_WARNING`). |
-| Scott's men in the cave | 🔧 **Become Noland and Greta.** ✅ Once Scott has sent them and the player has the Scrambler, two men in suits stand in Artisan Cave B1F. Getting close plays a one-time "Hey! You! FRONTIER personnel only." scene; after that they just say "Scram, kid." They stay until gauntlet 4 is cleared. |
+| Scott's men in the cave | ✅ **Noland and Greta.** Once Scott has sent them and the player has the Scrambler, two men in suits stand in Artisan Cave B1F. Getting close plays a one-time "Hey! You! FRONTIER personnel only." scene; after that they just say "Scram, kid." They stay until gauntlet 4 is cleared. |
 | Artisan Cave closed | ✅ After gauntlet 4, the cave entrance is blocked: "FRONTIER staff has closed the cave." |
 | Steven after gauntlet 2 | ✅ Also takes the 8th badge (the Rain Badge) to study, and the player agrees to work with him. Mechanically this clears `FLAG_BADGE08_GET`. With seven badges, obedience holds up to level 70, so level 50 Pokémon are unaffected. |
-| Gauntlet 3 mat | ✅ Stays shut until the player has met Steven (🔧 outside the Factory, not the Hall of Ten) (`VAR_STEVEN_STORY_STATE` 2). The attendant: "He wants to see you in the HALL OF TEN before you go any further." |
+| Gauntlet 3 mat | ✅ Stays shut until the player has met Steven (outside the Factory) (`VAR_STEVEN_STORY_STATE` 2). The attendant: "He wants to see you in the HALL OF TEN before you go any further." |
 | Gauntlet 4 attendant | ✅ Refuses until the Artisan Cave quest is done (a Latias or Latios caught: `FLAG_ARTISAN_LATI_CAUGHT`). The quest's text should make clear it's the way forward. |
 | Pokémon Center nurse | ✅ "First patient in a long time" after the first white-out. 📝 The "out of work" grumble on a normal visit. |
 | Auto-heal lore | The PokéNav (Devon) heals, not the badges. Update any line that says otherwise. |
-| The eleventh plaque | 🔧 **Goes.** The Mega Pillar is inside the Factory now. |
-| Hall of Ten | 🔧 **The Hall of Eight**, eight plaques; no story scenes. The old "SCOTT — Undefeated" reveal after the last gauntlet doesn't fit the ending either. |
+| The eleventh plaque | ✅ **Gone.** The Mega Pillar is inside the Factory now; the plaque at the head of the hall is the Hall of Eight's header. |
+| Hall of Ten | ✅ **The Hall of Eight**, eight plaques; no story scenes. The Factory plaque is unscrewed; the Arena's points to the sparring ground. |
 
 ---
 
@@ -654,7 +654,7 @@ happy ending.
 
 ---
 
-## Trimming to eight gauntlets (decided, not built yet) 🔧
+## Trimming to eight gauntlets ✅
 
 The game is now **the Eight Gauntlets**, and the Ranking Hall is **the Hall
 of Eight**. The endgame starts after gauntlet 8.
@@ -673,7 +673,7 @@ of Eight**. The endgame starts after gauntlet 8.
   the Psychic easter egg's mock battle against the next boss, 100 FP each).
   Later the base for Nurse Joy and the Broker.
 
-**Rework list, in build order:**
+**Built.** What was reworked:
 
 1. **Move gauntlet 6 to the Pike.** Its run scripts and attendant move from
    the Factory lobby to the Pike lobby. The Pike opens when gauntlet 5 is

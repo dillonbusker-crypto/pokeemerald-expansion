@@ -1,6 +1,12 @@
-# Gauntlet 6 — "The Assembly Line"
+# Gauntlet 6 — "The Crossroads"
 
-**Battle Factory.** Doubles, 6v6, level 50. BST cap 600. Six battles drawn
+> **Moved (eight gauntlets):** this gauntlet now runs in the **Battle Pike**,
+> as **THE CROSSROADS** ("every team takes one of four roads"), and its boss
+> is **Pike Queen Lucy**: see "Boss — Pike Queen Lucy" below. The Factory is
+> Devon's control room. The twelve CPU teams are unchanged; the "Assembly
+> Line" framing below is historical.
+
+**Battle Pike** (was the Battle Factory). Doubles, 6v6, level 50. BST cap 600. Six battles drawn
 from twelve, then the boss.
 
 **Design intent:** teach archetype recognition. By now the player has seen
@@ -996,7 +1002,95 @@ Careful Nature
 
 ---
 
-## Boss — Factory Head Noland
+## Boss — Pike Queen Lucy
+
+Rethemed from Noland's sun team (below, kept for reference) when gauntlet 6
+moved to the Pike. **Status and disruption**, Lucy's specialty: burns,
+paralysis, sleep, screens, Taunt, and Shadow Tag. Built only from gauntlet 7's
+Pokémon and item pool and earlier, with one Mega the player can't own yet:
+**Mega Gengar** (Gengarite is held for gauntlet 7). Item clause compliant.
+
+> **Provisional until gauntlet 7 is designed.** Only Mega Gengar depends on
+> it: Gengarite was penciled in for gauntlet 7 under the old ten-gauntlet
+> plan. If gauntlet 7's shop doesn't sell it, swap in whichever
+> disruption-flavoured Mega does land there. The other five Pokémon and
+> every item are already sold by gauntlet 6.
+
+**AI:** omniscient, proactive switching. No ace flag.
+
+```
+Gengar @ Gengarite
+Ability: Cursed Body
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Shadow Ball
+- Sludge Bomb
+- Will-O-Wisp
+- Protect
+
+Grimmsnarl @ Light Clay
+Ability: Prankster
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Reflect
+- Light Screen
+- Thunder Wave
+- Spirit Break
+
+Tornadus @ Covert Cloak
+Ability: Prankster
+EVs: 252 HP / 4 SpD / 252 Spe
+Timid Nature
+- Tailwind
+- Bleakwind Storm
+- Taunt
+- Protect
+
+Milotic @ Leftovers
+Ability: Competitive
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Scald
+- Icy Wind
+- Recover
+- Protect
+
+Amoonguss @ Rocky Helmet
+Ability: Regenerator
+EVs: 252 HP / 252 Def / 4 SpD
+Relaxed Nature
+- Spore
+- Rage Powder
+- Pollen Puff
+- Protect
+
+Incineroar @ Sitrus Berry
+Ability: Intimidate
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Knock Off
+- Parting Shot
+```
+
+**The strategic dependency:** Mega Gengar traps (Shadow Tag) while Grimmsnarl's
+screens and Tornadus's Tailwind buy it turns; Amoonguss redirects and puts
+attackers to sleep; Milotic punishes Intimidate and Parting Shot with
+Competitive. Lucy's own signature Seviper and Shuckle aren't in any pool, so
+Milotic carries her vanilla identity.
+
+**Counterplay at tier 6:** Safety Goggles and Grass types ignore Spore and
+Rage Powder; Covert Cloak or Clear Amulet against Bleakwind Storm and Icy
+Wind drops; Taunt or Encore against the screen setter; Trick Room flips
+Tailwind; Dark and Ghost attackers for Gengar, which can't escape its own
+trapping game if it's the one taking hits. **Playtest note:** a disruption
+team may deal less damage than Noland's did; check that it still threatens.
+
+---
+
+## Boss — Factory Head Noland (historical)
+
 
 **Pool:** gauntlet 7 plus everything prior, and one Mega the player can
 never own.

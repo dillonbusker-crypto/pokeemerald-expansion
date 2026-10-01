@@ -14,19 +14,20 @@ BattleFrontier_Lounge8_EventScript_NinjaBoy::
 	end
 
 BattleFrontier_Lounge8_Text_WhatATrainerNeeds:
-	.string "What a trainer needs…\p"
-	.string "Knowledge… Strategy… Luck… Guts…\n"
-	.string "Spirit… Bravery… And ability…\p"
+	.string "What a trainer needs...\p"
+	.string "Knowledge... Strategy... Luck...\n"
+	.string "Guts... Spirit... Bravery... And\l"
+	.string "ability...\p"
 	.string "Well, I'm all set in every way!\n"
-	.string "I'll clear all ten gauntlets!\p"
+	.string "I'll clear all eight gauntlets!\p"
 	.string "Huh? Six POKéMON? At level 50? Hm.$"
 
 BattleFrontier_Lounge8_Text_KnowAboutFrontierBrains:
 	.string "BRAINS?\p"
 	.string "They used to run the seven\n"
-	.string "facilities here. Now they guard\l"
-	.string "the end of the Ten Gauntlets, from\l"
-	.string "gauntlet 4 on.\p"
+	.string "facilities here. Now five of them\l"
+	.string "guard the end of the Eight\l"
+	.string "Gauntlets, from gauntlet 4 on.\p"
 	.string "The first three are guarded by\n"
 	.string "ANABEL's TOWER WARDENS... and get\l"
 	.string "this, they're GYM LEADERS! WINONA,\l"

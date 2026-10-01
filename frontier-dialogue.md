@@ -5,11 +5,11 @@ Frontier, what they say today, and what they could say instead so the whole
 place feels like it belongs to the Eight Gauntlets. **Built** — see "Build
 notes" at the end for where the build differs from this spec.
 
-> **⚠️ Trimmed to eight gauntlets (decided, not built yet).** The game now
+> **Trimmed to eight gauntlets (built).** The game now
 > has **eight** gauntlets, the **Eight Gauntlets**, and the Ranking Hall is
 > the **Hall of Eight**. Parts 1 and 5 below give the new map. Older
-> sections, and the built game, still say "ten" / "Hall of Ten" in places;
-> the rework list is in `storyline.md` ("Trimming to eight gauntlets").
+> sections of this doc still say "ten" / "Hall of Ten" in places; the game's
+> text has been swept. See `storyline.md` ("Trimming to eight gauntlets").
 
 Line breaks in the proposals are loose. Final text gets reflowed to the
 GBA's ~36-characters-per-line boxes when it's implemented.
@@ -465,7 +465,7 @@ alongside `broker-spec.md`.
 
 ---
 
-## The Battle Arena: sparring ground (planned)
+## The Battle Arena: sparring ground (built)
 
 The Arena hosts no gauntlet. An attendant runs it as a sparring ground
 ("The Tycoon's hardly ever around these days," a hint at GRETA's other job).
@@ -478,14 +478,22 @@ The Arena hosts no gauntlet. An attendant runs it as a sparring ground
   `VAR_PSYCHIC_READ_GAUNTLET`). The attendant offers to "set up a mock
   battle": the next boss's real team. **100 FP per mock battle.** Nothing
   points the player here; it's an easter egg.
-- **Build traps:**
-  - A mock or rematch win must **not** set the boss's real trainer flag, or
-    the real boss fight could be skipped or break. Use separate trainer
-    entries, or a battle path that doesn't set the flag.
-  - Battles must carry **`BATTLE_TYPE_FRONTIER`** (the Set/Shift protection
-    in `CLAUDE.md`) and be covered by `IsFacilityBattleTrainer()` so the
-    bosses' own pics show.
-  - A mock never counts toward the gauntlet or the streak.
+- **How it's built** (`BattleFrontier_BattleArenaLobby_EventScript_Sparring`):
+  - A dynamic menu lists every beaten boss, plus "MOCK BATTLE" when
+    `VAR_PSYCHIC_READ_GAUNTLET` is the current gauntlet. A full party of six
+    is required, like a real gauntlet.
+  - `FLAG_SPARRING_BATTLE` (a temp flag) makes the battle Frontier-typed
+    (the Set/Shift protection in `CLAUDE.md`) and stops a loss from whiting
+    out (`src/battle_setup.c`). The bosses are already covered by
+    `IsFacilityBattleTrainer()`, so their own pics show.
+  - The boss's trainer flag is cleared before each match so the battle isn't
+    skipped. A mock win setting the next boss's flag is harmless:
+    `FacilityStartRun()` clears it again for the real run.
+  - Heal and `SaveFacilityHeldItems` before, heal and
+    `RestoreFacilityHeldItems` after. Nothing counts toward a gauntlet.
+  - The Arena is open from the start; the attendant turns the player away
+    until a boss has been beaten. A Camper hints at GRETA's other job; a
+    Youngster hints, vaguely, at the easter egg.
 - **Later:** the Arena becomes the base for **Nurse Joy** (the Chansey and
   Transfer EXP) and **the Broker** (the free shop) in the endgame.
 

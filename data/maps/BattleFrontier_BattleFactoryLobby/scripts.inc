@@ -319,16 +319,14 @@ BattleFrontier_BattleFactoryLobby_EventScript_ExitRules::
 	releaseall
 	end
 
-@ Ten Gauntlets: every non-Tower facility is locked until it's this
-@ gauntlet's turn. IsBattleFactoryUnlocked always reads FALSE right now -
-@ nothing sets that bit yet, since the unlock schedule isn't designed. See
-@ CLAUDE.md and shop-spec.md's unlock-schedule table.
+@ Ten Gauntlets: the Factory is Devon's control room, home of the Mega
+@ Pillar (storyline.md). Sealed until the endgame (IsBattleFactoryUnlocked).
 BattleFrontier_BattleFactoryLobby_EventScript_CheckLocked::
 	setvar VAR_TEMP_2, 1
 	special IsBattleFactoryUnlocked
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattleFactoryLobby_EventScript_CheckLocked_Done
 	lockall
-	msgbox BattleFrontier_BattleFactoryLobby_Text_NotOpenYet, MSGBOX_DEFAULT
+	msgbox BattleFrontier_BattleFactoryLobby_Text_DevonStaffOnly, MSGBOX_DEFAULT
 	closemessage
 	warpsilent MAP_BATTLE_FRONTIER_OUTSIDE_WEST, 2
 	waitstate
@@ -566,49 +564,6 @@ BattleFrontier_BattleFactoryLobby_Text_ExplainOpenLvRules:
 	.string "and the opposing TRAINERS' POKéMON\l"
 	.string "are all Level 100.$"
 
-@ ============================================================================
-@ Ten Gauntlets: gauntlet 6 ("The Assembly Line", gauntlet-06.md). Same
-@ pattern as the Battle Dome's gauntlet 5: the Factory is only the location
-@ (no rentals or swapping), and its Doubles attendant runs gauntlet 6
-@ through the shared run-loop scripts in data/maps/BattleFrontier_
-@ BattleTowerLobby/scripts.inc. The Factory opens when gauntlet 5 is
-@ cleared (IsBattleFactoryUnlocked() in src/facility.c), so the lobby's
-@ OnFrame check already turns the player away before then.
-@
-@ The vanilla Singles/Doubles attendant flows above are unreferenced now -
-@ map.json points the two attendants at the scripts below instead.
-@ ============================================================================
-
-BattleFrontier_BattleFactoryLobby_EventScript_FacilityAttendantB6::
-	lock
-	faceplayer
-	setvar VAR_0x8004, FACILITY_GAUNTLET_6
-	special IsFacilityRunActiveForGauntlet
-	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
-	special IsFacilityRunActiveForDifferentGauntlet
-	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
-	special IsFacilityGauntletCompleted
-	goto_if_eq VAR_RESULT, TRUE, Facility_AlreadyCleared
-	goto_if_lt VAR_BIRCH_STORY_STATE, 6, BattleFrontier_BattleFactoryLobby_EventScript_B6SystemDown
-	special FacilityCheckEligible
-	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
-	msgbox Facility_B6_Text_AskEnter, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, Facility_Decline
-	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
-	setvar VAR_0x8004, FACILITY_GAUNTLET_6
-	special FacilityStartRun
-	call Common_EventScript_SaveGame
-	goto Facility_DoBattle
-	end
-
-@ Ten Gauntlets: Birch's lab arc (storyline.md). DEVON's technology runs the
-@ Frontier's systems, and PRESIDENT STONE has paused gauntlet 6 until SCOTT
-@ "handles it" (VAR_BIRCH_STORY_STATE 6). The shops stay open.
-BattleFrontier_BattleFactoryLobby_EventScript_B6SystemDown::
-	msgbox BattleFrontier_BattleFactoryLobby_Text_B6SystemDown, MSGBOX_DEFAULT
-	release
-	end
-
 @ The vanilla Singles challenge would run the real Battle Factory's rental
 @ logic, outside the Ten Gauntlets run loop - so this attendant just turns
 @ the player away.
@@ -618,96 +573,6 @@ BattleFrontier_BattleFactoryLobby_EventScript_SinglesAttendantClosed::
 	msgbox BattleFrontier_BattleFactoryLobby_Text_SinglesClosed, MSGBOX_DEFAULT
 	release
 	end
-
-Facility_DoBattle_B6:
-	switch VAR_RESULT
-	case 0, Facility_B6_Battle_MONSOON
-	case 1, Facility_B6_Battle_SOLSTICE
-	case 2, Facility_B6_Battle_WHITEOUT
-	case 3, Facility_B6_Battle_LIVEWIRE
-	case 4, Facility_B6_Battle_MINDSCAPE
-	case 5, Facility_B6_Battle_OVERGROWTH
-	case 6, Facility_B6_Battle_STANDING
-	case 7, Facility_B6_Battle_NIGHTSHIFT
-	case 8, Facility_B6_Battle_SLOWBURN
-	case 9, Facility_B6_Battle_BLITZ
-	case 10, Facility_B6_Battle_HEAVYWEIGHT
-	case 11, Facility_B6_Battle_CHORUS
-	end
-
-Facility_B6_Battle_MONSOON:
-	trainerbattle_double TRAINER_FACILITY_B6_A1_MONSOON, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
-	end
-
-Facility_B6_Battle_SOLSTICE:
-	trainerbattle_double TRAINER_FACILITY_B6_A2_SOLSTICE, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
-	end
-
-Facility_B6_Battle_WHITEOUT:
-	trainerbattle_double TRAINER_FACILITY_B6_A3_WHITEOUT, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
-	end
-
-Facility_B6_Battle_LIVEWIRE:
-	trainerbattle_double TRAINER_FACILITY_B6_B4_LIVEWIRE, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
-	end
-
-Facility_B6_Battle_MINDSCAPE:
-	trainerbattle_double TRAINER_FACILITY_B6_B5_MINDSCAPE, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
-	end
-
-Facility_B6_Battle_OVERGROWTH:
-	trainerbattle_double TRAINER_FACILITY_B6_B6_OVERGROWTH, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
-	end
-
-Facility_B6_Battle_STANDING:
-	trainerbattle_double TRAINER_FACILITY_B6_C7_STANDING, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
-	end
-
-Facility_B6_Battle_NIGHTSHIFT:
-	trainerbattle_double TRAINER_FACILITY_B6_C8_NIGHTSHIFT, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
-	end
-
-Facility_B6_Battle_SLOWBURN:
-	trainerbattle_double TRAINER_FACILITY_B6_C9_SLOWBURN, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
-	end
-
-Facility_B6_Battle_BLITZ:
-	trainerbattle_double TRAINER_FACILITY_B6_D10_BLITZ, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
-	end
-
-Facility_B6_Battle_HEAVYWEIGHT:
-	trainerbattle_double TRAINER_FACILITY_B6_D11_HEAVYWEIGHT, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
-	end
-
-Facility_B6_Battle_CHORUS:
-	trainerbattle_double TRAINER_FACILITY_B6_D12_CHORUS, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
-	end
-
-Facility_Battle_Boss_B6:
-	trainerbattle_double TRAINER_FACILITY_B6_BOSS_NOLAND, Facility_B6_Text_BossIntro, Facility_B6_Text_BossDefeat, Facility_Text_NotEnoughMons, Facility_AfterBossBattle
-	end
-
-Facility_B6_Text_AskEnter:
-	.string "Welcome to gauntlet 6, THE\n"
-	.string "ASSEMBLY LINE!\p"
-	.string "This is a Doubles gauntlet - six\n"
-	.string "battles, then a boss. Your whole\l"
-	.string "party of six enters, and it's\l"
-	.string "locked once you begin.\p"
-	.string "Every team here is built to a\n"
-	.string "plan. Ready to start?$"
-
-Facility_B6_Text_BossIntro:
-	.string "Hey there! I'm NOLAND, the FACTORY\n"
-	.string "HEAD.\p"
-	.string "Every team off this line runs on\n"
-	.string "one part. Mine runs on the sun.\p"
-	.string "Find the part and break it.\n"
-	.string "Simple, right? Ha!$"
-
-Facility_B6_Text_BossDefeat:
-	.string "Ha! You found the part that\n"
-	.string "mattered. Nice work!$"
 
 BattleFrontier_BattleFactoryLobby_Text_SinglesClosed:
 	.string "The Singles challenge isn't running\n"
@@ -738,13 +603,8 @@ BattleFrontier_BattleFactoryLobby_EventScript_RulesBoard_Text:
 	.string "Find the part the plan runs on,\n"
 	.string "and break it.$"
 
-BattleFrontier_BattleFactoryLobby_Text_B6SystemDown:
-	.string "I'm sorry. The ASSEMBLY LINE is\n"
-	.string "closed for now.\p"
-	.string "The system's gone down again. Only\n"
-	.string "this gauntlet, oddly enough. The\l"
-	.string "shops are still running.\p"
-	.string "DEVON's technicians run everything\n"
-	.string "on the island, and they say\l"
-	.string "they're looking into it. Nobody\l"
-	.string "can tell me when it'll be back up.$"
+BattleFrontier_BattleFactoryLobby_Text_DevonStaffOnly:
+	.string "The doors are locked. A sign\n"
+	.string "reads:\p"
+	.string "“DEVON CORPORATION. AUTHORIZED\n"
+	.string "STAFF ONLY.”$"

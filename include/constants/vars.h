@@ -164,7 +164,7 @@
 #define VAR_BOARD_BRINEY_BOAT_STATE                      0x408E
 #define VAR_DEVON_CORP_3F_STATE                          0x408F
 #define VAR_BRINEY_HOUSE_STATE                           0x4090
-#define VAR_PSYCHIC_READ_GAUNTLET                        0x4091 // Ten Gauntlets: the gauntlet (1-10) whose boss the Lounge 7 psychic was paid to read; free repeats until it's cleared
+#define VAR_PSYCHIC_READ_GAUNTLET                        0x4091 // Ten Gauntlets: the gauntlet (1-8) whose boss the Lounge 7 psychic was paid to read; free repeats until it's cleared
 #define VAR_LITTLEROOT_INTRO_STATE                       0x4092
 #define VAR_MAUVILLE_GYM_STATE                           0x4093
 #define VAR_LILYCOVE_MUSEUM_2F_STATE                     0x4094

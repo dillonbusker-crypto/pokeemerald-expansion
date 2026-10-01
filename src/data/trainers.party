@@ -21861,24 +21861,34 @@ Careful Nature
 - Knock Off
 - Parting Shot
 
-=== TRAINER_FACILITY_B6_BOSS_NOLAND ===
-Name: NOLAND
-Class: Factory Head
-Pic: Factory Head Noland
-Gender: Male
-Music: Male
+=== TRAINER_FACILITY_B6_BOSS_LUCY ===
+Name: LUCY
+Class: Pike Queen
+Pic: Pike Queen Lucy
+Gender: Female
+Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 
-Charizard @ Charizardite Y
-Ability: Solar Power
+Gengar @ Gengarite
+Ability: Cursed Body
 Level: 50
 EVs: 252 SpA / 4 SpD / 252 Spe
 Timid Nature
-- Heat Wave
-- Solar Beam
-- Scorching Sands
+- Shadow Ball
+- Sludge Bomb
+- Will-O-Wisp
 - Protect
+
+Grimmsnarl @ Light Clay
+Ability: Prankster
+Level: 50
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Reflect
+- Light Screen
+- Thunder Wave
+- Spirit Break
 
 Tornadus @ Covert Cloak
 Ability: Prankster
@@ -21890,24 +21900,24 @@ Timid Nature
 - Taunt
 - Protect
 
-Walking Wake @ Life Orb
-Ability: Protosynthesis
+Milotic @ Leftovers
+Ability: Competitive
 Level: 50
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-- Hydro Steam
-- Draco Meteor
-- Flamethrower
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Scald
+- Icy Wind
+- Recover
 - Protect
 
-Venusaur @ Focus Sash
-Ability: Chlorophyll
+Amoonguss @ Rocky Helmet
+Ability: Regenerator
 Level: 50
-EVs: 252 SpA / 4 SpD / 252 Spe
-Modest Nature
-- Sleep Powder
-- Leaf Storm
-- Earth Power
+EVs: 252 HP / 252 Def / 4 SpD
+Relaxed Nature
+- Spore
+- Rage Powder
+- Pollen Puff
 - Protect
 
 Incineroar @ Sitrus Berry
@@ -21919,16 +21929,6 @@ Careful Nature
 - Flare Blitz
 - Knock Off
 - Parting Shot
-
-Great Tusk @ Assault Vest
-Ability: Protosynthesis
-Level: 50
-EVs: 252 Atk / 4 Def / 252 Spe
-Jolly Nature
-- Headlong Rush
-- Close Combat
-- Rock Slide
-- Ice Spinner
 
 /* Ten Gauntlets: the rival's rematch outside the Battle Tower. The Route 103
  * battle was a level 50 starter against their level 5 one; this is the fair

@@ -1595,7 +1595,8 @@ void BattleSetup_StartTrainerBattle(void)
     // this caused (SWANNA send-out message, TRAINER_FACILITY_B2_A1_FAULT).
     // The story battles outside the Tower (the rival, NORMAN) are fought
     // under the same rules, though they aren't part of a run.
-    if (IsFacilityRunActive() || IsFrontierStoryTrainer(TRAINER_BATTLE_PARAM.opponentA))
+    // The Arena's sparring matches (FLAG_SPARRING_BATTLE) too.
+    if (IsFacilityRunActive() || IsFrontierStoryTrainer(TRAINER_BATTLE_PARAM.opponentA) || FlagGet(FLAG_SPARRING_BATTLE))
         gBattleTypeFlags |= BATTLE_TYPE_BATTLE_TOWER;
 
     sNoOfPossibleTrainerRetScripts = gNoOfApproachingTrainers;
@@ -1712,7 +1713,7 @@ static void CB2_EndTrainerBattle(void)
         // GetBattleOutcome() to tell win from loss), it doesn't white the
         // player out - same as the real Battle Tower, which never whites you
         // out either, it just returns you to the lobby with the streak lost.
-        if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || InTrainerHillChallenge() || FlagGet(B_FLAG_NO_WHITEOUT) || IsFacilityRunActive())
+        if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || InTrainerHillChallenge() || FlagGet(B_FLAG_NO_WHITEOUT) || IsFacilityRunActive() || FlagGet(FLAG_SPARRING_BATTLE))
             SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         else
             SetMainCallback2(CB2_WhiteOut);

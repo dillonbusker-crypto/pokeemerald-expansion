@@ -948,7 +948,7 @@
 #define TRAINER_FACILITY_B6_D10_BLITZ         923
 #define TRAINER_FACILITY_B6_D11_HEAVYWEIGHT   924
 #define TRAINER_FACILITY_B6_D12_CHORUS        925
-#define TRAINER_FACILITY_B6_BOSS_NOLAND         926
+#define TRAINER_FACILITY_B6_BOSS_LUCY           926
 // The rival's rematch outside the Battle Tower (one per rival and starter).
 #define TRAINER_FRONTIER_RIVAL_MAY_FIRE         927
 #define TRAINER_FRONTIER_RIVAL_MAY_WATER        928

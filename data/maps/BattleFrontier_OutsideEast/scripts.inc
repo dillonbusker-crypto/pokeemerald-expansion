@@ -24,6 +24,7 @@ BattleFrontier_OutsideEast_OnTransition:
 	call BattleFrontier_OutsideEast_EventScript_RemoveHMs
 	setrespawn HEAL_LOCATION_BATTLE_FRONTIER_OUTSIDE_EAST
 	call BattleFrontier_OutsideEast_EventScript_ArmScottCaveWarning
+	call BattleFrontier_OutsideEast_EventScript_SetupSteven
 	call BattleFrontier_OutsideEast_EventScript_SetupRival
 	setflag FLAG_TEMP_5
 	call_if_eq VAR_NORMAN_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_ShowNorman
@@ -491,32 +492,27 @@ BattleFrontier_OutsideEast_EventScript_BattleTowerSign::
 
 BattleFrontier_OutsideEast_EventScript_BattlePalaceSign::
 	specialvar VAR_RESULT, GetGauntletsClearedCount
-	goto_if_ge VAR_RESULT, 8, BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Cleared8
+	goto_if_ge VAR_RESULT, 6, BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Cleared6
 	msgbox BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Text0, MSGBOX_SIGN
 	end
 
-BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Cleared8:
-	msgbox BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Text8, MSGBOX_SIGN
+BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Cleared6:
+	msgbox BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Text6, MSGBOX_SIGN
 	end
 
+@ Ten Gauntlets: the Arena hosts no gauntlet; it's the sparring ground.
 BattleFrontier_OutsideEast_EventScript_BattleArenaSign::
-	specialvar VAR_RESULT, GetGauntletsClearedCount
-	goto_if_ge VAR_RESULT, 7, BattleFrontier_OutsideEast_EventScript_BattleArenaSign_Cleared7
 	msgbox BattleFrontier_OutsideEast_EventScript_BattleArenaSign_Text0, MSGBOX_SIGN
-	end
-
-BattleFrontier_OutsideEast_EventScript_BattleArenaSign_Cleared7:
-	msgbox BattleFrontier_OutsideEast_EventScript_BattleArenaSign_Text7, MSGBOX_SIGN
 	end
 
 BattleFrontier_OutsideEast_EventScript_BattlePyramidSign::
 	specialvar VAR_RESULT, GetGauntletsClearedCount
-	goto_if_ge VAR_RESULT, 9, BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Cleared9
+	goto_if_ge VAR_RESULT, 7, BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Cleared7
 	msgbox BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Text0, MSGBOX_SIGN
 	end
 
-BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Cleared9:
-	msgbox BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Text9, MSGBOX_SIGN
+BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Cleared7:
+	msgbox BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Text7, MSGBOX_SIGN
 	end
 
 BattleFrontier_OutsideEast_EventScript_NinjaBoy::
@@ -788,9 +784,9 @@ BattleFrontier_OutsideEast_Text_BattlePyramidSign:
 	.string "Advance through the Battle Quest!$"
 
 BattleFrontier_OutsideEast_Text_RankingHallSign:
-	.string "THE HALL OF TEN\p"
-	.string "Ten gauntlets. Ten bosses. And the\n"
-	.string "trainers who beat them.$"
+	.string "THE HALL OF EIGHT\p"
+	.string "Eight gauntlets. Eight bosses. And\n"
+	.string "the trainers who beat them.$"
 
 BattleFrontier_OutsideEast_Text_ExchangeCornerSign:
 	.string "FRONTIER POINT EXCHANGE SERVICE\n"
@@ -806,33 +802,34 @@ BattleFrontier_OutsideEast_Text_BattleTowerFeelsSpecial:
 
 BattleFrontier_OutsideEast_Text_ConquerLeagueAndFrontier:
 	.string "My grand ambition is to clear all\n"
-	.string "ten gauntlets.\p"
-	.string "And if my dream comes true…\p"
-	.string "I… I'm going to ask MIMI next door\n"
-	.string "if she will be friends with me!$"
+	.string "eight gauntlets.\p"
+	.string "And if my dream comes true...\p"
+	.string "I... I'm going to ask MIMI next\n"
+	.string "door if she will be friends with\l"
+	.string "me!$"
 
 BattleFrontier_OutsideEast_Text_PyramidTooHarsh:
 	.string "The BATTLE PYRAMID's sealed tight.\n"
-	.string "They say it's the tenth gauntlet,\l"
+	.string "They say it's the eighth gauntlet,\l"
 	.string "the very last one.\p"
 	.string "I'm going to be waiting right here\n"
 	.string "the day it opens.$"
 
 BattleFrontier_OutsideEast_Text_ThriveInDarkness:
-	.string "I thrive in darkness… Yes…\p"
+	.string "I thrive in darkness... Yes...\p"
 	.string "The PYRAMID KING waits in the dark\n"
-	.string "of the tenth gauntlet… Few have\l"
+	.string "of the eighth gauntlet... Few have\l"
 	.string "seen him.\p"
 	.string "Yet everyone who reaches gauntlet\n"
-	.string "9 dreams of him…$"
+	.string "7 dreams of him...$"
 
 BattleFrontier_OutsideEast_Text_PutTogetherUltimateTeam:
 	.string "I didn't sleep for a week, but\n"
 	.string "then I put together the ultimate\l"
 	.string "team!\p"
-	.string "…The ARENA's still sealed, though.\n"
-	.string "So I'm starting at gauntlet 1 like\l"
-	.string "everyone else.$"
+	.string "...You can't skip ahead here,\n"
+	.string "though. So I'm starting at\l"
+	.string "gauntlet 1 like everyone else.$"
 
 BattleFrontier_OutsideEast_Text_DidScottBringYouHere:
 	.string "Did SCOTT invite you here, too?\p"
@@ -931,7 +928,7 @@ BattleFrontier_OutsideEast_Text_EnoughBattlePointsForDoll:
 
 BattleFrontier_OutsideEast_Text_LikeToHaveNameRecordedHere:
 	.string "Oh, yeah, okay! So this is the\n"
-	.string "HALL OF TEN!\p"
+	.string "HALL OF EIGHT!\p"
 	.string "Beat a gauntlet's boss and your\n"
 	.string "name goes up on its plaque. I'm\l"
 	.string "going to be the reason one of\l"
@@ -952,11 +949,12 @@ BattleFrontier_OutsideEast_Text_PowerOfOurLoveWillOvercome:
 	.string "will topple like dominoes!$"
 
 BattleFrontier_OutsideEast_Text_FrontierNotExclusivelyForToughTrainers:
-	.string "Ten gauntlets, and the FRONTIER\n"
-	.string "BRAINS waiting at the end of them…\p"
+	.string "Eight gauntlets, and the FRONTIER\n"
+	.string "BRAINS waiting at the end of\l"
+	.string "them...\p"
 	.string "SCOTT never does anything without\n"
 	.string "a reason. What's waiting after the\l"
-	.string "tenth, I wonder?$"
+	.string "eighth, I wonder?$"
 
 BattleFrontier_OutsideEast_Text_OddTreeHereSeemsToWiggle:
 	.string "Excuse me, young one.\n"
@@ -1035,32 +1033,29 @@ BattleFrontier_OutsideEast_EventScript_Woman2_Text0:
 	.string "new POKéMON… A resist berry, or a\l"
 	.string "new POKéMON…$"
 
-BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Text8:
-	.string "BATTLE PALACE - GAUNTLET 9.\p"
+BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Text6:
+	.string "BATTLE PALACE - GAUNTLET 7.\p"
 	.string "Sealed. Still being prepared.$"
 
 BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Text0:
-	.string "BATTLE PALACE - GAUNTLET 9.\p"
+	.string "BATTLE PALACE - GAUNTLET 7.\p"
 	.string "Sealed. Opens for those who clear\n"
-	.string "gauntlet 8.$"
-
-BattleFrontier_OutsideEast_EventScript_BattleArenaSign_Text7:
-	.string "BATTLE ARENA - GAUNTLET 8.\p"
-	.string "Sealed. Still being prepared.$"
+	.string "gauntlet 6.$"
 
 BattleFrontier_OutsideEast_EventScript_BattleArenaSign_Text0:
-	.string "BATTLE ARENA - GAUNTLET 8.\p"
-	.string "Sealed. Opens for those who clear\n"
-	.string "gauntlet 7.$"
+	.string "BATTLE ARENA - THE SPARRING\n"
+	.string "GROUND.\p"
+	.string "Rematch the bosses you've already\n"
+	.string "beaten.$"
 
-BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Text9:
-	.string "BATTLE PYRAMID - GAUNTLET 10.\p"
+BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Text7:
+	.string "BATTLE PYRAMID - GAUNTLET 8.\p"
 	.string "Sealed. Still being prepared.$"
 
 BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Text0:
-	.string "BATTLE PYRAMID - GAUNTLET 10.\p"
+	.string "BATTLE PYRAMID - GAUNTLET 8.\p"
 	.string "Sealed. Opens for those who clear\n"
-	.string "gauntlet 9.$"
+	.string "gauntlet 7.$"
 
 BattleFrontier_OutsideEast_Text_UseWailmerPail:
 	.string "It's an odd tree...\p"
@@ -1379,9 +1374,10 @@ BattleFrontier_OutsideEast_Text_LookerScrambler:
 	.string "it. Someone who knows machines\l"
 	.string "ought to take a look... someone\l"
 	.string "like STEVEN STONE.\p"
-	.string "...You have met STEVEN? In the\n"
-	.string "HALL OF TEN? Magnifique! Then you\l"
-	.string "shall show it to him for me.$"
+	.string "...You have met STEVEN? Outside\n"
+	.string "the old BATTLE FACTORY?\l"
+	.string "Magnifique! Then you shall show it\l"
+	.string "to him for me.$"
 
 BattleFrontier_OutsideEast_Text_LookerScramblerAfter:
 	.string "LOOKER: Keep it safe. And if\n"
@@ -1504,3 +1500,311 @@ BattleFrontier_OutsideEast_Text_RivalPlaza4:
 	.string "And Dad's stopped picking up the\n"
 	.string "phone at night. I keep telling\l"
 	.string "myself it's nothing.$"
+
+@ ============================================================================
+@ Ten Gauntlets: STEVEN (storyline.md). After gauntlet 2 he waits outside the
+@ Battle Factory (BattleFrontier_OutsideWest), Devon's sealed control room;
+@ after gauntlet 4, on the ledge above the Pyramid at (65, 5) here in Outside
+@ East. Both objects run BattleFrontier_Steven_EventScript_Steven, which
+@ acts on VAR_LAST_TALKED. VAR_STEVEN_STORY_STATE: 0 none, 1 attendant's
+@ hint, 2 met after gauntlet 2, 3 met after gauntlet 4.
+@ ============================================================================
+
+BattleFrontier_Steven_EventScript_Steven::
+	lock
+	faceplayer
+	goto_if_eq VAR_STEVEN_STORY_STATE, 2, BattleFrontier_Steven_EventScript_StevenG4
+	msgbox BattleFrontier_Steven_Text_StevenIntro, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_StevenAsksBadges, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_ShowedBadges, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_StevenCounterfeit, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_StevenTakesRainBadge, MSGBOX_DEFAULT
+	playse SE_PIN
+	message BattleFrontier_Steven_Text_GaveRainBadge
+	waitmessage
+	waitbuttonpress
+	clearflag FLAG_BADGE08_GET
+	closemessage
+	turnobject VAR_LAST_TALKED, DIR_NORTH
+	delay 30
+	msgbox BattleFrontier_Steven_Text_StevenFactory, MSGBOX_DEFAULT
+	applymovement VAR_LAST_TALKED, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox BattleFrontier_Steven_Text_StevenGift, MSGBOX_DEFAULT
+	giveitem ITEM_EVIOLITE
+	msgbox BattleFrontier_Steven_Text_StevenFavor, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_StevenAsksHelp, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_AgreedToHelp, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_STEVEN_STORY_STATE, 2
+	fadescreen FADE_TO_BLACK
+	removeobject VAR_LAST_TALKED
+	fadescreen FADE_FROM_BLACK
+	release
+	end
+
+BattleFrontier_Steven_Text_StevenIntro:
+	.string "STEVEN: Ah, there you are. That\n"
+	.string "was quite a battle against JUAN.\p"
+	.string "I'm STEVEN. A friend of mine,\n"
+	.string "WALLACE, asked me to come here\l"
+	.string "quietly.\p"
+	.string "JUAN was his teacher. WALLACE\n"
+	.string "wants to know why he walked away\l"
+	.string "from the SOOTOPOLIS GYM to guard a\l"
+	.string "mat on this island.\p"
+	.string "JUAN wouldn't tell me much. Only\n"
+	.string "that SCOTT made him an offer he\l"
+	.string "couldn't refuse...\p"
+	.string "And that I'd understand, if I\n"
+	.string "asked him again after the eighth\l"
+	.string "gauntlet.$"
+
+BattleFrontier_Steven_Text_StevenAsksBadges:
+	.string "STEVEN: I have a favor to ask. May\n"
+	.string "I see your BADGE case?$"
+
+BattleFrontier_Steven_Text_ShowedBadges:
+	.string "{PLAYER} showed STEVEN the BADGE\n"
+	.string "case.$"
+
+BattleFrontier_Steven_Text_StevenCounterfeit:
+	.string "STEVEN: ...\p"
+	.string "These aren't GYM BADGES. The\n"
+	.string "weight is wrong. The metal is\l"
+	.string "wrong.\p"
+	.string "I've handled nearly every stone in\n"
+	.string "HOENN, and these didn't come from\l"
+	.string "any of them.\p"
+	.string "Your father was right. They're\n"
+	.string "counterfeit.\p"
+	.string "But whoever made them knew exactly\n"
+	.string "what they were doing. There's\l"
+	.string "something set into the alloy...\l"
+	.string "I've only ever seen it in one\l"
+	.string "place. It looks like a shard of...\p"
+	.string "...No. Not until I'm sure.$"
+
+BattleFrontier_Steven_Text_StevenGift:
+	.string "STEVEN: I've kept you long enough.\n"
+	.string "Here... for the gauntlets ahead.\l"
+	.string "It's a stone, of sorts. I think\l"
+	.string "you'll find it useful.$"
+
+BattleFrontier_Steven_Text_StevenFavor:
+	.string "STEVEN: Keep beating these\n"
+	.string "gauntlets, {PLAYER}. The closer you\l"
+	.string "get to the top, the more SCOTT\l"
+	.string "will have to show his hand.\p"
+	.string "I'll be around.$"
+
+@ Ten Gauntlets: STEVEN after gauntlet 4 (storyline.md). He confirms the
+@ shards, swaps the counterfeit badges for real ones (FLAG_REAL_BADGES, which
+@ lets Experience flow - see FrontierStoryAllowsExp()), looks at the
+@ SCRAMBLER, and tests the one Pokemon without a chip: the Latias or Latios
+@ from Artisan Cave, which must lead the party. It battles a wild ARON with
+@ no Bag, switching or running (FLAG_FIGHT_ONLY_BATTLE) and gains Experience.
+@ Then he takes it for safekeeping - a Pokemon growing past 50 on SCOTT's
+@ island would give the game away - and gives a METAGROSS @ METAGROSSITE,
+@ borrowed from the Broker to test (it doesn't grow either: it's chipped). The trade isn't a choice.
+BattleFrontier_Steven_EventScript_StevenG4::
+	goto_if_set FLAG_REAL_BADGES, BattleFrontier_Steven_EventScript_StevenG4Test
+	msgbox BattleFrontier_Steven_Text_StevenG4Confirm, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_BADGE
+	message BattleFrontier_Steven_Text_GotRealBadges
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	setflag FLAG_BADGE08_GET
+	setflag FLAG_REAL_BADGES
+	checkitem ITEM_SCRAMBLER
+	call_if_eq VAR_RESULT, TRUE, BattleFrontier_Steven_EventScript_StevenSeesScrambler
+	msgbox BattleFrontier_Steven_Text_StevenNoticesLati, MSGBOX_DEFAULT
+BattleFrontier_Steven_EventScript_StevenG4Test::
+	setvar VAR_0x8004, 0
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_eq VAR_RESULT, SPECIES_LATIAS, BattleFrontier_Steven_EventScript_StevenG4Battle
+	goto_if_eq VAR_RESULT, SPECIES_LATIOS, BattleFrontier_Steven_EventScript_StevenG4Battle
+	msgbox BattleFrontier_Steven_Text_StevenLatiInFront, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Steven_EventScript_StevenG4Battle::
+	copyvar VAR_TEMP_1, VAR_RESULT
+	bufferspeciesname STR_VAR_1, VAR_TEMP_1
+	msgbox BattleFrontier_Steven_Text_StevenTestBattle, MSGBOX_DEFAULT
+	closemessage
+	special HealPlayerParty
+	setflag FLAG_FIGHT_ONLY_BATTLE
+	setwildbattle SPECIES_ARON, 10
+	dowildbattle
+	clearflag FLAG_FIGHT_ONLY_BATTLE
+	msgbox BattleFrontier_Steven_Text_StevenTestResult, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_StevenTrade, MSGBOX_DEFAULT
+	setvar VAR_0x8004, 0
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	call_if_eq VAR_RESULT, SPECIES_LATIOS, BattleFrontier_Steven_EventScript_StevenKeepsLatios
+	special FrontierFloristTakeMon
+	message BattleFrontier_Steven_Text_HandedOverLati
+	waitmessage
+	waitbuttonpress
+	givemon SPECIES_METAGROSS, 50, ITEM_METAGROSSITE
+	special FacilityTagLastPartyMonBroker
+	playfanfare MUS_OBTAIN_ITEM
+	message BattleFrontier_Steven_Text_ReceivedMetagross
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	bufferspeciesname STR_VAR_1, VAR_TEMP_1
+	msgbox BattleFrontier_Steven_Text_StevenG4Goodbye, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_STEVEN_STORY_STATE, 3
+	fadescreen FADE_TO_BLACK
+	removeobject VAR_LAST_TALKED
+	fadescreen FADE_FROM_BLACK
+	release
+	end
+
+BattleFrontier_Steven_EventScript_StevenKeepsLatios::
+	setflag FLAG_STEVEN_HAS_LATIOS
+	return
+
+BattleFrontier_Steven_EventScript_StevenSeesScrambler::
+	msgbox BattleFrontier_Steven_Text_StevenScrambler, MSGBOX_DEFAULT
+	return
+
+BattleFrontier_Steven_Text_StevenTakesRainBadge:
+	.string "STEVEN: May I borrow one of these?\n"
+	.string "I'd like to study it properly.\p"
+	.string "This one. The RAIN BADGE... JUAN's\n"
+	.string "own badge, from SOOTOPOLIS.\l"
+	.string "Fitting.$"
+
+BattleFrontier_Steven_Text_GaveRainBadge:
+	.string "{PLAYER} handed the RAIN BADGE to\n"
+	.string "STEVEN.$"
+
+BattleFrontier_Steven_Text_StevenAsksHelp:
+	.string "STEVEN: {PLAYER}... I could use\n"
+	.string "someone on the inside. Someone\l"
+	.string "SCOTT is watching, who can keep an\l"
+	.string "eye on him in return.\p"
+	.string "Will you work with me?$"
+
+BattleFrontier_Steven_Text_AgreedToHelp:
+	.string "{PLAYER} agreed to work with\n"
+	.string "STEVEN.$"
+
+BattleFrontier_Steven_Text_StevenG4Confirm:
+	.string "STEVEN: {PLAYER}. I was right.\p"
+	.string "There are KEY STONE shards in the\n"
+	.string "alloy. And while I carried your\l"
+	.string "RAIN BADGE, my own POKéMON stopped\l"
+	.string "gaining Experience. Not one point.\p"
+	.string "Those badges are feeding on your\n"
+	.string "POKéMON's growth.\p"
+	.string "So they're going. WALLACE pulled\n"
+	.string "some strings with the GYMS.\l"
+	.string "Here... the real ones.$"
+
+BattleFrontier_Steven_Text_GotRealBadges:
+	.string "{PLAYER}'s BADGES were replaced\n"
+	.string "with real ones!$"
+
+BattleFrontier_Steven_Text_StevenScrambler:
+	.string "STEVEN: And LOOKER's device... a\n"
+	.string "SCRAMBLER. It jams the PokéNav's\l"
+	.string "auto-heal.\p"
+	.string "That's DEVON technology. I'd know\n"
+	.string "it anywhere. I'll look into how\l"
+	.string "FLOTSAM got his hands on one.$"
+
+BattleFrontier_Steven_Text_StevenNoticesLati:
+	.string "STEVEN: Now... your LATIAS or\n"
+	.string "LATIOS. It came from the wild, not\l"
+	.string "from SCOTT.\p"
+	.string "I want to test something.$"
+
+BattleFrontier_Steven_Text_StevenLatiInFront:
+	.string "STEVEN: Put your LATIAS or LATIOS\n"
+	.string "at the front of your party, then\l"
+	.string "come and see me.$"
+
+BattleFrontier_Steven_Text_StevenTestBattle:
+	.string "STEVEN: I caught this ARON on my\n"
+	.string "way here. Battle it with your\l"
+	.string "{STR_VAR_1}, and don't hold back.\p"
+	.string "Let me patch your team up first.$"
+
+BattleFrontier_Steven_Text_StevenTestResult:
+	.string "STEVEN: Did you see? It gained\n"
+	.string "Experience!\p"
+	.string "So it was the badges. With them\n"
+	.string "gone, your {STR_VAR_1} can grow. It\l"
+	.string "was caught in the wild, so nothing\l"
+	.string "else is holding it back.\p"
+	.string "But I don't think the badges are\n"
+	.string "the whole story. Something's wrong\l"
+	.string "with the POKéMON from the FRONTIER\l"
+	.string "shop too.\p"
+	.string "I borrowed a METAGROSS from the\n"
+	.string "BROKER to check. It didn't gain a\l"
+	.string "single point, even while I wasn't\l"
+	.string "carrying the badges.\p"
+	.string "WALLACE and I will find out why.$"
+
+BattleFrontier_Steven_Text_StevenTrade:
+	.string "STEVEN: For now, that METAGROSS\n"
+	.string "will be more use to you than it is\l"
+	.string "to me.\p"
+	.string "And your {STR_VAR_1} worries me. A\n"
+	.string "POKéMON climbing past level 50 on\l"
+	.string "SCOTT's island is exactly what\l"
+	.string "would make him suspicious.\p"
+	.string "It seems SCOTT has taken a special\n"
+	.string "interest in you, {PLAYER}. In you,\l"
+	.string "and in how far you get through his\l"
+	.string "gauntlets.\p"
+	.string "So for now, keep progressing. Keep\n"
+	.string "beating the gauntlets as if\l"
+	.string "nothing has changed, and we'll see\l"
+	.string "what he does next.\p"
+	.string "I'll hold on to your {STR_VAR_1}\n"
+	.string "for the time being. Take\l"
+	.string "METAGROSS, along with its MEGA\l"
+	.string "STONE.$"
+
+BattleFrontier_Steven_Text_HandedOverLati:
+	.string "{PLAYER} handed the {STR_VAR_1} over\n"
+	.string "to STEVEN.$"
+
+BattleFrontier_Steven_Text_ReceivedMetagross:
+	.string "{PLAYER} received a METAGROSS\n"
+	.string "holding a METAGROSSITE!$"
+
+BattleFrontier_Steven_Text_StevenG4Goodbye:
+	.string "STEVEN: With that MEGA RING,\n"
+	.string "METAGROSS can Mega Evolve. Use it\l"
+	.string "well.\p"
+	.string "Keep climbing, {PLAYER}. I'll look\n"
+	.string "after your {STR_VAR_1} until the\l"
+	.string "time is right.$"
+
+BattleFrontier_OutsideEast_EventScript_SetupSteven::
+	setflag FLAG_TEMP_8
+	goto_if_ne VAR_STEVEN_STORY_STATE, 2, Common_EventScript_NopReturn
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_lt VAR_RESULT, 4, Common_EventScript_NopReturn
+	clearflag FLAG_TEMP_8
+	return
+
+BattleFrontier_Steven_Text_StevenFactory:
+	.string "STEVEN: And this building... The\n"
+	.string "BATTLE FACTORY, it used to be. Now\l"
+	.string "it's “DEVON staff only.”\p"
+	.string "What would DEVON want with a\n"
+	.string "battle facility?\p"
+	.string "And look at the stonework. That's\n"
+	.string "MEGA STONE ore in these walls.\l"
+	.string "Raw, unpolished... and a great\l"
+	.string "deal of it.$"

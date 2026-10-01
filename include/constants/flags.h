@@ -63,10 +63,13 @@
 // Ten Gauntlets: set around STEVEN's gauntlet 4 test - Bag, switching and Run
 // are refused ("fight-only"). A temp flag, like the one above.
 #define FLAG_FIGHT_ONLY_BATTLE    FLAG_TEMP_A
+// Ten Gauntlets: set around a sparring match at the Battle Arena - fought
+// under Frontier rules, and a loss doesn't white the player out. A temp flag.
+#define FLAG_SPARRING_BATTLE    FLAG_TEMP_B
 #define FLAG_FRONTIER_FLORIST_ASKED    0x26 // Ten Gauntlets: the florist has asked for a LEAFEON (unlocks buying one while the shop is down)
 #define FLAG_REAL_BADGES    0x27 // Ten Gauntlets: STEVEN swapped the counterfeit badges for real ones (gauntlet 4) - Experience can flow again
 #define FLAG_FRONTIER_FIRST_PATIENT    0x28 // Ten Gauntlets: the Frontier nurse has had her first patient in a long time
-#define FLAG_STEVEN_HAS_LATIOS    0x29 // Ten Gauntlets: STEVEN is keeping a LATIOS (clear: a LATIAS) until before gauntlet 10
+#define FLAG_STEVEN_HAS_LATIOS    0x29 // Ten Gauntlets: STEVEN is keeping a LATIOS (clear: a LATIAS) until before gauntlet 8
 #define FLAG_ARTISAN_SUITS_SEEN    0x2A // Ten Gauntlets: SCOTT's men in Artisan Cave have caught the player
 #define FLAG_SCOTT_CAVE_WARNING    0x2B // Ten Gauntlets: SCOTT has told the player about the ruckus in Artisan Cave
 #define FLAG_BROKER_STEVEN_MENTION    0x2C // Ten Gauntlets: the Broker has mentioned STEVEN borrowing his METAGROSS

@@ -141,7 +141,7 @@ static const struct FacilityGauntletData sFacilityGauntlets[] =
     [FACILITY_GAUNTLET_3] = { sGauntlet3Pool, ARRAY_COUNT(sGauntlet3Pool), TRAINER_FACILITY_B3_BOSS_ROXANNE },
     [FACILITY_GAUNTLET_4] = { sGauntlet4Pool, ARRAY_COUNT(sGauntlet4Pool), TRAINER_FACILITY_B4_BOSS_ANABEL },
     [FACILITY_GAUNTLET_5] = { sGauntlet5Pool, ARRAY_COUNT(sGauntlet5Pool), TRAINER_FACILITY_B5_BOSS_TUCKER },
-    [FACILITY_GAUNTLET_6] = { sGauntlet6Pool, ARRAY_COUNT(sGauntlet6Pool), TRAINER_FACILITY_B6_BOSS_NOLAND },
+    [FACILITY_GAUNTLET_6] = { sGauntlet6Pool, ARRAY_COUNT(sGauntlet6Pool), TRAINER_FACILITY_B6_BOSS_LUCY },
 };
 
 bool8 IsFacilityRunActive(void)
@@ -224,21 +224,26 @@ void IsBattleDomeUnlocked(void)
         || (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << FACILITY_GAUNTLET_4)) != 0;
 }
 
-// The Factory hosts gauntlet 6, so it opens when gauntlet 5 is cleared.
+// The Factory hosts no gauntlet: it's Devon's control room, home of the
+// Mega Pillar (storyline.md), sealed until the endgame opens its door bit.
 void IsBattleFactoryUnlocked(void)
 {
-    gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_FACTORY)
+    gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_FACTORY);
+}
+
+// The Pike hosts gauntlet 6, so it opens when gauntlet 5 is cleared.
+void IsBattlePikeUnlocked(void)
+{
+    gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_PIKE)
         || (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << FACILITY_GAUNTLET_5)) != 0;
 }
 
-void IsBattlePikeUnlocked(void)
-{
-    gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_PIKE);
-}
-
+// The Arena hosts no gauntlet: it's the sparring ground (storyline.md), open
+// from the start. Its attendant turns the player away until there's a boss
+// to spar against.
 void IsBattleArenaUnlocked(void)
 {
-    gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_ARENA);
+    gSpecialVar_Result = TRUE;
 }
 
 void IsBattlePalaceUnlocked(void)

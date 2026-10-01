@@ -602,3 +602,372 @@ BattleFrontier_BattleArenaLobby_Text_PleaseAcceptBattlePoints:
 	.string "My dear challenger, in recognition of\n"
 	.string "your indefatigable spirit, please\l"
 	.string "accept these Battle Point(s).$"
+
+@ ============================================================================
+@ Ten Gauntlets: the Battle Arena is the sparring ground (storyline.md,
+@ frontier-dialogue.md). The attendant sets up rematches against any boss
+@ the player has beaten - free, no FP, nothing counts. The secret: once the
+@ player has paid the Lounge 7 psychic to read the current gauntlet's boss
+@ (VAR_PSYCHIC_READ_GAUNTLET == cleared + 1), a mock battle against that
+@ boss's real team is on the menu too, for 100 FP each time.
+@ Every match is fought under Frontier rules and never whites the player out
+@ (FLAG_SPARRING_BATTLE, see src/battle_setup.c), with a full heal and the
+@ held items restored either side of it. The boss's trainer flag is cleared
+@ first so the battle isn't skipped; a mock win setting the next boss's flag
+@ is harmless, since FacilityStartRun() clears it again for the real run.
+@ ============================================================================
+BattleFrontier_BattleArenaLobby_EventScript_Sparring::
+	lock
+	faceplayer
+	specialvar VAR_TEMP_3, GetGauntletsClearedCount
+	copyvar VAR_TEMP_5, VAR_TEMP_3
+	addvar VAR_TEMP_5, 1
+	setvar VAR_TEMP_4, 0
+	call_if_eq VAR_PSYCHIC_READ_GAUNTLET, VAR_TEMP_5, BattleFrontier_BattleArenaLobby_EventScript_SparMockReady
+	goto_if_ne VAR_TEMP_3, 0, BattleFrontier_BattleArenaLobby_EventScript_SparMenu
+	goto_if_ne VAR_TEMP_4, 0, BattleFrontier_BattleArenaLobby_EventScript_SparMenu
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparNothingYet, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparMockReady::
+	setvar VAR_TEMP_4, 1
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_SparMenu::
+	message BattleFrontier_BattleArenaLobby_Text_SparWelcome
+	waitmessage
+	call_if_ge VAR_TEMP_3, 1, BattleFrontier_BattleArenaLobby_EventScript_SparPush1
+	call_if_ge VAR_TEMP_3, 2, BattleFrontier_BattleArenaLobby_EventScript_SparPush2
+	call_if_ge VAR_TEMP_3, 3, BattleFrontier_BattleArenaLobby_EventScript_SparPush3
+	call_if_ge VAR_TEMP_3, 4, BattleFrontier_BattleArenaLobby_EventScript_SparPush4
+	call_if_ge VAR_TEMP_3, 5, BattleFrontier_BattleArenaLobby_EventScript_SparPush5
+	call_if_ge VAR_TEMP_3, 6, BattleFrontier_BattleArenaLobby_EventScript_SparPush6
+	call_if_eq VAR_TEMP_4, 1, BattleFrontier_BattleArenaLobby_EventScript_SparPushMock
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_SparCancel, 127
+	dynmultistack 0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	switch VAR_RESULT
+	case 0, BattleFrontier_BattleArenaLobby_EventScript_SparCheck1
+	case 1, BattleFrontier_BattleArenaLobby_EventScript_SparCheck2
+	case 2, BattleFrontier_BattleArenaLobby_EventScript_SparCheck3
+	case 3, BattleFrontier_BattleArenaLobby_EventScript_SparCheck4
+	case 4, BattleFrontier_BattleArenaLobby_EventScript_SparCheck5
+	case 5, BattleFrontier_BattleArenaLobby_EventScript_SparCheck6
+	case 100, BattleFrontier_BattleArenaLobby_EventScript_SparMock
+	goto BattleFrontier_BattleArenaLobby_EventScript_SparGoodbye
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparPush1::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_SparBoss1, 0
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_SparPush2::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_SparBoss2, 1
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_SparPush3::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_SparBoss3, 2
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_SparPush4::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_SparBoss4, 3
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_SparPush5::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_SparBoss5, 4
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_SparPush6::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_SparBoss6, 5
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_SparPushMock::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_SparMockOption, 100
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_SparCheck1::
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_BattleArenaLobby_EventScript_SparNeedSix
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparReady, MSGBOX_DEFAULT
+	closemessage
+	goto BattleFrontier_BattleArenaLobby_EventScript_Spar1
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_Spar1::
+	call BattleFrontier_BattleArenaLobby_EventScript_SparPrep
+	cleartrainerflag TRAINER_FACILITY_B1_BOSS_WINONA
+	trainerbattle_single TRAINER_FACILITY_B1_BOSS_WINONA, BattleFrontier_BattleArenaLobby_Text_SparIntro, BattleFrontier_BattleArenaLobby_Text_SparDefeat, BattleFrontier_BattleArenaLobby_EventScript_AfterSpar
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparCheck2::
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_BattleArenaLobby_EventScript_SparNeedSix
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparReady, MSGBOX_DEFAULT
+	closemessage
+	goto BattleFrontier_BattleArenaLobby_EventScript_Spar2
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_Spar2::
+	call BattleFrontier_BattleArenaLobby_EventScript_SparPrep
+	cleartrainerflag TRAINER_FACILITY_B2_BOSS_JUAN
+	trainerbattle_double TRAINER_FACILITY_B2_BOSS_JUAN, BattleFrontier_BattleArenaLobby_Text_SparIntro, BattleFrontier_BattleArenaLobby_Text_SparDefeat, Facility_Text_NotEnoughMons, BattleFrontier_BattleArenaLobby_EventScript_AfterSpar
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparCheck3::
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_BattleArenaLobby_EventScript_SparNeedSix
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparReady, MSGBOX_DEFAULT
+	closemessage
+	goto BattleFrontier_BattleArenaLobby_EventScript_Spar3
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_Spar3::
+	call BattleFrontier_BattleArenaLobby_EventScript_SparPrep
+	cleartrainerflag TRAINER_FACILITY_B3_BOSS_ROXANNE
+	trainerbattle_single TRAINER_FACILITY_B3_BOSS_ROXANNE, BattleFrontier_BattleArenaLobby_Text_SparIntro, BattleFrontier_BattleArenaLobby_Text_SparDefeat, BattleFrontier_BattleArenaLobby_EventScript_AfterSpar
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparCheck4::
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_BattleArenaLobby_EventScript_SparNeedSix
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparReady, MSGBOX_DEFAULT
+	closemessage
+	goto BattleFrontier_BattleArenaLobby_EventScript_Spar4
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_Spar4::
+	call BattleFrontier_BattleArenaLobby_EventScript_SparPrep
+	cleartrainerflag TRAINER_FACILITY_B4_BOSS_ANABEL
+	trainerbattle_double TRAINER_FACILITY_B4_BOSS_ANABEL, BattleFrontier_BattleArenaLobby_Text_SparIntro, BattleFrontier_BattleArenaLobby_Text_SparDefeat, Facility_Text_NotEnoughMons, BattleFrontier_BattleArenaLobby_EventScript_AfterSpar
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparCheck5::
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_BattleArenaLobby_EventScript_SparNeedSix
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparReady, MSGBOX_DEFAULT
+	closemessage
+	goto BattleFrontier_BattleArenaLobby_EventScript_Spar5
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_Spar5::
+	call BattleFrontier_BattleArenaLobby_EventScript_SparPrep
+	cleartrainerflag TRAINER_FACILITY_B5_BOSS_TUCKER
+	trainerbattle_single TRAINER_FACILITY_B5_BOSS_TUCKER, BattleFrontier_BattleArenaLobby_Text_SparIntro, BattleFrontier_BattleArenaLobby_Text_SparDefeat, BattleFrontier_BattleArenaLobby_EventScript_AfterSpar
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparCheck6::
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_BattleArenaLobby_EventScript_SparNeedSix
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparReady, MSGBOX_DEFAULT
+	closemessage
+	goto BattleFrontier_BattleArenaLobby_EventScript_Spar6
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_Spar6::
+	call BattleFrontier_BattleArenaLobby_EventScript_SparPrep
+	cleartrainerflag TRAINER_FACILITY_B6_BOSS_LUCY
+	trainerbattle_double TRAINER_FACILITY_B6_BOSS_LUCY, BattleFrontier_BattleArenaLobby_Text_SparIntro, BattleFrontier_BattleArenaLobby_Text_SparDefeat, Facility_Text_NotEnoughMons, BattleFrontier_BattleArenaLobby_EventScript_AfterSpar
+	end
+
+@ The mock battle: the current gauntlet's boss (gauntlet cleared + 1).
+BattleFrontier_BattleArenaLobby_EventScript_SparMock::
+	specialvar VAR_RESULT, FacilityPsychicGetBoss
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_BattleArenaLobby_EventScript_SparNeedSix
+	special ShowFacilityFPWindow
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparMockOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_BattleArenaLobby_EventScript_SparMockDeclined
+	setvar VAR_0x8008, 100
+	special FacilityShopGetFP
+	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_BattleArenaLobby_EventScript_SparNoFP
+	setvar VAR_0x8004, 100
+	special FacilityShopTakeFP
+	special UpdateFacilityFPWindow
+	playse SE_SHOP
+	special CloseFacilityFPWindow
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparReady, MSGBOX_DEFAULT
+	closemessage
+	switch VAR_TEMP_3
+	case 0, BattleFrontier_BattleArenaLobby_EventScript_Spar1
+	case 1, BattleFrontier_BattleArenaLobby_EventScript_Spar2
+	case 2, BattleFrontier_BattleArenaLobby_EventScript_Spar3
+	case 3, BattleFrontier_BattleArenaLobby_EventScript_Spar4
+	case 4, BattleFrontier_BattleArenaLobby_EventScript_Spar5
+	case 5, BattleFrontier_BattleArenaLobby_EventScript_Spar6
+	goto BattleFrontier_BattleArenaLobby_EventScript_SparGoodbye
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparMockDeclined::
+	special CloseFacilityFPWindow
+	goto BattleFrontier_BattleArenaLobby_EventScript_SparGoodbye
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparNoFP::
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparNoFP, MSGBOX_DEFAULT
+	special CloseFacilityFPWindow
+	release
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparNeedSix::
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparNeedSix, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparGoodbye::
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparGoodbye, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparPrep::
+	special SaveFacilityHeldItems
+	special HealPlayerParty
+	setflag FLAG_SPARRING_BATTLE
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_AfterSpar::
+	clearflag FLAG_SPARRING_BATTLE
+	special HealPlayerParty
+	special RestoreFacilityHeldItems
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, BattleFrontier_BattleArenaLobby_EventScript_SparWon
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparLost, MSGBOX_DEFAULT
+	releaseall
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparWon::
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparWon, MSGBOX_DEFAULT
+	releaseall
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparBoard::
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparBoard, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparRules::
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparRules, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparWoman::
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparWoman, MSGBOX_NPC
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparMan::
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparMan, MSGBOX_NPC
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparCamper::
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparCamper, MSGBOX_NPC
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_SparYoungster::
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparYoungster, MSGBOX_NPC
+	end
+
+BattleFrontier_BattleArenaLobby_Text_SparBoss1:
+	.string "WARDEN WINONA$"
+
+BattleFrontier_BattleArenaLobby_Text_SparBoss2:
+	.string "TIDEWARDEN JUAN$"
+
+BattleFrontier_BattleArenaLobby_Text_SparBoss3:
+	.string "DUNEWARDEN ROXANNE$"
+
+BattleFrontier_BattleArenaLobby_Text_SparBoss4:
+	.string "SALON MAIDEN ANABEL$"
+
+BattleFrontier_BattleArenaLobby_Text_SparBoss5:
+	.string "DOME ACE TUCKER$"
+
+BattleFrontier_BattleArenaLobby_Text_SparBoss6:
+	.string "PIKE QUEEN LUCY$"
+
+BattleFrontier_BattleArenaLobby_Text_SparMockOption:
+	.string "MOCK BATTLE$"
+
+BattleFrontier_BattleArenaLobby_Text_SparCancel:
+	.string "CANCEL$"
+
+BattleFrontier_BattleArenaLobby_Text_SparNothingYet:
+	.string "Welcome to the sparring ground!\p"
+	.string "I set up rematches against the\n"
+	.string "bosses you've already beaten. No\l"
+	.string "FP, no streak. Just practice.\p"
+	.string "Come back once you've beaten one!$"
+
+BattleFrontier_BattleArenaLobby_Text_SparWelcome:
+	.string "Welcome to the sparring ground!\n"
+	.string "Who would you like to spar\l"
+	.string "against?$"
+
+BattleFrontier_BattleArenaLobby_Text_SparReady:
+	.string "All right! Your team's healed, and\n"
+	.string "you'll get your items back after.\l"
+	.string "No FP, nothing counts.\p"
+	.string "Begin!$"
+
+BattleFrontier_BattleArenaLobby_Text_SparIntro:
+	.string "The sparring match begins!$"
+
+BattleFrontier_BattleArenaLobby_Text_SparDefeat:
+	.string "A good match.$"
+
+BattleFrontier_BattleArenaLobby_Text_SparWon:
+	.string "Nicely done! Come back any time.$"
+
+BattleFrontier_BattleArenaLobby_Text_SparLost:
+	.string "Shake it off. That's what\n"
+	.string "sparring's for. Come back any\l"
+	.string "time.$"
+
+BattleFrontier_BattleArenaLobby_Text_SparNeedSix:
+	.string "You'll need a full party of six,\n"
+	.string "same as a real gauntlet.$"
+
+BattleFrontier_BattleArenaLobby_Text_SparGoodbye:
+	.string "Come back any time!$"
+
+BattleFrontier_BattleArenaLobby_Text_SparNoFP:
+	.string "Sorry, you don't have enough FP.$"
+
+BattleFrontier_BattleArenaLobby_Text_SparMockOffer:
+	.string "A mock battle? Against {STR_VAR_1}?\p"
+	.string "You'd need to know that team\n"
+	.string "inside and out... Every POKéMON,\l"
+	.string "every item.\p"
+	.string "...You do? Well, then I can set it\n"
+	.string "up. Same team, same moves.\p"
+	.string "The setup costs 100 FP. All right?$"
+
+BattleFrontier_BattleArenaLobby_Text_SparBoard:
+	.string "THE SPARRING GROUND\p"
+	.string "Rematch any boss you've beaten. No\n"
+	.string "FP. No streak. No hard feelings.$"
+
+BattleFrontier_BattleArenaLobby_Text_SparRules:
+	.string "SPARRING RULES\p"
+	.string "A full party of six, all at level\n"
+	.string "50. A full heal before and after.\p"
+	.string "Held items come back. Nothing you\n"
+	.string "win here counts.$"
+
+BattleFrontier_BattleArenaLobby_Text_SparWoman:
+	.string "I come here to spar against the\n"
+	.string "bosses I've already beaten.\p"
+	.string "Winning twice feels even better!$"
+
+BattleFrontier_BattleArenaLobby_Text_SparMan:
+	.string "No FP for sparring. Believe me, I\n"
+	.string "checked.$"
+
+BattleFrontier_BattleArenaLobby_Text_SparCamper:
+	.string "The ARENA TYCOON? GRETA? She's\n"
+	.string "hardly ever around these days.\p"
+	.string "I heard she works for SCOTT\n"
+	.string "directly now.$"
+
+BattleFrontier_BattleArenaLobby_Text_SparYoungster:
+	.string "The attendant can set up a match\n"
+	.string "against any team she knows.\p"
+	.string "She knows every boss you've\n"
+	.string "beaten... I wonder if there's any\l"
+	.string "other way she could know a team?$"

@@ -623,8 +623,8 @@ BattleFrontier_BattleDomeLobby_Text_LastWinnerWasTough:
 	.string "nerves of steel.$"
 
 BattleFrontier_OutsideWest_Text_LongDreamedAboutBattleFrontier:
-	.string "Ten gauntlets of nothing but\n"
-	.string "battling…\p"
+	.string "Eight gauntlets of nothing but\n"
+	.string "battling...\p"
 	.string "I've dreamed of a place like this\n"
 	.string "my whole life.$"
 

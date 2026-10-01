@@ -8,7 +8,7 @@ everything lives and the two places the build departs from the design). Follows 
 |---|---|---|
 | 1 | The Artisan Cave side quest (replaces the odd-tree idea) | Built |
 | 2 | Hints toward an end-game battle with SCOTT | Hints built; the battle itself comes after gauntlet 10 |
-| 3 | The Hall of Ten's eleventh plaque | Built |
+| 3 | ~~The Hall of Ten's eleventh plaque~~ | Removed (eight gauntlets: the Mega Pillar is in the Factory now; the plaque is the Hall of Eight's header) |
 | 4 | A Ditto disguised as an NPC | Built |
 | 5 | The banned Pokémon support group | Built |
 | 8 | The Frontier Brains loitering before their battles | Built |
@@ -175,8 +175,8 @@ I haven't told anyone about").
 
 **New hints:**
 
-- **The Hall of Ten's eleventh plaque** (#3). A blank plaque past the other
-  ten: "GAUNTLET ?? — ??????". After gauntlet 10: "SCOTT. — Undefeated —".
+- ~~**The Hall of Ten's eleventh plaque** (#3).~~ Removed with the trim to
+  eight gauntlets; the plaque now reads "THE HALL OF EIGHT".
 - **Six Poké Balls in SCOTT's house.** A shelf behind his desk: "Six POKé
   BALLS, polished to a shine. Not a single scratch on any of them." After
   gauntlet 10: "…One of them twitches."
@@ -227,8 +227,11 @@ beats them, then changes their line:
 |---|---|---|---|
 | ANABEL | Outside the Battle Tower | "The last mat is mine. Take your time on the first three — I'll know when you're ready." | "You've got the TOWER. Now let's see what the rest of them make of you." (+ the SCOTT remark from #2) |
 | TUCKER | Outside the Battle Dome | Practicing bows. "Audience of one? I'll take it. See you in the main event!" | "Encore, encore! …No? Fair enough. You earned the crown." |
-| NOLAND | Outside the Battle Factory | Fixing a machine. "Every team's built on one part. Figure out which, and you're halfway home." | "You broke my best line. I'm rebuilding it better. Ha!" |
-| LUCY, GRETA, SPENSER, BRANDON | Outside their sealed facilities | Shown only once their gauntlet exists. SPENSER is the "important-looking old man" the Outside East girl mentions. | — |
+| LUCY | Outside the Battle Pike (45, 29), once gauntlet 5 is cleared | Staring at the door. "Every team in there takes one of four roads. Read yours early." | "...You beat me. SCOTT asked about you afterwards. More than once." |
+| SPENSER, BRANDON | Outside their sealed facilities | Shown only once their gauntlet exists. SPENSER is the "important-looking old man" the Outside East girl mentions. | — |
+
+NOLAND and GRETA aren't gauntlet bosses any more: they're SCOTT's henchmen,
+first met in Artisan Cave (storyline.md).
 
 A Brain only appears once the player has reached their gauntlet's facility
 (e.g. TUCKER once gauntlet 4 is cleared), so they don't give the future away.
@@ -297,11 +300,11 @@ bag or PC.
 | Shop | Latios and Latias removed from gauntlet 6's wave (`src/facility_shop.c`) |
 | Wild Smeargle | Both Artisan Cave encounter tables deleted from `src/data/wild_encounters.json` |
 | Rumors | Old Woman (Outside East), Camper (Outside East corridor), Pokéfan F (Outside West), School Kid (Pokémon Center) |
-| Brains | ANABEL (19, 14) beside the Tower door, always; TUCKER (21, 17) beside the Dome once gauntlet 4 is cleared; NOLAND (13, 38) at the Factory once gauntlet 5 is cleared. Each changes lines once beaten, with a SCOTT remark. LUCY, GRETA, SPENSER and BRANDON get added with their gauntlets |
+| Brains | ANABEL (19, 14) beside the Tower door, always; TUCKER (21, 17) beside the Dome once gauntlet 4 is cleared; LUCY (45, 29) at the Pike once gauntlet 5 is cleared. Each changes lines once beaten, with a SCOTT remark. SPENSER and BRANDON get added with their gauntlets |
 | Ditto | Outside West (42, 41), a WOMAN_1 who recites the ferry attendant's greeting; the second talk reveals it, and it bounces away from the player. The wandering woman at (33, 41) comments until the player leaves the area |
 | Support group | Lounge 9, in a circle around SMEARGLE's empty seat |
 | Strategist | Lounge 4's Man, one hint per gauntlets-cleared count |
-| SCOTT hints | Hall of Ten eleventh plaque (26, 2) at the head of the hall; Poké Ball shelf in SCOTT's house (4, 1) |
+| SCOTT hints | Master Ball on a plaque in SCOTT's house (4, 2) (the eleventh plaque is gone) |
 
 ---
 

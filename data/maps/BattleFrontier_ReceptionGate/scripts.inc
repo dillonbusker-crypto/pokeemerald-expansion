@@ -145,7 +145,7 @@ BattleFrontier_ReceptionGate_EventScript_FacilityGuide::
 	case 3, BattleFrontier_ReceptionGate_EventScript_NextGauntlet4
 	case 4, BattleFrontier_ReceptionGate_EventScript_NextGauntlet5
 	case 5, BattleFrontier_ReceptionGate_EventScript_NextGauntlet6
-	case 10, BattleFrontier_ReceptionGate_EventScript_AllGauntletsCleared
+	case 8, BattleFrontier_ReceptionGate_EventScript_AllGauntletsCleared
 	msgbox BattleFrontier_ReceptionGate_Text_NextGauntletNotReady, MSGBOX_DEFAULT
 	release
 	end
@@ -362,7 +362,7 @@ BattleFrontier_ReceptionGate_Text_FirstTimeHereThisWay:
 BattleFrontier_ReceptionGate_Text_WelcomeToBattleFrontier:
 	.string "The front lines of POKéMON\n"
 	.string "battling! Welcome to the BATTLE\l"
-	.string "FRONTIER, home of the Ten\l"
+	.string "FRONTIER, home of the Eight\l"
 	.string "Gauntlets!$"
 
 BattleFrontier_ReceptionGate_Text_IssueFrontierPass:
@@ -381,7 +381,7 @@ BattleFrontier_ReceptionGate_Text_PlacedTrainerCardInFrontierPass:
 	.string "in the FRONTIER PASS.$"
 
 BattleFrontier_ReceptionGate_Text_EnjoyBattleFrontier:
-	.string "Ten gauntlets, and only one way\n"
+	.string "Eight gauntlets, and only one way\n"
 	.string "through: forward. Good luck!$"
 
 BattleFrontier_ReceptionGate_Text_IfItIsntPlayerYouCame:
@@ -409,7 +409,7 @@ BattleFrontier_ReceptionGate_Text_ScottGreatToSeeYouHere:
 	.string "isn't like anything you've faced\l"
 	.string "before.\p"
 	.string "Forget GYMS and BADGES. Here,\n"
-	.string "there are ten gauntlets, and\l"
+	.string "there are eight gauntlets, and\l"
 	.string "battling your way through them is\l"
 	.string "the whole game.\p"
 	.string "Each gauntlet throws six trainers\n"
@@ -637,14 +637,13 @@ BattleFrontier_ReceptionGate_Text_BattlePointsInfo:
 	.string "CORNER.$"
 
 BattleFrontier_ReceptionGate_Text_GauntletGuideIntro:
-	.string "I'm your guide to the Ten\n"
+	.string "I'm your guide to the Eight\n"
 	.string "Gauntlets!\p"
 	.string "The BATTLE TOWER holds the first\n"
 	.string "four, one on each mat. After that,\l"
-	.string "each of the other facilities holds\l"
-	.string "one: the DOME, the FACTORY, the\l"
-	.string "PIKE, the ARENA, the PALACE and\l"
-	.string "the PYRAMID.\p"
+	.string "four more facilities hold one\l"
+	.string "each: the DOME, the PIKE, the\l"
+	.string "PALACE and the PYRAMID.\p"
 	.string "Singles and Doubles take turns,\n"
 	.string "and each gauntlet opens once you\l"
 	.string "clear the one before it.$"
@@ -682,12 +681,12 @@ BattleFrontier_ReceptionGate_Text_NextGauntlet5:
 	.string "on the west side of the FRONTIER.$"
 
 BattleFrontier_ReceptionGate_Text_NextGauntlet6:
-	.string "Next up is THE ASSEMBLY LINE, at\n"
-	.string "the BATTLE FACTORY. Doubles, with\l"
-	.string "the FACTORY HEAD, NOLAND, at the\l"
-	.string "end.\p"
-	.string "The FACTORY is on the west side of\n"
-	.string "the FRONTIER.$"
+	.string "Next up is THE CROSSROADS, at the\n"
+	.string "BATTLE PIKE. Doubles, with the\l"
+	.string "PIKE QUEEN, LUCY, at the end.\p"
+	.string "The PIKE is the building shaped\n"
+	.string "like a POKéMON, on the west side\l"
+	.string "of the FRONTIER.$"
 
 BattleFrontier_ReceptionGate_Text_NextGauntletNotReady:
 	.string "You've come further than anyone!\n"
@@ -695,13 +694,14 @@ BattleFrontier_ReceptionGate_Text_NextGauntletNotReady:
 	.string "prepared. Please check back soon.$"
 
 BattleFrontier_ReceptionGate_Text_AllGauntletsCleared:
-	.string "You've cleared all ten gauntlets…\p"
+	.string "You've cleared all eight\n"
+	.string "gauntlets...\p"
 	.string "I've never said that to anyone\n"
 	.string "before. Congratulations!$"
 
 BattleFrontier_ReceptionGate_Text_RulesGuideIntro:
 	.string "I'm your guide to the rules of the\n"
-	.string "Ten Gauntlets. Here's everything\l"
+	.string "Eight Gauntlets. Here's everything\l"
 	.string "you need to know!$"
 
 BattleFrontier_ReceptionGate_Text_RulesTeam:

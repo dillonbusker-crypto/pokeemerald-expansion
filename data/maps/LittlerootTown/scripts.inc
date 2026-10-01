@@ -995,7 +995,7 @@ LittlerootTown_Text_ComeHomeIfAnythingHappens:
 	.string "own POKéMON now...\p"
 	.string "Oh, and PROF. BIRCH was telling me\n"
 	.string "about some new challenge at the\l"
-	.string "BATTLE FRONTIER. The TEN\l"
+	.string "BATTLE FRONTIER. The EIGHT\l"
 	.string "GAUNTLETS, he called it.\p"
 	.string "He seems to think it would suit\n"
 	.string "you perfectly.\p"

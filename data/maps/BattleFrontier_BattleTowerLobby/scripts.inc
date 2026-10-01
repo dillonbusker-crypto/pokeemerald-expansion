@@ -1995,8 +1995,8 @@ Facility_AfterBossBattle:
 	releaseall
 	end
 
-@ Ten Gauntlets: clearing gauntlet 5 opens the Battle Factory (gauntlet 6,
-@ see IsBattleFactoryUnlocked() in src/facility.c) and new Mega Stones. No
+@ Ten Gauntlets: clearing gauntlet 5 opens the Battle Pike (gauntlet 6,
+@ see IsBattlePikeUnlocked() in src/facility.c) and new Mega Stones. No
 @ item to hand over - the Mega Ring came with gauntlet 4.
 Facility_B5_GauntletComplete:
 	msgbox Facility_B5_Text_GauntletComplete, MSGBOX_DEFAULT
@@ -2153,7 +2153,7 @@ Facility_Text_NotEnoughMons:
 Facility_Text_BossIntro:
 	.string "I'm JUAN, once the GYM LEADER of\n"
 	.string "SOOTOPOLIS. Now, TIDEWARDEN of the\l"
-	.string "TEN GAUNTLETS.\p"
+	.string "EIGHT GAUNTLETS.\p"
 	.string "The rain falls on everyone\n"
 	.string "equally. Let us see who dances in\l"
 	.string "it!$"
@@ -2234,8 +2234,8 @@ Facility_B5_Text_GauntletComplete:
 	.string "Congratulations! You've cleared\n"
 	.string "the Main Event!\p"
 	.string "Your next challenge is a Doubles\n"
-	.string "gauntlet at the BATTLE FACTORY.\l"
-	.string "Its doors are open to you.\p"
+	.string "gauntlet at the BATTLE PIKE. Its\l"
+	.string "doors are open to you.\p"
 	.string "The MEGA STONE counter has new\n"
 	.string "stock, too - stones built for\l"
 	.string "Doubles.$"
@@ -2293,7 +2293,7 @@ BattleFrontier_BattleTowerLobby_EventScript_ShowLinkMultisResults_TextCleared:
 	.string "Cleared by {PLAYER}!$"
 
 BattleFrontier_BattleTowerLobby_EventScript_RulesBoard_Text:
-	.string "THE TEN GAUNTLETS - RULES\p"
+	.string "THE EIGHT GAUNTLETS - RULES\p"
 	.string "Six POKéMON, all at level 50. Your\n"
 	.string "team is locked once a run begins.\p"
 	.string "Six battles, then the boss. Full\n"
@@ -2350,7 +2350,8 @@ Facility_B2_Text_StevenHook:
 	.string "from the back of the lobby.\p"
 	.string "He left before it ended, but he\n"
 	.string "asked me to tell you he'd be\l"
-	.string "waiting in the HALL OF TEN.$"
+	.string "waiting outside the BATTLE\l"
+	.string "FACTORY.$"
 
 Facility_B4_Text_POSDown:
 	.string "I'm sorry. The LINK MULTI mat is\n"
@@ -2363,9 +2364,9 @@ Facility_B4_Text_POSDown:
 	.string "something about it.$"
 
 Facility_B4_Text_StevenHook:
-	.string "Oh, and that man in the suit is\n"
-	.string "back. He asked me to tell you he's\l"
-	.string "waiting in the HALL OF TEN again.$"
+	.string "Oh, and that man in the suit was\n"
+	.string "back. He asked after you, then\l"
+	.string "walked off toward the PYRAMID.$"
 
 Facility_Text_UseSecondWind:
 	.string "You still have a SECOND WIND.\p"
@@ -2390,8 +2391,8 @@ Facility_B3_Text_StevenWaiting:
 	.string "I'm sorry, I can't let you onto\n"
 	.string "this mat just yet.\p"
 	.string "The man in the suit was very\n"
-	.string "clear. He wants to see you in the\l"
-	.string "HALL OF TEN before you go any\l"
-	.string "further.\p"
+	.string "clear. He wants to see you outside\l"
+	.string "the BATTLE FACTORY before you go\l"
+	.string "any further.\p"
 	.string "I'd go see him. He didn't strike\n"
 	.string "me as someone who likes to wait.$"

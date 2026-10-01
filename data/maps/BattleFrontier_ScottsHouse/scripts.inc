@@ -81,7 +81,7 @@ BattleFrontier_ScottsHouse_EventScript_Scott::
 	case 3, BattleFrontier_ScottsHouse_EventScript_Progress3
 	case 4, BattleFrontier_ScottsHouse_EventScript_Progress4
 	case 5, BattleFrontier_ScottsHouse_EventScript_Progress5
-	case 10, BattleFrontier_ScottsHouse_EventScript_Progress10
+	case 8, BattleFrontier_ScottsHouse_EventScript_Progress10
 	msgbox BattleFrontier_ScottsHouse_Text_Progress6Plus, MSGBOX_DEFAULT
 	release
 	end
@@ -197,7 +197,7 @@ BattleFrontier_ScottsHouse_Text_Progress0:
 	.string "seven different skills. I wanted\l"
 	.string "one ladder that tests all of them,\l"
 	.string "in order.\p"
-	.string "That's the Ten Gauntlets.$"
+	.string "That's the Eight Gauntlets.$"
 
 BattleFrontier_ScottsHouse_Text_Progress1:
 	.string "SCOTT: You got past WINONA! I knew\n"
@@ -231,9 +231,9 @@ BattleFrontier_ScottsHouse_Text_Progress4:
 BattleFrontier_ScottsHouse_Text_Progress5:
 	.string "SCOTT: The DOME ACE himself,\n"
 	.string "beaten!\p"
-	.string "Next is the BATTLE FACTORY. NOLAND\n"
-	.string "builds every team on that line to\l"
-	.string "a plan. Find the plan, break it.$"
+	.string "Next is the BATTLE PIKE. LUCY\n"
+	.string "doesn't hit hard. She doesn't have\l"
+	.string "to.$"
 
 BattleFrontier_ScottsHouse_Text_Progress6Plus:
 	.string "SCOTT: Heheh... You're further\n"
@@ -245,12 +245,12 @@ BattleFrontier_ScottsHouse_Text_Progress6Plus:
 	.string "first to know.$"
 
 BattleFrontier_ScottsHouse_Text_Progress10:
-	.string "SCOTT: All ten gauntlets... All\n"
-	.string "seven of my BRAINS...\p"
+	.string "SCOTT: All eight gauntlets...\n"
+	.string "Every BRAIN I put in your way...\p"
 	.string "I built this place to find one\n"
 	.string "trainer who could do that. And now\l"
 	.string "that I've found you... Heheh.\p"
-	.string "There's something after the tenth\n"
+	.string "There's something after the eighth\n"
 	.string "that I haven't told anyone about.\l"
 	.string "Not yet.$"
 

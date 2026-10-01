@@ -162,7 +162,8 @@ ArtisanCave_B1F_Text_StayInCave:
 
 @ Ten Gauntlets: SCOTT's men (storyline.md). Once SCOTT has said he's sending
 @ them (FLAG_SCOTT_CAVE_WARNING, at the Battle Tower door) and the player has
-@ the SCRAMBLER from LOOKER, and until gauntlet 4 is cleared, two men in suits search the
+@ the SCRAMBLER from LOOKER, and until gauntlet 4 is cleared, NOLAND and GRETA (his
+@ henchmen, storyline.md) search the
 @ room where the Latis were. Walking up to them plays their scene once
 @ (FLAG_ARTISAN_SUITS_SEEN); after that they just tell the player to scram.
 @ After gauntlet 4, the cave is closed (BattleFrontier_OutsideWest).
@@ -185,36 +186,45 @@ ArtisanCave_B1F_EventScript_SuitsNoticePlayer::
 	msgbox ArtisanCave_B1F_Text_SuitsTalk, MSGBOX_DEFAULT
 	closemessage
 	playse SE_PIN
-	applymovement LOCALID_ARTISAN_SUIT_1, Common_Movement_ExclamationMark
-	applymovement LOCALID_ARTISAN_SUIT_2, Common_Movement_ExclamationMark
+	applymovement LOCALID_ARTISAN_NOLAND, Common_Movement_ExclamationMark
+	applymovement LOCALID_ARTISAN_GRETA, Common_Movement_ExclamationMark
 	waitmovement 0
-	applymovement LOCALID_ARTISAN_SUIT_1, Common_Movement_FacePlayer
-	applymovement LOCALID_ARTISAN_SUIT_2, Common_Movement_FacePlayer
+	applymovement LOCALID_ARTISAN_NOLAND, Common_Movement_FacePlayer
+	applymovement LOCALID_ARTISAN_GRETA, Common_Movement_FacePlayer
 	waitmovement 0
 	msgbox ArtisanCave_B1F_Text_SuitsSpotPlayer, MSGBOX_DEFAULT
 	setflag FLAG_ARTISAN_SUITS_SEEN
 	releaseall
 	end
 
-ArtisanCave_B1F_EventScript_Suit::
-	msgbox ArtisanCave_B1F_Text_SuitScram, MSGBOX_NPC
+ArtisanCave_B1F_EventScript_Noland::
+	msgbox ArtisanCave_B1F_Text_NolandScram, MSGBOX_NPC
+	end
+
+ArtisanCave_B1F_EventScript_Greta::
+	msgbox ArtisanCave_B1F_Text_GretaScram, MSGBOX_NPC
 	end
 
 ArtisanCave_B1F_Text_SuitsTalk:
-	.string "MAN IN SUIT: There should've been\n"
-	.string "two of them in here.\p"
-	.string "OTHER MAN: We were lucky to catch\n"
-	.string "the other one before it escaped\l"
-	.string "the cave.\p"
-	.string "MAN IN SUIT: Yeah. SCOTT would've\n"
+	.string "NOLAND: There should've been two\n"
+	.string "of them in here.\p"
+	.string "GRETA: We were lucky to catch the\n"
+	.string "other one before it got out of the\l"
+	.string "cave.\p"
+	.string "NOLAND: Ha! Yeah. SCOTT would've\n"
 	.string "had our heads if we'd lost both.$"
 
 ArtisanCave_B1F_Text_SuitsSpotPlayer:
-	.string "MAN IN SUIT: Hey! You! You\n"
-	.string "shouldn't be in here.\p"
-	.string "This cave is for FRONTIER\n"
-	.string "personnel only.$"
+	.string "GRETA: Hey! You! You shouldn't be\n"
+	.string "in here.\p"
+	.string "NOLAND: This cave is for FRONTIER\n"
+	.string "personnel only, kid.$"
 
-ArtisanCave_B1F_Text_SuitScram:
-	.string "Scram, kid. FRONTIER personnel\n"
-	.string "only.$"
+ArtisanCave_B1F_Text_NolandScram:
+	.string "NOLAND: Scram, kid. FRONTIER\n"
+	.string "personnel only.\p"
+	.string "...Nothing personal. Ha!$"
+
+ArtisanCave_B1F_Text_GretaScram:
+	.string "GRETA: You heard him. Out. Before\n"
+	.string "I make you.$"

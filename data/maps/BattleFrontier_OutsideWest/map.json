@@ -356,17 +356,17 @@
       "flag": "FLAG_TEMP_1"
     },
     {
-      "local_id": "LOCALID_FRONTIER_NOLAND",
-      "graphics_id": "OBJ_EVENT_GFX_NOLAND",
-      "x": 13,
-      "y": 38,
+      "local_id": "LOCALID_FRONTIER_LUCY",
+      "graphics_id": "OBJ_EVENT_GFX_LUCY",
+      "x": 45,
+      "y": 29,
       "elevation": 0,
-      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "BattleFrontier_OutsideWest_EventScript_Noland",
+      "script": "BattleFrontier_OutsideWest_EventScript_Lucy",
       "flag": "FLAG_TEMP_2"
     },
     {
@@ -398,38 +398,38 @@
       "flag": "FLAG_TEMP_3"
     },
     {
-      "local_id": "LOCALID_FRONTIER_FACTORY_MAY",
+      "local_id": "LOCALID_FRONTIER_PIKE_MAY",
       "graphics_id": "OBJ_EVENT_GFX_RIVAL_MAY_NORMAL",
-      "x": 11,
-      "y": 39,
+      "x": 42,
+      "y": 28,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "BattleFrontier_OutsideWest_EventScript_FactoryRival",
+      "script": "BattleFrontier_OutsideWest_EventScript_PikeRival",
       "flag": "FLAG_TEMP_4"
     },
     {
-      "local_id": "LOCALID_FRONTIER_FACTORY_BRENDAN",
+      "local_id": "LOCALID_FRONTIER_PIKE_BRENDAN",
       "graphics_id": "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
-      "x": 11,
-      "y": 39,
+      "x": 42,
+      "y": 28,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 1,
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "BattleFrontier_OutsideWest_EventScript_FactoryRival",
+      "script": "BattleFrontier_OutsideWest_EventScript_PikeRival",
       "flag": "FLAG_TEMP_5"
     },
     {
       "local_id": "LOCALID_FRONTIER_WALLACE",
       "graphics_id": "OBJ_EVENT_GFX_WALLACE",
-      "x": 11,
-      "y": 48,
+      "x": 42,
+      "y": 38,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 1,
@@ -440,10 +440,10 @@
       "flag": "FLAG_TEMP_6"
     },
     {
-      "local_id": "LOCALID_FRONTIER_FACTORY_SCOTT",
+      "local_id": "LOCALID_FRONTIER_PIKE_SCOTT",
       "graphics_id": "OBJ_EVENT_GFX_SCOTT",
-      "x": 11,
-      "y": 46,
+      "x": 42,
+      "y": 38,
       "elevation": 0,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
       "movement_range_x": 1,
@@ -452,6 +452,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
       "flag": "FLAG_TEMP_7"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_STEVEN_FACTORY",
+      "graphics_id": "OBJ_EVENT_GFX_STEVEN",
+      "x": 12,
+      "y": 39,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "BattleFrontier_Steven_EventScript_Steven",
+      "flag": "FLAG_TEMP_8"
     }
   ],
   "warp_events": [
@@ -545,57 +559,57 @@
     },
     {
       "type": "trigger",
-      "x": 9,
-      "y": 41,
+      "x": 39,
+      "y": 29,
       "elevation": 0,
       "var": "VAR_TEMP_4",
       "var_value": "0",
-      "script": "BattleFrontier_OutsideWest_EventScript_FactoryRivalScene9"
+      "script": "BattleFrontier_OutsideWest_EventScript_PikeRivalSceneA"
     },
     {
       "type": "trigger",
-      "x": 10,
-      "y": 41,
+      "x": 40,
+      "y": 29,
       "elevation": 0,
       "var": "VAR_TEMP_4",
       "var_value": "0",
-      "script": "BattleFrontier_OutsideWest_EventScript_FactoryRivalScene10"
+      "script": "BattleFrontier_OutsideWest_EventScript_PikeRivalSceneB"
     },
     {
       "type": "trigger",
-      "x": 11,
-      "y": 41,
+      "x": 40,
+      "y": 31,
       "elevation": 0,
       "var": "VAR_TEMP_4",
       "var_value": "0",
-      "script": "BattleFrontier_OutsideWest_EventScript_FactoryRivalScene11"
+      "script": "BattleFrontier_OutsideWest_EventScript_PikeRivalSceneC"
     },
     {
       "type": "trigger",
-      "x": 12,
-      "y": 41,
+      "x": 41,
+      "y": 31,
       "elevation": 0,
       "var": "VAR_TEMP_4",
       "var_value": "0",
-      "script": "BattleFrontier_OutsideWest_EventScript_FactoryRivalScene12"
+      "script": "BattleFrontier_OutsideWest_EventScript_PikeRivalSceneD"
     },
     {
       "type": "trigger",
-      "x": 13,
-      "y": 41,
+      "x": 42,
+      "y": 31,
       "elevation": 0,
       "var": "VAR_TEMP_4",
       "var_value": "0",
-      "script": "BattleFrontier_OutsideWest_EventScript_FactoryRivalScene13"
+      "script": "BattleFrontier_OutsideWest_EventScript_PikeRivalSceneE"
     },
     {
       "type": "trigger",
-      "x": 11,
-      "y": 39,
+      "x": 42,
+      "y": 28,
       "elevation": 0,
       "var": "VAR_TEMP_5",
       "var_value": "0",
-      "script": "BattleFrontier_OutsideWest_EventScript_FactoryScott"
+      "script": "BattleFrontier_OutsideWest_EventScript_PikeScott"
     }
   ],
   "bg_events": [
