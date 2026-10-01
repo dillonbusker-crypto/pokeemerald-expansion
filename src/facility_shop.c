@@ -800,6 +800,10 @@ static const struct FacilityShopMon sBudgetMons[] =
     { SPECIES_SHARPEDO,        250, 4 },
     { SPECIES_MALAMAR,         250, 4 },
     { SPECIES_DRAGALGE,        250, 4 },
+    // Kangaskhan comes with the other Mega bases, but its stone is never
+    // sold: the only Kangaskhanite is NORMAN's gift after gauntlet 5
+    // (storyline.md), so the Broker and the trader can't offer one either.
+    { SPECIES_KANGASKHAN,      250, 4 },
     // Unlocked clearing gauntlet 5 - gauntlet-06.md. Bases for the doubles
     // Mega Stones.
     { SPECIES_SCOVILLAIN,               375, 5 },

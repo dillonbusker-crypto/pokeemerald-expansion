@@ -301,13 +301,10 @@ PlayersHouse_2F_Text_ItsAGameCube:
 	.string "A Game Boy Advance is connected to\n"
 	.string "serve as the Controller.$"
 
-@ Ten Gauntlets: after the lab scene the rival is off at the Frontier, waiting
-@ at the Battle Tower door. Once the player has beaten them there, they're
-@ back home training. Only in the rival's own house (the other gender's).
+@ Ten Gauntlets: the rival is never in the bedroom any more: after the lab
+@ scene they're at the Frontier (the Battle Tower door, then the plaza; see
+@ BattleFrontier_OutsideEast), and after Birch's lab arc they help out at the
+@ lab (storyline.md).
 LittlerootTown_BrendansHouse_2F_EventScript_PlaceRival::
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_BEDROOM
-	goto_if_unset FLAG_FRONTIER_RIVAL_REMATCH_DONE, Common_EventScript_NopReturn
-	checkplayergender
-	goto_if_ne VAR_RESULT, FEMALE, Common_EventScript_NopReturn
-	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_BEDROOM
 	return

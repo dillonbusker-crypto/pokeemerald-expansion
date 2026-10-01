@@ -26,6 +26,7 @@ LittlerootTown_BrendansHouse_1F_EventScript_ShowRunningShoesManual::
 LittlerootTown_BrendansHouse_1F_OnTransition:
 	setvar VAR_0x8004, MALE
 	call PlayersHouse_1F_EventScript_SetupDad
+	call LittlerootTown_BrendansHouse_1F_EventScript_SetupFamilyScene
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 3, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToDoor
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 5, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToStairs
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToTV
@@ -436,3 +437,19 @@ PlayersHouse_1F_Text_WhatColorDidTheySay:
 PlayersHouse_1F_Text_StillUnknownPokemon:
 	.string "MOM: Well, isn't that something!\n"
 	.string "There are still unknown POKéMON.$"
+
+@ Ten Gauntlets: Birch's lab arc (storyline.md). Once the rival has decided
+@ to stay in LITTLEROOT (VAR_BIRCH_STORY_STATE 4), MOM and DAD stand facing
+@ each other, and the player's first step inside gets MOM's attention. The
+@ scene itself plays when the player talks to either of them.
+LittlerootTown_BrendansHouse_1F_EventScript_SetupFamilyScene::
+	setvar VAR_TEMP_2, 1
+	goto_if_ne VAR_BIRCH_STORY_STATE, 4, Common_EventScript_NopReturn
+	checkplayergender
+	goto_if_ne VAR_RESULT, MALE, Common_EventScript_NopReturn
+	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 6, 5
+	setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_DAD, 7, 5
+	setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_DAD, MOVEMENT_TYPE_FACE_LEFT
+	setvar VAR_TEMP_2, 0
+	return

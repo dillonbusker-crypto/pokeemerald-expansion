@@ -299,6 +299,10 @@ PlayersHouse_1F_Movement_MomReturnToSeatFemale:
 PlayersHouse_1F_EventScript_Mom::
 	lock
 	faceplayer
+	goto_if_eq VAR_BIRCH_STORY_STATE, 4, PlayersHouse_1F_EventScript_FamilyScene
+	goto_if_ge VAR_BIRCH_STORY_STATE, 4, PlayersHouse_1F_EventScript_MomNotWorried
+	goto_if_ge VAR_BIRCH_STORY_STATE, 1, PlayersHouse_1F_EventScript_MomWorried
+PlayersHouse_1F_EventScript_MomNotWorried:
 	goto_if_eq VAR_LITTLEROOT_HOUSES_STATE_MAY, 4, PlayersHouse_1F_EventScript_DontPushYourselfTooHard
 	goto_if_eq VAR_LITTLEROOT_HOUSES_STATE_BRENDAN, 4, PlayersHouse_1F_EventScript_DontPushYourselfTooHard
 	goto_if_set FLAG_HAS_MATCH_CALL, PlayersHouse_1F_EventScript_TryRegisterMom
@@ -686,7 +690,59 @@ PlayersHouse_1F_EventScript_SetupDad::
 	return
 
 PlayersHouse_1F_EventScript_Dad::
-	msgbox PlayersHouse_1F_Text_DadHome, MSGBOX_NPC
+	lock
+	faceplayer
+	goto_if_eq VAR_BIRCH_STORY_STATE, 4, PlayersHouse_1F_EventScript_FamilyScene
+	goto_if_ge VAR_BIRCH_STORY_STATE, 5, PlayersHouse_1F_EventScript_DadAfterStone
+	goto_if_ge VAR_BIRCH_STORY_STATE, 1, PlayersHouse_1F_EventScript_DadWorried
+	msgbox PlayersHouse_1F_Text_DadHome, MSGBOX_DEFAULT
+	release
+	end
+
+PlayersHouse_1F_EventScript_DadWorried::
+	msgbox PlayersHouse_1F_Text_DadWorried, MSGBOX_DEFAULT
+	release
+	end
+
+PlayersHouse_1F_EventScript_DadAfterStone::
+	msgbox PlayersHouse_1F_Text_DadAfterStone, MSGBOX_DEFAULT
+	release
+	end
+
+PlayersHouse_1F_EventScript_MomWorried::
+	msgbox PlayersHouse_1F_Text_MomWorried, MSGBOX_DEFAULT
+	release
+	end
+
+PlayersHouse_1F_EventScript_FamilyGreeting::
+	lockall
+	setvar VAR_TEMP_2, 1
+	applymovement LOCALID_PLAYERS_HOUSE_1F_MOM, Common_Movement_FacePlayer
+	waitmovement 0
+	playse SE_PIN
+	applymovement LOCALID_PLAYERS_HOUSE_1F_MOM, Common_Movement_ExclamationMark
+	waitmovement 0
+	msgbox PlayersHouse_1F_Text_MomGreeting, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYERS_HOUSE_1F_DAD, Common_Movement_FacePlayer
+	waitmovement 0
+	releaseall
+	end
+
+@ Ten Gauntlets: after Birch's lab (storyline.md). DAD suspects DEVON and
+@ SCOTT are working together, works out that the player is working with
+@ STEVEN, and gives them the only KANGASKHANITE in the game - the Frontier
+@ shop never sells one.
+PlayersHouse_1F_EventScript_FamilyScene::
+	applymovement LOCALID_PLAYERS_HOUSE_1F_MOM, Common_Movement_FacePlayer
+	applymovement LOCALID_PLAYERS_HOUSE_1F_DAD, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox PlayersHouse_1F_Text_FamilyScene, MSGBOX_DEFAULT
+	giveitem ITEM_KANGASKHANITE
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
+	msgbox PlayersHouse_1F_Text_DadGaveStone, MSGBOX_DEFAULT
+	setvar VAR_BIRCH_STORY_STATE, 5
+	release
 	end
 
 PlayersHouse_1F_Text_DadHome:
@@ -697,3 +753,54 @@ PlayersHouse_1F_Text_DadHome:
 	.string "...Remember what I told you about\n"
 	.string "SCOTT. Keep your eyes open out\l"
 	.string "there.$"
+
+PlayersHouse_1F_Text_DadWorried:
+	.string "DAD: Something's going on at\n"
+	.string "BIRCH's LAB. The whole town's\l"
+	.string "talking about it.\p"
+	.string "If you're heading over there, keep\n"
+	.string "your wits about you.$"
+
+PlayersHouse_1F_Text_MomWorried:
+	.string "MOM: {PLAYER}! Have you heard?\n"
+	.string "There are men from DEVON at PROF.\l"
+	.string "BIRCH's LAB, and they won't let\l"
+	.string "anyone in!\p"
+	.string "Oh, I do hope the PROFESSOR's all\n"
+	.string "right.$"
+
+PlayersHouse_1F_Text_MomGreeting:
+	.string "MOM: Oh! {PLAYER}! You're home!$"
+
+PlayersHouse_1F_Text_FamilyScene:
+	.string "DAD: {PLAYER}. I heard about what\n"
+	.string "happened at the LAB.\p"
+	.string "I can't say I'm surprised. DEVON\n"
+	.string "and SCOTT... I'd bet anything\l"
+	.string "they're working together on\l"
+	.string "something.\p"
+	.string "The whole thing smells wrong.\p"
+	.string "MOM: Oh, dear... {PLAYER}, promise\n"
+	.string "me you'll be careful out there.\p"
+	.string "DAD: ...There's something you're\n"
+	.string "not telling us, isn't there?\p"
+	.string "...\p"
+	.string "I see. So you're working with\n"
+	.string "STEVEN now. Undercover, while you\l"
+	.string "climb those gauntlets.\p"
+	.string "That's a dangerous game, {PLAYER}.\n"
+	.string "But I'm proud of you. More than I\l"
+	.string "can say.\p"
+	.string "Here. I want you to have this.$"
+
+PlayersHouse_1F_Text_DadGaveStone:
+	.string "DAD: That's a KANGASKHANITE. SCOTT\n"
+	.string "would definitely not want you\l"
+	.string "carrying it.\p"
+	.string "But it might help. And I want to\n"
+	.string "know you're protected out there.$"
+
+PlayersHouse_1F_Text_DadAfterStone:
+	.string "DAD: Keep that KANGASKHANITE\n"
+	.string "close, {PLAYER}. And keep your eyes\l"
+	.string "open around SCOTT.$"

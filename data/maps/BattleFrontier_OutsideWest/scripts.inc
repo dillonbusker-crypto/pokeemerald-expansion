@@ -21,6 +21,7 @@ BattleFrontier_OutsideWest_OnTransition:
 	specialvar VAR_RESULT, GetGauntletsClearedCount
 	call_if_lt VAR_RESULT, 4, BattleFrontier_OutsideWest_EventScript_HideTucker
 	call_if_lt VAR_RESULT, 5, BattleFrontier_OutsideWest_EventScript_HideNoland
+	call BattleFrontier_OutsideWest_EventScript_SetupFactoryStory
 	end
 
 BattleFrontier_OutsideWest_EventScript_HideTucker::
@@ -909,3 +910,449 @@ BattleFrontier_OutsideWest_Text_CaveClosed:
 	.string "entrance:\p"
 	.string "“FRONTIER staff has closed the\n"
 	.string "cave.”$"
+
+@ Ten Gauntlets: Birch's lab arc, after gauntlet 5 (storyline.md).
+@ VAR_BIRCH_STORY_STATE: 0 none, 1 the Factory scene, 2 the lab door,
+@ 3 inside the lab, 4 Wallace flies off and the rival stays, 5 the family
+@ scene, 6 SCOTT at the Factory.
+@ The rival blocks the Factory door (11, 39) once gauntlet 5 is cleared. The
+@ plaza in front of it is only reachable up the x 9-13 corridor, so row 41
+@ triggers the scene; each trigger knows the player's column, and the rival
+@ runs off (and WALLACE walks in) down a column the player isn't in.
+@ At state 5, SCOTT meets the player on the tile in front of the door.
+BattleFrontier_OutsideWest_EventScript_SetupFactoryStory::
+	setflag FLAG_TEMP_4
+	setflag FLAG_TEMP_5
+	setflag FLAG_TEMP_6
+	setflag FLAG_TEMP_7
+	setvar VAR_TEMP_4, 1
+	setvar VAR_TEMP_5, 1
+	call_if_eq VAR_BIRCH_STORY_STATE, 5, BattleFrontier_OutsideWest_EventScript_ArmFactoryScott
+	goto_if_ne VAR_BIRCH_STORY_STATE, 0, Common_EventScript_NopReturn
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_lt VAR_RESULT, 5, Common_EventScript_NopReturn
+	setvar VAR_TEMP_4, 0
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, BattleFrontier_OutsideWest_EventScript_ShowFactoryMay
+	clearflag FLAG_TEMP_5
+	return
+
+BattleFrontier_OutsideWest_EventScript_ShowFactoryMay::
+	clearflag FLAG_TEMP_4
+	return
+
+BattleFrontier_OutsideWest_EventScript_ArmFactoryScott::
+	setvar VAR_TEMP_5, 0
+	return
+
+BattleFrontier_OutsideWest_EventScript_FactoryRival::
+	msgbox BattleFrontier_OutsideWest_Text_FactoryRivalGoHome, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideWest_EventScript_FactoryRivalScene9::
+	setvar VAR_0x8005, 11
+	setvar VAR_0x8006, 9
+	goto BattleFrontier_OutsideWest_EventScript_FactoryRivalScene
+	end
+
+BattleFrontier_OutsideWest_EventScript_FactoryRivalScene10::
+	setvar VAR_0x8005, 11
+	setvar VAR_0x8006, 10
+	goto BattleFrontier_OutsideWest_EventScript_FactoryRivalScene
+	end
+
+BattleFrontier_OutsideWest_EventScript_FactoryRivalScene11::
+	setvar VAR_0x8005, 13
+	setvar VAR_0x8006, 11
+	goto BattleFrontier_OutsideWest_EventScript_FactoryRivalScene
+	end
+
+BattleFrontier_OutsideWest_EventScript_FactoryRivalScene12::
+	setvar VAR_0x8005, 11
+	setvar VAR_0x8006, 12
+	goto BattleFrontier_OutsideWest_EventScript_FactoryRivalScene
+	end
+
+BattleFrontier_OutsideWest_EventScript_FactoryRivalScene13::
+	setvar VAR_0x8005, 11
+	setvar VAR_0x8006, 13
+	goto BattleFrontier_OutsideWest_EventScript_FactoryRivalScene
+	end
+
+@ VAR_0x8005: the column the rival leaves (and WALLACE arrives) by.
+@ VAR_0x8006: the player's column.
+BattleFrontier_OutsideWest_EventScript_FactoryRivalScene::
+	lockall
+	setvar VAR_TEMP_4, 1
+	checkplayergender
+	setvar VAR_0x8004, LOCALID_FRONTIER_FACTORY_MAY
+	call_if_eq VAR_RESULT, FEMALE, BattleFrontier_OutsideWest_EventScript_FactoryRivalIsBrendan
+	playse SE_PIN
+	applymovement VAR_0x8004, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	msgbox BattleFrontier_OutsideWest_Text_FactoryRivalDistress, MSGBOX_DEFAULT
+	closemessage
+	switch VAR_0x8006
+	case 9, BattleFrontier_OutsideWest_EventScript_FactoryRivalExit9
+	case 10, BattleFrontier_OutsideWest_EventScript_FactoryRivalExit10
+	case 12, BattleFrontier_OutsideWest_EventScript_FactoryRivalExit12
+	case 13, BattleFrontier_OutsideWest_EventScript_FactoryRivalExit13
+	applymovement VAR_0x8004, BattleFrontier_OutsideWest_Movement_FactoryRivalExit11
+	goto BattleFrontier_OutsideWest_EventScript_FactoryRivalGone
+
+BattleFrontier_OutsideWest_EventScript_FactoryRivalExit9::
+	applymovement VAR_0x8004, BattleFrontier_OutsideWest_Movement_FactoryRivalExit9
+	goto BattleFrontier_OutsideWest_EventScript_FactoryRivalGone
+
+BattleFrontier_OutsideWest_EventScript_FactoryRivalExit10::
+	applymovement VAR_0x8004, BattleFrontier_OutsideWest_Movement_FactoryRivalExit10
+	goto BattleFrontier_OutsideWest_EventScript_FactoryRivalGone
+
+BattleFrontier_OutsideWest_EventScript_FactoryRivalExit12::
+	applymovement VAR_0x8004, BattleFrontier_OutsideWest_Movement_FactoryRivalExit12
+	goto BattleFrontier_OutsideWest_EventScript_FactoryRivalGone
+
+BattleFrontier_OutsideWest_EventScript_FactoryRivalExit13::
+	applymovement VAR_0x8004, BattleFrontier_OutsideWest_Movement_FactoryRivalExit13
+	goto BattleFrontier_OutsideWest_EventScript_FactoryRivalGone
+
+BattleFrontier_OutsideWest_EventScript_FactoryRivalIsBrendan::
+	setvar VAR_0x8004, LOCALID_FRONTIER_FACTORY_BRENDAN
+	return
+
+BattleFrontier_OutsideWest_EventScript_FactoryRivalGone::
+	waitmovement 0
+	removeobject VAR_0x8004
+	setvar VAR_BIRCH_STORY_STATE, 1
+	delay 30
+	setobjectxyperm LOCALID_FRONTIER_WALLACE, VAR_0x8005, 48
+	clearflag FLAG_TEMP_6
+	addobject LOCALID_FRONTIER_WALLACE
+	switch VAR_0x8006
+	case 9, BattleFrontier_OutsideWest_EventScript_FactoryWallaceIn9
+	case 10, BattleFrontier_OutsideWest_EventScript_FactoryWallaceIn10
+	case 12, BattleFrontier_OutsideWest_EventScript_FactoryWallaceIn12
+	case 13, BattleFrontier_OutsideWest_EventScript_FactoryWallaceIn13
+	applymovement LOCALID_FRONTIER_WALLACE, BattleFrontier_OutsideWest_Movement_FactoryWallaceIn11
+	goto BattleFrontier_OutsideWest_EventScript_FactoryWallaceTalk
+
+BattleFrontier_OutsideWest_EventScript_FactoryWallaceIn9::
+	applymovement LOCALID_FRONTIER_WALLACE, BattleFrontier_OutsideWest_Movement_FactoryWallaceIn9
+	goto BattleFrontier_OutsideWest_EventScript_FactoryWallaceTalk
+
+BattleFrontier_OutsideWest_EventScript_FactoryWallaceIn10::
+	applymovement LOCALID_FRONTIER_WALLACE, BattleFrontier_OutsideWest_Movement_FactoryWallaceIn10
+	goto BattleFrontier_OutsideWest_EventScript_FactoryWallaceTalk
+
+BattleFrontier_OutsideWest_EventScript_FactoryWallaceIn12::
+	applymovement LOCALID_FRONTIER_WALLACE, BattleFrontier_OutsideWest_Movement_FactoryWallaceIn12
+	goto BattleFrontier_OutsideWest_EventScript_FactoryWallaceTalk
+
+BattleFrontier_OutsideWest_EventScript_FactoryWallaceIn13::
+	applymovement LOCALID_FRONTIER_WALLACE, BattleFrontier_OutsideWest_Movement_FactoryWallaceIn13
+	goto BattleFrontier_OutsideWest_EventScript_FactoryWallaceTalk
+
+BattleFrontier_OutsideWest_EventScript_FactoryWallaceTalk::
+	waitmovement 0
+	applymovement LOCALID_FRONTIER_WALLACE, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox BattleFrontier_OutsideWest_Text_FactoryWallace, MSGBOX_DEFAULT
+	closemessage
+	switch VAR_0x8006
+	case 9, BattleFrontier_OutsideWest_EventScript_FactoryWallaceOut9
+	case 10, BattleFrontier_OutsideWest_EventScript_FactoryWallaceOut10
+	case 12, BattleFrontier_OutsideWest_EventScript_FactoryWallaceOut12
+	case 13, BattleFrontier_OutsideWest_EventScript_FactoryWallaceOut13
+	applymovement LOCALID_FRONTIER_WALLACE, BattleFrontier_OutsideWest_Movement_FactoryWallaceOut11
+	goto BattleFrontier_OutsideWest_EventScript_FactoryWallaceGone
+
+BattleFrontier_OutsideWest_EventScript_FactoryWallaceOut9::
+	applymovement LOCALID_FRONTIER_WALLACE, BattleFrontier_OutsideWest_Movement_FactoryWallaceOut9
+	goto BattleFrontier_OutsideWest_EventScript_FactoryWallaceGone
+
+BattleFrontier_OutsideWest_EventScript_FactoryWallaceOut10::
+	applymovement LOCALID_FRONTIER_WALLACE, BattleFrontier_OutsideWest_Movement_FactoryWallaceOut10
+	goto BattleFrontier_OutsideWest_EventScript_FactoryWallaceGone
+
+BattleFrontier_OutsideWest_EventScript_FactoryWallaceOut12::
+	applymovement LOCALID_FRONTIER_WALLACE, BattleFrontier_OutsideWest_Movement_FactoryWallaceOut12
+	goto BattleFrontier_OutsideWest_EventScript_FactoryWallaceGone
+
+BattleFrontier_OutsideWest_EventScript_FactoryWallaceOut13::
+	applymovement LOCALID_FRONTIER_WALLACE, BattleFrontier_OutsideWest_Movement_FactoryWallaceOut13
+	goto BattleFrontier_OutsideWest_EventScript_FactoryWallaceGone
+
+BattleFrontier_OutsideWest_EventScript_FactoryWallaceGone::
+	waitmovement 0
+	removeobject LOCALID_FRONTIER_WALLACE
+	releaseall
+	end
+
+@ State 5 (back from LITTLEROOT): SCOTT walks up from off-screen, straight up
+@ the x 11 column, to the tile below the player at the door.
+BattleFrontier_OutsideWest_EventScript_FactoryScott::
+	lockall
+	setvar VAR_TEMP_5, 1
+	clearflag FLAG_TEMP_7
+	addobject LOCALID_FRONTIER_FACTORY_SCOTT
+	applymovement LOCALID_FRONTIER_FACTORY_SCOTT, BattleFrontier_OutsideWest_Movement_FactoryScottIn
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox BattleFrontier_OutsideWest_Text_FactoryScott, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_FRONTIER_FACTORY_SCOTT, BattleFrontier_OutsideWest_Movement_FactoryScottOut
+	waitmovement 0
+	removeobject LOCALID_FRONTIER_FACTORY_SCOTT
+	setvar VAR_BIRCH_STORY_STATE, 6
+	releaseall
+	end
+
+BattleFrontier_OutsideWest_Movement_FactoryScottIn:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryScottOut:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryRivalExit9:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryWallaceIn9:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_left
+	walk_left
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryWallaceOut9:
+	walk_right
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryRivalExit10:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryWallaceIn10:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_left
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryWallaceOut10:
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryRivalExit11:
+	walk_fast_down
+	walk_fast_right
+	walk_fast_right
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryWallaceIn11:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_left
+	walk_left
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryWallaceOut11:
+	walk_right
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryRivalExit12:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryWallaceIn12:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryWallaceOut12:
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryRivalExit13:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryWallaceIn13:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	step_end
+
+BattleFrontier_OutsideWest_Movement_FactoryWallaceOut13:
+	walk_left
+	walk_left
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+BattleFrontier_OutsideWest_Text_FactoryRivalDistress:
+	.string "{RIVAL}: {PLAYER}! There you are!\n"
+	.string "I've been looking everywhere for\l"
+	.string "you!\p"
+	.string "Mom just called. Some men from\n"
+	.string "DEVON showed up at the lab, and\l"
+	.string "they won't let Dad leave.\p"
+	.string "She says they're holding him\n"
+	.string "there. Like a hostage!\p"
+	.string "I have to get home. Right now!$"
+
+BattleFrontier_OutsideWest_Text_FactoryRivalGoHome:
+	.string "{RIVAL}: I have to get home!$"
+
+BattleFrontier_OutsideWest_Text_FactoryWallace:
+	.string "WALLACE: Forgive me. I couldn't\n"
+	.string "help overhearing.\p"
+	.string "I'm WALLACE. I believe STEVEN has\n"
+	.string "mentioned me. He asked me to check\l"
+	.string "in on you.\p"
+	.string "I slipped past the guards to get\n"
+	.string "here. They run a tight ship on\l"
+	.string "this island, so I can't stay long\l"
+	.string "before someone notices.\p"
+	.string "But DEVON's men holding a\n"
+	.string "PROFESSOR in his own lab... That's\l"
+	.string "no small matter.\p"
+	.string "I'm going to LITTLEROOT to see\n"
+	.string "what's going on.$"
+
+BattleFrontier_OutsideWest_Text_FactoryScott:
+	.string "SCOTT: {PLAYER}! Hold on a moment.\p"
+	.string "I heard about the business at\n"
+	.string "PROF. BIRCH's lab. PRESIDENT STONE\l"
+	.string "was way out of line.\p"
+	.string "I called him myself and handled\n"
+	.string "it. Your mat should be back up and\l"
+	.string "running.\p"
+	.string "There's something else. My men\n"
+	.string "have spotted STEVEN lurking around\l"
+	.string "the FRONTIER.\p"
+	.string "STEVEN and I don't have the best\n"
+	.string "relationship. He's always been out\l"
+	.string "to get me.\p"
+	.string "When the FRONTIER first opened, he\n"
+	.string "wasn't a fan. He told me there's\l"
+	.string "more to POKéMON than battling and\l"
+	.string "mini-games.\p"
+	.string "Then he beat the whole FRONTIER\n"
+	.string "faster than anyone before him,\l"
+	.string "just to prove his point.\p"
+	.string "I built the TEN GAUNTLETS to\n"
+	.string "improve on the experience. But\l"
+	.string "there's still bad blood between\l"
+	.string "us.\p"
+	.string "So if STEVEN ever approaches you,\n"
+	.string "be aware. He may say things about\l"
+	.string "me that aren't true.\p"
+	.string "Well! Good luck in there, {PLAYER}.$"

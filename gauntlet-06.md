@@ -61,8 +61,9 @@ escape the cap, except Mega Evolution for Megas at or under 600.
 **Still held until gauntlet 7:**
 
 - **Mega Gengar and Mega Kangaskhan.** Both were dominant in doubles too
-  (Kangaskhan's Fake Out plus Parental Bond defined VGC 2015). They arrive
-  with gauntlet 7's stronger Megas as planned.
+  (Kangaskhan's Fake Out plus Parental Bond defined VGC 2015). Gengarite
+  arrives with gauntlet 7's stronger Megas as planned. Kangaskhanite is never
+  sold: the player's only one is NORMAN's gift after gauntlet 5.
 - **The Ubers-grade Paradoxes, Ultra Beasts and Mythicals**, unchanged from
   gauntlet 5: Flutter Mane, Roaring Moon, Walking Wake, Gouging Fire, Iron
   Bundle, Kartana, Pheromosa, Naganadel, Darkrai, Deoxys (Normal / Attack /

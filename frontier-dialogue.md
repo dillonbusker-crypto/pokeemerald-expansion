@@ -2,8 +2,14 @@
 
 A pass over every NPC and sign the player can actually reach in the Battle
 Frontier, what they say today, and what they could say instead so the whole
-place feels like it belongs to the Ten Gauntlets. **Built** — see "Build
+place feels like it belongs to the Eight Gauntlets. **Built** — see "Build
 notes" at the end for where the build differs from this spec.
+
+> **⚠️ Trimmed to eight gauntlets (decided, not built yet).** The game now
+> has **eight** gauntlets, the **Eight Gauntlets**, and the Ranking Hall is
+> the **Hall of Eight**. Parts 1 and 5 below give the new map. Older
+> sections, and the built game, still say "ten" / "Hall of Ten" in places;
+> the rework list is in `storyline.md` ("Trimming to eight gauntlets").
 
 Line breaks in the proposals are loose. Final text gets reflowed to the
 GBA's ~36-characters-per-line boxes when it's implemented.
@@ -28,14 +34,13 @@ The facts every NPC should agree on. Most already exist in the design docs;
 this just makes them the Frontier's shared reality.
 
 **What the Frontier is now.** SCOTT's Battle Frontier has been rebuilt as
-**the Ten Gauntlets**: ten gauntlets, each tougher than the last. The Battle
-Tower's four mats are gauntlets 1–4; the other six facilities each host one
-gauntlet after that.
+**the Eight Gauntlets**: eight gauntlets, each tougher than the last. The
+Battle Tower's four mats are gauntlets 1–4; the Dome, Pike, Palace and
+Pyramid each host one gauntlet after that.
 
-**Facility-to-gauntlet map — decided.** Follows the existing door order in
-`src/facility.c` (Dome, Factory, Pike, Arena, Palace, Pyramid) and puts the
-Pyramid — the Frontier's "golden pinnacle" — last. Each facility's boss is
-that facility's own Frontier Brain:
+**Facility-to-gauntlet map — decided.** The Pyramid — the Frontier's "golden
+pinnacle" — is last. Each gauntlet facility's boss is that facility's own
+Frontier Brain:
 
 | Gauntlet | Facility | Format | Name | Boss |
 |---|---|---|---|---|
@@ -44,23 +49,35 @@ that facility's own Frontier Brain:
 | 3 | Tower, Multi mat | Singles | The Changing Sky | Dunewarden Roxanne *(Tower lieutenant)* |
 | 4 | Tower, Link Multi mat | Doubles | The Turn Order | **Salon Maiden Anabel** |
 | 5 | Battle Dome | Singles | The Main Event | **Dome Ace Tucker** |
-| 6 | Battle Factory | Doubles | The Assembly Line | **Factory Head Noland** |
-| 7 | Battle Pike | Singles | *TBD* | **Pike Queen Lucy** |
-| 8 | Battle Arena | Doubles | *TBD* | **Arena Tycoon Greta** |
-| 9 | Battle Palace | Singles | *TBD* | **Palace Maven Spenser** |
-| 10 | Battle Pyramid | Doubles | *TBD* | **Pyramid King Brandon** |
+| 6 | Battle Pike | Doubles | *Renamed with the retheme* (was The Assembly Line) | **Pike Queen Lucy** |
+| 7 | Battle Palace | Singles | *TBD* | **Palace Maven Spenser** |
+| 8 | Battle Pyramid | Doubles | *TBD* | **Pyramid King Brandon** |
+
+**The two other buildings:**
+
+- **Battle Factory → Devon's control room.** Devon's technology runs the
+  island's systems (it's where PRESIDENT STONE paused gauntlet 6 from), and
+  the **Mega Pillar** stands inside. "Devon staff only": sealed until the
+  endgame, which plays out in its big rooms.
+- **Battle Arena → the sparring ground.** See "The Battle Arena: sparring
+  ground" below. Later it becomes the base for Nurse Joy and the Broker.
+
+**Factory Head Noland and Arena Tycoon Greta are SCOTT's personal
+henchmen.** They're the two men Scott sends into Artisan Cave, and they stay
+loyal to him far into the endgame before switching sides (`storyline.md`).
 
 Why each pairing fits: Anabel is the Tower's own Brain, so she guards the end
 of the Tower. Tucker's vanilla ace is Salamence, and gauntlet 5's boss already
-uses Mega Salamence. Noland's Factory builds teams to spec — "The Assembly
-Line". Lucy's Seviper, Milotic and Shuckle suit a status/disruption gauntlet.
-Greta is an aggressive fighter, suited to raw-power doubles. Spenser's vanilla
-team includes Suicune, and gauntlet 9 is where box-art legendaries arrive.
+uses Mega Salamence. Gauntlet 6 was built for Noland; its boss team is
+rethemed for Lucy (Seviper, Milotic and Shuckle suit status and disruption),
+using only gauntlet 7's Pokémon and item pool. Spenser's vanilla team
+includes Suicune, and gauntlet 7 is where 600 BST legendaries arrive.
 Brandon's vanilla team is the Legendary Birds and the Regis — the strongest
 Brain, in the final gauntlet.
 
 **The bosses are the Frontier Brains** (gauntlet 4 onward). SCOTT rebuilt
-the Frontier around them: seven Brains, now the last line of ten gauntlets.
+the Frontier around them: five Brains guard gauntlets 4–8, and two (Noland and
+Greta) work for him directly.
 They're the island's celebrities — NPCs gossip about them, fear them, and
 are fans of them. The vanilla Dome fans' "DOME ACE" lines already work
 almost as-is, now pointing at the gauntlet 5 boss.
@@ -292,6 +309,10 @@ with an offhand "feel free to visit my quarters."
 
 ### Battle Factory lobby (gauntlet 6)
 
+> **Changing:** gauntlet 6 moves to the **Battle Pike** lobby, and the
+> Factory becomes Devon's sealed control room. These NPCs' gauntlet 6 lines
+> move with the gauntlet (rewritten for Lucy where they mention the boss).
+
 | NPC | Now | Proposed |
 |---|---|---|
 | Attendants | Rewritten | Keep. |
@@ -332,7 +353,12 @@ Mostly rewritten already. Small tweaks:
 | Picnicker | Every challenge with just this baby | "Giggle… I'm going through every gauntlet with just this baby! …What do you mean, six?" |
 | 2F link attendants | Wireless Club | Keep; the link features are vanilla. |
 
-### Ranking Hall → the Hall of Ten
+### Ranking Hall → the Hall of Ten (becoming the Hall of Eight)
+
+> **Changing:** the **Hall of Eight**, eight plaques: four for the Tower,
+> then the Dome, Pike, Palace and Pyramid. The Factory and Arena plaques are
+> reworded or removed. The **eleventh plaque goes**: the Mega Pillar is
+> inside the Factory now, and STEVEN no longer meets the player here.
 
 | NPC | Now | Proposed |
 |---|---|---|
@@ -372,17 +398,19 @@ Mostly rewritten already. Small tweaks:
 ## Part 4 — Sealed facilities (rewrite with their gauntlet)
 
 Their lobbies are only ever seen for one frame before the "not open yet"
-warp-out, so they can wait until gauntlets 7–10 are designed. Direction:
+warp-out, so they can wait until their gauntlets are designed. Direction:
 
-- **Pike lobby** (gauntlet 7): the SEVIPER-fearing girl's rumor pays off
-  here. The Hiker and Twin currently talk about status conditions and luck,
-  which could fit a gauntlet themed on status or disruption.
-- **Arena lobby** (gauntlet 8): its three NPCs talk about judging and
-  aggression — a natural fit for a raw-power doubles gauntlet.
-- **Palace lobby** (gauntlet 9): nature and Pokémon's hearts — the "important
+- **Pike lobby** (gauntlet 6, doubles): the SEVIPER-fearing girl's rumor pays
+  off here. The Hiker and Twin talk about status conditions and luck, which
+  fits Lucy's status and disruption retheme.
+- **Arena lobby** (no gauntlet): the sparring ground. Its NPCs' talk of
+  judging and aggression becomes sparring-ground chatter.
+- **Palace lobby** (gauntlet 7): nature and Pokémon's hearts — the "important
   old man" from Outside East could be its Warden.
-- **Pyramid lobby** (gauntlet 10): the Hex Maniac hint-giver becomes the
+- **Pyramid lobby** (gauntlet 8): the Hex Maniac hint-giver becomes the
   voice of the finale. The legend from Outside East pays off.
+- **Factory lobby** (no gauntlet): Devon's control room. Sealed: "Devon staff
+  only".
 
 ---
 
@@ -390,7 +418,9 @@ warp-out, so they can wait until gauntlets 7–10 are designed. Direction:
 
 **Decided:**
 
-1. **Facility order for 7–10:** Pike, Arena, Palace, Pyramid (see Part 1).
+1. **Facility order for 6–8:** Pike, Palace, Pyramid (see Part 1). Trimmed
+   from ten gauntlets: the Factory is Devon's control room and the Arena a
+   sparring ground.
 2. **The Frontier Brains are the bosses** from gauntlet 4 on; gauntlets 1–3
    keep their Tower lieutenants (see Part 1). Every boss-name reference in
    the proposals above (Winona's Altaria, Tucker's fans, "the Warden of the
@@ -400,8 +430,9 @@ warp-out, so they can wait until gauntlets 7–10 are designed. Direction:
 4. **The Gambler becomes the Broker** — sells one piece of the next
    gauntlet's stock early. See `broker-spec.md`.
 
-5. **The Ranking Hall becomes the Hall of Ten**, with live plaques. The
-   ten record plaques map one-to-one onto the ten gauntlets, "beaten" is
+5. **The Ranking Hall becomes the Hall of Eight** (built as the Hall of
+   Ten; renaming is on the rework list), with live plaques. Eight record
+   plaques map one-to-one onto the eight gauntlets, "beaten" is
    already in `buildingsCompleted`, and no new save data is needed. The
    plaques stop opening the vanilla records screen, which only shows data
    this game never produces. The name works whether a gauntlet's boss is a
@@ -412,8 +443,8 @@ warp-out, so they can wait until gauntlets 7–10 are designed. Direction:
    (`playerApprentice` and `apprentices[]` in SaveBlock2) could be reclaimed
    later if save space gets tight.
 
-7. **"Gauntlet", not "building".** The ten sets of battles are **gauntlets**
-   (the project is the **Ten Gauntlets**). "Building" now means only the
+7. **"Gauntlet", not "building".** The eight sets of battles are
+   **gauntlets** (the project is the **Eight Gauntlets**). "Building" now means only the
    physical Frontier structures — the Tower *building* holds gauntlets 1–4.
    The design docs are already converted (the `building-0N.md` files are now
    `gauntlet-0N.md`). The patch converts the rest:
@@ -431,6 +462,32 @@ warp-out, so they can wait until gauntlets 7–10 are designed. Direction:
 
 Nothing is left open. Everything above is decided and waiting to be built
 alongside `broker-spec.md`.
+
+---
+
+## The Battle Arena: sparring ground (planned)
+
+The Arena hosts no gauntlet. An attendant runs it as a sparring ground
+("The Tycoon's hardly ever around these days," a hint at GRETA's other job).
+
+- **Rematches against past bosses:** any boss the player has already beaten,
+  under the same rules as the real fight (Frontier battle type, full heal,
+  held items restored). **No FP**, so it can't be farmed. Free.
+- **The secret: a mock battle against the next boss.** Only once the player
+  has bought the Psychic's read for the current gauntlet (Lounge 7,
+  `VAR_PSYCHIC_READ_GAUNTLET`). The attendant offers to "set up a mock
+  battle": the next boss's real team. **100 FP per mock battle.** Nothing
+  points the player here; it's an easter egg.
+- **Build traps:**
+  - A mock or rematch win must **not** set the boss's real trainer flag, or
+    the real boss fight could be skipped or break. Use separate trainer
+    entries, or a battle path that doesn't set the flag.
+  - Battles must carry **`BATTLE_TYPE_FRONTIER`** (the Set/Shift protection
+    in `CLAUDE.md`) and be covered by `IsFacilityBattleTrainer()` so the
+    bosses' own pics show.
+  - A mock never counts toward the gauntlet or the streak.
+- **Later:** the Arena becomes the base for **Nurse Joy** (the Chansey and
+  Transfer EXP) and **the Broker** (the free shop) in the endgame.
 
 ---
 
@@ -487,8 +544,10 @@ Battle Tower door and won't move until the player accepts a fair rematch.
 
 - **Script:** `BattleFrontier_OutsideEast_EventScript_Rival`. Visibility is set up
   in `BattleFrontier_OutsideEast_EventScript_SetupRival` (needs
-  `HasReceivedFrontierStartingGrants`, hidden once
-  `FLAG_FRONTIER_RIVAL_REMATCH_DONE` is set).
+  `HasReceivedFrontierStartingGrants`). Once
+  `FLAG_FRONTIER_RIVAL_REMATCH_DONE` is set, the rival moves to the plaza
+  (13, 18) with a new line after each gauntlet until gauntlet 5 is cleared;
+  then they're at the Factory door for Birch's lab arc (storyline.md).
 - **Loss:** `trainerbattle_earlyrival` with `RIVAL_BATTLE_HEAL_AFTER`, so there's
   no whiteout. The team is healed and the rival stays for another try.
 - **Win:** the rival storms off, the party is healed, and the Tower opens.
@@ -534,6 +593,12 @@ GYM LEADERS agreed), SCOTT's threat to NORMAN, and the rumors about SCOTT.
 ---
 
 ## STEVEN after gauntlet 2 (built)
+
+> **Moving:** STEVEN's gauntlet 2 meeting moves **outside the Battle
+> Factory** (Devon's sealed control room; he notices MEGA STONE ore in its
+> walls), and his gauntlet 4 return moves to the **top-right corner of
+> Outside East, above the Pyramid**, where the Tower attendant says he
+> "walked off toward the PYRAMID". See `storyline.md`.
 
 One story beat per boss: NORMAN after gauntlet 1, STEVEN after gauntlet 2,
 FLOTSAM after gauntlet 3 (`easter-eggs-spec.md`). Tracked by

@@ -22,6 +22,7 @@ LittlerootTown_ProfessorBirchsLab_MapScripts::
 LittlerootTown_ProfessorBirchsLab_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call ProfBirch_EventScript_UpdateLocation
+	call LittlerootTown_ProfessorBirchsLab_EventScript_SetupBirchStory
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_SetAfterJohtoStarterLayout
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_SetJohtoStarterLayout
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_CheckReadyForJohtoStarter
@@ -271,6 +272,7 @@ LittlerootTown_ProfessorBirchsLab_Movement_PlayerEnterLabForJohtoStarter:
 LittlerootTown_ProfessorBirchsLab_EventScript_Aide::
 	lock
 	faceplayer
+	goto_if_eq VAR_BIRCH_STORY_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_AideStayOut
 	goto_if_ge VAR_BIRCH_LAB_STATE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_AideReceivedStarter
 	goto_if_set FLAG_BIRCH_AIDE_MET, LittlerootTown_ProfessorBirchsLab_EventScript_AideAlreadyMet
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchAwayOnFieldwork, MSGBOX_DEFAULT
@@ -465,6 +467,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_ReceivedJohtoStarter::
 LittlerootTown_ProfessorBirchsLab_EventScript_Birch::
 	lock
 	faceplayer
+	goto_if_ge VAR_BIRCH_STORY_STATE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_BirchEverythingFine
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 5, LittlerootTown_ProfessorBirchsLab_EventScript_CanHaveAnyOneOfRarePokemon
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_GrassyPatchWaiting
 	goto_if_unset FLAG_HAS_MATCH_CALL, LittlerootTown_ProfessorBirchsLab_EventScript_TryRatePokedexOrRegister
@@ -598,6 +601,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_Machine::
 LittlerootTown_ProfessorBirchsLab_EventScript_Rival::
 	lock
 	faceplayer
+	goto_if_ge VAR_BIRCH_STORY_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_RivalHelping
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 5, LittlerootTown_ProfessorBirchsLab_EventScript_RivalFuturePlans
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_RivalHaveYouGoneToBattleFrontier
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_RivalTakeBreakFromFieldwork
@@ -1070,3 +1074,261 @@ LittlerootTown_ProfessorBirchsLab_Text_BirchGivesPokenav:
 
 LittlerootTown_ProfessorBirchsLab_Text_ReceivedPokenav:
 	.string "{PLAYER} received the POKéNAV!$"
+
+@ Ten Gauntlets: Birch's lab arc, after gauntlet 5 (storyline.md;
+@ VAR_BIRCH_STORY_STATE, see BattleFrontier_OutsideWest). At state 2,
+@ PRESIDENT STONE faces BIRCH by the POKé BALL machine with two men in suits
+@ behind him, and WALLACE stands a few tiles back. The first step in from the
+@ door walks the player up beside WALLACE and plays the scene. Every way in
+@ from the door crosses one of the four triggers. From state 4 the rival
+@ helps out in the lab.
+LittlerootTown_ProfessorBirchsLab_EventScript_SetupBirchStory::
+	setvar VAR_TEMP_2, 1
+	goto_if_ge VAR_BIRCH_STORY_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_RivalAtLab
+	goto_if_ne VAR_BIRCH_STORY_STATE, 2, Common_EventScript_NopReturn
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
+	setobjectxyperm LOCALID_BIRCHS_LAB_BIRCH, 9, 6
+	setobjectmovementtype LOCALID_BIRCHS_LAB_BIRCH, MOVEMENT_TYPE_FACE_DOWN
+	setobjectxyperm LOCALID_BIRCHS_LAB_AIDE, 2, 10
+	setobjectmovementtype LOCALID_BIRCHS_LAB_AIDE, MOVEMENT_TYPE_FACE_RIGHT
+	setvar VAR_TEMP_2, 0
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_RivalAtLab::
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
+	setobjectxyperm LOCALID_BIRCHS_LAB_RIVAL, 5, 10
+	setobjectmovementtype LOCALID_BIRCHS_LAB_RIVAL, MOVEMENT_TYPE_WANDER_UP_AND_DOWN
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StoneSceneA::
+	lockall
+	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromA
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_StoneScene
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StoneSceneB::
+	lockall
+	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromB
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_StoneScene
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StoneSceneC::
+	lockall
+	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromC
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_StoneScene
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StoneSceneD::
+	lockall
+	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromD
+	goto LittlerootTown_ProfessorBirchsLab_EventScript_StoneScene
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StoneScene::
+	waitmovement 0
+	setvar VAR_TEMP_2, 1
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_StoneScene1, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_BIRCHS_LAB_STONE, Common_Movement_FaceDown
+	applymovement LOCALID_BIRCHS_LAB_SUIT_1, Common_Movement_FaceDown
+	applymovement LOCALID_BIRCHS_LAB_SUIT_2, Common_Movement_FaceDown
+	waitmovement 0
+	playse SE_PIN
+	applymovement LOCALID_BIRCHS_LAB_STONE, Common_Movement_ExclamationMark
+	waitmovement 0
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_StoneScene2, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_BIRCHS_LAB_STONE, Common_Movement_FaceUp
+	waitmovement 0
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_StoneScene3, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_BIRCHS_LAB_SUIT_2, LittlerootTown_ProfessorBirchsLab_Movement_LeaveFromRight
+	waitmovement 0
+	call LittlerootTown_ProfessorBirchsLab_EventScript_ExitSound
+	removeobject LOCALID_BIRCHS_LAB_SUIT_2
+	applymovement LOCALID_BIRCHS_LAB_STONE, LittlerootTown_ProfessorBirchsLab_Movement_StoneLeaves
+	waitmovement 0
+	call LittlerootTown_ProfessorBirchsLab_EventScript_ExitSound
+	removeobject LOCALID_BIRCHS_LAB_STONE
+	applymovement LOCALID_BIRCHS_LAB_SUIT_1, LittlerootTown_ProfessorBirchsLab_Movement_LeaveFromLeft
+	waitmovement 0
+	call LittlerootTown_ProfessorBirchsLab_EventScript_ExitSound
+	removeobject LOCALID_BIRCHS_LAB_SUIT_1
+	delay 20
+	applymovement LOCALID_BIRCHS_LAB_WALLACE, LittlerootTown_ProfessorBirchsLab_Movement_WallaceToBirch
+	waitmovement 0
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_StoneScene4, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_BIRCHS_LAB_WALLACE, LittlerootTown_ProfessorBirchsLab_Movement_WallaceLeaves
+	waitmovement 0
+	call LittlerootTown_ProfessorBirchsLab_EventScript_ExitSound
+	removeobject LOCALID_BIRCHS_LAB_WALLACE
+	setvar VAR_BIRCH_STORY_STATE, 3
+	releaseall
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_ExitSound::
+	playse SE_EXIT
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_AideStayOut::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_AideStayOut, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_BirchEverythingFine::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchEverythingFine, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_RivalHelping::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_RivalHelping, MSGBOX_DEFAULT
+	release
+	end
+
+@ Every start ends at (7, 10), beside WALLACE at (6, 10).
+LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromA:
+	walk_right
+	walk_up
+	face_up
+	step_end
+
+LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromB:
+	walk_up
+	face_up
+	step_end
+
+LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromC:
+	walk_up
+	walk_right
+	walk_right
+	walk_up
+	face_up
+	step_end
+
+LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromD:
+	walk_up
+	walk_left
+	walk_up
+	face_up
+	step_end
+
+@ Out down the x 10 column, along row 11 below the player, onto the mat.
+LittlerootTown_ProfessorBirchsLab_Movement_LeaveFromRight:
+	walk_down
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	step_end
+
+LittlerootTown_ProfessorBirchsLab_Movement_StoneLeaves:
+	walk_down
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	step_end
+
+LittlerootTown_ProfessorBirchsLab_Movement_LeaveFromLeft:
+	walk_right
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	step_end
+
+LittlerootTown_ProfessorBirchsLab_Movement_WallaceToBirch:
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_up
+	walk_up
+	face_up
+	step_end
+
+LittlerootTown_ProfessorBirchsLab_Movement_WallaceLeaves:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	walk_down
+	step_end
+
+LittlerootTown_ProfessorBirchsLab_Text_StoneScene1:
+	.string "PROF. BIRCH: We had a deal! Better\n"
+	.string "equipment for my lab, and in\l"
+	.string "return I'd send the kids to SCOTT.\p"
+	.string "PRESIDENT STONE: The deal also\n"
+	.string "included finding out whether the\l"
+	.string "CROWN will actually work,\l"
+	.string "PROFESSOR.\p"
+	.string "PROF. BIRCH: It's never been done\n"
+	.string "before! A few weeks isn't nearly\l"
+	.string "enough to know for sure.\p"
+	.string "PRESIDENT STONE: I can buy you\n"
+	.string "more time. But not much.\p"
+	.string "That child is progressing far\n"
+	.string "faster than any of us imag...$"
+
+LittlerootTown_ProfessorBirchsLab_Text_StoneScene2:
+	.string "PRESIDENT STONE: Well. It seems we\n"
+	.string "have visitors.\p"
+	.string "And quite an important one, too.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_StoneScene3:
+	.string "PRESIDENT STONE: Do remember our\n"
+	.string "confidentiality agreement,\l"
+	.string "PROFESSOR.\p"
+	.string "It would be such a shame if\n"
+	.string "anything were to happen to this\l"
+	.string "precious laboratory of yours.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_StoneScene4:
+	.string "WALLACE: PROFESSOR, are you all\n"
+	.string "right? What is going on here?\p"
+	.string "PROF. BIRCH: I'm fine. Really, I'm\n"
+	.string "fine.\p"
+	.string "All I can tell you is that I\n"
+	.string "agreed to help DEVON with some\l"
+	.string "research into Mega Evolution. In\l"
+	.string "exchange, they upgraded my\l"
+	.string "equipment.\p"
+	.string "I'm afraid I can't say much more\n"
+	.string "than that.\p"
+	.string "But it's nothing to worry about.\n"
+	.string "What they want simply isn't\l"
+	.string "possible.\p"
+	.string "I just need some time to prove it,\n"
+	.string "and then they'll get off my back.\p"
+	.string "WALLACE: Be careful, PROFESSOR.\n"
+	.string "And keep me in the loop.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_AideStayOut:
+	.string "The PROFESSOR told me to stay out\n"
+	.string "of it...$"
+
+LittlerootTown_ProfessorBirchsLab_Text_BirchEverythingFine:
+	.string "PROF. BIRCH: Oh, {PLAYER}! Don't\n"
+	.string "you worry about all that.\l"
+	.string "Everything's fine, honestly.\p"
+	.string "Just a business matter.\p"
+	.string "More importantly, how are the\n"
+	.string "gauntlets treating you? I do hope\l"
+	.string "you're having fun out there!$"
+
+LittlerootTown_ProfessorBirchsLab_Text_RivalHelping:
+	.string "{RIVAL}: Dad says everything's\n"
+	.string "fine. He keeps saying it, anyway.\p"
+	.string "I'm sticking around to help out\n"
+	.string "until I'm sure.$"

@@ -40,7 +40,7 @@ BattleFrontier_OutsideEast_EventScript_ShowNorman::
 BattleFrontier_OutsideEast_EventScript_SetupRival::
 	setflag FLAG_TEMP_3
 	setflag FLAG_TEMP_4
-	goto_if_set FLAG_FRONTIER_RIVAL_REMATCH_DONE, Common_EventScript_NopReturn
+	goto_if_set FLAG_FRONTIER_RIVAL_REMATCH_DONE, BattleFrontier_OutsideEast_EventScript_SetupRivalPlaza
 	specialvar VAR_RESULT, HasReceivedFrontierStartingGrants
 	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
 	checkplayergender
@@ -51,6 +51,53 @@ BattleFrontier_OutsideEast_EventScript_SetupRival::
 BattleFrontier_OutsideEast_EventScript_ShowRivalMay::
 	clearflag FLAG_TEMP_3
 	return
+
+@ Ten Gauntlets: after the rematch, the rival trains on the plaza in front of
+@ the Battle Tower, with a new line after each gauntlet the player clears
+@ (storyline.md). Once gauntlet 5 is cleared, the rival is at the Factory
+@ door instead (BattleFrontier_OutsideWest), and after that, in LITTLEROOT.
+BattleFrontier_OutsideEast_EventScript_SetupRivalPlaza::
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 5, Common_EventScript_NopReturn
+	setobjectxyperm LOCALID_FRONTIER_RIVAL_MAY, 13, 18
+	setobjectxyperm LOCALID_FRONTIER_RIVAL_BRENDAN, 13, 18
+	setobjectmovementtype LOCALID_FRONTIER_RIVAL_MAY, MOVEMENT_TYPE_FACE_DOWN
+	setobjectmovementtype LOCALID_FRONTIER_RIVAL_BRENDAN, MOVEMENT_TYPE_FACE_DOWN
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, BattleFrontier_OutsideEast_EventScript_ShowRivalMay
+	clearflag FLAG_TEMP_4
+	return
+
+BattleFrontier_OutsideEast_EventScript_RivalPlaza::
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	switch VAR_RESULT
+	case 0, BattleFrontier_OutsideEast_EventScript_RivalPlaza0
+	case 1, BattleFrontier_OutsideEast_EventScript_RivalPlaza1
+	case 2, BattleFrontier_OutsideEast_EventScript_RivalPlaza2
+	case 3, BattleFrontier_OutsideEast_EventScript_RivalPlaza3
+	msgbox BattleFrontier_OutsideEast_Text_RivalPlaza4, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_RivalPlaza0::
+	msgbox BattleFrontier_OutsideEast_Text_RivalPlaza0, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_RivalPlaza1::
+	msgbox BattleFrontier_OutsideEast_Text_RivalPlaza1, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_RivalPlaza2::
+	msgbox BattleFrontier_OutsideEast_Text_RivalPlaza2, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_RivalPlaza3::
+	msgbox BattleFrontier_OutsideEast_Text_RivalPlaza3, MSGBOX_DEFAULT
+	release
+	end
 
 @ Ten Gauntlets: the Artisan Cave side quest (easter-eggs-spec.md, #1).
 @ VAR_ARTISAN_QUEST_STEP: 0 none, 1 FLOTSAM's pitch, 2 odd tree gone,
@@ -86,6 +133,7 @@ BattleFrontier_OutsideEast_EventScript_ShowSudowoodo::
 BattleFrontier_OutsideEast_EventScript_Rival::
 	lock
 	faceplayer
+	goto_if_set FLAG_FRONTIER_RIVAL_REMATCH_DONE, BattleFrontier_OutsideEast_EventScript_RivalPlaza
 	special SaveFacilityHeldItems
 	checkplayergender
 	goto_if_eq VAR_RESULT, MALE, BattleFrontier_OutsideEast_EventScript_RivalMay
@@ -1417,3 +1465,42 @@ BattleFrontier_OutsideEast_Text_ScottCaveWarning:
 	.string "about that, would you?\p"
 	.string "No? Of course not. Good luck in\n"
 	.string "there, {PLAYER}.$"
+
+BattleFrontier_OutsideEast_Text_RivalPlaza0:
+	.string "{RIVAL}: Oh, it's you. Don't mind\n"
+	.string "me. I'm training.\p"
+	.string "Gauntlet 1 is next on my list, and\n"
+	.string "this time I'm going in prepared.$"
+
+BattleFrontier_OutsideEast_Text_RivalPlaza1:
+	.string "{RIVAL}: Guess who cleared\n"
+	.string "gauntlet 1?\p"
+	.string "WINONA's ALTARIA nearly had me,\n"
+	.string "but I pulled through. ...Don't\l"
+	.string "look so surprised!$"
+
+BattleFrontier_OutsideEast_Text_RivalPlaza2:
+	.string "{RIVAL}: Gauntlet 2 is a\n"
+	.string "nightmare. Doubles, and JUAN's\l"
+	.string "team just won't go down.\p"
+	.string "That's three losses now. ...Don't\n"
+	.string "say it. I'll figure it out.$"
+
+BattleFrontier_OutsideEast_Text_RivalPlaza3:
+	.string "{RIVAL}: I called home to check in\n"
+	.string "with Dad yesterday. Something's\l"
+	.string "off with him.\p"
+	.string "He kept asking whether anyone had\n"
+	.string "followed me here. And who I'd been\l"
+	.string "talking to.\p"
+	.string "Who would follow me? He's never\n"
+	.string "been this paranoid.$"
+
+BattleFrontier_OutsideEast_Text_RivalPlaza4:
+	.string "{RIVAL}: Still stuck on gauntlet\n"
+	.string "2. Every time I think I've cracked\l"
+	.string "it, JUAN finds a new way to wash\l"
+	.string "me out.\p"
+	.string "And Dad's stopped picking up the\n"
+	.string "phone at night. I keep telling\l"
+	.string "myself it's nothing.$"

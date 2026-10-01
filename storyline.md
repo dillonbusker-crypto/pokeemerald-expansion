@@ -1,4 +1,4 @@
-# Ten Gauntlets — The Storyline
+# Eight Gauntlets — The Storyline
 
 The whole story, start to finish. Companion to `frontier-dialogue.md` (the
 world bible and the Frontier's dialogue), `easter-eggs-spec.md` (the Artisan
@@ -15,10 +15,12 @@ One ending. The earlier "break it or take it" choice is scrapped.
 
 ### The Mega Pillar
 
-The Battle Frontier's island sits on **Mega Stone ore**. Beneath the Hall of
-Ten stands the **Mega Pillar**, a giant Mega Stone receptor. The **eleventh
-plaque** at the head of the hall ✅ is its face: Mega Stone ore, not brass,
-and blank.
+The Battle Frontier's island sits on **Mega Stone ore**. Inside the **Battle
+Factory**, which is no gauntlet but **Devon's control room** (Devon's
+technology runs the island's systems), stands the **Mega Pillar**, a giant
+Mega Stone receptor. The building is "Devon staff only", so the receptor is
+never out in the open. Steven, a stone expert, notices Mega Stone ore in its
+walls (gauntlet 2). The endgame plays out in its big rooms.
 
 Mega Evolution runs on **bond energy**: the bond between a trainer and their
 Pokémon, focused through a Key Stone. Every **counterfeit badge** is made of
@@ -108,11 +110,11 @@ short radius, including the one using it.
 - **After gauntlet 4**, the player shows it to Steven.
 - **It's for story fights only.** The gauntlets keep their full heal between
   battles, a locked design decision. The Scrambler runs in the endgame's
-  scripted fights: the Brains after gauntlet 10, Archie and Maxie, and Scott.
+  scripted fights: the Brains after gauntlet 8, Archie and Maxie, and Scott.
 
 ### The Pokémon Center closes
 
-After gauntlet 10, **Scott shuts the Frontier's Pokémon Center.** **Nurse Joy
+After gauntlet 8, **Scott shuts the Frontier's Pokémon Center.** **Nurse Joy
 refuses to help Scott or Devon**, so Scott's side has nowhere to heal. With the
 Scrambler blocking their auto-heal too, anyone the player beats **stays
 beaten.** Joy still helps the player.
@@ -153,12 +155,24 @@ threatened his child.** Everything Birch did in the opening is that threat at
 work: the level 50 starter built with the L menu, the counterfeit badges, and
 the "nobody wins by grinding levels" speech.
 
+**Scott and President Stone both pressure him.** His deal with Devon was
+better equipment for his lab in exchange for sending the kids to Scott, and for
+finding out whether the Crown can actually work. The threats never stop, which
+is why he's grown paranoid. He tells himself what they want is impossible, and
+that he only needs time to prove it. He knows the harvest works (he built the
+L menu to hide it); what he doubts is that the Crown can ever use it.
+**Birch's full confession is a later beat, still to write.**
+
 ### President Stone
 
 Devon Corporation built the Bond Harness for Scott. Scott promised Devon would
 become the most successful company in the world, and that the harness would
 send its shares through the roof. But Stone kept a failsafe: **a replica of the
 Crown**, a second Bond Harness.
+
+**Devon's technology runs the Frontier's systems**, the same way it runs the
+PokéNav. Stone is **Steven's father**. Wallace sees him at Birch's lab after
+gauntlet 5, so Steven knows his father is involved from then on.
 
 ### Norman
 
@@ -183,10 +197,18 @@ outside Devon Corporation after that ambush.
 
 ### The Frontier Brains
 
-Scott trained all seven. They're **loyal until the player beats them again**
-after gauntlet 10. Then they turn: they **keep the Frontier island open for the
-player** while the endgame plays out, so the player can always come back to
-heal, swap teams and use the Broker's free shop.
+Scott trained all seven. **Five are gauntlet bosses**: Anabel (4), Tucker (5),
+Lucy (6), Spenser (7) and Brandon (8). They're **loyal until the player beats
+them again** after gauntlet 8. Then they turn: they **keep the Frontier island
+open for the player** while the endgame plays out, so the player can always
+come back to heal, swap teams and use the Broker's free shop.
+
+**Factory Head Noland and Arena Tycoon Greta are Scott's personal
+henchmen**, with no gauntlet. They're the two men Scott sends into Artisan
+Cave after the Lati is caught (replacing the generic men in suits). They
+**stay loyal far into the endgame** before they too switch sides. Greta is
+rarely at her own building: the Arena is a sparring ground run by an
+attendant ("The Tycoon's hardly ever around these days").
 
 ### Archie and Maxie
 
@@ -222,24 +244,29 @@ EXP**, and follows the player to Sky Pillar.
 
 ## The story, beat by beat
 
-### The Frontier (gauntlets 1–10)
+### The Frontier (gauntlets 1–8)
 
 | After | Beat | Status |
 |---|---|---|
 | Opening | Birch's lab: the level 50 starter, the L menu, the badges, the ticket. Mom foreshadows: "Your father is going to be upset." The Route 103 "sham" battle. | ✅ |
 | Arrival | Scott hands over five more Pokémon at his house, and bans HMs. The rival blocks the Tower demanding a fair rematch. | ✅ |
 | Gauntlet 1 (Winona) | **Norman.** A commotion at the Doubles mat; his argument with Scott; Norman tests the player in doubles and warns them about Scott. | ✅ |
-| Gauntlet 2 (Juan) | **Steven.** Juan's apology to Wallace. Steven in the Hall of Ten: counterfeit badges, a shard in the alloy, and the Mega Stone plaque. He **takes the 8th badge back with him to study**: the Rain Badge, Juan's own badge from Sootopolis. **The player agrees to work with Steven.** | ✅ |
+| Gauntlet 2 (Juan) | **Steven.** Juan's apology to Wallace. Steven **outside the Battle Factory** (moving there from the Hall, 🔧): counterfeit badges, a shard in the alloy, and Mega Stone ore in the walls of a "Devon staff only" building. He **takes the 8th badge back with him to study**: the Rain Badge, Juan's own badge from Sootopolis. **The player agrees to work with Steven.** | ✅ |
 | Gauntlet 3 (Roxanne) | **Flotsam and the Eon Duo.** The florist, the tree, the Broker's Master Ball, Flotsam's betrayal **with the Scrambler** (Mega Sharpedo), Surf by level-up, the cave. **Looker gives the player the Scrambler.** Now **required**: gauntlet 4 stays locked until a Latias or Latios is caught. | ✅ |
 | After the catch | A rumor NPC: "I heard something crying out in that cave one night… and then nothing." That's the other Lati, taken by Scott. | 📝 |
 | Gauntlet 4 (Anabel) | **Steven returns.** See below. | ✅ |
-| Gauntlets 5–8 | Beats to design, building toward Devon and the Crown. Ideas: Scott's first cold reaction to the player; NPCs noticing their Pokémon "seem tired lately"; the rival and Birch's confession. | 📝 ❓ |
-| Before gauntlet 10 | **Steven gives the Lati back**, with its Mega Stone (Latiasite or Latiosite). This close to the end, the risk of Scott noticing is worth the edge. It can gain Experience again, since the player's badges are real and it has no chip. | 📝 |
-| Gauntlet 10 (Brandon) | **The Mega Pillar is fully charged.** | 📝 |
+| Gauntlets 1–4 | **The rival on the plaza.** After the rematch, the rival trains in front of the Battle Tower, with a new line after each gauntlet: training for gauntlet 1, then cleared it, then stuck on gauntlet 2, then worried that Birch seems off and paranoid. | ✅ |
+| Gauntlet 5 (Tucker) | **Birch's lab.** See below. | ✅ |
+| Gauntlets 6–7 | Beats to design, building toward Devon and the Crown. Ideas: NPCs noticing their Pokémon "seem tired lately"; Steven and his father; Birch's confession. | 📝 ❓ |
+| Before gauntlet 8 | **Steven gives the Lati back**, with its Mega Stone (Latiasite or Latiosite). This close to the end, the risk of Scott noticing is worth the edge. It can gain Experience again, since the player's badges are real and it has no chip. | 📝 |
+| Gauntlet 8 (Brandon) | **The Mega Pillar is fully charged.** The endgame starts. | 📝 |
 
 ### After gauntlet 4: Steven's test ✅
 
-Steven comes back, in the Hall of Ten.
+Steven comes back. **Moving (🔧):** he waits in the **top-right corner of
+Outside East, above the Pyramid** (a spot a later event will reuse), not the
+Hall. The gauntlet 4 attendant tells the player he "walked off toward the
+PYRAMID", gauntlet 8's building.
 
 1. **The suspicion, confirmed.** There are Key Stone shards in the badges. While
    he carried the Rain Badge, **his own Pokémon stopped gaining Experience.**
@@ -278,22 +305,103 @@ Steven comes back, in the Hall of Ten.
 gauntlet 4 stays locked until a Latias or Latios is caught.
 
 **Where the Lati goes:** Steven keeps it safe until just **before gauntlet
-10**, then gives it back with its Mega Stone (see the beat table). Scott's
+8**, then gives it back with its Mega Stone (see the beat table). Scott's
 Latias or Latios is still the *other* one, the one the player left behind in
 the cave.
 
-### After gauntlet 10: the Crown 📝
+### After gauntlet 5: Birch's lab ✅
 
-Scott is siphoning the Pillar into the Crown to build his team. **The seven
-Frontier Brains guard him**, with upgraded teams.
+Tracked by `VAR_BIRCH_STORY_STATE`: 0 none, 1 the gauntlet 6 door scene, 2
+the lab door, 3 inside the lab, 4 Wallace flies off and the rival stays, 5 the
+family scene, 6 Scott at the gauntlet 6 door.
+
+**Moving (🔧):** built at the Battle Factory door, since the Factory hosted
+gauntlet 6. Gauntlet 6 now runs in the **Battle Pike**, so both door scenes
+(steps 1 and 9) move to the **Pike** door, and the "system down" message to
+the Pike's attendant. Read "Factory" below as "Pike". The tie-in improves:
+Stone paused gauntlet 6 from Devon's control room in the Factory.
+
+1. **The Factory door** (gauntlet 6's building, opens once gauntlet 5 is
+   cleared; moving to the Pike). The rival blocks it, in distress: their mom called, and men from
+   Devon are holding Birch in his lab. The rival runs off. **Wallace** walks
+   up: he overheard. Steven sent him to check in on the player; he slipped
+   past the guards (they run a tight ship here) and has to leave before anyone
+   notices. He heads for Littleroot.
+2. **Gauntlet 6 is closed.** The island's system is down again. **Devon's
+   technology runs the Frontier's systems, and Stone paused gauntlet 6
+   because the player was on track to finish the gauntlets before the Crown
+   was ready.** Only gauntlet 6 is down; the shops stay open. The player takes
+   the ferry home.
+3. **Littleroot gossips:** men in suits at the lab, the Champion in town.
+4. **The lab door.** A man in a suit blocks it, Wallace in front of him, the
+   rival a couple of tiles away. The man says it's none of their business.
+   Wallace: he's the Champion, and one phone call would get President Stone
+   on the line. "Call him all you like. The President is... busy." Wallace has
+   other ways of making him move, and the man cracks: Birch is overdue on
+   loans from Devon for his research. The rival steps forward: they never
+   heard of any loan. The man suggests the rival doesn't know as much about
+   the Professor's business as they think. Wallace tells him to step aside,
+   he does, and Wallace rushes in. The rival waits outside.
+5. **Inside.** By the Poké Ball machine, Birch faces **President Stone**,
+   two men in suits behind him. Wallace stands a few tiles back. Walking up
+   beside him plays the scene. Birch: they had a deal, better equipment, and
+   he'd send the kids to Scott. Stone: the deal also included finding out
+   whether the Crown would actually work. Birch: it's never been done, and a
+   few weeks isn't enough to know. Stone: he can buy more time, but not much;
+   the player is progressing faster than they imag— He turns and sees them.
+   "We have visitors. Quite an important one, too." To Birch: remember the
+   confidentiality agreement, it would be a shame if anything happened to this
+   precious laboratory. Stone and his men walk out. Wallace asks Birch what's
+   going on: he agreed to help Devon research Mega Evolution in exchange for
+   equipment, he can't say more, and it's nothing to worry about, because what
+   they want isn't possible. Wallace: be careful, keep me in the loop. He
+   leaves. Talking to Birch afterwards: everything's fine, and he hopes the
+   player is enjoying the gauntlets.
+6. **Outside.** Wallace and the rival face each other by the door. Wallace:
+   there's more to this than they're being told; he'll report to Steven, and
+   tell him something is going on with his father. He **flies off**. The
+   rival is getting cold feet about the Frontier: stuck on gauntlet 2, they'll
+   stay in Littleroot and help at the lab (they're there from now on).
+7. **Home first.** Leaving Littleroot now stops the player: "I should
+   probably go home and see Mom and Dad while I'm here." (Only Route 101 is
+   blocked; the ferry is past it.) Before this point, the parents are just
+   worried about Birch.
+8. **Home.** Mom and Dad stand facing each other. A step inside, and Mom
+   calls the player's name. Talking to either plays the scene. Dad heard about
+   the lab and isn't surprised: he's sure Devon and Scott are working
+   together. Mom: be careful. Dad realises the player is working with Steven
+   undercover, says he's proud of them, and gives them a **Kangaskhanite**:
+   Scott would definitely not want them to have it, but it might help, and he
+   wants them protected.
+9. **The Factory, again.** Walking up to the door, **Scott** walks in from
+   off-screen. He heard about Birch: Stone was way out of line, and Scott
+   called him and handled it (gauntlet 6 is back up). His men have spotted
+   Steven around the Frontier. Steven and Scott don't get along; when the
+   Frontier opened, Steven said there's more to Pokémon than battling and
+   mini-games, then beat it faster than anyone to prove a point. Scott built
+   the Eight Gauntlets to improve on it, but there's bad blood, and Steven may
+   say things about him that aren't true. **This is Scott blowing smoke**: the
+   player should come away unsure who the real villain is. He walks off, and
+   gauntlet 6 opens.
+
+**Kangaskhan** is sold from gauntlet 5 (unlocked by clearing gauntlet 4,
+with the other Mega bases). **Kangaskhanite is never sold**, so Norman's is
+the only one, and the Broker and the trader can't offer it either.
+
+### After gauntlet 8: the Crown 📝
+
+Scott is siphoning the Pillar into the Crown to build his team, in the
+**Battle Factory**, Devon's control room, whose big rooms set up the scenes
+before the scripted Scott battle. **The seven Frontier Brains guard him**,
+with upgraded teams: the five gauntlet bosses, plus Noland and Greta.
 
 This isn't a gauntlet. The player **picks them off one at a time**, in any
 order, using the Scrambler. Scott has closed the Pokémon Center and Nurse Joy
 won't help his side, so a beaten Brain can't heal and stays beaten. Joy still
 heals the player between fights.
 
-Each Brain, once beaten, turns: they keep the island open for the player for
-the rest of the endgame.
+Each gauntlet Brain, once beaten, turns: they keep the island open for the
+player for the rest of the endgame. Noland and Greta hold out longer.
 
 **Scott's monologue.** His motives, his childhood, and that no one can stop
 him: he's harnessed the bonds of thousands of trainers into the Crown. He
@@ -308,7 +416,7 @@ them is a permanent Mega:
 |---|---|
 | Mega Mewtwo Y @ Life Orb | The lead. Will likely sweep the player alone. |
 | Mega Latias or Latios | The one the player left behind |
-| Mega Kangaskhan | Parental Bond with an item |
+| Mega Kangaskhan | Parental Bond with an item. **❓ To replace:** only the player gets Mega Kangaskhan. |
 | Mega Gengar | Shadow Tag |
 | Mega Salamence | Aerilate |
 | Mega Mawile | Huge Power |
@@ -325,7 +433,8 @@ Kyogre.**
 They arrive after Scott leaves. While the player climbed, they investigated
 Devon:
 
-- **President Stone** was involved in developing the Bond Harness.
+- **President Stone** developed the Bond Harness. (Steven has known his father
+  was involved since Wallace saw him at Birch's lab.)
 - **The chips:** every Frontier shop Pokémon carries the shard material, which
   is why the player's Pokémon still can't grow.
 - They need a way to **disable the chips**, and Devon is the place to find it.
@@ -424,7 +533,7 @@ an item, and no balance at all.**
 | Primal Kyogre | Primordial Sea, taken back from Archie |
 | Mega Mewtwo Y | Giovanni's, 194 base Special Attack |
 | Mega Latias or Latios | The one the player left behind |
-| Mega Kangaskhan | Carried over from his first team |
+| Mega Kangaskhan | **❓ To replace** (only the player gets Mega Kangaskhan) |
 
 His first team's other three Megas (Gengar, Salamence, Mawile) make way for
 the legendaries.
@@ -451,33 +560,34 @@ happy ending.
 | Flotsam's betrayal | ✅ The Scrambler line; a real battle (no heal on a win, a white-out on a loss) |
 | Looker | ✅ Gives the player the Scrambler (a key item, not usable) |
 | Scott at the Tower door | ✅ After the Lati is caught, the next time the player steps up to the Battle Tower door, Scott walks in from off-screen: reports of a ruckus in Artisan Cave, he's sending men in to investigate, "You wouldn't know anything about that?" Then he walks off. Plays once (`FLAG_SCOTT_CAVE_WARNING`). |
-| Scott's men in the cave | ✅ Once Scott has sent them and the player has the Scrambler, two men in suits stand in Artisan Cave B1F. Getting close plays a one-time "Hey! You! FRONTIER personnel only." scene; after that they just say "Scram, kid." They stay until gauntlet 4 is cleared. |
+| Scott's men in the cave | 🔧 **Become Noland and Greta.** ✅ Once Scott has sent them and the player has the Scrambler, two men in suits stand in Artisan Cave B1F. Getting close plays a one-time "Hey! You! FRONTIER personnel only." scene; after that they just say "Scram, kid." They stay until gauntlet 4 is cleared. |
 | Artisan Cave closed | ✅ After gauntlet 4, the cave entrance is blocked: "FRONTIER staff has closed the cave." |
 | Steven after gauntlet 2 | ✅ Also takes the 8th badge (the Rain Badge) to study, and the player agrees to work with him. Mechanically this clears `FLAG_BADGE08_GET`. With seven badges, obedience holds up to level 70, so level 50 Pokémon are unaffected. |
-| Gauntlet 3 mat | ✅ Stays shut until the player has met Steven in the Hall of Ten (`VAR_STEVEN_STORY_STATE` 2). The attendant: "He wants to see you in the HALL OF TEN before you go any further." |
+| Gauntlet 3 mat | ✅ Stays shut until the player has met Steven (🔧 outside the Factory, not the Hall of Ten) (`VAR_STEVEN_STORY_STATE` 2). The attendant: "He wants to see you in the HALL OF TEN before you go any further." |
 | Gauntlet 4 attendant | ✅ Refuses until the Artisan Cave quest is done (a Latias or Latios caught: `FLAG_ARTISAN_LATI_CAUGHT`). The quest's text should make clear it's the way forward. |
 | Pokémon Center nurse | ✅ "First patient in a long time" after the first white-out. 📝 The "out of work" grumble on a normal visit. |
 | Auto-heal lore | The PokéNav (Devon) heals, not the badges. Update any line that says otherwise. |
-| The eleventh plaque | Stays; it's now the face of the Mega Pillar |
-| Hall of Ten after gauntlet 10 | Rewrite: the "SCOTT — Undefeated" reveal doesn't fit the new ending |
+| The eleventh plaque | 🔧 **Goes.** The Mega Pillar is inside the Factory now. |
+| Hall of Ten | 🔧 **The Hall of Eight**, eight plaques; no story scenes. The old "SCOTT — Undefeated" reveal after the last gauntlet doesn't fit the ending either. |
 
 ---
 
 ## Technical notes for building it
 
-- **⚠️ Trainer IDs will exceed the 1000 limit.** Rough count:
+- **Trainer IDs fit under the 1000 limit** now that there are eight
+  gauntlets. Rough count:
 
   | Content | Running total |
   |---|---|
-  | Built now | 935 |
-  | Gauntlets 7–10 (13 each) | 987 |
-  | Seven Brain rematches, Scott ×2 | 996 |
-  | Elite Four (Rustboro), Archie, Maxie | 1,002 |
-  | Elite Four again at Sky Pillar, only if the player fights them there | — |
+  | Built now (gauntlets 1–6, story trainers) | 935 |
+  | Gauntlets 7–8 (13 each) | 961 |
+  | Seven Brain rematches, Scott ×2 | 970 |
+  | Elite Four (Rustboro), Archie, Maxie | 976 |
+  | Elite Four again at Sky Pillar, only if the player fights them there | 980 |
 
   Past the limit, a trainer silently shares its "defeated" flag with a system
-  flag (see CLAUDE.md). Raise it **once, before release**, ideally when
-  gauntlets 7–10 are built. It changes the save layout.
+  flag (see CLAUDE.md). There's room to spare, but the Arena's mock battles
+  may need their own copies of boss teams (below), so keep counting.
 
 - **Vanilla maps come back into play:** Rustboro and Devon Corporation,
   Mauville, its cycle shop and New Mauville, the Cave of Origin, Sky Pillar.
@@ -530,10 +640,61 @@ happy ending.
 
 ## Still to decide ❓
 
-1. **Beats after gauntlets 5–8**, now that the gauntlet 5 slot is free.
-2. The seven Brains' upgraded teams after gauntlet 10, and their lines as they
+1. **Beats after gauntlets 6–7**, including Steven facing his father's
+   involvement, and Birch's confession.
+2. The seven Brains' upgraded teams after gauntlet 8, and their lines as they
    turn.
 3. The Elite Four's teams (up to level 55, some permanent Megas) and the
    Wardens' ambush (off-screen, or shown?).
 4. Archie and Maxie's full teams around their permanent Primals.
 5. Scott's movesets, EVs and items (within the item clause).
+6. **Scott's replacement for Mega Kangaskhan** on both his teams.
+7. How the Arena's sparring works in detail (`frontier-dialogue.md` has the
+   spec so far).
+
+---
+
+## Trimming to eight gauntlets (decided, not built yet) 🔧
+
+The game is now **the Eight Gauntlets**, and the Ranking Hall is **the Hall
+of Eight**. The endgame starts after gauntlet 8.
+
+| # | Building | Format | Boss |
+|---|---|---|---|
+| 1–4 | Battle Tower (four mats) | S, D, S, D | Winona, Juan, Roxanne, Anabel |
+| 5 | Battle Dome | Singles | Tucker |
+| 6 | **Battle Pike** | Doubles | **Lucy** |
+| 7 | Battle Palace | Singles | Spenser |
+| 8 | Battle Pyramid | Doubles | Brandon |
+
+- **Battle Factory:** Devon's control room, with the Mega Pillar inside.
+  Sealed until the endgame.
+- **Battle Arena:** a sparring ground (old-boss rematches, free, no FP; and
+  the Psychic easter egg's mock battle against the next boss, 100 FP each).
+  Later the base for Nurse Joy and the Broker.
+
+**Rework list, in build order:**
+
+1. **Move gauntlet 6 to the Pike.** Its run scripts and attendant move from
+   the Factory lobby to the Pike lobby. The Pike opens when gauntlet 5 is
+   cleared; the Factory never opens as a gauntlet ("Devon staff only").
+   The boss becomes **Pike Queen Lucy**: Noland's team rethemed for her,
+   using only gauntlet 7's Pokémon and item pool. Gauntlet 6 gets a new name.
+2. **Move the Birch arc's door scenes** (the rival's block, Scott's speech)
+   and the "system down" message from the Factory to the Pike.
+3. **Move Steven.** Gauntlet 2: outside the Factory, with the attendant hint
+   and the gauntlet 3 block pointing there. Gauntlet 4: the top-right corner
+   of Outside East above the Pyramid, with the attendant saying he walked off
+   toward the Pyramid.
+4. **Noland and Greta replace the cave's two men in suits.**
+5. **The eight-gauntlet sweep:** every player-facing "ten" ("Ten Gauntlets",
+   "Hall of Ten", "all ten", "the tenth gauntlet", Juan's "after the
+   tenth"), the building signs' gauntlet numbers, the Hall's plaques, the
+   Pike/Arena lines, the Broker's "nothing left" check (10 cleared → 8) and
+   the shop's wave-name list. About 30 lines, plus the Pike and Arena lobbies.
+6. **The Arena sparring ground and mock battles** (`frontier-dialogue.md`).
+7. **Docs:** `CLAUDE.md`, `easter-eggs-spec.md` (the Brains loitering
+   outside their buildings, the eleventh plaque), the gauntlet design docs.
+
+**No save break:** gauntlet progress is one bit per gauntlet, so the unused
+bits are simply never set.

@@ -589,6 +589,7 @@ BattleFrontier_BattleFactoryLobby_EventScript_FacilityAttendantB6::
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
 	special IsFacilityGauntletCompleted
 	goto_if_eq VAR_RESULT, TRUE, Facility_AlreadyCleared
+	goto_if_lt VAR_BIRCH_STORY_STATE, 6, BattleFrontier_BattleFactoryLobby_EventScript_B6SystemDown
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_B6_Text_AskEnter, MSGBOX_YESNO
@@ -598,6 +599,14 @@ BattleFrontier_BattleFactoryLobby_EventScript_FacilityAttendantB6::
 	special FacilityStartRun
 	call Common_EventScript_SaveGame
 	goto Facility_DoBattle
+	end
+
+@ Ten Gauntlets: Birch's lab arc (storyline.md). DEVON's technology runs the
+@ Frontier's systems, and PRESIDENT STONE has paused gauntlet 6 until SCOTT
+@ "handles it" (VAR_BIRCH_STORY_STATE 6). The shops stay open.
+BattleFrontier_BattleFactoryLobby_EventScript_B6SystemDown::
+	msgbox BattleFrontier_BattleFactoryLobby_Text_B6SystemDown, MSGBOX_DEFAULT
+	release
 	end
 
 @ The vanilla Singles challenge would run the real Battle Factory's rental
@@ -728,3 +737,14 @@ BattleFrontier_BattleFactoryLobby_EventScript_RulesBoard_Text:
 	.string "TERRAIN, TRICK ROOM, or RAW POWER.\p"
 	.string "Find the part the plan runs on,\n"
 	.string "and break it.$"
+
+BattleFrontier_BattleFactoryLobby_Text_B6SystemDown:
+	.string "I'm sorry. The ASSEMBLY LINE is\n"
+	.string "closed for now.\p"
+	.string "The system's gone down again. Only\n"
+	.string "this gauntlet, oddly enough. The\l"
+	.string "shops are still running.\p"
+	.string "DEVON's technicians run everything\n"
+	.string "on the island, and they say\l"
+	.string "they're looking into it. Nobody\l"
+	.string "can tell me when it'll be back up.$"

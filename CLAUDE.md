@@ -1,4 +1,4 @@
-# Project Handoff — Ten Gauntlets
+# Project Handoff — Eight Gauntlets
 
 Context document for an agent picking up this project. Read this first, then
 `battle-tower-design-v2.md` and `gauntlet-01.md`.
@@ -8,9 +8,10 @@ Context document for an agent picking up this project. Read this first, then
 ## What this project is
 
 A battle-only ROM hack of Pokémon Emerald built on pokeemerald-expansion.
-There is no story, no overworld progression, no gyms. The player fights through
-ten escalating battle facilities, earns points, and permanently buys Pokémon and
-items from pools that unlock as they progress.
+The player fights through eight escalating gauntlets (trimmed from ten: see
+`storyline.md`, "Trimming to eight gauntlets"), earns points, and permanently
+buys Pokémon and items from pools that unlock as they progress. A story runs
+alongside it (`storyline.md`).
 
 The vanilla Emerald story and maps are **not being used** and will eventually be
 stripped, but nothing has been removed yet.
@@ -122,7 +123,8 @@ badges, ...) and is also read as a **battle partner** (`IsPartnerTrainerId()`
 in `include/data.h`), so the game loads the wrong team. This happened to
 gauntlet 4 while the limit was 890.
 
-It's now 1000, sized for all ten gauntlets (13 trainers each), and a
+It's now 1000, sized when the plan was ten gauntlets (13 trainers each);
+with eight, everything planned fits with room to spare. A
 `STATIC_ASSERT` in `src/facility.c` fails the build if `TRAINERS_COUNT` ever
 exceeds it. **Don't raise it again casually:** it moves every flag after the
 trainer range and every SaveBlock1 field after `flags[]`, so existing saves
@@ -238,13 +240,14 @@ actual headers:
   pick a class/pic that fits the team's theme (Hiker for an Earthquake team,
   Sailor for rain, Kindler for sun...) - never leave the placeholder
   Youngster. Bosses: gauntlets 1-3 are Gym Leaders turned Wardens (class
-  `Warden`, their Leader pic: WINONA, JUAN, ROXANNE); gauntlets 4-10 are the
-  Frontier Brains with their own class and pic. Our trainers only show their
+  `Warden`, their Leader pic: WINONA, JUAN, ROXANNE); gauntlets 4-8 are the
+  Frontier Brains with their own class and pic (Anabel, Tucker, Lucy,
+  Spenser, Brandon). Noland and Greta are Scott's henchmen, not bosses. Our trainers only show their
   own pic because `OpponentGetTrainerPicId()` (`src/battle_controller_opponent.c`)
   skips the legacy Frontier lookup for `IsFacilityBattleTrainer()` IDs - any
   new trainer battled under Frontier rules must be covered by that function.
-- **Say "gauntlet", not "building".** The ten sets of battles are gauntlets
-  (the project is the Ten Gauntlets). "Building" means only the physical
+- **Say "gauntlet", not "building".** The eight sets of battles are gauntlets
+  (the project is the Eight Gauntlets; the Ranking Hall is the Hall of Eight). "Building" means only the physical
   Frontier structures. Some code names still say "building"
   (`FACILITY_BUILDING_N`, `buildingsCompleted`, ...) until the planned rename
   in `frontier-dialogue.md`, Part 5.
@@ -254,7 +257,7 @@ actual headers:
 ## What comes after
 
 Once the boss is playable and tuned, the gate for moving on is the owner
-beating Winona using only gauntlet 1's pool. Then gauntlets 2 through 10 get
+beating Winona using only gauntlet 1's pool. Then gauntlets 2 through 8 get
 designed, and separately the real facility gets built — the point economy, the
 shop, the purchase and roster UI, and the save data to hold a permanently owned
 collection.

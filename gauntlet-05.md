@@ -94,6 +94,11 @@ play best in singles. All are at or under 600 after evolving.
 banned to Ubers in Gen 6: Shadow Tag traps the player's switch-ins, and
 Parental Bond makes every attack hit twice. Their stones aren't sold here.
 
+**Kangaskhanite is never sold at all** (storyline.md): NORMAN gives the player
+the only one after gauntlet 5. Kangaskhan itself is sold from this wave, with
+the other Mega bases. CPU teams can still use Mega Kangaskhan where planned,
+except Scott's.
+
 ---
 
 ## Pool additions

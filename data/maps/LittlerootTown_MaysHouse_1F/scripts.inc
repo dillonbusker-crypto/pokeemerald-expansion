@@ -26,6 +26,7 @@ LittlerootTown_MaysHouse_1F_EventScript_ShowRunningShoesManual::
 LittlerootTown_MaysHouse_1F_OnTransition:
 	setvar VAR_0x8004, FEMALE
 	call PlayersHouse_1F_EventScript_SetupDad
+	call LittlerootTown_MaysHouse_1F_EventScript_SetupFamilyScene
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 3, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToDoor
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 5, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToStairs
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_MaysHouse_1F_EventScript_MoveMomToTV
@@ -405,3 +406,19 @@ RivalsHouse_1F_Text_DoYouHavePokemon:
 	.string "Hi, neighbor!\p"
 	.string "Do you already have your\n"
 	.string "own POKéMON?$"
+
+@ Ten Gauntlets: Birch's lab arc (storyline.md). Once the rival has decided
+@ to stay in LITTLEROOT (VAR_BIRCH_STORY_STATE 4), MOM and DAD stand facing
+@ each other, and the player's first step inside gets MOM's attention. The
+@ scene itself plays when the player talks to either of them.
+LittlerootTown_MaysHouse_1F_EventScript_SetupFamilyScene::
+	setvar VAR_TEMP_2, 1
+	goto_if_ne VAR_BIRCH_STORY_STATE, 4, Common_EventScript_NopReturn
+	checkplayergender
+	goto_if_ne VAR_RESULT, FEMALE, Common_EventScript_NopReturn
+	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_MOM, 4, 5
+	setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_MOM, MOVEMENT_TYPE_FACE_LEFT
+	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_DAD, 3, 5
+	setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_DAD, MOVEMENT_TYPE_FACE_RIGHT
+	setvar VAR_TEMP_2, 0
+	return

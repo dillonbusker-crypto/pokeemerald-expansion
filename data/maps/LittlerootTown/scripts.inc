@@ -46,6 +46,7 @@ LittlerootTown_OnTransition:
 	call_if_eq VAR_LITTLEROOT_RIVAL_STATE, 3, LittlerootTown_EventScript_SetRivalLeftForRoute103
 	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_EventScript_HideMapNamePopup
 	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_EventScript_LeftLabAfterDexUpgrade
+	call LittlerootTown_EventScript_SetupBirchStory
 	end
 
 LittlerootTown_EventScript_LeftLabAfterDexUpgrade::
@@ -242,16 +243,48 @@ LittlerootTown_EventScript_SetRivalBirchPosForDexUpgradeFemale::
 	end
 
 LittlerootTown_EventScript_FatMan::
-	msgbox LittlerootTown_Text_CanUsePCToStoreItems, MSGBOX_NPC
+	lock
+	faceplayer
+	goto_if_ge VAR_BIRCH_STORY_STATE, 3, LittlerootTown_EventScript_FatManAfterLab
+	goto_if_ge VAR_BIRCH_STORY_STATE, 1, LittlerootTown_EventScript_FatManDuringLab
+	msgbox LittlerootTown_Text_CanUsePCToStoreItems, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_FatManDuringLab::
+	msgbox LittlerootTown_Text_FatManDuringLab, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_FatManAfterLab::
+	msgbox LittlerootTown_Text_FatManAfterLab, MSGBOX_DEFAULT
+	release
 	end
 
 LittlerootTown_EventScript_Boy::
-	msgbox LittlerootTown_Text_BirchSpendsDaysInLab, MSGBOX_NPC
+	lock
+	faceplayer
+	goto_if_ge VAR_BIRCH_STORY_STATE, 3, LittlerootTown_EventScript_BoyAfterLab
+	goto_if_ge VAR_BIRCH_STORY_STATE, 1, LittlerootTown_EventScript_BoyDuringLab
+	msgbox LittlerootTown_Text_BirchSpendsDaysInLab, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_BoyDuringLab::
+	msgbox LittlerootTown_Text_BoyDuringLab, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_BoyAfterLab::
+	msgbox LittlerootTown_Text_BoyAfterLab, MSGBOX_DEFAULT
+	release
 	end
 
 LittlerootTown_EventScript_Twin::
 	lock
 	faceplayer
+	goto_if_ge VAR_BIRCH_STORY_STATE, 3, LittlerootTown_EventScript_TwinAfterLab
+	goto_if_ge VAR_BIRCH_STORY_STATE, 1, LittlerootTown_EventScript_TwinDuringLab
 	goto_if_set FLAG_ADVENTURE_STARTED, LittlerootTown_EventScript_GoodLuck
 	goto_if_set FLAG_RESCUED_BIRCH, LittlerootTown_EventScript_YouSavedBirch
 	goto_if_ne VAR_LITTLEROOT_TOWN_STATE, 0, LittlerootTown_EventScript_GoSaveBirch
@@ -1036,3 +1069,307 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
 
+@ Ten Gauntlets: Birch's lab arc, after gauntlet 5 (storyline.md;
+@ VAR_BIRCH_STORY_STATE, see BattleFrontier_OutsideWest). Outside the lab:
+@ state 1, a man in a suit blocks the door with WALLACE and the rival in front
+@ of him (walking up plays the scene); state 2, WALLACE is inside, the man has
+@ stepped aside and the rival waits; state 3, WALLACE and the rival face each
+@ other by the door (talking to either plays the debrief). From state 4 the
+@ rival is in the lab, and until the family scene (state 5) the way out to
+@ ROUTE 101 sends the player home first.
+LittlerootTown_EventScript_SetupBirchStory::
+	setflag FLAG_TEMP_1
+	setflag FLAG_TEMP_2
+	setflag FLAG_TEMP_3
+	setvar VAR_TEMP_1, 1
+	setvar VAR_TEMP_2, 1
+	switch VAR_BIRCH_STORY_STATE
+	case 1, LittlerootTown_EventScript_SetupLabDoor
+	case 2, LittlerootTown_EventScript_SetupWallaceInside
+	case 3, LittlerootTown_EventScript_SetupLabDebrief
+	case 4, LittlerootTown_EventScript_ArmGoHomeFirst
+	return
+
+LittlerootTown_EventScript_SetupLabDoor::
+	clearflag FLAG_TEMP_1
+	clearflag FLAG_TEMP_2
+	clearflag FLAG_TEMP_3
+	setvar VAR_TEMP_1, 0
+	return
+
+LittlerootTown_EventScript_SetupWallaceInside::
+	clearflag FLAG_TEMP_1
+	clearflag FLAG_TEMP_3
+	setobjectxyperm LOCALID_LITTLEROOT_SUIT, 8, 17
+	setobjectmovementtype LOCALID_LITTLEROOT_SUIT, MOVEMENT_TYPE_FACE_LEFT
+	setobjectxyperm LOCALID_LITTLEROOT_LAB_RIVAL, 6, 18
+	setobjectmovementtype LOCALID_LITTLEROOT_LAB_RIVAL, MOVEMENT_TYPE_FACE_UP
+	return
+
+LittlerootTown_EventScript_SetupLabDebrief::
+	clearflag FLAG_TEMP_2
+	clearflag FLAG_TEMP_3
+	setobjectxyperm LOCALID_LITTLEROOT_WALLACE, 6, 18
+	setobjectmovementtype LOCALID_LITTLEROOT_WALLACE, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectxyperm LOCALID_LITTLEROOT_LAB_RIVAL, 8, 18
+	setobjectmovementtype LOCALID_LITTLEROOT_LAB_RIVAL, MOVEMENT_TYPE_FACE_LEFT
+	return
+
+LittlerootTown_EventScript_ArmGoHomeFirst::
+	setvar VAR_TEMP_2, 0
+	return
+
+LittlerootTown_EventScript_LabDoorScene::
+	lockall
+	setvar VAR_TEMP_1, 1
+	getplayerxy VAR_0x8004, VAR_0x8005
+	goto_if_eq VAR_0x8004, 4, LittlerootTown_EventScript_LabDoorFaceRight
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	goto LittlerootTown_EventScript_LabDoorTalk
+
+LittlerootTown_EventScript_LabDoorFaceRight::
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+LittlerootTown_EventScript_LabDoorTalk::
+	waitmovement 0
+	msgbox LittlerootTown_Text_LabDoor1, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_LITTLEROOT_LAB_RIVAL, LittlerootTown_Movement_RivalStepForward
+	waitmovement 0
+	msgbox LittlerootTown_Text_LabDoor2, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_LITTLEROOT_SUIT, LittlerootTown_Movement_SuitStepAside
+	waitmovement 0
+	applymovement LOCALID_LITTLEROOT_WALLACE, LittlerootTown_Movement_WallaceToDoor
+	waitmovement 0
+	opendoor 7, 16
+	waitdooranim
+	applymovement LOCALID_LITTLEROOT_WALLACE, LittlerootTown_Movement_WallaceIntoLab
+	waitmovement 0
+	removeobject LOCALID_LITTLEROOT_WALLACE
+	closedoor 7, 16
+	waitdooranim
+	setvar VAR_BIRCH_STORY_STATE, 2
+	releaseall
+	end
+
+LittlerootTown_Movement_RivalStepForward:
+	walk_right
+	face_up
+	step_end
+
+LittlerootTown_Movement_SuitStepAside:
+	walk_right
+	face_left
+	step_end
+
+LittlerootTown_Movement_WallaceToDoor:
+	walk_fast_up
+	step_end
+
+LittlerootTown_Movement_WallaceIntoLab:
+	walk_fast_up
+	set_invisible
+	step_end
+
+LittlerootTown_EventScript_LabSuit::
+	lock
+	faceplayer
+	goto_if_ge VAR_BIRCH_STORY_STATE, 2, LittlerootTown_EventScript_LabSuitAside
+	msgbox LittlerootTown_Text_LabSuitNoEntry, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_LabSuitAside::
+	msgbox LittlerootTown_Text_LabSuitAside, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_LabWallace::
+	lock
+	goto_if_eq VAR_BIRCH_STORY_STATE, 3, LittlerootTown_EventScript_LabDebrief
+	faceplayer
+	msgbox LittlerootTown_Text_LabWallaceWait, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_LabRival::
+	lock
+	goto_if_eq VAR_BIRCH_STORY_STATE, 3, LittlerootTown_EventScript_LabDebrief
+	faceplayer
+	goto_if_ge VAR_BIRCH_STORY_STATE, 4, LittlerootTown_EventScript_LabRivalSeeFolks
+	msgbox LittlerootTown_Text_LabRivalWaiting, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_LabRivalSeeFolks::
+	msgbox LittlerootTown_Text_LabRivalSeeFolks, MSGBOX_DEFAULT
+	release
+	end
+
+@ WALLACE reports back to STEVEN and flies off (the same bird the vanilla
+@ rival and STEVEN fly away on), then the rival stays behind.
+LittlerootTown_EventScript_LabDebrief::
+	applymovement LOCALID_LITTLEROOT_WALLACE, Common_Movement_FacePlayer
+	applymovement LOCALID_LITTLEROOT_LAB_RIVAL, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox LittlerootTown_Text_LabDebriefWallace, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_LITTLEROOT_WALLACE, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	delay 50
+	setfieldeffectargument 0, 1
+	dofieldeffect FLDEFF_NPCFLY_OUT
+	delay 15
+	removeobject LOCALID_LITTLEROOT_WALLACE
+	waitfieldeffect FLDEFF_NPCFLY_OUT
+	applymovement LOCALID_LITTLEROOT_LAB_RIVAL, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox LittlerootTown_Text_LabDebriefRival, MSGBOX_DEFAULT
+	setvar VAR_BIRCH_STORY_STATE, 4
+	setvar VAR_TEMP_2, 0
+	release
+	end
+
+LittlerootTown_EventScript_GoHomeFirst::
+	lockall
+	msgbox LittlerootTown_Text_GoHomeFirst, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYER, Common_Movement_WalkDown
+	waitmovement 0
+	releaseall
+	end
+
+LittlerootTown_EventScript_TwinDuringLab::
+	msgbox LittlerootTown_Text_TwinDuringLab, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_TwinAfterLab::
+	msgbox LittlerootTown_Text_TwinAfterLab, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_Text_LabDoor1:
+	.string "WALLACE: I'll ask you once more.\n"
+	.string "What is going on in there?\p"
+	.string "MAN IN SUIT: And I'll tell you\n"
+	.string "once more. It's none of your\l"
+	.string "business.\p"
+	.string "WALLACE: Do you know who I am? I'm\n"
+	.string "the POKéMON LEAGUE CHAMPION.\p"
+	.string "One phone call, and I'd have\n"
+	.string "PRESIDENT STONE himself on the\l"
+	.string "line.\p"
+	.string "MAN IN SUIT: Call him all you\n"
+	.string "like. The PRESIDENT is... busy at\l"
+	.string "the moment.\p"
+	.string "WALLACE: Then I suppose I'll have\n"
+	.string "to find another way to make you\l"
+	.string "move.\p"
+	.string "MAN IN SUIT: ...All right, all\n"
+	.string "right! The PROFESSOR is overdue on\l"
+	.string "his loans.\p"
+	.string "DEVON funded his research, and\n"
+	.string "DEVON wants what it's owed.$"
+
+LittlerootTown_Text_LabDoor2:
+	.string "{RIVAL}: Loans? Dad never said a\n"
+	.string "word about any loan! This is a\l"
+	.string "load of garbage!\p"
+	.string "MAN IN SUIT: Kid, maybe you don't\n"
+	.string "know as much about the PROFESSOR's\l"
+	.string "business as you think you do.\p"
+	.string "WALLACE: That's enough. Step\n"
+	.string "aside. Now. Or I'll move you\l"
+	.string "myself.$"
+
+LittlerootTown_Text_LabSuitNoEntry:
+	.string "MAN IN SUIT: Nobody goes in.\n"
+	.string "PRESIDENT's orders.$"
+
+LittlerootTown_Text_LabSuitAside:
+	.string "MAN IN SUIT: ...Go on, then. Not\n"
+	.string "like I can stop the CHAMPION.$"
+
+LittlerootTown_Text_LabWallaceWait:
+	.string "WALLACE: Stay close, {PLAYER}.$"
+
+LittlerootTown_Text_LabRivalWaiting:
+	.string "{RIVAL}: Go on, {PLAYER}! I'm\n"
+	.string "keeping an eye on this guy.\p"
+	.string "Just make sure Dad's okay.$"
+
+LittlerootTown_Text_LabRivalSeeFolks:
+	.string "{RIVAL}: While you're here, go and\n"
+	.string "say hi to your mom and dad.\p"
+	.string "I'll be at the lab.$"
+
+LittlerootTown_Text_LabDebriefWallace:
+	.string "WALLACE: There's more to this\n"
+	.string "story than the PROFESSOR is\l"
+	.string "letting on. I'm certain of it.\p"
+	.string "And PRESIDENT STONE, here, in\n"
+	.string "person...\p"
+	.string "STEVEN needs to hear about this.\n"
+	.string "Something is going on with his\l"
+	.string "father.\p"
+	.string "I'll report back to him right\n"
+	.string "away.\p"
+	.string "{PLAYER}, {RIVAL}. Look after each\n"
+	.string "other.$"
+
+LittlerootTown_Text_LabDebriefRival:
+	.string "{RIVAL}: {PLAYER}... Can I be\n"
+	.string "honest? I'm getting cold feet\l"
+	.string "about the FRONTIER.\p"
+	.string "I never made it past gauntlet 2.\n"
+	.string "And after today, Dad needs someone\l"
+	.string "here more than I need another loss\l"
+	.string "to JUAN.\p"
+	.string "So I'm staying in LITTLEROOT for a\n"
+	.string "while, to help out at the lab.\p"
+	.string "You keep going, okay? Somebody has\n"
+	.string "to show those gauntlets how it's\l"
+	.string "done.$"
+
+LittlerootTown_Text_GoHomeFirst:
+	.string "I should probably go home and see\n"
+	.string "Mom and Dad while I'm here.$"
+
+LittlerootTown_Text_TwinDuringLab:
+	.string "There are men in suits at PROF.\n"
+	.string "BIRCH's LAB!\p"
+	.string "Mommy says I'm not allowed to go\n"
+	.string "near there.$"
+
+LittlerootTown_Text_TwinAfterLab:
+	.string "A man in a really fancy suit came\n"
+	.string "out of the LAB, and two big men\l"
+	.string "followed him.\p"
+	.string "Then they all just left. Like it\n"
+	.string "was nothing!$"
+
+LittlerootTown_Text_FatManDuringLab:
+	.string "There's a fellow in a suit\n"
+	.string "standing guard at the LAB door.\l"
+	.string "Wouldn't even let the delivery boy\l"
+	.string "through.\p"
+	.string "DEVON, I heard. What would a\n"
+	.string "company like that want with our\l"
+	.string "PROFESSOR?$"
+
+LittlerootTown_Text_FatManAfterLab:
+	.string "PROF. BIRCH says it was all a\n"
+	.string "misunderstanding, and everything's\l"
+	.string "sorted.\p"
+	.string "...He didn't look sorted to me.$"
+
+LittlerootTown_Text_BoyDuringLab:
+	.string "Somebody said the CHAMPION is in\n"
+	.string "town! WALLACE! Here, in\l"
+	.string "LITTLEROOT!$"
+
+LittlerootTown_Text_BoyAfterLab:
+	.string "I saw WALLACE fly away! Right over\n"
+	.string "the houses!\p"
+	.string "Nobody believes me.$"

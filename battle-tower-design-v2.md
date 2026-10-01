@@ -1,6 +1,6 @@
-# Ten Gauntlets — Design Document v2
+# Eight Gauntlets — Design Document v2
 
-Battle-only Emerald hack on pokeemerald-expansion. Ten facilities, permanent
+Battle-only Emerald hack on pokeemerald-expansion. Eight gauntlets, permanent
 purchases, escalating pools.
 
 ---
@@ -54,10 +54,11 @@ its tier.
 | 4 | Doubles | 599 | The best sub-600 competitive picks |
 | 5 | Singles | 600 | Pseudo-legendaries, singles-relevant Paradox/UB/Mythicals, **28 Mega Stones** (see `gauntlet-05.md`) |
 | 6 | Doubles | 600 | Doubles-leaning Paradox/UB + **doubles-leaning Megas** |
-| 7 | Singles | 600 | Stronger Megas + some legendaries/Paradox/UB |
-| 8 | Doubles | 600 | **All Mega Stones** + all 600 BST legendaries/Paradox/UB |
-| 9 | Singles | 680 | Box-art legendaries — weaker selection, no Mega legends |
-| 10 | Doubles | 680 | Full uber: Mega legendaries, strongest box-art options |
+| 7 | Singles | 600 | Stronger Megas, **all remaining Mega Stones** (except Kangaskhanite, never sold) + all 600 BST legendaries/Paradox/UB |
+| 8 | Doubles | 680 | The finale. Box-art and Mega legendaries, full uber |
+
+Trimmed from ten gauntlets to eight: the old 7 and 8 fold into gauntlet 7,
+and the old 9 and 10 into gauntlet 8, so the last step is deliberately steep.
 
 ### Facilities and bosses — decided
 
@@ -73,15 +74,21 @@ lieutenants.
 | 3 | Battle Tower, Multi mat | Dunewarden Roxanne (Tower lieutenant) |
 | 4 | Battle Tower, Link Multi mat | Salon Maiden Anabel |
 | 5 | Battle Dome | Dome Ace Tucker |
-| 6 | Battle Factory | Factory Head Noland |
-| 7 | Battle Pike | Pike Queen Lucy |
-| 8 | Battle Arena | Arena Tycoon Greta |
-| 9 | Battle Palace | Palace Maven Spenser |
-| 10 | Battle Pyramid | Pyramid King Brandon |
+| 6 | Battle Pike | Pike Queen Lucy |
+| 7 | Battle Palace | Palace Maven Spenser |
+| 8 | Battle Pyramid | Pyramid King Brandon |
 
-Facility order for 7–10 follows the door order already in `src/facility.c`
-(`FACILITY_DOOR_PIKE`, `_ARENA`, `_PALACE`, `_PYRAMID`), and puts the Pyramid
-last as the finale.
+The Pyramid stays last as the finale. Two buildings host no gauntlet:
+
+- **The Battle Factory is Devon's control room**: Devon's technology runs the
+  island's systems, and the **Mega Pillar** stands inside. Sealed to the
+  player until the endgame, which plays out there.
+- **The Battle Arena is a sparring ground**: rematches against past bosses,
+  and (an easter egg) mock battles against the next boss. Later it becomes
+  the base for Nurse Joy and the Broker. See `frontier-dialogue.md`.
+
+**Factory Head Noland and Arena Tycoon Greta are Scott's personal
+henchmen**, not gauntlet bosses (`storyline.md`).
 
 ### Note on gauntlet 1
 
@@ -100,7 +107,7 @@ give the player a small starting item allotment specifically to answer it.
 Build as many distinct, genuinely different teams as the pool supports rather
 than padding with near-duplicates.
 
-**Gauntlets 4–10:** four strategies per gauntlet, three team variants each,
+**Gauntlets 4–8:** four strategies per gauntlet, three team variants each,
 totaling 12. Variants should differ in execution, not just species swaps — the
 player should recognize the archetype and still have to read the specific team.
 
@@ -142,7 +149,8 @@ who reaches battle 4 and loses keeps that FP. This is the anti-soft-lock
 mechanism: a player who spends badly can always grind the current gauntlet for
 incremental FP until they can afford what they need. Slow, but never dead.
 
-Gauntlet 1 first clear yields ~160 FP; gauntlet 10, ~1600.
+Gauntlet 1 first clear yields ~160 FP; gauntlet 8, ~1300. (Superseded in the
+build: 75/450 per battle/boss for gauntlets 1–2, 100/600 for 3, 150/900 from 4.)
 
 ### Pricing
 
@@ -151,8 +159,8 @@ Gauntlet 1 first clear yields ~160 FP; gauntlet 10, ~1600.
 | Gauntlet 1–2 | 100–250 FP |
 | Gauntlet 3–4 | 300–500 FP |
 | Gauntlet 5–6 | 550–850 FP |
-| Gauntlet 7–8 | 900–1400 FP |
-| Gauntlet 9–10 | 1500–2500 FP |
+| Gauntlet 7 | 900–1400 FP |
+| Gauntlet 8 | 1500–2500 FP |
 
 Target: clearing a gauntlet funds two to three members of the pool it unlocks.
 Never a full six. The player is always choosing.
@@ -172,8 +180,7 @@ unlock alongside them.
 | Gauntlet 4 | **Focus Sash**, Assault Vest, Heavy-Duty Boots |
 | Gauntlet 5 | **Choice items**, Rocky Helmet, Mental Herb, Weakness Policy, **first Mega Stones** |
 | Gauntlet 6 | Covert Cloak, Clear Amulet, **doubles-leaning Mega Stones** |
-| Gauntlet 7 | Booster Energy, stronger Mega Stones |
-| Gauntlet 8 | **All remaining Mega Stones** |
+| Gauntlet 7 | Booster Energy, **all remaining Mega Stones** (Kangaskhanite is never sold) |
 
 Focus Sash sits at gauntlet 4 deliberately. Under full healing, reusable items
 and no bag access, a permanent guaranteed-survive in every battle is far
@@ -193,7 +200,7 @@ KO recognition, setup logic. No mercy, as specified.
 early teams the CPU pivots pointlessly and battles read as tedious rather than
 hard. Once teams have defensive cores worth pivoting between, turn it on.
 
-**Omniscience is reserved for bosses only.** All ten of them.
+**Omniscience is reserved for bosses only.** All eight of them.
 
 Flag names have changed between expansion versions — check
 `include/constants/battle_ai.h` in your checkout rather than copying names from
