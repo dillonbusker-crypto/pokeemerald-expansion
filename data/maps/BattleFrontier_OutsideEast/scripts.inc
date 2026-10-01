@@ -1034,11 +1034,13 @@ BattleFrontier_OutsideEast_EventScript_Woman2_Text0:
 	.string "new POKéMON…$"
 
 BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Text6:
-	.string "BATTLE PALACE - GAUNTLET 7.\p"
-	.string "Sealed. Still being prepared.$"
+	.string "BATTLE PALACE - GAUNTLET 7: THE\n"
+	.string "OPEN COURT.\p"
+	.string "Home of the PALACE MAVEN, SPENSER.$"
 
 BattleFrontier_OutsideEast_EventScript_BattlePalaceSign_Text0:
-	.string "BATTLE PALACE - GAUNTLET 7.\p"
+	.string "BATTLE PALACE - GAUNTLET 7: THE\n"
+	.string "OPEN COURT.\p"
 	.string "Sealed. Opens for those who clear\n"
 	.string "gauntlet 6.$"
 

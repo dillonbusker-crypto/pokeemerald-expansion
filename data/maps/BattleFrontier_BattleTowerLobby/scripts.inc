@@ -1587,7 +1587,8 @@ Facility_DoBattle:
 	goto_if_eq VAR_TEMP_3, FACILITY_GAUNTLET_3, Facility_DoBattle_B3
 	goto_if_eq VAR_TEMP_3, FACILITY_GAUNTLET_4, Facility_DoBattle_B4
 	goto_if_eq VAR_TEMP_3, FACILITY_GAUNTLET_5, Facility_DoBattle_B5
-	goto Facility_DoBattle_B6
+	goto_if_eq VAR_TEMP_3, FACILITY_GAUNTLET_6, Facility_DoBattle_B6
+	goto Facility_DoBattle_B7
 	end
 
 Facility_Battle_Boss:
@@ -1597,7 +1598,8 @@ Facility_Battle_Boss:
 	goto_if_eq VAR_RESULT, FACILITY_GAUNTLET_3, Facility_Battle_Boss_B3
 	goto_if_eq VAR_RESULT, FACILITY_GAUNTLET_4, Facility_Battle_Boss_B4
 	goto_if_eq VAR_RESULT, FACILITY_GAUNTLET_5, Facility_Battle_Boss_B5
-	goto Facility_Battle_Boss_B6
+	goto_if_eq VAR_RESULT, FACILITY_GAUNTLET_6, Facility_Battle_Boss_B6
+	goto Facility_Battle_Boss_B7
 
 Facility_Battle_Boss_B1:
 	trainerbattle_single TRAINER_FACILITY_B1_BOSS_WINONA, Facility_B1_Text_BossIntro, Facility_B1_Text_BossDefeat, Facility_AfterBossBattle
@@ -1991,6 +1993,8 @@ Facility_AfterBossBattle:
 	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_1, Facility_B1_GauntletComplete
 	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_2, Facility_B2_GauntletComplete
 	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_5, Facility_B5_GauntletComplete
+	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_6, Facility_B6_GauntletComplete
+	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_7, Facility_B7_GauntletComplete
 	msgbox Facility_Text_GauntletComplete, MSGBOX_DEFAULT
 	releaseall
 	end
@@ -2000,6 +2004,20 @@ Facility_AfterBossBattle:
 @ item to hand over - the Mega Ring came with gauntlet 4.
 Facility_B5_GauntletComplete:
 	msgbox Facility_B5_Text_GauntletComplete, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ Ten Gauntlets: clearing gauntlet 6 opens the Battle Palace (gauntlet 7,
+@ IsBattlePalaceUnlocked() in src/facility.c) and the shop's wave 6: every
+@ Pokemon, Mega Stone and item held back until now (gauntlet-07.md).
+Facility_B6_GauntletComplete:
+	msgbox Facility_B6_Text_GauntletComplete, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ Gauntlet 8 (the Battle Pyramid) isn't built yet.
+Facility_B7_GauntletComplete:
+	msgbox Facility_B7_Text_GauntletComplete, MSGBOX_DEFAULT
 	releaseall
 	end
 
@@ -2396,3 +2414,21 @@ Facility_B3_Text_StevenWaiting:
 	.string "any further.\p"
 	.string "I'd go see him. He didn't strike\n"
 	.string "me as someone who likes to wait.$"
+
+Facility_B6_Text_GauntletComplete:
+	.string "Congratulations! You've cleared\n"
+	.string "THE CROSSROADS!\p"
+	.string "Your next challenge is a Singles\n"
+	.string "gauntlet at the BATTLE PALACE. Its\l"
+	.string "doors are open to you.\p"
+	.string "And everything the shop has held\n"
+	.string "back is on sale now: the strongest\l"
+	.string "POKéMON, every MEGA STONE, and\l"
+	.string "more.$"
+
+Facility_B7_Text_GauntletComplete:
+	.string "Congratulations! You've cleared\n"
+	.string "THE OPEN COURT!\p"
+	.string "The last gauntlet, at the BATTLE\n"
+	.string "PYRAMID, is still being prepared.\l"
+	.string "Please check back soon.$"

@@ -961,6 +961,21 @@
 // FLOTSAM, betraying the player at the waterfall (easter-eggs-spec.md).
 #define TRAINER_FRONTIER_FLOTSAM                934
 
+// Ten Gauntlets: gauntlet 7 (gauntlet-07.md), the Battle Palace.
+#define TRAINER_FACILITY_B7_A1_SANDSTORM        935
+#define TRAINER_FACILITY_B7_A2_DROUGHT          936
+#define TRAINER_FACILITY_B7_A3_DOWNPOUR         937
+#define TRAINER_FACILITY_B7_B4_RUIN             938
+#define TRAINER_FACILITY_B7_B5_PARADOX          939
+#define TRAINER_FACILITY_B7_B6_NOBRAKES         940
+#define TRAINER_FACILITY_B7_C7_STEELHEART       941
+#define TRAINER_FACILITY_B7_C8_MOMENTUM         942
+#define TRAINER_FACILITY_B7_C9_DRAGONFIRE       943
+#define TRAINER_FACILITY_B7_D10_NOEXIT          944
+#define TRAINER_FACILITY_B7_D11_STONEWALL       945
+#define TRAINER_FACILITY_B7_D12_MINDGAMES       946
+#define TRAINER_FACILITY_B7_BOSS_SPENSER        947
+
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
 //       the system flags (Pokedex, badges, ...) start right after it, so an ID at or past this limit
@@ -974,7 +989,7 @@
 //       so it invalidates existing saves - don't grow it again casually. Costs ~14 bytes of SaveBlock1
 //       (304 B free, see save-data-findings.md), checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
 
-#define TRAINERS_COUNT_EMERALD     935
+#define TRAINERS_COUNT_EMERALD     948
 #define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG

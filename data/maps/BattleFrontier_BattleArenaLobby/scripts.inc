@@ -643,6 +643,7 @@ BattleFrontier_BattleArenaLobby_EventScript_SparMenu::
 	call_if_ge VAR_TEMP_3, 4, BattleFrontier_BattleArenaLobby_EventScript_SparPush4
 	call_if_ge VAR_TEMP_3, 5, BattleFrontier_BattleArenaLobby_EventScript_SparPush5
 	call_if_ge VAR_TEMP_3, 6, BattleFrontier_BattleArenaLobby_EventScript_SparPush6
+	call_if_ge VAR_TEMP_3, 7, BattleFrontier_BattleArenaLobby_EventScript_SparPush7
 	call_if_eq VAR_TEMP_4, 1, BattleFrontier_BattleArenaLobby_EventScript_SparPushMock
 	dynmultipush BattleFrontier_BattleArenaLobby_Text_SparCancel, 127
 	dynmultistack 0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE
@@ -653,6 +654,7 @@ BattleFrontier_BattleArenaLobby_EventScript_SparMenu::
 	case 3, BattleFrontier_BattleArenaLobby_EventScript_SparCheck4
 	case 4, BattleFrontier_BattleArenaLobby_EventScript_SparCheck5
 	case 5, BattleFrontier_BattleArenaLobby_EventScript_SparCheck6
+	case 6, BattleFrontier_BattleArenaLobby_EventScript_SparCheck7
 	case 100, BattleFrontier_BattleArenaLobby_EventScript_SparMock
 	goto BattleFrontier_BattleArenaLobby_EventScript_SparGoodbye
 	end
@@ -679,6 +681,10 @@ BattleFrontier_BattleArenaLobby_EventScript_SparPush5::
 
 BattleFrontier_BattleArenaLobby_EventScript_SparPush6::
 	dynmultipush BattleFrontier_BattleArenaLobby_Text_SparBoss6, 5
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_SparPush7::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_SparBoss7, 6
 	return
 
 BattleFrontier_BattleArenaLobby_EventScript_SparPushMock::
@@ -769,6 +775,20 @@ BattleFrontier_BattleArenaLobby_EventScript_Spar6::
 	trainerbattle_double TRAINER_FACILITY_B6_BOSS_LUCY, BattleFrontier_BattleArenaLobby_Text_SparIntro, BattleFrontier_BattleArenaLobby_Text_SparDefeat, Facility_Text_NotEnoughMons, BattleFrontier_BattleArenaLobby_EventScript_AfterSpar
 	end
 
+BattleFrontier_BattleArenaLobby_EventScript_SparCheck7::
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_BattleArenaLobby_EventScript_SparNeedSix
+	msgbox BattleFrontier_BattleArenaLobby_Text_SparReady, MSGBOX_DEFAULT
+	closemessage
+	goto BattleFrontier_BattleArenaLobby_EventScript_Spar7
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_Spar7::
+	call BattleFrontier_BattleArenaLobby_EventScript_SparPrep
+	cleartrainerflag TRAINER_FACILITY_B7_BOSS_SPENSER
+	trainerbattle_single TRAINER_FACILITY_B7_BOSS_SPENSER, BattleFrontier_BattleArenaLobby_Text_SparIntro, BattleFrontier_BattleArenaLobby_Text_SparDefeat, BattleFrontier_BattleArenaLobby_EventScript_AfterSpar
+	end
+
 @ The mock battle: the current gauntlet's boss (gauntlet cleared + 1).
 BattleFrontier_BattleArenaLobby_EventScript_SparMock::
 	specialvar VAR_RESULT, FacilityPsychicGetBoss
@@ -794,6 +814,7 @@ BattleFrontier_BattleArenaLobby_EventScript_SparMock::
 	case 3, BattleFrontier_BattleArenaLobby_EventScript_Spar4
 	case 4, BattleFrontier_BattleArenaLobby_EventScript_Spar5
 	case 5, BattleFrontier_BattleArenaLobby_EventScript_Spar6
+	case 6, BattleFrontier_BattleArenaLobby_EventScript_Spar7
 	goto BattleFrontier_BattleArenaLobby_EventScript_SparGoodbye
 	end
 
@@ -880,6 +901,9 @@ BattleFrontier_BattleArenaLobby_Text_SparBoss5:
 
 BattleFrontier_BattleArenaLobby_Text_SparBoss6:
 	.string "PIKE QUEEN LUCY$"
+
+BattleFrontier_BattleArenaLobby_Text_SparBoss7:
+	.string "PALACE MAVEN SPENSER$"
 
 BattleFrontier_BattleArenaLobby_Text_SparMockOption:
 	.string "MOCK BATTLE$"

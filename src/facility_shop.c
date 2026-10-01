@@ -240,6 +240,117 @@ static const struct FacilityShopItem sHeldItems[] =
     { ITEM_PUNCHING_GLOVE,     200, 5, NULL },
     { ITEM_RED_CARD,           150, 5, NULL },
     { ITEM_ADRENALINE_ORB,     150, 5, NULL },
+    // Unlocked clearing gauntlet 6 - gauntlet-07.md (wave 6). Every remaining
+    // competitive item. Luck items (King's Rock, Razor Fang, Quick Claw, Focus
+    // Band, Bright Powder, Lax Incense, Berserk Gene) stay out, as do the
+    // duplicate incenses and anything with no legal holder.
+    { ITEM_BOOSTER_ENERGY,   400, 6, NULL },
+    { ITEM_AIR_BALLOON,      250, 6, NULL },
+    { ITEM_POWER_HERB,       250, 6, NULL },
+    { ITEM_PROTECTIVE_PADS,  200, 6, NULL },
+    { ITEM_BLUNDER_POLICY,   200, 6, NULL },
+    { ITEM_SHED_SHELL,       200, 6, NULL },
+    { ITEM_SCOPE_LENS,       200, 6, NULL },
+    { ITEM_RAZOR_CLAW,       200, 6, NULL },
+    { ITEM_METRONOME,        200, 6, NULL },
+    { ITEM_WELLSPRING_MASK,  600, 6, NULL },
+    { ITEM_CORNERSTONE_MASK, 600, 6, NULL },
+    { ITEM_HEARTHFLAME_MASK, 800, 6, NULL },
+    { ITEM_FLAME_PLATE,      250, 6, NULL },
+    { ITEM_SPLASH_PLATE,     250, 6, NULL },
+    { ITEM_ZAP_PLATE,        250, 6, NULL },
+    { ITEM_MEADOW_PLATE,     250, 6, NULL },
+    { ITEM_ICICLE_PLATE,     250, 6, NULL },
+    { ITEM_FIST_PLATE,       250, 6, NULL },
+    { ITEM_TOXIC_PLATE,      250, 6, NULL },
+    { ITEM_EARTH_PLATE,      250, 6, NULL },
+    { ITEM_SKY_PLATE,        250, 6, NULL },
+    { ITEM_MIND_PLATE,       250, 6, NULL },
+    { ITEM_INSECT_PLATE,     250, 6, NULL },
+    { ITEM_STONE_PLATE,      250, 6, NULL },
+    { ITEM_SPOOKY_PLATE,     250, 6, NULL },
+    { ITEM_DRACO_PLATE,      250, 6, NULL },
+    { ITEM_DREAD_PLATE,      250, 6, NULL },
+    { ITEM_IRON_PLATE,       250, 6, NULL },
+    { ITEM_PIXIE_PLATE,      250, 6, NULL },
+    { ITEM_NORMAL_GEM,       150, 6, NULL },
+    { ITEM_FIRE_GEM,         150, 6, NULL },
+    { ITEM_WATER_GEM,        150, 6, NULL },
+    { ITEM_ELECTRIC_GEM,     150, 6, NULL },
+    { ITEM_GRASS_GEM,        150, 6, NULL },
+    { ITEM_ICE_GEM,          150, 6, NULL },
+    { ITEM_FIGHTING_GEM,     150, 6, NULL },
+    { ITEM_POISON_GEM,       150, 6, NULL },
+    { ITEM_GROUND_GEM,       150, 6, NULL },
+    { ITEM_FLYING_GEM,       150, 6, NULL },
+    { ITEM_PSYCHIC_GEM,      150, 6, NULL },
+    { ITEM_BUG_GEM,          150, 6, NULL },
+    { ITEM_ROCK_GEM,         150, 6, NULL },
+    { ITEM_GHOST_GEM,        150, 6, NULL },
+    { ITEM_DRAGON_GEM,       150, 6, NULL },
+    { ITEM_DARK_GEM,         150, 6, NULL },
+    { ITEM_STEEL_GEM,        150, 6, NULL },
+    { ITEM_FAIRY_GEM,        150, 6, NULL },
+    { ITEM_SALAC_BERRY,      200, 6, NULL },
+    { ITEM_GANLON_BERRY,     200, 6, NULL },
+    { ITEM_APICOT_BERRY,     200, 6, NULL },
+    { ITEM_LANSAT_BERRY,     200, 6, NULL },
+    { ITEM_STARF_BERRY,      200, 6, NULL },
+    { ITEM_MICLE_BERRY,      200, 6, NULL },
+    { ITEM_CUSTAP_BERRY,     200, 6, NULL },
+    { ITEM_KEE_BERRY,        150, 6, NULL },
+    { ITEM_MARANGA_BERRY,    150, 6, NULL },
+    { ITEM_JABOCA_BERRY,     150, 6, NULL },
+    { ITEM_ROWAP_BERRY,      150, 6, NULL },
+    { ITEM_ENIGMA_BERRY,     150, 6, NULL },
+    { ITEM_CHILAN_BERRY,     150, 6, NULL },
+    { ITEM_CHERI_BERRY,      50, 6, NULL },
+    { ITEM_CHESTO_BERRY,     50, 6, NULL },
+    { ITEM_PECHA_BERRY,      50, 6, NULL },
+    { ITEM_RAWST_BERRY,      50, 6, NULL },
+    { ITEM_ASPEAR_BERRY,     50, 6, NULL },
+    { ITEM_PERSIM_BERRY,     50, 6, NULL },
+    { ITEM_ORAN_BERRY,       50, 6, NULL },
+    { ITEM_LEPPA_BERRY,      100, 6, NULL },
+    { ITEM_BERRY_JUICE,      100, 6, NULL },
+    { ITEM_SHELL_BELL,       150, 6, NULL },
+    { ITEM_BIG_ROOT,         150, 6, NULL },
+    { ITEM_BINDING_BAND,     150, 6, NULL },
+    { ITEM_GRIP_CLAW,        150, 6, NULL },
+    { ITEM_ZOOM_LENS,        150, 6, NULL },
+    { ITEM_DESTINY_KNOT,     150, 6, NULL },
+    { ITEM_ABSORB_BULB,      150, 6, NULL },
+    { ITEM_CELL_BATTERY,     150, 6, NULL },
+    { ITEM_LUMINOUS_MOSS,    150, 6, NULL },
+    { ITEM_SNOWBALL,         150, 6, NULL },
+    { ITEM_IRON_BALL,        100, 6, NULL },
+    { ITEM_LAGGING_TAIL,     100, 6, NULL },
+    { ITEM_FULL_INCENSE,     100, 6, NULL },
+    { ITEM_STICKY_BARB,      100, 6, NULL },
+    { ITEM_FLOAT_STONE,      100, 6, NULL },
+    { ITEM_DOUSE_DRIVE,      100, 6, NULL },
+    { ITEM_SHOCK_DRIVE,      100, 6, NULL },
+    { ITEM_BURN_DRIVE,       100, 6, NULL },
+    { ITEM_CHILL_DRIVE,      100, 6, NULL },
+    { ITEM_FIRE_MEMORY,      100, 6, NULL },
+    { ITEM_WATER_MEMORY,     100, 6, NULL },
+    { ITEM_ELECTRIC_MEMORY,  100, 6, NULL },
+    { ITEM_GRASS_MEMORY,     100, 6, NULL },
+    { ITEM_ICE_MEMORY,       100, 6, NULL },
+    { ITEM_FIGHTING_MEMORY,  100, 6, NULL },
+    { ITEM_POISON_MEMORY,    100, 6, NULL },
+    { ITEM_GROUND_MEMORY,    100, 6, NULL },
+    { ITEM_FLYING_MEMORY,    100, 6, NULL },
+    { ITEM_PSYCHIC_MEMORY,   100, 6, NULL },
+    { ITEM_BUG_MEMORY,       100, 6, NULL },
+    { ITEM_ROCK_MEMORY,      100, 6, NULL },
+    { ITEM_GHOST_MEMORY,     100, 6, NULL },
+    { ITEM_DRAGON_MEMORY,    100, 6, NULL },
+    { ITEM_DARK_MEMORY,      100, 6, NULL },
+    { ITEM_STEEL_MEMORY,     100, 6, NULL },
+    { ITEM_FAIRY_MEMORY,     100, 6, NULL },
+    { ITEM_THICK_CLUB,       150, 6, NULL },
+    { ITEM_LEEK,             150, 6, NULL },
 };
 
 // ----------------------------------------------------------------------------
@@ -298,6 +409,47 @@ static const struct FacilityShopItem sMegaStones[] =
     { ITEM_DRAMPANITE,     450, 5, NULL },
     { ITEM_CHIMECHITE,     300, 5, NULL },
     { ITEM_MEOWSTICITE,    300, 5, NULL },
+    // Unlocked clearing gauntlet 6 - gauntlet-07.md (wave 6). Every remaining
+    // stone, whatever its Mega's BST, except the doubles-leaning ones and the
+    // legendary Megas (wave 7) and the story locks (Kangaskhanite, the Lati
+    // stones, Mewtwonite).
+    { ITEM_GARCHOMPITE,      1000, 6, NULL },
+    { ITEM_GARCHOMPITE_Z,    1000, 6, NULL },
+    { ITEM_SALAMENCITE,      1000, 6, NULL },
+    { ITEM_METAGROSSITE,     1000, 6, NULL },
+    { ITEM_TYRANITARITE,     1000, 6, NULL },
+    { ITEM_DRAGONINITE,      1000, 6, NULL },
+    { ITEM_BAXCALIBRITE,     1000, 6, NULL },
+    { ITEM_GENGARITE,        1000, 6, NULL },
+    { ITEM_BLAZIKENITE,      1000, 6, NULL },
+    { ITEM_CHARIZARDITE_X,   750, 6, NULL },
+    { ITEM_CHARIZARDITE_Y,   750, 6, NULL },
+    { ITEM_GYARADOSITE,      750, 6, NULL },
+    { ITEM_SWAMPERTITE,      750, 6, NULL },
+    { ITEM_BLASTOISINITE,    750, 6, NULL },
+    { ITEM_SCEPTILITE,       750, 6, NULL },
+    { ITEM_GRENINJITE,       750, 6, NULL },
+    { ITEM_GOLISOPITE,       750, 6, NULL },
+    { ITEM_CHESNAUGHTITE,    750, 6, NULL },
+    { ITEM_FERALIGITE,       750, 6, NULL },
+    { ITEM_DELPHOXITE,       750, 6, NULL },
+    { ITEM_EMBOARITE,        750, 6, NULL },
+    { ITEM_LUCARIONITE,      750, 6, NULL },
+    { ITEM_LUCARIONITE_Z,    750, 6, NULL },
+    { ITEM_GLIMMORANITE,     750, 6, NULL },
+    { ITEM_VENUSAURITE,      750, 6, NULL },
+    { ITEM_MEGANIUMITE,      750, 6, NULL },
+    { ITEM_STARMINITE,       750, 6, NULL },
+    { ITEM_CHANDELURITE,     750, 6, NULL },
+    { ITEM_GARDEVOIRITE,     750, 6, NULL },
+    { ITEM_GALLADITE,        750, 6, NULL },
+    { ITEM_AERODACTYLITE,    750, 6, NULL },
+    { ITEM_EELEKTROSSITE,    750, 6, NULL },
+    { ITEM_EXCADRITE,        750, 6, NULL },
+    { ITEM_PYROARITE,        750, 6, NULL },
+    { ITEM_BANETTITE,        300, 6, NULL },
+    { ITEM_SCOLIPITE,        300, 6, NULL },
+    { ITEM_FALINKSITE,       300, 6, NULL },
 };
 
 // ----------------------------------------------------------------------------
@@ -417,6 +569,21 @@ static const struct FacilityShopMon sPremiumMons[] =
     { SPECIES_TORNADUS,                 850, 5 },
     { SPECIES_THUNDURUS,                850, 5 },
     { SPECIES_OGERPON,                  850, 5 },
+    // Unlocked clearing gauntlet 6 - gauntlet-07.md (wave 6). The singles finale:
+    // everything held back until now.
+    { SPECIES_FLUTTER_MANE,           1400, 6 },
+    { SPECIES_ROARING_MOON,           1400, 6 },
+    { SPECIES_CHI_YU,                 1400, 6 },
+    { SPECIES_CHIEN_PAO,              1400, 6 },
+    { SPECIES_DARKRAI,                1400, 6 },
+    { SPECIES_DEOXYS_ATTACK,          1400, 6 },
+    { SPECIES_DEOXYS_SPEED,           1400, 6 },
+    { SPECIES_SHAYMIN_SKY,            1400, 6 },
+    { SPECIES_MAGEARNA,               1400, 6 },
+    { SPECIES_MARSHADOW,              1400, 6 },
+    { SPECIES_ZYGARDE_50,             1400, 6 },
+    { SPECIES_SPECTRIER,              1400, 6 },
+    { SPECIES_URSHIFU_SINGLE_STRIKE,  1400, 6 },
 };
 
 static const struct FacilityShopMon sStrongMons[] =
@@ -625,6 +792,23 @@ static const struct FacilityShopMon sStrongMons[] =
     // Moved down from the gauntlet 7 draft (gauntlet-07.md): never sold, not too
     // strong - gauntlet 6's pool.
     { SPECIES_URSALUNA_BLOODMOON,     700, 5 },
+    // Unlocked clearing gauntlet 6 - gauntlet-07.md (wave 6). The singles finale:
+    // everything held back until now.
+    { SPECIES_WALKING_WAKE,           1150, 6 },
+    { SPECIES_GOUGING_FIRE,           1150, 6 },
+    { SPECIES_IRON_BUNDLE,            1150, 6 },
+    { SPECIES_KARTANA,                1150, 6 },
+    { SPECIES_PHEROMOSA,              1150, 6 },
+    { SPECIES_NAGANADEL,              1150, 6 },
+    { SPECIES_GENESECT,               1150, 6 },
+    { SPECIES_ZAPDOS_GALAR,           1150, 6 },
+    { SPECIES_LANDORUS_INCARNATE,     1150, 6 },
+    { SPECIES_ENAMORUS_INCARNATE,     1150, 6 },
+    { SPECIES_DEOXYS_NORMAL,          1150, 6 },
+    { SPECIES_NECROZMA,               1150, 6 },
+    { SPECIES_DIANCIE,                1150, 6 },
+    { SPECIES_HOUNDSTONE,             1150, 6 },
+    { SPECIES_DARMANITAN_GALAR,       1150, 6 },
 };
 
 static const struct FacilityShopMon sStandardMons[] =
@@ -821,6 +1005,9 @@ static const struct FacilityShopMon sStandardMons[] =
     { SPECIES_ARTICUNO_GALAR,           550, 5 },
     { SPECIES_GLASTRIER,                550, 5 },
     { SPECIES_WO_CHIEN,                 550, 5 },
+    // Unlocked clearing gauntlet 6 - gauntlet-07.md (wave 6). The singles finale:
+    // everything held back until now.
+    { SPECIES_ESPATHRA,               900, 6 },
 };
 
 static const struct FacilityShopMon sBudgetMons[] =
@@ -935,11 +1122,22 @@ static const struct { u16 species; u8 abilityNum; } sAbilityOverrides[] =
     { SPECIES_MEOWSCARADA,    2 }, // Protean, not Overgrow
     { SPECIES_BASCULEGION_M,  1 }, // Adaptability, not Swift Swim
     { SPECIES_SAMUROTT_HISUI, 2 }, // Sharpness, not Torrent
+    // Gauntlet 7's wave (gauntlet-07.md).
+    { SPECIES_LANDORUS_INCARNATE, 2 }, // Sheer Force, not Sand Force
+    { SPECIES_ENAMORUS_INCARNATE, 2 }, // Contrary, not Cute Charm
+    { SPECIES_ESPATHRA,       2 }, // Speed Boost - why it waited for gauntlet 7
+    { SPECIES_HOUNDSTONE,     2 }, // Fluffy, not Sand Rush
 };
 
 static u8 GetShopMonAbilityNum(u16 species)
 {
     u32 i;
+
+    // Blaziken is sold from gauntlet 3 with Blaze. Speed Boost waits until
+    // Blazikenite does (wave 6, gauntlet-07.md): a Blaziken bought once
+    // gauntlet 6 is cleared gets it.
+    if (species == SPECIES_BLAZIKEN)
+        return GetGauntletsClearedCount() >= 6 ? 2 : 0;
     for (i = 0; i < ARRAY_COUNT(sAbilityOverrides); i++)
     {
         if (sAbilityOverrides[i].species == species)

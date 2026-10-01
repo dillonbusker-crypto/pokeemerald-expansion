@@ -675,3 +675,221 @@ BattleFrontier_BattlePalaceLobby_Text_ExplainRulesWhenInDanger:
 	.string "If a POKéMON begins behaving oddly\n"
 	.string "in a pinch, watch it carefully.$"
 
+@ ============================================================================
+@ Ten Gauntlets: gauntlet 7 ("The Open Court", gauntlet-07.md), boss PALACE
+@ MAVEN SPENSER. Same pattern as the Dome's gauntlet 5: the Palace is only
+@ the location (no Battle Palace rules), and its Singles attendant runs
+@ gauntlet 7 through the shared run-loop scripts in
+@ data/maps/BattleFrontier_BattleTowerLobby/scripts.inc. The Palace opens
+@ when gauntlet 6 is cleared (IsBattlePalaceUnlocked() in src/facility.c).
+@ The vanilla attendant flows above are unreferenced now - map.json points
+@ the attendants, signs and NPCs at the scripts below.
+@ ============================================================================
+BattleFrontier_BattlePalaceLobby_EventScript_FacilityAttendantB7::
+	lock
+	faceplayer
+	setvar VAR_0x8004, FACILITY_GAUNTLET_7
+	special IsFacilityRunActiveForGauntlet
+	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
+	special IsFacilityRunActiveForDifferentGauntlet
+	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	special IsFacilityGauntletCompleted
+	goto_if_eq VAR_RESULT, TRUE, Facility_AlreadyCleared
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
+	msgbox Facility_B7_Text_AskEnter, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Facility_Decline
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
+	setvar VAR_0x8004, FACILITY_GAUNTLET_7
+	special FacilityStartRun
+	call Common_EventScript_SaveGame
+	goto Facility_DoBattle
+	end
+
+@ The vanilla Doubles challenge would run the real Battle Palace's own logic,
+@ outside the Ten Gauntlets run loop - so this attendant turns the player away.
+BattleFrontier_BattlePalaceLobby_EventScript_DoublesAttendantClosed::
+	lock
+	faceplayer
+	msgbox BattleFrontier_BattlePalaceLobby_Text_DoublesClosed, MSGBOX_DEFAULT
+	release
+	end
+
+Facility_DoBattle_B7:
+	switch VAR_RESULT
+	case 0, Facility_B7_Battle_SANDSTORM
+	case 1, Facility_B7_Battle_DROUGHT
+	case 2, Facility_B7_Battle_DOWNPOUR
+	case 3, Facility_B7_Battle_RUIN
+	case 4, Facility_B7_Battle_PARADOX
+	case 5, Facility_B7_Battle_NOBRAKES
+	case 6, Facility_B7_Battle_STEELHEART
+	case 7, Facility_B7_Battle_MOMENTUM
+	case 8, Facility_B7_Battle_DRAGONFIRE
+	case 9, Facility_B7_Battle_NOEXIT
+	case 10, Facility_B7_Battle_STONEWALL
+	case 11, Facility_B7_Battle_MINDGAMES
+	end
+
+Facility_B7_Battle_SANDSTORM:
+	trainerbattle_single TRAINER_FACILITY_B7_A1_SANDSTORM, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B7_Battle_DROUGHT:
+	trainerbattle_single TRAINER_FACILITY_B7_A2_DROUGHT, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B7_Battle_DOWNPOUR:
+	trainerbattle_single TRAINER_FACILITY_B7_A3_DOWNPOUR, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B7_Battle_RUIN:
+	trainerbattle_single TRAINER_FACILITY_B7_B4_RUIN, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B7_Battle_PARADOX:
+	trainerbattle_single TRAINER_FACILITY_B7_B5_PARADOX, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B7_Battle_NOBRAKES:
+	trainerbattle_single TRAINER_FACILITY_B7_B6_NOBRAKES, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B7_Battle_STEELHEART:
+	trainerbattle_single TRAINER_FACILITY_B7_C7_STEELHEART, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B7_Battle_MOMENTUM:
+	trainerbattle_single TRAINER_FACILITY_B7_C8_MOMENTUM, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B7_Battle_DRAGONFIRE:
+	trainerbattle_single TRAINER_FACILITY_B7_C9_DRAGONFIRE, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B7_Battle_NOEXIT:
+	trainerbattle_single TRAINER_FACILITY_B7_D10_NOEXIT, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B7_Battle_STONEWALL:
+	trainerbattle_single TRAINER_FACILITY_B7_D11_STONEWALL, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_B7_Battle_MINDGAMES:
+	trainerbattle_single TRAINER_FACILITY_B7_D12_MINDGAMES, Facility_Text_Intro, Facility_Text_Defeat, Facility_AfterPoolBattle
+	end
+
+Facility_Battle_Boss_B7:
+	trainerbattle_single TRAINER_FACILITY_B7_BOSS_SPENSER, Facility_B7_Text_BossIntro, Facility_B7_Text_BossDefeat, Facility_AfterBossBattle
+	end
+
+BattleFrontier_BattlePalaceLobby_EventScript_G7Plaque::
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 7, BattleFrontier_BattlePalaceLobby_EventScript_G7PlaqueCleared
+	msgbox BattleFrontier_BattlePalaceLobby_Text_G7Plaque, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattlePalaceLobby_EventScript_G7PlaqueCleared::
+	msgbox BattleFrontier_BattlePalaceLobby_Text_G7PlaqueCleared, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattlePalaceLobby_EventScript_DoublesClosedSign::
+	msgbox BattleFrontier_BattlePalaceLobby_Text_DoublesClosedSign, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattlePalaceLobby_EventScript_G7Rules::
+	msgbox BattleFrontier_BattlePalaceLobby_Text_G7Rules, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattlePalaceLobby_EventScript_G7BlackBelt::
+	msgbox BattleFrontier_BattlePalaceLobby_Text_G7BlackBelt, MSGBOX_NPC
+	end
+
+BattleFrontier_BattlePalaceLobby_EventScript_G7Maniac::
+	msgbox BattleFrontier_BattlePalaceLobby_Text_G7Maniac, MSGBOX_NPC
+	end
+
+BattleFrontier_BattlePalaceLobby_EventScript_G7Man::
+	msgbox BattleFrontier_BattlePalaceLobby_Text_G7Man, MSGBOX_NPC
+	end
+
+BattleFrontier_BattlePalaceLobby_EventScript_G7Beauty::
+	msgbox BattleFrontier_BattlePalaceLobby_Text_G7Beauty, MSGBOX_NPC
+	end
+
+Facility_B7_Text_AskEnter:
+	.string "Welcome to gauntlet 7, THE OPEN\n"
+	.string "COURT!\p"
+	.string "This is a Singles gauntlet - six\n"
+	.string "battles, then a boss. Your whole\l"
+	.string "party of six enters, and it's\l"
+	.string "locked once you begin.\p"
+	.string "Everything is on the table now.\n"
+	.string "Ready to start?$"
+
+Facility_B7_Text_BossIntro:
+	.string "SPENSER: Hm. So you're the one who\n"
+	.string "has climbed this far.\p"
+	.string "I have watched trainers for longer\n"
+	.string "than you've been alive. Power\l"
+	.string "fades. Speed fades.\p"
+	.string "What remains is heart. Let us see\n"
+	.string "whose holds out the longest!$"
+
+Facility_B7_Text_BossDefeat:
+	.string "Ha! Your POKéMON's hearts never\n"
+	.string "wavered. Well fought.$"
+
+BattleFrontier_BattlePalaceLobby_Text_DoublesClosed:
+	.string "The Doubles challenge isn't\n"
+	.string "running right now. Please see my\l"
+	.string "colleague for THE OPEN COURT.$"
+
+BattleFrontier_BattlePalaceLobby_Text_DoublesClosedSign:
+	.string "The Doubles challenge isn't\n"
+	.string "running right now.$"
+
+BattleFrontier_BattlePalaceLobby_Text_G7Plaque:
+	.string "GAUNTLET 7 - THE OPEN COURT.\p"
+	.string "Singles. Boss: PALACE MAVEN\n"
+	.string "SPENSER.\p"
+	.string "Not yet cleared.$"
+
+BattleFrontier_BattlePalaceLobby_Text_G7PlaqueCleared:
+	.string "GAUNTLET 7 - THE OPEN COURT.\p"
+	.string "Singles. Boss: PALACE MAVEN\n"
+	.string "SPENSER.\p"
+	.string "Cleared by {PLAYER}!$"
+
+BattleFrontier_BattlePalaceLobby_Text_G7Rules:
+	.string "THE OPEN COURT\p"
+	.string "Every tool is allowed now: the\n"
+	.string "strongest POKéMON, MEGAS beyond\l"
+	.string "the limit, and weather at full\l"
+	.string "power.\p"
+	.string "Singles. Six battles, then the\n"
+	.string "PALACE MAVEN.$"
+
+BattleFrontier_BattlePalaceLobby_Text_G7BlackBelt:
+	.string "Every team in here could win any\n"
+	.string "other gauntlet on this island.\p"
+	.string "Here, they're just the warm-up.$"
+
+BattleFrontier_BattlePalaceLobby_Text_G7Maniac:
+	.string "SHED SHELL! Buy one!\p"
+	.string "If you meet a GENGAR that won't\n"
+	.string "let you leave, you'll wish you\l"
+	.string "had.$"
+
+BattleFrontier_BattlePalaceLobby_Text_G7Man:
+	.string "The PALACE MAVEN saves his best\n"
+	.string "POKéMON for last.\p"
+	.string "And it only gets stronger with\n"
+	.string "every one it knocks out. Keep\l"
+	.string "something in reserve.$"
+
+BattleFrontier_BattlePalaceLobby_Text_G7Beauty:
+	.string "I lost to a team where every\n"
+	.string "POKéMON was part Dark.\p"
+	.string "Fighting moves. That's all I\n"
+	.string "needed, and I only brought one.$"

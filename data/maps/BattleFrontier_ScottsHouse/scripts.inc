@@ -81,6 +81,7 @@ BattleFrontier_ScottsHouse_EventScript_Scott::
 	case 3, BattleFrontier_ScottsHouse_EventScript_Progress3
 	case 4, BattleFrontier_ScottsHouse_EventScript_Progress4
 	case 5, BattleFrontier_ScottsHouse_EventScript_Progress5
+	case 6, BattleFrontier_ScottsHouse_EventScript_Progress6
 	case 8, BattleFrontier_ScottsHouse_EventScript_Progress10
 	msgbox BattleFrontier_ScottsHouse_Text_Progress6Plus, MSGBOX_DEFAULT
 	release
@@ -148,6 +149,11 @@ BattleFrontier_ScottsHouse_EventScript_Progress4::
 
 BattleFrontier_ScottsHouse_EventScript_Progress5::
 	msgbox BattleFrontier_ScottsHouse_Text_Progress5, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ScottsHouse_EventScript_Progress6::
+	msgbox BattleFrontier_ScottsHouse_Text_Progress6, MSGBOX_DEFAULT
 	release
 	end
 
@@ -657,3 +663,9 @@ BattleFrontier_ScottsHouse_Text_ScottReplica:
 	.string "SCOTT: Ah, that? A replica. For\n"
 	.string "show.$"
 
+BattleFrontier_ScottsHouse_Text_Progress6:
+	.string "SCOTT: LUCY, beaten! Heheh...\p"
+	.string "Next is the BATTLE PALACE. SPENSER\n"
+	.string "has watched more battles than\l"
+	.string "anyone on this island. He knows\l"
+	.string "what a POKéMON's heart can do.$"

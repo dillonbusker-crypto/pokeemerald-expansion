@@ -12,6 +12,7 @@ BattleFrontier_Lounge2_EventScript_FrontierManiac::
 	faceplayer
 	specialvar VAR_RESULT, GetGauntletsClearedCount
 	goto_if_ge VAR_RESULT, 8, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared10
+	goto_if_ge VAR_RESULT, 7, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared7
 	goto_if_ge VAR_RESULT, 6, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared6
 	goto_if_ge VAR_RESULT, 5, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared5
 	goto_if_ge VAR_RESULT, 4, BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared4
@@ -24,6 +25,11 @@ BattleFrontier_Lounge2_EventScript_FrontierManiac::
 
 BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared10:
 	msgbox BattleFrontier_Lounge2_EventScript_FrontierManiac_Text10, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Cleared7:
+	msgbox BattleFrontier_Lounge2_EventScript_FrontierManiac_Text7, MSGBOX_DEFAULT
 	release
 	end
 
@@ -416,10 +422,11 @@ BattleFrontier_Lounge2_EventScript_FrontierManiac_Text10:
 	.string "gauntlets!$"
 
 BattleFrontier_Lounge2_EventScript_FrontierManiac_Text6:
-	.string "Howdy! Big news: there is no news!\p"
-	.string "The rest of the FRONTIER is still\n"
-	.string "sealed. The rumor is the PALACE\l"
-	.string "MAVEN, SPENSER, is next.$"
+	.string "Howdy! The latest word?\p"
+	.string "The PALACE MAVEN, SPENSER, saves\n"
+	.string "his best for last. They say his\l"
+	.string "final POKéMON gets stronger with\l"
+	.string "every knockout.$"
 
 BattleFrontier_Lounge2_EventScript_FrontierManiac_Text5:
 	.string "Howdy! The latest word?\p"
@@ -462,3 +469,9 @@ BattleFrontier_Lounge2_EventScript_FrontierManiac_Text0:
 	.string "WINONA, keeps an ALTARIA. Give it\l"
 	.string "one free turn to Dragon Dance, and\l"
 	.string "it sweeps.$"
+
+BattleFrontier_Lounge2_EventScript_FrontierManiac_Text7:
+	.string "Howdy! Big news: there is no news!\p"
+	.string "The PYRAMID is still sealed. The\n"
+	.string "rumor is the PYRAMID KING,\l"
+	.string "BRANDON, is last.$"

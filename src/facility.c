@@ -134,6 +134,22 @@ static const u16 sGauntlet6Pool[] =
     TRAINER_FACILITY_B6_D12_CHORUS,
 };
 
+static const u16 sGauntlet7Pool[] =
+{
+    TRAINER_FACILITY_B7_A1_SANDSTORM,
+    TRAINER_FACILITY_B7_A2_DROUGHT,
+    TRAINER_FACILITY_B7_A3_DOWNPOUR,
+    TRAINER_FACILITY_B7_B4_RUIN,
+    TRAINER_FACILITY_B7_B5_PARADOX,
+    TRAINER_FACILITY_B7_B6_NOBRAKES,
+    TRAINER_FACILITY_B7_C7_STEELHEART,
+    TRAINER_FACILITY_B7_C8_MOMENTUM,
+    TRAINER_FACILITY_B7_C9_DRAGONFIRE,
+    TRAINER_FACILITY_B7_D10_NOEXIT,
+    TRAINER_FACILITY_B7_D11_STONEWALL,
+    TRAINER_FACILITY_B7_D12_MINDGAMES,
+};
+
 static const struct FacilityGauntletData sFacilityGauntlets[] =
 {
     [FACILITY_GAUNTLET_1] = { sGauntlet1Pool, ARRAY_COUNT(sGauntlet1Pool), TRAINER_FACILITY_B1_BOSS_WINONA },
@@ -142,6 +158,7 @@ static const struct FacilityGauntletData sFacilityGauntlets[] =
     [FACILITY_GAUNTLET_4] = { sGauntlet4Pool, ARRAY_COUNT(sGauntlet4Pool), TRAINER_FACILITY_B4_BOSS_ANABEL },
     [FACILITY_GAUNTLET_5] = { sGauntlet5Pool, ARRAY_COUNT(sGauntlet5Pool), TRAINER_FACILITY_B5_BOSS_TUCKER },
     [FACILITY_GAUNTLET_6] = { sGauntlet6Pool, ARRAY_COUNT(sGauntlet6Pool), TRAINER_FACILITY_B6_BOSS_LUCY },
+    [FACILITY_GAUNTLET_7] = { sGauntlet7Pool, ARRAY_COUNT(sGauntlet7Pool), TRAINER_FACILITY_B7_BOSS_SPENSER },
 };
 
 bool8 IsFacilityRunActive(void)
@@ -246,9 +263,11 @@ void IsBattleArenaUnlocked(void)
     gSpecialVar_Result = TRUE;
 }
 
+// The Palace hosts gauntlet 7, so it opens when gauntlet 6 is cleared.
 void IsBattlePalaceUnlocked(void)
 {
-    gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_PALACE);
+    gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_PALACE)
+        || (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << FACILITY_GAUNTLET_6)) != 0;
 }
 
 void IsBattlePyramidUnlocked(void)

@@ -22502,3 +22502,903 @@ Jolly Nature
 - Liquidation
 - Psychic Fangs
 - Ice Fang
+
+/* Ten Gauntlets: gauntlet 7 (gauntlet-07.md), the Battle Palace. Singles.
+ * Generated from the doc - keep the sets in sync with it. */
+
+=== TRAINER_FACILITY_B7_A1_SANDSTORM ===
+Name: SANDSTORM
+Class: Ruin Maniac
+Pic: Ruin Maniac
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Garchomp @ Rocky Helmet
+Ability: Rough Skin
+Level: 50
+EVs: 252 HP / 4 Atk / 252 Def
+Impish Nature
+- Stealth Rock
+- Earthquake
+- Dragon Tail
+- Spikes
+
+Tyranitar @ Tyranitarite
+Ability: Sand Stream
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Dragon Dance
+- Stone Edge
+- Crunch
+- Earthquake
+
+Excadrill @ Air Balloon
+Ability: Sand Rush
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Swords Dance
+- Earthquake
+- Iron Head
+- Rapid Spin
+
+Landorus @ Life Orb
+Ability: Sheer Force
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Earth Power
+- Sludge Wave
+- Focus Blast
+- Grass Knot
+
+Gholdengo @ Choice Scarf
+Ability: Good as Gold
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Make It Rain
+- Shadow Ball
+- Focus Blast
+- Trick
+
+Zapdos-Galar @ Choice Band
+Ability: Defiant
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Thunderous Kick
+- Brave Bird
+- Close Combat
+- U-turn
+
+=== TRAINER_FACILITY_B7_A2_DROUGHT ===
+Name: DROUGHT
+Class: Kindler
+Pic: Kindler
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Torkoal @ Heat Rock
+Ability: Drought
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Stealth Rock
+- Lava Plume
+- Rapid Spin
+- Yawn
+
+Charizard @ Charizardite Y
+Ability: Solar Power
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Fire Blast
+- Solar Beam
+- Focus Blast
+- Roost
+
+Walking Wake @ Choice Specs
+Ability: Protosynthesis
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Hydro Steam
+- Draco Meteor
+- Flamethrower
+- Flip Turn
+
+Gouging Fire @ Heavy-Duty Boots
+Ability: Protosynthesis
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Dragon Dance
+- Flare Blitz
+- Outrage
+- Earthquake
+
+Venusaur @ Life Orb
+Ability: Chlorophyll
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Growth
+- Giga Drain
+- Sludge Bomb
+- Weather Ball
+
+Great Tusk @ Assault Vest
+Ability: Protosynthesis
+Level: 50
+EVs: 252 Atk / 4 SpD / 252 Spe
+Jolly Nature
+- Headlong Rush
+- Close Combat
+- Knock Off
+- Rapid Spin
+
+=== TRAINER_FACILITY_B7_A3_DOWNPOUR ===
+Name: DOWNPOUR
+Class: Swimmer M
+Pic: Swimmer M
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Pelipper @ Damp Rock
+Ability: Drizzle
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Hurricane
+- Surf
+- U-turn
+- Roost
+
+Swampert @ Swampertite
+Ability: Torrent
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Waterfall
+- Earthquake
+- Ice Punch
+- Rain Dance
+
+Barraskewda @ Choice Band
+Ability: Swift Swim
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Liquidation
+- Close Combat
+- Flip Turn
+- Psychic Fangs
+
+Kingdra @ Life Orb
+Ability: Swift Swim
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Hydro Pump
+- Draco Meteor
+- Hurricane
+- Ice Beam
+
+Raging Bolt @ Booster Energy
+Ability: Protosynthesis
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Thunderclap
+- Thunder
+- Draco Meteor
+- Calm Mind
+
+Ferrothorn @ Leftovers
+Ability: Iron Barbs
+Level: 50
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Stealth Rock
+- Leech Seed
+- Power Whip
+- Knock Off
+
+=== TRAINER_FACILITY_B7_B4_RUIN ===
+Name: RUIN
+Class: Pokemaniac
+Pic: Pokemaniac
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Ting-Lu @ Leftovers
+Ability: Vessel of Ruin
+Level: 50
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Stealth Rock
+- Ruination
+- Earthquake
+- Whirlwind
+
+Wo-Chien @ Rocky Helmet
+Ability: Tablets of Ruin
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Leech Seed
+- Giga Drain
+- Foul Play
+- Protect
+
+Chien-Pao @ Focus Sash
+Ability: Sword of Ruin
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Icicle Crash
+- Sucker Punch
+- Sacred Sword
+
+Chi-Yu @ Choice Scarf
+Ability: Beads of Ruin
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Overheat
+- Dark Pulse
+- Flamethrower
+- Psychic
+
+Gyarados @ Gyaradosite
+Ability: Moxie
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Dragon Dance
+- Waterfall
+- Crunch
+- Earthquake
+
+Kingambit @ Black Glasses
+Ability: Supreme Overlord
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Swords Dance
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
+
+=== TRAINER_FACILITY_B7_B5_PARADOX ===
+Name: PARADOX
+Class: Expert
+Pic: Expert F
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Iron Treads @ Leftovers
+Ability: Quark Drive
+Level: 50
+EVs: 252 HP / 4 Atk / 252 Def
+Impish Nature
+- Stealth Rock
+- Rapid Spin
+- Earthquake
+- Knock Off
+
+Flutter Mane @ Booster Energy
+Ability: Protosynthesis
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Moonblast
+- Shadow Ball
+- Mystical Fire
+- Calm Mind
+
+Roaring Moon @ Life Orb
+Ability: Protosynthesis
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Dragon Dance
+- Knock Off
+- Outrage
+- Earthquake
+
+Iron Bundle @ Choice Specs
+Ability: Quark Drive
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Freeze-Dry
+- Hydro Pump
+- Ice Beam
+- Flip Turn
+
+Iron Valiant @ Focus Sash
+Ability: Quark Drive
+Level: 50
+EVs: 4 Atk / 252 SpA / 252 Spe
+Naive Nature
+- Moonblast
+- Close Combat
+- Knock Off
+- Thunderbolt
+
+Lucario @ Lucarionite
+Ability: Justified
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Close Combat
+- Meteor Mash
+- Extreme Speed
+
+=== TRAINER_FACILITY_B7_B6_NOBRAKES ===
+Name: NO BRAKES
+Class: Triathlete
+Pic: Running Triathlete F
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Deoxys-Speed @ Focus Sash
+Ability: Pressure
+Level: 50
+EVs: 252 HP / 4 SpA / 252 Spe
+Timid Nature
+- Stealth Rock
+- Spikes
+- Taunt
+- Psycho Boost
+
+Blaziken @ Blazikenite
+Ability: Speed Boost
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Swords Dance
+- Flare Blitz
+- Close Combat
+- Protect
+
+Shaymin-Sky @ Life Orb
+Ability: Serene Grace
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Seed Flare
+- Air Slash
+- Earth Power
+- Healing Wish
+
+Pheromosa @ Choice Scarf
+Ability: Beast Boost
+Level: 50
+EVs: 252 Atk / 4 SpA / 252 Spe
+Naive Nature
+- U-turn
+- Close Combat
+- Ice Beam
+- Poison Jab
+
+Kartana @ Choice Band
+Ability: Beast Boost
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Leaf Blade
+- Sacred Sword
+- Smart Strike
+- Knock Off
+
+Cinderace @ Heavy-Duty Boots
+Ability: Libero
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Pyro Ball
+- High Jump Kick
+- U-turn
+- Court Change
+
+=== TRAINER_FACILITY_B7_C7_STEELHEART ===
+Name: STEELHEART
+Class: Cooltrainer
+Pic: Cooltrainer M
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Metagross @ Metagrossite
+Ability: Clear Body
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Meteor Mash
+- Zen Headbutt
+- Earthquake
+- Bullet Punch
+
+Magearna @ Leftovers
+Ability: Soul-Heart
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Calm Mind
+- Fleur Cannon
+- Flash Cannon
+- Volt Switch
+
+Zygarde @ Lum Berry
+Ability: Aura Break
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Dragon Dance
+- Thousand Arrows
+- Outrage
+- Iron Head
+
+Heatran @ Air Balloon
+Ability: Flash Fire
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Magma Storm
+- Earth Power
+- Flash Cannon
+- Taunt
+
+Corviknight @ Rocky Helmet
+Ability: Mirror Armor
+Level: 50
+EVs: 252 HP / 4 Atk / 252 Def
+Impish Nature
+- Brave Bird
+- Roost
+- Defog
+- U-turn
+
+Toxapex @ Black Sludge
+Ability: Regenerator
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Scald
+- Recover
+- Toxic Spikes
+- Haze
+
+=== TRAINER_FACILITY_B7_C8_MOMENTUM ===
+Name: MOMENTUM
+Class: Triathlete
+Pic: Cycling Triathlete M
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Landorus-Therian @ Rocky Helmet
+Ability: Intimidate
+Level: 50
+EVs: 252 HP / 4 Atk / 252 Def
+Impish Nature
+- Stealth Rock
+- Earthquake
+- U-turn
+- Knock Off
+
+Urshifu @ Choice Band
+Ability: Unseen Fist
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Wicked Blow
+- Close Combat
+- U-turn
+- Sucker Punch
+
+Zapdos @ Heavy-Duty Boots
+Ability: Static
+Level: 50
+EVs: 252 HP / 4 SpA / 252 Spe
+Timid Nature
+- Volt Switch
+- Hurricane
+- Heat Wave
+- Roost
+
+Scizor @ Scizorite
+Ability: Technician
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- U-turn
+- Bullet Punch
+- Knock Off
+- Swords Dance
+
+Ogerpon-Wellspring @ Wellspring Mask
+Ability: Water Absorb
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Ivy Cudgel
+- Horn Leech
+- U-turn
+- Swords Dance
+
+Meowscarada @ Choice Scarf
+Ability: Protean
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Flower Trick
+- Knock Off
+- U-turn
+- Triple Axel
+
+=== TRAINER_FACILITY_B7_C9_DRAGONFIRE ===
+Name: DRAGONFIRE
+Class: Dragon Tamer
+Pic: Dragon Tamer
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Archaludon @ Power Herb
+Ability: Stamina
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Electro Shot
+- Draco Meteor
+- Flash Cannon
+- Stealth Rock
+
+Salamence @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Dragon Dance
+- Double-Edge
+- Earthquake
+- Roost
+
+Dragapult @ Choice Specs
+Ability: Infiltrator
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Draco Meteor
+- Shadow Ball
+- Flamethrower
+- U-turn
+
+Kommo-o @ Throat Spray
+Ability: Overcoat
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Clangorous Soul
+- Clanging Scales
+- Aura Sphere
+- Flamethrower
+
+Naganadel @ Life Orb
+Ability: Beast Boost
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Nasty Plot
+- Sludge Wave
+- Draco Meteor
+- Fire Blast
+
+Baxcalibur @ Loaded Dice
+Ability: Thermal Exchange
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Icicle Spear
+- Scale Shot
+- Earthquake
+
+=== TRAINER_FACILITY_B7_D10_NOEXIT ===
+Name: NO EXIT
+Class: Hex Maniac
+Pic: Hex Maniac
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Grimmsnarl @ Light Clay
+Ability: Prankster
+Level: 50
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Reflect
+- Light Screen
+- Thunder Wave
+- Spirit Break
+
+Gengar @ Gengarite
+Ability: Cursed Body
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Shadow Ball
+- Sludge Wave
+- Focus Blast
+- Destiny Bond
+
+Darkrai @ Life Orb
+Ability: Bad Dreams
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Nasty Plot
+- Dark Pulse
+- Sludge Bomb
+- Focus Blast
+
+Marshadow @ Expert Belt
+Ability: Technician
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Spectral Thief
+- Close Combat
+- Shadow Sneak
+- Ice Punch
+
+Deoxys-Attack @ Focus Sash
+Ability: Pressure
+Level: 50
+EVs: 4 Atk / 252 SpA / 252 Spe
+Naive Nature
+- Psycho Boost
+- Superpower
+- Knock Off
+- Extreme Speed
+
+Heatran @ Leftovers
+Ability: Flash Fire
+Level: 50
+EVs: 252 HP / 4 SpA / 252 SpD
+Calm Nature
+- Magma Storm
+- Earth Power
+- Taunt
+- Protect
+
+=== TRAINER_FACILITY_B7_D11_STONEWALL ===
+Name: STONEWALL
+Class: Expert
+Pic: Expert M
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Gliscor @ Toxic Orb
+Ability: Poison Heal
+Level: 50
+EVs: 252 HP / 4 Atk / 252 Def
+Impish Nature
+- Earthquake
+- Knock Off
+- Spikes
+- Protect
+
+Skeledirge @ Heavy-Duty Boots
+Ability: Unaware
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Torch Song
+- Slack Off
+- Will-O-Wisp
+- Hex
+
+Blissey @ Leftovers
+Ability: Natural Cure
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Seismic Toss
+- Soft-Boiled
+- Stealth Rock
+- Heal Bell
+
+Toxapex @ Black Sludge
+Ability: Regenerator
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Scald
+- Recover
+- Toxic Spikes
+- Haze
+
+Venusaur @ Venusaurite
+Ability: Chlorophyll
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Giga Drain
+- Sludge Bomb
+- Synthesis
+- Leech Seed
+
+Dondozo @ Rocky Helmet
+Ability: Unaware
+Level: 50
+EVs: 252 HP / 4 Atk / 252 Def
+Impish Nature
+- Wave Crash
+- Rest
+- Sleep Talk
+- Curse
+
+=== TRAINER_FACILITY_B7_D12_MINDGAMES ===
+Name: MIND GAMES
+Class: Psychic
+Pic: Psychic F
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Azelf @ Focus Sash
+Ability: Levitate
+Level: 50
+EVs: 252 Atk / 4 SpA / 252 Spe
+Naive Nature
+- Stealth Rock
+- Taunt
+- Psychic
+- Explosion
+
+Tapu Lele @ Choice Specs
+Ability: Psychic Surge
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psyshock
+- Moonblast
+- Focus Blast
+- Psychic
+
+Espathra @ Leftovers
+Ability: Speed Boost
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Calm Mind
+- Stored Power
+- Dazzling Gleam
+- Protect
+
+Necrozma @ Weakness Policy
+Ability: Prism Armor
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Swords Dance
+- Photon Geyser
+- Earthquake
+- Knock Off
+
+Gardevoir @ Gardevoirite
+Ability: Trace
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Hyper Voice
+- Psyshock
+- Calm Mind
+- Focus Blast
+
+Slowking-Galar @ Heavy-Duty Boots
+Ability: Regenerator
+Level: 50
+EVs: 252 HP / 4 SpA / 252 SpD
+Sassy Nature
+- Future Sight
+- Sludge Bomb
+- Chilly Reception
+- Slack Off
+
+=== TRAINER_FACILITY_B7_BOSS_SPENSER ===
+Name: SPENSER
+Class: Palace Maven
+Pic: Palace Maven Spenser
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient / Ace Pokemon
+
+Gliscor @ Toxic Orb
+Ability: Poison Heal
+Level: 50
+EVs: 252 HP / 4 Atk / 252 Def
+Impish Nature
+- Stealth Rock
+- Earthquake
+- Knock Off
+- Protect
+
+Suicune @ Leftovers
+Ability: Pressure
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Calm Mind
+- Scald
+- Ice Beam
+- Protect
+
+Great Tusk @ Booster Energy
+Ability: Protosynthesis
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Headlong Rush
+- Close Combat
+- Ice Spinner
+- Rapid Spin
+
+Dragonite @ Heavy-Duty Boots
+Ability: Multiscale
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Dragon Dance
+- Extreme Speed
+- Earthquake
+- Fire Punch
+
+Houndstone @ Choice Band
+Ability: Fluffy
+Level: 50
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+- Last Respects
+- Shadow Sneak
+- Body Press
+- Play Rough
+
+Magearna @ Magearnite
+Ability: Soul-Heart
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Calm Mind
+- Fleur Cannon
+- Flash Cannon
+- Aura Sphere

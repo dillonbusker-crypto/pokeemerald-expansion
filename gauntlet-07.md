@@ -1,11 +1,11 @@
-# Gauntlet 7 — *name TBD* (DRAFT)
+# Gauntlet 7 — "The Open Court"
 
 **Battle Palace.** Singles, 6v6, level 50. Six battles drawn from twelve,
 then the boss, **Palace Maven Spenser**.
 
-> **Status: draft, nothing built.** Covers the pool, bans and shop for the
-> last two gauntlets, plus gauntlet 7's twelve CPU teams, the boss and the
-> benchmark counter-team.
+> **Status: gauntlet 7 is built** (see "Implementation notes" at the end).
+> Wave 7 and gauntlet 8 are still a plan. Open questions 1, 2 and 5 only
+> affect wave 7; the rest were settled with the defaults noted there.
 
 ---
 
@@ -32,8 +32,8 @@ relevant that we've held back so far comes in:
 Everything from wave 6 stays on sale in gauntlet 8, so the doubles gauntlet
 gets the whole roster.
 
-**Name ideas** (Palace, nature and hearts, no limits): *The Open Court*,
-*The Inner Sanctum*, *Free Rein*.
+**Name:** *The Open Court* (chosen for the build; easy to change, see
+"Implementation notes").
 
 ---
 
@@ -221,15 +221,17 @@ exempt.**
 1. **The BST cap:** 600 for both gauntlets, with no legendary over 600 ever
    sold? (Recommended; it keeps the box-art legendaries Scott's.)
 2. **Zygardite:** never sold, or wave 7 at the top price?
-3. **Gauntlet 7–8 FP:** raise to 200 / 1,200?
+3. **Gauntlet 7–8 FP:** raise to 200 / 1,200? *(Built unchanged at 150 / 900
+   for now.)*
 4. **Incenses:** Plates already give a second copy of each type boost. Do we
-   want a third (Sea/Wave/Odd/Rock/Rose Incense), or skip them?
+   want a third (Sea/Wave/Odd/Rock/Rose Incense), or skip them? *(Built
+   without them.)*
 5. **Floette-Eternal:** sell it (wave 7) so Floettite has a holder, or drop
    both?
 6. **Smogon clauses** (evasion moves, OHKO moves, Moody, Sleep Clause): the
    L menu lets the player teach anything legal. Do the all-out gauntlets
    need any of these enforced, or do CPU teams just avoid them?
-7. **The name** of gauntlet 7.
+7. ~~The name of gauntlet 7.~~ *The Open Court.*
 
 ---
 
@@ -1249,12 +1251,44 @@ Speed picks off B6's frail speed demons, and Heatran traps D11's stall walls.
 
 ---
 
+## Implementation notes
+
+What was built, and where. Keep the sets above in sync with
+`src/data/trainers.party`; the trainer entries were generated from this doc,
+and every move was checked against `all_learnables.json`.
+
+- **Trainers:** `TRAINER_FACILITY_B7_*` (IDs 935–947; `TRAINERS_COUNT` is now
+  948, still under the 1000 limit) in `include/constants/opponents.h` and
+  `src/data/trainers.party`, all singles. Classes: Ruin Maniac (A1), Kindler
+  (A2), Swimmer (A3), PokéManiac (B4), Expert (B5, D11), Triathlete (B6, C8),
+  Cooltrainer (C7), Dragon Tamer (C9), Hex Maniac (D10), Psychic (D12);
+  Spenser is the Palace Maven with his own pic. Spenser's AI adds Omniscient
+  and Ace Pokemon (Magearna is last in the party).
+- **Run loop:** `FACILITY_GAUNTLET_7` (`include/constants/facility.h`) and
+  `sGauntlet7Pool` in `src/facility.c`. The shared dispatch in the Tower
+  lobby script routes gauntlet 7 to `Facility_DoBattle_B7` and
+  `Facility_Battle_Boss_B7`, in the Palace lobby's script.
+- **The Palace** opens when gauntlet 6 is cleared (`IsBattlePalaceUnlocked`).
+  Its Singles attendant runs the gauntlet; the Doubles attendant is closed.
+  New plaque, rules board and four lobby NPCs. Clearing gauntlet 6 and 7 have
+  their own completion messages (the Pyramid "still being prepared").
+- **Shop wave 6** (`unlockGauntlet` 6 in `src/facility_shop.c`): the Pokémon,
+  Mega Stones and items above. Ability overrides for Landorus (Sheer Force),
+  Enamorus (Contrary), Espathra (Speed Boost) and Houndstone (Fluffy).
+  **Blaziken** gets Speed Boost only once gauntlet 6 is cleared (before that
+  it's sold with Blaze), in `GetShopMonAbilityNum()`.
+- **Elsewhere:** Spenser is on the Arena's sparring list (and the mock
+  battle covers gauntlet 7); the Palace sign, the Reception guide, Scott's
+  progress line and the Lounge 2 news desk all know about gauntlet 7.
+- **Renaming the gauntlet:** "THE OPEN COURT" appears in the Palace lobby's
+  texts, `Facility_B6_Text_GauntletComplete` / `Facility_B7_Text_GauntletComplete`,
+  the Palace sign and the Reception guide.
+
+---
+
 ## Next steps
 
-1. Settle the open questions, then lock wave 6.
-2. Pick trainer classes and pics for the twelve teams (every facility trainer
-   needs a real one, per `CLAUDE.md`), and the gauntlet's name.
-3. Build: wave 6 in `src/facility_shop.c`, the trainers in
-   `src/data/trainers.party`, gauntlet 7's pool and boss in `src/facility.c`,
-   and the Palace attendant (the Palace opens when gauntlet 6 is cleared).
-4. Update Lucy (`gauntlet-06.md`) only if Gengarite's wave changes.
+1. Playtest gauntlet 7 (see "Open for playtesting").
+2. Settle open questions 1, 2 and 5, then design gauntlet 8 (doubles, the
+   Battle Pyramid, Pyramid King Brandon) and wave 7.
+3. Update Lucy (`gauntlet-06.md`) only if Gengarite's wave changes.

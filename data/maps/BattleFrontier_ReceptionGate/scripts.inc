@@ -145,6 +145,7 @@ BattleFrontier_ReceptionGate_EventScript_FacilityGuide::
 	case 3, BattleFrontier_ReceptionGate_EventScript_NextGauntlet4
 	case 4, BattleFrontier_ReceptionGate_EventScript_NextGauntlet5
 	case 5, BattleFrontier_ReceptionGate_EventScript_NextGauntlet6
+	case 6, BattleFrontier_ReceptionGate_EventScript_NextGauntlet7
 	case 8, BattleFrontier_ReceptionGate_EventScript_AllGauntletsCleared
 	msgbox BattleFrontier_ReceptionGate_Text_NextGauntletNotReady, MSGBOX_DEFAULT
 	release
@@ -259,6 +260,11 @@ BattleFrontier_ReceptionGate_EventScript_NextGauntlet5::
 
 BattleFrontier_ReceptionGate_EventScript_NextGauntlet6::
 	msgbox BattleFrontier_ReceptionGate_Text_NextGauntlet6, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ReceptionGate_EventScript_NextGauntlet7::
+	msgbox BattleFrontier_ReceptionGate_Text_NextGauntlet7, MSGBOX_DEFAULT
 	release
 	end
 
@@ -762,3 +768,10 @@ BattleFrontier_ReceptionGate_Text_FPGuideTools:
 	.string "nature, HIDDEN POWER, ability and\l"
 	.string "moves, so every POKéMON you buy\l"
 	.string "can be built exactly how you like.$"
+
+BattleFrontier_ReceptionGate_Text_NextGauntlet7:
+	.string "Next up is THE OPEN COURT, at the\n"
+	.string "BATTLE PALACE. Singles, with the\l"
+	.string "PALACE MAVEN, SPENSER, at the end.\p"
+	.string "The PALACE is on the east side of\n"
+	.string "the FRONTIER.$"

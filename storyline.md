@@ -579,8 +579,8 @@ happy ending.
 
   | Content | Running total |
   |---|---|
-  | Built now (gauntlets 1–6, story trainers) | 935 |
-  | Gauntlets 7–8 (13 each) | 961 |
+  | Built now (gauntlets 1–7, story trainers) | 948 |
+  | Gauntlet 8 (13) | 961 |
   | Seven Brain rematches, Scott ×2 | 970 |
   | Elite Four (Rustboro), Archie, Maxie | 976 |
   | Elite Four again at Sky Pillar, only if the player fights them there | 980 |
