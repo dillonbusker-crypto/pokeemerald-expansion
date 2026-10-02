@@ -228,6 +228,12 @@ The Artisan Cave side plot ✅ (`easter-eggs-spec.md`). Flotsam gains the
 Scrambler 🔧. After the Frontier falls, **the Broker takes in the escaped
 shopkeepers** and runs the shop, free, for the cause.
 
+- **Looker works with Steven.** Chasing Flotsam is what brought him to the
+  Frontier; that's why he hands the Scrambler on to Steven. 📝
+- **The Broker** is an old friend of Steven's. After lending him the Metagross
+  he starts digging into why Frontier Pokémon won't grow, which gets him
+  **arrested after gauntlet 6** and held in the Factory (see below). 📝
+
 ### The Eon Duo, and what Scott lost
 
 **Scott drew Latios and Latias to Artisan Cave on purpose.** The Soul Dew was
@@ -236,7 +242,9 @@ caught the other one later, and it's on his final team.
 
 ### Nurse Joy
 
-Out of work since the PokéNav auto-heal. In the endgame she brings every
+Out of work since the PokéNav auto-heal. After gauntlet 6 she lets Steven and
+the player use her empty Center as a hideout, and **overhears everything**,
+which is why she later refuses to help Scott. 📝 In the endgame she brings every
 Chansey and Blissey from Hoenn's Pokémon Centers, taught a new move, **Transfer
 EXP**, and follows the player to Sky Pillar.
 
@@ -257,7 +265,8 @@ EXP**, and follows the player to Sky Pillar.
 | Gauntlet 4 (Anabel) | **Steven returns.** See below. | ✅ |
 | Gauntlets 1–4 | **The rival on the plaza.** After the rematch, the rival trains in front of the Battle Tower, with a new line after each gauntlet: training for gauntlet 1, then cleared it, then stuck on gauntlet 2, then worried that Birch seems off and paranoid. | ✅ |
 | Gauntlet 5 (Tucker) | **Birch's lab.** See below. | ✅ |
-| Gauntlets 6–7 | Beats to design, building toward Devon and the Crown. Ideas: NPCs noticing their Pokémon "seem tired lately"; Steven and his father; Birch's confession. | 📝 ❓ |
+| Gauntlet 6 (Lucy) | **The Broker's letter.** Steven in the Pokémon Center, the Broker's arrest, the chips revealed. See below. | 📝 |
+| Gauntlet 7 (Spenser) | Beats to design. Ideas: NPCs noticing their Pokémon "seem tired lately"; Birch's confession. | 📝 ❓ |
 | Before gauntlet 8 | **Steven gives the Lati back**, with its Mega Stone (Latiasite or Latiosite). This close to the end, the risk of Scott noticing is worth the edge. It can gain Experience again, since the player's badges are real and it has no chip. | 📝 |
 | Gauntlet 8 (Brandon) | **The Mega Pillar is fully charged.** The endgame starts. | 📝 |
 
@@ -282,8 +291,8 @@ PYRAMID", gauntlet 8's building.
    holding it back, and because it was caught wild, nothing else is. But
    something is wrong with the **Frontier shop's Pokémon** too: Steven
    **borrowed a Metagross from the Broker**, and it gained no Experience even
-   while he wasn't carrying the badges. He'll chase that down with Wallace
-   (the chips, found at Devon).
+   while he wasn't carrying the badges. He'll chase that down. (The answer,
+   the chips, comes from the Broker's letter after gauntlet 6.)
 5. **Lay low.** At this point the Metagross is more use to the player than to
    him. And a Lati that keeps growing would be a real edge through the
    gauntlets, but a Pokémon climbing past level 50 on Scott's island is exactly
@@ -299,7 +308,8 @@ PYRAMID", gauntlet 8's building.
 7. **The Broker, after.** The next time the player visits him, he mentions
    Steven borrowing the Metagross, and their history: Steven once won the
    wildest bet the Gambler ever took, on beating the Battle Tower's Brain
-   (`broker-spec.md`).
+   (`broker-spec.md`). 🔧 **Add:** he's looking into the Frontier's Pokémon,
+   to find out why they won't grow. This sets up his letter after gauntlet 6.
 
 **The player always has a Lati by now.** The Artisan Cave quest is required:
 gauntlet 4 stays locked until a Latias or Latios is caught.
@@ -388,6 +398,138 @@ Stone paused gauntlet 6 from Devon's control room in the Factory.
 with the other Mega bases). **Kangaskhanite is never sold**, so Norman's is
 the only one, and the Broker and the trader can't offer it either.
 
+### After gauntlet 6: the Broker's letter 📝
+
+Gauntlet 7 (the Palace) stays closed until the event ends. Scott's house is
+locked from Scott's exit (scene 5) until gauntlet 7 is cleared: he's out of
+town.
+
+**1. Steven at the Pike.** The player walks out of the Pike (Outside West,
+(42, 27)) and Steven walks up: they need to talk, but not here. Scott's men
+have been tracking him. The player follows him to the **Pokémon Center**
+(Outside East, (3, 51); the walk crosses the map border).
+
+**2. The Pokémon Center.** The usual NPCs are gone. Steven and the player walk
+to the middle of the Center. **Nurse Joy** greets them; Steven thanks her for
+the hideout. Joy: nobody comes here much anyway, so it's no trouble. (She
+hears all of what follows, which sets up her refusal to help Scott.)
+
+- Steven heard from Wallace what happened at Birch's lab. Things are getting
+  out of hand.
+- The player brings up what Scott said at the Pike door (the bad blood, "Steven
+  may say things about me that aren't true") and asks whether this is all just
+  a personal feud.
+- Steven is angry that Scott is driving a wedge between them: Scott would only
+  say that if he already knew the player has been meeting with Steven. He and
+  Scott never got along, but this is about much more than old disagreements.
+- **"Do you believe me?" Yes / No.** No: Steven brushes it off, the player
+  will find out soon enough who to trust. Yes: he's relieved the player is
+  still on his side. The scene continues the same either way.
+- **His father.** Wallace told him Stone was at the lab, so Steven went to Devon
+  and asked him in person. Stone kept it short:
+  - Devon has Birch researching Mega Evolution and its limits.
+  - Devon supplies the Frontier's system technology, and can shut things off
+    if things get messy (that's what happened to gauntlet 6).
+  - Scott wants to bring a new battle mechanic to the Frontier, which is what
+    the research is for. Scott sets strict deadlines. (A lie: Scott wants the
+    Crown for himself.)
+  - Steven asked about **the Crown**, which Wallace overheard at the lab.
+    Stone deflected: "cutting edge", a big win for the company. Nothing more.
+- Steven doesn't think his father is a bad person, and hopes the Birch incident
+  was "just business". **This is denial**, and the player can push back: Wallace
+  watched Stone threaten the lab.
+- He knows the badges hold back Experience, but not **why Frontier Pokémon
+  still don't grow without them**, or where it all leads. Only time will tell,
+  but it all seems to hinge on the player's progress through the gauntlets.
+- He has to go, by the back way. If the player needs him, they know where he'll
+  be: **the ledge above the Pyramid**, where they met after gauntlet 4.
+  Steven fades out.
+
+**3. Scott outside the Center.** The player walks out. Off to the right, Scott
+faces right, with **Noland, Greta and a security guard** facing him. Scott:
+"We finally traced the missing MASTER BALL. Move out." They turn and all four
+walk off-screen.
+
+**4. The Broker's arrest.** At the Broker's house (Outside East, door at
+(65, 31)), Noland, Greta and the guard surround the Broker in the courtyard,
+Scott on the left. The scene triggers when the player is one tile left of the
+flower at the courtyard's entrance.
+
+- Scott: this has gone on long enough. The Broker is being detained by
+  Frontier security for illegally selling Frontier property, and for holding
+  a MASTER BALL.
+- Scott: before he goes, he'll hand over that MASTER BALL. The Broker: he
+  doesn't have it any more, someone bought it.
+- Scott: "Did you really think I wouldn't notice one of my MASTER BALLS
+  missing from that shipment?" (A hint that Scott is collecting them.)
+- The Broker: "Business is business." Scott: "Take him away."
+- Scott steps aside. The guards march the Broker out past the player. When
+  he's level with the player the walk pauses: "The BROKER dropped something at
+  {PLAYER}'s feet." "{PLAYER} received a LETTER TO STEVEN." The walk carries
+  on off-screen.
+
+**5. Scott and the player.** Scott walks up.
+
+- That man operated as "the Broker", selling Frontier property and taking a
+  cut. He had **old connections to Team Aqua** (which is how Flotsam knew him).
+- The player asks about the MASTER BALLS. Scott: a supply from Kanto, as prizes
+  for the Frontier shop. (An obvious lie.)
+- **The beat:** Scott knows someone bought that MASTER BALL, and that something
+  happened in Artisan Cave, and the player is standing right in front of him.
+  He looks at the player a long moment, says nothing about it, and moves on.
+  He needs them to keep winning.
+- He congratulates the player on gauntlet 6. From here on, the gauntlets get
+  very serious.
+- He'll be **out of town for a while**, meeting some high-profile trainers for
+  feedback on his next Frontier addition. Good luck. He walks off.
+
+**After the arrest:**
+
+- **The Broker is gone** from his house. The Lounge 3 regulars react to the
+  empty spot.
+- **His cousin** (the blind-trade lady) is laying low and won't trade.
+- The **Second Wind** and the **psychic** still work as normal.
+- **Gauntlet 7 is still closed:** "I'd better get this letter to STEVEN first."
+
+**6. Steven on the ledge.** He's on the ledge above the Pyramid ((65, 5),
+Outside East). He's shocked that Scott arrested the Broker. The player hands
+over the letter.
+
+- **The letter** is a confession. While smuggling Frontier Pokémon, the Broker
+  found out every one of them is **implanted with a chip**, and the chips are
+  why they don't gain Experience. They always seemed sad, no matter how many
+  trainers they battled for.
+- Steven asks whether the player's Pokémon seem to bond with them. The player:
+  they just seem focused on battling.
+- **Steven's hypothesis:** the chips are made of the same shard material as the
+  badges, a quieter second channel. When a trainer and a Pokémon work
+  together, **bond energy** is created: the power behind growth and evolution.
+  The chips must be stealing it. And if it's being stolen, it's going
+  somewhere.
+- Steven will have **Looker find out where they've taken the Broker.**
+- He gives the player **his PokéNav number** (a future event has him call).
+- He'll look into whether the chips can be disabled, and be in touch. He flies
+  off.
+
+**7. Wallace.** As the player heads back west, Wallace walks up. He slipped
+onto the island again, past Scott's security. He's looking for Steven: **the
+Elite Four have left the Pokémon League** and nobody knows where they went.
+(A hint at who Scott is meeting out of town.) The player says Steven just flew
+off. Wallace: he's always on the move. He flies off.
+
+**The event ends, and gauntlet 7 opens.**
+
+**During gauntlet 7:**
+
+- **The Broker is held inside the Battle Factory.**
+- **Looker** stands near the Factory, watching it from a distance.
+- Scott's house stays locked until gauntlet 7 is cleared. His existing
+  gauntlet-7 progress line ("LUCY, beaten!") is then unreachable.
+
+**What the player knows by the end:** the chips are real, and they're why
+Frontier Pokémon don't grow. Bond energy is being harvested and goes
+somewhere. Scott is collecting Master Balls. The Elite Four are missing.
+
 ### After gauntlet 8: the Crown 📝
 
 Scott is siphoning the Pillar into the Crown to build his team, in the
@@ -435,8 +577,9 @@ Devon:
 
 - **President Stone** developed the Bond Harness. (Steven has known his father
   was involved since Wallace saw him at Birch's lab.)
-- **The chips:** every Frontier shop Pokémon carries the shard material, which
-  is why the player's Pokémon still can't grow.
+- **The chips:** the Broker's letter (after gauntlet 6) revealed them. Every
+  Frontier shop Pokémon carries the shard material, which is why the player's
+  Pokémon still can't grow.
 - They need a way to **disable the chips**, and Devon is the place to find it.
   Their own Pokémon can still grow, but even so, the two of them alone aren't
   enough to stop Scott.
@@ -569,6 +712,10 @@ happy ending.
 | Auto-heal lore | The PokéNav (Devon) heals, not the badges. Update any line that says otherwise. |
 | The eleventh plaque | ✅ **Gone.** The Mega Pillar is inside the Factory now; the plaque at the head of the hall is the Hall of Eight's header. |
 | Hall of Ten | ✅ **The Hall of Eight**, eight plaques; no story scenes. The Factory plaque is unscrewed; the Arena's points to the sparring ground. |
+| Gauntlet 6 clear message | `Facility_B6_Text_GauntletComplete` says the Palace's doors are open. Reword it: gauntlet 7 stays closed until the Broker's-letter event ends. Change it together with building the event, not before. |
+| The Broker after Steven's trade | Add that he's looking into why the Frontier's Pokémon won't grow (`FLAG_BROKER_STEVEN_MENTION` line, Lounge 3). |
+| Scott's house, gauntlet 7 | Locked while he's out of town. The `Progress6` line becomes unreachable. |
+| The Broker and his cousin | Gone after gauntlet 6: no Broker deals or blind trades for gauntlets 7–8. |
 
 ---
 
@@ -579,8 +726,7 @@ happy ending.
 
   | Content | Running total |
   |---|---|
-  | Built now (gauntlets 1–7, story trainers) | 948 |
-  | Gauntlet 8 (13) | 961 |
+  | Built now (all eight gauntlets, story trainers) | 961 |
   | Seven Brain rematches, Scott ×2 | 970 |
   | Elite Four (Rustboro), Archie, Maxie | 976 |
   | Elite Four again at Sky Pillar, only if the player fights them there | 980 |
@@ -640,8 +786,8 @@ happy ending.
 
 ## Still to decide ❓
 
-1. **Beats after gauntlets 6–7**, including Steven facing his father's
-   involvement, and Birch's confession.
+1. **Beats after gauntlet 7**, including Birch's confession. (Gauntlet 6's
+   beat is written: the Broker's letter.)
 2. The seven Brains' upgraded teams after gauntlet 8, and their lines as they
    turn.
 3. The Elite Four's teams (up to level 55, some permanent Megas) and the
@@ -651,6 +797,12 @@ happy ending.
 6. **Scott's replacement for Mega Kangaskhan** on both his teams.
 7. How the Arena's sparring works in detail (`frontier-dialogue.md` has the
    spec so far).
+8. **Steven's PokéNav.** Devon makes the PokéNav, and Stone is watching. Why
+   does Steven trust his for the call he'll make later (a secure line, as the
+   President's son, or one he modified himself)?
+9. **How the Broker gets out of the Factory** before he runs the endgame's free
+   shop. The Crown plays out in the Factory, so the player could free him
+   there.
 
 ---
 

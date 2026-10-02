@@ -670,6 +670,8 @@ only after the trade (`FacilityTraderTrade()`, `src/facility_shop.c`;
 `VAR_TRADER_LAST_GAUNTLET`).
 
 - The traded-away Pokémon's held item goes back to the bag.
+- 📝 **After the Broker's arrest (gauntlet 6)** she's laying low and won't
+  trade any more (`storyline.md`).
 - She refuses the Latias/Latios (Steven needs it), LEAFEON (the florist's quest
   needs one) and Eggs, won't trade mid-run, and closes while the island's POS
   is down (it costs FP).
