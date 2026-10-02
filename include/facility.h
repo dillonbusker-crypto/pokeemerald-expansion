@@ -82,4 +82,9 @@ void IsBattleArenaUnlocked(void);
 void IsBattlePalaceUnlocked(void);
 void IsBattlePyramidUnlocked(void);
 
+// TRUE when a door leads into a facility lobby that isn't open yet, so the
+// door stays shut (TryDoorWarp in src/field_control_avatar.c). The door's
+// sign event on the outside map explains why.
+bool32 IsFacilityLobbyDoorLocked(u32 mapGroup, u32 mapNum);
+
 #endif // GUARD_FACILITY_H

@@ -1379,3 +1379,42 @@ BattleFrontier_OutsideWest_Text_TestMiraidonReceived:
 
 BattleFrontier_OutsideWest_Text_TestMiraidonNoRoom:
 	.string "TEST: No room in your party or PC.$"
+
+@ ============================================================================
+@ Ten Gauntlets: a facility that isn't open yet keeps its door shut - walking
+@ into it does nothing (IsFacilityLobbyDoorLocked, src/facility.c, checked in
+@ TryDoorWarp). Inspecting the door says why. Once it opens, these do nothing.
+@ ============================================================================
+
+BattleFrontier_OutsideWest_EventScript_DomeDoor::
+	special IsBattleDomeUnlocked
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideWest_EventScript_DomeDoorOpen
+	msgbox BattleFrontier_OutsideWest_Text_DomeDoorLocked, MSGBOX_SIGN
+BattleFrontier_OutsideWest_EventScript_DomeDoorOpen:
+	end
+
+BattleFrontier_OutsideWest_EventScript_FactoryDoor::
+	special IsBattleFactoryUnlocked
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideWest_EventScript_FactoryDoorOpen
+	msgbox BattleFrontier_OutsideWest_Text_FactoryDoorLocked, MSGBOX_SIGN
+BattleFrontier_OutsideWest_EventScript_FactoryDoorOpen:
+	end
+
+BattleFrontier_OutsideWest_EventScript_PikeDoor::
+	special IsBattlePikeUnlocked
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideWest_EventScript_PikeDoorOpen
+	msgbox BattleFrontier_OutsideWest_Text_PikeDoorLocked, MSGBOX_SIGN
+BattleFrontier_OutsideWest_EventScript_PikeDoorOpen:
+	end
+
+BattleFrontier_OutsideWest_Text_DomeDoorLocked:
+	.string "The doors are shut. The BATTLE\n"
+	.string "DOME isn't open yet.$"
+
+BattleFrontier_OutsideWest_Text_FactoryDoorLocked:
+	.string "The doors are locked. A sign reads:\p"
+	.string "“DEVON PERSONNEL ONLY.”$"
+
+BattleFrontier_OutsideWest_Text_PikeDoorLocked:
+	.string "The doors are shut. The BATTLE\n"
+	.string "PIKE isn't open yet.$"

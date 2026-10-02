@@ -26,6 +26,7 @@
 #include "strings.h"
 #include "string_util.h"
 #include "constants/flags.h"
+#include "constants/maps.h"
 #include "constants/region_map_sections.h"
 #include "constants/trainers.h"
 
@@ -292,6 +293,39 @@ void IsBattlePyramidUnlocked(void)
 {
     gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_PYRAMID)
         || (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << FACILITY_GAUNTLET_7)) != 0;
+}
+
+bool32 IsFacilityLobbyDoorLocked(u32 mapGroup, u32 mapNum)
+{
+    u16 savedResult = gSpecialVar_Result;
+    bool32 locked;
+
+    switch (mapNum | (mapGroup << 8))
+    {
+    case MAP_BATTLE_FRONTIER_BATTLE_DOME_LOBBY:
+        IsBattleDomeUnlocked();
+        break;
+    case MAP_BATTLE_FRONTIER_BATTLE_FACTORY_LOBBY:
+        IsBattleFactoryUnlocked();
+        break;
+    case MAP_BATTLE_FRONTIER_BATTLE_PIKE_LOBBY:
+        IsBattlePikeUnlocked();
+        break;
+    case MAP_BATTLE_FRONTIER_BATTLE_ARENA_LOBBY:
+        IsBattleArenaUnlocked();
+        break;
+    case MAP_BATTLE_FRONTIER_BATTLE_PALACE_LOBBY:
+        IsBattlePalaceUnlocked();
+        break;
+    case MAP_BATTLE_FRONTIER_BATTLE_PYRAMID_LOBBY:
+        IsBattlePyramidUnlocked();
+        break;
+    default:
+        return FALSE;
+    }
+    locked = !gSpecialVar_Result;
+    gSpecialVar_Result = savedResult;
+    return locked;
 }
 
 void FacilityCheckEligible(void)

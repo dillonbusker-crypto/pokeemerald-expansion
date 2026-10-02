@@ -2331,3 +2331,31 @@ BattleFrontier_OutsideEast_Text_LedgeWallaceBye:
 	.string "that one.\p"
 	.string "I'll catch up with him. Take care,\n"
 	.string "{PLAYER}.$"
+
+@ ============================================================================
+@ Ten Gauntlets: a facility that isn't open yet keeps its door shut - walking
+@ into it does nothing (IsFacilityLobbyDoorLocked, src/facility.c, checked in
+@ TryDoorWarp). Inspecting the door says why. Once it opens, these do nothing.
+@ ============================================================================
+
+BattleFrontier_OutsideEast_EventScript_PalaceDoor::
+	special IsBattlePalaceUnlocked
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideEast_EventScript_PalaceDoorOpen
+	msgbox BattleFrontier_OutsideEast_Text_PalaceDoorLocked, MSGBOX_SIGN
+BattleFrontier_OutsideEast_EventScript_PalaceDoorOpen:
+	end
+
+BattleFrontier_OutsideEast_EventScript_PyramidDoor::
+	special IsBattlePyramidUnlocked
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideEast_EventScript_PyramidDoorOpen
+	msgbox BattleFrontier_OutsideEast_Text_PyramidDoorLocked, MSGBOX_SIGN
+BattleFrontier_OutsideEast_EventScript_PyramidDoorOpen:
+	end
+
+BattleFrontier_OutsideEast_Text_PalaceDoorLocked:
+	.string "The doors are shut. The BATTLE\n"
+	.string "PALACE isn't open yet.$"
+
+BattleFrontier_OutsideEast_Text_PyramidDoorLocked:
+	.string "The doors are shut. The BATTLE\n"
+	.string "PYRAMID isn't open yet.$"

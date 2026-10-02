@@ -1136,6 +1136,12 @@ static bool8 TryDoorWarp(struct MapPosition *position, u16 metatileBehavior, enu
             warpEventId = GetWarpEventAtMapPosition(&gMapHeader, position);
             if (warpEventId != WARP_ID_NONE && IsWarpMetatileBehavior(metatileBehavior) == TRUE)
             {
+                const struct WarpEvent *warp = &gMapHeader.events->warps[warpEventId];
+
+                // Ten Gauntlets: a facility that isn't open yet keeps its door
+                // shut - the player just bumps into it.
+                if (IsFacilityLobbyDoorLocked(warp->mapGroup, warp->mapNum))
+                    return FALSE;
                 StoreInitialPlayerAvatarState();
                 SetupWarp(&gMapHeader, warpEventId, position);
                 DoDoorWarp();
