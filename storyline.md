@@ -337,7 +337,7 @@ Stone paused gauntlet 6 from Devon's control room in the Factory.
    Devon are holding Birch in his lab. The rival runs off. **Wallace** walks
    up: he overheard. Steven sent him to check in on the player; he slipped
    past the guards (they run a tight ship here) and has to leave before anyone
-   notices. He heads for Littleroot.
+   notices. He flies off for Littleroot.
 2. **Gauntlet 6 is closed.** The island's system is down again. **Devon's
    technology runs the Frontier's systems, and Stone paused gauntlet 6
    because the player was on track to finish the gauntlets before the Crown
@@ -354,8 +354,8 @@ Stone paused gauntlet 6 from Devon's control room in the Factory.
    the Professor's business as they think. Wallace tells him to step aside,
    he does, and Wallace rushes in. The rival waits outside.
 5. **Inside.** By the Poké Ball machine, Birch faces **President Stone**,
-   two men in suits behind him. Wallace stands a few tiles back. Walking up
-   beside him plays the scene. Birch: they had a deal, better equipment, and
+   two men in suits behind him. Wallace stands a few tiles back. Coming in,
+   the player walks up beside him and the scene plays. Birch: they had a deal, better equipment, and
    he'd send the kids to Scott. Stone: the deal also included finding out
    whether the Crown would actually work. Birch: it's never been done, and a
    few weeks isn't enough to know. Stone: he can buy more time, but not much;
