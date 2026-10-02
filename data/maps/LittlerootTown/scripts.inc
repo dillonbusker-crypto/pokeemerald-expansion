@@ -1225,6 +1225,17 @@ LittlerootTown_EventScript_LabDebrief::
 	applymovement LOCALID_LITTLEROOT_LAB_RIVAL, Common_Movement_FacePlayer
 	waitmovement 0
 	msgbox LittlerootTown_Text_LabDebriefRival, MSGBOX_DEFAULT
+	@ Taking a break from the FRONTIER, the rival hands over the FP they'd
+	@ saved up.
+	msgbox LittlerootTown_Text_LabRivalGivesFP, MSGBOX_DEFAULT
+	setvar VAR_0x8004, 1000
+	special FacilityShopGiveFP
+	playfanfare MUS_OBTAIN_ITEM
+	message LittlerootTown_Text_LabReceivedRivalFP
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	msgbox LittlerootTown_Text_LabRivalKeepGoing, MSGBOX_DEFAULT
 	setvar VAR_BIRCH_STORY_STATE, 4
 	setvar VAR_TEMP_2, 0
 	release
@@ -1327,10 +1338,21 @@ LittlerootTown_Text_LabDebriefRival:
 	.string "here more than I need another loss\l"
 	.string "to JUAN.\p"
 	.string "So I'm staying in LITTLEROOT for a\n"
-	.string "while, to help out at the lab.\p"
-	.string "You keep going, okay? Somebody has\n"
-	.string "to show those gauntlets how it's\l"
-	.string "done.$"
+	.string "while, to help out at the lab.$"
+
+LittlerootTown_Text_LabRivalGivesFP:
+	.string "{RIVAL}: Here. I won't be needing\n"
+	.string "these anymore.\p"
+	.string "It's every FP I saved up. Spend it\n"
+	.string "on something good.$"
+
+LittlerootTown_Text_LabReceivedRivalFP:
+	.string "{PLAYER} received 1,000 FP!$"
+
+LittlerootTown_Text_LabRivalKeepGoing:
+	.string "{RIVAL}: You keep going, okay?\n"
+	.string "Somebody has to show those\l"
+	.string "gauntlets how it's done.$"
 
 LittlerootTown_Text_GoHomeFirst:
 	.string "I should probably go home and see\n"

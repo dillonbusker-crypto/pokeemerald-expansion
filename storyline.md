@@ -373,6 +373,7 @@ Stone paused gauntlet 6 from Devon's control room in the Factory.
    tell him something is going on with his father. He **flies off**. The
    rival is getting cold feet about the Frontier: stuck on gauntlet 2, they'll
    stay in Littleroot and help at the lab (they're there from now on).
+   They hand the player the **1,000 FP** they'd saved up.
 7. **Home first.** Leaving Littleroot now stops the player: "I should
    probably go home and see Mom and Dad while I'm here." (Only Route 101 is
    blocked; the ferry is past it.) Before this point, the parents are just
