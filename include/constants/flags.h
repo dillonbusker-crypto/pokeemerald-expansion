@@ -74,14 +74,14 @@
 #define FLAG_SCOTT_CAVE_WARNING    0x2B // Ten Gauntlets: SCOTT has told the player about the ruckus in Artisan Cave
 #define FLAG_BROKER_STEVEN_MENTION    0x2C // Ten Gauntlets: the Broker has mentioned STEVEN borrowing his METAGROSS
 #define FLAG_STEVEN_POKENAV_NUMBER    0x2D // Ten Gauntlets: STEVEN gave the player his POKéNAV number (after gauntlet 6); a later event has him call
-#define FLAG_UNUSED_0x02E    0x2E // Unused Flag
-#define FLAG_UNUSED_0x02F    0x2F // Unused Flag
-#define FLAG_UNUSED_0x030    0x30 // Unused Flag
-#define FLAG_UNUSED_0x031    0x31 // Unused Flag
-#define FLAG_UNUSED_0x032    0x32 // Unused Flag
-#define FLAG_UNUSED_0x033    0x33 // Unused Flag
-#define FLAG_UNUSED_0x034    0x34 // Unused Flag
-#define FLAG_UNUSED_0x035    0x35 // Unused Flag
+#define FLAG_HIDE_BROKER_STORY_SCOTT    0x2E // Ten Gauntlets: the Broker's letter - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_BROKER_STORY_NOLAND    0x2F // Ten Gauntlets: the Broker's letter - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_BROKER_STORY_GRETA    0x30 // Ten Gauntlets: the Broker's letter - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_BROKER_STORY_GUARD    0x31 // Ten Gauntlets: the Broker's letter - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_BROKER_STORY_BROKER    0x32 // Ten Gauntlets: the Broker's letter - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_BROKER_STORY_WALLACE    0x33 // Ten Gauntlets: the Broker's letter - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_BROKER_STORY_PIKE_STEVEN    0x34 // Ten Gauntlets: the Broker's letter - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_BROKER_STORY_FACTORY_LOOKER    0x35 // Ten Gauntlets: the Broker's letter - shown/hidden on every map load (storyline.md)
 #define FLAG_UNUSED_0x036    0x36 // Unused Flag
 #define FLAG_UNUSED_0x037    0x37 // Unused Flag
 #define FLAG_UNUSED_0x038    0x38 // Unused Flag

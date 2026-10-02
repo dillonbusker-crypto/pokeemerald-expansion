@@ -498,7 +498,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
-      "flag": "FLAG_TEMP_9"
+      "flag": "FLAG_HIDE_BROKER_STORY_SCOTT"
     },
     {
       "local_id": "LOCALID_FRONTIER_BROKER_NOLAND",
@@ -512,7 +512,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
-      "flag": "FLAG_TEMP_A"
+      "flag": "FLAG_HIDE_BROKER_STORY_NOLAND"
     },
     {
       "local_id": "LOCALID_FRONTIER_BROKER_GRETA",
@@ -526,7 +526,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
-      "flag": "FLAG_TEMP_B"
+      "flag": "FLAG_HIDE_BROKER_STORY_GRETA"
     },
     {
       "local_id": "LOCALID_FRONTIER_BROKER_GUARD",
@@ -540,7 +540,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
-      "flag": "FLAG_TEMP_C"
+      "flag": "FLAG_HIDE_BROKER_STORY_GUARD"
     },
     {
       "local_id": "LOCALID_FRONTIER_BROKER",
@@ -554,7 +554,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
-      "flag": "FLAG_TEMP_D"
+      "flag": "FLAG_HIDE_BROKER_STORY_BROKER"
     },
     {
       "local_id": "LOCALID_FRONTIER_LEDGE_WALLACE",
@@ -568,7 +568,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
-      "flag": "FLAG_TEMP_E"
+      "flag": "FLAG_HIDE_BROKER_STORY_WALLACE"
     }
   ],
   "warp_events": [

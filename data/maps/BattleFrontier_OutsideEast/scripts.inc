@@ -1833,31 +1833,31 @@ BattleFrontier_Steven_Text_StevenFactory:
 @ ============================================================================
 
 BattleFrontier_OutsideEast_EventScript_SetupBrokerStory::
-	setflag FLAG_TEMP_9
-	setflag FLAG_TEMP_A
-	setflag FLAG_TEMP_B
-	setflag FLAG_TEMP_C
-	setflag FLAG_TEMP_D
-	setflag FLAG_TEMP_E
+	setflag FLAG_HIDE_BROKER_STORY_SCOTT
+	setflag FLAG_HIDE_BROKER_STORY_NOLAND
+	setflag FLAG_HIDE_BROKER_STORY_GRETA
+	setflag FLAG_HIDE_BROKER_STORY_GUARD
+	setflag FLAG_HIDE_BROKER_STORY_BROKER
+	setflag FLAG_HIDE_BROKER_STORY_WALLACE
 	call_if_ge VAR_BROKER_STORY_STATE, 6, BattleFrontier_OutsideEast_EventScript_HideLooker
 	call_if_eq VAR_BROKER_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_ShowCenterSquad
 	call_if_eq VAR_BROKER_STORY_STATE, 4, BattleFrontier_OutsideEast_EventScript_ShowArrest
 	return
 
 BattleFrontier_OutsideEast_EventScript_ShowCenterSquad::
-	clearflag FLAG_TEMP_9
-	clearflag FLAG_TEMP_A
-	clearflag FLAG_TEMP_B
-	clearflag FLAG_TEMP_C
+	clearflag FLAG_HIDE_BROKER_STORY_SCOTT
+	clearflag FLAG_HIDE_BROKER_STORY_NOLAND
+	clearflag FLAG_HIDE_BROKER_STORY_GRETA
+	clearflag FLAG_HIDE_BROKER_STORY_GUARD
 	return
 
 BattleFrontier_OutsideEast_EventScript_ShowArrest::
 	call BattleFrontier_OutsideEast_EventScript_MoveSquadToCourtyard
-	clearflag FLAG_TEMP_9
-	clearflag FLAG_TEMP_A
-	clearflag FLAG_TEMP_B
-	clearflag FLAG_TEMP_C
-	clearflag FLAG_TEMP_D
+	clearflag FLAG_HIDE_BROKER_STORY_SCOTT
+	clearflag FLAG_HIDE_BROKER_STORY_NOLAND
+	clearflag FLAG_HIDE_BROKER_STORY_GRETA
+	clearflag FLAG_HIDE_BROKER_STORY_GUARD
+	clearflag FLAG_HIDE_BROKER_STORY_BROKER
 	return
 
 @ Round the Broker at (64, 34): SCOTT left, NOLAND above, GRETA right, the
@@ -2138,7 +2138,7 @@ BattleFrontier_OutsideEast_EventScript_LedgeWallace::
 	lockall
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
-	clearflag FLAG_TEMP_E
+	clearflag FLAG_HIDE_BROKER_STORY_WALLACE
 	addobject LOCALID_FRONTIER_LEDGE_WALLACE
 	applymovement LOCALID_FRONTIER_LEDGE_WALLACE, BattleFrontier_OutsideEast_Movement_WallaceAlongLedge
 	waitmovement 0

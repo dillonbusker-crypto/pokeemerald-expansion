@@ -1192,8 +1192,8 @@ BattleFrontier_OutsideWest_EventScript_SetupSteven::
 @ step down), and SCOTT's house is locked while he's away: from the moment
 @ he leaves for the Broker's until gauntlet 7 is cleared.
 BattleFrontier_OutsideWest_EventScript_SetupBrokerStory::
-	setflag FLAG_TEMP_9
-	setflag FLAG_TEMP_A
+	setflag FLAG_HIDE_BROKER_STORY_PIKE_STEVEN
+	setflag FLAG_HIDE_BROKER_STORY_FACTORY_LOOKER
 	setvar VAR_TEMP_6, 1
 	call_if_ge VAR_BROKER_STORY_STATE, 6, BattleFrontier_OutsideWest_EventScript_ShowFactoryLooker
 	specialvar VAR_RESULT, GetGauntletsClearedCount
@@ -1216,7 +1216,7 @@ BattleFrontier_OutsideWest_EventScript_LockScottsHouse::
 	return
 
 BattleFrontier_OutsideWest_EventScript_ShowFactoryLooker::
-	clearflag FLAG_TEMP_A
+	clearflag FLAG_HIDE_BROKER_STORY_FACTORY_LOOKER
 	return
 
 @ STEVEN comes up the lane (the way WALLACE and SCOTT came for the Birch arc)
@@ -1226,7 +1226,7 @@ BattleFrontier_OutsideWest_EventScript_ShowFactoryLooker::
 BattleFrontier_OutsideWest_EventScript_PikeSteven::
 	lockall
 	setvar VAR_TEMP_7, 0
-	clearflag FLAG_TEMP_9
+	clearflag FLAG_HIDE_BROKER_STORY_PIKE_STEVEN
 	addobject LOCALID_FRONTIER_PIKE_STEVEN
 	applymovement LOCALID_FRONTIER_PIKE_STEVEN, BattleFrontier_OutsideWest_Movement_PikeStevenIn
 	waitmovement 0

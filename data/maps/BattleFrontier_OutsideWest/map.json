@@ -479,7 +479,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
-      "flag": "FLAG_TEMP_9"
+      "flag": "FLAG_HIDE_BROKER_STORY_PIKE_STEVEN"
     },
     {
       "local_id": "LOCALID_FRONTIER_FACTORY_LOOKER",
@@ -493,7 +493,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "BattleFrontier_OutsideWest_EventScript_FactoryLooker",
-      "flag": "FLAG_TEMP_A"
+      "flag": "FLAG_HIDE_BROKER_STORY_FACTORY_LOOKER"
     }
   ],
   "warp_events": [
