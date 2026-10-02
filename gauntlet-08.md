@@ -1,11 +1,11 @@
-# Gauntlet 8 — *name TBD* (DRAFT)
+# Gauntlet 8 — "The Summit"
 
 **Battle Pyramid.** Doubles, 6v6, level 50. Six battles drawn from twelve,
 then the boss, **Pyramid King Brandon**. The last gauntlet: clearing it
 starts the endgame (`storyline.md`, "After gauntlet 8: the Crown").
 
-> **Status: draft, nothing built.** Pool, shop, the twelve CPU teams, the
-> boss and the benchmark counter-team.
+> **Status: built** (see "Implementation notes" at the end). The endgame
+> after it isn't.
 
 ---
 
@@ -15,8 +15,8 @@ Gauntlet 7 was all-out singles; this is all-out doubles. Everything from
 waves 0–6 is still on sale, so the CPU teams use the whole roster, and wave 7
 adds the last step up: **the legendary Megas** and the doubles-leaning stones.
 
-**Name ideas** (the Pyramid, the last climb, the king's tomb): *The Summit*,
-*The King's Road*, *The Last Climb*.
+**Name:** *The Summit* (chosen for the build; easy to change, see
+"Implementation notes").
 
 ### Decisions this doc assumes ❓
 
@@ -1098,12 +1098,41 @@ and Taunt stops a Trick Room setter.
 
 ---
 
+## Implementation notes
+
+What was built, and where. Keep the sets above in sync with
+`src/data/trainers.party`; the trainer entries were generated from this doc,
+and every move was checked against `all_learnables.json`.
+
+- **Trainers:** `TRAINER_FACILITY_B8_*` (IDs 948–960; `TRAINERS_COUNT` is now
+  961, under the 1000 limit), all doubles. Classes: Kindler (A1), Sailor (A2),
+  Ruin Maniac (A3), Black Belt (B4), Psychic (B5), Hiker (B6), Bird Keeper
+  (C7), Guitarist (C8), Ninja Boy (C9), Pokémon Ranger (D10), Hex Maniac
+  (D11), Lady (D12); Brandon is the Pyramid King with his own pic. Trick Room
+  attackers have 0 Speed IVs.
+- **Run loop:** `FACILITY_GAUNTLET_8` and `sGauntlet8Pool` in `src/facility.c`;
+  the Tower lobby's shared dispatch routes gauntlet 8 to `Facility_DoBattle_B8`
+  and `Facility_Battle_Boss_B8`, in the Pyramid lobby's script.
+- **The Pyramid** opens when gauntlet 7 is cleared (`IsBattlePyramidUnlocked`).
+  Its attendant runs the gauntlet; new plaque, rules board, and three lobby
+  NPCs (the hint-giver hints at Brandon's Miraidon). Clearing gauntlet 7 now
+  points to the Pyramid; clearing gauntlet 8 has a placeholder message until
+  the endgame is built.
+- **Shop wave 7** (`unlockGauntlet` 7): the legendary Mega Stones (Diancite
+  included), the doubles-leaning stones, Floette-Eternal, Wide Lens and Ring
+  Target. Zygardite is never sold.
+- **Elsewhere:** Brandon is on the Arena's sparring list (and the mock battle
+  covers gauntlet 8); the Pyramid sign, the Reception guide, Scott's progress
+  line and the Lounge 2 news desk all know about gauntlet 8.
+- **Renaming the gauntlet:** "THE SUMMIT" appears in the Pyramid lobby's texts,
+  `Facility_B8_Text_GauntletComplete`, the Pyramid sign and the Reception
+  guide.
+
+---
+
 ## Next steps
 
-1. Settle the decisions at the top (cap, Zygardite, Floette, Diancite) and
-   the gauntlet's name.
-2. Build: wave 7 in `src/facility_shop.c`, the trainers, gauntlet 8's pool
-   and boss in `src/facility.c`, and the Pyramid attendant (the Pyramid
-   opens when gauntlet 7 is cleared).
-3. Write the endgame's start: what happens when Brandon falls
+1. Playtest gauntlet 8, especially Brandon's Mega Zygarde (open for
+   playtesting, 7).
+2. Build the endgame's start: what happens when Brandon falls
    (`storyline.md`, "After gauntlet 8: the Crown").

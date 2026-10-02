@@ -976,6 +976,21 @@
 #define TRAINER_FACILITY_B7_D12_MINDGAMES       946
 #define TRAINER_FACILITY_B7_BOSS_SPENSER        947
 
+// Ten Gauntlets: gauntlet 8 (gauntlet-08.md), the Battle Pyramid.
+#define TRAINER_FACILITY_B8_A1_SUNSTROKE        948
+#define TRAINER_FACILITY_B8_A2_TORRENT          949
+#define TRAINER_FACILITY_B8_A3_SANDBLAST        950
+#define TRAINER_FACILITY_B8_B4_GRANDSLAM        951
+#define TRAINER_FACILITY_B8_B5_STATICROOM       952
+#define TRAINER_FACILITY_B8_B6_HEAVYMETAL       953
+#define TRAINER_FACILITY_B8_C7_GALEFORCE        954
+#define TRAINER_FACILITY_B8_C8_LIVEWIRE         955
+#define TRAINER_FACILITY_B8_C9_DARKHEART        956
+#define TRAINER_FACILITY_B8_D10_BEDROCK         957
+#define TRAINER_FACILITY_B8_D11_PERISHTRAP      958
+#define TRAINER_FACILITY_B8_D12_FAIRYRING       959
+#define TRAINER_FACILITY_B8_BOSS_BRANDON        960
+
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
 //       the system flags (Pokedex, badges, ...) start right after it, so an ID at or past this limit
@@ -989,7 +1004,7 @@
 //       so it invalidates existing saves - don't grow it again casually. Costs ~14 bytes of SaveBlock1
 //       (304 B free, see save-data-findings.md), checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
 
-#define TRAINERS_COUNT_EMERALD     948
+#define TRAINERS_COUNT_EMERALD     961
 #define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG

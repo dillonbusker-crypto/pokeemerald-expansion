@@ -351,6 +351,9 @@ static const struct FacilityShopItem sHeldItems[] =
     { ITEM_FAIRY_MEMORY,     100, 6, NULL },
     { ITEM_THICK_CLUB,       150, 6, NULL },
     { ITEM_LEEK,             150, 6, NULL },
+    // Unlocked clearing gauntlet 7 - gauntlet-08.md (wave 7), the last wave.
+    { ITEM_WIDE_LENS,        150, 7, NULL },
+    { ITEM_RING_TARGET,      150, 7, NULL },
 };
 
 // ----------------------------------------------------------------------------
@@ -450,6 +453,20 @@ static const struct FacilityShopItem sMegaStones[] =
     { ITEM_BANETTITE,        300, 6, NULL },
     { ITEM_SCOLIPITE,        300, 6, NULL },
     { ITEM_FALINKSITE,       300, 6, NULL },
+    // Unlocked clearing gauntlet 7 - gauntlet-08.md (wave 7), the last wave. The legendary
+    // Megas and the doubles-leaning stones. Zygardite is never sold during the
+    // gauntlets (Brandon's), nor are the story-locked stones.
+    { ITEM_DARKRANITE,       1200, 7, NULL },
+    { ITEM_MAGEARNITE,       1200, 7, NULL },
+    { ITEM_ZERAORITE,        1200, 7, NULL },
+    { ITEM_HEATRANITE,       1200, 7, NULL },
+    { ITEM_DIANCITE,         1200, 7, NULL },
+    { ITEM_FLOETTITE,        750, 7, NULL },
+    { ITEM_AMPHAROSITE,      750, 7, NULL },
+    { ITEM_AGGRONITE,        750, 7, NULL },
+    { ITEM_STEELIXITE,       750, 7, NULL },
+    { ITEM_AUDINITE,         300, 7, NULL },
+    { ITEM_GLALITITE,        300, 7, NULL },
 };
 
 // ----------------------------------------------------------------------------
@@ -809,6 +826,9 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_DIANCIE,                1150, 6 },
     { SPECIES_HOUNDSTONE,             1150, 6 },
     { SPECIES_DARMANITAN_GALAR,       1150, 6 },
+    // Unlocked clearing gauntlet 7 - gauntlet-08.md (wave 7), the last wave. Floette-Eternal,
+    // for Floettite.
+    { SPECIES_FLOETTE_ETERNAL,      1150, 7 },
 };
 
 static const struct FacilityShopMon sStandardMons[] =

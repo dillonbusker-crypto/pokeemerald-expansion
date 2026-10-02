@@ -471,7 +471,8 @@ BattleFrontier_Lounge2_EventScript_FrontierManiac_Text0:
 	.string "it sweeps.$"
 
 BattleFrontier_Lounge2_EventScript_FrontierManiac_Text7:
-	.string "Howdy! Big news: there is no news!\p"
-	.string "The PYRAMID is still sealed. The\n"
-	.string "rumor is the PYRAMID KING,\l"
-	.string "BRANDON, is last.$"
+	.string "Howdy! The latest word?\p"
+	.string "The PYRAMID KING, BRANDON, brings\n"
+	.string "a legendary POKéMON that charges\l"
+	.string "the ground with electricity. The\l"
+	.string "last gauntlet, and the toughest.$"

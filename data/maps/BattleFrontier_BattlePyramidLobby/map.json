@@ -26,7 +26,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "BattleFrontier_BattlePyramidLobby_EventScript_Attendant",
+      "script": "BattleFrontier_BattlePyramidLobby_EventScript_FacilityAttendantB8",
       "flag": "0"
     },
     {
@@ -40,7 +40,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "BattleFrontier_BattlePyramidLobby_EventScript_HintGiver",
+      "script": "BattleFrontier_BattlePyramidLobby_EventScript_G8HintGiver",
       "flag": "0"
     },
     {
@@ -53,7 +53,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "BattleFrontier_BattlePyramidLobby_EventScript_Woman",
+      "script": "BattleFrontier_BattlePyramidLobby_EventScript_G8Woman",
       "flag": "0"
     },
     {
@@ -66,7 +66,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "BattleFrontier_BattlePyramidLobby_EventScript_FatMan",
+      "script": "BattleFrontier_BattlePyramidLobby_EventScript_G8FatMan",
       "flag": "0"
     }
   ],
@@ -87,7 +87,7 @@
       "y": 12,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_NORTH",
-      "script": "BattleFrontier_BattlePyramidLobby_EventScript_ShowResults"
+      "script": "BattleFrontier_BattlePyramidLobby_EventScript_G8Plaque"
     },
     {
       "type": "sign",
@@ -95,7 +95,7 @@
       "y": 12,
       "elevation": 0,
       "player_facing_dir": "BG_EVENT_PLAYER_FACING_ANY",
-      "script": "BattleFrontier_BattlePyramidLobby_EventScript_RulesBoard"
+      "script": "BattleFrontier_BattlePyramidLobby_EventScript_G8Rules"
     }
   ]
 }

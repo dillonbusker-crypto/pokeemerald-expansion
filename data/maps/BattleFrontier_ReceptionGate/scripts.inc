@@ -146,6 +146,7 @@ BattleFrontier_ReceptionGate_EventScript_FacilityGuide::
 	case 4, BattleFrontier_ReceptionGate_EventScript_NextGauntlet5
 	case 5, BattleFrontier_ReceptionGate_EventScript_NextGauntlet6
 	case 6, BattleFrontier_ReceptionGate_EventScript_NextGauntlet7
+	case 7, BattleFrontier_ReceptionGate_EventScript_NextGauntlet8
 	case 8, BattleFrontier_ReceptionGate_EventScript_AllGauntletsCleared
 	msgbox BattleFrontier_ReceptionGate_Text_NextGauntletNotReady, MSGBOX_DEFAULT
 	release
@@ -265,6 +266,11 @@ BattleFrontier_ReceptionGate_EventScript_NextGauntlet6::
 
 BattleFrontier_ReceptionGate_EventScript_NextGauntlet7::
 	msgbox BattleFrontier_ReceptionGate_Text_NextGauntlet7, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ReceptionGate_EventScript_NextGauntlet8::
+	msgbox BattleFrontier_ReceptionGate_Text_NextGauntlet8, MSGBOX_DEFAULT
 	release
 	end
 
@@ -774,4 +780,12 @@ BattleFrontier_ReceptionGate_Text_NextGauntlet7:
 	.string "BATTLE PALACE. Singles, with the\l"
 	.string "PALACE MAVEN, SPENSER, at the end.\p"
 	.string "The PALACE is on the east side of\n"
+	.string "the FRONTIER.$"
+
+BattleFrontier_ReceptionGate_Text_NextGauntlet8:
+	.string "Next up is THE SUMMIT, at the\n"
+	.string "BATTLE PYRAMID: the last gauntlet.\l"
+	.string "Doubles, with the PYRAMID KING,\l"
+	.string "BRANDON, at the end.\p"
+	.string "The PYRAMID is in the northeast of\n"
 	.string "the FRONTIER.$"

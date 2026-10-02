@@ -1051,11 +1051,13 @@ BattleFrontier_OutsideEast_EventScript_BattleArenaSign_Text0:
 	.string "beaten.$"
 
 BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Text7:
-	.string "BATTLE PYRAMID - GAUNTLET 8.\p"
-	.string "Sealed. Still being prepared.$"
+	.string "BATTLE PYRAMID - GAUNTLET 8: THE\n"
+	.string "SUMMIT.\p"
+	.string "Home of the PYRAMID KING, BRANDON.$"
 
 BattleFrontier_OutsideEast_EventScript_BattlePyramidSign_Text0:
-	.string "BATTLE PYRAMID - GAUNTLET 8.\p"
+	.string "BATTLE PYRAMID - GAUNTLET 8: THE\n"
+	.string "SUMMIT.\p"
 	.string "Sealed. Opens for those who clear\n"
 	.string "gauntlet 7.$"
 

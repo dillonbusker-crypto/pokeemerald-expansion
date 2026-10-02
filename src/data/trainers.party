@@ -23402,3 +23402,922 @@ Jolly Nature
 - Icicle Crash
 - Sucker Punch
 - Sacred Sword
+
+/* Ten Gauntlets: gauntlet 8 (gauntlet-08.md), the Battle Pyramid. Doubles.
+ * Generated from the doc - keep the sets in sync with it. */
+
+=== TRAINER_FACILITY_B8_A1_SUNSTROKE ===
+Name: SUNSTROKE
+Class: Kindler
+Pic: Kindler
+Gender: Male
+Music: Male
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Torkoal @ Heat Rock
+Ability: Drought
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Spe
+Quiet Nature
+- Eruption
+- Heat Wave
+- Earth Power
+- Protect
+
+Venusaur @ Focus Sash
+Ability: Chlorophyll
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Leaf Storm
+- Earth Power
+- Sludge Bomb
+- Protect
+
+Charizard @ Charizardite Y
+Ability: Solar Power
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Heat Wave
+- Solar Beam
+- Scorching Sands
+- Protect
+
+Walking Wake @ Choice Specs
+Ability: Protosynthesis
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Hydro Steam
+- Draco Meteor
+- Flamethrower
+- Snarl
+
+Gouging Fire @ Clear Amulet
+Ability: Protosynthesis
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Flare Blitz
+- Dragon Claw
+- Burning Bulwark
+- Howl
+
+Incineroar @ Sitrus Berry
+Ability: Intimidate
+Level: 50
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Knock Off
+- Parting Shot
+
+=== TRAINER_FACILITY_B8_A2_TORRENT ===
+Name: TORRENT
+Class: Sailor
+Pic: Sailor
+Gender: Male
+Music: Male
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Pelipper @ Damp Rock
+Ability: Drizzle
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Hurricane
+- Weather Ball
+- Tailwind
+- Protect
+
+Archaludon @ Assault Vest
+Ability: Stamina
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Electro Shot
+- Draco Meteor
+- Flash Cannon
+- Body Press
+
+Swampert @ Swampertite
+Ability: Torrent
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Waterfall
+- High Horsepower
+- Ice Punch
+- Protect
+
+Basculegion @ Choice Band
+Ability: Swift Swim
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Wave Crash
+- Last Respects
+- Aqua Jet
+- Flip Turn
+
+Urshifu-Rapid-Strike @ Focus Sash
+Ability: Unseen Fist
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Surging Strikes
+- Close Combat
+- Aqua Jet
+- Protect
+
+Amoonguss @ Rocky Helmet
+Ability: Regenerator
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Relaxed Nature
+- Spore
+- Rage Powder
+- Pollen Puff
+- Protect
+
+=== TRAINER_FACILITY_B8_A3_SANDBLAST ===
+Name: SANDBLAST
+Class: Ruin Maniac
+Pic: Ruin Maniac
+Gender: Male
+Music: Male
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Tyranitar @ Tyranitarite
+Ability: Sand Stream
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Rock Slide
+- Knock Off
+- Low Kick
+- Protect
+
+Excadrill @ Life Orb
+Ability: Sand Rush
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- High Horsepower
+- Iron Head
+- Rock Slide
+- Protect
+
+Glimmora @ Focus Sash
+Ability: Toxic Debris
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Power Gem
+- Sludge Bomb
+- Earth Power
+- Spiky Shield
+
+Landorus-Therian @ Choice Scarf
+Ability: Intimidate
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Stomping Tantrum
+- Rock Slide
+- U-turn
+- Knock Off
+
+Gholdengo @ Covert Cloak
+Ability: Good as Gold
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
+- Protect
+
+Kingambit @ Black Glasses
+Ability: Defiant
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
+- Protect
+
+=== TRAINER_FACILITY_B8_B4_GRANDSLAM ===
+Name: GRAND SLAM
+Class: Black Belt
+Pic: Black Belt
+Gender: Male
+Music: Male
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Indeedee-F @ Psychic Seed
+Ability: Psychic Surge
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+IVs: 0 Spe
+Relaxed Nature
+- Follow Me
+- Expanding Force
+- Helping Hand
+- Protect
+
+Hatterene @ Sitrus Berry
+Ability: Magic Bounce
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Spe
+Quiet Nature
+- Trick Room
+- Expanding Force
+- Dazzling Gleam
+- Protect
+
+Aggron @ Aggronite
+Ability: Sturdy
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+IVs: 0 Spe
+Brave Nature
+- Heavy Slam
+- Rock Slide
+- Body Press
+- Protect
+
+Ursaluna-Bloodmoon @ Life Orb
+Ability: Mind's Eye
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Spe
+Quiet Nature
+- Blood Moon
+- Hyper Voice
+- Earth Power
+- Protect
+
+Iron Hands @ Assault Vest
+Ability: Quark Drive
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+IVs: 0 Spe
+Brave Nature
+- Fake Out
+- Drain Punch
+- Wild Charge
+- Heavy Slam
+
+Torkoal @ Charcoal
+Ability: Drought
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Spe
+Quiet Nature
+- Eruption
+- Heat Wave
+- Earth Power
+- Protect
+
+=== TRAINER_FACILITY_B8_B5_STATICROOM ===
+Name: STATICROOM
+Class: Psychic
+Pic: Psychic M
+Gender: Male
+Music: Male
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Farigiraf @ Mental Herb
+Ability: Armor Tail
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Spe
+Quiet Nature
+- Trick Room
+- Psychic Noise
+- Hyper Voice
+- Protect
+
+Cresselia @ Leftovers
+Ability: Levitate
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+IVs: 0 Spe
+Relaxed Nature
+- Trick Room
+- Helping Hand
+- Moonblast
+- Psychic
+
+Ampharos @ Ampharosite
+Ability: Static
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Spe
+Quiet Nature
+- Thunderbolt
+- Dragon Pulse
+- Focus Blast
+- Protect
+
+Glastrier @ Choice Band
+Ability: Chilling Neigh
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+IVs: 0 Spe
+Brave Nature
+- Icicle Crash
+- High Horsepower
+- Close Combat
+- Heavy Slam
+
+Ursaluna @ Flame Orb
+Ability: Guts
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+IVs: 0 Spe
+Brave Nature
+- Facade
+- Headlong Rush
+- Close Combat
+- Protect
+
+Amoonguss @ Sitrus Berry
+Ability: Regenerator
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+IVs: 0 Spe
+Relaxed Nature
+- Spore
+- Rage Powder
+- Pollen Puff
+- Protect
+
+=== TRAINER_FACILITY_B8_B6_HEAVYMETAL ===
+Name: HEAVYMETAL
+Class: Hiker
+Pic: Hiker
+Gender: Male
+Music: Male
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Bronzong @ Mental Herb
+Ability: Levitate
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+IVs: 0 Spe
+Relaxed Nature
+- Trick Room
+- Gyro Ball
+- Body Press
+- Imprison
+
+Hippowdon @ Smooth Rock
+Ability: Sand Stream
+Level: 50
+EVs: 252 HP / 4 Atk / 252 SpD
+IVs: 0 Spe
+Sassy Nature
+- High Horsepower
+- Slack Off
+- Yawn
+- Protect
+
+Steelix @ Steelixite
+Ability: Sturdy
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+IVs: 0 Spe
+Brave Nature
+- Heavy Slam
+- Rock Slide
+- High Horsepower
+- Protect
+
+Copperajah @ Life Orb
+Ability: Sheer Force
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+IVs: 0 Spe
+Brave Nature
+- Heavy Slam
+- Iron Head
+- Rock Slide
+- Protect
+
+Stakataka @ Assault Vest
+Ability: Beast Boost
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+IVs: 0 Spe
+Brave Nature
+- Gyro Ball
+- Rock Slide
+- High Horsepower
+- Trick Room
+
+Iron Hands @ Booster Energy
+Ability: Quark Drive
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+IVs: 0 Spe
+Brave Nature
+- Fake Out
+- Drain Punch
+- Wild Charge
+- Protect
+
+=== TRAINER_FACILITY_B8_C7_GALEFORCE ===
+Name: GALE FORCE
+Class: Bird Keeper
+Pic: Bird Keeper
+Gender: Male
+Music: Male
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Tornadus @ Covert Cloak
+Ability: Prankster
+Level: 50
+EVs: 252 HP / 4 SpD / 252 Spe
+Timid Nature
+- Tailwind
+- Bleakwind Storm
+- Taunt
+- Protect
+
+Flutter Mane @ Booster Energy
+Ability: Protosynthesis
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Moonblast
+- Shadow Ball
+- Dazzling Gleam
+- Protect
+
+Chi-Yu @ Choice Specs
+Ability: Beads of Ruin
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Heat Wave
+- Dark Pulse
+- Overheat
+- Snarl
+
+Chien-Pao @ Focus Sash
+Ability: Sword of Ruin
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Icicle Crash
+- Sucker Punch
+- Sacred Sword
+- Protect
+
+Salamence @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Hyper Voice
+- Draco Meteor
+- Flamethrower
+- Protect
+
+Urshifu @ Choice Scarf
+Ability: Unseen Fist
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Wicked Blow
+- Close Combat
+- U-turn
+- Sucker Punch
+
+=== TRAINER_FACILITY_B8_C8_LIVEWIRE ===
+Name: LIVE WIRE
+Class: Guitarist
+Pic: Guitarist
+Gender: Male
+Music: Male
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Tapu Koko @ Choice Specs
+Ability: Electric Surge
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Thunderbolt
+- Dazzling Gleam
+- Volt Switch
+- Discharge
+
+Regieleki @ Focus Sash
+Ability: Transistor
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Electroweb
+- Thunderbolt
+- Volt Switch
+- Protect
+
+Zeraora @ Zeraorite
+Ability: Volt Absorb
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Plasma Fists
+- Close Combat
+- Fake Out
+- Protect
+
+Iron Hands @ Assault Vest
+Ability: Quark Drive
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Fake Out
+- Drain Punch
+- Wild Charge
+- Heavy Slam
+
+Kilowattrel @ Sitrus Berry
+Ability: Competitive
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Tailwind
+- Electroweb
+- Hurricane
+- Protect
+
+Gholdengo @ Life Orb
+Ability: Good as Gold
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
+- Protect
+
+=== TRAINER_FACILITY_B8_C9_DARKHEART ===
+Name: DARK HEART
+Class: Ninja Boy
+Pic: Ninja Boy
+Gender: Male
+Music: Male
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Incineroar @ Sitrus Berry
+Ability: Intimidate
+Level: 50
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Knock Off
+- Parting Shot
+
+Ogerpon-Hearthflame @ Hearthflame Mask
+Ability: Mold Breaker
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Ivy Cudgel
+- Horn Leech
+- Follow Me
+- Spiky Shield
+
+Darkrai @ Darkranite
+Ability: Bad Dreams
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Dark Pulse
+- Sludge Bomb
+- Nasty Plot
+- Protect
+
+Grimmsnarl @ Light Clay
+Ability: Prankster
+Level: 50
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Reflect
+- Light Screen
+- Spirit Break
+- Thunder Wave
+
+Roaring Moon @ Booster Energy
+Ability: Protosynthesis
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Dragon Dance
+- Knock Off
+- Acrobatics
+- Protect
+
+Hydreigon @ Choice Specs
+Ability: Levitate
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Dark Pulse
+- Draco Meteor
+- Flamethrower
+- Snarl
+
+=== TRAINER_FACILITY_B8_D10_BEDROCK ===
+Name: BEDROCK
+Class: Pkmn Ranger
+Pic: Pokemon Ranger M
+Gender: Male
+Music: Male
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Rillaboom @ Assault Vest
+Ability: Grassy Surge
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Fake Out
+- Grassy Glide
+- Wood Hammer
+- U-turn
+
+Heatran @ Heatranite
+Ability: Flash Fire
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Heat Wave
+- Earth Power
+- Flash Cannon
+- Protect
+
+Tapu Fini @ Leftovers
+Ability: Misty Surge
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Moonblast
+- Muddy Water
+- Calm Mind
+- Protect
+
+Landorus-Therian @ Sitrus Berry
+Ability: Intimidate
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Stomping Tantrum
+- Rock Slide
+- U-turn
+- Protect
+
+Urshifu-Rapid-Strike @ Focus Sash
+Ability: Unseen Fist
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Surging Strikes
+- Close Combat
+- Aqua Jet
+- Protect
+
+Dragapult @ Choice Specs
+Ability: Infiltrator
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Draco Meteor
+- Shadow Ball
+- Flamethrower
+- U-turn
+
+=== TRAINER_FACILITY_B8_D11_PERISHTRAP ===
+Name: PERISHTRAP
+Class: Hex Maniac
+Pic: Hex Maniac
+Gender: Female
+Music: Female
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Gengar @ Gengarite
+Ability: Cursed Body
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Perish Song
+- Shadow Ball
+- Sludge Bomb
+- Protect
+
+Whimsicott @ Covert Cloak
+Ability: Prankster
+Level: 50
+EVs: 252 HP / 4 Def / 252 Spe
+Timid Nature
+- Encore
+- Tailwind
+- Moonblast
+- Protect
+
+Politoed @ Damp Rock
+Ability: Drizzle
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Perish Song
+- Icy Wind
+- Helping Hand
+- Protect
+
+Amoonguss @ Rocky Helmet
+Ability: Regenerator
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Relaxed Nature
+- Rage Powder
+- Pollen Puff
+- Clear Smog
+- Protect
+
+Kingambit @ Black Glasses
+Ability: Defiant
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
+- Protect
+
+Archaludon @ Leftovers
+Ability: Stamina
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Electro Shot
+- Draco Meteor
+- Flash Cannon
+- Protect
+
+=== TRAINER_FACILITY_B8_D12_FAIRYRING ===
+Name: FAIRY RING
+Class: Lady
+Pic: Lady
+Gender: Female
+Music: Female
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Floette-Eternal @ Floettite
+Ability: Flower Veil
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Light of Ruin
+- Moonblast
+- Dazzling Gleam
+- Protect
+
+Tapu Lele @ Psychic Seed
+Ability: Psychic Surge
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Moonblast
+- Psyshock
+- Dazzling Gleam
+- Protect
+
+Flutter Mane @ Choice Specs
+Ability: Protosynthesis
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Moonblast
+- Dazzling Gleam
+- Shadow Ball
+- Power Gem
+
+Iron Valiant @ Booster Energy
+Ability: Quark Drive
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Spirit Break
+- Close Combat
+- Knock Off
+- Protect
+
+Incineroar @ Sitrus Berry
+Ability: Intimidate
+Level: 50
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Knock Off
+- Parting Shot
+
+Gholdengo @ Covert Cloak
+Ability: Good as Gold
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Make It Rain
+- Shadow Ball
+- Nasty Plot
+- Protect
+
+=== TRAINER_FACILITY_B8_BOSS_BRANDON ===
+Name: BRANDON
+Class: Pyramid King
+Pic: Pyramid King Brandon
+Gender: Male
+Music: Male
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Tornadus @ Covert Cloak
+Ability: Prankster
+Level: 50
+EVs: 252 HP / 4 SpD / 252 Spe
+Timid Nature
+- Tailwind
+- Bleakwind Storm
+- Taunt
+- Protect
+
+Iron Hands @ Assault Vest
+Ability: Quark Drive
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Fake Out
+- Drain Punch
+- Wild Charge
+- Heavy Slam
+
+Miraidon @ Choice Specs
+Ability: Hadron Engine
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Electro Drift
+- Draco Meteor
+- Volt Switch
+- Dazzling Gleam
+
+Zygarde-Complete @ Zygardite
+Ability: Power Construct
+Level: 50
+EVs: 4 HP / 252 SpA / 252 Spe
+Timid Nature
+- Core Enforcer
+- Draco Meteor
+- Earth Power
+- Protect
+
+Flutter Mane @ Booster Energy
+Ability: Protosynthesis
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Moonblast
+- Shadow Ball
+- Icy Wind
+- Protect
+
+Chi-Yu @ Choice Scarf
+Ability: Beads of Ruin
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Heat Wave
+- Dark Pulse
+- Overheat
+- Snarl

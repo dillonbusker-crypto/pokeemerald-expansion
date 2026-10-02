@@ -150,6 +150,22 @@ static const u16 sGauntlet7Pool[] =
     TRAINER_FACILITY_B7_D12_MINDGAMES,
 };
 
+static const u16 sGauntlet8Pool[] =
+{
+    TRAINER_FACILITY_B8_A1_SUNSTROKE,
+    TRAINER_FACILITY_B8_A2_TORRENT,
+    TRAINER_FACILITY_B8_A3_SANDBLAST,
+    TRAINER_FACILITY_B8_B4_GRANDSLAM,
+    TRAINER_FACILITY_B8_B5_STATICROOM,
+    TRAINER_FACILITY_B8_B6_HEAVYMETAL,
+    TRAINER_FACILITY_B8_C7_GALEFORCE,
+    TRAINER_FACILITY_B8_C8_LIVEWIRE,
+    TRAINER_FACILITY_B8_C9_DARKHEART,
+    TRAINER_FACILITY_B8_D10_BEDROCK,
+    TRAINER_FACILITY_B8_D11_PERISHTRAP,
+    TRAINER_FACILITY_B8_D12_FAIRYRING,
+};
+
 static const struct FacilityGauntletData sFacilityGauntlets[] =
 {
     [FACILITY_GAUNTLET_1] = { sGauntlet1Pool, ARRAY_COUNT(sGauntlet1Pool), TRAINER_FACILITY_B1_BOSS_WINONA },
@@ -159,6 +175,7 @@ static const struct FacilityGauntletData sFacilityGauntlets[] =
     [FACILITY_GAUNTLET_5] = { sGauntlet5Pool, ARRAY_COUNT(sGauntlet5Pool), TRAINER_FACILITY_B5_BOSS_TUCKER },
     [FACILITY_GAUNTLET_6] = { sGauntlet6Pool, ARRAY_COUNT(sGauntlet6Pool), TRAINER_FACILITY_B6_BOSS_LUCY },
     [FACILITY_GAUNTLET_7] = { sGauntlet7Pool, ARRAY_COUNT(sGauntlet7Pool), TRAINER_FACILITY_B7_BOSS_SPENSER },
+    [FACILITY_GAUNTLET_8] = { sGauntlet8Pool, ARRAY_COUNT(sGauntlet8Pool), TRAINER_FACILITY_B8_BOSS_BRANDON },
 };
 
 bool8 IsFacilityRunActive(void)
@@ -270,9 +287,11 @@ void IsBattlePalaceUnlocked(void)
         || (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << FACILITY_GAUNTLET_6)) != 0;
 }
 
+// The Pyramid hosts gauntlet 8, the last, so it opens when gauntlet 7 is cleared.
 void IsBattlePyramidUnlocked(void)
 {
-    gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_PYRAMID);
+    gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_PYRAMID)
+        || (gSaveBlock3Ptr->facility.progress.gauntletsCompleted & (1 << FACILITY_GAUNTLET_7)) != 0;
 }
 
 void FacilityCheckEligible(void)

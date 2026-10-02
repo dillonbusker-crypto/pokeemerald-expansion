@@ -927,3 +927,188 @@ BattleFrontier_BattlePyramidLobby_Text_ExplainBagRules:
 	.string "The contents of the BATTLE BAG are\n"
 	.string "lost if you fail in your quest.$"
 
+@ ============================================================================
+@ Ten Gauntlets: gauntlet 8 ("The Summit", gauntlet-08.md), the last, boss
+@ PYRAMID KING BRANDON. The Pyramid is only the location (no Battle Pyramid
+@ floors or bag): its attendant runs gauntlet 8 through the shared run-loop
+@ scripts in data/maps/BattleFrontier_BattleTowerLobby/scripts.inc. The
+@ Pyramid opens when gauntlet 7 is cleared (IsBattlePyramidUnlocked()). The
+@ vanilla attendant flow above is unreferenced now.
+@ ============================================================================
+BattleFrontier_BattlePyramidLobby_EventScript_FacilityAttendantB8::
+	lock
+	faceplayer
+	setvar VAR_0x8004, FACILITY_GAUNTLET_8
+	special IsFacilityRunActiveForGauntlet
+	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
+	special IsFacilityRunActiveForDifferentGauntlet
+	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	special IsFacilityGauntletCompleted
+	goto_if_eq VAR_RESULT, TRUE, Facility_AlreadyCleared
+	special FacilityCheckEligible
+	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
+	msgbox Facility_B8_Text_AskEnter, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Facility_Decline
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, Facility_Decline
+	setvar VAR_0x8004, FACILITY_GAUNTLET_8
+	special FacilityStartRun
+	call Common_EventScript_SaveGame
+	goto Facility_DoBattle
+	end
+
+Facility_DoBattle_B8:
+	switch VAR_RESULT
+	case 0, Facility_B8_Battle_SUNSTROKE
+	case 1, Facility_B8_Battle_TORRENT
+	case 2, Facility_B8_Battle_SANDBLAST
+	case 3, Facility_B8_Battle_GRANDSLAM
+	case 4, Facility_B8_Battle_STATICROOM
+	case 5, Facility_B8_Battle_HEAVYMETAL
+	case 6, Facility_B8_Battle_GALEFORCE
+	case 7, Facility_B8_Battle_LIVEWIRE
+	case 8, Facility_B8_Battle_DARKHEART
+	case 9, Facility_B8_Battle_BEDROCK
+	case 10, Facility_B8_Battle_PERISHTRAP
+	case 11, Facility_B8_Battle_FAIRYRING
+	end
+
+Facility_B8_Battle_SUNSTROKE:
+	trainerbattle_double TRAINER_FACILITY_B8_A1_SUNSTROKE, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B8_Battle_TORRENT:
+	trainerbattle_double TRAINER_FACILITY_B8_A2_TORRENT, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B8_Battle_SANDBLAST:
+	trainerbattle_double TRAINER_FACILITY_B8_A3_SANDBLAST, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B8_Battle_GRANDSLAM:
+	trainerbattle_double TRAINER_FACILITY_B8_B4_GRANDSLAM, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B8_Battle_STATICROOM:
+	trainerbattle_double TRAINER_FACILITY_B8_B5_STATICROOM, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B8_Battle_HEAVYMETAL:
+	trainerbattle_double TRAINER_FACILITY_B8_B6_HEAVYMETAL, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B8_Battle_GALEFORCE:
+	trainerbattle_double TRAINER_FACILITY_B8_C7_GALEFORCE, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B8_Battle_LIVEWIRE:
+	trainerbattle_double TRAINER_FACILITY_B8_C8_LIVEWIRE, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B8_Battle_DARKHEART:
+	trainerbattle_double TRAINER_FACILITY_B8_C9_DARKHEART, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B8_Battle_BEDROCK:
+	trainerbattle_double TRAINER_FACILITY_B8_D10_BEDROCK, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B8_Battle_PERISHTRAP:
+	trainerbattle_double TRAINER_FACILITY_B8_D11_PERISHTRAP, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_B8_Battle_FAIRYRING:
+	trainerbattle_double TRAINER_FACILITY_B8_D12_FAIRYRING, Facility_Text_Intro, Facility_Text_Defeat, Facility_Text_NotEnoughMons, Facility_AfterPoolBattle
+	end
+
+Facility_Battle_Boss_B8:
+	trainerbattle_double TRAINER_FACILITY_B8_BOSS_BRANDON, Facility_B8_Text_BossIntro, Facility_B8_Text_BossDefeat, Facility_Text_NotEnoughMons, Facility_AfterBossBattle
+	end
+
+BattleFrontier_BattlePyramidLobby_EventScript_G8Plaque::
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ge VAR_RESULT, 8, BattleFrontier_BattlePyramidLobby_EventScript_G8PlaqueCleared
+	msgbox BattleFrontier_BattlePyramidLobby_Text_G8Plaque, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattlePyramidLobby_EventScript_G8PlaqueCleared::
+	msgbox BattleFrontier_BattlePyramidLobby_Text_G8PlaqueCleared, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattlePyramidLobby_EventScript_G8Rules::
+	msgbox BattleFrontier_BattlePyramidLobby_Text_G8Rules, MSGBOX_SIGN
+	end
+
+BattleFrontier_BattlePyramidLobby_EventScript_G8HintGiver::
+	msgbox BattleFrontier_BattlePyramidLobby_Text_G8HintGiver, MSGBOX_NPC
+	end
+
+BattleFrontier_BattlePyramidLobby_EventScript_G8Woman::
+	msgbox BattleFrontier_BattlePyramidLobby_Text_G8Woman, MSGBOX_NPC
+	end
+
+BattleFrontier_BattlePyramidLobby_EventScript_G8FatMan::
+	msgbox BattleFrontier_BattlePyramidLobby_Text_G8FatMan, MSGBOX_NPC
+	end
+
+Facility_B8_Text_AskEnter:
+	.string "Welcome to gauntlet 8, THE SUMMIT!\p"
+	.string "This is the last gauntlet: Doubles\n"
+	.string "- six battles, then the PYRAMID\l"
+	.string "KING. Your whole party of six\l"
+	.string "enters, and it's locked once you\l"
+	.string "begin.\p"
+	.string "Ready to start?$"
+
+Facility_B8_Text_BossIntro:
+	.string "BRANDON: Hah! So you've climbed\n"
+	.string "all the way to the top!\p"
+	.string "I am BRANDON, the PYRAMID KING.\n"
+	.string "Everything SCOTT built leads here,\l"
+	.string "to me.\p"
+	.string "No theme, no tricks. Just the\n"
+	.string "strongest team on this island.\l"
+	.string "Show me yours!$"
+
+Facility_B8_Text_BossDefeat:
+	.string "Hahah! Magnificent! The summit is\n"
+	.string "yours!$"
+
+BattleFrontier_BattlePyramidLobby_Text_G8Plaque:
+	.string "GAUNTLET 8 - THE SUMMIT.\p"
+	.string "Doubles. Boss: PYRAMID KING\n"
+	.string "BRANDON.\p"
+	.string "Not yet cleared.$"
+
+BattleFrontier_BattlePyramidLobby_Text_G8PlaqueCleared:
+	.string "GAUNTLET 8 - THE SUMMIT.\p"
+	.string "Doubles. Boss: PYRAMID KING\n"
+	.string "BRANDON.\p"
+	.string "Cleared by {PLAYER}!$"
+
+BattleFrontier_BattlePyramidLobby_Text_G8Rules:
+	.string "THE SUMMIT\p"
+	.string "The last gauntlet. Every POKéMON,\n"
+	.string "every MEGA STONE and every item is\l"
+	.string "allowed.\p"
+	.string "Doubles. Six battles, then the\n"
+	.string "PYRAMID KING.$"
+
+BattleFrontier_BattlePyramidLobby_Text_G8HintGiver:
+	.string "The PYRAMID KING's partner is a\n"
+	.string "legendary POKéMON that charges the\l"
+	.string "very ground with electricity...\p"
+	.string "A terrain of your own would quiet\n"
+	.string "it, I think.$"
+
+BattleFrontier_BattlePyramidLobby_Text_G8Woman:
+	.string "Trick Room, Tailwind, terrain,\n"
+	.string "weather... Every team in here has\l"
+	.string "a plan for Speed.\p"
+	.string "Bring one of your own.$"
+
+BattleFrontier_BattlePyramidLobby_Text_G8FatMan:
+	.string "A GENGAR that wouldn't let me\n"
+	.string "leave, and a POLITOED singing a\l"
+	.string "deadly song...\p"
+	.string "I switched out just in time.\n"
+	.string "Barely.$"

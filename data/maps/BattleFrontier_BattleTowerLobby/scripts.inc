@@ -1588,7 +1588,8 @@ Facility_DoBattle:
 	goto_if_eq VAR_TEMP_3, FACILITY_GAUNTLET_4, Facility_DoBattle_B4
 	goto_if_eq VAR_TEMP_3, FACILITY_GAUNTLET_5, Facility_DoBattle_B5
 	goto_if_eq VAR_TEMP_3, FACILITY_GAUNTLET_6, Facility_DoBattle_B6
-	goto Facility_DoBattle_B7
+	goto_if_eq VAR_TEMP_3, FACILITY_GAUNTLET_7, Facility_DoBattle_B7
+	goto Facility_DoBattle_B8
 	end
 
 Facility_Battle_Boss:
@@ -1599,7 +1600,8 @@ Facility_Battle_Boss:
 	goto_if_eq VAR_RESULT, FACILITY_GAUNTLET_4, Facility_Battle_Boss_B4
 	goto_if_eq VAR_RESULT, FACILITY_GAUNTLET_5, Facility_Battle_Boss_B5
 	goto_if_eq VAR_RESULT, FACILITY_GAUNTLET_6, Facility_Battle_Boss_B6
-	goto Facility_Battle_Boss_B7
+	goto_if_eq VAR_RESULT, FACILITY_GAUNTLET_7, Facility_Battle_Boss_B7
+	goto Facility_Battle_Boss_B8
 
 Facility_Battle_Boss_B1:
 	trainerbattle_single TRAINER_FACILITY_B1_BOSS_WINONA, Facility_B1_Text_BossIntro, Facility_B1_Text_BossDefeat, Facility_AfterBossBattle
@@ -1995,6 +1997,7 @@ Facility_AfterBossBattle:
 	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_5, Facility_B5_GauntletComplete
 	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_6, Facility_B6_GauntletComplete
 	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_7, Facility_B7_GauntletComplete
+	goto_if_eq VAR_TEMP_2, FACILITY_GAUNTLET_8, Facility_B8_GauntletComplete
 	msgbox Facility_Text_GauntletComplete, MSGBOX_DEFAULT
 	releaseall
 	end
@@ -2015,9 +2018,17 @@ Facility_B6_GauntletComplete:
 	releaseall
 	end
 
-@ Gauntlet 8 (the Battle Pyramid) isn't built yet.
+@ Clearing gauntlet 7 opens the Battle Pyramid (gauntlet 8,
+@ IsBattlePyramidUnlocked()) and the shop's last wave (gauntlet-08.md).
 Facility_B7_GauntletComplete:
 	msgbox Facility_B7_Text_GauntletComplete, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ The last gauntlet. The endgame that follows (storyline.md, "After
+@ gauntlet 8: the Crown") isn't built yet.
+Facility_B8_GauntletComplete:
+	msgbox Facility_B8_Text_GauntletComplete, MSGBOX_DEFAULT
 	releaseall
 	end
 
@@ -2429,6 +2440,14 @@ Facility_B6_Text_GauntletComplete:
 Facility_B7_Text_GauntletComplete:
 	.string "Congratulations! You've cleared\n"
 	.string "THE OPEN COURT!\p"
-	.string "The last gauntlet, at the BATTLE\n"
-	.string "PYRAMID, is still being prepared.\l"
-	.string "Please check back soon.$"
+	.string "The last gauntlet is a Doubles\n"
+	.string "gauntlet at the BATTLE PYRAMID.\l"
+	.string "Its doors are open to you.\p"
+	.string "The shop has its final stock, too:\n"
+	.string "the legendary MEGA STONES.$"
+
+Facility_B8_Text_GauntletComplete:
+	.string "Congratulations! You've cleared\n"
+	.string "THE SUMMIT!\p"
+	.string "That's all eight gauntlets. No one\n"
+	.string "has ever done that before.$"

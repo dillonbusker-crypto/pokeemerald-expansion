@@ -82,6 +82,7 @@ BattleFrontier_ScottsHouse_EventScript_Scott::
 	case 4, BattleFrontier_ScottsHouse_EventScript_Progress4
 	case 5, BattleFrontier_ScottsHouse_EventScript_Progress5
 	case 6, BattleFrontier_ScottsHouse_EventScript_Progress6
+	case 7, BattleFrontier_ScottsHouse_EventScript_Progress7
 	case 8, BattleFrontier_ScottsHouse_EventScript_Progress10
 	msgbox BattleFrontier_ScottsHouse_Text_Progress6Plus, MSGBOX_DEFAULT
 	release
@@ -154,6 +155,11 @@ BattleFrontier_ScottsHouse_EventScript_Progress5::
 
 BattleFrontier_ScottsHouse_EventScript_Progress6::
 	msgbox BattleFrontier_ScottsHouse_Text_Progress6, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ScottsHouse_EventScript_Progress7::
+	msgbox BattleFrontier_ScottsHouse_Text_Progress7, MSGBOX_DEFAULT
 	release
 	end
 
@@ -669,3 +675,11 @@ BattleFrontier_ScottsHouse_Text_Progress6:
 	.string "has watched more battles than\l"
 	.string "anyone on this island. He knows\l"
 	.string "what a POKéMON's heart can do.$"
+
+BattleFrontier_ScottsHouse_Text_Progress7:
+	.string "SCOTT: SPENSER, beaten! Heheh...\n"
+	.string "Only one gauntlet left.\p"
+	.string "The BATTLE PYRAMID. BRANDON is\n"
+	.string "waiting at the top, and he won't\l"
+	.string "hold anything back.\p"
+	.string "And after that? Heheh. We'll see.$"
