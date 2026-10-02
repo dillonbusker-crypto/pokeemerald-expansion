@@ -343,7 +343,8 @@ Stone paused gauntlet 6 from Devon's control room in the Factory.
    because the player was on track to finish the gauntlets before the Crown
    was ready.** Only gauntlet 6 is down; the shops stay open. The player takes
    the ferry home.
-3. **Littleroot gossips:** men in suits at the lab, the Champion in town.
+3. **Oldale gossips** about Littleroot: men in suits at the lab, the Champion
+   in town. Littleroot's own wanderers stay indoors for the whole arc.
 4. **The lab door.** A man in a suit blocks it, Wallace in front of him, the
    rival a couple of tiles away. The man says it's none of their business.
    Wallace: he's the Champion, and one phone call would get President Stone

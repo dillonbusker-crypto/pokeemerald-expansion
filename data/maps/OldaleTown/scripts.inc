@@ -47,13 +47,28 @@ OldaleTown_EventScript_TownSign::
 	msgbox OldaleTown_Text_TownSign, MSGBOX_SIGN
 	end
 
+@ Ten Gauntlets: OLDALE's townsfolk pass on the LITTLEROOT gossip from the
+@ Birch arc (storyline.md; VAR_BIRCH_STORY_STATE 1-2 while DEVON is at the
+@ lab, 3 on after). LITTLEROOT's own wanderers stay indoors through it.
 OldaleTown_EventScript_Girl::
+	goto_if_ge VAR_BIRCH_STORY_STATE, 3, OldaleTown_EventScript_GirlAfterLab
+	goto_if_ge VAR_BIRCH_STORY_STATE, 1, OldaleTown_EventScript_GirlDuringLab
 	msgbox OldaleTown_Text_SavingMyProgress, MSGBOX_NPC
+	end
+
+OldaleTown_EventScript_GirlDuringLab::
+	msgbox OldaleTown_Text_GirlDuringLab, MSGBOX_NPC
+	end
+
+OldaleTown_EventScript_GirlAfterLab::
+	msgbox OldaleTown_Text_GirlAfterLab, MSGBOX_NPC
 	end
 
 OldaleTown_EventScript_MartEmployee::
 	lock
 	faceplayer
+	goto_if_ge VAR_BIRCH_STORY_STATE, 3, OldaleTown_EventScript_MartEmployeeAfterLab
+	goto_if_ge VAR_BIRCH_STORY_STATE, 1, OldaleTown_EventScript_MartEmployeeDuringLab
 	goto_if_set FLAG_RECEIVED_POTION_OLDALE, OldaleTown_EventScript_ExplainPotion
 	goto_if_set FLAG_TEMP_1, OldaleTown_EventScript_ExplainPotion
 	setflag FLAG_TEMP_1
@@ -94,6 +109,16 @@ OldaleTown_EventScript_ExplainPokemonMart::
 	msgbox OldaleTown_Text_PotionExplanation, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_POTION_OLDALE
 	fadedefaultbgm
+	release
+	end
+
+OldaleTown_EventScript_MartEmployeeDuringLab::
+	msgbox OldaleTown_Text_MartEmployeeDuringLab, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_EventScript_MartEmployeeAfterLab::
+	msgbox OldaleTown_Text_MartEmployeeAfterLab, MSGBOX_DEFAULT
 	release
 	end
 
@@ -208,11 +233,23 @@ OldaleTown_Movement_Unknown2:
 OldaleTown_EventScript_FootprintsMan::
 	lock
 	faceplayer
+	goto_if_ge VAR_BIRCH_STORY_STATE, 3, OldaleTown_EventScript_FootprintsManAfterLab
+	goto_if_ge VAR_BIRCH_STORY_STATE, 1, OldaleTown_EventScript_FootprintsManDuringLab
 	goto_if_set FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_NotBlockingPath
 	msgbox OldaleTown_Text_DiscoveredFootprints, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_FOOTPRINTS_MAN, Common_Movement_FaceOriginalDirection
 	waitmovement 0
+	release
+	end
+
+OldaleTown_EventScript_FootprintsManDuringLab::
+	msgbox OldaleTown_Text_FootprintsManDuringLab, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_EventScript_FootprintsManAfterLab::
+	msgbox OldaleTown_Text_FootprintsManAfterLab, MSGBOX_DEFAULT
 	release
 	end
 
@@ -421,3 +458,43 @@ OldaleTown_Text_TownSign:
 	.string "OLDALE TOWN\n"
 	.string "“Where things start off scarce.”$"
 
+OldaleTown_Text_GirlDuringLab:
+	.string "There are men in suits at PROF.\n"
+	.string "BIRCH's LAB, down in LITTLEROOT!\p"
+	.string "Mommy says I'm not allowed to go\n"
+	.string "anywhere near there.$"
+
+OldaleTown_Text_GirlAfterLab:
+	.string "My friend in LITTLEROOT saw a man\n"
+	.string "in a really fancy suit come out of\l"
+	.string "the LAB, with two big men behind\l"
+	.string "him.\p"
+	.string "Then they all just left. Like it\n"
+	.string "was nothing!$"
+
+OldaleTown_Text_MartEmployeeDuringLab:
+	.string "There's a fellow in a suit standing\n"
+	.string "guard at PROF. BIRCH's LAB. He\l"
+	.string "wouldn't even let our delivery boy\l"
+	.string "through.\p"
+	.string "DEVON, I heard. What would a\n"
+	.string "company like that want with the\l"
+	.string "PROFESSOR?$"
+
+OldaleTown_Text_MartEmployeeAfterLab:
+	.string "PROF. BIRCH says it was all a\n"
+	.string "misunderstanding, and everything's\l"
+	.string "sorted.\p"
+	.string "...He didn't look sorted to our\n"
+	.string "delivery boy.$"
+
+OldaleTown_Text_FootprintsManDuringLab:
+	.string "Somebody said the CHAMPION went\n"
+	.string "down to LITTLEROOT! WALLACE!\p"
+	.string "Now those are footprints I'd like\n"
+	.string "to study.$"
+
+OldaleTown_Text_FootprintsManAfterLab:
+	.string "I saw WALLACE fly right over\n"
+	.string "OLDALE! Right over the houses!\p"
+	.string "Nobody believes me.$"

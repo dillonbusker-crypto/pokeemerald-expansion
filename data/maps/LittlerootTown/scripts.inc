@@ -245,46 +245,20 @@ LittlerootTown_EventScript_SetRivalBirchPosForDexUpgradeFemale::
 LittlerootTown_EventScript_FatMan::
 	lock
 	faceplayer
-	goto_if_ge VAR_BIRCH_STORY_STATE, 3, LittlerootTown_EventScript_FatManAfterLab
-	goto_if_ge VAR_BIRCH_STORY_STATE, 1, LittlerootTown_EventScript_FatManDuringLab
 	msgbox LittlerootTown_Text_CanUsePCToStoreItems, MSGBOX_DEFAULT
-	release
-	end
-
-LittlerootTown_EventScript_FatManDuringLab::
-	msgbox LittlerootTown_Text_FatManDuringLab, MSGBOX_DEFAULT
-	release
-	end
-
-LittlerootTown_EventScript_FatManAfterLab::
-	msgbox LittlerootTown_Text_FatManAfterLab, MSGBOX_DEFAULT
 	release
 	end
 
 LittlerootTown_EventScript_Boy::
 	lock
 	faceplayer
-	goto_if_ge VAR_BIRCH_STORY_STATE, 3, LittlerootTown_EventScript_BoyAfterLab
-	goto_if_ge VAR_BIRCH_STORY_STATE, 1, LittlerootTown_EventScript_BoyDuringLab
 	msgbox LittlerootTown_Text_BirchSpendsDaysInLab, MSGBOX_DEFAULT
-	release
-	end
-
-LittlerootTown_EventScript_BoyDuringLab::
-	msgbox LittlerootTown_Text_BoyDuringLab, MSGBOX_DEFAULT
-	release
-	end
-
-LittlerootTown_EventScript_BoyAfterLab::
-	msgbox LittlerootTown_Text_BoyAfterLab, MSGBOX_DEFAULT
 	release
 	end
 
 LittlerootTown_EventScript_Twin::
 	lock
 	faceplayer
-	goto_if_ge VAR_BIRCH_STORY_STATE, 3, LittlerootTown_EventScript_TwinAfterLab
-	goto_if_ge VAR_BIRCH_STORY_STATE, 1, LittlerootTown_EventScript_TwinDuringLab
 	goto_if_set FLAG_ADVENTURE_STARTED, LittlerootTown_EventScript_GoodLuck
 	goto_if_set FLAG_RESCUED_BIRCH, LittlerootTown_EventScript_YouSavedBirch
 	goto_if_ne VAR_LITTLEROOT_TOWN_STATE, 0, LittlerootTown_EventScript_GoSaveBirch
@@ -1085,6 +1059,7 @@ LittlerootTown_EventScript_SetupBirchStory::
 	setflag FLAG_TEMP_4
 	setflag FLAG_TEMP_5
 	setflag FLAG_TEMP_6
+	call LittlerootTown_EventScript_HideWanderersForLab
 	setvar VAR_TEMP_1, 1
 	setvar VAR_TEMP_2, 1
 	switch VAR_BIRCH_STORY_STATE
@@ -1092,6 +1067,23 @@ LittlerootTown_EventScript_SetupBirchStory::
 	case 2, LittlerootTown_EventScript_SetupWallaceInside
 	case 3, LittlerootTown_EventScript_SetupLabDebrief
 	case 4, LittlerootTown_EventScript_ArmGoHomeFirst
+	return
+
+@ The town's three wanderers (the twin, the boy and the fat man) stay
+@ indoors for the whole arc, states 1-5, so nobody walks into the scenes.
+@ Their gossip about it moved to OLDALE's townsfolk. The fat man's hide flag
+@ is vanilla's, cleared for good after the opening, so clearing it again
+@ afterwards puts him back as he was.
+LittlerootTown_EventScript_HideWanderersForLab::
+	goto_if_eq VAR_BIRCH_STORY_STATE, 0, Common_EventScript_NopReturn
+	goto_if_ge VAR_BIRCH_STORY_STATE, 6, LittlerootTown_EventScript_ShowFatManAfterLab
+	setflag FLAG_TEMP_7
+	setflag FLAG_TEMP_8
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_FAT_MAN
+	return
+
+LittlerootTown_EventScript_ShowFatManAfterLab::
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_FAT_MAN
 	return
 
 LittlerootTown_EventScript_SetupLabDoor::
@@ -1134,16 +1126,20 @@ LittlerootTown_EventScript_LabDoorTalk::
 	waitmovement 0
 	msgbox LittlerootTown_Text_LabDoor1, MSGBOX_DEFAULT
 	closemessage
-	@ Three more of DEVON's men rush in from the north: one to WALLACE's
-	@ right, two down the west edge to face the rival (5, 18) and the
-	@ player, who hurries to the rival's side at (5, 19).
+	@ The player hurries to the rival's side at (5, 19) first, so the camera
+	@ has settled before the reinforcements appear: the engine removes an
+	@ object far outside the view whenever the camera moves
+	@ (RemoveObjectEventIfOutsideView). Then three more of DEVON's men rush
+	@ in from row 12, just above the screen: one to WALLACE's right, two
+	@ down the west edge to face the rival (5, 18) and the player.
+	call LittlerootTown_EventScript_LabPlayerToRival
+	waitmovement 0
 	clearflag FLAG_TEMP_4
 	clearflag FLAG_TEMP_5
 	clearflag FLAG_TEMP_6
 	addobject LOCALID_LITTLEROOT_AGENT_A
 	addobject LOCALID_LITTLEROOT_AGENT_B
 	addobject LOCALID_LITTLEROOT_AGENT_C
-	call LittlerootTown_EventScript_LabPlayerToRival
 	applymovement LOCALID_LITTLEROOT_AGENT_A, LittlerootTown_Movement_AgentAIn
 	applymovement LOCALID_LITTLEROOT_AGENT_B, LittlerootTown_Movement_AgentBIn
 	applymovement LOCALID_LITTLEROOT_AGENT_C, LittlerootTown_Movement_AgentCIn
@@ -1332,12 +1328,8 @@ LittlerootTown_Movement_PlayerFromRight19:
 	face_left
 	step_end
 
-@ A: down the x 11 column to WALLACE's right, (8, 18).
+@ A: from (11, 12) down the x 11 column to WALLACE's right, (8, 18).
 LittlerootTown_Movement_AgentAIn:
-	walk_fast_down
-	walk_fast_down
-	walk_fast_down
-	walk_fast_down
 	walk_fast_down
 	walk_fast_down
 	walk_fast_down
@@ -1350,17 +1342,13 @@ LittlerootTown_Movement_AgentAIn:
 	face_left
 	step_end
 
-@ B: down the x 1 column, then round to face the rival from (4, 18).
+@ B: from (1, 12) down the x 1 column, then round to face the rival from (4, 18).
 LittlerootTown_Movement_AgentBIn:
 	walk_fast_down
 	walk_fast_down
 	walk_fast_down
 	walk_fast_down
 	walk_fast_down
-	walk_fast_down
-	walk_fast_down
-	walk_fast_down
-	walk_fast_down
 	walk_fast_right
 	walk_fast_down
 	walk_fast_right
@@ -1368,17 +1356,13 @@ LittlerootTown_Movement_AgentBIn:
 	face_right
 	step_end
 
-@ C: down the x 0 column a step behind B, to face the player from (4, 19).
+@ C: from (0, 12) down the x 0 column a step behind B, to face the player from (4, 19).
 LittlerootTown_Movement_AgentCIn:
 	walk_fast_down
 	walk_fast_down
 	walk_fast_down
 	walk_fast_down
 	walk_fast_down
-	walk_fast_down
-	walk_fast_down
-	walk_fast_down
-	walk_fast_down
 	walk_fast_right
 	walk_fast_right
 	walk_fast_down
@@ -1388,15 +1372,12 @@ LittlerootTown_Movement_AgentCIn:
 	face_right
 	step_end
 
-@ They flee the way they came; the first man takes the x 10 column.
+@ They flee the way they came, back to row 12, just off the top of the
+@ screen; the first man takes the x 10 column.
 LittlerootTown_Movement_SuitFlees:
 	walk_fast_right
 	walk_fast_right
 	walk_fast_right
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
@@ -1414,20 +1395,12 @@ LittlerootTown_Movement_AgentAFlees:
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
 	step_end
 
 LittlerootTown_Movement_AgentBFlees:
 	walk_fast_left
 	walk_fast_left
-	walk_fast_up
 	walk_fast_left
-	walk_fast_up
-	walk_fast_up
-	walk_fast_up
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
@@ -1439,12 +1412,8 @@ LittlerootTown_Movement_AgentBFlees:
 LittlerootTown_Movement_AgentCFlees:
 	walk_fast_left
 	walk_fast_left
-	walk_fast_up
-	walk_fast_up
 	walk_fast_left
 	walk_fast_left
-	walk_fast_up
-	walk_fast_up
 	walk_fast_up
 	walk_fast_up
 	walk_fast_up
@@ -1540,16 +1509,6 @@ LittlerootTown_EventScript_GoHomeFirst::
 	applymovement LOCALID_PLAYER, Common_Movement_WalkDown
 	waitmovement 0
 	releaseall
-	end
-
-LittlerootTown_EventScript_TwinDuringLab::
-	msgbox LittlerootTown_Text_TwinDuringLab, MSGBOX_DEFAULT
-	release
-	end
-
-LittlerootTown_EventScript_TwinAfterLab::
-	msgbox LittlerootTown_Text_TwinAfterLab, MSGBOX_DEFAULT
-	release
 	end
 
 LittlerootTown_Text_LabDoor1:
@@ -1680,40 +1639,3 @@ LittlerootTown_Text_GoHomeFirst:
 	.string "I should probably go home and see\n"
 	.string "Mom and Dad while I'm here.$"
 
-LittlerootTown_Text_TwinDuringLab:
-	.string "There are men in suits at PROF.\n"
-	.string "BIRCH's LAB!\p"
-	.string "Mommy says I'm not allowed to go\n"
-	.string "near there.$"
-
-LittlerootTown_Text_TwinAfterLab:
-	.string "A man in a really fancy suit came\n"
-	.string "out of the LAB, and two big men\l"
-	.string "followed him.\p"
-	.string "Then they all just left. Like it\n"
-	.string "was nothing!$"
-
-LittlerootTown_Text_FatManDuringLab:
-	.string "There's a fellow in a suit\n"
-	.string "standing guard at the LAB door.\l"
-	.string "Wouldn't even let the delivery boy\l"
-	.string "through.\p"
-	.string "DEVON, I heard. What would a\n"
-	.string "company like that want with our\l"
-	.string "PROFESSOR?$"
-
-LittlerootTown_Text_FatManAfterLab:
-	.string "PROF. BIRCH says it was all a\n"
-	.string "misunderstanding, and everything's\l"
-	.string "sorted.\p"
-	.string "...He didn't look sorted to me.$"
-
-LittlerootTown_Text_BoyDuringLab:
-	.string "Somebody said the CHAMPION is in\n"
-	.string "town! WALLACE! Here, in\l"
-	.string "LITTLEROOT!$"
-
-LittlerootTown_Text_BoyAfterLab:
-	.string "I saw WALLACE fly away! Right over\n"
-	.string "the houses!\p"
-	.string "Nobody believes me.$"
