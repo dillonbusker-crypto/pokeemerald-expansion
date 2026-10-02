@@ -22,7 +22,7 @@ BattleFrontier_OutsideWest_OnTransition:
 	@ White-outs (the SCRAMBLER's story battles) land at the Frontier's
 	@ Pokemon Center, never back home in LITTLEROOT.
 	setrespawn HEAL_LOCATION_BATTLE_FRONTIER_OUTSIDE_EAST
-	call BattleFrontier_OutsideWest_EventScript_ArmMasterBallCheck
+	call BattleFrontier_OutsideWest_EventScript_ArmCaveClosedCheck
 	specialvar VAR_RESULT, GetGauntletsClearedCount
 	call_if_lt VAR_RESULT, 4, BattleFrontier_OutsideWest_EventScript_HideTucker
 	call_if_lt VAR_RESULT, 5, BattleFrontier_OutsideWest_EventScript_HideLucy
@@ -847,52 +847,29 @@ BattleFrontier_OutsideWest_Text_TuckerAfter:
 @ the exits are blocked, so going in without one is a soft lock. Only blocks
 @ walking north, into the door: coming out, a push "back" would walk the
 @ player straight into the door again.
-BattleFrontier_OutsideWest_EventScript_ArmMasterBallCheck::
+@ The tile in front of the cave mouth only turns the player away once the
+@ cave is closed: after gauntlet 4, FRONTIER staff have closed it for good.
+BattleFrontier_OutsideWest_EventScript_ArmCaveClosedCheck::
 	setvar VAR_TEMP_3, 1
-	@ After gauntlet 4, FRONTIER staff have closed the cave for good.
 	specialvar VAR_RESULT, GetGauntletsClearedCount
 	goto_if_ge VAR_RESULT, 4, BattleFrontier_OutsideWest_EventScript_ArmCaveClosed
-	goto_if_set FLAG_ARTISAN_LATI_CAUGHT, Common_EventScript_NopReturn
-	goto_if_lt VAR_ARTISAN_QUEST_STEP, 6, Common_EventScript_NopReturn
-	setvar VAR_TEMP_3, 0
 	return
 
 BattleFrontier_OutsideWest_EventScript_ArmCaveClosed::
 	setvar VAR_TEMP_3, 0
 	return
 
-BattleFrontier_OutsideWest_EventScript_NeedMasterBall::
-	specialvar VAR_RESULT, GetGauntletsClearedCount
-	goto_if_ge VAR_RESULT, 4, BattleFrontier_OutsideWest_EventScript_CaveClosed
-	checkitem ITEM_MASTER_BALL
-	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideWest_EventScript_NeedMasterBallEnd
-	specialvar VAR_RESULT, GetPlayerFacingDirection
-	goto_if_ne VAR_RESULT, DIR_NORTH, BattleFrontier_OutsideWest_EventScript_NeedMasterBallEnd
-	lockall
-	msgbox BattleFrontier_OutsideWest_Text_NeedMasterBall, MSGBOX_DEFAULT
-	closemessage
-	applymovement LOCALID_PLAYER, Common_Movement_WalkDown
-	waitmovement 0
-	releaseall
-BattleFrontier_OutsideWest_EventScript_NeedMasterBallEnd:
-	end
-
 BattleFrontier_OutsideWest_EventScript_CaveClosed::
 	specialvar VAR_RESULT, GetPlayerFacingDirection
-	goto_if_ne VAR_RESULT, DIR_NORTH, BattleFrontier_OutsideWest_EventScript_NeedMasterBallEnd
+	goto_if_ne VAR_RESULT, DIR_NORTH, BattleFrontier_OutsideWest_EventScript_CaveClosedEnd
 	lockall
 	msgbox BattleFrontier_OutsideWest_Text_CaveClosed, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_PLAYER, Common_Movement_WalkDown
 	waitmovement 0
 	releaseall
+BattleFrontier_OutsideWest_EventScript_CaveClosedEnd:
 	end
-
-BattleFrontier_OutsideWest_Text_NeedMasterBall:
-	.string "Something powerful is waiting in\n"
-	.string "there...\p"
-	.string "I shouldn't go in without a MASTER\n"
-	.string "BALL in my bag.$"
 
 BattleFrontier_OutsideWest_Text_CaveClosed:
 	.string "A sign is posted over the\n"
