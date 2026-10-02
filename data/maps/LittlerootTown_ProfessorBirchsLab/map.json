@@ -144,7 +144,7 @@
     {
       "local_id": "LOCALID_BIRCHS_LAB_WALLACE",
       "graphics_id": "OBJ_EVENT_GFX_WALLACE",
-      "x": 6,
+      "x": 5,
       "y": 10,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_UP",
@@ -172,44 +172,7 @@
       "dest_warp_id": "2"
     }
   ],
-  "coord_events": [
-    {
-      "type": "trigger",
-      "x": 6,
-      "y": 11,
-      "elevation": 0,
-      "var": "VAR_TEMP_2",
-      "var_value": "0",
-      "script": "LittlerootTown_ProfessorBirchsLab_EventScript_StoneSceneA"
-    },
-    {
-      "type": "trigger",
-      "x": 7,
-      "y": 11,
-      "elevation": 0,
-      "var": "VAR_TEMP_2",
-      "var_value": "0",
-      "script": "LittlerootTown_ProfessorBirchsLab_EventScript_StoneSceneB"
-    },
-    {
-      "type": "trigger",
-      "x": 5,
-      "y": 12,
-      "elevation": 0,
-      "var": "VAR_TEMP_2",
-      "var_value": "0",
-      "script": "LittlerootTown_ProfessorBirchsLab_EventScript_StoneSceneC"
-    },
-    {
-      "type": "trigger",
-      "x": 8,
-      "y": 12,
-      "elevation": 0,
-      "var": "VAR_TEMP_2",
-      "var_value": "0",
-      "script": "LittlerootTown_ProfessorBirchsLab_EventScript_StoneSceneD"
-    }
-  ],
+  "coord_events": [],
   "bg_events": [
     {
       "type": "sign",

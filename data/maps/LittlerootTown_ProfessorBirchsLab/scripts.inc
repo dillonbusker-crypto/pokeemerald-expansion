@@ -101,6 +101,7 @@ LittlerootTown_ProfessorBirchsLab_OnFrame:
 	map_script_2 VAR_BIRCH_LAB_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_GivePokedexEvent
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_UpgradeToNationalDex
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_ChooseJohtoStarter
+	map_script_2 VAR_TEMP_2, 0, LittlerootTown_ProfessorBirchsLab_EventScript_StoneScene
 	.2byte 0
 
 @ The starter is technically given prior to this on Route 101 by special ChooseStarter
@@ -1078,10 +1079,10 @@ LittlerootTown_ProfessorBirchsLab_Text_ReceivedPokenav:
 @ Ten Gauntlets: Birch's lab arc, after gauntlet 5 (storyline.md;
 @ VAR_BIRCH_STORY_STATE, see BattleFrontier_OutsideWest). At state 2,
 @ PRESIDENT STONE faces BIRCH by the POKé BALL machine with two men in suits
-@ behind him, and WALLACE stands a few tiles back. The first step in from the
-@ door walks the player up beside WALLACE and plays the scene. Every way in
-@ from the door crosses one of the four triggers. From state 4 the rival
-@ helps out in the lab.
+@ behind him, and WALLACE stands a few tiles back at (5, 10). The scene
+@ plays as soon as the player comes in: they always arrive on the left mat
+@ tile (6, 12) and walk straight up to (6, 10), beside WALLACE. From state 4
+@ the rival helps out in the lab.
 LittlerootTown_ProfessorBirchsLab_EventScript_SetupBirchStory::
 	setvar VAR_TEMP_2, 1
 	goto_if_ge VAR_BIRCH_STORY_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_RivalAtLab
@@ -1101,29 +1102,11 @@ LittlerootTown_ProfessorBirchsLab_EventScript_RivalAtLab::
 	setobjectmovementtype LOCALID_BIRCHS_LAB_RIVAL, MOVEMENT_TYPE_WANDER_UP_AND_DOWN
 	return
 
-LittlerootTown_ProfessorBirchsLab_EventScript_StoneSceneA::
-	lockall
-	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromA
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_StoneScene
-
-LittlerootTown_ProfessorBirchsLab_EventScript_StoneSceneB::
-	lockall
-	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromB
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_StoneScene
-
-LittlerootTown_ProfessorBirchsLab_EventScript_StoneSceneC::
-	lockall
-	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromC
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_StoneScene
-
-LittlerootTown_ProfessorBirchsLab_EventScript_StoneSceneD::
-	lockall
-	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromD
-	goto LittlerootTown_ProfessorBirchsLab_EventScript_StoneScene
-
 LittlerootTown_ProfessorBirchsLab_EventScript_StoneScene::
-	waitmovement 0
+	lockall
 	setvar VAR_TEMP_2, 1
+	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_PlayerToWallace
+	waitmovement 0
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_StoneScene1, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_BIRCHS_LAB_STONE, Common_Movement_FaceDown
@@ -1183,29 +1166,9 @@ LittlerootTown_ProfessorBirchsLab_EventScript_RivalHelping::
 	release
 	end
 
-@ Every start ends at (7, 10), beside WALLACE at (6, 10).
-LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromA:
-	walk_right
+@ From the mat (6, 12) to (6, 10), beside WALLACE at (5, 10).
+LittlerootTown_ProfessorBirchsLab_Movement_PlayerToWallace:
 	walk_up
-	face_up
-	step_end
-
-LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromB:
-	walk_up
-	face_up
-	step_end
-
-LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromC:
-	walk_up
-	walk_right
-	walk_right
-	walk_up
-	face_up
-	step_end
-
-LittlerootTown_ProfessorBirchsLab_Movement_PlayerFromD:
-	walk_up
-	walk_left
 	walk_up
 	face_up
 	step_end
@@ -1247,6 +1210,7 @@ LittlerootTown_ProfessorBirchsLab_Movement_LeaveFromLeft:
 
 LittlerootTown_ProfessorBirchsLab_Movement_WallaceToBirch:
 	walk_up
+	walk_right
 	walk_right
 	walk_right
 	walk_right

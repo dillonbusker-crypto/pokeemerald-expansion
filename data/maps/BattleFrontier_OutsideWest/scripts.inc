@@ -966,9 +966,16 @@ BattleFrontier_OutsideWest_EventScript_PikeRivalScene::
 	waitmovement 0
 	msgbox BattleFrontier_OutsideWest_Text_PikeWallace, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_FRONTIER_WALLACE, BattleFrontier_OutsideWest_Movement_WallaceOut
+	@ He slipped past the guards, so he leaves the quick way: flying off on
+	@ the same bird he uses in LITTLEROOT.
+	applymovement LOCALID_FRONTIER_WALLACE, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
+	delay 50
+	setfieldeffectargument 0, 1
+	dofieldeffect FLDEFF_NPCFLY_OUT
+	delay 15
 	removeobject LOCALID_FRONTIER_WALLACE
+	waitfieldeffect FLDEFF_NPCFLY_OUT
 	releaseall
 	end
 
@@ -1052,16 +1059,6 @@ BattleFrontier_OutsideWest_Movement_WallaceIn:
 	walk_up
 	walk_up
 	walk_up
-	step_end
-
-BattleFrontier_OutsideWest_Movement_WallaceOut:
-	walk_down
-	walk_down
-	walk_down
-	walk_down
-	walk_down
-	walk_down
-	walk_down
 	step_end
 
 BattleFrontier_OutsideWest_Movement_ScottIn:
