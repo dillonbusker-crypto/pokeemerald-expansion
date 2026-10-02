@@ -12,6 +12,7 @@ BattleFrontier_Lounge6_MapScripts::
 BattleFrontier_Lounge6_EventScript_Trader::
 	lock
 	faceplayer
+	goto_if_ge VAR_BROKER_STORY_STATE, 5, BattleFrontier_Lounge6_EventScript_TraderLayingLow
 	specialvar VAR_RESULT, IsFacilityRunActive
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_Lounge6_EventScript_TraderMidRun
 	specialvar VAR_RESULT, IsFrontierPOSDown
@@ -223,3 +224,17 @@ BattleFrontier_Lounge6_Text_TraderNoLeafeon:
 	.string "A LEAFEON? No, no. Someone in town\n"
 	.string "has been hoping for one of those.\l"
 	.string "I couldn't.$"
+
+@ Ten Gauntlets: after her cousin the Broker's arrest (gauntlet 6,
+@ storyline.md), she stops trading.
+BattleFrontier_Lounge6_EventScript_TraderLayingLow::
+	msgbox BattleFrontier_Lounge6_Text_TraderLayingLow, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge6_Text_TraderLayingLow:
+	.string "...Oh. It's you.\p"
+	.string "You heard about my cousin, didn't\n"
+	.string "you? SCOTT's people took him.\p"
+	.string "I'm keeping my head down for a\n"
+	.string "while. No more trades. Sorry.$"

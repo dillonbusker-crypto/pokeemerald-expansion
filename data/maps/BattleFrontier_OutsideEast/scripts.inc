@@ -1,7 +1,12 @@
 BattleFrontier_OutsideEast_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, BattleFrontier_OutsideEast_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_OutsideEast_OnTransition
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, BattleFrontier_OutsideEast_OnFrame
 	.byte 0
+
+BattleFrontier_OutsideEast_OnFrame:
+	map_script_2 VAR_BROKER_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_CenterScott
+	.2byte 0
 
 BattleFrontier_OutsideEast_OnResume:
 	call_if_set FLAG_SYS_CTRL_OBJ_DELETE, BattleFrontier_OutsideEast_EventScript_TryRemoveSudowoodo
@@ -25,6 +30,7 @@ BattleFrontier_OutsideEast_OnTransition:
 	setrespawn HEAL_LOCATION_BATTLE_FRONTIER_OUTSIDE_EAST
 	call BattleFrontier_OutsideEast_EventScript_ArmScottCaveWarning
 	call BattleFrontier_OutsideEast_EventScript_SetupSteven
+	call BattleFrontier_OutsideEast_EventScript_SetupBrokerStory
 	call BattleFrontier_OutsideEast_EventScript_SetupRival
 	setflag FLAG_TEMP_5
 	call_if_eq VAR_NORMAN_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_ShowNorman
@@ -1517,6 +1523,7 @@ BattleFrontier_OutsideEast_Text_RivalPlaza4:
 BattleFrontier_Steven_EventScript_Steven::
 	lock
 	faceplayer
+	goto_if_eq VAR_BROKER_STORY_STATE, 5, BattleFrontier_Steven_EventScript_StevenLetter
 	goto_if_eq VAR_STEVEN_STORY_STATE, 2, BattleFrontier_Steven_EventScript_StevenG4
 	msgbox BattleFrontier_Steven_Text_StevenIntro, MSGBOX_DEFAULT
 	msgbox BattleFrontier_Steven_Text_StevenAsksBadges, MSGBOX_DEFAULT
@@ -1796,6 +1803,7 @@ BattleFrontier_Steven_Text_StevenG4Goodbye:
 
 BattleFrontier_OutsideEast_EventScript_SetupSteven::
 	setflag FLAG_TEMP_8
+	call_if_eq VAR_BROKER_STORY_STATE, 5, BattleFrontier_OutsideEast_EventScript_ShowLedgeSteven
 	goto_if_ne VAR_STEVEN_STORY_STATE, 2, Common_EventScript_NopReturn
 	specialvar VAR_RESULT, GetGauntletsClearedCount
 	goto_if_lt VAR_RESULT, 4, Common_EventScript_NopReturn
@@ -1812,3 +1820,514 @@ BattleFrontier_Steven_Text_StevenFactory:
 	.string "MEGA STONE ore in these walls.\l"
 	.string "Raw, unpolished... and a great\l"
 	.string "deal of it.$"
+
+@ ============================================================================
+@ Ten Gauntlets: the Broker's letter, after gauntlet 6 (storyline.md;
+@ VAR_BROKER_STORY_STATE is explained in BattleFrontier_OutsideWest).
+@ SCOTT, NOLAND, GRETA and a guard wait outside the Pokemon Center (state 3),
+@ then the same four surround the Broker in the courtyard outside his house
+@ (state 4), with SCOTT on the left. STEVEN waits on the ledge above the
+@ Pyramid for the LETTER (state 5), and WALLACE meets the player on the way
+@ back (state 6). LOOKER leaves his spot for the Factory from state 6
+@ (BattleFrontier_OutsideWest).
+@ ============================================================================
+
+BattleFrontier_OutsideEast_EventScript_SetupBrokerStory::
+	setflag FLAG_TEMP_9
+	setflag FLAG_TEMP_A
+	setflag FLAG_TEMP_B
+	setflag FLAG_TEMP_C
+	setflag FLAG_TEMP_D
+	setflag FLAG_TEMP_E
+	call_if_ge VAR_BROKER_STORY_STATE, 6, BattleFrontier_OutsideEast_EventScript_HideLooker
+	call_if_eq VAR_BROKER_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_ShowCenterSquad
+	call_if_eq VAR_BROKER_STORY_STATE, 4, BattleFrontier_OutsideEast_EventScript_ShowArrest
+	return
+
+BattleFrontier_OutsideEast_EventScript_ShowCenterSquad::
+	clearflag FLAG_TEMP_9
+	clearflag FLAG_TEMP_A
+	clearflag FLAG_TEMP_B
+	clearflag FLAG_TEMP_C
+	return
+
+BattleFrontier_OutsideEast_EventScript_ShowArrest::
+	call BattleFrontier_OutsideEast_EventScript_MoveSquadToCourtyard
+	clearflag FLAG_TEMP_9
+	clearflag FLAG_TEMP_A
+	clearflag FLAG_TEMP_B
+	clearflag FLAG_TEMP_C
+	clearflag FLAG_TEMP_D
+	return
+
+@ Round the Broker at (64, 34): SCOTT left, NOLAND above, GRETA right, the
+@ guard below.
+BattleFrontier_OutsideEast_EventScript_MoveSquadToCourtyard::
+	setobjectxyperm LOCALID_FRONTIER_BROKER_SCOTT, 63, 34
+	setobjectmovementtype LOCALID_FRONTIER_BROKER_SCOTT, MOVEMENT_TYPE_FACE_RIGHT
+	setobjectxyperm LOCALID_FRONTIER_BROKER_NOLAND, 64, 33
+	setobjectmovementtype LOCALID_FRONTIER_BROKER_NOLAND, MOVEMENT_TYPE_FACE_DOWN
+	setobjectxyperm LOCALID_FRONTIER_BROKER_GRETA, 65, 34
+	setobjectmovementtype LOCALID_FRONTIER_BROKER_GRETA, MOVEMENT_TYPE_FACE_LEFT
+	setobjectxyperm LOCALID_FRONTIER_BROKER_GUARD, 64, 35
+	setobjectmovementtype LOCALID_FRONTIER_BROKER_GUARD, MOVEMENT_TYPE_FACE_UP
+	return
+
+BattleFrontier_OutsideEast_EventScript_ShowLedgeSteven::
+	clearflag FLAG_TEMP_8
+	return
+
+@ The player steps out of the Pokemon Center to (3, 52). Off to the right,
+@ SCOTT gives the order, and all four walk off east. The courtyard scene is
+@ on this same map, so the squad is moved there now; it appears once the
+@ player gets close.
+BattleFrontier_OutsideEast_EventScript_CenterScott::
+	lockall
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	msgbox BattleFrontier_OutsideEast_Text_CenterScott, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_FRONTIER_BROKER_NOLAND, Common_Movement_WalkInPlaceFasterRight
+	applymovement LOCALID_FRONTIER_BROKER_GRETA, Common_Movement_WalkInPlaceFasterRight
+	applymovement LOCALID_FRONTIER_BROKER_GUARD, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	applymovement LOCALID_FRONTIER_BROKER_SCOTT, BattleFrontier_OutsideEast_Movement_SquadLeaves
+	applymovement LOCALID_FRONTIER_BROKER_NOLAND, BattleFrontier_OutsideEast_Movement_SquadLeaves
+	applymovement LOCALID_FRONTIER_BROKER_GRETA, BattleFrontier_OutsideEast_Movement_SquadLeaves
+	applymovement LOCALID_FRONTIER_BROKER_GUARD, BattleFrontier_OutsideEast_Movement_SquadLeaves
+	waitmovement 0
+	removeobject LOCALID_FRONTIER_BROKER_SCOTT
+	removeobject LOCALID_FRONTIER_BROKER_NOLAND
+	removeobject LOCALID_FRONTIER_BROKER_GRETA
+	removeobject LOCALID_FRONTIER_BROKER_GUARD
+	setvar VAR_BROKER_STORY_STATE, 4
+	call BattleFrontier_OutsideEast_EventScript_ShowArrest
+	releaseall
+	end
+
+BattleFrontier_OutsideEast_Movement_SquadLeaves:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+@ Triggered one tile left of the flower at the courtyard's mouth (61, 34),
+@ or the tile below it. The guards lead the Broker out along row 35, right
+@ past the player, then north up the plaza, out of sight. The walk pauses
+@ with the Broker just below the player, at (61, 35).
+BattleFrontier_OutsideEast_EventScript_BrokerArrest::
+	lockall
+	getplayerxy VAR_0x8004, VAR_0x8005
+	call_if_eq VAR_0x8005, 35, BattleFrontier_OutsideEast_EventScript_ArrestStepUp
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	msgbox BattleFrontier_OutsideEast_Text_ArrestScott1, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_ArrestBroker1, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_ArrestScott2, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_ArrestBroker2, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_ArrestScott3, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_FRONTIER_BROKER_SCOTT, BattleFrontier_OutsideEast_Movement_ScottStepsAside
+	waitmovement 0
+	applymovement LOCALID_FRONTIER_BROKER_GUARD, BattleFrontier_OutsideEast_Movement_GuardOut1
+	applymovement LOCALID_FRONTIER_BROKER, BattleFrontier_OutsideEast_Movement_BrokerOut1
+	applymovement LOCALID_FRONTIER_BROKER_NOLAND, BattleFrontier_OutsideEast_Movement_NolandOut1
+	applymovement LOCALID_FRONTIER_BROKER_GRETA, BattleFrontier_OutsideEast_Movement_GretaOut1
+	waitmovement 0
+	applymovement LOCALID_FRONTIER_BROKER, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox BattleFrontier_OutsideEast_Text_BrokerDropped, MSGBOX_DEFAULT
+	additem ITEM_LETTER
+	playfanfare MUS_OBTAIN_ITEM
+	message BattleFrontier_OutsideEast_Text_ReceivedLetter
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	closemessage
+	applymovement LOCALID_FRONTIER_BROKER_GUARD, BattleFrontier_OutsideEast_Movement_GuardOut2
+	applymovement LOCALID_FRONTIER_BROKER, BattleFrontier_OutsideEast_Movement_BrokerOut2
+	applymovement LOCALID_FRONTIER_BROKER_NOLAND, BattleFrontier_OutsideEast_Movement_NolandOut2
+	applymovement LOCALID_FRONTIER_BROKER_GRETA, BattleFrontier_OutsideEast_Movement_GretaOut2
+	waitmovement 0
+	removeobject LOCALID_FRONTIER_BROKER_GUARD
+	removeobject LOCALID_FRONTIER_BROKER
+	removeobject LOCALID_FRONTIER_BROKER_NOLAND
+	removeobject LOCALID_FRONTIER_BROKER_GRETA
+	applymovement LOCALID_FRONTIER_BROKER_SCOTT, BattleFrontier_OutsideEast_Movement_ScottToPlayer
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	msgbox BattleFrontier_OutsideEast_Text_ArrestScottExplains, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_ArrestPlayerAsks, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_ArrestScottKanto, MSGBOX_DEFAULT
+	closemessage
+	@ He knows someone bought that MASTER BALL, and what happened in
+	@ Artisan Cave. He lets it go: he needs the player to keep winning.
+	delay 60
+	msgbox BattleFrontier_OutsideEast_Text_ArrestScottLook, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_ArrestScottCongrats, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_FRONTIER_BROKER_SCOTT, BattleFrontier_OutsideEast_Movement_ScottLeaves
+	waitmovement 0
+	removeobject LOCALID_FRONTIER_BROKER_SCOTT
+	setvar VAR_BROKER_STORY_STATE, 5
+	call BattleFrontier_OutsideEast_EventScript_ShowLedgeSteven
+	releaseall
+	end
+
+BattleFrontier_OutsideEast_EventScript_ArrestStepUp::
+	applymovement LOCALID_PLAYER, Common_Movement_WalkUp
+	waitmovement 0
+	return
+
+BattleFrontier_OutsideEast_Movement_ScottStepsAside:
+	walk_up
+	face_down
+	step_end
+
+@ Four steps each: the guard to (60, 35), the Broker to (61, 35), NOLAND to
+@ (62, 35), GRETA (a step behind) to (63, 35).
+BattleFrontier_OutsideEast_Movement_GuardOut1:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+BattleFrontier_OutsideEast_Movement_BrokerOut1:
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+BattleFrontier_OutsideEast_Movement_NolandOut1:
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	step_end
+
+BattleFrontier_OutsideEast_Movement_GretaOut1:
+	delay_16
+	walk_left
+	walk_down
+	walk_left
+	step_end
+
+@ Then each to (60, 35) and up the plaza to (60, 26), out of sight.
+BattleFrontier_OutsideEast_Movement_GuardOut2:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+BattleFrontier_OutsideEast_Movement_BrokerOut2:
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+BattleFrontier_OutsideEast_Movement_NolandOut2:
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+BattleFrontier_OutsideEast_Movement_GretaOut2:
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+@ From (63, 33) to (62, 34), beside the player.
+BattleFrontier_OutsideEast_Movement_ScottToPlayer:
+	walk_down
+	walk_left
+	face_left
+	step_end
+
+BattleFrontier_OutsideEast_Movement_ScottLeaves:
+	walk_down
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+@ STEVEN on the ledge (state 5). He flies off on the bird WALLACE uses in
+@ LITTLEROOT.
+BattleFrontier_Steven_EventScript_StevenLetter::
+	msgbox BattleFrontier_Steven_Text_LetterPlayerTells, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_LetterShocked, MSGBOX_DEFAULT
+	removeitem ITEM_LETTER
+	msgbox BattleFrontier_Steven_Text_LetterHandedOver, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_LetterReads, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_LetterBonding, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_LetterPlayerThinks, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_LetterHypothesis, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_LetterLooker, MSGBOX_DEFAULT
+	playfanfare MUS_REGISTER_MATCH_CALL
+	message BattleFrontier_Steven_Text_LetterGotNumber
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	setflag FLAG_STEVEN_POKENAV_NUMBER
+	msgbox BattleFrontier_Steven_Text_LetterGoodbye, MSGBOX_DEFAULT
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	delay 50
+	setfieldeffectargument 0, 1
+	dofieldeffect FLDEFF_NPCFLY_OUT
+	delay 15
+	removeobject VAR_LAST_TALKED
+	waitfieldeffect FLDEFF_NPCFLY_OUT
+	setvar VAR_BROKER_STORY_STATE, 6
+	release
+	end
+
+@ The ledge is one tile wide here, so leaving STEVEN's spot always crosses
+@ (60, 5). WALLACE comes along it from the west.
+BattleFrontier_OutsideEast_EventScript_LedgeWallace::
+	lockall
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	clearflag FLAG_TEMP_E
+	addobject LOCALID_FRONTIER_LEDGE_WALLACE
+	applymovement LOCALID_FRONTIER_LEDGE_WALLACE, BattleFrontier_OutsideEast_Movement_WallaceAlongLedge
+	waitmovement 0
+	msgbox BattleFrontier_OutsideEast_Text_LedgeWallace, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_LedgePlayerTells, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_LedgeWallaceBye, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_FRONTIER_LEDGE_WALLACE, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	delay 50
+	setfieldeffectargument 0, 1
+	dofieldeffect FLDEFF_NPCFLY_OUT
+	delay 15
+	removeobject LOCALID_FRONTIER_LEDGE_WALLACE
+	waitfieldeffect FLDEFF_NPCFLY_OUT
+	setvar VAR_BROKER_STORY_STATE, 7
+	releaseall
+	end
+
+BattleFrontier_OutsideEast_Movement_WallaceAlongLedge:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+BattleFrontier_OutsideEast_Text_CenterScott:
+	.string "SCOTT: We finally traced the\n"
+	.string "missing MASTER BALL.\p"
+	.string "Move out.$"
+
+BattleFrontier_OutsideEast_Text_ArrestScott1:
+	.string "SCOTT: This little shindig of yours\n"
+	.string "has gone on long enough.\p"
+	.string "You're being detained by FRONTIER\n"
+	.string "security. Illegally selling\l"
+	.string "FRONTIER property. Holding a\l"
+	.string "MASTER BALL.\p"
+	.string "And before they take you away,\n"
+	.string "you'll be coughing up that MASTER\l"
+	.string "BALL.$"
+
+BattleFrontier_OutsideEast_Text_ArrestBroker1:
+	.string "BROKER: Don't have it anymore.\n"
+	.string "Somebody bought it off me.$"
+
+BattleFrontier_OutsideEast_Text_ArrestScott2:
+	.string "SCOTT: Did you really think I\n"
+	.string "wouldn't notice one of my MASTER\l"
+	.string "BALLS missing from that shipment?$"
+
+BattleFrontier_OutsideEast_Text_ArrestBroker2:
+	.string "BROKER: Business is business.$"
+
+BattleFrontier_OutsideEast_Text_ArrestScott3:
+	.string "SCOTT: Take him away.$"
+
+BattleFrontier_OutsideEast_Text_BrokerDropped:
+	.string "The BROKER dropped something at\n"
+	.string "{PLAYER}'s feet.$"
+
+BattleFrontier_OutsideEast_Text_ReceivedLetter:
+	.string "{PLAYER} received a LETTER to\n"
+	.string "STEVEN!$"
+
+BattleFrontier_OutsideEast_Text_ArrestScottExplains:
+	.string "SCOTT: Sorry you had to see that,\n"
+	.string "{PLAYER}.\p"
+	.string "That man's been working this island\n"
+	.string "as “the BROKER.” Selling FRONTIER\l"
+	.string "stock under the table and taking a\l"
+	.string "cut.\p"
+	.string "Turns out he had old connections\n"
+	.string "to TEAM AQUA, too.$"
+
+BattleFrontier_OutsideEast_Text_ArrestPlayerAsks:
+	.string "{PLAYER} asked SCOTT about the\n"
+	.string "MASTER BALLS.$"
+
+BattleFrontier_OutsideEast_Text_ArrestScottKanto:
+	.string "SCOTT: Oh, those! I had a supply\n"
+	.string "brought in from KANTO. Prizes for\l"
+	.string "the FRONTIER shop, someday.\l"
+	.string "Heheh...$"
+
+BattleFrontier_OutsideEast_Text_ArrestScottLook:
+	.string "SCOTT: ......\p"
+	.string "...Anyway!$"
+
+BattleFrontier_OutsideEast_Text_ArrestScottCongrats:
+	.string "SCOTT: Congratulations on gauntlet\n"
+	.string "6! From here on, the gauntlets get\l"
+	.string "very serious.\p"
+	.string "I'll be out of town for a little\n"
+	.string "while. I'm meeting some very\l"
+	.string "high-profile trainers, to get\l"
+	.string "their feedback on my next FRONTIER\l"
+	.string "addition.\p"
+	.string "Good luck, {PLAYER}!$"
+
+BattleFrontier_Steven_Text_LetterPlayerTells:
+	.string "{PLAYER} told STEVEN about the\n"
+	.string "BROKER.$"
+
+BattleFrontier_Steven_Text_LetterShocked:
+	.string "STEVEN: SCOTT arrested him? The\n"
+	.string "BROKER?\p"
+	.string "...He's an old friend. He was\n"
+	.string "looking into something for me.\p"
+	.string "He dropped a letter? For me?$"
+
+BattleFrontier_Steven_Text_LetterHandedOver:
+	.string "{PLAYER} handed STEVEN the LETTER.$"
+
+BattleFrontier_Steven_Text_LetterReads:
+	.string "STEVEN: “STEVEN. If you're reading\n"
+	.string "this, they finally got me.\p"
+	.string "You asked why your METAGROSS\n"
+	.string "wouldn't grow. I went digging.\p"
+	.string "Every POKéMON that comes through\n"
+	.string "the FRONTIER has a chip implanted\l"
+	.string "in it. Every one. That's why they\l"
+	.string "never gain any Experience.\p"
+	.string "And they always seemed so sad, no\n"
+	.string "matter how many trainers they\l"
+	.string "battled for.\p"
+	.string "Thought you should know.\n"
+	.string "- The BROKER”$"
+
+BattleFrontier_Steven_Text_LetterBonding:
+	.string "STEVEN: Chips...\p"
+	.string "{PLAYER}. Your POKéMON. Do they\n"
+	.string "seem to bond with you?$"
+
+BattleFrontier_Steven_Text_LetterPlayerThinks:
+	.string "{PLAYER} thought about it. Their\n"
+	.string "POKéMON fight hard... but they only\l"
+	.string "ever seem focused on battling.$"
+
+BattleFrontier_Steven_Text_LetterHypothesis:
+	.string "STEVEN: I was afraid of that.\p"
+	.string "When a trainer and a POKéMON work\n"
+	.string "together, it creates bond energy.\l"
+	.string "It's the power behind growth, and\l"
+	.string "behind evolution.\p"
+	.string "If those chips are made of the same\n"
+	.string "shards as the badges, they're a\l"
+	.string "second channel. Quieter.\p"
+	.string "They're stealing the bond between\n"
+	.string "the FRONTIER's POKéMON and their\l"
+	.string "trainers.\p"
+	.string "And if it's being stolen... it's\n"
+	.string "going somewhere.$"
+
+BattleFrontier_Steven_Text_LetterLooker:
+	.string "STEVEN: I'll have LOOKER find out\n"
+	.string "where they've taken the BROKER.\p"
+	.string "And here. My POKéNAV number. If I\n"
+	.string "find anything, you'll hear from\l"
+	.string "me.$"
+
+BattleFrontier_Steven_Text_LetterGotNumber:
+	.string "{PLAYER} got STEVEN's POKéNAV\n"
+	.string "number!$"
+
+BattleFrontier_Steven_Text_LetterGoodbye:
+	.string "STEVEN: I'm going to find out if\n"
+	.string "those chips can be disabled.\p"
+	.string "I'll be in touch, {PLAYER}.$"
+
+BattleFrontier_OutsideEast_Text_LedgeWallace:
+	.string "WALLACE: {PLAYER}! Well met.\p"
+	.string "I slipped past SCOTT's security\n"
+	.string "again. Have you seen STEVEN?\p"
+	.string "The ELITE FOUR have left the\n"
+	.string "POKéMON LEAGUE. They're not in\l"
+	.string "EVER GRANDE CITY, and nobody knows\l"
+	.string "where they've gone.$"
+
+BattleFrontier_OutsideEast_Text_LedgePlayerTells:
+	.string "{PLAYER} told WALLACE that STEVEN\n"
+	.string "had just flown off.$"
+
+BattleFrontier_OutsideEast_Text_LedgeWallaceBye:
+	.string "WALLACE: Ha! Always on the move,\n"
+	.string "that one.\p"
+	.string "I'll catch up with him. Take care,\n"
+	.string "{PLAYER}.$"

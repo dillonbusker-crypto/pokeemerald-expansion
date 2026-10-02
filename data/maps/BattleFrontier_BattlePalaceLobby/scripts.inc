@@ -695,6 +695,12 @@ BattleFrontier_BattlePalaceLobby_EventScript_FacilityAttendantB7::
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
 	special IsFacilityGauntletCompleted
 	goto_if_eq VAR_RESULT, TRUE, Facility_AlreadyCleared
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ne VAR_RESULT, 6, BattleFrontier_BattlePalaceLobby_EventScript_B7Open
+	goto_if_eq VAR_BROKER_STORY_STATE, 5, BattleFrontier_BattlePalaceLobby_EventScript_B7Letter
+	goto_if_lt VAR_BROKER_STORY_STATE, 2, BattleFrontier_BattlePalaceLobby_EventScript_B7ClosedPike
+	goto_if_lt VAR_BROKER_STORY_STATE, 6, BattleFrontier_BattlePalaceLobby_EventScript_B7Closed
+BattleFrontier_BattlePalaceLobby_EventScript_B7Open:
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_B7_Text_AskEnter, MSGBOX_YESNO
@@ -704,6 +710,27 @@ BattleFrontier_BattlePalaceLobby_EventScript_FacilityAttendantB7::
 	special FacilityStartRun
 	call Common_EventScript_SaveGame
 	goto Facility_DoBattle
+	end
+
+@ Ten Gauntlets: gauntlet 7 stays closed through the Broker's letter, the
+@ event after gauntlet 6 (storyline.md; VAR_BROKER_STORY_STATE is explained
+@ in BattleFrontier_OutsideWest). It opens once the LETTER is delivered.
+@ States 0-1 only happen on a save that cleared gauntlet 6 before the event
+@ existed: it starts on the way out of the Pike, so point the player there.
+BattleFrontier_BattlePalaceLobby_EventScript_B7Closed::
+	msgbox BattleFrontier_BattlePalaceLobby_Text_B7Closed, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_BattlePalaceLobby_EventScript_B7ClosedPike::
+	msgbox BattleFrontier_BattlePalaceLobby_Text_B7Closed, MSGBOX_DEFAULT
+	msgbox BattleFrontier_BattlePalaceLobby_Text_B7AskedForYou, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_BattlePalaceLobby_EventScript_B7Letter::
+	msgbox BattleFrontier_BattlePalaceLobby_Text_B7Letter, MSGBOX_DEFAULT
+	release
 	end
 
 @ The vanilla Doubles challenge would run the real Battle Palace's own logic,
@@ -893,3 +920,16 @@ BattleFrontier_BattlePalaceLobby_Text_G7Beauty:
 	.string "POKéMON was part Dark.\p"
 	.string "Fighting moves. That's all I\n"
 	.string "needed, and I only brought one.$"
+
+BattleFrontier_BattlePalaceLobby_Text_B7Closed:
+	.string "I'm sorry. THE OPEN COURT isn't\n"
+	.string "accepting challengers just yet.\p"
+	.string "Please come back a little later.$"
+
+BattleFrontier_BattlePalaceLobby_Text_B7AskedForYou:
+	.string "Oh, and someone was asking for you\n"
+	.string "over at the BATTLE PIKE.$"
+
+BattleFrontier_BattlePalaceLobby_Text_B7Letter:
+	.string "I'd better get this LETTER to\n"
+	.string "STEVEN first.$"

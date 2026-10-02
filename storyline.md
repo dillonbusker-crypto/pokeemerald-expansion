@@ -229,10 +229,11 @@ Scrambler 🔧. After the Frontier falls, **the Broker takes in the escaped
 shopkeepers** and runs the shop, free, for the cause.
 
 - **Looker works with Steven.** Chasing Flotsam is what brought him to the
-  Frontier; that's why he hands the Scrambler on to Steven. 📝
+  Frontier; that's why he hands the Scrambler on to Steven. After gauntlet 6
+  he watches the Factory for Steven. ✅
 - **The Broker** is an old friend of Steven's. After lending him the Metagross
   he starts digging into why Frontier Pokémon won't grow, which gets him
-  **arrested after gauntlet 6** and held in the Factory (see below). 📝
+  **arrested after gauntlet 6** and held in the Factory (see below). ✅
 
 ### The Eon Duo, and what Scott lost
 
@@ -244,7 +245,7 @@ caught the other one later, and it's on his final team.
 
 Out of work since the PokéNav auto-heal. After gauntlet 6 she lets Steven and
 the player use her empty Center as a hideout, and **overhears everything**,
-which is why she later refuses to help Scott. 📝 In the endgame she brings every
+which is why she later refuses to help Scott. ✅ In the endgame she brings every
 Chansey and Blissey from Hoenn's Pokémon Centers, taught a new move, **Transfer
 EXP**, and follows the player to Sky Pillar.
 
@@ -265,7 +266,7 @@ EXP**, and follows the player to Sky Pillar.
 | Gauntlet 4 (Anabel) | **Steven returns.** See below. | ✅ |
 | Gauntlets 1–4 | **The rival on the plaza.** After the rematch, the rival trains in front of the Battle Tower, with a new line after each gauntlet: training for gauntlet 1, then cleared it, then stuck on gauntlet 2, then worried that Birch seems off and paranoid. | ✅ |
 | Gauntlet 5 (Tucker) | **Birch's lab.** See below. | ✅ |
-| Gauntlet 6 (Lucy) | **The Broker's letter.** Steven in the Pokémon Center, the Broker's arrest, the chips revealed. See below. | 📝 |
+| Gauntlet 6 (Lucy) | **The Broker's letter.** Steven in the Pokémon Center, the Broker's arrest, the chips revealed. See below. | ✅ |
 | Gauntlet 7 (Spenser) | Beats to design. Ideas: NPCs noticing their Pokémon "seem tired lately"; Birch's confession. | 📝 ❓ |
 | Before gauntlet 8 | **Steven gives the Lati back**, with its Mega Stone (Latiasite or Latiosite). This close to the end, the risk of Scott noticing is worth the edge. It can gain Experience again, since the player's badges are real and it has no chip. | 📝 |
 | Gauntlet 8 (Brandon) | **The Mega Pillar is fully charged.** The endgame starts. | 📝 |
@@ -308,8 +309,8 @@ PYRAMID", gauntlet 8's building.
 7. **The Broker, after.** The next time the player visits him, he mentions
    Steven borrowing the Metagross, and their history: Steven once won the
    wildest bet the Gambler ever took, on beating the Battle Tower's Brain
-   (`broker-spec.md`). 🔧 **Add:** he's looking into the Frontier's Pokémon,
-   to find out why they won't grow. This sets up his letter after gauntlet 6.
+   (`broker-spec.md`). He's also started looking into why the Frontier's
+   Pokémon won't grow, which sets up his letter after gauntlet 6.
 
 **The player always has a Lati by now.** The Artisan Cave quest is required:
 gauntlet 4 stays locked until a Latias or Latios is caught.
@@ -398,7 +399,23 @@ Stone paused gauntlet 6 from Devon's control room in the Factory.
 with the other Mega bases). **Kangaskhanite is never sold**, so Norman's is
 the only one, and the Broker and the trader can't offer it either.
 
-### After gauntlet 6: the Broker's letter 📝
+### After gauntlet 6: the Broker's letter ✅
+
+Built, not yet playtested. Tracked by `VAR_BROKER_STORY_STATE`: 0 none, 1
+gauntlet 6 cleared, 2 following Steven, 3 Center scene done, 4 Scott headed
+for the Broker, 5 arrested (letter in hand), 6 letter delivered, 7 done. The
+state list and the setup live in `BattleFrontier_OutsideWest`; the scenes are
+in the Pike plaza (Outside West), the Pokémon Center, and Outside East. Only
+a save with exactly six gauntlets cleared gets the event. A save that cleared
+gauntlet 6 before it existed is pointed back to the Pike by the Palace
+attendant.
+
+- **The letter** is the vanilla LETTER key item, with a new description.
+- **Steven's number** is `FLAG_STEVEN_POKENAV_NUMBER`. The player's PokéNav
+  has no Match Call yet, so his future call needs Match Call enabled and his
+  vanilla Match Call texts replaced.
+- **The squad** (Scott, Noland, Greta, a Devon-suited guard) is one set of
+  objects, moved from outside the Center to the courtyard.
 
 Gauntlet 7 (the Palace) stays closed until the event ends. Scott's house is
 locked from Scott's exit (scene 5) until gauntlet 7 is cleared: he's out of
@@ -712,10 +729,10 @@ happy ending.
 | Auto-heal lore | The PokéNav (Devon) heals, not the badges. Update any line that says otherwise. |
 | The eleventh plaque | ✅ **Gone.** The Mega Pillar is inside the Factory now; the plaque at the head of the hall is the Hall of Eight's header. |
 | Hall of Ten | ✅ **The Hall of Eight**, eight plaques; no story scenes. The Factory plaque is unscrewed; the Arena's points to the sparring ground. |
-| Gauntlet 6 clear message | `Facility_B6_Text_GauntletComplete` says the Palace's doors are open. Reword it: gauntlet 7 stays closed until the Broker's-letter event ends. Change it together with building the event, not before. |
-| The Broker after Steven's trade | Add that he's looking into why the Frontier's Pokémon won't grow (`FLAG_BROKER_STEVEN_MENTION` line, Lounge 3). |
-| Scott's house, gauntlet 7 | Locked while he's out of town. The `Progress6` line becomes unreachable. |
-| The Broker and his cousin | Gone after gauntlet 6: no Broker deals or blind trades for gauntlets 7–8. |
+| Gauntlet 6 clear message | ✅ No longer says the Palace's doors are open; gauntlet 7 stays closed until the Broker's letter is delivered. |
+| The Broker after Steven's trade | ✅ Adds that he's looking into why the Frontier's Pokémon won't grow (`FLAG_BROKER_STEVEN_MENTION` line, Lounge 3). |
+| Scott's house, gauntlet 7 | ✅ Locked while he's out of town. The `Progress6` line is unreachable. |
+| The Broker and his cousin | ✅ Gone after gauntlet 6: no Broker deals or blind trades for gauntlets 7–8. The Lounge 3 regulars react. |
 
 ---
 

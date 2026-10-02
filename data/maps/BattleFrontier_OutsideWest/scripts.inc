@@ -1,6 +1,11 @@
 BattleFrontier_OutsideWest_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_OutsideWest_OnTransition
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, BattleFrontier_OutsideWest_OnFrame
 	.byte 0
+
+BattleFrontier_OutsideWest_OnFrame:
+	map_script_2 VAR_TEMP_7, 1, BattleFrontier_OutsideWest_EventScript_PikeSteven
+	.2byte 0
 
 BattleFrontier_OutsideWest_OnTransition:
 	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, 0
@@ -23,6 +28,7 @@ BattleFrontier_OutsideWest_OnTransition:
 	call_if_lt VAR_RESULT, 5, BattleFrontier_OutsideWest_EventScript_HideLucy
 	call BattleFrontier_OutsideWest_EventScript_SetupPikeStory
 	call BattleFrontier_OutsideWest_EventScript_SetupSteven
+	call BattleFrontier_OutsideWest_EventScript_SetupBrokerStory
 	end
 
 BattleFrontier_OutsideWest_EventScript_HideTucker::
@@ -1190,3 +1196,173 @@ BattleFrontier_OutsideWest_EventScript_SetupSteven::
 	goto_if_lt VAR_RESULT, 2, Common_EventScript_NopReturn
 	clearflag FLAG_TEMP_8
 	return
+
+@ ============================================================================
+@ Ten Gauntlets: the Broker's letter, after gauntlet 6 (storyline.md).
+@ VAR_BROKER_STORY_STATE: 0 none, 1 gauntlet 6 cleared (STEVEN waits outside
+@ the Pike), 2 following STEVEN to the Pokemon Center, 3 the Center scene
+@ done (SCOTT and his men outside it), 4 SCOTT headed for the Broker's, 5 the
+@ Broker arrested and the LETTER in hand (STEVEN on the ledge above the
+@ Pyramid), 6 the LETTER delivered (WALLACE waits on the way back), 7 done.
+@ Gauntlet 7 (the Palace) stays closed until 6. The scenes after the Pike
+@ are in the Pokemon Center and Outside East.
+@ ============================================================================
+
+@ Clearing gauntlet 6 starts the arc the next time the player is out here
+@ (always the Pike's doorstep, in practice). Only on exactly six cleared, so
+@ a save already past gauntlet 7 never sees it. STEVEN only walks up when
+@ the player has just come out of the Pike (on its door tile until the
+@ step down), and SCOTT's house is locked while he's away: from the moment
+@ he leaves for the Broker's until gauntlet 7 is cleared.
+BattleFrontier_OutsideWest_EventScript_SetupBrokerStory::
+	setflag FLAG_TEMP_9
+	setflag FLAG_TEMP_A
+	setvar VAR_TEMP_6, 1
+	call_if_ge VAR_BROKER_STORY_STATE, 6, BattleFrontier_OutsideWest_EventScript_ShowFactoryLooker
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ne VAR_RESULT, 6, Common_EventScript_NopReturn
+	call_if_eq VAR_BROKER_STORY_STATE, 0, BattleFrontier_OutsideWest_EventScript_BrokerStoryStart
+	call_if_ge VAR_BROKER_STORY_STATE, 4, BattleFrontier_OutsideWest_EventScript_LockScottsHouse
+	goto_if_ne VAR_BROKER_STORY_STATE, 1, Common_EventScript_NopReturn
+	getplayerxy VAR_0x8004, VAR_0x8005
+	goto_if_ne VAR_0x8004, 42, Common_EventScript_NopReturn
+	goto_if_ne VAR_0x8005, 27, Common_EventScript_NopReturn
+	setvar VAR_TEMP_7, 1
+	return
+
+BattleFrontier_OutsideWest_EventScript_BrokerStoryStart::
+	setvar VAR_BROKER_STORY_STATE, 1
+	return
+
+BattleFrontier_OutsideWest_EventScript_LockScottsHouse::
+	setvar VAR_TEMP_6, 0
+	return
+
+BattleFrontier_OutsideWest_EventScript_ShowFactoryLooker::
+	clearflag FLAG_TEMP_A
+	return
+
+@ STEVEN comes up the lane (the way WALLACE and SCOTT came for the Birch arc)
+@ to the player on the Pike's doorstep, then leads them back down it. The
+@ walk to the Pokemon Center crosses into Outside East, so it fades out and
+@ picks up inside.
+BattleFrontier_OutsideWest_EventScript_PikeSteven::
+	lockall
+	setvar VAR_TEMP_7, 0
+	clearflag FLAG_TEMP_9
+	addobject LOCALID_FRONTIER_PIKE_STEVEN
+	applymovement LOCALID_FRONTIER_PIKE_STEVEN, BattleFrontier_OutsideWest_Movement_PikeStevenIn
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox BattleFrontier_OutsideWest_Text_PikeSteven, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_FRONTIER_PIKE_STEVEN, BattleFrontier_OutsideWest_Movement_PikeStevenOut
+	applymovement LOCALID_PLAYER, BattleFrontier_OutsideWest_Movement_PikePlayerFollows
+	waitmovement 0
+	setvar VAR_BROKER_STORY_STATE, 2
+	warp MAP_BATTLE_FRONTIER_POKEMON_CENTER_1F, 7, 8
+	waitstate
+	releaseall
+	end
+
+@ Up the lane to (42, 29), just below the player.
+BattleFrontier_OutsideWest_Movement_PikeStevenIn:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_PikeStevenOut:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+BattleFrontier_OutsideWest_Movement_PikePlayerFollows:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+@ The trigger sits on the tile below the door; stepping onto it from any
+@ side bounces the player back the way they came, so the door can't be
+@ reached while SCOTT is away.
+BattleFrontier_OutsideWest_EventScript_ScottsHouseLocked::
+	lockall
+	specialvar VAR_RESULT, GetPlayerFacingDirection
+	msgbox BattleFrontier_OutsideWest_Text_ScottsHouseLocked, MSGBOX_DEFAULT
+	closemessage
+	call_if_eq VAR_RESULT, DIR_NORTH, BattleFrontier_OutsideWest_EventScript_LockedStepDown
+	call_if_eq VAR_RESULT, DIR_WEST, BattleFrontier_OutsideWest_EventScript_LockedStepRight
+	call_if_eq VAR_RESULT, DIR_EAST, BattleFrontier_OutsideWest_EventScript_LockedStepLeft
+	waitmovement 0
+	releaseall
+	end
+
+BattleFrontier_OutsideWest_EventScript_LockedStepDown::
+	applymovement LOCALID_PLAYER, Common_Movement_WalkDown
+	return
+
+BattleFrontier_OutsideWest_EventScript_LockedStepRight::
+	applymovement LOCALID_PLAYER, Common_Movement_WalkRight
+	return
+
+BattleFrontier_OutsideWest_EventScript_LockedStepLeft::
+	applymovement LOCALID_PLAYER, Common_Movement_WalkLeft
+	return
+
+@ LOOKER watches the Factory from across the plaza, where STEVEN asked him to
+@ find out where the Broker was taken.
+BattleFrontier_OutsideWest_EventScript_FactoryLooker::
+	lock
+	faceplayer
+	msgbox BattleFrontier_OutsideWest_Text_FactoryLooker, MSGBOX_DEFAULT
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceLeft
+	waitmovement 0
+	release
+	end
+
+BattleFrontier_OutsideWest_Text_PikeSteven:
+	.string "STEVEN: {PLAYER}. Congratulations\n"
+	.string "on LUCY.\p"
+	.string "We need to talk. But not here.\p"
+	.string "SCOTT's men have been tracking me\n"
+	.string "around the island. I'd rather not\l"
+	.string "give them a show.\p"
+	.string "Follow me. And try to look like\n"
+	.string "you're just out for a walk.$"
+
+BattleFrontier_OutsideWest_Text_ScottsHouseLocked:
+	.string "The door is locked.$"
+
+BattleFrontier_OutsideWest_Text_FactoryLooker:
+	.string "LOOKER: Shh! {PLAYER}! Not so loud!\n"
+	.string "I am on a stakeout!\p"
+	.string "STEVEN asked me to find out where\n"
+	.string "they took the one they call the\l"
+	.string "BROKER.\p"
+	.string "And I have found it! They marched\n"
+	.string "him straight through the doors of\l"
+	.string "the BATTLE FACTORY.\p"
+	.string "“DEVON staff only.” Hmph. Nobody\n"
+	.string "has come out since.\p"
+	.string "I will keep watching. You keep\n"
+	.string "winning, yes? And act natural!$"

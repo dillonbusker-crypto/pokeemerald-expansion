@@ -1,5 +1,17 @@
 BattleFrontier_Lounge3_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_Lounge3_OnTransition
 	.byte 0
+
+@ Ten Gauntlets: SCOTT has the Broker detained after gauntlet 6 and held in
+@ the Battle Factory (storyline.md, "After gauntlet 6"). He's outside with
+@ them from VAR_BROKER_STORY_STATE 4, and gone for good after.
+BattleFrontier_Lounge3_OnTransition:
+	call_if_ge VAR_BROKER_STORY_STATE, 4, BattleFrontier_Lounge3_EventScript_HideBroker
+	end
+
+BattleFrontier_Lounge3_EventScript_HideBroker::
+	setflag FLAG_TEMP_1
+	return
 
 	.set BET_AMOUNT_5,  5
 	.set BET_AMOUNT_10, 10
@@ -403,6 +415,7 @@ BattleFrontier_Lounge3_EventScript_Man::
 BattleFrontier_Lounge3_EventScript_Woman::
 	lock
 	faceplayer
+	goto_if_ge VAR_BROKER_STORY_STATE, 5, BattleFrontier_Lounge3_EventScript_WomanAfterArrest
 	msgbox BattleFrontier_Lounge3_Text_BackedWrongTrainer, MSGBOX_DEFAULT
 	goto BattleFrontier_Lounge3_EventScript_FaceOriginalDirection
 	end
@@ -410,6 +423,7 @@ BattleFrontier_Lounge3_EventScript_Woman::
 BattleFrontier_Lounge3_EventScript_PokefanF::
 	lock
 	faceplayer
+	goto_if_ge VAR_BROKER_STORY_STATE, 5, BattleFrontier_Lounge3_EventScript_PokefanFAfterArrest
 	msgbox BattleFrontier_Lounge3_Text_KnowWinnerWhenISeeOne, MSGBOX_DEFAULT
 	goto BattleFrontier_Lounge3_EventScript_FaceOriginalDirection
 	end
@@ -417,7 +431,23 @@ BattleFrontier_Lounge3_EventScript_PokefanF::
 BattleFrontier_Lounge3_EventScript_FatMan::
 	lock
 	faceplayer
+	goto_if_ge VAR_BROKER_STORY_STATE, 5, BattleFrontier_Lounge3_EventScript_FatManAfterArrest
 	msgbox BattleFrontier_Lounge3_Text_TrainerGoodButRattled, MSGBOX_DEFAULT
+	goto BattleFrontier_Lounge3_EventScript_FaceOriginalDirection
+	end
+
+BattleFrontier_Lounge3_EventScript_WomanAfterArrest::
+	msgbox BattleFrontier_Lounge3_Text_WomanAfterArrest, MSGBOX_DEFAULT
+	goto BattleFrontier_Lounge3_EventScript_FaceOriginalDirection
+	end
+
+BattleFrontier_Lounge3_EventScript_PokefanFAfterArrest::
+	msgbox BattleFrontier_Lounge3_Text_PokefanFAfterArrest, MSGBOX_DEFAULT
+	goto BattleFrontier_Lounge3_EventScript_FaceOriginalDirection
+	end
+
+BattleFrontier_Lounge3_EventScript_FatManAfterArrest::
+	msgbox BattleFrontier_Lounge3_Text_FatManAfterArrest, MSGBOX_DEFAULT
 	goto BattleFrontier_Lounge3_EventScript_FaceOriginalDirection
 	end
 
@@ -845,4 +875,27 @@ BattleFrontier_Lounge3_Text_BrokerStevenCameBy:
 	.string "fun, I'll tell you that.\p"
 	.string "But we've been friends ever since.\n"
 	.string "So keep it. Just don't go telling\l"
-	.string "anyone where it came from.$"
+	.string "anyone where it came from.\p"
+	.string "...Got me thinking, though. Not\n"
+	.string "one POKéMON off this island ever\l"
+	.string "grows. Why's that?\p"
+	.string "I've started asking around.\n"
+	.string "Quietly.$"
+
+BattleFrontier_Lounge3_Text_WomanAfterArrest:
+	.string "Did you see? They took the BROKER\n"
+	.string "away! SCOTT himself, and those two\l"
+	.string "from the FACTORY and the ARENA.\p"
+	.string "...You don't think they'll come for\n"
+	.string "his customers next, do you?$"
+
+BattleFrontier_Lounge3_Text_PokefanFAfterArrest:
+	.string "The BROKER's corner is empty.\p"
+	.string "Steep prices or not... it's not the\n"
+	.string "same without him.$"
+
+BattleFrontier_Lounge3_Text_FatManAfterArrest:
+	.string "I'm keeping my CHOICE SCARF.\n"
+	.string "Nobody's taking it.\p"
+	.string "...Nobody asked you to tell them\n"
+	.string "about it, either. Right?$"

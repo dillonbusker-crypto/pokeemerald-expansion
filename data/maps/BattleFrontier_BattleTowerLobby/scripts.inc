@@ -2429,9 +2429,9 @@ Facility_B3_Text_StevenWaiting:
 Facility_B6_Text_GauntletComplete:
 	.string "Congratulations! You've cleared\n"
 	.string "THE CROSSROADS!\p"
-	.string "Your next challenge is a Singles\n"
-	.string "gauntlet at the BATTLE PALACE. Its\l"
-	.string "doors are open to you.\p"
+	.string "Your next challenge will be a\n"
+	.string "Singles gauntlet at the BATTLE\l"
+	.string "PALACE.\p"
 	.string "And everything the shop has held\n"
 	.string "back is on sale now: the strongest\l"
 	.string "POKéMON, every MEGA STONE, and\l"

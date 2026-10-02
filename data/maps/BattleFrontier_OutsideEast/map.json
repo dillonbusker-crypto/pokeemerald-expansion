@@ -485,6 +485,90 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "BattleFrontier_Steven_EventScript_Steven",
       "flag": "FLAG_TEMP_8"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_BROKER_SCOTT",
+      "graphics_id": "OBJ_EVENT_GFX_SCOTT",
+      "x": 8,
+      "y": 53,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_TEMP_9"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_BROKER_NOLAND",
+      "graphics_id": "OBJ_EVENT_GFX_NOLAND",
+      "x": 9,
+      "y": 52,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_TEMP_A"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_BROKER_GRETA",
+      "graphics_id": "OBJ_EVENT_GFX_GRETA",
+      "x": 9,
+      "y": 53,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_TEMP_B"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_BROKER_GUARD",
+      "graphics_id": "OBJ_EVENT_GFX_DEVON_EMPLOYEE",
+      "x": 9,
+      "y": 54,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_TEMP_C"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_BROKER",
+      "graphics_id": "OBJ_EVENT_GFX_HIKER",
+      "x": 64,
+      "y": 34,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_TEMP_D"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_LEDGE_WALLACE",
+      "graphics_id": "OBJ_EVENT_GFX_WALLACE",
+      "x": 51,
+      "y": 5,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_TEMP_E"
     }
   ],
   "warp_events": [
@@ -596,6 +680,33 @@
       "var": "VAR_TEMP_6",
       "var_value": "0",
       "script": "BattleFrontier_OutsideEast_EventScript_ScottCaveWarning"
+    },
+    {
+      "type": "trigger",
+      "x": 61,
+      "y": 34,
+      "elevation": 0,
+      "var": "VAR_BROKER_STORY_STATE",
+      "var_value": "4",
+      "script": "BattleFrontier_OutsideEast_EventScript_BrokerArrest"
+    },
+    {
+      "type": "trigger",
+      "x": 61,
+      "y": 35,
+      "elevation": 0,
+      "var": "VAR_BROKER_STORY_STATE",
+      "var_value": "4",
+      "script": "BattleFrontier_OutsideEast_EventScript_BrokerArrest"
+    },
+    {
+      "type": "trigger",
+      "x": 60,
+      "y": 5,
+      "elevation": 0,
+      "var": "VAR_BROKER_STORY_STATE",
+      "var_value": "6",
+      "script": "BattleFrontier_OutsideEast_EventScript_LedgeWallace"
     }
   ],
   "bg_events": [

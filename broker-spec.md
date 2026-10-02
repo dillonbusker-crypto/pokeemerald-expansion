@@ -114,11 +114,11 @@ him, and now it's in the player's party with "BROKER" still on its papers.
 They go way back: when the Broker was still known as the Gambler, Steven bet
 heavily on himself beating the Battle Tower's Brain. It was the wildest gamble
 the Broker ever took, Steven won, and paying up was not fun. They've been
-friends ever since. (`FLAG_BROKER_STEVEN_MENTION`) 📝 **Add:** since lending
-the Metagross, he's been looking into why the Frontier's Pokémon won't grow.
-That's what gets him arrested.
+friends ever since. Since lending the Metagross, he's been looking into why
+the Frontier's Pokémon won't grow, which is what gets him arrested.
+(`FLAG_BROKER_STEVEN_MENTION`)
 
-**After gauntlet 6: the arrest** 📝 (`storyline.md`, "After gauntlet 6: the
+**After gauntlet 6: the arrest** ✅ (`storyline.md`, "After gauntlet 6: the
 Broker's letter"). Scott, Noland, Greta and a security guard detain him for
 selling Frontier property and the missing MASTER BALL. He drops a letter to
 Steven at the player's feet as he's led away. He's held in the Battle Factory,
