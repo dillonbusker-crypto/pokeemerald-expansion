@@ -4,6 +4,11 @@
 
 #define PARTNER_NONE 0
 #define PARTNER_STEVEN 1
-#define PARTNER_COUNT 2
+// Ten Gauntlets: the rival, tag-teaming outside PROF. BIRCH's lab.
+#define PARTNER_RIVAL_MAY 2
+#define PARTNER_RIVAL_BRENDAN_FIRE 3
+#define PARTNER_RIVAL_BRENDAN_WATER 4
+#define PARTNER_RIVAL_BRENDAN_GRASS 5
+#define PARTNER_COUNT 6
 
 #endif  // GUARD_CONSTANTS_BATTLE_PARTNERS_H

@@ -42,3 +42,161 @@ EVs: 252 Atk / 252 SpA / 6 SpD
 - Protect
 - Solar Beam
 - Dragon Claw
+
+/* Ten Gauntlets: the rival as the player's tag partner outside PROF. BIRCH's
+ * lab (storyline.md). MAY brings her own trio, the same whatever the
+ * starter. BRENDAN brings three from his Tower rematch team (TRAINER_
+ * FRONTIER_RIVAL_*): his starter, MIGHTYENA and MASQUERAIN, with MARSHTOMP
+ * swapping Earthquake for Mud Shot so it doesn't hit the player. */
+
+=== PARTNER_RIVAL_MAY ===
+Name: MAY
+Class: Rival
+Pic: May
+Gender: Female
+Music: Female
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware
+
+Azumarill @ Assault Vest
+Ability: Huge Power
+Level: 50
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Aqua Jet
+- Liquidation
+- Play Rough
+- Knock Off
+
+Gengar @ Focus Sash
+Ability: Cursed Body
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Shadow Ball
+- Sludge Bomb
+- Dazzling Gleam
+- Protect
+
+Hawlucha
+Ability: Mold Breaker
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Acrobatics
+- Close Combat
+- Swords Dance
+- Protect
+
+=== PARTNER_RIVAL_BRENDAN_FIRE ===
+Name: BRENDAN
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware
+
+Combusken
+Ability: Blaze
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Flare Blitz
+- Sky Uppercut
+- Rock Slide
+- Quick Attack
+
+Mightyena
+Ability: Intimidate
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Crunch
+- Play Rough
+- Sucker Punch
+- Ice Fang
+
+Masquerain
+Ability: Intimidate
+Level: 50
+EVs: 252 SpA / 4 Def / 252 Spe
+Timid Nature
+- Air Slash
+- Bug Buzz
+- Ice Beam
+- Stun Spore
+
+=== PARTNER_RIVAL_BRENDAN_WATER ===
+Name: BRENDAN
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware
+
+Marshtomp
+Ability: Torrent
+Level: 50
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+- Liquidation
+- Mud Shot
+- Rock Slide
+- Yawn
+
+Mightyena
+Ability: Intimidate
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Crunch
+- Play Rough
+- Sucker Punch
+- Ice Fang
+
+Masquerain
+Ability: Intimidate
+Level: 50
+EVs: 252 SpA / 4 Def / 252 Spe
+Timid Nature
+- Air Slash
+- Bug Buzz
+- Ice Beam
+- Stun Spore
+
+=== PARTNER_RIVAL_BRENDAN_GRASS ===
+Name: BRENDAN
+Class: Rival
+Pic: Brendan
+Gender: Male
+Music: Male
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware
+
+Grovyle
+Ability: Overgrow
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Leaf Blade
+- X-Scissor
+- Brick Break
+- Quick Attack
+
+Mightyena
+Ability: Intimidate
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Crunch
+- Play Rough
+- Sucker Punch
+- Ice Fang
+
+Masquerain
+Ability: Intimidate
+Level: 50
+EVs: 252 SpA / 4 Def / 252 Spe
+Timid Nature
+- Air Slash
+- Bug Buzz
+- Ice Beam
+- Stun Spore

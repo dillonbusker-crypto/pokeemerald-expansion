@@ -1072,8 +1072,9 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 @ Ten Gauntlets: Birch's lab arc, after gauntlet 5 (storyline.md;
 @ VAR_BIRCH_STORY_STATE, see BattleFrontier_OutsideWest). Outside the lab:
 @ state 1, a man in a suit blocks the door with WALLACE and the rival in front
-@ of him (walking up plays the scene); state 2, WALLACE is inside, the man has
-@ stepped aside and the rival waits; state 3, WALLACE and the rival face each
+@ of him (walking up plays the scene: three more of DEVON's men rush in, and
+@ the player and the rival tag-team two of them); state 2, WALLACE is inside,
+@ DEVON's men have fled and the rival waits; state 3, WALLACE and the rival face each
 @ other by the door (talking to either plays the debrief). From state 4 the
 @ rival is in the lab, and until the family scene (state 5) the way out to
 @ ROUTE 101 sends the player home first.
@@ -1081,6 +1082,9 @@ LittlerootTown_EventScript_SetupBirchStory::
 	setflag FLAG_TEMP_1
 	setflag FLAG_TEMP_2
 	setflag FLAG_TEMP_3
+	setflag FLAG_TEMP_4
+	setflag FLAG_TEMP_5
+	setflag FLAG_TEMP_6
 	setvar VAR_TEMP_1, 1
 	setvar VAR_TEMP_2, 1
 	switch VAR_BIRCH_STORY_STATE
@@ -1098,10 +1102,7 @@ LittlerootTown_EventScript_SetupLabDoor::
 	return
 
 LittlerootTown_EventScript_SetupWallaceInside::
-	clearflag FLAG_TEMP_1
 	clearflag FLAG_TEMP_3
-	setobjectxyperm LOCALID_LITTLEROOT_SUIT, 8, 17
-	setobjectmovementtype LOCALID_LITTLEROOT_SUIT, MOVEMENT_TYPE_FACE_LEFT
 	setobjectxyperm LOCALID_LITTLEROOT_LAB_RIVAL, 6, 18
 	setobjectmovementtype LOCALID_LITTLEROOT_LAB_RIVAL, MOVEMENT_TYPE_FACE_UP
 	return
@@ -1133,12 +1134,69 @@ LittlerootTown_EventScript_LabDoorTalk::
 	waitmovement 0
 	msgbox LittlerootTown_Text_LabDoor1, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_LITTLEROOT_LAB_RIVAL, LittlerootTown_Movement_RivalStepForward
+	@ Three more of DEVON's men rush in from the north: one to WALLACE's
+	@ right, two down the west edge to face the rival (5, 18) and the
+	@ player, who hurries to the rival's side at (5, 19).
+	clearflag FLAG_TEMP_4
+	clearflag FLAG_TEMP_5
+	clearflag FLAG_TEMP_6
+	addobject LOCALID_LITTLEROOT_AGENT_A
+	addobject LOCALID_LITTLEROOT_AGENT_B
+	addobject LOCALID_LITTLEROOT_AGENT_C
+	call LittlerootTown_EventScript_LabPlayerToRival
+	applymovement LOCALID_LITTLEROOT_AGENT_A, LittlerootTown_Movement_AgentAIn
+	applymovement LOCALID_LITTLEROOT_AGENT_B, LittlerootTown_Movement_AgentBIn
+	applymovement LOCALID_LITTLEROOT_AGENT_C, LittlerootTown_Movement_AgentCIn
+	waitmovement 0
+	applymovement LOCALID_LITTLEROOT_LAB_RIVAL, Common_Movement_WalkInPlaceFasterLeft
+	applymovement LOCALID_LITTLEROOT_WALLACE, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	msgbox LittlerootTown_Text_LabWallaceTakesTwo, MSGBOX_DEFAULT
+	msgbox LittlerootTown_Text_LabRivalTagTeam, MSGBOX_DEFAULT
+	closemessage
+	special SaveFacilityHeldItems
+LittlerootTown_EventScript_LabTagBattle::
+	special SavePlayerParty
+	fadescreen FADE_TO_BLACK
+	special ChooseHalfPartyForBattle
+	goto_if_ne VAR_RESULT, 0, LittlerootTown_EventScript_LabTagBattleStart
+	special LoadPlayerParty
+	msgbox LittlerootTown_Text_LabTagPickTeam, MSGBOX_DEFAULT
+	closemessage
+	goto LittlerootTown_EventScript_LabTagBattle
+
+@ A story fight, not part of a run: no white-out on a loss, the team is
+@ healed and its held items put back either way, and a loss just means
+@ trying again.
+LittlerootTown_EventScript_LabTagBattleStart::
+	call LittlerootTown_EventScript_LabTagBattleWithRival
+	special RestoreFacilityHeldItems
+	special HealPlayerParty
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, LittlerootTown_EventScript_LabTagWon
+	msgbox LittlerootTown_Text_LabTagLost, MSGBOX_DEFAULT
+	closemessage
+	goto LittlerootTown_EventScript_LabTagBattle
+
+LittlerootTown_EventScript_LabTagWon::
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	msgbox LittlerootTown_Text_LabAgentsFallBack, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_LITTLEROOT_SUIT, LittlerootTown_Movement_SuitFlees
+	applymovement LOCALID_LITTLEROOT_AGENT_A, LittlerootTown_Movement_AgentAFlees
+	applymovement LOCALID_LITTLEROOT_AGENT_B, LittlerootTown_Movement_AgentBFlees
+	applymovement LOCALID_LITTLEROOT_AGENT_C, LittlerootTown_Movement_AgentCFlees
+	waitmovement 0
+	removeobject LOCALID_LITTLEROOT_SUIT
+	removeobject LOCALID_LITTLEROOT_AGENT_A
+	removeobject LOCALID_LITTLEROOT_AGENT_B
+	removeobject LOCALID_LITTLEROOT_AGENT_C
+	applymovement LOCALID_LITTLEROOT_LAB_RIVAL, Common_Movement_WalkInPlaceFasterRight
+	applymovement LOCALID_LITTLEROOT_WALLACE, Common_Movement_WalkInPlaceFasterLeft
 	waitmovement 0
 	msgbox LittlerootTown_Text_LabDoor2, MSGBOX_DEFAULT
 	closemessage
-	applymovement LOCALID_LITTLEROOT_SUIT, LittlerootTown_Movement_SuitStepAside
-	waitmovement 0
 	applymovement LOCALID_LITTLEROOT_WALLACE, LittlerootTown_Movement_WallaceToDoor
 	waitmovement 0
 	opendoor 7, 16
@@ -1152,14 +1210,248 @@ LittlerootTown_EventScript_LabDoorTalk::
 	releaseall
 	end
 
-LittlerootTown_Movement_RivalStepForward:
-	walk_right
-	face_up
+@ The player joins the rival from wherever the scene started: one of the
+@ tiles at x 4 (rows 17-19) or x 10 (rows 16-19).
+LittlerootTown_EventScript_LabPlayerToRival::
+	goto_if_eq VAR_0x8004, 4, LittlerootTown_EventScript_LabPlayerFromLeft
+	switch VAR_0x8005
+	case 16, LittlerootTown_EventScript_LabPlayerFromRight16
+	case 17, LittlerootTown_EventScript_LabPlayerFromRight17
+	case 18, LittlerootTown_EventScript_LabPlayerFromRight18
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerFromRight19
+	return
+
+LittlerootTown_EventScript_LabPlayerFromRight16::
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerFromRight16
+	return
+
+LittlerootTown_EventScript_LabPlayerFromRight17::
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerFromRight17
+	return
+
+LittlerootTown_EventScript_LabPlayerFromRight18::
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerFromRight18
+	return
+
+LittlerootTown_EventScript_LabPlayerFromLeft::
+	switch VAR_0x8005
+	case 17, LittlerootTown_EventScript_LabPlayerFromLeft17
+	case 18, LittlerootTown_EventScript_LabPlayerFromLeft18
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerFromLeft19
+	return
+
+LittlerootTown_EventScript_LabPlayerFromLeft17::
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerFromLeft17
+	return
+
+LittlerootTown_EventScript_LabPlayerFromLeft18::
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_PlayerFromLeft18
+	return
+
+@ MAY brings the same trio whatever the starter; BRENDAN's half follows his
+@ starter, as in the Tower rematch (VAR_STARTER_MON: 1 water, 2 grass,
+@ otherwise fire).
+LittlerootTown_EventScript_LabTagBattleWithRival::
+	checkplayergender
+	goto_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_LabTagWithBrendan
+	multi_2_vs_2 TRAINER_LITTLEROOT_DEVON_AGENT_1, LittlerootTown_Text_Agent1Defeat, TRAINER_LITTLEROOT_DEVON_AGENT_2, LittlerootTown_Text_Agent2Defeat, PARTNER_RIVAL_MAY
+	return
+
+LittlerootTown_EventScript_LabTagWithBrendan::
+	switch VAR_STARTER_MON
+	case 1, LittlerootTown_EventScript_LabTagWithBrendanWater
+	case 2, LittlerootTown_EventScript_LabTagWithBrendanGrass
+	multi_2_vs_2 TRAINER_LITTLEROOT_DEVON_AGENT_1, LittlerootTown_Text_Agent1Defeat, TRAINER_LITTLEROOT_DEVON_AGENT_2, LittlerootTown_Text_Agent2Defeat, PARTNER_RIVAL_BRENDAN_FIRE
+	return
+
+LittlerootTown_EventScript_LabTagWithBrendanWater::
+	multi_2_vs_2 TRAINER_LITTLEROOT_DEVON_AGENT_1, LittlerootTown_Text_Agent1Defeat, TRAINER_LITTLEROOT_DEVON_AGENT_2, LittlerootTown_Text_Agent2Defeat, PARTNER_RIVAL_BRENDAN_WATER
+	return
+
+LittlerootTown_EventScript_LabTagWithBrendanGrass::
+	multi_2_vs_2 TRAINER_LITTLEROOT_DEVON_AGENT_1, LittlerootTown_Text_Agent1Defeat, TRAINER_LITTLEROOT_DEVON_AGENT_2, LittlerootTown_Text_Agent2Defeat, PARTNER_RIVAL_BRENDAN_GRASS
+	return
+
+LittlerootTown_Movement_PlayerFromLeft17:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_right
+	face_left
 	step_end
 
-LittlerootTown_Movement_SuitStepAside:
-	walk_right
+LittlerootTown_Movement_PlayerFromLeft18:
+	walk_fast_down
+	walk_fast_right
 	face_left
+	step_end
+
+LittlerootTown_Movement_PlayerFromLeft19:
+	walk_fast_right
+	face_left
+	step_end
+
+LittlerootTown_Movement_PlayerFromRight16:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	face_left
+	step_end
+
+LittlerootTown_Movement_PlayerFromRight17:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	face_left
+	step_end
+
+LittlerootTown_Movement_PlayerFromRight18:
+	walk_fast_down
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	face_left
+	step_end
+
+LittlerootTown_Movement_PlayerFromRight19:
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	face_left
+	step_end
+
+@ A: down the x 11 column to WALLACE's right, (8, 18).
+LittlerootTown_Movement_AgentAIn:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	face_left
+	step_end
+
+@ B: down the x 1 column, then round to face the rival from (4, 18).
+LittlerootTown_Movement_AgentBIn:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_right
+	walk_fast_down
+	walk_fast_right
+	walk_fast_right
+	face_right
+	step_end
+
+@ C: down the x 0 column a step behind B, to face the player from (4, 19).
+LittlerootTown_Movement_AgentCIn:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_right
+	walk_fast_right
+	walk_fast_down
+	walk_fast_down
+	walk_fast_right
+	walk_fast_right
+	face_right
+	step_end
+
+@ They flee the way they came; the first man takes the x 10 column.
+LittlerootTown_Movement_SuitFlees:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+
+LittlerootTown_Movement_AgentAFlees:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+
+LittlerootTown_Movement_AgentBFlees:
+	walk_fast_left
+	walk_fast_left
+	walk_fast_up
+	walk_fast_left
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+
+LittlerootTown_Movement_AgentCFlees:
+	walk_fast_left
+	walk_fast_left
+	walk_fast_up
+	walk_fast_up
+	walk_fast_left
+	walk_fast_left
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
 	step_end
 
 LittlerootTown_Movement_WallaceToDoor:
@@ -1277,22 +1569,48 @@ LittlerootTown_Text_LabDoor1:
 	.string "WALLACE: Then I suppose I'll have\n"
 	.string "to find another way to make you\l"
 	.string "move.\p"
-	.string "MAN IN SUIT: ...All right, all\n"
-	.string "right! The PROFESSOR is overdue on\l"
-	.string "his loans.\p"
-	.string "DEVON funded his research, and\n"
-	.string "DEVON wants what it's owed.$"
+	.string "MAN IN SUIT: Another way? Ha!\n"
+	.string "Bring it on, CHAMPION.\p"
+	.string "Boys!$"
+
+LittlerootTown_Text_LabWallaceTakesTwo:
+	.string "WALLACE: Four of DEVON's finest.\n"
+	.string "How flattering.\p"
+	.string "I'll handle these two.\n"
+	.string "{PLAYER}, {RIVAL}... can you two\l"
+	.string "take the others?$"
+
+LittlerootTown_Text_LabRivalTagTeam:
+	.string "{RIVAL}: You bet we can!\p"
+	.string "{PLAYER}, let's do this. Together!$"
+
+LittlerootTown_Text_LabTagPickTeam:
+	.string "{RIVAL}: {PLAYER}! Pick your\n"
+	.string "POKéMON, quick!$"
+
+LittlerootTown_Text_LabTagLost:
+	.string "{RIVAL}: Ugh... They're tough.\p"
+	.string "Come on, {PLAYER}! One more time!$"
+
+LittlerootTown_Text_Agent1Defeat:
+	.string "This wasn't in the briefing...$"
+
+LittlerootTown_Text_Agent2Defeat:
+	.string "The PRESIDENT won't like this.$"
+
+LittlerootTown_Text_LabAgentsFallBack:
+	.string "MAN IN SUIT: ...Tch. Fine.\p"
+	.string "This changes nothing. The\n"
+	.string "PROFESSOR is overdue on his loans,\l"
+	.string "and DEVON wants what it's owed.\p"
+	.string "Fall back!$"
 
 LittlerootTown_Text_LabDoor2:
 	.string "{RIVAL}: Loans? Dad never said a\n"
 	.string "word about any loan! This is a\l"
 	.string "load of garbage!\p"
-	.string "MAN IN SUIT: Kid, maybe you don't\n"
-	.string "know as much about the PROFESSOR's\l"
-	.string "business as you think you do.\p"
-	.string "WALLACE: That's enough. Step\n"
-	.string "aside. Now. Or I'll move you\l"
-	.string "myself.$"
+	.string "WALLACE: Then let's find out what's\n"
+	.string "really going on.$"
 
 LittlerootTown_Text_LabSuitNoEntry:
 	.string "MAN IN SUIT: Nobody goes in.\n"
@@ -1306,8 +1624,9 @@ LittlerootTown_Text_LabWallaceWait:
 	.string "WALLACE: Stay close, {PLAYER}.$"
 
 LittlerootTown_Text_LabRivalWaiting:
-	.string "{RIVAL}: Go on, {PLAYER}! I'm\n"
-	.string "keeping an eye on this guy.\p"
+	.string "{RIVAL}: Go on, {PLAYER}! I'll keep\n"
+	.string "watch out here, in case they come\l"
+	.string "back.\p"
 	.string "Just make sure Dad's okay.$"
 
 LittlerootTown_Text_LabRivalSeeFolks:
@@ -1330,13 +1649,16 @@ LittlerootTown_Text_LabDebriefWallace:
 	.string "other.$"
 
 LittlerootTown_Text_LabDebriefRival:
-	.string "{RIVAL}: {PLAYER}... Can I be\n"
-	.string "honest? I'm getting cold feet\l"
+	.string "{RIVAL}: {PLAYER}... that felt good\n"
+	.string "back there. Winning, I mean. With\l"
+	.string "you.\p"
+	.string "I haven't won much lately. I never\n"
+	.string "made it past gauntlet 2. JUAN\l"
+	.string "washes me out every single time.\p"
+	.string "Honestly? I'm getting cold feet\n"
 	.string "about the FRONTIER.\p"
-	.string "I never made it past gauntlet 2.\n"
-	.string "And after today, Dad needs someone\l"
-	.string "here more than I need another loss\l"
-	.string "to JUAN.\p"
+	.string "And after today, Dad needs someone\n"
+	.string "here more than I need another loss.\p"
 	.string "So I'm staying in LITTLEROOT for a\n"
 	.string "while, to help out at the lab.$"
 

@@ -24321,3 +24321,91 @@ Timid Nature
 - Dark Pulse
 - Overheat
 - Snarl
+
+/* Ten Gauntlets: the Birch arc (storyline.md, "After gauntlet 5"). Two of
+ * DEVON's men outside PROF. BIRCH's lab, fought as a tag battle with the
+ * rival as the player's partner (each side brings three). DEVON's tech:
+ * Steel, Electric and the Porygon line, with two Trick Room setters. Held
+ * items stay within what the shop has sold by gauntlet 6 (waves 0-5). */
+
+=== TRAINER_LITTLEROOT_DEVON_AGENT_1 ===
+Name: MARLOW
+Class: Devon Agent
+Pic: Gentleman
+Gender: Male
+Music: Suspicious
+Double Battle: Yes
+Multi Party: Half
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Magnezone @ Choice Specs
+Ability: Magnet Pull
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Thunderbolt
+- Flash Cannon
+- Volt Switch
+- Tri Attack
+
+Porygon2 @ Eviolite
+Ability: Download
+Level: 50
+EVs: 252 HP / 4 Def / 252 SpD
+IVs: 0 Spe
+Sassy Nature
+- Trick Room
+- Tri Attack
+- Ice Beam
+- Recover
+
+Klinklang @ Life Orb
+Ability: Clear Body
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Shift Gear
+- Gear Grind
+- Wild Charge
+- Protect
+
+=== TRAINER_LITTLEROOT_DEVON_AGENT_2 ===
+Name: PIERCE
+Class: Devon Agent
+Pic: Gentleman
+Gender: Male
+Music: Suspicious
+Double Battle: Yes
+Multi Party: Half
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Rotom-Wash @ Leftovers
+Ability: Levitate
+Level: 50
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Hydro Pump
+- Thunderbolt
+- Will-O-Wisp
+- Protect
+
+Bronzong @ Mental Herb
+Ability: Levitate
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+IVs: 0 Spe
+Relaxed Nature
+- Trick Room
+- Gyro Ball
+- Body Press
+- Protect
+
+Porygon-Z @ Choice Scarf
+Ability: Adaptability
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Tri Attack
+- Ice Beam
+- Thunderbolt
+- Shadow Ball

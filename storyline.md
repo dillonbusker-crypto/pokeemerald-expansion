@@ -348,11 +348,14 @@ Stone paused gauntlet 6 from Devon's control room in the Factory.
    rival a couple of tiles away. The man says it's none of their business.
    Wallace: he's the Champion, and one phone call would get President Stone
    on the line. "Call him all you like. The President is... busy." Wallace has
-   other ways of making him move, and the man cracks: Birch is overdue on
-   loans from Devon for his research. The rival steps forward: they never
-   heard of any loan. The man suggests the rival doesn't know as much about
-   the Professor's business as they think. Wallace tells him to step aside,
-   he does, and Wallace rushes in. The rival waits outside.
+   other ways of making him move. The man doesn't crack: "Bring it on,
+   Champion." Three more of Devon's men rush in. One squares up to Wallace,
+   who takes the first man and him; the other two face the player and the
+   rival. **A tag battle** ✅: the player and the rival against two Devon
+   Agents (each side brings three; a loss means trying again, no white-out).
+   Beaten, the first man spits out that Birch is overdue on loans from Devon,
+   and they fall back. The rival never heard of any loan. Wallace rushes in;
+   the rival keeps watch outside.
 5. **Inside.** By the Poké Ball machine, Birch faces **President Stone**,
    two men in suits behind him. Wallace stands a few tiles back. Coming in,
    the player walks up beside him and the scene plays. Birch: they had a deal, better equipment, and
@@ -371,7 +374,8 @@ Stone paused gauntlet 6 from Devon's control room in the Factory.
 6. **Outside.** Wallace and the rival face each other by the door. Wallace:
    there's more to this than they're being told; he'll report to Steven, and
    tell him something is going on with his father. He **flies off**. The
-   rival is getting cold feet about the Frontier: stuck on gauntlet 2, they'll
+   rival is glad they won together, but getting cold feet about the Frontier:
+   stuck on gauntlet 2, they'll
    stay in Littleroot and help at the lab (they're there from now on).
    They hand the player the **1,000 FP** they'd saved up.
 7. **Home first.** Leaving Littleroot now stops the player: "I should
@@ -744,10 +748,10 @@ happy ending.
 
   | Content | Running total |
   |---|---|
-  | Built now (all eight gauntlets, story trainers) | 961 |
-  | Seven Brain rematches, Scott ×2 | 970 |
-  | Elite Four (Rustboro), Archie, Maxie | 976 |
-  | Elite Four again at Sky Pillar, only if the player fights them there | 980 |
+  | Built now (all eight gauntlets, story trainers, the two Devon Agents) | 963 |
+  | Seven Brain rematches, Scott ×2 | 972 |
+  | Elite Four (Rustboro), Archie, Maxie | 978 |
+  | Elite Four again at Sky Pillar, only if the player fights them there | 982 |
 
   Past the limit, a trainer silently shares its "defeated" flag with a system
   flag (see CLAUDE.md). There's room to spare, but the Arena's mock battles

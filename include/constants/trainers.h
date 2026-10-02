@@ -522,6 +522,7 @@ enum TrainerClassID
     TRAINER_CLASS_LADY_FRLG,
     TRAINER_CLASS_PAINTER_FRLG,
     TRAINER_CLASS_WARDEN, // Ten Gauntlets: the Gym Leaders guarding gauntlets 1-3
+    TRAINER_CLASS_DEVON_AGENT, // Ten Gauntlets: DEVON's men in suits (the Birch arc, storyline.md)
 
     TRAINER_CLASS_COUNT,
 };

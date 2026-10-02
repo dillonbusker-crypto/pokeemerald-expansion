@@ -991,6 +991,10 @@
 #define TRAINER_FACILITY_B8_D12_FAIRYRING       959
 #define TRAINER_FACILITY_B8_BOSS_BRANDON        960
 
+// Ten Gauntlets: the Birch arc's tag battle outside the lab (storyline.md).
+#define TRAINER_LITTLEROOT_DEVON_AGENT_1        961
+#define TRAINER_LITTLEROOT_DEVON_AGENT_2        962
+
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
 //       the system flags (Pokedex, badges, ...) start right after it, so an ID at or past this limit
@@ -1004,7 +1008,7 @@
 //       so it invalidates existing saves - don't grow it again casually. Costs ~14 bytes of SaveBlock1
 //       (304 B free, see save-data-findings.md), checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
 
-#define TRAINERS_COUNT_EMERALD     961
+#define TRAINERS_COUNT_EMERALD     963
 #define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG
