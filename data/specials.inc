@@ -81,6 +81,8 @@ gSpecials::
 	def_special GiveFrontierStartingFPAndHMs
 	def_special RemoveFrontierHMs
 	def_special FrontierFloristTakeMon
+	def_special StripBirchsLab
+	def_special GiveStevenLatiBack
 	def_special HasReceivedFrontierStartingGrants
 	def_special GetGauntletsClearedCount
 	def_special SetCableClubWarp

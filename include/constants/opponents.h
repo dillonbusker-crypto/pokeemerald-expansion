@@ -995,6 +995,11 @@
 #define TRAINER_LITTLEROOT_DEVON_AGENT_1        961
 #define TRAINER_LITTLEROOT_DEVON_AGENT_2        962
 
+// Ten Gauntlets: the Crown is taken, after gauntlet 7 (storyline.md). Fought
+// back to back at BIRCH's lab door.
+#define TRAINER_LITTLEROOT_GRETA                963
+#define TRAINER_LITTLEROOT_NOLAND               964
+
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
 //       the system flags (Pokedex, badges, ...) start right after it, so an ID at or past this limit
@@ -1008,7 +1013,7 @@
 //       so it invalidates existing saves - don't grow it again casually. Costs ~14 bytes of SaveBlock1
 //       (304 B free, see save-data-findings.md), checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
 
-#define TRAINERS_COUNT_EMERALD     963
+#define TRAINERS_COUNT_EMERALD     965
 #define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG

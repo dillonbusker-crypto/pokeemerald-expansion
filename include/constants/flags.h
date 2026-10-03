@@ -82,19 +82,19 @@
 #define FLAG_HIDE_BROKER_STORY_WALLACE    0x33 // Ten Gauntlets: the Broker's letter - shown/hidden on every map load (storyline.md)
 #define FLAG_HIDE_BROKER_STORY_PIKE_STEVEN    0x34 // Ten Gauntlets: the Broker's letter - shown/hidden on every map load (storyline.md)
 #define FLAG_HIDE_BROKER_STORY_FACTORY_LOOKER    0x35 // Ten Gauntlets: the Broker's letter - shown/hidden on every map load (storyline.md)
-#define FLAG_UNUSED_0x036    0x36 // Unused Flag
-#define FLAG_UNUSED_0x037    0x37 // Unused Flag
-#define FLAG_UNUSED_0x038    0x38 // Unused Flag
-#define FLAG_UNUSED_0x039    0x39 // Unused Flag
-#define FLAG_UNUSED_0x03A    0x3A // Unused Flag
-#define FLAG_UNUSED_0x03B    0x3B // Unused Flag
-#define FLAG_UNUSED_0x03C    0x3C // Unused Flag
-#define FLAG_UNUSED_0x03D    0x3D // Unused Flag
-#define FLAG_UNUSED_0x03E    0x3E // Unused Flag
-#define FLAG_UNUSED_0x03F    0x3F // Unused Flag
-#define FLAG_UNUSED_0x040    0x40 // Unused Flag
-#define FLAG_UNUSED_0x041    0x41 // Unused Flag
-#define FLAG_UNUSED_0x042    0x42 // Unused Flag
+#define FLAG_HIDE_CROWN_STORY_NOLAND    0x36 // Ten Gauntlets: the Crown is taken - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_CROWN_STORY_GRETA    0x37 // Ten Gauntlets: the Crown is taken - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_CROWN_STORY_LITTLEROOT_SCOTT    0x38 // Ten Gauntlets: the Crown is taken - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_CROWN_STORY_LITTLEROOT_STEVEN    0x39 // Ten Gauntlets: the Crown is taken - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_CROWN_STORY_SCOTT_HOME    0x3A // Ten Gauntlets: the Crown is taken - SCOTT is away from his house (storyline.md)
+#define FLAG_HIDE_CROWN_STORY_MASTER_BALL    0x3B // Ten Gauntlets: the Crown is taken - the MASTER BALL (MEWTWO) is gone from SCOTT's house
+#define FLAG_HIDE_CROWN_STORY_FACTORY_SCOTT    0x3C // Ten Gauntlets: the Crown is taken - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_CROWN_STORY_MEWTWO    0x3D // Ten Gauntlets: the Crown is taken - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_CROWN_STORY_MEGA_MEWTWO    0x3E // Ten Gauntlets: the Crown is taken - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_CROWN_STORY_DIALGA    0x3F // Ten Gauntlets: the Crown is taken - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_CROWN_STORY_FACTORY_STEVEN    0x40 // Ten Gauntlets: the Crown is taken - shown/hidden on every map load (storyline.md)
+#define FLAG_HIDE_CROWN_STORY_LAB_AIDE    0x41 // Ten Gauntlets: the Crown is taken - BIRCH's aide is gone from the stripped lab
+#define FLAG_CROWN_HELD_ITEMS_SAVED    0x42 // Ten Gauntlets: the Crown is taken - held items snapshotted for NOLAND and GRETA, restored after a white-out
 #define FLAG_UNUSED_0x043    0x43 // Unused Flag
 #define FLAG_UNUSED_0x044    0x44 // Unused Flag
 #define FLAG_UNUSED_0x045    0x45 // Unused Flag

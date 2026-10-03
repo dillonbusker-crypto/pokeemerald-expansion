@@ -27,7 +27,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "BattleFrontier_ScottsHouse_EventScript_Scott",
-      "flag": "0"
+      "flag": "FLAG_HIDE_CROWN_STORY_SCOTT_HOME"
     },
     {
       "local_id": "LOCALID_SCOTTS_HOUSE_NORMAN",
@@ -55,7 +55,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "BattleFrontier_ScottsHouse_EventScript_MasterBall",
-      "flag": "0"
+      "flag": "FLAG_HIDE_CROWN_STORY_MASTER_BALL"
     }
   ],
   "warp_events": [

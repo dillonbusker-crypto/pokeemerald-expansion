@@ -87,4 +87,12 @@ void IsBattlePyramidUnlocked(void);
 // sign event on the outside map explains why.
 bool32 IsFacilityLobbyDoorLocked(u32 mapGroup, u32 mapNum);
 
+// The Crown is taken, after gauntlet 7 (storyline.md). The player's front
+// door is locked until BIRCH's confession (TryDoorWarp runs
+// LittlerootTown_EventScript_HomeDoorLocked instead); StripBirchsLab and
+// GiveStevenLatiBack are specials - see src/facility.c.
+bool32 IsStoryLockedHomeDoor(u32 mapGroup, u32 mapNum);
+void StripBirchsLab(void);
+void GiveStevenLatiBack(void);
+
 #endif // GUARD_FACILITY_H

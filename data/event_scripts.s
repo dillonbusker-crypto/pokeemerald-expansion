@@ -1067,6 +1067,7 @@ EventScript_WhiteOut::
 
 EventScript_AfterWhiteOutHeal::
 	lockall
+	call_if_set FLAG_CROWN_HELD_ITEMS_SAVED, EventScript_RestoreCrownHeldItems
 	call_if_unset FLAG_FRONTIER_FIRST_PATIENT, EventScript_FrontierFirstPatient
 	msgbox gText_FirstShouldRestoreMonsHealth
 	call EventScript_PkmnCenterNurse_TakeAndHealPkmn
@@ -1077,6 +1078,15 @@ EventScript_AfterWhiteOutHeal::
 	fadedefaultbgm
 	releaseall
 	end
+
+@ Ten Gauntlets: the Crown is taken (storyline.md). Losing to NOLAND or GRETA
+@ whites out to OLDALE; the held items they used up come back, as after any
+@ story fight. The snapshot is only in RAM, so the flag guards it: it's set
+@ right before the first battle and never saved while it is.
+EventScript_RestoreCrownHeldItems::
+	special RestoreFacilityHeldItems
+	clearflag FLAG_CROWN_HELD_ITEMS_SAVED
+	return
 
 EventScript_AfterWhiteOutHealMsgPreFirstBoss::
 	msgbox gText_MonsHealedShouldBuyPotions

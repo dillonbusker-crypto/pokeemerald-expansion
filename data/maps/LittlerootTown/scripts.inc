@@ -47,6 +47,7 @@ LittlerootTown_OnTransition:
 	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_EventScript_HideMapNamePopup
 	call_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_EventScript_LeftLabAfterDexUpgrade
 	call LittlerootTown_EventScript_SetupBirchStory
+	call LittlerootTown_EventScript_SetupCrownStory
 	end
 
 LittlerootTown_EventScript_LeftLabAfterDexUpgrade::
@@ -106,6 +107,7 @@ LittlerootTown_OnFrame:
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 1, LittlerootTown_EventScript_StepOffTruckMale
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 2, LittlerootTown_EventScript_StepOffTruckFemale
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_EventScript_BeginDexUpgradeScene
+	map_script_2 VAR_TEMP_3, 1, LittlerootTown_EventScript_CrownScott
 	.2byte 0
 
 LittlerootTown_EventScript_StepOffTruckMale::
@@ -1455,6 +1457,7 @@ LittlerootTown_EventScript_LabWallace::
 
 LittlerootTown_EventScript_LabRival::
 	lock
+	goto_if_ge VAR_CROWN_STORY_STATE, 2, LittlerootTown_EventScript_CrownRival
 	goto_if_eq VAR_BIRCH_STORY_STATE, 3, LittlerootTown_EventScript_LabDebrief
 	faceplayer
 	goto_if_ge VAR_BIRCH_STORY_STATE, 4, LittlerootTown_EventScript_LabRivalSeeFolks
@@ -1504,7 +1507,9 @@ LittlerootTown_EventScript_LabDebrief::
 
 LittlerootTown_EventScript_GoHomeFirst::
 	lockall
+	goto_if_eq VAR_CROWN_STORY_STATE, 5, LittlerootTown_EventScript_CrownGoHomeFirst
 	msgbox LittlerootTown_Text_GoHomeFirst, MSGBOX_DEFAULT
+LittlerootTown_EventScript_GoHomeFirstStepBack:
 	closemessage
 	applymovement LOCALID_PLAYER, Common_Movement_WalkDown
 	waitmovement 0
@@ -1639,3 +1644,523 @@ LittlerootTown_Text_GoHomeFirst:
 	.string "I should probably go home and see\n"
 	.string "Mom and Dad while I'm here.$"
 
+
+@ ============================================================================
+@ Ten Gauntlets: the Crown is taken, after gauntlet 7 (storyline.md).
+@ VAR_CROWN_STORY_STATE: 0 none, 1 gauntlet 7 cleared (the rival waits
+@ outside the Palace), 2 the rival's news and STEVEN's call done (NOLAND and
+@ GRETA guard the lab door), 3 they've warned the player off, 4 both beaten
+@ (the lab is open: BIRCH alone in the stripped lab), 5 BIRCH has confessed
+@ (the player's house unlocks; the way out to ROUTE 101 sends them home
+@ first), 6 the house found empty (SCOTT waits outside it), 7 SCOTT's deal
+@ and STEVEN's vow done (the standoff outside the Factory), 8 STEVEN beaten
+@ (he waits by the Factory with the Lati), 9 done.
+@ Gauntlet 8 (the Pyramid) stays closed until 9. The scenes are at the
+@ Palace (BattleFrontier_OutsideEast), here, in the lab and the player's
+@ house, and outside the Factory (BattleFrontier_OutsideWest).
+@ ============================================================================
+
+@ States 2-4: NOLAND and GRETA block the lab door until beaten, and the rival
+@ waits beside it at (5, 18), where they stood for the Birch arc. States 2-6:
+@ the town's wanderers stay indoors, as in the Birch arc. State 6: SCOTT,
+@ NOLAND and GRETA wait below the player's front door, and the scene plays
+@ when the player steps out of it.
+LittlerootTown_EventScript_SetupCrownStory::
+	setflag FLAG_HIDE_CROWN_STORY_NOLAND
+	setflag FLAG_HIDE_CROWN_STORY_GRETA
+	setflag FLAG_HIDE_CROWN_STORY_LITTLEROOT_SCOTT
+	setflag FLAG_HIDE_CROWN_STORY_LITTLEROOT_STEVEN
+	goto_if_lt VAR_CROWN_STORY_STATE, 2, Common_EventScript_NopReturn
+	goto_if_ge VAR_CROWN_STORY_STATE, 7, Common_EventScript_NopReturn
+	setflag FLAG_TEMP_7
+	setflag FLAG_TEMP_8
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_FAT_MAN
+	call_if_lt VAR_CROWN_STORY_STATE, 4, LittlerootTown_EventScript_ShowCrownGuards
+	call_if_lt VAR_CROWN_STORY_STATE, 5, LittlerootTown_EventScript_ShowCrownRival
+	call_if_eq VAR_CROWN_STORY_STATE, 5, LittlerootTown_EventScript_ArmGoHomeFirst
+	call_if_eq VAR_CROWN_STORY_STATE, 6, LittlerootTown_EventScript_SetupCrownScott
+	return
+
+LittlerootTown_EventScript_ShowCrownGuards::
+	clearflag FLAG_HIDE_CROWN_STORY_NOLAND
+	clearflag FLAG_HIDE_CROWN_STORY_GRETA
+	return
+
+LittlerootTown_EventScript_ShowCrownRival::
+	clearflag FLAG_TEMP_3
+	setobjectxyperm LOCALID_LITTLEROOT_LAB_RIVAL, 5, 18
+	setobjectmovementtype LOCALID_LITTLEROOT_LAB_RIVAL, MOVEMENT_TYPE_FACE_RIGHT
+	return
+
+@ The player's house is BRENDAN's for a boy, MAY's for a girl. SCOTT stands
+@ two tiles below its door, NOLAND and GRETA behind him; STEVEN hides round
+@ the side of the house, out of sight until SCOTT leaves. The scene only
+@ plays when the player has just come out of the door (still on it until the
+@ step down).
+LittlerootTown_EventScript_SetupCrownScott::
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_PlaceCrownScottMale
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_PlaceCrownScottFemale
+	clearflag FLAG_HIDE_CROWN_STORY_LITTLEROOT_SCOTT
+	clearflag FLAG_HIDE_CROWN_STORY_NOLAND
+	clearflag FLAG_HIDE_CROWN_STORY_GRETA
+	getplayerxy VAR_0x8004, VAR_0x8005
+	goto_if_ne VAR_0x8004, VAR_0x8006, Common_EventScript_NopReturn
+	goto_if_ne VAR_0x8005, 8, Common_EventScript_NopReturn
+	setvar VAR_TEMP_3, 1
+	return
+
+LittlerootTown_EventScript_PlaceCrownScottMale::
+	setvar VAR_0x8006, 5
+	setobjectxyperm LOCALID_LITTLEROOT_SCOTT, 5, 11
+	setobjectxyperm LOCALID_LITTLEROOT_NOLAND, 4, 12
+	setobjectxyperm LOCALID_LITTLEROOT_GRETA, 6, 12
+	setobjectxyperm LOCALID_LITTLEROOT_STEVEN, 8, 6
+	call LittlerootTown_EventScript_CrownSquadFaceUp
+	return
+
+LittlerootTown_EventScript_PlaceCrownScottFemale::
+	setvar VAR_0x8006, 14
+	setobjectxyperm LOCALID_LITTLEROOT_SCOTT, 14, 11
+	setobjectxyperm LOCALID_LITTLEROOT_NOLAND, 13, 12
+	setobjectxyperm LOCALID_LITTLEROOT_GRETA, 15, 12
+	setobjectxyperm LOCALID_LITTLEROOT_STEVEN, 11, 6
+	call LittlerootTown_EventScript_CrownSquadFaceUp
+	return
+
+LittlerootTown_EventScript_CrownSquadFaceUp::
+	setobjectmovementtype LOCALID_LITTLEROOT_SCOTT, MOVEMENT_TYPE_FACE_UP
+	setobjectmovementtype LOCALID_LITTLEROOT_NOLAND, MOVEMENT_TYPE_FACE_UP
+	setobjectmovementtype LOCALID_LITTLEROOT_GRETA, MOVEMENT_TYPE_FACE_UP
+	return
+
+LittlerootTown_EventScript_CrownRival::
+	faceplayer
+	goto_if_eq VAR_CROWN_STORY_STATE, 4, LittlerootTown_EventScript_CrownRivalLabOpen
+	msgbox LittlerootTown_Text_CrownRivalBlocked, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_CrownRivalLabOpen::
+	msgbox LittlerootTown_Text_CrownRivalLabOpen, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_EventScript_CrownGoHomeFirst::
+	msgbox LittlerootTown_Text_CrownGoHomeFirst, MSGBOX_DEFAULT
+	goto LittlerootTown_EventScript_GoHomeFirstStepBack
+
+@ Walking into the player's own front door, states 2-4 (TryDoorWarp, see
+@ IsStoryLockedHomeDoor in src/facility.c).
+LittlerootTown_EventScript_HomeDoorLocked::
+	lockall
+	msgbox LittlerootTown_Text_HomeDoorLocked, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ NOLAND (7, 17) and GRETA (8, 17) stand shoulder to shoulder in front of the
+@ lab door. The first talk is their warning (state 3); after that, they offer
+@ the fight. A loss on either battle whites out to OLDALE, and both have to be
+@ beaten again.
+LittlerootTown_EventScript_CrownGuards::
+	lock
+	applymovement LOCALID_LITTLEROOT_NOLAND, Common_Movement_FacePlayer
+	applymovement LOCALID_LITTLEROOT_GRETA, Common_Movement_FacePlayer
+	waitmovement 0
+	goto_if_ge VAR_CROWN_STORY_STATE, 3, LittlerootTown_EventScript_CrownGuardsWarning
+	msgbox LittlerootTown_Text_CrownGuardsFirst, MSGBOX_DEFAULT
+	setvar VAR_CROWN_STORY_STATE, 3
+	release
+	end
+
+LittlerootTown_EventScript_CrownGuardsWarning::
+	msgbox LittlerootTown_Text_CrownGuardsLastWarning, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, LittlerootTown_EventScript_CrownGuardsFight
+	msgbox LittlerootTown_Text_CrownGuardsNo, MSGBOX_DEFAULT
+	release
+	end
+
+@ The player squares up at (7, 18), below NOLAND, wherever they talked from:
+@ (7, 18) itself, below GRETA at (8, 18), or beside her at (9, 17). No heal
+@ between the two battles - the SCRAMBLER is on - and the held items come
+@ back afterwards, win or white-out (EventScript_RestoreCrownHeldItems).
+LittlerootTown_EventScript_CrownGuardsFight::
+	closemessage
+	getplayerxy VAR_0x8004, VAR_0x8005
+	call_if_eq VAR_0x8004, 8, LittlerootTown_EventScript_CrownPlayerFromBelowGreta
+	call_if_eq VAR_0x8004, 9, LittlerootTown_EventScript_CrownPlayerFromBesideGreta
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_LITTLEROOT_NOLAND, Common_Movement_FaceDown
+	applymovement LOCALID_LITTLEROOT_GRETA, Common_Movement_FaceDown
+	waitmovement 0
+	playse SE_PC_OFF
+	msgbox LittlerootTown_Text_CrownUsedScrambler, MSGBOX_DEFAULT
+	waitse
+	msgbox LittlerootTown_Text_CrownGuardsGuts, MSGBOX_DEFAULT
+	closemessage
+	setflag FLAG_CROWN_HELD_ITEMS_SAVED
+	special SaveFacilityHeldItems
+	setrespawn HEAL_LOCATION_OLDALE_TOWN
+	trainerbattle_no_intro TRAINER_LITTLEROOT_GRETA, LittlerootTown_Text_CrownGretaDefeat
+	msgbox LittlerootTown_Text_CrownNolandNext, MSGBOX_DEFAULT
+	closemessage
+	trainerbattle_no_intro TRAINER_LITTLEROOT_NOLAND, LittlerootTown_Text_CrownNolandDefeat
+	special RestoreFacilityHeldItems
+	clearflag FLAG_CROWN_HELD_ITEMS_SAVED
+	msgbox LittlerootTown_Text_CrownGuardsBeaten, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_LITTLEROOT_GRETA, LittlerootTown_Movement_GretaLeavesLab
+	applymovement LOCALID_LITTLEROOT_NOLAND, LittlerootTown_Movement_NolandLeavesLab
+	waitmovement 0
+	removeobject LOCALID_LITTLEROOT_GRETA
+	removeobject LOCALID_LITTLEROOT_NOLAND
+	setvar VAR_CROWN_STORY_STATE, 4
+	release
+	end
+
+LittlerootTown_EventScript_CrownPlayerFromBelowGreta::
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_CrownFromBelowGreta
+	waitmovement 0
+	return
+
+LittlerootTown_EventScript_CrownPlayerFromBesideGreta::
+	applymovement LOCALID_PLAYER, LittlerootTown_Movement_CrownFromBesideGreta
+	waitmovement 0
+	return
+
+LittlerootTown_Movement_CrownFromBelowGreta:
+	walk_left
+	step_end
+
+LittlerootTown_Movement_CrownFromBesideGreta:
+	walk_down
+	walk_left
+	walk_left
+	step_end
+
+@ Off along row 17 to the east, out of sight past x 14.
+LittlerootTown_Movement_GretaLeavesLab:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+LittlerootTown_Movement_NolandLeavesLab:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+@ State 6: the player steps out of their empty house. SCOTT steps up to them
+@ for the deal and takes the real badges (FLAG_REAL_BADGES, so even the Lati
+@ stops growing - FrontierStoryAllowsExp()), then leaves with NOLAND and
+@ GRETA, out of sight to the side. STEVEN comes round the house: he heard
+@ everything, and flies off to end it.
+LittlerootTown_EventScript_CrownScott::
+	lockall
+	setvar VAR_TEMP_3, 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox LittlerootTown_Text_CrownScott1, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_LITTLEROOT_SCOTT, Common_Movement_WalkUp
+	waitmovement 0
+	msgbox LittlerootTown_Text_CrownScott2, MSGBOX_DEFAULT
+	playse SE_PIN
+	message LittlerootTown_Text_CrownBadgesSwapped
+	waitmessage
+	waitse
+	waitbuttonpress
+	clearflag FLAG_REAL_BADGES
+	msgbox LittlerootTown_Text_CrownScott3, MSGBOX_DEFAULT
+	closemessage
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_CrownSquadLeavesEast
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_CrownSquadLeavesWest
+	waitmovement 0
+	removeobject LOCALID_LITTLEROOT_SCOTT
+	removeobject LOCALID_LITTLEROOT_NOLAND
+	removeobject LOCALID_LITTLEROOT_GRETA
+	delay 40
+	clearflag FLAG_HIDE_CROWN_STORY_LITTLEROOT_STEVEN
+	addobject LOCALID_LITTLEROOT_STEVEN
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, LittlerootTown_EventScript_CrownStevenFromEast
+	call_if_eq VAR_RESULT, FEMALE, LittlerootTown_EventScript_CrownStevenFromWest
+	waitmovement 0
+	msgbox LittlerootTown_Text_CrownSteven, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_LITTLEROOT_STEVEN, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	delay 50
+	setfieldeffectargument 0, 1
+	dofieldeffect FLDEFF_NPCFLY_OUT
+	delay 15
+	removeobject LOCALID_LITTLEROOT_STEVEN
+	waitfieldeffect FLDEFF_NPCFLY_OUT
+	setvar VAR_CROWN_STORY_STATE, 7
+	releaseall
+	end
+
+LittlerootTown_EventScript_CrownSquadLeavesEast::
+	applymovement LOCALID_LITTLEROOT_SCOTT, LittlerootTown_Movement_CrownScottEast
+	applymovement LOCALID_LITTLEROOT_NOLAND, LittlerootTown_Movement_CrownNolandEast
+	applymovement LOCALID_LITTLEROOT_GRETA, LittlerootTown_Movement_CrownGretaEast
+	return
+
+LittlerootTown_EventScript_CrownSquadLeavesWest::
+	applymovement LOCALID_LITTLEROOT_SCOTT, LittlerootTown_Movement_CrownScottWest
+	applymovement LOCALID_LITTLEROOT_NOLAND, LittlerootTown_Movement_CrownNolandWest
+	applymovement LOCALID_LITTLEROOT_GRETA, LittlerootTown_Movement_CrownGretaWest
+	return
+
+LittlerootTown_EventScript_CrownStevenFromEast::
+	applymovement LOCALID_LITTLEROOT_STEVEN, LittlerootTown_Movement_CrownStevenFromEast
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	return
+
+LittlerootTown_EventScript_CrownStevenFromWest::
+	applymovement LOCALID_LITTLEROOT_STEVEN, LittlerootTown_Movement_CrownStevenFromWest
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	return
+
+@ A boy's house: the player at (5, 9), SCOTT steps up to (5, 10). They leave
+@ east, out of sight past x 12; STEVEN comes down the east side of the house
+@ from (8, 6) to (6, 9), beside the player. A girl's house is the mirror
+@ image, around (14, 9).
+LittlerootTown_Movement_CrownScottEast:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+LittlerootTown_Movement_CrownNolandEast:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+LittlerootTown_Movement_CrownGretaEast:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+LittlerootTown_Movement_CrownScottWest:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+LittlerootTown_Movement_CrownNolandWest:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+LittlerootTown_Movement_CrownGretaWest:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+LittlerootTown_Movement_CrownStevenFromEast:
+	walk_down
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	face_left
+	step_end
+
+LittlerootTown_Movement_CrownStevenFromWest:
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	walk_right
+	face_right
+	step_end
+
+LittlerootTown_Text_CrownRivalBlocked:
+	.string "{RIVAL}: They won't let anyone near\n"
+	.string "the lab. Not even me.\p"
+	.string "NOLAND and GRETA... I couldn't do\n"
+	.string "a thing against them.\p"
+	.string "{PLAYER}, you're Dad's only hope.$"
+
+LittlerootTown_Text_CrownRivalLabOpen:
+	.string "{RIVAL}: You did it! The door's\n"
+	.string "clear!\p"
+	.string "Go! I'm right behind you!$"
+
+LittlerootTown_Text_CrownGoHomeFirst:
+	.string "I should go check on MOM and DAD\n"
+	.string "before I leave.$"
+
+LittlerootTown_Text_HomeDoorLocked:
+	.string "The door is locked.\p"
+	.string "MOM and DAD must have locked it\n"
+	.string "because of all the commotion.$"
+
+LittlerootTown_Text_CrownGuardsFirst:
+	.string "GRETA: Well, well, well. If you're\n"
+	.string "here, that settles it.\p"
+	.string "You're on STEVEN and WALLACE's\n"
+	.string "team.\p"
+	.string "Oh, don't look so surprised. We\n"
+	.string "aren't stupid.\p"
+	.string "We know you've been meeting STEVEN.\n"
+	.string "And we know you caught that LATI.\p"
+	.string "SCOTT is not happy about all your\n"
+	.string "meddling.\p"
+	.string "NOLAND: Look, kid. This is none of\n"
+	.string "your business.\p"
+	.string "BIRCH didn't keep his promises. He\n"
+	.string "knew the consequences, and the\l"
+	.string "consequences fell on him.\p"
+	.string "We're under strict orders to keep\n"
+	.string "him under house arrest.\p"
+	.string "Get lost.$"
+
+LittlerootTown_Text_CrownGuardsLastWarning:
+	.string "NOLAND: This is your last warning,\n"
+	.string "kid.\p"
+	.string "Do you want trouble?$"
+
+LittlerootTown_Text_CrownGuardsNo:
+	.string "NOLAND: Smart. Now beat it.$"
+
+LittlerootTown_Text_CrownUsedScrambler:
+	.string "{PLAYER} used the SCRAMBLER!\p"
+	.string "Every POKéNAV nearby went dark.$"
+
+LittlerootTown_Text_CrownGuardsGuts:
+	.string "GRETA: Ha! Pulling that thing on\n"
+	.string "us? The kid's got guts.\p"
+	.string "I almost like it.\p"
+	.string "NOLAND: Then let's see how far guts\n"
+	.string "get you.\p"
+	.string "No auto-heal for any of us now.\n"
+	.string "You'll have to beat us both, back\l"
+	.string "to back, if you want to walk out\l"
+	.string "of here.\p"
+	.string "GRETA: Me first!$"
+
+LittlerootTown_Text_CrownGretaDefeat:
+	.string "GRETA: Grr... Not bad, kid!$"
+
+LittlerootTown_Text_CrownNolandNext:
+	.string "NOLAND: My turn. And don't expect\n"
+	.string "a breather.$"
+
+LittlerootTown_Text_CrownNolandDefeat:
+	.string "NOLAND: ...You've got to be\n"
+	.string "kidding me.$"
+
+LittlerootTown_Text_CrownGuardsBeaten:
+	.string "NOLAND: ...Unbelievable.\n"
+	.string "Beaten by a kid. Twice over.\p"
+	.string "GRETA: Doesn't matter.\p"
+	.string "It's too late anyway. SCOTT already\n"
+	.string "got what he wanted.\p"
+	.string "NOLAND: Let's go.$"
+
+LittlerootTown_Text_CrownScott1:
+	.string "SCOTT: Ah, {PLAYER}. There you are.\p"
+	.string "I'll admit it. I thought things\n"
+	.string "might get messy today.$"
+
+LittlerootTown_Text_CrownScott2:
+	.string "SCOTT: You've been busy, haven't\n"
+	.string "you?\p"
+	.string "After your fourth gauntlet, the\n"
+	.string "charging slowed down. Hardly a\l"
+	.string "trickle.\p"
+	.string "That's when I knew you'd swapped\n"
+	.string "your badges.\p"
+	.string "And then my men kept spotting\n"
+	.string "STEVEN on my island. Secret\l"
+	.string "meetings, here and there...\p"
+	.string "Heheh. I'm not angry. I'm\n"
+	.string "practical.\p"
+	.string "Thanks to BIRCH's research, we\n"
+	.string "need even more bond energy than\l"
+	.string "we thought.\p"
+	.string "So you'll be wearing these. New and\n"
+	.string "improved. Built for maximum\l"
+	.string "harvest.$"
+
+LittlerootTown_Text_CrownBadgesSwapped:
+	.string "SCOTT swapped {PLAYER}'s BADGES for\n"
+	.string "a new set of counterfeits!$"
+
+LittlerootTown_Text_CrownScott3:
+	.string "{PLAYER}: Why do you want permanent\n"
+	.string "MEGAS so badly?\p"
+	.string "SCOTT: ...\p"
+	.string "Some of us never got a partner.\p"
+	.string "So I'll take all of them.\p"
+	.string "Here's the deal, {PLAYER}. Beat\n"
+	.string "gauntlet 8 wearing those badges.\p"
+	.string "Oh, and in case you were wondering\n"
+	.string "where your parents are...\p"
+	.string "They're my guests. Insurance.\p"
+	.string "Any funny business, swapping those\n"
+	.string "badges, running to STEVEN, and you\l"
+	.string "won't see them again.\p"
+	.string "Heheh. Good luck in there.$"
+
+LittlerootTown_Text_CrownSteven:
+	.string "STEVEN: {PLAYER}.\p"
+	.string "I heard everything. Every word.\p"
+	.string "Taking your parents... SCOTT has\n"
+	.string "crossed the line. And now I have\l"
+	.string "proof.\p"
+	.string "I'm going to the FACTORY. I'm\n"
+	.string "going to end this, now.\p"
+	.string "Stay out of sight. If SCOTT is\n"
+	.string "watching you, this can't look like\l"
+	.string "your doing.$"

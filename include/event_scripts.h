@@ -806,4 +806,7 @@ extern const u8 CableClub_EventScript_ShowBattleRecords_Frlg[];
 extern const u8 EventScript_Indigo_UltimateGoal[];
 extern const u8 EventScript_Indigo_HighestAuthority[];
 
+// Ten Gauntlets: the Crown is taken (storyline.md) - see IsStoryLockedHomeDoor().
+extern const u8 LittlerootTown_EventScript_HomeDoorLocked[];
+
 #endif // GUARD_EVENT_SCRIPTS_H

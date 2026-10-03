@@ -104,13 +104,16 @@
 #define METATILE_BikeShop_Wall_Edge_Top            0x281
 
 // gTileset_BrendansMaysHouse
+#define METATILE_BrendansMaysHouse_BlueRug           0x229
 #define METATILE_BrendansMaysHouse_BookOnTable       0x293
 #define METATILE_BrendansMaysHouse_BrendanPC_Off     0x25A
 #define METATILE_BrendansMaysHouse_BrendanPC_On      0x27F
+#define METATILE_BrendansMaysHouse_ChairOnFloor      0x25F
 #define METATILE_BrendansMaysHouse_MayPC_Off         0x259
 #define METATILE_BrendansMaysHouse_MayPC_On          0x27E
 #define METATILE_BrendansMaysHouse_MovingBox_Closed  0x268
 #define METATILE_BrendansMaysHouse_MovingBox_Open    0x270
+#define METATILE_BrendansMaysHouse_PinkRug           0x2A4
 
 // gTileset_Building
 #define METATILE_Building_PC_Off  0x004

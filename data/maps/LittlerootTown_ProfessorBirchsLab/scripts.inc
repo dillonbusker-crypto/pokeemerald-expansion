@@ -1,4 +1,5 @@
 LittlerootTown_ProfessorBirchsLab_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, LittlerootTown_ProfessorBirchsLab_OnLoad
 	map_script MAP_SCRIPT_ON_TRANSITION, LittlerootTown_ProfessorBirchsLab_OnTransition
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, LittlerootTown_ProfessorBirchsLab_OnWarp
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, LittlerootTown_ProfessorBirchsLab_OnFrame
@@ -19,10 +20,21 @@ LittlerootTown_ProfessorBirchsLab_MapScripts::
 	@ 4: Defeated rival on Route 103
 	@ 5: Received pokedex
 
+@ Ten Gauntlets: DEVON's men have stripped the lab bare since the raid (the
+@ Crown is taken, storyline.md) - see StripBirchsLab in src/facility.c.
+LittlerootTown_ProfessorBirchsLab_OnLoad:
+	call_if_ge VAR_CROWN_STORY_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_StripLab
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_StripLab::
+	special StripBirchsLab
+	return
+
 LittlerootTown_ProfessorBirchsLab_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call ProfBirch_EventScript_UpdateLocation
 	call LittlerootTown_ProfessorBirchsLab_EventScript_SetupBirchStory
+	call LittlerootTown_ProfessorBirchsLab_EventScript_SetupCrownStory
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_SetAfterJohtoStarterLayout
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_SetJohtoStarterLayout
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_CheckReadyForJohtoStarter
@@ -102,6 +114,7 @@ LittlerootTown_ProfessorBirchsLab_OnFrame:
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 1, LittlerootTown_ProfessorBirchsLab_EventScript_UpgradeToNationalDex
 	map_script_2 VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_ChooseJohtoStarter
 	map_script_2 VAR_TEMP_2, 0, LittlerootTown_ProfessorBirchsLab_EventScript_StoneScene
+	map_script_2 VAR_TEMP_3, 1, LittlerootTown_ProfessorBirchsLab_EventScript_Confession
 	.2byte 0
 
 @ The starter is technically given prior to this on Route 101 by special ChooseStarter
@@ -468,6 +481,7 @@ LittlerootTown_ProfessorBirchsLab_EventScript_ReceivedJohtoStarter::
 LittlerootTown_ProfessorBirchsLab_EventScript_Birch::
 	lock
 	faceplayer
+	goto_if_ge VAR_CROWN_STORY_STATE, 5, LittlerootTown_ProfessorBirchsLab_EventScript_BirchAfterCrown
 	goto_if_ge VAR_BIRCH_STORY_STATE, 3, LittlerootTown_ProfessorBirchsLab_EventScript_BirchEverythingFine
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 5, LittlerootTown_ProfessorBirchsLab_EventScript_CanHaveAnyOneOfRarePokemon
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_GrassyPatchWaiting
@@ -596,12 +610,14 @@ LittlerootTown_ProfessorBirchsLab_Movement_RivalApproachPlayer:
 	step_end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_Machine::
+	goto_if_ge VAR_CROWN_STORY_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_NothingLeft
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_SeriousLookingMachine, MSGBOX_SIGN
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_Rival::
 	lock
 	faceplayer
+	goto_if_ge VAR_CROWN_STORY_STATE, 5, LittlerootTown_ProfessorBirchsLab_EventScript_RivalAfterCrown
 	goto_if_ge VAR_BIRCH_STORY_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_RivalHelping
 	goto_if_eq VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 5, LittlerootTown_ProfessorBirchsLab_EventScript_RivalFuturePlans
 	goto_if_ge VAR_DEX_UPGRADE_JOHTO_STARTER_STATE, 6, LittlerootTown_ProfessorBirchsLab_EventScript_RivalHaveYouGoneToBattleFrontier
@@ -666,14 +682,17 @@ LittlerootTown_ProfessorBirchsLab_EventScript_BrendanTakeBreakFromFieldwork::
 	return
 
 LittlerootTown_ProfessorBirchsLab_EventScript_PC::
+	goto_if_ge VAR_CROWN_STORY_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_NothingLeft
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_PCUsedForResearch, MSGBOX_SIGN
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_Bookshelf::
+	goto_if_ge VAR_CROWN_STORY_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_NothingLeft
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_CrammedWithBooksOnPokemon, MSGBOX_SIGN
 	end
 
 LittlerootTown_ProfessorBirchsLab_EventScript_Book::
+	goto_if_ge VAR_CROWN_STORY_STATE, 2, LittlerootTown_ProfessorBirchsLab_EventScript_NothingLeft
 	msgbox LittlerootTown_ProfessorBirchsLab_Text_BookTooHardToRead, MSGBOX_SIGN
 	end
 
@@ -1085,8 +1104,19 @@ LittlerootTown_ProfessorBirchsLab_Text_ReceivedPokenav:
 @ the rival helps out in the lab.
 LittlerootTown_ProfessorBirchsLab_EventScript_SetupBirchStory::
 	setvar VAR_TEMP_2, 1
+	@ STONE, his two men and WALLACE (FLAG_TEMP_1-4) are only here for the
+	@ scene. Temp flags start clear on every visit, so hide them first.
+	setflag FLAG_TEMP_1
+	setflag FLAG_TEMP_2
+	setflag FLAG_TEMP_3
+	setflag FLAG_TEMP_4
+	setflag FLAG_TEMP_5
 	goto_if_ge VAR_BIRCH_STORY_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_RivalAtLab
 	goto_if_ne VAR_BIRCH_STORY_STATE, 2, Common_EventScript_NopReturn
+	clearflag FLAG_TEMP_1
+	clearflag FLAG_TEMP_2
+	clearflag FLAG_TEMP_3
+	clearflag FLAG_TEMP_4
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
 	setobjectxyperm LOCALID_BIRCHS_LAB_BIRCH, 9, 6
@@ -1296,3 +1326,273 @@ LittlerootTown_ProfessorBirchsLab_Text_RivalHelping:
 	.string "fine. He keeps saying it, anyway.\p"
 	.string "I'm sticking around to help out\n"
 	.string "until I'm sure.$"
+
+@ ============================================================================
+@ Ten Gauntlets: the Crown is taken, after gauntlet 7 (storyline.md;
+@ VAR_CROWN_STORY_STATE is explained in LittlerootTown). From the raid on,
+@ the lab is bare (OnLoad) and the aide is gone. At state 4 BIRCH stands
+@ alone in the middle, and the confession plays as soon as the player comes
+@ in (always on the left mat tile, (6, 12)): they walk up to him, the rival
+@ runs in beside them, and STEVEN walks in partway through. From state 5,
+@ BIRCH and the rival stay in the empty lab.
+@ ============================================================================
+
+LittlerootTown_ProfessorBirchsLab_EventScript_SetupCrownStory::
+	clearflag FLAG_HIDE_CROWN_STORY_LAB_AIDE
+	goto_if_lt VAR_CROWN_STORY_STATE, 2, Common_EventScript_NopReturn
+	setflag FLAG_HIDE_CROWN_STORY_LAB_AIDE
+	goto_if_lt VAR_CROWN_STORY_STATE, 4, Common_EventScript_NopReturn
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
+	setobjectxyperm LOCALID_BIRCHS_LAB_BIRCH, 6, 6
+	setobjectmovementtype LOCALID_BIRCHS_LAB_BIRCH, MOVEMENT_TYPE_FACE_DOWN
+	goto_if_ge VAR_CROWN_STORY_STATE, 5, LittlerootTown_ProfessorBirchsLab_EventScript_CrownRivalStays
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
+	setobjectxyperm LOCALID_BIRCHS_LAB_RIVAL, 7, 12
+	setobjectmovementtype LOCALID_BIRCHS_LAB_RIVAL, MOVEMENT_TYPE_FACE_UP
+	setvar VAR_TEMP_3, 1
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_CrownRivalStays::
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
+	setobjectxyperm LOCALID_BIRCHS_LAB_RIVAL, 7, 6
+	setobjectmovementtype LOCALID_BIRCHS_LAB_RIVAL, MOVEMENT_TYPE_FACE_LEFT
+	return
+
+LittlerootTown_ProfessorBirchsLab_EventScript_Confession::
+	lockall
+	setvar VAR_TEMP_3, 0
+	applymovement LOCALID_PLAYER, LittlerootTown_ProfessorBirchsLab_Movement_PlayerToBirch
+	waitmovement 0
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_Confession1, MSGBOX_DEFAULT
+	closemessage
+	playse SE_DOOR
+	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
+	addobject LOCALID_BIRCHS_LAB_RIVAL
+	applymovement LOCALID_BIRCHS_LAB_RIVAL, LittlerootTown_ProfessorBirchsLab_Movement_RivalRunsIn
+	waitmovement 0
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_Confession2, MSGBOX_DEFAULT
+	closemessage
+	playse SE_DOOR
+	clearflag FLAG_TEMP_5
+	addobject LOCALID_BIRCHS_LAB_STEVEN
+	applymovement LOCALID_BIRCHS_LAB_STEVEN, LittlerootTown_ProfessorBirchsLab_Movement_StevenWalksIn
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	applymovement LOCALID_BIRCHS_LAB_RIVAL, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_Confession3, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	applymovement LOCALID_BIRCHS_LAB_RIVAL, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_Confession4, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_BIRCHS_LAB_BIRCH, Common_Movement_FaceRight
+	waitmovement 0
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_Confession5, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_BIRCHS_LAB_BIRCH, Common_Movement_FaceDown
+	waitmovement 0
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_Confession6, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_BIRCHS_LAB_STEVEN, Common_Movement_WalkInPlaceFasterRight
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_Confession7, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_BIRCHS_LAB_STEVEN, LittlerootTown_ProfessorBirchsLab_Movement_StevenLeaves
+	waitmovement 0
+	call LittlerootTown_ProfessorBirchsLab_EventScript_ExitSound
+	removeobject LOCALID_BIRCHS_LAB_STEVEN
+	setvar VAR_CROWN_STORY_STATE, 5
+	releaseall
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_BirchAfterCrown::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_BirchAfterCrown, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_RivalAfterCrown::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_RivalAfterCrown, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_ProfessorBirchsLab_EventScript_NothingLeft::
+	msgbox LittlerootTown_ProfessorBirchsLab_Text_NothingLeft, MSGBOX_SIGN
+	end
+
+@ From the mat (6, 12) up to (6, 7), just below BIRCH at (6, 6).
+LittlerootTown_ProfessorBirchsLab_Movement_PlayerToBirch:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	face_up
+	step_end
+
+@ From the right mat tile (7, 12) up to (7, 7), beside the player.
+LittlerootTown_ProfessorBirchsLab_Movement_RivalRunsIn:
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	face_up
+	step_end
+
+@ From the left mat tile (6, 12) round to (5, 7), on the player's other side.
+LittlerootTown_ProfessorBirchsLab_Movement_StevenWalksIn:
+	walk_up
+	walk_up
+	walk_up
+	walk_left
+	walk_up
+	walk_up
+	face_right
+	step_end
+
+LittlerootTown_ProfessorBirchsLab_Movement_StevenLeaves:
+	walk_down
+	walk_down
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	set_invisible
+	step_end
+
+LittlerootTown_ProfessorBirchsLab_Text_Confession1:
+	.string "PROF. BIRCH: {PLAYER}...\p"
+	.string "They took everything. The\n"
+	.string "machines, the books, my research.\l"
+	.string "Every last bit of it.\p"
+	.string "After all I did for DEVON and\n"
+	.string "SCOTT... After every threat, I did\l"
+	.string "exactly what they asked.\p"
+	.string "And in return, they ransacked my\n"
+	.string "lab.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_Confession2:
+	.string "{RIVAL}: Dad! Are you okay?!\p"
+	.string "PROF. BIRCH: Yes... I'm all right.\n"
+	.string "Thanks to {PLAYER}.\p"
+	.string "I don't know what they had planned\n"
+	.string "for me. Probably the worst.\p"
+	.string "...I need to come clean. To both\n"
+	.string "of you.\p"
+	.string "I've been researching the\n"
+	.string "possibility of permanent MEGA\l"
+	.string "EVOLUTION. POKéMON that stay Mega\l"
+	.string "Evolved, for good.\p"
+	.string "SCOTT came to me with the idea. A\n"
+	.string "new mechanic, to trial at the\l"
+	.string "FRONTIER. At first, I agreed to\l"
+	.string "help.\p"
+	.string "DEVON delivered a device they\n"
+	.string "called the CROWN.\p"
+	.string "They claimed it could turn bond\n"
+	.string "energy into Mega energy. And with\l"
+	.string "enough of it concentrated, a MEGA\l"
+	.string "EVOLUTION could be made permanent.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_Confession3:
+	.string "PROF. BIRCH: ...STEVEN.\p"
+	.string "STEVEN: Please, Professor. Go on.\n"
+	.string "I think I need to hear this too.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_Confession4:
+	.string "PROF. BIRCH: In the spirit of\n"
+	.string "pushing the limits of POKéMON, I\l"
+	.string "agreed to tune the CROWN to bond\l"
+	.string "energy.\p"
+	.string "I told them it would need a great\n"
+	.string "deal of it. They said they'd\l"
+	.string "handle that part.\p"
+	.string "Not long after, the EIGHT\n"
+	.string "GAUNTLETS opened, and trainers\l"
+	.string "came from all over.\p"
+	.string "A few weeks in, SCOTT and\n"
+	.string "PRESIDENT STONE paid me another\l"
+	.string "visit.\p"
+	.string "They were harvesting bond energy\n"
+	.string "at the FRONTIER, they said, but it\l"
+	.string "was “moving slower than expected.”\p"
+	.string "They needed someone to push the\n"
+	.string "limits hard.\p"
+	.string "So they handed me the fake badges.\n"
+	.string "“Give these to NORMAN's kid when\l"
+	.string "they're ready. A kid like NORMAN's\l"
+	.string "shows real promise.”\p"
+	.string "The badges would speed up the\n"
+	.string "harvest. I pushed back.\p"
+	.string "That's when the threats began.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_Confession5:
+	.string "PROF. BIRCH: {RIVAL}... They\n"
+	.string "threatened you.\p"
+	.string "So I gave you both the badges, and\n"
+	.string "I sent you off to the FRONTIER.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_Confession6:
+	.string "PROF. BIRCH: And there's more I\n"
+	.string "kept from you.\p"
+	.string "{PLAYER}, your first POKéMON came\n"
+	.string "from SCOTT. Every FRONTIER POKéMON\l"
+	.string "carries a chip of shard material.\l"
+	.string "Yours too.\p"
+	.string "The chips are real. That's why\n"
+	.string "your POKéMON never grow.\p"
+	.string "And the menu I gave you... I built\n"
+	.string "it so trainers could put the power\l"
+	.string "back by hand, and never notice\l"
+	.string "their POKéMON had stopped growing.\p"
+	.string "Today, NOLAND and GRETA came asking\n"
+	.string "for an update.\p"
+	.string "I had found a way to make it work.\n"
+	.string "But it needs an enormous amount of\l"
+	.string "power.\p"
+	.string "I shared my research. They called\n"
+	.string "SCOTT with the news...\p"
+	.string "Then they told me my job was done,\n"
+	.string "and that they'd “handle me later.”\p"
+	.string "They knocked me out, and took\n"
+	.string "everything. The CROWN included.\p"
+	.string "I'm so sorry. Both of you.\p"
+	.string "{RIVAL}: It's okay, Dad.\p"
+	.string "We're working with STEVEN and\n"
+	.string "WALLACE. We're going to make this\l"
+	.string "right.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_Confession7:
+	.string "STEVEN: It all makes sense now.\p"
+	.string "An enormous amount of power...\n"
+	.string "There's only one place on that\l"
+	.string "island that could supply it.\p"
+	.string "The FACTORY. MEGA STONE ore in the\n"
+	.string "walls, and whatever DEVON has built\l"
+	.string "inside.\p"
+	.string "A permanent MEGA EVOLUTION... The\n"
+	.string "raw power of a MEGA, and the item\l"
+	.string "slot free on top of it.\p"
+	.string "SCOTT means to keep that power for\n"
+	.string "himself.\p"
+	.string "{PLAYER}, go and check on your\n"
+	.string "family. I'll stay close.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_BirchAfterCrown:
+	.string "PROF. BIRCH: Empty, isn't it?\n"
+	.string "Years of work, gone in an\l"
+	.string "afternoon.\p"
+	.string "But you're both safe. That's what\n"
+	.string "matters.\p"
+	.string "Be careful, {PLAYER}.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_RivalAfterCrown:
+	.string "{RIVAL}: I'm staying with Dad.\p"
+	.string "{PLAYER}... Whatever SCOTT is\n"
+	.string "planning, stop him. For all of us.$"
+
+LittlerootTown_ProfessorBirchsLab_Text_NothingLeft:
+	.string "There's nothing left here.$"

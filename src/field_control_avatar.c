@@ -1142,6 +1142,13 @@ static bool8 TryDoorWarp(struct MapPosition *position, u16 metatileBehavior, enu
                 // shut - the player just bumps into it.
                 if (IsFacilityLobbyDoorLocked(warp->mapGroup, warp->mapNum))
                     return FALSE;
+                // The Crown is taken: the player's home stays locked until
+                // BIRCH's confession, and says so.
+                if (IsStoryLockedHomeDoor(warp->mapGroup, warp->mapNum))
+                {
+                    ScriptContext_SetupScript(LittlerootTown_EventScript_HomeDoorLocked);
+                    return TRUE;
+                }
                 StoreInitialPlayerAvatarState();
                 SetupWarp(&gMapHeader, warpEventId, position);
                 DoDoorWarp();

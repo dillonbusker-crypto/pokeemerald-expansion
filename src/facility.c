@@ -19,6 +19,7 @@
 #include "data.h"
 #include "item.h"
 #include "event_data.h"
+#include "fieldmap.h"
 #include "frontier_util.h"
 #include "pokemon.h"
 #include "random.h"
@@ -27,6 +28,7 @@
 #include "string_util.h"
 #include "constants/flags.h"
 #include "constants/maps.h"
+#include "constants/pokeball.h"
 #include "constants/region_map_sections.h"
 #include "constants/trainers.h"
 
@@ -326,6 +328,80 @@ bool32 IsFacilityLobbyDoorLocked(u32 mapGroup, u32 mapNum)
     locked = !gSpecialVar_Result;
     gSpecialVar_Result = savedResult;
     return locked;
+}
+
+// ============================================================================
+// The Crown is taken, the event after gauntlet 7 (storyline.md;
+// VAR_CROWN_STORY_STATE is explained in LittlerootTown's scripts).
+// ============================================================================
+
+// TRUE while the player's own front door in LITTLEROOT is locked: from the
+// rival's news (state 2) until BIRCH has confessed (state 5). Walking into
+// it runs LittlerootTown_EventScript_HomeDoorLocked (TryDoorWarp). The house
+// map that's home depends on the player's gender; the other is the rival's.
+bool32 IsStoryLockedHomeDoor(u32 mapGroup, u32 mapNum)
+{
+    u32 home = (gSaveBlock2Ptr->playerGender == MALE) ? MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F
+                                                      : MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F;
+    u32 state = VarGet(VAR_CROWN_STORY_STATE);
+
+    return (mapNum | (mapGroup << 8)) == home && state >= 2 && state < 5;
+}
+
+// DEVON's men stripped BIRCH's lab bare: every piece of furniture goes, and
+// only the walls and the door mat are left. The lab is 13x13; rows 0-1 are
+// the back wall, row 2 the floor in its shadow. Called from the lab's
+// ON_LOAD script once the raid has happened.
+#define METATILE_Lab_WallTop      0x208
+#define METATILE_Lab_WallBottom   0x20A
+#define METATILE_Lab_FloorShadow  0x23E
+#define METATILE_Lab_Floor        0x202
+
+void StripBirchsLab(void)
+{
+    s32 x, y;
+
+    for (y = 0; y < 13; y++)
+    {
+        for (x = 0; x < 13; x++)
+        {
+            u32 metatile;
+
+            if (y == 12 && (x == 6 || x == 7))
+                continue;
+            if (y == 0)
+                metatile = METATILE_Lab_WallTop | MAPGRID_COLLISION_MASK;
+            else if (y == 1)
+                metatile = METATILE_Lab_WallBottom | MAPGRID_COLLISION_MASK;
+            else if (y == 2)
+                metatile = METATILE_Lab_FloorShadow;
+            else
+                metatile = METATILE_Lab_Floor;
+            MapGridSetMetatileIdAt(x + MAP_OFFSET, y + MAP_OFFSET, metatile);
+        }
+    }
+}
+
+// STEVEN gives back the Latias or Latios he took after gauntlet 4
+// (FLAG_STEVEN_HAS_LATIOS says which), holding its Mega Stone. It's the one
+// caught wild in Artisan Cave, so it keeps that met location - the one
+// Pokemon without a chip (IsFrontierChippedMon) - and the Broker's MASTER
+// BALL it was caught in. The original was released from the party when
+// STEVEN took it, so this builds a fresh one. VAR_RESULT = MON_GIVEN_TO_*.
+void GiveStevenLatiBack(void)
+{
+    struct Pokemon mon;
+    bool32 latios = FlagGet(FLAG_STEVEN_HAS_LATIOS);
+    u16 species = latios ? SPECIES_LATIOS : SPECIES_LATIAS;
+    u16 item = latios ? ITEM_LATIOSITE : ITEM_LATIASITE;
+    u8 metLocation = MAPSEC_ARTISAN_CAVE;
+    u8 ball = BALL_MASTER;
+
+    CreateRandomMon(&mon, species, 50);
+    SetMonData(&mon, MON_DATA_HELD_ITEM, &item);
+    SetMonData(&mon, MON_DATA_MET_LOCATION, &metLocation);
+    SetMonData(&mon, MON_DATA_POKEBALL, &ball);
+    gSpecialVar_Result = GiveScriptedMonToPlayer(&mon, PARTY_SIZE);
 }
 
 void FacilityCheckEligible(void)

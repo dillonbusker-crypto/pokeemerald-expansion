@@ -1,11 +1,17 @@
 BattleFrontier_ScottsHouse_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_ScottsHouse_OnTransition
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, BattleFrontier_ScottsHouse_OnFrame
 	.byte 0
+
+BattleFrontier_ScottsHouse_OnFrame:
+	map_script_2 VAR_TEMP_2, 1, BattleFrontier_ScottsHouse_EventScript_LeftInAHurry
+	.2byte 0
 
 @ Ten Gauntlets: NORMAN's storyline (frontier-dialogue.md). After gauntlet 1
 @ is cleared, NORMAN is here arguing with SCOTT; walking up to them (the
 @ row-5 triggers, VAR_TEMP_1 = 1) plays the scene.
 BattleFrontier_ScottsHouse_OnTransition:
+	call BattleFrontier_ScottsHouse_EventScript_SetupCrownStory
 	setflag FLAG_TEMP_1
 	setvar VAR_TEMP_1, 0
 	goto_if_lt VAR_NORMAN_STORY_STATE, 1, BattleFrontier_ScottsHouse_EventScript_NoNorman
@@ -74,6 +80,7 @@ BattleFrontier_ScottsHouse_EventScript_Scott::
 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_ScottsHouse_EventScript_GiveStartingTeam
 	call_if_unset FLAG_RECEIVED_SCOTT_PP_MAX, BattleFrontier_ScottsHouse_EventScript_GivePPMax
 	specialvar VAR_RESULT, GetGauntletsClearedCount
+	call_if_eq VAR_RESULT, 7, BattleFrontier_ScottsHouse_EventScript_CheckDeal
 	switch VAR_RESULT
 	case 0, BattleFrontier_ScottsHouse_EventScript_Progress0
 	case 1, BattleFrontier_ScottsHouse_EventScript_Progress1
@@ -683,3 +690,53 @@ BattleFrontier_ScottsHouse_Text_Progress7:
 	.string "waiting at the top, and he won't\l"
 	.string "hold anything back.\p"
 	.string "And after that? Heheh. We'll see.$"
+
+@ ============================================================================
+@ Ten Gauntlets: the Crown is taken, after gauntlet 7 (storyline.md;
+@ VAR_CROWN_STORY_STATE is explained in LittlerootTown). SCOTT left for
+@ LITTLEROOT in a hurry, and the MASTER BALL went with him: it was never a
+@ replica, it holds his MEWTWO. He's away for the whole event (states 1-8),
+@ and the first time in each visit the player finds the house empty, they
+@ notice. From state 9 he's back, with the deal on his mind. The MASTER BALL
+@ never comes back.
+@ ============================================================================
+
+BattleFrontier_ScottsHouse_EventScript_SetupCrownStory::
+	clearflag FLAG_HIDE_CROWN_STORY_SCOTT_HOME
+	clearflag FLAG_HIDE_CROWN_STORY_MASTER_BALL
+	goto_if_eq VAR_CROWN_STORY_STATE, 0, Common_EventScript_NopReturn
+	setflag FLAG_HIDE_CROWN_STORY_MASTER_BALL
+	goto_if_ge VAR_CROWN_STORY_STATE, 9, Common_EventScript_NopReturn
+	setflag FLAG_HIDE_CROWN_STORY_SCOTT_HOME
+	setvar VAR_TEMP_2, 1
+	return
+
+BattleFrontier_ScottsHouse_EventScript_LeftInAHurry::
+	lockall
+	setvar VAR_TEMP_2, 0
+	msgbox BattleFrontier_ScottsHouse_Text_LeftInAHurry, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ With seven gauntlets cleared and the event over, SCOTT only talks about
+@ the deal.
+BattleFrontier_ScottsHouse_EventScript_CheckDeal::
+	goto_if_lt VAR_CROWN_STORY_STATE, 9, Common_EventScript_NopReturn
+	msgbox BattleFrontier_ScottsHouse_Text_RememberTheDeal, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ScottsHouse_Text_LeftInAHurry:
+	.string "SCOTT isn't here.\p"
+	.string "The MASTER BALL is gone from its\n"
+	.string "plaque, too.\p"
+	.string "Looks like SCOTT left in a hurry.$"
+
+BattleFrontier_ScottsHouse_Text_RememberTheDeal:
+	.string "SCOTT: {PLAYER}. You know what I\n"
+	.string "want. One more gauntlet.\p"
+	.string "THE SUMMIT. BRANDON is waiting,\n"
+	.string "and those new BADGES of yours are\l"
+	.string "hungry.\p"
+	.string "Win, and you'll see your family\n"
+	.string "again. Heheh... It's that simple.$"

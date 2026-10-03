@@ -268,7 +268,7 @@ EXP**, and follows the player to Sky Pillar.
 | Gauntlets 1–4 | **The rival on the plaza.** After the rematch, the rival trains in front of the Battle Tower, with a new line after each gauntlet: training for gauntlet 1, then cleared it, then stuck on gauntlet 2, then worried that Birch seems off and paranoid. | ✅ |
 | Gauntlet 5 (Tucker) | **Birch's lab.** See below. | ✅ |
 | Gauntlet 6 (Lucy) | **The Broker's letter.** Steven in the Pokémon Center, the Broker's arrest, the chips revealed. See below. | ✅ |
-| Gauntlet 7 (Spenser) | **The Crown is taken.** The lab raided, Noland and Greta, Birch's confession, the parents taken, the counterfeits back, Steven beaten by Scott's Crown-powered Mewtwo; **Steven gives the Lati back** with its Mega Stone. See below. | 📝 |
+| Gauntlet 7 (Spenser) | **The Crown is taken.** The lab raided, Noland and Greta, Birch's confession, the parents taken, the counterfeits back, Steven beaten by Scott's Crown-powered Mewtwo; **Steven gives the Lati back** with its Mega Stone. See below. | ✅ |
 | Gauntlet 8 (Brandon) | **The Mega Pillar is fully charged.** The endgame starts. | 📝 |
 
 ### After gauntlet 4: Steven's test ✅
@@ -555,11 +555,32 @@ off. Wallace: he's always on the move. He flies off.
 Frontier Pokémon don't grow. Bond energy is being harvested and goes
 somewhere. Scott is collecting Master Balls. The Elite Four are missing.
 
-### After gauntlet 7: the Crown is taken 📝
+### After gauntlet 7: the Crown is taken ✅
 
-Designed, not built. Gauntlet 8 (the Pyramid) stays closed until the event
-ends. Scott's house unlocks as usual once gauntlet 7 is cleared, but he isn't
-in it until the end of the event.
+Built, playtested headless (not yet by hand). Tracked by
+`VAR_CROWN_STORY_STATE`: 0 none, 1 gauntlet 7 cleared, 2 the rival's news and
+Steven's call done (Noland and Greta guard the lab), 3 warned off, 4 both
+beaten, 5 Birch has confessed, 6 the house found empty, 7 Scott's deal done
+(the standoff waits outside the Factory), 8 Steven beaten, 9 done. The state
+list lives in `LittlerootTown`'s scripts; the scenes are outside the Palace
+(Outside East), in Littleroot, the lab and the player's house, and outside
+the Factory (Outside West). Only a save with exactly seven gauntlets cleared
+gets the event; a save that cleared gauntlet 7 before it existed is pointed
+back to the Palace by the Pyramid attendant.
+
+Gauntlet 8 (the Pyramid) stays closed until the event ends. Scott's house
+unlocks as usual once gauntlet 7 is cleared, but he isn't in it until the end
+of the event.
+
+- **The lab** is stripped bare from the raid on (`StripBirchsLab`), and the
+  aide is gone.
+- **The player's house** is locked until the confession (walking into the
+  door shows the message), then empty and a mess for good: Mom and Dad are
+  held in the Factory.
+- **Steven's call** is played out as a scripted call; the PokéNav still has
+  no Match Call.
+- **Losing to Noland or Greta** whites out to Oldale; their consumed held
+  items come back, as after every story fight.
 
 **1. The rival at the Palace.** The player walks out of the Palace and the
 rival rushes up (they took the ferry from Littleroot, where they've been
@@ -899,6 +920,7 @@ happy ending.
 | Gauntlet 6 clear message | ✅ No longer says the Palace's doors are open; gauntlet 7 stays closed until the Broker's letter is delivered. |
 | The Broker after Steven's trade | ✅ Adds that he's looking into why the Frontier's Pokémon won't grow (`FLAG_BROKER_STEVEN_MENTION` line, Lounge 3). |
 | Scott's house, gauntlet 7 | ✅ Locked while he's out of town. The `Progress6` line is unreachable. |
+| Scott's house, after gauntlet 7 | ✅ Empty through the Crown is taken, the Master Ball gone for good ("Looks like SCOTT left in a hurry"). From the end of the event, Scott is back and only talks about the deal. |
 | The Broker and his cousin | ✅ Gone after gauntlet 6: no Broker deals or blind trades for gauntlets 7–8. The Lounge 3 regulars react. |
 
 ---
@@ -910,8 +932,7 @@ happy ending.
 
   | Content | Running total |
   |---|---|
-  | Built now (all eight gauntlets, story trainers, the two Devon Agents) | 963 |
-  | Noland and Greta at Birch's lab (after gauntlet 7) | 965 |
+  | Built now (all eight gauntlets, story trainers, the two Devon Agents, Noland and Greta at Birch's lab) | 965 |
   | Seven Brain rematches, Scott ×2 | 974 |
   | Elite Four (Rustboro), Archie, Maxie | 980 |
   | Elite Four again at Sky Pillar, only if the player fights them there | 984 |

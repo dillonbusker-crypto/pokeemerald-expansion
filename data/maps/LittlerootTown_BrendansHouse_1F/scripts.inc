@@ -6,6 +6,7 @@ LittlerootTown_BrendansHouse_1F_MapScripts::
 
 LittlerootTown_BrendansHouse_1F_OnLoad:
 	call_if_lt VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_BrendansHouse_1F_EventScript_SetMovingBoxes
+	call_if_ge VAR_CROWN_STORY_STATE, 5, LittlerootTown_BrendansHouse_1F_EventScript_CheckCrownMess
 	call_if_set FLAG_RECEIVED_RUNNING_SHOES, LittlerootTown_BrendansHouse_1F_EventScript_CheckShowShoesManual
 	end
 
@@ -26,6 +27,7 @@ LittlerootTown_BrendansHouse_1F_EventScript_ShowRunningShoesManual::
 LittlerootTown_BrendansHouse_1F_OnTransition:
 	setvar VAR_0x8004, MALE
 	call PlayersHouse_1F_EventScript_SetupDad
+	call PlayersHouse_1F_EventScript_SetupCrownStory
 	call LittlerootTown_BrendansHouse_1F_EventScript_SetupFamilyScene
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 3, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToDoor
 	call_if_eq VAR_LITTLEROOT_INTRO_STATE, 5, LittlerootTown_BrendansHouse_1F_EventScript_MoveMomToStairs
@@ -55,6 +57,7 @@ LittlerootTown_BrendansHouse_1F_OnFrame:
 	map_script_2 VAR_LITTLEROOT_INTRO_STATE, 6, LittlerootTown_BrendansHouse_1F_EventScript_PetalburgGymReport
 	map_script_2 VAR_LITTLEROOT_HOUSES_STATE_MAY, 1, LittlerootTown_BrendansHouse_1F_EventScript_YoureNewNeighbor
 	map_script_2 VAR_LITTLEROOT_HOUSES_STATE_MAY, 3, PlayersHouse_1F_EventScript_GetSSTicketAndSeeLatiTV
+	map_script_2 VAR_TEMP_3, 1, PlayersHouse_1F_EventScript_EmptyHome
 	.2byte 0
 
 LittlerootTown_BrendansHouse_1F_EventScript_GoUpstairsToSetClock::
@@ -452,4 +455,17 @@ LittlerootTown_BrendansHouse_1F_EventScript_SetupFamilyScene::
 	setobjectxyperm LOCALID_PLAYERS_HOUSE_1F_DAD, 7, 5
 	setobjectmovementtype LOCALID_PLAYERS_HOUSE_1F_DAD, MOVEMENT_TYPE_FACE_LEFT
 	setvar VAR_TEMP_2, 0
+	return
+
+@ Ten Gauntlets: the Crown is taken (storyline.md). From the moment SCOTT
+@ took MOM and DAD, the player's house is a mess: two chairs dragged off the
+@ rug, a box knocked open. Only when this map is the player's house.
+LittlerootTown_BrendansHouse_1F_EventScript_CheckCrownMess::
+	checkplayergender
+	goto_if_ne VAR_RESULT, MALE, Common_EventScript_NopReturn
+	setmetatile 5, 6, METATILE_BrendansMaysHouse_BlueRug, FALSE
+	setmetatile 2, 7, METATILE_BrendansMaysHouse_BlueRug, FALSE
+	setmetatile 8, 6, METATILE_BrendansMaysHouse_ChairOnFloor, TRUE
+	setmetatile 7, 4, METATILE_BrendansMaysHouse_ChairOnFloor, TRUE
+	setmetatile 9, 5, METATILE_BrendansMaysHouse_MovingBox_Open, TRUE
 	return

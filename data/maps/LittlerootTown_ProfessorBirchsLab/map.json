@@ -27,7 +27,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "LittlerootTown_ProfessorBirchsLab_EventScript_Aide",
-      "flag": "0"
+      "flag": "FLAG_HIDE_CROWN_STORY_LAB_AIDE"
     },
     {
       "local_id": "LOCALID_BIRCHS_LAB_BIRCH",
@@ -154,6 +154,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
       "flag": "FLAG_TEMP_4"
+    },
+    {
+      "local_id": "LOCALID_BIRCHS_LAB_STEVEN",
+      "graphics_id": "OBJ_EVENT_GFX_STEVEN",
+      "x": 6,
+      "y": 12,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_TEMP_5"
     }
   ],
   "warp_events": [

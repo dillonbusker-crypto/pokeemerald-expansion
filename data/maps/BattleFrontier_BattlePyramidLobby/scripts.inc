@@ -945,6 +945,11 @@ BattleFrontier_BattlePyramidLobby_EventScript_FacilityAttendantB8::
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
 	special IsFacilityGauntletCompleted
 	goto_if_eq VAR_RESULT, TRUE, Facility_AlreadyCleared
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ne VAR_RESULT, 7, BattleFrontier_BattlePyramidLobby_EventScript_B8Open
+	goto_if_lt VAR_CROWN_STORY_STATE, 2, BattleFrontier_BattlePyramidLobby_EventScript_B8ClosedPalace
+	goto_if_lt VAR_CROWN_STORY_STATE, 9, BattleFrontier_BattlePyramidLobby_EventScript_B8Closed
+BattleFrontier_BattlePyramidLobby_EventScript_B8Open:
 	special FacilityCheckEligible
 	goto_if_eq VAR_RESULT, FALSE, Facility_NotEligible
 	msgbox Facility_B8_Text_AskEnter, MSGBOX_YESNO
@@ -1112,3 +1117,28 @@ BattleFrontier_BattlePyramidLobby_Text_G8FatMan:
 	.string "deadly song...\p"
 	.string "I switched out just in time.\n"
 	.string "Barely.$"
+
+@ Ten Gauntlets: gauntlet 8 stays closed through the Crown is taken, the event
+@ after gauntlet 7 (storyline.md; VAR_CROWN_STORY_STATE is explained in
+@ LittlerootTown). It opens once STEVEN has handed the Lati back. States 0-1
+@ only happen on a save that cleared gauntlet 7 before the event existed: it
+@ starts on the way out of the Palace, so point the player there.
+BattleFrontier_BattlePyramidLobby_EventScript_B8Closed::
+	msgbox BattleFrontier_BattlePyramidLobby_Text_B8Closed, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_BattlePyramidLobby_EventScript_B8ClosedPalace::
+	msgbox BattleFrontier_BattlePyramidLobby_Text_B8Closed, MSGBOX_DEFAULT
+	msgbox BattleFrontier_BattlePyramidLobby_Text_B8AskedForYou, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_BattlePyramidLobby_Text_B8Closed:
+	.string "I'm sorry. THE SUMMIT isn't\n"
+	.string "accepting challengers just yet.\p"
+	.string "Please come back a little later.$"
+
+BattleFrontier_BattlePyramidLobby_Text_B8AskedForYou:
+	.string "Oh, and someone was looking for you\n"
+	.string "outside the BATTLE PALACE.$"

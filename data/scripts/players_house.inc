@@ -689,6 +689,38 @@ PlayersHouse_1F_EventScript_SetupDad::
 	clearflag FLAG_HIDE_PLAYERS_HOUSE_DAD
 	return
 
+@ Ten Gauntlets: the Crown is taken (storyline.md; VAR_CROWN_STORY_STATE is
+@ explained in LittlerootTown). SCOTT has MOM and DAD from the moment
+@ BIRCH confesses (state 5): the player's house stands empty. The first time
+@ the player comes home (still state 5), they notice. Like SetupDad,
+@ VAR_0x8004 = the gender whose house this is.
+PlayersHouse_1F_EventScript_SetupCrownStory::
+	goto_if_lt VAR_CROWN_STORY_STATE, 5, Common_EventScript_NopReturn
+	checkplayergender
+	goto_if_ne VAR_RESULT, VAR_0x8004, Common_EventScript_NopReturn
+	setflag FLAG_HIDE_PLAYERS_HOUSE_DAD
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MOM
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MOM
+	goto_if_ne VAR_CROWN_STORY_STATE, 5, Common_EventScript_NopReturn
+	setvar VAR_TEMP_3, 1
+	return
+
+PlayersHouse_1F_EventScript_EmptyHome::
+	lockall
+	setvar VAR_TEMP_3, 0
+	delay 20
+	msgbox PlayersHouse_1F_Text_EmptyHome, MSGBOX_DEFAULT
+	setvar VAR_CROWN_STORY_STATE, 6
+	releaseall
+	end
+
+PlayersHouse_1F_Text_EmptyHome:
+	.string "MOM? DAD?\p"
+	.string "...\p"
+	.string "That's weird. MOM and DAD aren't\n"
+	.string "home.\p"
+	.string "And the house is a mess...$"
+
 PlayersHouse_1F_EventScript_Dad::
 	lock
 	faceplayer

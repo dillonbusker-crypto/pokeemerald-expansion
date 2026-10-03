@@ -212,6 +212,62 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "0x0",
       "flag": "FLAG_TEMP_6"
+    },
+    {
+      "local_id": "LOCALID_LITTLEROOT_NOLAND",
+      "graphics_id": "OBJ_EVENT_GFX_NOLAND",
+      "x": 7,
+      "y": 17,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LittlerootTown_EventScript_CrownGuards",
+      "flag": "FLAG_HIDE_CROWN_STORY_NOLAND"
+    },
+    {
+      "local_id": "LOCALID_LITTLEROOT_GRETA",
+      "graphics_id": "OBJ_EVENT_GFX_GRETA",
+      "x": 8,
+      "y": 17,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "LittlerootTown_EventScript_CrownGuards",
+      "flag": "FLAG_HIDE_CROWN_STORY_GRETA"
+    },
+    {
+      "local_id": "LOCALID_LITTLEROOT_SCOTT",
+      "graphics_id": "OBJ_EVENT_GFX_SCOTT",
+      "x": 5,
+      "y": 11,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_HIDE_CROWN_STORY_LITTLEROOT_SCOTT"
+    },
+    {
+      "local_id": "LOCALID_LITTLEROOT_STEVEN",
+      "graphics_id": "OBJ_EVENT_GFX_STEVEN",
+      "x": 8,
+      "y": 6,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_HIDE_CROWN_STORY_LITTLEROOT_STEVEN"
     }
   ],
   "warp_events": [

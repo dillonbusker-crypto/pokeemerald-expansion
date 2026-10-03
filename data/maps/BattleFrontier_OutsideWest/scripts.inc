@@ -29,6 +29,7 @@ BattleFrontier_OutsideWest_OnTransition:
 	call BattleFrontier_OutsideWest_EventScript_SetupPikeStory
 	call BattleFrontier_OutsideWest_EventScript_SetupSteven
 	call BattleFrontier_OutsideWest_EventScript_SetupBrokerStory
+	call BattleFrontier_OutsideWest_EventScript_SetupCrownStory
 	end
 
 BattleFrontier_OutsideWest_EventScript_HideTucker::
@@ -1415,3 +1416,329 @@ BattleFrontier_OutsideWest_Text_FactoryDoorLocked:
 BattleFrontier_OutsideWest_Text_PikeDoorLocked:
 	.string "The doors are shut. The BATTLE\n"
 	.string "PIKE isn't open yet.$"
+
+@ ============================================================================
+@ Ten Gauntlets: the Crown is taken, after gauntlet 7 (storyline.md;
+@ VAR_CROWN_STORY_STATE is explained in LittlerootTown). State 7: on the row
+@ below the Factory's doors, SCOTT (7, 39) and his MEWTWO (8, 39) face STEVEN
+@ (14, 39) and his DIALGA (12, 39). Walking up the courtyard (row 42) plays
+@ the standoff. State 8: STEVEN stays, beaten, to hand back the Lati.
+@ ============================================================================
+
+BattleFrontier_OutsideWest_EventScript_SetupCrownStory::
+	setflag FLAG_HIDE_CROWN_STORY_FACTORY_SCOTT
+	setflag FLAG_HIDE_CROWN_STORY_MEWTWO
+	setflag FLAG_HIDE_CROWN_STORY_MEGA_MEWTWO
+	setflag FLAG_HIDE_CROWN_STORY_DIALGA
+	setflag FLAG_HIDE_CROWN_STORY_FACTORY_STEVEN
+	setvar VAR_TEMP_8, 1
+	goto_if_eq VAR_CROWN_STORY_STATE, 8, BattleFrontier_OutsideWest_EventScript_ShowBeatenSteven
+	goto_if_ne VAR_CROWN_STORY_STATE, 7, Common_EventScript_NopReturn
+	clearflag FLAG_HIDE_CROWN_STORY_FACTORY_SCOTT
+	clearflag FLAG_HIDE_CROWN_STORY_MEWTWO
+	clearflag FLAG_HIDE_CROWN_STORY_DIALGA
+	clearflag FLAG_HIDE_CROWN_STORY_FACTORY_STEVEN
+	setvar VAR_TEMP_8, 0
+	return
+
+BattleFrontier_OutsideWest_EventScript_ShowBeatenSteven::
+	clearflag FLAG_HIDE_CROWN_STORY_FACTORY_STEVEN
+	setobjectmovementtype LOCALID_FRONTIER_CROWN_STEVEN, MOVEMENT_TYPE_FACE_DOWN
+	return
+
+@ The player comes up the courtyard to (11, 41), below the gap between the
+@ two POKéMON. The CROWN Mega Evolves MEWTWO with no KEY STONE (a second
+@ object, swapped in under a white flash). Each attack is a lunge into the
+@ gap and back, with the screen shaking.
+BattleFrontier_OutsideWest_EventScript_CrownStandoff::
+	lockall
+	setvar VAR_TEMP_8, 1
+	getplayerxy VAR_0x8004, VAR_0x8005
+	call_if_eq VAR_0x8004, 9, BattleFrontier_OutsideWest_EventScript_CrownPlayerFrom9
+	call_if_eq VAR_0x8004, 10, BattleFrontier_OutsideWest_EventScript_CrownPlayerFrom10
+	call_if_eq VAR_0x8004, 11, BattleFrontier_OutsideWest_EventScript_CrownPlayerFrom11
+	call_if_eq VAR_0x8004, 12, BattleFrontier_OutsideWest_EventScript_CrownPlayerFrom12
+	call_if_eq VAR_0x8004, 13, BattleFrontier_OutsideWest_EventScript_CrownPlayerFrom13
+	waitmovement 0
+	msgbox BattleFrontier_OutsideWest_Text_Standoff1, MSGBOX_DEFAULT
+	closemessage
+	@ The CROWN.
+	playse SE_M_DETECT
+	msgbox BattleFrontier_OutsideWest_Text_ScottRaisesCrown, MSGBOX_DEFAULT
+	closemessage
+	waitse
+	fadescreen FADE_TO_WHITE
+	removeobject LOCALID_FRONTIER_CROWN_MEWTWO
+	clearflag FLAG_HIDE_CROWN_STORY_MEGA_MEWTWO
+	addobject LOCALID_FRONTIER_CROWN_MEGA_MEWTWO
+	fadescreen FADE_FROM_WHITE
+	playmoncry SPECIES_MEWTWO_MEGA_Y, CRY_MODE_ENCOUNTER
+	msgbox BattleFrontier_OutsideWest_Text_MewtwoMegaEvolved, MSGBOX_DEFAULT
+	waitmoncry
+	msgbox BattleFrontier_OutsideWest_Text_Standoff2, MSGBOX_DEFAULT
+	closemessage
+	@ Roar of Time.
+	playmoncry SPECIES_DIALGA, CRY_MODE_ENCOUNTER
+	waitmoncry
+	applymovement LOCALID_FRONTIER_CROWN_DIALGA, BattleFrontier_OutsideWest_Movement_LungeLeft
+	waitmovement 0
+	playse SE_M_HYPER_BEAM
+	call BattleFrontier_OutsideWest_EventScript_CrownShake
+	waitse
+	msgbox BattleFrontier_OutsideWest_Text_MewtwoHangsOn, MSGBOX_DEFAULT
+	closemessage
+	@ Aura Sphere.
+	applymovement LOCALID_FRONTIER_CROWN_MEGA_MEWTWO, BattleFrontier_OutsideWest_Movement_LungeRight
+	waitmovement 0
+	playse SE_M_EXPLOSION
+	call BattleFrontier_OutsideWest_EventScript_CrownShake
+	waitse
+	playmoncry SPECIES_DIALGA, CRY_MODE_FAINT
+	waitmoncry
+	removeobject LOCALID_FRONTIER_CROWN_DIALGA
+	msgbox BattleFrontier_OutsideWest_Text_DialgaFainted, MSGBOX_DEFAULT
+	closemessage
+	playse SE_BALL_OPEN
+	removeobject LOCALID_FRONTIER_CROWN_MEGA_MEWTWO
+	waitse
+	msgbox BattleFrontier_OutsideWest_Text_Standoff3, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_FRONTIER_CROWN_SCOTT, Common_Movement_FaceDown
+	waitmovement 0
+	msgbox BattleFrontier_OutsideWest_Text_ScottRemindsPlayer, MSGBOX_DEFAULT
+	closemessage
+	@ SCOTT goes into the Factory, where the CROWN is.
+	applymovement LOCALID_FRONTIER_CROWN_SCOTT, BattleFrontier_OutsideWest_Movement_ScottToFactoryDoor
+	waitmovement 0
+	opendoor 11, 38
+	waitdooranim
+	applymovement LOCALID_FRONTIER_CROWN_SCOTT, BattleFrontier_OutsideWest_Movement_ScottIntoFactory
+	waitmovement 0
+	removeobject LOCALID_FRONTIER_CROWN_SCOTT
+	closedoor 11, 38
+	waitdooranim
+	setvar VAR_CROWN_STORY_STATE, 8
+	releaseall
+	end
+
+BattleFrontier_OutsideWest_EventScript_CrownPlayerFrom9::
+	applymovement LOCALID_PLAYER, BattleFrontier_OutsideWest_Movement_CrownFrom9
+	return
+
+BattleFrontier_OutsideWest_EventScript_CrownPlayerFrom10::
+	applymovement LOCALID_PLAYER, BattleFrontier_OutsideWest_Movement_CrownFrom10
+	return
+
+BattleFrontier_OutsideWest_EventScript_CrownPlayerFrom11::
+	applymovement LOCALID_PLAYER, BattleFrontier_OutsideWest_Movement_CrownFrom11
+	return
+
+BattleFrontier_OutsideWest_EventScript_CrownPlayerFrom12::
+	applymovement LOCALID_PLAYER, BattleFrontier_OutsideWest_Movement_CrownFrom12
+	return
+
+BattleFrontier_OutsideWest_EventScript_CrownPlayerFrom13::
+	applymovement LOCALID_PLAYER, BattleFrontier_OutsideWest_Movement_CrownFrom13
+	return
+
+BattleFrontier_OutsideWest_EventScript_CrownShake::
+	setvar VAR_0x8004, 1  @ vertical pan
+	setvar VAR_0x8005, 1  @ horizontal pan
+	setvar VAR_0x8006, 12 @ num shakes
+	setvar VAR_0x8007, 3  @ shake delay
+	special ShakeCamera
+	waitstate
+	return
+
+@ STEVEN, beaten, by the Factory (state 8). SCOTT already knows about the
+@ Lati, so there's no use hiding it any more: STEVEN gives it back with its
+@ Mega Stone (GiveStevenLatiBack in src/facility.c). With SCOTT's new
+@ counterfeits on, it won't grow until the New Mauville overclock. Then he
+@ leaves, on foot: his team is down.
+BattleFrontier_OutsideWest_EventScript_CrownSteven::
+	lock
+	faceplayer
+	msgbox BattleFrontier_OutsideWest_Text_StevenFailed, MSGBOX_DEFAULT
+	special GiveStevenLatiBack
+	goto_if_eq VAR_RESULT, MON_CANT_GIVE, BattleFrontier_OutsideWest_EventScript_StevenNoRoom
+	copyvar VAR_0x8006, VAR_RESULT
+	setvar VAR_0x8004, SPECIES_LATIAS
+	call_if_set FLAG_STEVEN_HAS_LATIOS, BattleFrontier_OutsideWest_EventScript_StevenLatiIsLatios
+	bufferspeciesname STR_VAR_1, VAR_0x8004
+	playfanfare MUS_OBTAIN_ITEM
+	message BattleFrontier_OutsideWest_Text_ReceivedLati
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	call_if_eq VAR_0x8006, MON_GIVEN_TO_PC, BattleFrontier_OutsideWest_EventScript_LatiSentToPC
+	msgbox BattleFrontier_OutsideWest_Text_StevenGoodbye, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_CROWN_STORY_STATE, 9
+	fadescreen FADE_TO_BLACK
+	removeobject VAR_LAST_TALKED
+	fadescreen FADE_FROM_BLACK
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_StevenLatiIsLatios::
+	setvar VAR_0x8004, SPECIES_LATIOS
+	return
+
+BattleFrontier_OutsideWest_EventScript_LatiSentToPC::
+	msgbox BattleFrontier_OutsideWest_Text_LatiSentToPC, MSGBOX_DEFAULT
+	return
+
+BattleFrontier_OutsideWest_EventScript_StevenNoRoom::
+	msgbox BattleFrontier_OutsideWest_Text_StevenNoRoom, MSGBOX_DEFAULT
+	release
+	end
+
+@ Every start on row 42 ends at (11, 41), facing up.
+BattleFrontier_OutsideWest_Movement_CrownFrom9:
+	walk_right
+	walk_right
+	walk_up
+	face_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_CrownFrom10:
+	walk_right
+	walk_up
+	face_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_CrownFrom11:
+	walk_up
+	face_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_CrownFrom12:
+	walk_left
+	walk_up
+	face_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_CrownFrom13:
+	walk_left
+	walk_left
+	walk_up
+	face_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_LungeLeft:
+	lock_facing_direction
+	walk_faster_left
+	delay_8
+	walk_right
+	unlock_facing_direction
+	step_end
+
+BattleFrontier_OutsideWest_Movement_LungeRight:
+	lock_facing_direction
+	walk_faster_right
+	delay_8
+	walk_left
+	unlock_facing_direction
+	step_end
+
+@ From (7, 39) along to (11, 39), below the doors, then in.
+BattleFrontier_OutsideWest_Movement_ScottToFactoryDoor:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	face_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_ScottIntoFactory:
+	walk_up
+	set_invisible
+	step_end
+
+BattleFrontier_OutsideWest_Text_Standoff1:
+	.string "STEVEN: It's over, SCOTT.\p"
+	.string "I heard every word in LITTLEROOT.\n"
+	.string "Taking a child's parents as\l"
+	.string "hostages...\p"
+	.string "Release them. And the BROKER. Now.\p"
+	.string "SCOTT: Over? Heheh...\p"
+	.string "STEVEN. You always did like the\n"
+	.string "sound of your own voice.\p"
+	.string "Let me show you something.$"
+
+BattleFrontier_OutsideWest_Text_ScottRaisesCrown:
+	.string "SCOTT raised the CROWN!$"
+
+BattleFrontier_OutsideWest_Text_MewtwoMegaEvolved:
+	.string "MEWTWO Mega Evolved into\n"
+	.string "MEGA MEWTWO Y!$"
+
+BattleFrontier_OutsideWest_Text_Standoff2:
+	.string "STEVEN: That's impossible...\p"
+	.string "There's no KEY STONE. And you've\n"
+	.string "never bonded with a POKéMON in\l"
+	.string "your life!\p"
+	.string "SCOTT: I don't need a bond.\n"
+	.string "I have thousands of them.\p"
+	.string "The CROWN isn't at full power yet.\n"
+	.string "For now, it can only hold one MEGA\l"
+	.string "EVOLUTION. Permanently.\p"
+	.string "One is all I need for you.\p"
+	.string "STEVEN: We'll see about that.\n"
+	.string "DIALGA, Roar of Time!$"
+
+BattleFrontier_OutsideWest_Text_MewtwoHangsOn:
+	.string "MEGA MEWTWO Y hung on with 1 HP!\p"
+	.string "SCOTT: MEWTWO, Aura Sphere!$"
+
+BattleFrontier_OutsideWest_Text_DialgaFainted:
+	.string "DIALGA fainted!$"
+
+BattleFrontier_OutsideWest_Text_Standoff3:
+	.string "STEVEN: ...I can't believe it.\n"
+	.string "I lost.\p"
+	.string "SCOTT: You really thought I wasn't\n"
+	.string "prepared to face even you?\p"
+	.string "Get lost, STEVEN.$"
+
+BattleFrontier_OutsideWest_Text_ScottRemindsPlayer:
+	.string "SCOTT: {PLAYER}. Remember our\n"
+	.string "arrangement.\p"
+	.string "I can tell this little stunt wasn't\n"
+	.string "your idea. That's the only reason\l"
+	.string "the deal still stands.\p"
+	.string "Gauntlet 8. Don't keep me waiting.$"
+
+BattleFrontier_OutsideWest_Text_StevenFailed:
+	.string "STEVEN: I failed, {PLAYER}.\p"
+	.string "I'm sorry. I thought I was strong\n"
+	.string "enough.\p"
+	.string "Your family is in SCOTT's hands now.\n"
+	.string "As long as they are, the best thing\l"
+	.string "you can do for them is what he\l"
+	.string "wants.\p"
+	.string "Win gauntlet 8.\p"
+	.string "And take this back. SCOTT already\n"
+	.string "knows about it, so there's no use\l"
+	.string "hiding it any longer.$"
+
+BattleFrontier_OutsideWest_Text_ReceivedLati:
+	.string "{PLAYER} received {STR_VAR_1}\n"
+	.string "back from STEVEN!$"
+
+BattleFrontier_OutsideWest_Text_LatiSentToPC:
+	.string "{STR_VAR_1} was sent to the PC.$"
+
+BattleFrontier_OutsideWest_Text_StevenGoodbye:
+	.string "STEVEN: It's holding its MEGA\n"
+	.string "STONE. You'll need everything you\l"
+	.string "have for THE SUMMIT.\p"
+	.string "With SCOTT's new badges on you, it\n"
+	.string "won't grow. But it's free of his\l"
+	.string "chips, and it's yours.\p"
+	.string "...I'll be in touch.$"
+
+BattleFrontier_OutsideWest_Text_StevenNoRoom:
+	.string "STEVEN: Your party and your PC are\n"
+	.string "both full. Make some room, and\l"
+	.string "come back to me.$"

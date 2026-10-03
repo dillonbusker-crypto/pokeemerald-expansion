@@ -6,6 +6,7 @@ BattleFrontier_OutsideEast_MapScripts::
 
 BattleFrontier_OutsideEast_OnFrame:
 	map_script_2 VAR_BROKER_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_CenterScott
+	map_script_2 VAR_TEMP_7, 1, BattleFrontier_OutsideEast_EventScript_CrownRival
 	.2byte 0
 
 BattleFrontier_OutsideEast_OnResume:
@@ -32,6 +33,7 @@ BattleFrontier_OutsideEast_OnTransition:
 	call BattleFrontier_OutsideEast_EventScript_SetupSteven
 	call BattleFrontier_OutsideEast_EventScript_SetupBrokerStory
 	call BattleFrontier_OutsideEast_EventScript_SetupRival
+	call BattleFrontier_OutsideEast_EventScript_SetupCrownStory
 	setflag FLAG_TEMP_5
 	call_if_eq VAR_NORMAN_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_ShowNorman
 	end
@@ -2359,3 +2361,140 @@ BattleFrontier_OutsideEast_Text_PalaceDoorLocked:
 BattleFrontier_OutsideEast_Text_PyramidDoorLocked:
 	.string "The doors are shut. The BATTLE\n"
 	.string "PYRAMID isn't open yet.$"
+
+@ ============================================================================
+@ Ten Gauntlets: the Crown is taken, after gauntlet 7 (storyline.md;
+@ VAR_CROWN_STORY_STATE is explained in LittlerootTown). Clearing gauntlet 7
+@ starts it the next time the player is out here (always the Palace's
+@ doorstep, in practice): the rival runs up with the news from LITTLEROOT,
+@ then STEVEN calls. Only on exactly seven cleared, so a save already past
+@ gauntlet 8 never sees it. The rival is the plaza's own rival object, moved
+@ off-screen to the west of the Palace to run in along row 58.
+@ ============================================================================
+
+BattleFrontier_OutsideEast_EventScript_SetupCrownStory::
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ne VAR_RESULT, 7, Common_EventScript_NopReturn
+	call_if_eq VAR_CROWN_STORY_STATE, 0, BattleFrontier_OutsideEast_EventScript_CrownStoryStart
+	goto_if_ne VAR_CROWN_STORY_STATE, 1, Common_EventScript_NopReturn
+	getplayerxy VAR_0x8004, VAR_0x8005
+	goto_if_ne VAR_0x8004, 45, Common_EventScript_NopReturn
+	goto_if_ne VAR_0x8005, 56, Common_EventScript_NopReturn
+	setobjectxyperm LOCALID_FRONTIER_RIVAL_MAY, 36, 58
+	setobjectxyperm LOCALID_FRONTIER_RIVAL_BRENDAN, 36, 58
+	setvar VAR_TEMP_7, 1
+	return
+
+BattleFrontier_OutsideEast_EventScript_CrownStoryStart::
+	setvar VAR_CROWN_STORY_STATE, 1
+	return
+
+@ The player has stepped down off the Palace door to (45, 57). The rival runs
+@ in below them, to (45, 58), and back out the same way.
+BattleFrontier_OutsideEast_EventScript_CrownRival::
+	lockall
+	setvar VAR_TEMP_7, 0
+	setvar VAR_0x8004, LOCALID_FRONTIER_RIVAL_MAY
+	checkplayergender
+	call_if_eq VAR_RESULT, MALE, BattleFrontier_OutsideEast_EventScript_CrownShowMay
+	call_if_eq VAR_RESULT, FEMALE, BattleFrontier_OutsideEast_EventScript_CrownShowBrendan
+	addobject VAR_0x8004
+	applymovement VAR_0x8004, BattleFrontier_OutsideEast_Movement_CrownRivalIn
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox BattleFrontier_OutsideEast_Text_CrownRival, MSGBOX_DEFAULT
+	closemessage
+	applymovement VAR_0x8004, BattleFrontier_OutsideEast_Movement_CrownRivalOut
+	waitmovement 0
+	removeobject VAR_0x8004
+	delay 40
+	@ STEVEN calls. The player's POKéNAV has no Match Call, so the call is
+	@ played out here.
+	playse SE_POKENAV_CALL
+	waitse
+	delay 10
+	playse SE_POKENAV_CALL
+	waitse
+	msgbox BattleFrontier_OutsideEast_Text_CrownPokenavRings, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_CrownStevenCall, MSGBOX_DEFAULT
+	closemessage
+	playse SE_POKENAV_HANG_UP
+	waitse
+	msgbox BattleFrontier_OutsideEast_Text_CrownClick, MSGBOX_DEFAULT
+	setvar VAR_CROWN_STORY_STATE, 2
+	releaseall
+	end
+
+BattleFrontier_OutsideEast_EventScript_CrownShowMay::
+	clearflag FLAG_TEMP_3
+	return
+
+BattleFrontier_OutsideEast_EventScript_CrownShowBrendan::
+	setvar VAR_0x8004, LOCALID_FRONTIER_RIVAL_BRENDAN
+	clearflag FLAG_TEMP_4
+	return
+
+BattleFrontier_OutsideEast_Movement_CrownRivalIn:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	face_up
+	step_end
+
+BattleFrontier_OutsideEast_Movement_CrownRivalOut:
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	walk_fast_left
+	step_end
+
+BattleFrontier_OutsideEast_Text_CrownRival:
+	.string "{RIVAL}: {PLAYER}! Thank goodness!\p"
+	.string "NOLAND and GRETA stormed into the\n"
+	.string "lab with a bunch of men in suits!\p"
+	.string "They took everything. The machines,\n"
+	.string "the books, Dad's research... all\l"
+	.string "of it.\p"
+	.string "I tried to fight them off, but\n"
+	.string "they destroyed me. I had to run.\p"
+	.string "Dad's still in there, {PLAYER}.\n"
+	.string "He's in serious trouble!\p"
+	.string "Get STEVEN and WALLACE. Get\n"
+	.string "anyone! We need help, now!\p"
+	.string "I'm heading back. Hurry!$"
+
+BattleFrontier_OutsideEast_Text_CrownPokenavRings:
+	.string "...Beep beep beep!\n"
+	.string "{PLAYER}'s POKéNAV is ringing!$"
+
+BattleFrontier_OutsideEast_Text_CrownStevenCall:
+	.string "STEVEN: {PLAYER}, it's STEVEN.\n"
+	.string "I just heard about LITTLEROOT.\p"
+	.string "I'm sorry. I'm tied up right now,\n"
+	.string "tracking where they took the\l"
+	.string "BROKER with LOOKER. I can't get\l"
+	.string "there until later.\p"
+	.string "And WALLACE is in EVER GRANDE CITY,\n"
+	.string "trying to find out what happened\l"
+	.string "to the ELITE FOUR.\p"
+	.string "This one is up to you, {PLAYER}.\p"
+	.string "But you've beaten seven gauntlets.\n"
+	.string "You're ready for whatever is\l"
+	.string "waiting there.\p"
+	.string "Go. I'll get there as soon as I\n"
+	.string "can.$"
+
+BattleFrontier_OutsideEast_Text_CrownClick:
+	.string "Click!$"
