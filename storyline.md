@@ -145,7 +145,8 @@ battles. This story explains why.
 
 **His house** ✅: instead of six polished Poké Balls, a single **Master Ball
 on a pedestal**. Examining it before the ending gets Scott's reply: "A
-replica. For show." It isn't. It's the ball he uses on Rayquaza.
+replica. For show." It isn't. **Mewtwo is inside it.** It's gone from the
+house once gauntlet 7 is cleared (see the event after gauntlet 7).
 
 ### Professor Birch
 
@@ -267,8 +268,7 @@ EXP**, and follows the player to Sky Pillar.
 | Gauntlets 1–4 | **The rival on the plaza.** After the rematch, the rival trains in front of the Battle Tower, with a new line after each gauntlet: training for gauntlet 1, then cleared it, then stuck on gauntlet 2, then worried that Birch seems off and paranoid. | ✅ |
 | Gauntlet 5 (Tucker) | **Birch's lab.** See below. | ✅ |
 | Gauntlet 6 (Lucy) | **The Broker's letter.** Steven in the Pokémon Center, the Broker's arrest, the chips revealed. See below. | ✅ |
-| Gauntlet 7 (Spenser) | Beats to design. Ideas: NPCs noticing their Pokémon "seem tired lately"; Birch's confession. | 📝 ❓ |
-| Before gauntlet 8 | **Steven gives the Lati back**, with its Mega Stone (Latiasite or Latiosite). This close to the end, the risk of Scott noticing is worth the edge. It can gain Experience again, since the player's badges are real and it has no chip. | 📝 |
+| Gauntlet 7 (Spenser) | **The Crown is taken.** The lab raided, Noland and Greta, Birch's confession, the parents taken, the counterfeits back, Steven beaten by Scott's Crown-powered Mewtwo; **Steven gives the Lati back** with its Mega Stone. See below. | 📝 |
 | Gauntlet 8 (Brandon) | **The Mega Pillar is fully charged.** The endgame starts. | 📝 |
 
 ### After gauntlet 4: Steven's test ✅
@@ -315,8 +315,10 @@ PYRAMID", gauntlet 8's building.
 **The player always has a Lati by now.** The Artisan Cave quest is required:
 gauntlet 4 stays locked until a Latias or Latios is caught.
 
-**Where the Lati goes:** Steven keeps it safe until just **before gauntlet
-8**, then gives it back with its Mega Stone (see the beat table). Scott's
+**Where the Lati goes:** Steven keeps it safe until the end of the event
+**after gauntlet 7**, then gives it back with its Mega Stone, since Scott
+already knows about it. Scott has put counterfeits back on the player by then,
+so it doesn't grow until the New Mauville overclock. Scott's
 Latias or Latios is still the *other* one, the one the player left behind in
 the cave.
 
@@ -553,6 +555,165 @@ off. Wallace: he's always on the move. He flies off.
 Frontier Pokémon don't grow. Bond energy is being harvested and goes
 somewhere. Scott is collecting Master Balls. The Elite Four are missing.
 
+### After gauntlet 7: the Crown is taken 📝
+
+Designed, not built. Gauntlet 8 (the Pyramid) stays closed until the event
+ends. Scott's house unlocks as usual once gauntlet 7 is cleared, but he isn't
+in it until the end of the event.
+
+**1. The rival at the Palace.** The player walks out of the Palace and the
+rival rushes up (they took the ferry from Littleroot, where they've been
+helping at the lab since gauntlet 5). Noland, Greta and men in suits stormed
+the lab and took everything. The rival tried to fight them off, got
+destroyed, and had to run. Birch is in serious trouble. Get Steven and
+Wallace, now. The rival rushes off.
+
+**2. Steven's call.** The PokéNav rings. Steven heard what happened in
+Littleroot, but he's tied up (tracking where they took the Broker, with
+Looker) and can't get there until later. Wallace is in Ever Grand City trying
+to find out what happened to the Elite Four. This one is up to the player, and
+they're ready for whatever is waiting. He hangs up. (Needs Match Call; see the
+Broker's letter.)
+
+**3. Scott's house (optional).** Empty, and the Master Ball is gone from its
+pedestal. "Looks like SCOTT left in a hurry." (Mewtwo was in it; see below.)
+
+**4. Littleroot.** The rival is in town: Noland and Greta are blocking the
+lab, and the player is Birch's only hope. The player's house is locked: "MOM
+and DAD must have locked the door because of the commotion."
+
+**5. The lab door: Noland and Greta.** Talking to them:
+
+- GRETA: "Well, well, well. If you're here, that settles it: you're on STEVEN and
+  WALLACE's team. We aren't stupid. We know you've been meeting him. We know
+  you caught that LATI too. SCOTT is not happy about your meddling."
+- NOLAND: "This is none of your business, kid. BIRCH didn't keep his promises. He knew
+  the consequences, and they fell on him. We're under strict orders to keep him
+  under house arrest. Get lost."
+
+Talking again, NOLAND: "This is your last warning. Do you want trouble?" **Yes / No.**
+No: the player can walk away, and nothing moves on until they say yes. Yes:
+"{PLAYER} used the SCRAMBLER! Every POKéNAV nearby went dark." GRETA: the
+kid has guts, pulling that thing on them; she almost likes it. NOLAND: then
+they'll have to beat both of them in a row to walk out of here.
+
+- **Greta first, then Noland.**
+
+- **Back to back, no heal** (the Scrambler). Teams at gauntlet 7 strength.
+- **A loss on either battle** whites out to the **Oldale Pokémon Center**
+  (Littleroot has none), and both battles must be fought again. The Oldale
+  nurse can use the "first patient in a long time" line.
+- **Won:** both are disgusted. NOLAND swears under his breath. GRETA:
+  "Doesn't matter. It's too late anyway. SCOTT already got what he wanted."
+  They rush off.
+
+**6. The lab: Birch's confession.** The lab is stripped bare, and Birch stands
+alone in the middle. The player walks up to him.
+
+- They took everything. After all he did for Devon and Scott, after every
+  threat, he did what they asked, and they ransacked his lab for it.
+- The **rival** rushes in beside the player: is he okay? Yes, thanks to the
+  player. He didn't know what their plan for him was; probably the worst.
+- **Steven** walks in partway through and hears the rest.
+- **He comes clean.** Scott came to him with an idea for a new mechanic to
+  trial at the Frontier: **permanent Mega Evolution**. Devon delivered a device
+  called **the Crown**, which they said could turn bond energy into Mega
+  energy, and with enough of it concentrated, make a Mega permanent. In the
+  spirit of pushing the limits of Pokémon, Birch agreed to tune the Crown to
+  bond energy. He told them it would need a lot. They said they'd handle that
+  part.
+- Soon after, the Eight Gauntlets opened, drawing trainers from everywhere. A
+  few weeks in, Scott and Stone came back: the harvest was "moving slower than
+  expected", and they needed someone to push the limits hard. They handed him
+  the counterfeit badges: "Give these to Norman's kid when they're ready. A
+  kid like Norman's shows real promise." The badges would speed up the harvest.
+- He pushed back. That's when the threats began, and **they threatened his own
+  child** (said to the rival). He gave both of them the badges and sent them
+  to the Frontier.
+- **What he hid.** The level 50 starter came from Scott, chipped like every
+  Frontier Pokémon (**he confirms the chips**). And **he built the L menu** so
+  trainers could put power back by hand and never notice their Pokémon had
+  stopped growing.
+- **Today.** Noland and Greta came for an update. He'd found a way to make it
+  work, but it needs an enormous amount of power. He shared the research, they
+  called Scott, then told him his job was done and they'd "handle him later".
+  They knocked him out and took everything, **the Crown included**.
+- He apologizes, to the rival above all. The rival: it's okay, they're working
+  with Steven and Wallace to make it right.
+- **Steven:** it all makes sense now. The only place on the island that could
+  supply that kind of power is the **Factory**, with its Mega Stone ore
+  (gauntlet 2) and whatever Devon has built inside. A permanent Mega frees the
+  item slot on top of the raw stat boost. Scott means to keep that power for
+  himself. Steven tells the player to go check on their family; he'll stay
+  close.
+
+The rival stays with Birch.
+
+**7. Home.** Leaving town now stops the player: they should go home first.
+The door is unlocked now. The house is empty and, if possible, a mess. "That's
+weird. MOM and DAD aren't home."
+
+**8. Scott outside the house.** The player steps out to find **Scott**, Noland
+and Greta behind him.
+
+- He admits he thought things might get messy.
+- **The badges.** The charging slowed down after gauntlet 4, when the player
+  swapped their badges. That's when he knew they were up to something, and the
+  Steven sightings and secret meetings confirmed it. Thanks to Birch's research
+  they need even more bond energy than they thought. He **swaps the player's
+  badges for new and improved counterfeits**, built for maximum harvest.
+- The player asks why he wants permanent Megas so badly. One cold line, with
+  the childhood saved for the Crown: "Some of us never got a partner. So I'll
+  take all of them."
+- **The parents.** He has them, as insurance. Beat gauntlet 8 wearing those
+  badges. Any funny business (swapping the badges, running to Steven) and
+  the player won't see their parents again. They walk off.
+- No word about the legendaries; that stays for after the fight the player is
+  meant to lose.
+
+**9. Steven.** He steps out once Scott is gone. He heard everything. That's
+the proof he's been waiting for: Scott has crossed the line, and Steven is
+going to end this, now. He flies off for the Frontier.
+
+**10. The Factory courtyard.** Steven, **Dialga** out in front of him, faces
+Scott and his **Mewtwo** (overworld Pokémon sprites). Walking close starts
+the scene.
+
+- **The Crown, revealed.** Scott raises it, and Mewtwo Mega Evolves with no
+  Key Stone. Steven: impossible, Scott has never bonded with a Pokémon. Scott:
+  "I don't need a bond. I have thousands of them." It isn't at full power: for
+  now it can **permanently Mega Evolve one Pokémon**. "One is all I need for
+  you."
+- "DIALGA, Roar of Time!" Dialga lunges, the screen shakes. "MEGA MEWTWO Y
+  hangs on with 1 HP!"
+- "MEWTWO, Aura Sphere!" Mewtwo lunges, the screen shakes. Dialga faints.
+  Dialga vanishes, then Mewtwo.
+- Steven: he can't believe he lost. Scott: "You really thought I wasn't
+  prepared to face even you? Get lost."
+- Scott turns to the player and reminds them of their arrangement. **He can
+  tell this wasn't the player's doing**, which is the only reason the deal
+  still stands. He walks off.
+
+**11. Steven, beaten.** He doesn't move. Talking to him: he failed. He's
+sorry; he thought he was strong enough. Their families are in Scott's hands
+now (he heard the threat), and the best thing the player can do for theirs is
+what Scott wants. He **gives the Lati back with its Mega Stone** (Latiasite or
+Latiosite): Scott already knows about it, so there's no point hiding it any
+more. Steven **walks off** (his team is down).
+
+**After the event:**
+
+- **Scott is back in his house.** Talking to him reminds the player of the
+  deal. The Master Ball's pedestal stays empty.
+- **Gauntlet 8 opens.**
+- The parents are held in the **Factory**, with the Broker and the Crown.
+- The counterfeits are back, so **the Lati doesn't grow** again until the New
+  Mauville overclock (code: Scott's swap clears `FLAG_REAL_BADGES`).
+
+**Wallace's Palkia** 📝: Wallace has a Palkia, the counterpart to Steven's
+Dialga. Where it appears is still to decide (the Wardens' ambush in Rustboro
+is the obvious place).
+
 ### After gauntlet 8: the Crown 📝
 
 Scott is siphoning the Pillar into the Crown to build his team, in the
@@ -680,8 +841,8 @@ The player, Steven and Wallace arrive. **The Elite Four ambush them.** Steven
 and Wallace take them on so the player can climb. The player needs the bike for
 the cracked floors.
 
-At the top, Scott throws a **Master Ball** (the "replica") and **catches
-Rayquaza.** He turns to the player. He's heard what happened at New Mauville
+At the top, Scott throws a **Master Ball** (one of the Kanto shipment he's
+been collecting; the "replica" holds Mewtwo) and **catches Rayquaza.** He turns to the player. He's heard what happened at New Mauville
 from Archie and Maxie. He'd promised them permanent Primal Groudon and Kyogre,
 and took them back after their failure.
 
@@ -750,9 +911,10 @@ happy ending.
   | Content | Running total |
   |---|---|
   | Built now (all eight gauntlets, story trainers, the two Devon Agents) | 963 |
-  | Seven Brain rematches, Scott ×2 | 972 |
-  | Elite Four (Rustboro), Archie, Maxie | 978 |
-  | Elite Four again at Sky Pillar, only if the player fights them there | 982 |
+  | Noland and Greta at Birch's lab (after gauntlet 7) | 965 |
+  | Seven Brain rematches, Scott ×2 | 974 |
+  | Elite Four (Rustboro), Archie, Maxie | 980 |
+  | Elite Four again at Sky Pillar, only if the player fights them there | 984 |
 
   Past the limit, a trainer silently shares its "defeated" flag with a system
   flag (see CLAUDE.md). There's room to spare, but the Arena's mock battles
@@ -769,7 +931,8 @@ happy ending.
   (`TESTING_DISABLE_EXP_GAIN`, CLAUDE.md). The story needs a real rule instead:
   a Pokémon gains Experience only if **the harness has been overclocked** (New
   Mauville), or if **the badges are real and it isn't chipped** (the Lati, from
-  Steven's gauntlet 4 test on). "Chipped" means it came from the shop, Scott or
+  Steven's gauntlet 4 test until Scott swaps the counterfeits back after
+  gauntlet 7). "Chipped" means it came from the shop, Scott or
   Birch, which needs a marker on each such Pokémon.
 - **Steven's test battle** is a wild battle (a scripted Aron), so it costs no
   trainer ID.
@@ -809,8 +972,8 @@ happy ending.
 
 ## Still to decide ❓
 
-1. **Beats after gauntlet 7**, including Birch's confession. (Gauntlet 6's
-   beat is written: the Broker's letter.)
+1. Noland and Greta's teams at the lab (gauntlet 7 strength). Where **Wallace's Palkia** appears. (Gauntlet 7's
+   beat is written: the Crown is taken.)
 2. The seven Brains' upgraded teams after gauntlet 8, and their lines as they
    turn.
 3. The Elite Four's teams (up to level 55, some permanent Megas) and the
