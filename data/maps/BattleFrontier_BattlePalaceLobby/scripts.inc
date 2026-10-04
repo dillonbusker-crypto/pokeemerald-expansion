@@ -939,9 +939,9 @@ BattleFrontier_BattlePalaceLobby_Text_B7AskedForYou:
 	.string "over at the BATTLE PIKE.$"
 
 BattleFrontier_BattlePalaceLobby_Text_B7Letter:
-	.string "I'd better get this LETTER to\n"
-	.string "STEVEN first.$"
+	.string "{PLAYER} decided to get the LETTER\n"
+	.string "to STEVEN first.$"
 
 BattleFrontier_BattlePalaceLobby_Text_B7EverGrande:
-	.string "I should help WALLACE at EVER\n"
-	.string "GRANDE CITY first.$"
+	.string "{PLAYER} decided to help WALLACE at\n"
+	.string "EVER GRANDE CITY first.$"

@@ -2216,8 +2216,8 @@ Facility_B3_Text_BossDefeat:
 Facility_B4_Text_BossIntro:
 	.string "I'm ANABEL, the SALON MAIDEN. This\n"
 	.string "is the top of the TOWER.\p"
-	.string "Three of my wardens stood in your\n"
-	.string "way, and you got past every one of\l"
+	.string "Three WARDENS stood in your way,\n"
+	.string "and you got past every one of\l"
 	.string "them.\p"
 	.string "Everyone thinks they control the\n"
 	.string "turn order. Let's see if you\l"
@@ -2261,7 +2261,7 @@ Facility_B4_Text_MegaStonesAndDome:
 
 Facility_B5_Text_GauntletComplete:
 	.string "Congratulations! You've cleared\n"
-	.string "the Main Event!\p"
+	.string "THE MAIN EVENT!\p"
 	.string "Your next challenge is a Doubles\n"
 	.string "gauntlet at the BATTLE PIKE. Its\l"
 	.string "doors are open to you.\p"
@@ -2383,7 +2383,7 @@ Facility_B2_Text_StevenHook:
 	.string "FACTORY.$"
 
 Facility_B4_Text_POSDown:
-	.string "I'm sorry. The LINK MULTI mat is\n"
+	.string "I'm sorry. The fourth mat is\n"
 	.string "closed. The whole island's system\l"
 	.string "went down, and nothing's running\l"
 	.string "until it's fixed.\p"
@@ -2407,9 +2407,8 @@ Facility_Text_SecondWindUsed:
 	.string "into the battle!$"
 
 Facility_B4_Text_POSDownLooker:
-	.string "I'm sorry. The LINK MULTI mat is\n"
-	.string "still closed. The system's still\l"
-	.string "down.\p"
+	.string "I'm sorry. The fourth mat is still\n"
+	.string "closed. The system's still down.\p"
 	.string "They say a detective from the\n"
 	.string "International Police is\l"
 	.string "investigating out past the PALACE.\l"

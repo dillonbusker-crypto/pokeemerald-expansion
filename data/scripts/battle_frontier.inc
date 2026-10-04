@@ -22,6 +22,6 @@ EventScript_FrontierFirstPatient::
 Text_FrontierFirstPatient:
 	.string "Oh! A patient! You're the first\n"
 	.string "one we've had in a long time!\p"
-	.string "Ever since those PokéNavs started\n"
+	.string "Ever since those POKéNAVs started\n"
 	.string "healing everyone, nobody comes in\l"
 	.string "anymore...$"

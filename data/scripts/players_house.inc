@@ -715,9 +715,10 @@ PlayersHouse_1F_EventScript_EmptyHome::
 	end
 
 PlayersHouse_1F_Text_EmptyHome:
-	.string "MOM? DAD?\p"
+	.string "{PLAYER} called out for MOM and\n"
+	.string "DAD.\p"
 	.string "...\p"
-	.string "That's weird. MOM and DAD aren't\n"
+	.string "No answer. MOM and DAD aren't\n"
 	.string "home.\p"
 	.string "And the house is a mess...$"
 
@@ -816,8 +817,8 @@ PlayersHouse_1F_Text_FamilyScene:
 	.string "me you'll be careful out there.\p"
 	.string "DAD: ...There's something you're\n"
 	.string "not telling us, isn't there?\p"
-	.string "...\p"
-	.string "I see. So you're working with\n"
+	.string "{PLAYER} told them about STEVEN.\p"
+	.string "DAD: I see. So you're working with\n"
 	.string "STEVEN now. Undercover, while you\l"
 	.string "climb those gauntlets.\p"
 	.string "That's a dangerous game, {PLAYER}.\n"

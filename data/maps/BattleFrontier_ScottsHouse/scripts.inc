@@ -644,8 +644,8 @@ BattleFrontier_ScottsHouse_Text_ScottWatchYourTone:
 	.string "SCOTT: ...Watch your tone, NORMAN.\p"
 	.string "You run a GYM in a small town.\n"
 	.string "Stay in your place.\p"
-	.string "If I wanted to, I could wipe out\n"
-	.string "your whole team before you\l"
+	.string "If I wanted to, I could squash you\n"
+	.string "and your whole team before you\l"
 	.string "finished sending it out. Don't\l"
 	.string "make me remind you.$"
 

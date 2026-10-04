@@ -157,8 +157,8 @@ ArtisanCave_B1F_EventScript_StayInCaveEnd::
 	end
 
 ArtisanCave_B1F_Text_StayInCave:
-	.string "I should probably stay in the\n"
-	.string "cave.$"
+	.string "{PLAYER} decided to stay in the\n"
+	.string "cave for now.$"
 
 @ Ten Gauntlets: SCOTT's men (storyline.md). Once SCOTT has said he's sending
 @ them (FLAG_SCOTT_CAVE_WARNING, at the Battle Tower door) and the player has

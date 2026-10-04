@@ -29,9 +29,9 @@ BattleFrontier_Lounge8_Text_KnowAboutFrontierBrains:
 	.string "guard the end of the Eight\l"
 	.string "Gauntlets, from gauntlet 4 on.\p"
 	.string "The first three are guarded by\n"
-	.string "ANABEL's TOWER WARDENS... and get\l"
-	.string "this, they're GYM LEADERS! WINONA,\l"
-	.string "JUAN and ROXANNE.\p"
+	.string "SCOTT's WARDENS... and get this,\l"
+	.string "they're GYM LEADERS! WINONA, JUAN\l"
+	.string "and ROXANNE.\p"
 	.string "I wonder what SCOTT offered them\n"
 	.string "to leave their GYMS?$"
 

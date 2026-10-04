@@ -1302,7 +1302,7 @@ BattleFrontier_OutsideEast_Text_FlotsamBetrayal:
 	.string "And don't think you can just\n"
 	.string "auto-heal after this one, kid. See\l"
 	.string "this? It's a SCRAMBLER. Your\l"
-	.string "PokéNav's jammed. Mine too... but\l"
+	.string "POKéNAV's jammed. Mine too... but\l"
 	.string "who's counting?$"
 
 BattleFrontier_OutsideEast_Text_FlotsamDefeated:
@@ -1317,9 +1317,11 @@ BattleFrontier_OutsideEast_Text_FlotsamSore:
 	.string "bans HMs on the FRONTIER. Without\l"
 	.string "SURF, you'll never get down to\l"
 	.string "that cave.\p"
-	.string "...Wait a second. Are you the one\n"
-	.string "who's got that fancy L menu?\p"
-	.string "...Whatever. I'm out of here!$"
+	.string "...Unless that fancy L menu of\n"
+	.string "yours can teach it some other\l"
+	.string "way.\p"
+	.string "...Forget I said that. I'm out of\n"
+	.string "here!$"
 
 BattleFrontier_OutsideEast_Text_FlotsamDroppedFP:
 	.string "FLOTSAM dropped something in his\n"
@@ -1331,10 +1333,9 @@ BattleFrontier_OutsideEast_Text_FoundFlotsamFP:
 BattleFrontier_OutsideEast_Text_FloristBefore:
 	.string "I really want a LEAFEON to help\n"
 	.string "with my flowers... but I'm not\l"
-	.string "strong enough to beat the TOWER's\l"
-	.string "third boss.\p"
-	.string "You look strong. Maybe if you\n"
-	.string "could beat it, you could help me?\p"
+	.string "strong enough to earn one.\p"
+	.string "You look strong. Maybe you could\n"
+	.string "help me?\p"
 	.string "...Oh, never mind me. I'm getting\n"
 	.string "ahead of myself.$"
 
@@ -1380,7 +1381,7 @@ BattleFrontier_OutsideEast_Text_FloristThanks:
 BattleFrontier_OutsideEast_Text_LookerScrambler:
 	.string "LOOKER: We also found this on him.\n"
 	.string "A device that jams the auto-heal\l"
-	.string "of every PokéNav nearby. A\l"
+	.string "of every POKéNAV nearby. A\l"
 	.string "SCRAMBLER, he called it.\p"
 	.string "I have never seen anything like\n"
 	.string "it. Someone who knows machines\l"
@@ -1545,9 +1546,9 @@ BattleFrontier_Steven_EventScript_Steven::
 	waitmovement 0
 	msgbox BattleFrontier_Steven_Text_StevenGift, MSGBOX_DEFAULT
 	giveitem ITEM_EVIOLITE
-	msgbox BattleFrontier_Steven_Text_StevenFavor, MSGBOX_DEFAULT
 	msgbox BattleFrontier_Steven_Text_StevenAsksHelp, MSGBOX_DEFAULT
 	msgbox BattleFrontier_Steven_Text_AgreedToHelp, MSGBOX_DEFAULT
+	msgbox BattleFrontier_Steven_Text_StevenFavor, MSGBOX_DEFAULT
 	closemessage
 	setvar VAR_STEVEN_STORY_STATE, 2
 	fadescreen FADE_TO_BLACK
@@ -1589,7 +1590,8 @@ BattleFrontier_Steven_Text_StevenCounterfeit:
 	.string "I've handled nearly every stone in\n"
 	.string "HOENN, and these didn't come from\l"
 	.string "any of them.\p"
-	.string "Your father was right. They're\n"
+	.string "Your father called them fakes?\n"
+	.string "Then he was right. They're\l"
 	.string "counterfeit.\p"
 	.string "But whoever made them knew exactly\n"
 	.string "what they were doing. There's\l"
@@ -1725,9 +1727,10 @@ BattleFrontier_Steven_Text_GotRealBadges:
 	.string "with real ones!$"
 
 BattleFrontier_Steven_Text_StevenScrambler:
-	.string "STEVEN: And LOOKER's device... a\n"
-	.string "SCRAMBLER. It jams the PokéNav's\l"
-	.string "auto-heal.\p"
+	.string "{PLAYER} showed STEVEN the\n"
+	.string "SCRAMBLER from LOOKER.\p"
+	.string "STEVEN: A SCRAMBLER... It jams the\n"
+	.string "POKéNAV's auto-heal.\p"
 	.string "That's DEVON technology. I'd know\n"
 	.string "it anywhere. I'll look into how\l"
 	.string "FLOTSAM got his hands on one.$"
@@ -2524,10 +2527,10 @@ BattleFrontier_OutsideEast_Text_CrownPokenavRings:
 BattleFrontier_OutsideEast_Text_CrownStevenCall:
 	.string "STEVEN: {PLAYER}, it's STEVEN.\n"
 	.string "I just heard about LITTLEROOT.\p"
-	.string "I'm sorry. I'm tied up right now,\n"
-	.string "tracking where they took the\l"
-	.string "BROKER with LOOKER. I can't get\l"
-	.string "there until later.\p"
+	.string "I'm sorry. I'm tied up right now\n"
+	.string "with LOOKER, working out how to\l"
+	.string "get the BROKER out of the FACTORY.\l"
+	.string "I can't get there until later.\p"
 	.string "And WALLACE is in EVER GRANDE CITY,\n"
 	.string "trying to find out what happened\l"
 	.string "to the ELITE FOUR.\p"

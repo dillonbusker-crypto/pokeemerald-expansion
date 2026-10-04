@@ -165,8 +165,9 @@ BattleFrontier_PokemonCenter_1F_Text_HideoutPlayerAsks:
 	.string "blood between them, and that\l"
 	.string "STEVEN might say things that\l"
 	.string "aren't true.\p"
-	.string "Is this all just a feud between\n"
-	.string "the two of them?$"
+	.string "{PLAYER} asked whether this was all\n"
+	.string "just a feud between the two of\l"
+	.string "them.$"
 
 BattleFrontier_PokemonCenter_1F_Text_HideoutStevenWedge:
 	.string "STEVEN: ...He said that? He's\n"

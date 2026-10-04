@@ -264,22 +264,22 @@ BattleFrontier_RankingHall_EventScript_ArenaRecords_Text:
 	.string "practice.$"
 
 BattleFrontier_RankingHall_EventScript_PalaceRecords_Text:
-	.string "GAUNTLET 7 - BATTLE PALACE.\p"
+	.string "GAUNTLET 7 - THE OPEN COURT.\p"
 	.string "Boss: PALACE MAVEN SPENSER.\p"
 	.string "- Undefeated -$"
 
 BattleFrontier_RankingHall_EventScript_PalaceRecords_TextBeaten:
-	.string "GAUNTLET 7 - BATTLE PALACE.\p"
+	.string "GAUNTLET 7 - THE OPEN COURT.\p"
 	.string "Boss: PALACE MAVEN SPENSER.\p"
 	.string "Defeated by {PLAYER}.$"
 
 BattleFrontier_RankingHall_EventScript_PyramidRecords_Text:
-	.string "GAUNTLET 8 - BATTLE PYRAMID.\p"
+	.string "GAUNTLET 8 - THE SUMMIT.\p"
 	.string "Boss: PYRAMID KING BRANDON.\p"
 	.string "- Undefeated -$"
 
 BattleFrontier_RankingHall_EventScript_PyramidRecords_TextBeaten:
-	.string "GAUNTLET 8 - BATTLE PYRAMID.\p"
+	.string "GAUNTLET 8 - THE SUMMIT.\p"
 	.string "Boss: PYRAMID KING BRANDON.\p"
 	.string "Defeated by {PLAYER}.$"
 

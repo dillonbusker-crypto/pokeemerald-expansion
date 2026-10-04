@@ -839,7 +839,7 @@ Facility_B5_Text_BossIntro:
 
 Facility_B5_Text_BossDefeat:
 	.string "What a finish! Take a bow - the\n"
-	.string "crown is yours today.$"
+	.string "spotlight is yours today.$"
 
 BattleFrontier_BattleDomeLobby_Text_DoublesClosed:
 	.string "The Doubles tournament isn't running\n"

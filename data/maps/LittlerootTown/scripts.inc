@@ -954,8 +954,8 @@ LittlerootTown_Text_ExplainRunningShoes:
 
 LittlerootTown_Text_MomExplainsLMenu:
 	.string "MOM: Oh, and PROF. BIRCH called ahead\n"
-	.string "and told me everything - about the\l"
-	.string "level cap, and that menu of his.\p"
+	.string "and told me everything: the level\l"
+	.string "cap, and that menu of his.\p"
 	.string "Honestly, don't let it worry you. He's\n"
 	.string "a bit much, but he knows what he's\l"
 	.string "doing.\p"
@@ -969,12 +969,10 @@ LittlerootTown_Text_ComeHomeIfAnythingHappens:
 	.string "... ... ... ... ... ...\p"
 	.string "To think that you have your very\n"
 	.string "own POKéMON now...\p"
-	.string "Oh, and PROF. BIRCH was telling me\n"
-	.string "about some new challenge at the\l"
-	.string "BATTLE FRONTIER. The EIGHT\l"
-	.string "GAUNTLETS, he called it.\p"
-	.string "He seems to think it would suit\n"
-	.string "you perfectly.\p"
+	.string "And the BATTLE FRONTIER, too. These\n"
+	.string "EIGHT GAUNTLETS... The PROFESSOR\l"
+	.string "seems to think they'd suit you\l"
+	.string "perfectly.\p"
 	.string "...Your father is going to be\n"
 	.string "upset. He had such plans for your\l"
 	.string "first adventure.\p"
@@ -1641,8 +1639,8 @@ LittlerootTown_Text_LabRivalKeepGoing:
 	.string "gauntlets how it's done.$"
 
 LittlerootTown_Text_GoHomeFirst:
-	.string "I should probably go home and see\n"
-	.string "Mom and Dad while I'm here.$"
+	.string "{PLAYER} decided to go home and see\n"
+	.string "MOM and DAD first.$"
 
 
 @ ============================================================================
@@ -2037,8 +2035,8 @@ LittlerootTown_Text_CrownRivalLabOpen:
 	.string "Go! I'm right behind you!$"
 
 LittlerootTown_Text_CrownGoHomeFirst:
-	.string "I should go check on MOM and DAD\n"
-	.string "before I leave.$"
+	.string "{PLAYER} decided to check on MOM\n"
+	.string "and DAD before leaving.$"
 
 LittlerootTown_Text_HomeDoorLocked:
 	.string "The door is locked.\p"
@@ -2141,8 +2139,8 @@ LittlerootTown_Text_CrownBadgesSwapped:
 	.string "a new set of counterfeits!$"
 
 LittlerootTown_Text_CrownScott3:
-	.string "{PLAYER}: Why do you want permanent\n"
-	.string "MEGAS so badly?\p"
+	.string "{PLAYER} asked SCOTT why he wants\n"
+	.string "permanent MEGAS so badly.\p"
 	.string "SCOTT: ...\p"
 	.string "Some of us never got a partner.\p"
 	.string "So I'll take all of them.\p"

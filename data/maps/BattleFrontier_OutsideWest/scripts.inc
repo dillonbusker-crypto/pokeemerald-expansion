@@ -835,7 +835,7 @@ BattleFrontier_OutsideWest_Text_TuckerBefore:
 
 BattleFrontier_OutsideWest_Text_TuckerAfter:
 	.string "Encore, encore! ...No? Fair\n"
-	.string "enough. You earned the crown.\p"
+	.string "enough. You stole the show.\p"
 	.string "...You know who taught me to put\n"
 	.string "on a show? Ask SCOTT sometime.\l"
 	.string "Watch what face he makes.$"

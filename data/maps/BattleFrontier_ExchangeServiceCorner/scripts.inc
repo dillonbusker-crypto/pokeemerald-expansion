@@ -568,10 +568,10 @@ BattleFrontier_ExchangeServiceCorner_Text_RichBoyFlavor:
 
 BattleFrontier_ExchangeServiceCorner_Text_MoreFPForClearingGauntlets:
 	.string "Did you know?\p"
-	.string "Every battle you win is worth the\n"
-	.string "same FP, win or lose the run\l"
-	.string "later. It's clearing a whole\l"
-	.string "gauntlet that really pays out.$"
+	.string "Every battle you win pays FP, and\n"
+	.string "you keep it even if the run ends.\l"
+	.string "But it's clearing a whole gauntlet\l"
+	.string "that really pays out.$"
 
 @ ----------------------------------------------------------------------------
 @ Ten Gauntlets: the Frontier's "POS is down" while the Artisan Cave quest is
