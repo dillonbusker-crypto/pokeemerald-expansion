@@ -328,9 +328,12 @@ RivalsHouse_2F_Text_MayWhoAreYou:
 	.string "Oh, this is silly, isn't it?\n"
 	.string "I… I've just met you, {PLAYER}{KUN}.\p"
 	.string "Eheheh…\p"
-	.string "Oh, no! I forgot!\p"
-	.string "I was supposed to go help Dad catch\n"
-	.string "some wild POKéMON!\p"
+	.string "Oh, no! I forgot!\n"
+	.string "Dad hardly goes out in the field\l"
+	.string "anymore, so I've been doing his\l"
+	.string "fieldwork for him.\p"
+	.string "I'm supposed to be out catching wild\n"
+	.string "POKéMON right now!\p"
 	.string "{PLAYER}{KUN}, I'll catch you later!$"
 
 RivalsHouse_2F_Text_MayGettingReady:
@@ -340,8 +343,8 @@ RivalsHouse_2F_Text_MayGettingReady:
 RivalsHouse_2F_Text_BrendanWhoAreYou:
 	.string "Hey!\n"
 	.string "You…\p"
-	.string "Who are you?\p"
-	.string "Oh, you're {PLAYER}, aren't you?\n"
+	.string "Who are you?\n"
+	.string "Oh, you're {PLAYER}, aren't you?\l"
 	.string "Moved in next door, right?\p"
 	.string "I didn't know that you're a girl.\p"
 	.string "Dad, PROF. BIRCH, said that our new\n"
@@ -352,10 +355,12 @@ RivalsHouse_2F_Text_BrendanWhoAreYou:
 	.string "Huh? Hey, {PLAYER}, don't you have\n"
 	.string "a POKéMON?\p"
 	.string "Do you want me to go catch you one?\p"
-	.string "Aw, darn, I forgot…\p"
-	.string "I'm supposed to go help my dad catch\n"
-	.string "some wild POKéMON.\p"
-	.string "Some other time, okay?$"
+	.string "Aw, darn, I forgot…\n"
+	.string "Dad's always stuck in the LAB these\l"
+	.string "days, so I do his fieldwork for him.\p"
+	.string "I'm supposed to be out catching wild\n"
+	.string "POKéMON right now. Some other time,\l"
+	.string "okay?$"
 
 RivalsHouse_2F_Text_BrendanGettingReady:
 	.string "POKéMON fully restored…\n"

@@ -23,9 +23,10 @@ gText_Birch_MainSpeech::
 	.string "know everything about POKéMON.\p"
 	.string "In fact, there are many, many\n"
 	.string "secrets surrounding POKéMON.\p"
-	.string "To unravel POKéMON mysteries,\n"
-	.string "I've been undertaking research.\l"
-	.string "That's what I do.\p"
+	.string "Lately, my research has turned to\n"
+	.string "the bond between people and\l"
+	.string "POKéMON.\p"
+	.string "What it is... and what it can do.\p"
 	.string "$"
 
 gText_Birch_AndYouAre::

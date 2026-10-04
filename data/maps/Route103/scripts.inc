@@ -340,9 +340,10 @@ Route103_Text_ShouldHaveBroughtPotion:
 	.string "I should have brought a POTION…$"
 
 Route103_Text_ShortcutToOldale:
-	.string "If you cross the sea from here,\n"
-	.string "it'll be a shortcut to OLDALE TOWN.\p"
-	.string "Fufufu, that's useful, isn't it?$"
+	.string "See that dock up north? That's the\n"
+	.string "ferry to the BATTLE FRONTIER.\p"
+	.string "Only trainers with a ticket get on.\n"
+	.string "Fufufu… I'm still waiting for mine.$"
 
 Route103_Text_RouteSign:
 	.string "ROUTE 103\n"

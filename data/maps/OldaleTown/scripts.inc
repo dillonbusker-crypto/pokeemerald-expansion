@@ -499,10 +499,10 @@ OldaleTown_Text_IWorkAtPokemonMart:
 OldaleTown_Text_ThisIsAPokemonMart:
 	.string "This is a POKéMON MART.\n"
 	.string "Just look for our blue roof.\p"
-	.string "We sell a variety of goods including\n"
-	.string "POKé BALLS for catching POKéMON.\p"
-	.string "Here, I'd like you to have this as\n"
-	.string "a promotional item.$"
+	.string "…Not that there's much on our shelves\n"
+	.string "these days.\p"
+	.string "Here, I'd like you to have this, at\n"
+	.string "least.$"
 
 OldaleTown_Text_PotionExplanation:
 	.string "Honestly, nobody buys POTIONS\n"

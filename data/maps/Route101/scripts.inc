@@ -271,11 +271,13 @@ Route101_Text_DontLeaveMe:
 
 Route101_Text_YouSavedMe:
 	.string "PROF. BIRCH: Whew…\p"
-	.string "I was in the tall grass studying wild\n"
-	.string "POKéMON when I was jumped.\p"
+	.string "I was on my way back from a meeting,\n"
+	.string "and I cut through the tall grass.\p"
+	.string "I haven't done fieldwork in so long, I\n"
+	.string "forgot how lively it gets out here.\p"
 	.string "You saved me.\n"
 	.string "Thanks a lot!\p"
-	.string "Oh?\p"
+	.string "Oh?\n"
 	.string "Hi, you're {PLAYER}{KUN}!\p"
 	.string "This is not the place to chat, so come\n"
 	.string "by my POKéMON LAB later, okay?$"

@@ -755,11 +755,12 @@ LittlerootTown_ProfessorBirchsLab_Text_WhyNotGiveNicknameToMon:
 	.string "give a nickname to that {STR_VAR_1}?$"
 
 LittlerootTown_ProfessorBirchsLab_Text_MightBeGoodIdeaToGoSeeRival:
-	.string "PROF. BIRCH: If you work at POKéMON\n"
-	.string "and gain experience, I think you'll make\l"
-	.string "an extremely good TRAINER.\p"
-	.string "My kid, {RIVAL}, is also studying\n"
-	.string "POKéMON while helping me out.\p"
+	.string "PROF. BIRCH: With a POKéMON like that,\n"
+	.string "I think you'll make an extremely good\l"
+	.string "TRAINER.\p"
+	.string "My kid, {RIVAL}, has been doing my\n"
+	.string "fieldwork for me lately, out on\l"
+	.string "ROUTE 103.\p"
 	.string "{PLAYER}{KUN}, don't you think it might be\n"
 	.string "a good idea to go see {RIVAL}?$"
 

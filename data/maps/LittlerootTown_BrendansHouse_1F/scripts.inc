@@ -317,8 +317,8 @@ PlayersHouse_1F_Text_OhComeQuickly:
 	.string "Quick! Come quickly!$"
 
 PlayersHouse_1F_Text_MaybeDadWillBeOn:
-	.string "MOM: Look! It's PETALBURG GYM!\n"
-	.string "Maybe DAD will be on!$"
+	.string "MOM: Look! It's a report on HOENN's\n"
+	.string "GYMS! Maybe DAD will be on!$"
 
 PlayersHouse_1F_Text_ItsOverWeMissedHim:
 	.string "MOM: Oh… It's over.\p"
@@ -327,10 +327,13 @@ PlayersHouse_1F_Text_ItsOverWeMissedHim:
 
 PlayersHouse_1F_Text_GoIntroduceYourselfNextDoor:
 	.string "Oh, yes.\n"
-	.string "One of DAD's friends lives in town.\p"
+	.string "One of DAD's friends lives in town.\l"
 	.string "PROF. BIRCH is his name.\p"
 	.string "He lives right next door, so you should\n"
-	.string "go over and introduce yourself.$"
+	.string "go over and introduce yourself.\p"
+	.string "DAD says he's been working day and\n"
+	.string "night lately, so don't keep him too\l"
+	.string "long.$"
 
 PlayersHouse_1F_Text_SeeYouHoney:
 	.string "MOM: See you, honey!$"
@@ -357,10 +360,11 @@ PlayersHouse_1F_Text_DontPushYourselfTooHard:
 	.string "Go for it, honey!$"
 
 PlayersHouse_1F_Text_IsThatAPokenav:
-	.string "MOM: What is that, honey? A POKéNAV?\n"
-	.string "Someone from DEVON gave it to you?\p"
-	.string "Well, honey, how about registering\n"
-	.string "your mom?\p"
+	.string "MOM: What is that, honey? Oh, one of\n"
+	.string "those new POKéNAVs from DEVON!\p"
+	.string "PROF. BIRCH gave it to you? Well,\n"
+	.string "honey, how about registering your\l"
+	.string "mom?\p"
 	.string "… … …$"
 
 PlayersHouse_1F_Text_RegisteredMom:
@@ -374,8 +378,11 @@ PlayersHouse_1F_Text_Vigoroth2:
 	.string "Huggoh, uggo uggo…$"
 
 PlayersHouse_1F_Text_ReportFromPetalburgGym:
-	.string "INTERVIEWER: …We brought you this\n"
-	.string "report from in front of PETALBURG GYM.$"
+	.string "INTERVIEWER: …Ever since the BATTLE\n"
+	.string "FRONTIER opened its EIGHT GAUNTLETS,\l"
+	.string "HOENN's GYMS have never been quieter.\p"
+	.string "We brought you this report from in\n"
+	.string "front of PETALBURG GYM.$"
 
 PlayersHouse_1F_Text_TheresAMovieOnTV:
 	.string "There is a movie on TV.\p"
