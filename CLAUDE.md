@@ -1,7 +1,8 @@
 # Project Handoff — Eight Gauntlets
 
 Context document for an agent picking up this project. Read this first, then
-`battle-tower-design-v2.md` and `gauntlet-01.md`.
+`handoff.md` (the latest session's state, testing status and loose ends) and
+`storyline.md`.
 
 ---
 
@@ -13,8 +14,11 @@ The player fights through eight escalating gauntlets (trimmed from ten: see
 buys Pokémon and items from pools that unlock as they progress. A story runs
 alongside it (`storyline.md`).
 
-The vanilla Emerald story and maps are **not being used** and will eventually be
-stripped, but nothing has been removed yet.
+The vanilla Emerald story is **not being used** and will eventually be
+stripped, but nothing has been removed yet. Some vanilla maps are reused by
+the story (Littleroot, Oldale, Ever Grande, and later Rustboro, Mauville,
+Sky Pillar...); those must survive the strip (`storyline.md`, "Technical
+notes").
 
 ---
 
@@ -164,61 +168,36 @@ way to grant badges.
 
 ## Files
 
-Copy these into the repo folder so they're readable:
+All in the repo root. Team sets are written in Pokémon Showdown syntax.
 
-- `battle-tower-design-v2.md` — full ten-gauntlet structure, economy, item and
-  AI progression
-- `gauntlet-01.md` — the complete vertical slice: curated pool, ban list, shop,
-  twelve CPU teams, the boss, and the benchmark counter-team
-- `competitive-reference.md` — competitive fundamentals for singles and doubles,
-  tailored to this format
-- `give-counter-team.c` — ready-to-paste function that gives the player the
-  benchmark counter-team
+| File | What |
+|---|---|
+| `handoff.md` | Latest session: commits, testing status, tools, loose ends, next step |
+| `storyline.md` | The whole story, what's built (✅) and planned (📝), open questions |
+| `battle-tower-design-v2.md` | Gauntlet structure, economy, item and AI progression (written for ten; trimmed to eight per `storyline.md`) |
+| `gauntlet-01.md` … `gauntlet-08.md` | Each gauntlet's pool, ban list, CPU teams and boss |
+| `shop-spec.md`, `shop-unlock-b*.md` | The shop and its unlock waves |
+| `run-loop-spec.md` | How a gauntlet run works |
+| `save-data-findings.md` | Save block budget (SaveBlock3 is nearly empty; SaveBlock1/2 are tight) |
+| `frontier-dialogue.md`, `broker-spec.md`, `easter-eggs-spec.md` | World bible, the Broker, the Artisan Cave quest |
+| `competitive-reference.md` | Competitive fundamentals for this format |
+| `give-counter-team.c` | Historical: the gauntlet 1 benchmark counter-team |
 
-Team sets are written in Pokémon Showdown syntax.
-
----
-
-## Immediate task
-
-Get the gauntlet 1 boss fight playable so the owner can test whether it's
-tuned correctly. This is a throwaway test harness, not the real facility.
-
-1. **Determine the trainer data format.** Check whether `src/data/` contains
-   `trainers.party` (expansion 1.10+ Competitive Format) or only `trainers.h`
-   (older C struct format). This decides how the teams get entered.
-2. **Replace a sacrificial early trainer** — Youngster Calvin on Route 102 is
-   the suggestion, since he's reachable within two minutes of a new game and
-   is a single battle — with Warden Winona's six from `gauntlet-01.md`. All at
-   level 50, with the specified natures, EVs, IVs, abilities, items and moves.
-3. **Set the boss AI flags:** full offensive intelligence, smart replacement
-   choice, and omniscient. Altaria in slot six flagged as the ace so the AI
-   holds it in reserve.
-4. **Add the counter-team function** from `give-counter-team.c` to
-   `src/new_game.c`, with the call at the end of `NewGameInitData()`.
-5. **Disable exp gain and obedience checks** for the duration of this test —
-   see "Temporary test-only patches" below. Both would otherwise contaminate
-   the tuning read (mid-battle level-ups, random disobedience at level 50
-   with zero badges).
-6. **Build and fix errors.**
+When docs disagree with the code, verify constant names and API signatures
+against the headers; they change between expansion versions.
 
 ---
 
-## Things to verify rather than assume
+## Current state
 
-These were written without access to the repo and need checking against the
-actual headers:
+All eight gauntlets, the shop and the run loop are built, and the story is
+built through the event after gauntlet 7 ("the Crown is taken"). Next is the
+endgame after gauntlet 8 (`storyline.md`, "After gauntlet 8" onward, and
+"Still to decide"). See `handoff.md` for what's untested.
 
-- **AI flag constant names** — in `include/constants/battle_ai.h`. They have
-  changed between expansion versions, so don't trust any name written in the
-  design docs.
-- **Ability numbers.** Sableye must get Prankster and Parasect must get Dry
-  Skin. Both are set via `abilityNum` and the numbering should be confirmed
-  against the species data.
-- **Species, move and item constants** — particularly `SPECIES_FERROSEED`,
-  `MOVE_FOUL_PLAY`, `ITEM_BLACK_GLASSES`, `ITEM_MYSTIC_WATER`.
-- **Pokémon API signatures** — `CreateMonWithNature`, `SetMonMoveSlot`,
-  `CalculateMonStats` and the `MON_DATA_*` enum names.
+Testing is either the owner in mGBA, or the headless harness in
+`~/decomps/headless-harness/` (run on a **copy** of the repo, always a New
+Game; how-to in `handoff.md`).
 
 ---
 
@@ -231,7 +210,7 @@ actual headers:
 - **Don't refactor or clean up unrelated code.** Keep diffs small and readable.
 - **Don't strip the vanilla story yet.** That's a later, deliberate step.
 - **Don't enable Tera, Z-Moves or Dynamax.** Megas only is a locked decision.
-- **The whole story lives in `storyline.md`** (the receptor, Scott, both endings,
+- **The whole story lives in `storyline.md`** (the receptor, Scott, the ending,
   what's built vs planned). Read it before writing any story beat.
 - **World-building lives in `frontier-dialogue.md` and `broker-spec.md`.**
   Frontier NPCs react to progress through the `GetGauntletsClearedCount`
@@ -252,15 +231,3 @@ actual headers:
   (`FACILITY_BUILDING_N`, `buildingsCompleted`, ...) until the planned rename
   in `frontier-dialogue.md`, Part 5.
 
----
-
-## What comes after
-
-Once the boss is playable and tuned, the gate for moving on is the owner
-beating Winona using only gauntlet 1's pool. Then gauntlets 2 through 8 get
-designed, and separately the real facility gets built — the point economy, the
-shop, the purchase and roster UI, and the save data to hold a permanently owned
-collection.
-
-Save block space is expected to be the tightest technical constraint in the
-whole project and has not been investigated yet.

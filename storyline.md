@@ -990,13 +990,12 @@ happy ending.
   between them, and each city is **blocked off** so the player can't wander
   out into the rest of Hoenn.
 
-- **Levels.** Flat level 50 with no Experience is currently a test-only patch
-  (`TESTING_DISABLE_EXP_GAIN`, CLAUDE.md). The story needs a real rule instead:
-  a Pokémon gains Experience only if **the harness has been overclocked** (New
-  Mauville), or if **the badges are real and it isn't chipped** (the Lati, from
-  Steven's gauntlet 4 test until Scott swaps the counterfeits back after
-  gauntlet 7). "Chipped" means it came from the shop, Scott or
-  Birch, which needs a marker on each such Pokémon.
+- **Levels.** ✅ The real rule is built (`FrontierStoryAllowsExp()` and
+  `IsFrontierChippedMon()`, `src/facility.c`; see CLAUDE.md): a Pokémon gains
+  Experience only if **the badges are real and it isn't chipped** (the Lati,
+  from Steven's gauntlet 4 test until Scott swaps the counterfeits back after
+  gauntlet 7). "Chipped" = met anywhere but Artisan Cave. 📝 Still to add: the
+  New Mauville overclock lifting the chip rule.
 - **Steven's test battle** is a wild battle (a scripted Aron), so it costs no
   trainer ID.
 - **The required quest costs 900 FP of the 1,200 gauntlet 3 pays:** a
