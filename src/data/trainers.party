@@ -24570,6 +24570,7 @@ Pic: Magma Leader Maxie
 Gender: Male
 Music: Magma
 Double Battle: Yes
+Multi Party: Half
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
 Groudon @ Life Orb
@@ -24609,6 +24610,7 @@ Pic: Aqua Leader Archie
 Gender: Male
 Music: Aqua
 Double Battle: Yes
+Multi Party: Half
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
 
 Gyarados @ Gyaradosite

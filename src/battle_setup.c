@@ -2328,6 +2328,14 @@ void SetMultiTrainerBattle(struct ScriptContext *ctx)
     TRAINER_BATTLE_PARAM.opponentB = ScriptReadHalfword(ctx);
     TRAINER_BATTLE_PARAM.defeatTextB = (u8*)ScriptReadWord(ctx);
     gPartnerTrainerId = TRAINER_PARTNER(ScriptReadHalfword(ctx));
+
+    // Eight Gauntlets: the multi_* macros call AreMultiPartiesFullTeams()
+    // right after this, before BattleSetup_StartMultiBattle sets the battle
+    // type, so it read the last battle's flags. Without BATTLE_TYPE_TRAINER it
+    // answered "full teams": the party was never cut to the three chosen
+    // POKEMON, and the write-back after the battle copied the first three
+    // party slots over the chosen ones (a Miraidon came back as a Landorus).
+    gBattleTypeFlags = (TRAINER_BATTLE_PARAM.opponentA == TRAINER_NONE) ? 0 : BATTLE_TYPE_TRAINER;
 };
 
 void CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer *trainer)
