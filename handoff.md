@@ -156,10 +156,20 @@ out-of-order pick**, or a wrong write-back looks identical.
 - `~/decomps/wallace-backsprite-for-artist/` can be deleted.
 - Trainer IDs: 967 used of 1000. Don't raise `MAX_TRAINERS_COUNT`.
 
+## Permanent Megas (built after this handoff was written)
+
+The engine rule and the Replica Crown item are built and tested
+(`storyline.md`, "Permanent Megas"). The Crown works only once
+`FLAG_CROWN_CHARGED` is set, which the planned Frontier siphon scene must do.
+Not yet hand-tested in mGBA (no scene gives the item yet).
+
+**`make check` baseline:** 15 known failures, all from deliberate project
+changes (Experience off, save layout grown, one vanilla item description).
+Any count above 15 is new.
+
 ## Next
 
 The endgame after gauntlet 8. Open design questions first (`storyline.md`,
 "Still to decide"): the Brains' upgraded teams, the Elite Four's teams,
 Scott's Kangaskhan replacement, Steven's PokéNav, how the Broker gets out of
-the Factory. One technical unknown: whether the player's Pokémon can stay
-Mega Evolved permanently (needs engine investigation before it's promised).
+the Factory. (The permanent-Mega question is answered: built, see above.)

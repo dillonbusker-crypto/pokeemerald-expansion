@@ -6858,6 +6858,41 @@ void ItemUseCB_FormChange_ConsumedOnUse(u8 taskId, TaskFunc task)
         RemoveBagItem(gSpecialVar_ItemId, 1);
 }
 
+// Ten Gauntlets: the Replica Crown (storyline.md). Makes a Mega Evolution
+// permanent, the held Mega Stone picking the form, or turns a permanent Mega
+// back. The battle code leaves a Mega that started the battle as one alone
+// (CanBattlerFormChange, TryRevertPartyMonFormChange).
+void ItemUseCB_ReplicaCrown(u8 taskId, TaskFunc task)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_PLAYER][gPartyMenu.slotId];
+    enum Species species = GetMonData(mon, MON_DATA_SPECIES);
+    enum Species targetSpecies;
+
+    if (gSpeciesInfo[species].isMegaEvolution)
+        targetSpecies = GetFormChangeTargetSpecies(mon, FORM_CHANGE_FAINT);
+    else
+        targetSpecies = GetFormChangeTargetSpecies(mon, FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM);
+
+    if (targetSpecies == species || GetMonData(mon, MON_DATA_IS_EGG))
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+
+    SetMonData(mon, MON_DATA_SPECIES, &targetSpecies);
+    CalculateMonStats(mon);
+    gPartyMenuUseExitCallback = TRUE;
+    SetWordTaskArg(taskId, tNextFunc, (u32)task);
+    gTasks[taskId].func = Task_TryItemUseFormChange;
+    gTasks[taskId].tState = 0;
+    gTasks[taskId].tTargetSpecies = targetSpecies;
+    gTasks[taskId].tAnimWait = 0;
+}
+
 void ItemUseCB_RotomCatalog(u8 taskId, TaskFunc task)
 {
     PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);

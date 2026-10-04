@@ -1141,6 +1141,7 @@ enum __attribute__((packed)) Item
     // ITEM_FIELD_ARROW from sharing TM101's ID.
     ITEM_SCRAMBLER = 940,
     ITEM_SECOND_WIND = 941, // Ten Gauntlets: one retry of a lost gauntlet battle, boss included (Lounge 7)
+    ITEM_REPLICA_CROWN = 942, // Ten Gauntlets: President Stone's failsafe; once charged, makes a Mega permanent (storyline.md)
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,

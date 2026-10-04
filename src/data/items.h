@@ -15222,6 +15222,26 @@ const struct ItemInfo gItemsInfo[] =
         .iconPalette = gItemIconPalette_RevivalHerb,
     },
 
+    // Ten Gauntlets: PRESIDENT STONE's failsafe, given at Devon (storyline.md).
+    // Once charged (FLAG_CROWN_CHARGED, the Frontier siphon), it makes a
+    // Pokemon's Mega Evolution permanent - the held Mega Stone picks the
+    // form - or turns a permanent Mega back.
+    [ITEM_REPLICA_CROWN] =
+    {
+        .name = ITEM_NAME("Replica Crown"),
+        .price = 0,
+        .description = COMPOUND_STRING(
+            "A copy of the\n"
+            "CROWN, from Devon.\n"
+            "Holds a Mega form."),
+        .importance = 1,
+        .pocket = POCKET_KEY_ITEMS,
+        .type = ITEM_USE_PARTY_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_ReplicaCrown,
+        .iconPic = gItemIcon_KingsRock,
+        .iconPalette = gItemIconPalette_KingsRock,
+    },
+
     [ITEM_DEVON_SCOPE] =
     {
         .name = ITEM_NAME("Devon Scope"),

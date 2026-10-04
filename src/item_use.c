@@ -87,6 +87,7 @@ static const u8 sText_ItemFinderNearby[] = _("Huh?\nThe ITEMFINDER's responding!
 static const u8 sText_ItemFinderOnTop[] = _("Oh!\nThe ITEMFINDER's shaking wildly!{PAUSE_UNTIL_PRESS}");
 static const u8 sText_ItemFinderNothing[] = _("… … … …Nope!\nThere's no response.{PAUSE_UNTIL_PRESS}");
 static const u8 sText_CoinCase[] = _("Your COINS:\n{STR_VAR_1}{PAUSE_UNTIL_PRESS}");
+static const u8 sText_CrownNoPower[] = _("The CROWN has no power yet.{PAUSE_UNTIL_PRESS}");
 static const u8 sText_PowderQty[] = _("POWDER QTY: {STR_VAR_1}{PAUSE_UNTIL_PRESS}");
 static const u8 sText_BootedUpTM[] = _("Booted up a TM.");
 static const u8 sText_BootedUpHM[] = _("Booted up an HM.");
@@ -1401,6 +1402,19 @@ void ItemUseOutOfBattle_FormChange(u8 taskId)
 void ItemUseOutOfBattle_FormChange_ConsumedOnUse(u8 taskId)
 {
     gItemUseCB = ItemUseCB_FormChange_ConsumedOnUse;
+    SetUpItemUseCallback(taskId);
+}
+
+// Ten Gauntlets: the Replica Crown does nothing until the Frontier siphon
+// charges it (storyline.md).
+void ItemUseOutOfBattle_ReplicaCrown(u8 taskId)
+{
+    if (!FlagGet(FLAG_CROWN_CHARGED))
+    {
+        DisplayCannotUseItemMessage(taskId, gTasks[taskId].tUsingRegisteredKeyItem, sText_CrownNoPower);
+        return;
+    }
+    gItemUseCB = ItemUseCB_ReplicaCrown;
     SetUpItemUseCallback(taskId);
 }
 

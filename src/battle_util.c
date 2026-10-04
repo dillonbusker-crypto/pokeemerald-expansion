@@ -8569,6 +8569,11 @@ bool32 CanMegaEvolve(enum BattlerId battler)
     if (GetActiveGimmick(battler) != GIMMICK_NONE)
         return FALSE;
 
+    // Ten Gauntlets: a permanent Mega (the Replica Crown's) can't Mega Evolve
+    // again - Mega Charizard X holding Charizardite Y would become Mega Y.
+    if (IsBattlerMegaEvolved(battler))
+        return FALSE;
+
     // Check if battler is currently held by Sky Drop.
     if (gBattleMons[battler].volatiles.semiInvulnerable == STATE_SKY_DROP_TARGET)
         return FALSE;
@@ -8726,6 +8731,11 @@ static bool32 CanBattlerFormChange(enum BattlerId battler, enum FormChanges meth
             return TRUE;
         // Fallthrough
     case FORM_CHANGE_FAINT:
+        // Ten Gauntlets: a Mega that started the battle as one is permanent
+        // (the Replica Crown) and doesn't revert. One that Mega Evolved this
+        // battle has its original species saved in changedSpecies.
+        if (IsBattlerMegaEvolved(battler) && GetBattlerPartyState(battler)->changedSpecies == SPECIES_NONE)
+            return FALSE;
         if (IsBattlerMegaEvolved(battler) || IsBattlerUltraBursted(battler) || IsBattlerInTeraForm(battler) || IsGigantamaxed(battler))
             return TRUE;
         break;
@@ -8748,6 +8758,12 @@ static bool32 CanBattlerFormChange(enum BattlerId battler, enum FormChanges meth
 bool32 TryRevertPartyMonFormChange(u32 partyIndex)
 {
      bool32 changedForm = FALSE;
+
+    // Ten Gauntlets: a Mega that started the battle as one is permanent (the
+    // Replica Crown) - see CanBattlerFormChange.
+    if (gSpeciesInfo[GetMonData(&gParties[B_TRAINER_PLAYER][partyIndex], MON_DATA_SPECIES)].isMegaEvolution
+     && gBattleStruct->partyState[B_SIDE_PLAYER][partyIndex].changedSpecies == SPECIES_NONE)
+        return FALSE;
 
     // Appeared in battle and didn't faint
     if (gBattleStruct->partyState[B_SIDE_PLAYER][partyIndex].sentOut && GetMonData(&gParties[B_TRAINER_PLAYER][partyIndex], MON_DATA_HP) != 0)

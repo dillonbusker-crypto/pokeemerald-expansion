@@ -1010,11 +1010,27 @@ happy ending.
   above gauntlet 5's 600 cap for Megas: a deliberate, story-given edge. The Chansey's Transfer EXP needs a special that sets the party to
   level 100 and recalculates stats.
 
-- **Permanent Megas and Primals.**
-  - Enemy: trainer Pokémon can be listed directly in Mega or Primal form
-    holding a normal item. Verify they don't revert on switching.
-  - Player: real engine work. Forms normally revert on switching and after
-    battle. Needs investigating before it's promised.
+- **Permanent Megas** ✅ (engine and item built; the scenes that give and
+  charge the Crown are not).
+  - **Rule:** a Mega that *starts* a battle as a Mega is permanent. It
+    doesn't revert on fainting or after the battle, and it can't Mega Evolve
+    again (no Mega Charizard X → Y). A Pokémon that Mega Evolves mid-battle
+    reverts as usual. A permanent Mega doesn't use up the battle's one Mega
+    Evolution: it's treated like any other Pokémon. Code: `CanBattlerFormChange`,
+    `TryRevertPartyMonFormChange`, `CanMegaEvolve` (`src/battle_util.c`);
+    tests in `test/battle/ten_gauntlets_perma_mega.c`.
+  - **The Replica Crown** (`ITEM_REPLICA_CROWN`, key item): pick a party
+    Pokémon; the held Mega Stone picks its Mega (so X or Y), and the stone can
+    then come off for a real item. Using it on a permanent Mega turns it back.
+    Until `FLAG_CROWN_CHARGED` is set: "The CROWN has no power yet." **The
+    Frontier siphon scene must set that flag**, and Stone's scene gives the
+    item.
+  - Not covered: Mega Rayquaza (Dragon Ascent, no stone), and the player
+    can't sell a permanent Mega (Mega species aren't on the price list; the
+    shop is free by then anyway).
+  - Enemy: list trainer Pokémon directly in Mega form holding a normal item.
+    They don't revert on switching, and the same rule keeps them Mega on
+    fainting. Primals (Archie, Maxie, Scott) still untested.
 
 - **No-heal chains:** scripts simply don't heal between the battles. A loss
   whites out to the last checkpoint with a healed team, and the whole chain

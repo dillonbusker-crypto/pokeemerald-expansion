@@ -30,6 +30,7 @@ void ItemUseOutOfBattle_EvolutionStone(u8 taskId);
 void ItemUseOutOfBattle_Berry(u8 taskId);
 void ItemUseOutOfBattle_EnigmaBerry(u8 taskId);
 void ItemUseOutOfBattle_FormChange(u8 taskId);
+void ItemUseOutOfBattle_ReplicaCrown(u8 taskId);
 void ItemUseOutOfBattle_FormChange_ConsumedOnUse(u8 taskId);
 void ItemUseOutOfBattle_RotomCatalog(u8 taskId);
 void ItemUseOutOfBattle_ZygardeCube(u8 taskId);
