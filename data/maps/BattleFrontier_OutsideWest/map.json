@@ -564,6 +564,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "BattleFrontier_OutsideWest_EventScript_CrownSteven",
       "flag": "FLAG_HIDE_CROWN_STORY_FACTORY_STEVEN"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_FACTORY_JOY",
+      "graphics_id": "OBJ_EVENT_GFX_NURSE",
+      "x": 13,
+      "y": 38,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "BattleFrontier_OutsideWest_EventScript_FactoryJoy",
+      "flag": "FLAG_HIDE_FACTORY_JOY"
     }
   ],
   "warp_events": [
@@ -585,7 +599,7 @@
       "x": 11,
       "y": 38,
       "elevation": 0,
-      "dest_map": "MAP_BATTLE_FRONTIER_BATTLE_FACTORY_LOBBY",
+      "dest_map": "MAP_BATTLE_FRONTIER_DEVON_FACTORY_1F",
       "dest_warp_id": "0"
     },
     {

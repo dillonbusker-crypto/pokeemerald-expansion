@@ -103,7 +103,7 @@
 #define FLAG_HIDE_EVER_GRANDE_STORY_MAXIE    0x48 // Ten Gauntlets: the Ever Grande trip - MAXIE in the POKEMON LEAGUE lobby
 #define FLAG_HIDE_EVER_GRANDE_STORY_ARCHIE    0x49 // Ten Gauntlets: the Ever Grande trip - ARCHIE in the POKEMON LEAGUE lobby
 #define FLAG_CROWN_CHARGED    0x4A // Ten Gauntlets: the Replica Crown is charged (the Frontier siphon, storyline.md) - it can make a Mega permanent
-#define FLAG_UNUSED_0x04B    0x4B // Unused Flag
+#define FLAG_HIDE_FACTORY_JOY    0x4B // Ten Gauntlets: NURSE JOY's quick heal outside the Devon Factory (endgame) - shown/hidden on every map load
 #define FLAG_UNUSED_0x04C    0x4C // Unused Flag
 #define FLAG_UNUSED_0x04D    0x4D // Unused Flag
 #define FLAG_UNUSED_0x04E    0x4E // Unused Flag

@@ -624,7 +624,11 @@
     "NavelRock_Down10",
     "NavelRock_Down11",
     "NavelRock_Bottom",
-    "TrainerHill_Elevator"
+    "TrainerHill_Elevator",
+    "BattleFrontier_DevonFactory_1F",
+    "BattleFrontier_DevonFactory_B1F",
+    "BattleFrontier_DevonFactory_B2F",
+    "BattleFrontier_DevonFactory_B3F"
   ],
   "gMapGroup_IndoorRoute104Prototype": [
     "Route104_Prototype",

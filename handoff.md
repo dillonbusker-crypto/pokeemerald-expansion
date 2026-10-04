@@ -163,6 +163,16 @@ The engine rule and the Replica Crown item are built and tested
 `FLAG_CROWN_CHARGED` is set, which the planned Frontier siphon scene must do.
 Not yet hand-tested in mGBA (no scene gives the item yet).
 
+## The Devon Factory (built after this handoff was written)
+
+The Battle Factory's interior is rebuilt as Devon's facility, four new maps
+(`storyline.md`, "The Devon Factory"). Harness scenario 10 walks it: locked
+door and hidden Joy, then unlocked, every staircase, the sealed Pillar
+stairs, Scott. **Not hand-played**; use the debug menu (R + START, warp).
+The maps come from `~/decomps/headless-harness/factory/` (ASCII plans + an
+auto-tiler + stamps cut from vanilla maps); its `render_lib.py` also fixes
+`render_map.py`'s gTileset_General and FRLG rendering.
+
 **`make check` baseline:** 15 known failures, all from deliberate project
 changes (Experience off, save layout grown, one vanilla item description).
 Any count above 15 is new.

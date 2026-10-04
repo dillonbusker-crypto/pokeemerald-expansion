@@ -30,6 +30,7 @@ BattleFrontier_OutsideWest_OnTransition:
 	call BattleFrontier_OutsideWest_EventScript_SetupSteven
 	call BattleFrontier_OutsideWest_EventScript_SetupBrokerStory
 	call BattleFrontier_OutsideWest_EventScript_SetupCrownStory
+	call BattleFrontier_OutsideWest_EventScript_SetupFactoryJoy
 	end
 
 BattleFrontier_OutsideWest_EventScript_HideTucker::
@@ -1831,3 +1832,34 @@ BattleFrontier_OutsideWest_Text_StevenNoRoom:
 	.string "STEVEN: Your party and your PC are\n"
 	.string "both full. Make some room, and\l"
 	.string "come back to me.$"
+
+@ ============================================================================
+@ Ten Gauntlets: once the endgame opens the Devon Factory (storyline.md), NURSE
+@ JOY waits beside its door as a quick heal: SCOTT has shut her POKEMON CENTER,
+@ but she still helps the player.
+@ ============================================================================
+BattleFrontier_OutsideWest_EventScript_SetupFactoryJoy::
+	setflag FLAG_HIDE_FACTORY_JOY
+	special IsBattleFactoryUnlocked
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_OutsideWest_EventScript_SetupFactoryJoyEnd
+	clearflag FLAG_HIDE_FACTORY_JOY
+BattleFrontier_OutsideWest_EventScript_SetupFactoryJoyEnd:
+	return
+
+BattleFrontier_OutsideWest_EventScript_FactoryJoy::
+	lock
+	faceplayer
+	msgbox BattleFrontier_OutsideWest_Text_FactoryJoy, MSGBOX_DEFAULT
+	call Common_EventScript_OutOfCenterPartyHeal
+	msgbox BattleFrontier_OutsideWest_Text_FactoryJoyDone, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideWest_Text_FactoryJoy:
+	.string "SCOTT locked my POKéMON CENTER,\n"
+	.string "but he can't stop me helping you.\p"
+	.string "Let me see your team.$"
+
+BattleFrontier_OutsideWest_Text_FactoryJoyDone:
+	.string "All better! Come back any time you\n"
+	.string "need me. I'll be right here.$"

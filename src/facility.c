@@ -307,7 +307,7 @@ bool32 IsFacilityLobbyDoorLocked(u32 mapGroup, u32 mapNum)
     case MAP_BATTLE_FRONTIER_BATTLE_DOME_LOBBY:
         IsBattleDomeUnlocked();
         break;
-    case MAP_BATTLE_FRONTIER_BATTLE_FACTORY_LOBBY:
+    case MAP_BATTLE_FRONTIER_DEVON_FACTORY_1F:
         IsBattleFactoryUnlocked();
         break;
     case MAP_BATTLE_FRONTIER_BATTLE_PIKE_LOBBY:

@@ -784,6 +784,23 @@ heals the player between fights.
 Each gauntlet Brain, once beaten, turns: they keep the island open for the
 player for the rest of the endgame. Noland and Greta hold out longer.
 
+**The Devon Factory** ✅ (maps built; fights and scenes 📝). Four floors on
+Devon's own tileset, going down toward the ore. The old Battle Factory maps
+are unused (strip them with the vanilla story).
+
+| Floor | Map | Rooms | Guards |
+|---|---|---|---|
+| 1F | `BattleFrontier_DevonFactory_1F` | Lobby (reception, the empty BOND HARNESS case), Surveillance (screens on every battle room), Control Room (island systems, the harvest log with the player's name on top, auto-heal), Chip Lab (implant stations, Birch's crates), Warehouse (Kanto Master Balls, Mega Stone ore) | Anabel, Lucy, Spenser, Tucker |
+| B1F | `..._B1F` Holding Block | Four cells: Mom and Dad, the Broker, two empty | Greta (door), Noland (desk) |
+| B2F | `..._B2F` Generator Hall | Stairs to the Pillar, sealed; **seven red lights** beside them (metatile `0x224`), one per guard | Brandon |
+| B3F | `..._B3F` Pillar Chamber | The **Mega Pillar** (the glass capsule, unique to this room), the dais in a fence gap, Scott's office | Scott |
+
+- **The front door** opens only with the Factory's door bit (`IsBattleFactoryUnlocked`); the endgame must set it.
+- **Nurse Joy** stands beside the door as a quick heal once it's open (`FLAG_HIDE_FACTORY_JOY`).
+- **Rescues:** Mom, Dad and the Broker leave as the player rescues them. The Broker goes on to run the free shop.
+- 📝 Still to script: the seven fights; each beaten guard turning off a light and leaving; the sealed stairs opening at seven (now always sealed); the rescues; hiding the Brains who loiter outside their buildings (Tucker, Lucy) while they're in the Factory; Scott's scene. The guards' lines are placeholders.
+- The maps are generated: `~/decomps/headless-harness/factory/` (see its README).
+
 **Scott's monologue.** His motives, his childhood, and that no one can stop
 him: he's harnessed the bonds of thousands of trainers into the Crown. He
 laughs at the idea of the player battling him: get out of the way, or he'll
@@ -1064,9 +1081,9 @@ happy ending.
 8. **Steven's PokéNav.** Devon makes the PokéNav, and Stone is watching. Why
    does Steven trust his for the call he'll make later (a secure line, as the
    President's son, or one he modified himself)?
-9. **How the Broker gets out of the Factory** before he runs the endgame's free
-   shop. The Crown plays out in the Factory, so the player could free him
-   there.
+9. ~~How the Broker gets out of the Factory~~ ✅ The player rescues him from
+   the Holding Block (B1F), with Mom and Dad, and he leaves to run the free
+   shop.
 
 ---
 
