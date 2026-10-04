@@ -478,6 +478,9 @@ const u8 gTrainerBackPic_RubySapphireBrendan[] = INCGFX_U8("graphics/trainers/ba
 const u8 gTrainerBackPic_RubySapphireMay[] = INCGFX_U8("graphics/trainers/back_pics/may_rs.png", ".4bpp");
 const u8 gTrainerBackPic_Wally[] = INCGFX_U8("graphics/trainers/back_pics/wally.png", ".4bpp");
 const u8 gTrainerBackPic_Steven[] = INCGFX_U8("graphics/trainers/back_pics/steven.png", ".4bpp");
+// Ten Gauntlets: WALLACE fights beside the player at EVER GRANDE (storyline.md),
+// so he needs a back sprite; it shares his front sprite's palette.
+const u8 gTrainerBackPic_Wallace[] = INCGFX_U8("graphics/trainers/back_pics/wallace.png", ".4bpp");
 const u8 gTrainerBackPic_Pokedude[] = INCGFX_U8("graphics/trainers/back_pics/pokedude.png", ".4bpp");
 const u8 gTrainerBackPic_OldMan[] = INCGFX_U8("graphics/trainers/back_pics/old_man.png", ".4bpp");
 
@@ -857,6 +860,7 @@ const struct TrainerPicInfo gTrainerPicInfo[TRAINER_PIC_COUNT] =
     [TRAINER_PIC_CHAMPION_WALLACE] =
     {
         .frontPic = TRAINER_FRONT_PIC(gTrainerFrontPic_ChampionWallace, gTrainerPalette_ChampionWallace, -8, 7, 0x188),
+        .backPic = TRAINER_BACK_PIC(4, gTrainerBackPic_Wallace, gTrainerPalette_ChampionWallace, sBackAnims_Hoenn),
     },
     [TRAINER_PIC_FISHERMAN] =
     {

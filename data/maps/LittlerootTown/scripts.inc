@@ -1783,7 +1783,7 @@ LittlerootTown_EventScript_CrownGuardsWarning::
 @ The player squares up at (7, 18), below NOLAND, wherever they talked from:
 @ (7, 18) itself, below GRETA at (8, 18), or beside her at (9, 17). No heal
 @ between the two battles - the SCRAMBLER is on - and the held items come
-@ back afterwards, win or white-out (EventScript_RestoreCrownHeldItems).
+@ back afterwards, win or white-out (EventScript_RestoreStoryHeldItems).
 LittlerootTown_EventScript_CrownGuardsFight::
 	closemessage
 	getplayerxy VAR_0x8004, VAR_0x8005
@@ -1798,7 +1798,7 @@ LittlerootTown_EventScript_CrownGuardsFight::
 	waitse
 	msgbox LittlerootTown_Text_CrownGuardsGuts, MSGBOX_DEFAULT
 	closemessage
-	setflag FLAG_CROWN_HELD_ITEMS_SAVED
+	setflag FLAG_STORY_HELD_ITEMS_SAVED
 	special SaveFacilityHeldItems
 	setrespawn HEAL_LOCATION_OLDALE_TOWN
 	trainerbattle_no_intro TRAINER_LITTLEROOT_GRETA, LittlerootTown_Text_CrownGretaDefeat
@@ -1806,7 +1806,7 @@ LittlerootTown_EventScript_CrownGuardsFight::
 	closemessage
 	trainerbattle_no_intro TRAINER_LITTLEROOT_NOLAND, LittlerootTown_Text_CrownNolandDefeat
 	special RestoreFacilityHeldItems
-	clearflag FLAG_CROWN_HELD_ITEMS_SAVED
+	clearflag FLAG_STORY_HELD_ITEMS_SAVED
 	msgbox LittlerootTown_Text_CrownGuardsBeaten, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_LITTLEROOT_GRETA, LittlerootTown_Movement_GretaLeavesLab
@@ -2054,6 +2054,9 @@ LittlerootTown_Text_CrownGuardsFirst:
 	.string "aren't stupid.\p"
 	.string "We know you've been meeting STEVEN.\n"
 	.string "And we know you caught that LATI.\p"
+	.string "And that little trip to EVER GRANDE\n"
+	.string "with WALLACE? MAXIE and ARCHIE told\l"
+	.string "us all about it.\p"
 	.string "SCOTT is not happy about all your\n"
 	.string "meddling.\p"
 	.string "NOLAND: Look, kid. This is none of\n"

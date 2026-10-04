@@ -24555,3 +24555,88 @@ Adamant Nature
 - U-turn
 - Swords Dance
 - Roost
+
+/* Ten Gauntlets: the Broker's letter (storyline.md, "After gauntlet 6"). MAXIE
+ * and ARCHIE, waiting at the POKEMON LEAGUE for SCOTT's meeting, fought as a
+ * tag battle with WALLACE as the player's partner (each brings three). Not
+ * SCOTT's chipped trainers, so real levels: the legendaries at 55, the rest
+ * 52-53. GROUDON and Mega GYARADOS lead, so the two weather legends never
+ * come out together at the start. Their PRIMAL forms come later, from SCOTT. */
+
+=== TRAINER_EVER_GRANDE_MAXIE ===
+Name: MAXIE
+Class: Magma Leader
+Pic: Magma Leader Maxie
+Gender: Male
+Music: Magma
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Groudon @ Life Orb
+Ability: Drought
+Level: 55
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Precipice Blades
+- Heat Crash
+- Rock Slide
+- Protect
+
+Camerupt @ Cameruptite
+Ability: Solid Rock
+Level: 53
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Heat Wave
+- Earth Power
+- Ancient Power
+- Protect
+
+Heatran @ Shuca Berry
+Ability: Flash Fire
+Level: 52
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Heat Wave
+- Earth Power
+- Flash Cannon
+- Protect
+
+=== TRAINER_EVER_GRANDE_ARCHIE ===
+Name: ARCHIE
+Class: Aqua Leader
+Pic: Aqua Leader Archie
+Gender: Male
+Music: Aqua
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching
+
+Gyarados @ Gyaradosite
+Ability: Intimidate
+Level: 53
+EVs: 252 HP / 252 Atk / 4 Spe
+Adamant Nature
+- Waterfall
+- Crunch
+- Dragon Dance
+- Protect
+
+Kyogre @ Choice Specs
+Ability: Drizzle
+Level: 55
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Water Spout
+- Origin Pulse
+- Ice Beam
+- Thunder
+
+Tapu Fini @ Leftovers
+Ability: Misty Surge
+Level: 52
+EVs: 252 HP / 4 SpA / 252 SpD
+Calm Nature
+- Moonblast
+- Muddy Water
+- Calm Mind
+- Protect

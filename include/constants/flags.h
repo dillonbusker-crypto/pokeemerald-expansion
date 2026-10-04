@@ -94,14 +94,14 @@
 #define FLAG_HIDE_CROWN_STORY_DIALGA    0x3F // Ten Gauntlets: the Crown is taken - shown/hidden on every map load (storyline.md)
 #define FLAG_HIDE_CROWN_STORY_FACTORY_STEVEN    0x40 // Ten Gauntlets: the Crown is taken - shown/hidden on every map load (storyline.md)
 #define FLAG_HIDE_CROWN_STORY_LAB_AIDE    0x41 // Ten Gauntlets: the Crown is taken - BIRCH's aide is gone from the stripped lab
-#define FLAG_CROWN_HELD_ITEMS_SAVED    0x42 // Ten Gauntlets: the Crown is taken - held items snapshotted for NOLAND and GRETA, restored after a white-out
-#define FLAG_UNUSED_0x043    0x43 // Unused Flag
-#define FLAG_UNUSED_0x044    0x44 // Unused Flag
-#define FLAG_UNUSED_0x045    0x45 // Unused Flag
-#define FLAG_UNUSED_0x046    0x46 // Unused Flag
-#define FLAG_UNUSED_0x047    0x47 // Unused Flag
-#define FLAG_UNUSED_0x048    0x48 // Unused Flag
-#define FLAG_UNUSED_0x049    0x49 // Unused Flag
+#define FLAG_STORY_HELD_ITEMS_SAVED    0x42 // Ten Gauntlets: held items snapshotted before a story fight that can white out (NOLAND and GRETA, MAXIE and ARCHIE), restored after it
+#define FLAG_HIDE_EVER_GRANDE_STORY_FRONTIER_ABRA    0x43 // Ten Gauntlets: the Ever Grande trip (Broker's letter) - WALLACE's ABRA by the Frontier's Pokemon Center
+#define FLAG_HIDE_EVER_GRANDE_STORY_TOP_ABRA    0x44 // Ten Gauntlets: the Ever Grande trip - the ABRA outside the POKEMON LEAGUE
+#define FLAG_HIDE_EVER_GRANDE_STORY_LOWER_ABRA    0x45 // Ten Gauntlets: the Ever Grande trip - the ABRA outside EVER GRANDE's Pokemon Center
+#define FLAG_HIDE_EVER_GRANDE_STORY_OUTSIDE_WALLACE    0x46 // Ten Gauntlets: the Ever Grande trip - WALLACE waiting outside the POKEMON LEAGUE
+#define FLAG_HIDE_EVER_GRANDE_STORY_WALLACE    0x47 // Ten Gauntlets: the Ever Grande trip - WALLACE in the POKEMON LEAGUE lobby
+#define FLAG_HIDE_EVER_GRANDE_STORY_MAXIE    0x48 // Ten Gauntlets: the Ever Grande trip - MAXIE in the POKEMON LEAGUE lobby
+#define FLAG_HIDE_EVER_GRANDE_STORY_ARCHIE    0x49 // Ten Gauntlets: the Ever Grande trip - ARCHIE in the POKEMON LEAGUE lobby
 #define FLAG_UNUSED_0x04A    0x4A // Unused Flag
 #define FLAG_UNUSED_0x04B    0x4B // Unused Flag
 #define FLAG_UNUSED_0x04C    0x4C // Unused Flag

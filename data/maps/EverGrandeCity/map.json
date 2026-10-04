@@ -20,7 +20,50 @@
       "direction": "left"
     }
   ],
-  "object_events": [],
+  "object_events": [
+    {
+      "local_id": "LOCALID_EVER_GRANDE_WALLACE",
+      "graphics_id": "OBJ_EVENT_GFX_WALLACE",
+      "x": 17,
+      "y": 7,
+      "elevation": 7,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "0x0",
+      "flag": "FLAG_HIDE_EVER_GRANDE_STORY_OUTSIDE_WALLACE"
+    },
+    {
+      "local_id": "LOCALID_EVER_GRANDE_TOP_ABRA",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(ABRA)",
+      "x": 20,
+      "y": 8,
+      "elevation": 7,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EverGrandeCity_EventScript_TopAbra",
+      "flag": "FLAG_HIDE_EVER_GRANDE_STORY_TOP_ABRA"
+    },
+    {
+      "local_id": "LOCALID_EVER_GRANDE_LOWER_ABRA",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(ABRA)",
+      "x": 28,
+      "y": 49,
+      "elevation": 5,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 1,
+      "movement_range_y": 1,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "EverGrandeCity_EventScript_LowerAbra",
+      "flag": "FLAG_HIDE_EVER_GRANDE_STORY_LOWER_ABRA"
+    }
+  ],
   "warp_events": [
     {
       "x": 18,
@@ -150,6 +193,132 @@
       "var": "VAR_TEMP_1",
       "var_value": "0",
       "script": "EverGrandeCity_EventScript_SetVisitedEverGrande"
+    },
+    {
+      "type": "trigger",
+      "x": 18,
+      "y": 28,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_VictoryRoadClosed"
+    },
+    {
+      "type": "trigger",
+      "x": 18,
+      "y": 42,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_VictoryRoadClosed"
+    },
+    {
+      "type": "trigger",
+      "x": 15,
+      "y": 59,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_WaterfallTooStrong"
+    },
+    {
+      "type": "trigger",
+      "x": 16,
+      "y": 59,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_WaterfallTooStrong"
+    },
+    {
+      "type": "trigger",
+      "x": 17,
+      "y": 59,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_WaterfallTooStrong"
+    },
+    {
+      "type": "trigger",
+      "x": 18,
+      "y": 59,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_WaterfallTooStrong"
+    },
+    {
+      "type": "trigger",
+      "x": 19,
+      "y": 59,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_WaterfallTooStrong"
+    },
+    {
+      "type": "trigger",
+      "x": 20,
+      "y": 59,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_WaterfallTooStrong"
+    },
+    {
+      "type": "trigger",
+      "x": 21,
+      "y": 59,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_WaterfallTooStrong"
+    },
+    {
+      "type": "trigger",
+      "x": 22,
+      "y": 59,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_WaterfallTooStrong"
+    },
+    {
+      "type": "trigger",
+      "x": 23,
+      "y": 59,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_WaterfallTooStrong"
+    },
+    {
+      "type": "trigger",
+      "x": 24,
+      "y": 59,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_WaterfallTooStrong"
+    },
+    {
+      "type": "trigger",
+      "x": 25,
+      "y": 59,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_WaterfallTooStrong"
+    },
+    {
+      "type": "trigger",
+      "x": 26,
+      "y": 59,
+      "elevation": 0,
+      "var": "VAR_TEMP_3",
+      "var_value": "0",
+      "script": "EverGrandeCity_EventScript_WaterfallTooStrong"
     }
   ],
   "bg_events": [

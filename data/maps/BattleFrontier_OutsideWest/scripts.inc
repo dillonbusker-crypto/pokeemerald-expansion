@@ -1178,9 +1178,13 @@ BattleFrontier_OutsideWest_EventScript_SetupSteven::
 @ the Pike), 2 following STEVEN to the Pokemon Center, 3 the Center scene
 @ done (SCOTT and his men outside it), 4 SCOTT headed for the Broker's, 5 the
 @ Broker arrested and the LETTER in hand (STEVEN on the ledge above the
-@ Pyramid), 6 the LETTER delivered (WALLACE waits on the way back), 7 done.
-@ Gauntlet 7 (the Palace) stays closed until 6. The scenes after the Pike
-@ are in the Pokemon Center and Outside East.
+@ Pyramid), 6 the LETTER delivered (WALLACE waits on the way back), 7 WALLACE
+@ asked for help (his ABRA waits by the Pokemon Center; he waits outside the
+@ POKEMON LEAGUE), 8 he's gone in (the scene plays in the lobby), 9 the scene
+@ done, MAXIE and ARCHIE still to beat (talk to WALLACE), 10 beaten (the
+@ ABRA brings the player home), 11 done.
+@ Gauntlet 7 (the Palace) stays closed until 11. The scenes after the Pike
+@ are in the Pokemon Center, Outside East and EVER GRANDE CITY.
 @ ============================================================================
 
 @ Clearing gauntlet 6 starts the arc the next time the player is out here

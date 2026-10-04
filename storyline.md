@@ -411,9 +411,12 @@ the only one, and the Broker and the trader can't offer it either.
 
 Built, not yet playtested. Tracked by `VAR_BROKER_STORY_STATE`: 0 none, 1
 gauntlet 6 cleared, 2 following Steven, 3 Center scene done, 4 Scott headed
-for the Broker, 5 arrested (letter in hand), 6 letter delivered, 7 done. The
-state list and the setup live in `BattleFrontier_OutsideWest`; the scenes are
-in the Pike plaza (Outside West), the Pokémon Center, and Outside East. Only
+for the Broker, 5 arrested (letter in hand), 6 letter delivered, 7 Wallace
+asked for help (the Abra waits), 8 Wallace gone into the League, 9 the League
+scene done (Maxie and Archie to beat), 10 beaten, 11 back at the Frontier
+(done). The state list and the setup live in `BattleFrontier_OutsideWest`;
+the scenes are in the Pike plaza (Outside West), the Pokémon Center, Outside
+East and Ever Grande City. Only
 a save with exactly six gauntlets cleared gets the event. A save that cleared
 gauntlet 6 before it existed is pointed back to the Pike by the Palace
 attendant.
@@ -536,11 +539,43 @@ over the letter.
 - He'll look into whether the chips can be disabled, and be in touch. He flies
   off.
 
-**7. Wallace.** As the player heads back west, Wallace walks up. He slipped
-onto the island again, past Scott's security. He's looking for Steven: **the
-Elite Four have left the Pokémon League** and nobody knows where they went.
-(A hint at who Scott is meeting out of town.) The player says Steven just flew
-off. Wallace: he's always on the move. He flies off.
+**7. Wallace, and the trip to Ever Grande.** ✅ As the player heads back west,
+Wallace walks up. He slipped onto the island again, past Scott's security,
+looking for Steven. The player says Steven just flew off. Then **Wallace's
+PokéNav rings**: the **Pokémon League office**. The Elite Four have left their
+posts, and shortly after, **Maxie and Archie** showed up at the League,
+stirring up trouble. Wallace needs the player's help, and they'll be quick so
+Scott doesn't notice. He leaves his **Abra** by the Frontier's Pokémon
+Center, which knows Teleport and the way to Ever Grande, and flies ahead.
+
+- **The Abra network** (no HM, so Scott's ban stands and no other town opens
+  up): one by the Frontier's Pokémon Center, one outside the Pokémon League,
+  one outside Ever Grande's Pokémon Center below. The League's Abra goes back
+  to the Frontier any time.
+- **Outside the League**, Wallace is waiting, and leads the way in.
+- **The lobby.** Archie: he thought this was the meeting place. Maxie: maybe
+  *he* meant the Elite Four would be at the meeting, not that the meeting
+  would be at the Elite Four. They notice the player and Wallace: just a
+  misunderstanding, they're leaving. Wallace: who were they meeting? None of
+  his business. It is, since the Elite Four are at this so-called meeting.
+  Archie: they can handle the Champion easy, and what's the puny kid going to
+  do? Wallace: "{PLAYER}. The SCRAMBLER."
+- **The tag battle**, the player's three and Wallace's against Maxie and
+  Archie. Not Scott's chipped trainers, so real levels. Wallace: Palkia 58,
+  Mega Golisopod and Rapid Strike Urshifu 56. Maxie: Groudon 55, Mega
+  Camerupt 53, Heatran 52. Archie: Mega Gyarados 53, Kyogre 55, Tapu Fini 52.
+  **Groudon and Mega Gyarados lead.** A loss whites out to Ever Grande's
+  Pokémon Center below; its Abra takes the player back up, and talking to
+  Wallace starts the fight again.
+- **Won:** Maxie throws a flash bang; the screen goes white, and they're gone.
+  Wallace goes after them and sends the player home before Scott notices.
+- **Ever Grande is sealed**: Victory Road is closed at both ends, the current
+  stops anyone surfing down the waterfall, and the League's guards let no one
+  through to the empty Elite Four rooms.
+- **It comes back later:** Maxie and Archie report the trip to Scott, and
+  Greta brings it up at Birch's lab after gauntlet 7. This was Scott
+  recruiting them, so the Primal forms he hands them for New Mauville come
+  from here.
 
 **The event ends, and gauntlet 7 opens.**
 
@@ -731,9 +766,8 @@ more. Steven **walks off** (his team is down).
 - The counterfeits are back, so **the Lati doesn't grow** again until the New
   Mauville overclock (code: Scott's swap clears `FLAG_REAL_BADGES`).
 
-**Wallace's Palkia** 📝: Wallace has a Palkia, the counterpart to Steven's
-Dialga. Where it appears is still to decide (the Wardens' ambush in Rustboro
-is the obvious place).
+**Wallace's Palkia** ✅: Wallace has a Palkia, the counterpart to Steven's
+Dialga. It first appears in the tag battle at Ever Grande (after gauntlet 6).
 
 ### After gauntlet 8: the Crown 📝
 
@@ -932,10 +966,10 @@ happy ending.
 
   | Content | Running total |
   |---|---|
-  | Built now (all eight gauntlets, story trainers, the two Devon Agents, Noland and Greta at Birch's lab) | 965 |
-  | Seven Brain rematches, Scott ×2 | 974 |
-  | Elite Four (Rustboro), Archie, Maxie | 980 |
-  | Elite Four again at Sky Pillar, only if the player fights them there | 984 |
+  | Built now (all eight gauntlets, story trainers, the two Devon Agents, Noland and Greta at Birch's lab, Maxie and Archie at Ever Grande) | 967 |
+  | Seven Brain rematches, Scott ×2 | 976 |
+  | Elite Four (Rustboro), Archie, Maxie (New Mauville, with Primals) | 982 |
+  | Elite Four again at Sky Pillar, only if the player fights them there | 986 |
 
   Past the limit, a trainer silently shares its "defeated" flag with a system
   flag (see CLAUDE.md). There's room to spare, but the Arena's mock battles
@@ -993,8 +1027,8 @@ happy ending.
 
 ## Still to decide ❓
 
-1. Noland and Greta's teams at the lab (gauntlet 7 strength). Where **Wallace's Palkia** appears. (Gauntlet 7's
-   beat is written: the Crown is taken.)
+1. Tuning the story fights once playtested: Maxie and Archie at Ever Grande
+   (after gauntlet 6), Noland and Greta at Birch's lab (after gauntlet 7).
 2. The seven Brains' upgraded teams after gauntlet 8, and their lines as they
    turn.
 3. The Elite Four's teams (up to level 55, some permanent Megas) and the

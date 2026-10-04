@@ -1841,7 +1841,9 @@ BattleFrontier_OutsideEast_EventScript_SetupBrokerStory::
 	setflag FLAG_HIDE_BROKER_STORY_GUARD
 	setflag FLAG_HIDE_BROKER_STORY_BROKER
 	setflag FLAG_HIDE_BROKER_STORY_WALLACE
+	setflag FLAG_HIDE_EVER_GRANDE_STORY_FRONTIER_ABRA
 	call_if_ge VAR_BROKER_STORY_STATE, 6, BattleFrontier_OutsideEast_EventScript_HideLooker
+	call_if_ge VAR_BROKER_STORY_STATE, 7, BattleFrontier_OutsideEast_EventScript_ShowWallaceAbra
 	call_if_eq VAR_BROKER_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_ShowCenterSquad
 	call_if_eq VAR_BROKER_STORY_STATE, 4, BattleFrontier_OutsideEast_EventScript_ShowArrest
 	return
@@ -2148,6 +2150,20 @@ BattleFrontier_OutsideEast_EventScript_LedgeWallace::
 	msgbox BattleFrontier_OutsideEast_Text_LedgePlayerTells, MSGBOX_DEFAULT
 	msgbox BattleFrontier_OutsideEast_Text_LedgeWallaceBye, MSGBOX_DEFAULT
 	closemessage
+	@ The LEAGUE office calls him: the ELITE FOUR are gone, and MAXIE and
+	@ ARCHIE turned up right after.
+	playse SE_POKENAV_CALL
+	waitse
+	delay 10
+	playse SE_POKENAV_CALL
+	waitse
+	msgbox BattleFrontier_OutsideEast_Text_LedgeWallaceRings, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_LedgeWallaceOnCall, MSGBOX_DEFAULT
+	closemessage
+	playse SE_POKENAV_HANG_UP
+	waitse
+	msgbox BattleFrontier_OutsideEast_Text_LedgeWallaceAsksHelp, MSGBOX_DEFAULT
+	closemessage
 	applymovement LOCALID_FRONTIER_LEDGE_WALLACE, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	delay 50
@@ -2318,11 +2334,7 @@ BattleFrontier_Steven_Text_LetterGoodbye:
 BattleFrontier_OutsideEast_Text_LedgeWallace:
 	.string "WALLACE: {PLAYER}! Well met.\p"
 	.string "I slipped past SCOTT's security\n"
-	.string "again. Have you seen STEVEN?\p"
-	.string "The ELITE FOUR have left the\n"
-	.string "POKéMON LEAGUE. They're not in\l"
-	.string "EVER GRANDE CITY, and nobody knows\l"
-	.string "where they've gone.$"
+	.string "again. Have you seen STEVEN?$"
 
 BattleFrontier_OutsideEast_Text_LedgePlayerTells:
 	.string "{PLAYER} told WALLACE that STEVEN\n"
@@ -2330,9 +2342,39 @@ BattleFrontier_OutsideEast_Text_LedgePlayerTells:
 
 BattleFrontier_OutsideEast_Text_LedgeWallaceBye:
 	.string "WALLACE: Ha! Always on the move,\n"
-	.string "that one.\p"
-	.string "I'll catch up with him. Take care,\n"
-	.string "{PLAYER}.$"
+	.string "that one.$"
+
+BattleFrontier_OutsideEast_Text_LedgeWallaceRings:
+	.string "...Beep beep beep!\n"
+	.string "WALLACE's POKéNAV is ringing!$"
+
+BattleFrontier_OutsideEast_Text_LedgeWallaceOnCall:
+	.string "WALLACE: WALLACE here.\p"
+	.string "...The ELITE FOUR? All four of\n"
+	.string "them?\p"
+	.string "...\p"
+	.string "...MAXIE and ARCHIE? At the\n"
+	.string "LEAGUE?\p"
+	.string "I see. I'm on my way.$"
+
+BattleFrontier_OutsideEast_Text_LedgeWallaceAsksHelp:
+	.string "WALLACE: That was the POKéMON\n"
+	.string "LEAGUE office.\p"
+	.string "The ELITE FOUR have left their\n"
+	.string "posts. Nobody knows where they've\l"
+	.string "gone.\p"
+	.string "And shortly after they left, MAXIE\n"
+	.string "and ARCHIE showed up at the\l"
+	.string "LEAGUE, stirring up trouble.\p"
+	.string "I'm going to need your help with\n"
+	.string "this, {PLAYER}.\p"
+	.string "We'll be quick, so SCOTT doesn't\n"
+	.string "notice you're gone.\p"
+	.string "My ABRA will be waiting by the\n"
+	.string "POKéMON CENTER. It knows TELEPORT,\l"
+	.string "and the way to EVER GRANDE CITY.\p"
+	.string "I'll fly ahead. Meet me outside the\n"
+	.string "POKéMON LEAGUE.$"
 
 @ ============================================================================
 @ Ten Gauntlets: a facility that isn't open yet keeps its door shut - walking
@@ -2498,3 +2540,43 @@ BattleFrontier_OutsideEast_Text_CrownStevenCall:
 
 BattleFrontier_OutsideEast_Text_CrownClick:
 	.string "Click!$"
+
+@ ============================================================================
+@ Ten Gauntlets: the Ever Grande trip, the end of the Broker's letter
+@ (storyline.md; VAR_BROKER_STORY_STATE is explained in
+@ BattleFrontier_OutsideWest). From state 7 until the player is back (11),
+@ WALLACE's ABRA waits by the Pokemon Center to TELEPORT them to EVER GRANDE
+@ CITY; the ABRA there brings them back to (4, 53), beside it.
+@ ============================================================================
+
+BattleFrontier_OutsideEast_EventScript_ShowWallaceAbra::
+	goto_if_ge VAR_BROKER_STORY_STATE, 11, Common_EventScript_NopReturn
+	clearflag FLAG_HIDE_EVER_GRANDE_STORY_FRONTIER_ABRA
+	return
+
+BattleFrontier_OutsideEast_EventScript_WallaceAbra::
+	lock
+	faceplayer
+	playmoncry SPECIES_ABRA, CRY_MODE_NORMAL
+	msgbox BattleFrontier_OutsideEast_Text_WallaceAbra, MSGBOX_YESNO
+	waitmoncry
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideEast_EventScript_WallaceAbraNo
+	msgbox BattleFrontier_OutsideEast_Text_AbraUsedTeleport, MSGBOX_DEFAULT
+	closemessage
+	playse SE_M_TELEPORT
+	warpteleport MAP_EVER_GRANDE_CITY, 18, 8
+	waitstate
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_WallaceAbraNo::
+	release
+	end
+
+BattleFrontier_OutsideEast_Text_WallaceAbra:
+	.string "It's WALLACE's ABRA.\p"
+	.string "It can TELEPORT you to EVER GRANDE\n"
+	.string "CITY. Go now?$"
+
+BattleFrontier_OutsideEast_Text_AbraUsedTeleport:
+	.string "ABRA used TELEPORT!$"

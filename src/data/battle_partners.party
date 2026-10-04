@@ -200,3 +200,46 @@ Timid Nature
 - Bug Buzz
 - Ice Beam
 - Stun Spore
+
+/* Ten Gauntlets: the Broker's letter (storyline.md). WALLACE tag-teams with
+ * the player against MAXIE and ARCHIE in the POKEMON LEAGUE lobby. He isn't
+ * one of SCOTT's chipped trainers, so his POKEMON keep their real levels. All
+ * Water: PALKIA, Mega GOLISOPOD and Rapid Strike URSHIFU. */
+
+=== PARTNER_WALLACE ===
+Name: WALLACE
+Class: Champion
+Pic: Champion Wallace
+Gender: Male
+Music: Male
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware
+
+Palkia @ Lustrous Orb
+Ability: Pressure
+Level: 58
+EVs: 4 HP / 252 SpA / 252 Spe
+Timid Nature
+- Spacial Rend
+- Hydro Pump
+- Thunderbolt
+- Protect
+
+Golisopod @ Golisopite
+Ability: Emergency Exit
+Level: 56
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- First Impression
+- Liquidation
+- Leech Life
+- Protect
+
+Urshifu-Rapid-Strike @ Focus Sash
+Ability: Unseen Fist
+Level: 56
+EVs: 252 Atk / 4 SpD / 252 Spe
+Jolly Nature
+- Surging Strikes
+- Close Combat
+- Aqua Jet
+- Protect

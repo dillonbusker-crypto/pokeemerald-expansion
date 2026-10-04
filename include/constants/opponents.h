@@ -1000,6 +1000,11 @@
 #define TRAINER_LITTLEROOT_GRETA                963
 #define TRAINER_LITTLEROOT_NOLAND               964
 
+// Ten Gauntlets: the Broker's letter, after gauntlet 6 (storyline.md). The
+// tag battle in the POKEMON LEAGUE lobby, with WALLACE as the player's partner.
+#define TRAINER_EVER_GRANDE_MAXIE               965
+#define TRAINER_EVER_GRANDE_ARCHIE              966
+
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
 //       the system flags (Pokedex, badges, ...) start right after it, so an ID at or past this limit
@@ -1013,7 +1018,7 @@
 //       so it invalidates existing saves - don't grow it again casually. Costs ~14 bytes of SaveBlock1
 //       (304 B free, see save-data-findings.md), checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
 
-#define TRAINERS_COUNT_EMERALD     965
+#define TRAINERS_COUNT_EMERALD     967
 #define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG
