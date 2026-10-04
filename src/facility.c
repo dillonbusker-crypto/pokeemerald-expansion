@@ -629,24 +629,19 @@ void FacilityGetDrawnPoolIndex(void)
     gSpecialVar_Result = gSaveBlock3Ptr->facility.run.drawnTeams[battleNum - 1];
 }
 
-// Flat across all ten gauntlets - not the "10/100 x gauntlet number" formula
-// in battle-tower-design-v2.md, which hadn't been played against actual shop
-// prices yet. Retuned again once shop-spec.md's economy section (and the
-// tier-2 pricing ladder in that doc) was worked out against these numbers:
-// a full clear (6 wins + boss) pays 900 FP, matching that doc exactly. u16
-// gSaveBlock3Ptr->facility.progress.fp tops out at 65535 - even a player who
-// clears every gauntlet without ever spending banks at most 300 (starting
-// grant) + 9000 (ten full clears) = 9300, comfortably inside that ceiling
-// with room to spare.
-// Rewards scale up as the shop gets pricier: gauntlets 1-2 pay 75 a win and
+// Rewards scale up as the shop gets pricier. Gauntlets 1-2 pay 75 a win and
 // 450 for the boss (900 for a full clear), gauntlet 3 pays 100 and 600
-// (1200), and gauntlet 4 on pays 150 and 900 (1800). Even a player who never
-// spends banks at most 300 + 900*2 + 1200 + 1800*7 = 15900 FP, well inside
-// the u16 ceiling.
+// (1200), and from gauntlet 4 each gauntlet pays 50 more a win than the last,
+// with the boss worth six wins: gauntlet 4 pays 150 and 900, 5 pays 200 and
+// 1200, 6 pays 250 and 1500, 7 pays 300 and 1800, 8 pays 350 and 2100. Even a
+// player who never spends banks at most 300 (starting grant) + 900*2 + 1200
+// + 1800 + 2400 + 3000 + 3600 + 4200 = 18300 FP, plus a little from the
+// story, well inside the u16 ceiling of
+// gSaveBlock3Ptr->facility.progress.fp.
 static u16 FacilityBattleFP(u8 gauntlet)
 {
     if (gauntlet >= FACILITY_GAUNTLET_4)
-        return 150;
+        return 150 + 50 * (gauntlet - FACILITY_GAUNTLET_4);
     if (gauntlet == FACILITY_GAUNTLET_3)
         return 100;
     return 75;
@@ -655,10 +650,25 @@ static u16 FacilityBattleFP(u8 gauntlet)
 static u16 FacilityBossFP(u8 gauntlet)
 {
     if (gauntlet >= FACILITY_GAUNTLET_4)
-        return 900;
+        return 6 * FacilityBattleFP(gauntlet);
     if (gauntlet == FACILITY_GAUNTLET_3)
         return 600;
     return 450;
+}
+
+// Prices that scale with the rewards: the SECOND WIND and the trader cost two
+// wins' FP, the psychic one, always for the gauntlet the player is on now
+// (the next one not yet cleared; gauntlet 8 once all eight are).
+// gSpecialVar_0x8004 = how many wins' worth. Sets VAR_0x8008 to the price and
+// gStringVar3 to it, for the message.
+void FacilityGetWinsPrice(void)
+{
+    u8 gauntlet = GetGauntletsClearedCount();
+
+    if (gauntlet > FACILITY_GAUNTLET_8)
+        gauntlet = FACILITY_GAUNTLET_8;
+    gSpecialVar_0x8008 = FacilityBattleFP(gauntlet) * gSpecialVar_0x8004;
+    ConvertIntToDecimalStringN(gStringVar3, gSpecialVar_0x8008, STR_CONV_MODE_LEFT_ALIGN, 5);
 }
 
 void FacilityAwardBattleFP(void)

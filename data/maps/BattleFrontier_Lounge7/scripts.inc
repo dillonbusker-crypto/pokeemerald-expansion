@@ -506,7 +506,7 @@ BattleFrontier_Lounge7_Text_TutorPOSDown:
 @ for the FP counter). Both close while the island's "POS is down" during the
 @ Artisan Cave quest (IsFrontierPOSDown).
 @
-@ The SECOND WIND seller: 300 FP for a key item that retries one lost
+@ The SECOND WIND seller: two wins' FP (FacilityGetWinsPrice) for a key item that retries one lost
 @ battle in a run, boss included (Facility_Lost, Battle Tower lobby). One at a time.
 BattleFrontier_Lounge7_EventScript_SecondWindSeller::
 	lock
@@ -516,12 +516,15 @@ BattleFrontier_Lounge7_EventScript_SecondWindSeller::
 	checkitem ITEM_SECOND_WIND
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_Lounge7_EventScript_AlreadyHaveSecondWind
 	special ShowFacilityFPWindow
+	setvar VAR_0x8004, 2
+	special FacilityGetWinsPrice
 	msgbox BattleFrontier_Lounge7_Text_OfferSecondWind, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge7_EventScript_LadyGoodbye
-	setvar VAR_0x8008, 300
+	setvar VAR_0x8004, 2
+	special FacilityGetWinsPrice
 	special FacilityShopGetFP
 	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_Lounge7_EventScript_LadyNoFP
-	setvar VAR_0x8004, 300
+	copyvar VAR_0x8004, VAR_0x8008
 	special FacilityShopTakeFP
 	special UpdateFacilityFPWindow
 	playse SE_SHOP
@@ -535,7 +538,7 @@ BattleFrontier_Lounge7_EventScript_AlreadyHaveSecondWind::
 	release
 	end
 
-@ The psychic: 200 FP to read the current gauntlet boss's team - species,
+@ The psychic: one win's FP to read the current gauntlet boss's team - species,
 @ held item and ability. Once paid, free repeats until that boss is beaten
 @ (VAR_PSYCHIC_READ_GAUNTLET holds the gauntlet she was paid for).
 BattleFrontier_Lounge7_EventScript_Psychic::
@@ -547,12 +550,15 @@ BattleFrontier_Lounge7_EventScript_Psychic::
 	goto_if_eq VAR_TEMP_1, 0, BattleFrontier_Lounge7_EventScript_PsychicNoBoss
 	goto_if_eq VAR_PSYCHIC_READ_GAUNTLET, VAR_TEMP_1, BattleFrontier_Lounge7_EventScript_PsychicFreeReading
 	special ShowFacilityFPWindow
+	setvar VAR_0x8004, 1
+	special FacilityGetWinsPrice
 	msgbox BattleFrontier_Lounge7_Text_PsychicOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge7_EventScript_LadyGoodbye
-	setvar VAR_0x8008, 200
+	setvar VAR_0x8004, 1
+	special FacilityGetWinsPrice
 	special FacilityShopGetFP
 	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_Lounge7_EventScript_LadyNoFP
-	setvar VAR_0x8004, 200
+	copyvar VAR_0x8004, VAR_0x8008
 	special FacilityShopTakeFP
 	special UpdateFacilityFPWindow
 	playse SE_SHOP
@@ -608,7 +614,7 @@ BattleFrontier_Lounge7_Text_OfferSecondWind:
 	.string "a battle in a gauntlet, even\l"
 	.string "against the boss, and you'll get\l"
 	.string "one more try at it.\p"
-	.string "300 FP. Would you like one?$"
+	.string "{STR_VAR_3} FP. Would you like one?$"
 
 BattleFrontier_Lounge7_Text_SecondWindBought:
 	.string "Keep it close. You'll know when\n"
@@ -622,10 +628,10 @@ BattleFrontier_Lounge7_Text_AlreadyHaveSecondWind:
 BattleFrontier_Lounge7_Text_PsychicOffer:
 	.string "I see the one who waits at the end\n"
 	.string "of your gauntlet... {STR_VAR_1}.\p"
-	.string "For 200 FP, I will show you their\n"
-	.string "whole team. Once I have seen it, I\l"
-	.string "will repeat it for free, until\l"
-	.string "they fall.$"
+	.string "For {STR_VAR_3} FP, I will show you\n"
+	.string "their whole team. Once I have seen\l"
+	.string "it, I will repeat it for free,\l"
+	.string "until they fall.$"
 
 BattleFrontier_Lounge7_Text_PsychicAgain:
 	.string "The vision is still clear. Listen\n"

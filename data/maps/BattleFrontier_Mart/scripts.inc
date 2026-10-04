@@ -49,8 +49,9 @@ BattleFrontier_Mart_Text_ChaperonGrandson:
 	.string "out west, past the BATTLE DOME.\l"
 	.string "She told him every POKéMON the\l"
 	.string "boss would use!\p"
-	.string "200 FP, mind you. But he says it\n"
-	.string "was worth every point.$"
+	.string "Cost him a good bit of FP, mind\n"
+	.string "you. But he says it was worth\l"
+	.string "every point.$"
 
 BattleFrontier_Mart_Text_ProteinMakeNiceGift:
 	.string "Dear, what do you think of this?\n"

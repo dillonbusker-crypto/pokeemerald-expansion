@@ -92,6 +92,8 @@ bool32 IsFacilityLobbyDoorLocked(u32 mapGroup, u32 mapNum);
 // LittlerootTown_EventScript_HomeDoorLocked instead); StripBirchsLab and
 // GiveStevenLatiBack are specials - see src/facility.c.
 bool32 IsStoryLockedHomeDoor(u32 mapGroup, u32 mapNum);
+// special: VAR_0x8008 = VAR_0x8004 wins' FP for the current gauntlet (src/facility.c).
+void FacilityGetWinsPrice(void);
 void StripBirchsLab(void);
 void GiveStevenLatiBack(void);
 

@@ -636,14 +636,14 @@ FLOTSAM after gauntlet 3 (`easter-eggs-spec.md`). Tracked by
 The vanilla move tutors in Lounge 7 are repurposed. Both charge FP and close
 while the island's "POS is down" during the Artisan Cave quest.
 
-- **The SECOND WIND** (the left lady, a former nurse): **300 FP** for a key
+- **The SECOND WIND** (the left lady, a former nurse): **two wins' FP** (twice what a win pays in the gauntlet the player is on: 150 in gauntlets 1-2, up to 700 for gauntlet 8) for a key
   item, one at a time (`ITEM_SECOND_WIND`). If the player loses a pool battle
   during a run, `Facility_Lost` offers to use it: the team is healed and the
   same battle is fought again, streak intact. It works on the boss too:
   clearing all six pool battles effectively earns two shots at the boss.
   The idea: once a team is good enough, spare FP from lost runs buys a safety
   net.
-- **The psychic** (the right lady, now a Hex Maniac sprite): **200 FP** to read
+- **The psychic** (the right lady, now a Hex Maniac sprite): **one win's FP** to read
   the current gauntlet boss's team, each Pokémon's species, held item and
   ability (`FacilityPsychicGetBoss()` / `FacilityPsychicGetBossMon()`). Once
   paid, she repeats it free until that boss is beaten
@@ -664,7 +664,7 @@ to talk to the locals.
 
 The vanilla Meowth trader in Lounge 6 is now **the Broker's cousin** ("Family
 business, you could say" - she never says where he is). **Once per gauntlet,
-for 200 FP**, she trades one of the player's party Pokémon for a **random
+for two wins' FP**, she trades one of the player's party Pokémon for a **random
 Pokémon from the next gauntlet's shop wave** (the Broker's stock), revealed
 only after the trade (`FacilityTraderTrade()`, `src/facility_shop.c`;
 `VAR_TRADER_LAST_GAUNTLET`).

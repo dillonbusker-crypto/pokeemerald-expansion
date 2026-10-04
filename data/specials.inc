@@ -83,6 +83,7 @@ gSpecials::
 	def_special FrontierFloristTakeMon
 	def_special StripBirchsLab
 	def_special GiveStevenLatiBack
+	def_special FacilityGetWinsPrice
 	def_special HasReceivedFrontierStartingGrants
 	def_special GetGauntletsClearedCount
 	def_special SetCableClubWarp

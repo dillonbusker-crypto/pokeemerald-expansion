@@ -150,7 +150,9 @@ mechanism: a player who spends badly can always grind the current gauntlet for
 incremental FP until they can afford what they need. Slow, but never dead.
 
 Gauntlet 1 first clear yields ~160 FP; gauntlet 8, ~1300. (Superseded in the
-build: 75/450 per battle/boss for gauntlets 1–2, 100/600 for 3, 150/900 from 4.)
+build: 75/450 per battle/boss for gauntlets 1–2, 100/600 for 3, then +50 a
+win per gauntlet from 4, the boss worth six wins: 150/900, 200/1200,
+250/1500, 300/1800, 350/2100.)
 
 ### Pricing
 

@@ -2,7 +2,7 @@ BattleFrontier_Lounge6_MapScripts::
 	.byte 0
 
 @ Ten Gauntlets: the Broker's cousin. A blind trade, once per gauntlet, for
-@ 200 FP - one of the player's party Pokemon for a random Pokemon from the next
+@ two wins' FP (FacilityGetWinsPrice) - one of the player's party Pokemon for a random Pokemon from the next
 @ gauntlet's shop wave (FacilityTraderTrade(), src/facility_shop.c).
 @ VAR_TRADER_LAST_GAUNTLET holds the gauntlet she last traded for. She won't
 @ take the Latias/Latios (STEVEN needs it), a LEAFEON (the florist's quest
@@ -23,9 +23,12 @@ BattleFrontier_Lounge6_EventScript_Trader::
 	specialvar VAR_RESULT, FacilityTraderHasStock
 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_Lounge6_EventScript_TraderNothingLeft
 	special ShowFacilityFPWindow
+	setvar VAR_0x8004, 2
+	special FacilityGetWinsPrice
 	msgbox BattleFrontier_Lounge6_Text_TraderOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge6_EventScript_TraderDecline
-	setvar VAR_0x8008, 200
+	setvar VAR_0x8004, 2
+	special FacilityGetWinsPrice
 	special FacilityShopGetFP
 	goto_if_lt VAR_RESULT, VAR_0x8008, BattleFrontier_Lounge6_EventScript_TraderNoFP
 	msgbox BattleFrontier_Lounge6_Text_TraderWhichOne, MSGBOX_DEFAULT
@@ -41,7 +44,9 @@ BattleFrontier_Lounge6_EventScript_Trader::
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_Lounge6_EventScript_TraderDecline
 	special FacilityTraderTrade
 	goto_if_eq VAR_RESULT, SPECIES_NONE, BattleFrontier_Lounge6_EventScript_TraderNothingLeft
-	setvar VAR_0x8004, 200
+	setvar VAR_0x8004, 2
+	special FacilityGetWinsPrice
+	copyvar VAR_0x8004, VAR_0x8008
 	special FacilityShopTakeFP
 	special UpdateFacilityFPWindow
 	copyvar VAR_TRADER_LAST_GAUNTLET, VAR_TEMP_1
@@ -161,8 +166,9 @@ BattleFrontier_Lounge6_Text_TraderOffer:
 	.string "further up the gauntlets. I won't\l"
 	.string "tell you which one... that's half\l"
 	.string "the fun!\p"
-	.string "Trade me one of yours for it? 200\n"
-	.string "FP, and just once per gauntlet.$"
+	.string "Trade me one of yours for it?\n"
+	.string "{STR_VAR_3} FP, and just once per\l"
+	.string "gauntlet.$"
 
 BattleFrontier_Lounge6_Text_TraderWhichOne:
 	.string "Which POKéMON will you trade?$"
@@ -217,8 +223,8 @@ BattleFrontier_Lounge6_Text_TraderPOSDown:
 	.string "again.$"
 
 BattleFrontier_Lounge6_Text_TraderNoFP:
-	.string "Oh dear. You'll need 200 FP for a\n"
-	.string "trade.$"
+	.string "Oh dear. You'll need {STR_VAR_3} FP for\n"
+	.string "a trade.$"
 
 BattleFrontier_Lounge6_Text_TraderNoLeafeon:
 	.string "A LEAFEON? No, no. Someone in town\n"
