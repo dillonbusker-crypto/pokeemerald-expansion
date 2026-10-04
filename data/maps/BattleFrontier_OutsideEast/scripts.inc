@@ -560,8 +560,122 @@ BattleFrontier_OutsideEast_EventScript_Zigzagoon::
 	end
 
 BattleFrontier_OutsideEast_EventScript_RichBoy::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_NORMAN, BattleFrontier_OutsideEast_RichBoy_Gossip0
+	case GOSSIP_SYSTEM_DOWN, BattleFrontier_OutsideEast_RichBoy_Gossip1
+	case GOSSIP_SMUGGLER, BattleFrontier_OutsideEast_RichBoy_Gossip2
+	case GOSSIP_LAB, BattleFrontier_OutsideEast_RichBoy_Gossip3
+	case GOSSIP_SQUAD, BattleFrontier_OutsideEast_RichBoy_Gossip4
+	case GOSSIP_ARREST, BattleFrontier_OutsideEast_RichBoy_Gossip5
+	case GOSSIP_RAID, BattleFrontier_OutsideEast_RichBoy_Gossip6
+	case GOSSIP_TAKEN, BattleFrontier_OutsideEast_RichBoy_Gossip7
+	case GOSSIP_STANDOFF, BattleFrontier_OutsideEast_RichBoy_Gossip8
+	case GOSSIP_ALL_CLEAR, BattleFrontier_OutsideEast_RichBoy_Gossip8
 	msgbox BattleFrontier_OutsideEast_Text_PeopleCallMeBusybody, MSGBOX_NPC
 	end
+
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+BattleFrontier_OutsideEast_RichBoy_Gossip0::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip0, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Gossip1::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip1, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Gossip2::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip2, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Gossip3::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip3, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Gossip4::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip4, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Gossip5::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip5, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Gossip6::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip6, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Gossip7::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip7, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Gossip8::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip8, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip0:
+	.string "Did you see it? A man stormed the\n"
+	.string "DOUBLES mat yelling about his kid!\p"
+	.string "...Wait. You're the kid, aren't you?\n"
+	.string "Sorry. I really can't help it.$"
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip1:
+	.string "The shops are down! The fourth mat is\n"
+	.string "down! Even the tutors' registers are\l"
+	.string "down!\p"
+	.string "And there's a shifty guy past the\n"
+	.string "PALACE who doesn't look worried at all.\l"
+	.string "I'm just saying.$"
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip2:
+	.string "The International Police caught a\n"
+	.string "smuggler sneaking off the island!\p"
+	.string "And somebody made that odd tree by\n"
+	.string "the waterfall run off. Was it you? ...It\l"
+	.string "was you, wasn't it?$"
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip3:
+	.string "{RIVAL} came tearing through here\n"
+	.string "looking for you! Something about\l"
+	.string "their dad!\p"
+	.string "Then I swear the CHAMPION walked\n"
+	.string "right past the guards. Nobody\l"
+	.string "believes me.$"
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip4:
+	.string "STEVEN STONE strolled across the\n"
+	.string "plaza, cool as you like, with you right\l"
+	.string "behind him.\p"
+	.string "Very subtle. Nobody noticed. Except\n"
+	.string "me. ...Sorry.$"
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip5:
+	.string "They took the BROKER! SCOTT read out\n"
+	.string "the charges himself, right in the\l"
+	.string "courtyard!\p"
+	.string "...I bought a resist berry off him once.\n"
+	.string "Do you think they keep a list?$"
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip6:
+	.string "The FACTORY HEAD and the ARENA\n"
+	.string "TYCOON took the ferry to the mainland\l"
+	.string "with a bunch of men in suits!\p"
+	.string "Toward LITTLEROOT, I heard. Isn't\n"
+	.string "that where you're from?$"
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip7:
+	.string "STEVEN STONE just flew in, and he\n"
+	.string "looks furious. He's waiting outside\l"
+	.string "the FACTORY.\p"
+	.string "Something's about to happen. I can\n"
+	.string "feel it!$"
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip8:
+	.string "STEVEN lost! STEVEN STONE, beaten\n"
+	.string "outside the FACTORY, in front of\l"
+	.string "everyone!\p"
+	.string "And SCOTT just told him to get lost.\n"
+	.string "...I'm not even going to say anything\l"
+	.string "this time.$"
 
 BattleFrontier_OutsideEast_EventScript_ExpertF::
 	msgbox BattleFrontier_OutsideEast_Text_OnceBeatGymLeader, MSGBOX_NPC
@@ -600,8 +714,101 @@ BattleFrontier_OutsideEast_EventScript_Man2_Cleared5:
 	end
 
 BattleFrontier_OutsideEast_EventScript_TriathleteM::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_NORMAN, BattleFrontier_OutsideEast_TriathleteM_Gossip0
+	case GOSSIP_SYSTEM_DOWN, BattleFrontier_OutsideEast_TriathleteM_Gossip1
+	case GOSSIP_SMUGGLER, BattleFrontier_OutsideEast_TriathleteM_Gossip2
+	case GOSSIP_AFTER_LAB, BattleFrontier_OutsideEast_TriathleteM_Gossip3
+	case GOSSIP_ARREST, BattleFrontier_OutsideEast_TriathleteM_Gossip4
+	case GOSSIP_PALACE, BattleFrontier_OutsideEast_TriathleteM_Gossip4
+	case GOSSIP_RAID, BattleFrontier_OutsideEast_TriathleteM_Gossip5
+	case GOSSIP_TAKEN, BattleFrontier_OutsideEast_TriathleteM_Gossip5
+	case GOSSIP_STANDOFF, BattleFrontier_OutsideEast_TriathleteM_Gossip6
+	case GOSSIP_ALL_CLEAR, BattleFrontier_OutsideEast_TriathleteM_Gossip6
 	msgbox BattleFrontier_OutsideEast_Text_DidScottBringYouHere, MSGBOX_NPC
 	end
+
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+BattleFrontier_OutsideEast_TriathleteM_Gossip0::
+	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip0, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_TriathleteM_Gossip1::
+	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip1, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_TriathleteM_Gossip2::
+	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip2, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_TriathleteM_Gossip3::
+	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip3, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_TriathleteM_Gossip4::
+	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip4, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_TriathleteM_Gossip5::
+	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip5, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_TriathleteM_Gossip6::
+	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip6, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_TriathleteM_Text_Gossip0:
+	.string "Did you hear the shouting? A GYM\n"
+	.string "LEADER chewed SCOTT out at his own\l"
+	.string "house!\p"
+	.string "And SCOTT just smiled through all of\n"
+	.string "it. I've never once seen that man lose\l"
+	.string "his cool.$"
+
+BattleFrontier_OutsideEast_TriathleteM_Text_Gossip1:
+	.string "The whole island's system crashed, and\n"
+	.string "SCOTT hasn't even come out of his\l"
+	.string "house.\p"
+	.string "You'd think the man in charge would\n"
+	.string "want to be seen fixing it.$"
+
+BattleFrontier_OutsideEast_TriathleteM_Text_Gossip2:
+	.string "I saw the FACTORY HEAD and the ARENA\n"
+	.string "TYCOON heading down toward that cave\l"
+	.string "below the waterfall.\p"
+	.string "SCOTT's own people. Whatever's down\n"
+	.string "there, he wants it.$"
+
+BattleFrontier_OutsideEast_TriathleteM_Text_Gossip3:
+	.string "Gauntlet 6 went down, and came back\n"
+	.string "up the moment SCOTT made one phone\l"
+	.string "call.\p"
+	.string "One call. That's how much pull he has\n"
+	.string "with DEVON.$"
+
+BattleFrontier_OutsideEast_TriathleteM_Text_Gossip4:
+	.string "SCOTT arrested the BROKER himself.\n"
+	.string "Then he packed a bag and took the\l"
+	.string "ferry out.\p"
+	.string "Feedback from high-profile trainers,\n"
+	.string "he said. What could matter more to him\l"
+	.string "than his own FRONTIER?$"
+
+BattleFrontier_OutsideEast_TriathleteM_Text_Gossip5:
+	.string "SCOTT's house is dark, and the\n"
+	.string "FACTORY HEAD and the ARENA TYCOON\l"
+	.string "left on the ferry in a hurry.\p"
+	.string "Something big is going on, and none of\n"
+	.string "us are supposed to know.$"
+
+BattleFrontier_OutsideEast_TriathleteM_Text_Gossip6:
+	.string "...I finally saw SCOTT battle.\p"
+	.string "His MEWTWO Mega Evolved without a KEY\n"
+	.string "STONE, and STEVEN STONE's DIALGA\l"
+	.string "went down to a single attack.\p"
+	.string "I always wanted to see him battle. Now\n"
+	.string "I wish I hadn't.$"
 
 BattleFrontier_OutsideEast_EventScript_Sudowoodo::
 	lock
@@ -746,8 +953,85 @@ BattleFrontier_OutsideEast_EventScript_ExchangeCornerSign::
 	end
 
 BattleFrontier_OutsideEast_EventScript_Gentleman::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_STEVEN, BattleFrontier_OutsideEast_Gentleman_Gossip0
+	case GOSSIP_ANABEL, BattleFrontier_OutsideEast_Gentleman_Gossip1
+	case GOSSIP_LAB, BattleFrontier_OutsideEast_Gentleman_Gossip2
+	case GOSSIP_ARREST, BattleFrontier_OutsideEast_Gentleman_Gossip3
+	case GOSSIP_PALACE, BattleFrontier_OutsideEast_Gentleman_Gossip4
+	case GOSSIP_STANDOFF, BattleFrontier_OutsideEast_Gentleman_Gossip5
+	case GOSSIP_ALL_CLEAR, BattleFrontier_OutsideEast_Gentleman_Gossip5
 	msgbox BattleFrontier_OutsideEast_Text_FrontierNotExclusivelyForToughTrainers, MSGBOX_NPC
 	end
+
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+BattleFrontier_OutsideEast_Gentleman_Gossip0::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip0, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Gossip1::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip1, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Gossip2::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip2, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Gossip3::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip3, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Gossip4::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip4, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Gossip5::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip5, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip0:
+	.string "I saw a man in a fine suit outside the\n"
+	.string "old BATTLE FACTORY, studying its walls\l"
+	.string "like a geologist.\p"
+	.string "Unless I'm mistaken, that was STEVEN\n"
+	.string "STONE. The former CHAMPION, here? How\l"
+	.string "curious.$"
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip1:
+	.string "Someone finally beat ANABEL and took\n"
+	.string "the whole TOWER, they say.\p"
+	.string "And STEVEN STONE is back. I saw him up\n"
+	.string "on the ledge above the PYRAMID,\l"
+	.string "watching the plaza.$"
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip2:
+	.string "Only gauntlet 6 went down this time.\n"
+	.string "Every shop is still running.\p"
+	.string "A system that fails one door at a time\n"
+	.string "isn't failing. Someone is choosing.$"
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip3:
+	.string "The ELITE FOUR have left the POKéMON\n"
+	.string "LEAGUE, I hear. All four, at once.\p"
+	.string "Gauntlets, BRAINS, and now the LEAGUE\n"
+	.string "itself... The ground is shifting under\l"
+	.string "all of HOENN.$"
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip4:
+	.string "A man in a trench coat has been hiding\n"
+	.string "in the bushes near the FACTORY for\l"
+	.string "days.\p"
+	.string "He thinks nobody notices. Everybody\n"
+	.string "notices.$"
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip5:
+	.string "A MEGA EVOLUTION that never ends...\n"
+	.string "They say SCOTT's MEWTWO is still Mega\l"
+	.string "Evolved.\p"
+	.string "Whatever is waiting after the eighth\n"
+	.string "gauntlet, I don't think I want to see\l"
+	.string "it anymore.$"
 
 BattleFrontier_OutsideEast_EventScript_OldWoman::
 	lock

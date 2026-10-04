@@ -91,8 +91,25 @@ BattleFrontier_PokemonCenter_1F_EventScript_Nurse::
 	end
 
 BattleFrontier_PokemonCenter_1F_EventScript_SchoolKid::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_SMUGGLER, BattleFrontier_PokemonCenter_1F_SchoolKid_Gossip0
+	case GOSSIP_ANABEL, BattleFrontier_PokemonCenter_1F_SchoolKid_Gossip0
 	msgbox BattleFrontier_PokemonCenter_1F_Text_NeverSeenPokemon, MSGBOX_NPC
 	end
+
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+BattleFrontier_PokemonCenter_1F_SchoolKid_Gossip0::
+	msgbox BattleFrontier_PokemonCenter_1F_SchoolKid_Text_Gossip0, MSGBOX_NPC
+	end
+
+BattleFrontier_PokemonCenter_1F_SchoolKid_Text_Gossip0:
+	.string "Remember the red and blue POKéMON I\n"
+	.string "saw over the sea?\p"
+	.string "I heard something crying out from\n"
+	.string "that cave below the waterfall one\l"
+	.string "night... And then nothing.\p"
+	.string "I haven't seen them since.$"
 
 BattleFrontier_PokemonCenter_1F_EventScript_Man::
 	msgbox BattleFrontier_PokemonCenter_1F_Text_NextStopBattleArena, MSGBOX_NPC

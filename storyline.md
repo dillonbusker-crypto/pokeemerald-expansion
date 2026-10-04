@@ -263,7 +263,7 @@ EXP**, and follows the player to Sky Pillar.
 | Gauntlet 1 (Winona) | **Norman.** A commotion at the Doubles mat; his argument with Scott; Norman tests the player in doubles and warns them about Scott. | ✅ |
 | Gauntlet 2 (Juan) | **Steven.** Juan's apology to Wallace. Steven **outside the Battle Factory** (✅ at (12, 39), Outside West): counterfeit badges, a shard in the alloy, and Mega Stone ore in the walls of a "Devon staff only" building. He **takes the 8th badge back with him to study**: the Rain Badge, Juan's own badge from Sootopolis. **The player agrees to work with Steven.** | ✅ |
 | Gauntlet 3 (Roxanne) | **Flotsam and the Eon Duo.** The florist, the tree, the Broker's Master Ball, Flotsam's betrayal **with the Scrambler** (Mega Sharpedo), Surf by level-up, the cave. **Looker gives the player the Scrambler.** Now **required**: gauntlet 4 stays locked until a Latias or Latios is caught. | ✅ |
-| After the catch | A rumor NPC: "I heard something crying out in that cave one night… and then nothing." That's the other Lati, taken by Scott. | 📝 |
+| After the catch | A rumor NPC (the school kid in the Frontier's Pokémon Center): "I heard something crying out from that cave below the waterfall one night… And then nothing." That's the other Lati, taken by Scott. | ✅ |
 | Gauntlet 4 (Anabel) | **Steven returns.** See below. | ✅ |
 | Gauntlets 1–4 | **The rival on the plaza.** After the rematch, the rival trains in front of the Battle Tower, with a new line after each gauntlet: training for gauntlet 1, then cleared it, then stuck on gauntlet 2, then worried that Birch seems off and paranoid. | ✅ |
 | Gauntlet 5 (Tucker) | **Birch's lab.** See below. | ✅ |
@@ -960,6 +960,14 @@ happy ending.
 ---
 
 ## Technical notes for building it
+
+- **Townsfolk gossip follows the story.** `GetStoryGossipStage` (special,
+  `src/facility.c`) turns the gauntlet count and each event's state var into
+  one beat (`GOSSIP_*`, `include/constants/facility.h`): Norman, Steven, the
+  system down, the smuggler, Anabel, the lab, after the lab, Scott's squad,
+  the arrest, the Palace, the raid, the parents taken, the standoff. NPCs in
+  Oldale, Littleroot and the Frontier switch on it, falling back to their
+  usual line. **Give new events a beat, and update the gossip with them.**
 
 - **Trainer IDs fit under the 1000 limit** now that there are eight
   gauntlets. Rough count:

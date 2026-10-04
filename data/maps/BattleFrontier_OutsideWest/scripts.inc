@@ -302,8 +302,55 @@ BattleFrontier_OutsideWest_EventScript_Fisherman2::
 	end
 
 BattleFrontier_OutsideWest_EventScript_Man1::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_SYSTEM_DOWN, BattleFrontier_OutsideWest_Man1_Gossip0
+	case GOSSIP_LAB, BattleFrontier_OutsideWest_Man1_Gossip1
+	case GOSSIP_AFTER_LAB, BattleFrontier_OutsideWest_Man1_Gossip2
+	case GOSSIP_PALACE, BattleFrontier_OutsideWest_Man1_Gossip3
 	msgbox BattleFrontier_OutsideWest_Text_OnlyToughTrainersBroughtHere, MSGBOX_NPC
 	end
+
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+BattleFrontier_OutsideWest_Man1_Gossip0::
+	msgbox BattleFrontier_OutsideWest_Man1_Text_Gossip0, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideWest_Man1_Gossip1::
+	msgbox BattleFrontier_OutsideWest_Man1_Text_Gossip1, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideWest_Man1_Gossip2::
+	msgbox BattleFrontier_OutsideWest_Man1_Text_Gossip2, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideWest_Man1_Gossip3::
+	msgbox BattleFrontier_OutsideWest_Man1_Text_Gossip3, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideWest_Man1_Text_Gossip0:
+	.string "No shop, no tutors, no fourth mat. The\n"
+	.string "whole island's system is down.\p"
+	.string "DEVON runs all of it, they say. You'd\n"
+	.string "think they could afford a backup.$"
+
+BattleFrontier_OutsideWest_Man1_Text_Gossip1:
+	.string "Gauntlet 6 is down. Only gauntlet 6.\n"
+	.string "The DEVON technicians just shrug.\p"
+	.string "Funny. Everything else on the island\n"
+	.string "runs fine.$"
+
+BattleFrontier_OutsideWest_Man1_Text_Gossip2:
+	.string "Gauntlet 6 is back up. Word is SCOTT\n"
+	.string "called DEVON's president himself and\l"
+	.string "gave him an earful.$"
+
+BattleFrontier_OutsideWest_Man1_Text_Gossip3:
+	.string "The PALACE is finally open, and SCOTT\n"
+	.string "has gone off the island, right when it\l"
+	.string "gets interesting.\p"
+	.string "Who's running the place while he's\n"
+	.string "away? DEVON, I suppose.$"
 
 BattleFrontier_OutsideWest_EventScript_Maniac1::
 	lock
@@ -460,8 +507,46 @@ BattleFrontier_OutsideWest_EventScript_ExpertM_Cleared4:
 	end
 
 BattleFrontier_OutsideWest_EventScript_Man2::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_STEVEN, BattleFrontier_OutsideWest_Man2_Gossip0
+	case GOSSIP_ANABEL, BattleFrontier_OutsideWest_Man2_Gossip1
+	case GOSSIP_STANDOFF, BattleFrontier_OutsideWest_Man2_Gossip2
+	case GOSSIP_ALL_CLEAR, BattleFrontier_OutsideWest_Man2_Gossip2
 	msgbox BattleFrontier_OutsideWest_Text_NothingHereNotLongAgo, MSGBOX_NPC
 	end
+
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+BattleFrontier_OutsideWest_Man2_Gossip0::
+	msgbox BattleFrontier_OutsideWest_Man2_Text_Gossip0, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideWest_Man2_Gossip1::
+	msgbox BattleFrontier_OutsideWest_Man2_Text_Gossip1, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideWest_Man2_Gossip2::
+	msgbox BattleFrontier_OutsideWest_Man2_Text_Gossip2, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideWest_Man2_Text_Gossip0:
+	.string "STEVEN STONE beat the old FRONTIER\n"
+	.string "faster than anyone, back in the day.\p"
+	.string "Now he's here again, poking at the\n"
+	.string "FACTORY's walls. What's he after?$"
+
+BattleFrontier_OutsideWest_Man2_Text_Gossip1:
+	.string "ANABEL held the TOWER for years\n"
+	.string "without losing. Somebody finally took\l"
+	.string "it from her.\p"
+	.string "...You, was it? Huh.$"
+
+BattleFrontier_OutsideWest_Man2_Text_Gossip2:
+	.string "The old FRONTIER never had anything\n"
+	.string "like that MEWTWO.\p"
+	.string "SCOTT was always the one watching.\n"
+	.string "Now everyone's watching him. And\l"
+	.string "everyone's scared.$"
 
 BattleFrontier_OutsideWest_EventScript_Woman1::
 	lock

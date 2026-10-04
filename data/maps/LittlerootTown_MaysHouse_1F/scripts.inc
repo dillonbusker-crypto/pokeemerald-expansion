@@ -118,6 +118,22 @@ LittlerootTown_MaysHouse_1F_Movement_RivalMomApproach:
 RivalsHouse_1F_EventScript_RivalMom::
 	lock
 	faceplayer
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_NORMAN, RivalsHouse_1F_RivalMom_Gossip0
+	case GOSSIP_STEVEN, RivalsHouse_1F_RivalMom_Gossip0
+	case GOSSIP_SYSTEM_DOWN, RivalsHouse_1F_RivalMom_Gossip0
+	case GOSSIP_SMUGGLER, RivalsHouse_1F_RivalMom_Gossip0
+	case GOSSIP_ANABEL, RivalsHouse_1F_RivalMom_Gossip0
+	case GOSSIP_LAB, RivalsHouse_1F_RivalMom_Gossip1
+	case GOSSIP_AFTER_LAB, RivalsHouse_1F_RivalMom_Gossip2
+	case GOSSIP_SQUAD, RivalsHouse_1F_RivalMom_Gossip2
+	case GOSSIP_ARREST, RivalsHouse_1F_RivalMom_Gossip2
+	case GOSSIP_PALACE, RivalsHouse_1F_RivalMom_Gossip2
+	case GOSSIP_RAID, RivalsHouse_1F_RivalMom_Gossip3
+	case GOSSIP_TAKEN, RivalsHouse_1F_RivalMom_Gossip4
+	case GOSSIP_STANDOFF, RivalsHouse_1F_RivalMom_Gossip4
+	case GOSSIP_ALL_CLEAR, RivalsHouse_1F_RivalMom_Gossip4
 	goto_if_set FLAG_DEFEATED_RIVAL_ROUTE103, RivalsHouse_1F_EventScript_GoHomeEverySoOften
 	goto_if_set FLAG_SYS_POKEMON_GET, RivalsHouse_1F_EventScript_RivalIsOnRoute103
 	goto_if_eq VAR_LITTLEROOT_RIVAL_STATE, 3, RivalsHouse_1F_EventScript_RivalTooBusy
@@ -125,6 +141,64 @@ RivalsHouse_1F_EventScript_RivalMom::
 	msgbox RivalsHouse_1F_Text_LikeChildLikeFather, MSGBOX_DEFAULT
 	release
 	end
+
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+RivalsHouse_1F_RivalMom_Gossip0::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip0, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_RivalMom_Gossip1::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip1, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_RivalMom_Gossip2::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip2, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_RivalMom_Gossip3::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip3, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_RivalMom_Gossip4::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip4, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_RivalMom_Text_Gossip0:
+	.string "My husband barely sleeps. He jumps\n"
+	.string "every time the phone rings.\p"
+	.string "He says it's the new sponsor and their\n"
+	.string "deadlines. ...I wish I believed him.$"
+
+RivalsHouse_1F_RivalMom_Text_Gossip1:
+	.string "Men from DEVON are in the LAB, and\n"
+	.string "they won't let my husband leave!\p"
+	.string "I called {RIVAL} at the FRONTIER. Oh,\n"
+	.string "I hope they hurry...$"
+
+RivalsHouse_1F_RivalMom_Text_Gossip2:
+	.string "{RIVAL} is home now, helping at the\n"
+	.string "LAB every day. I'm glad.\p"
+	.string "But my husband still won't tell either\n"
+	.string "of us what DEVON wanted.$"
+
+RivalsHouse_1F_RivalMom_Text_Gossip3:
+	.string "They burst into the LAB and took\n"
+	.string "everything! {RIVAL} tried to stop\l"
+	.string "them...\p"
+	.string "My husband is still in there. Please,\n"
+	.string "{PLAYER}, help him!$"
+
+RivalsHouse_1F_RivalMom_Text_Gossip4:
+	.string "My husband told us everything. Every\n"
+	.string "threat.\p"
+	.string "And now your parents... {PLAYER}, I'm so\n"
+	.string "sorry. If there's anything we can do,\l"
+	.string "you only have to ask.$"
 
 RivalsHouse_1F_EventScript_RivalTooBusy::
 	msgbox RivalsHouse_1F_Text_TooBusyToNoticeVisit, MSGBOX_DEFAULT

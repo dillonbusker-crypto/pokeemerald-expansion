@@ -50,6 +50,7 @@ void GetFacilityRunGauntlet(void);
 
 // specialvar: number of gauntlets cleared (0-10). See frontier-dialogue.md.
 u16 GetGauntletsClearedCount(void);
+u16 GetStoryGossipStage(void);
 // specialvar: TRUE while the required Artisan Cave quest locks the shop.
 bool16 IsFrontierPOSDown(void);
 // The story's Experience rule - see src/facility.c.

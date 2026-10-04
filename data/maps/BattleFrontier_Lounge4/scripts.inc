@@ -6,8 +6,29 @@ BattleFrontier_Lounge4_EventScript_Woman::
 	end
 
 BattleFrontier_Lounge4_EventScript_Cook::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_ARREST, BattleFrontier_Lounge4_Cook_Gossip0
+	case GOSSIP_PALACE, BattleFrontier_Lounge4_Cook_Gossip0
+	case GOSSIP_RAID, BattleFrontier_Lounge4_Cook_Gossip0
+	case GOSSIP_TAKEN, BattleFrontier_Lounge4_Cook_Gossip0
+	case GOSSIP_STANDOFF, BattleFrontier_Lounge4_Cook_Gossip0
+	case GOSSIP_ALL_CLEAR, BattleFrontier_Lounge4_Cook_Gossip0
 	msgbox BattleFrontier_Lounge4_Text_IfIOpenedRestaurantHere, MSGBOX_NPC
 	end
+
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+BattleFrontier_Lounge4_Cook_Gossip0::
+	msgbox BattleFrontier_Lounge4_Cook_Text_Gossip0, MSGBOX_NPC
+	end
+
+BattleFrontier_Lounge4_Cook_Text_Gossip0:
+	.string "Somebody WAS running a business out\n"
+	.string "of one of those houses past the\l"
+	.string "ARENA.\p"
+	.string "SCOTT shut it down himself. ...If I\n"
+	.string "open a restaurant here, I'm getting a\l"
+	.string "permit first.$"
 
 BattleFrontier_Lounge4_EventScript_Man::
 	lock

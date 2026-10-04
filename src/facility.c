@@ -503,6 +503,48 @@ u16 GetGauntletsClearedCount(void)
     return count;
 }
 
+// specialvar: where the story is, for townsfolk gossip (GOSSIP_*, in
+// include/constants/facility.h). Each event's own state var decides the
+// beat inside it; a save that cleared a gauntlet before its event existed
+// (state 0) counts as past the event.
+u16 GetStoryGossipStage(void)
+{
+    u16 cleared = GetGauntletsClearedCount();
+    u16 birch = VarGet(VAR_BIRCH_STORY_STATE);
+    u16 broker = VarGet(VAR_BROKER_STORY_STATE);
+    u16 crown = VarGet(VAR_CROWN_STORY_STATE);
+
+    if (cleared >= 8)
+        return GOSSIP_ALL_CLEAR;
+    if (cleared == 7)
+    {
+        if (crown >= 1 && crown <= 4)
+            return GOSSIP_RAID;
+        if (crown >= 5 && crown <= 7)
+            return GOSSIP_TAKEN;
+        return GOSSIP_STANDOFF;
+    }
+    if (cleared == 6)
+    {
+        if (broker >= 1 && broker <= 4)
+            return GOSSIP_SQUAD;
+        if (broker >= 5 && broker <= 10)
+            return GOSSIP_ARREST;
+        return GOSSIP_PALACE;
+    }
+    if (cleared == 5)
+        return (birch >= 1 && birch <= 5) ? GOSSIP_LAB : GOSSIP_AFTER_LAB;
+    if (cleared == 4)
+        return GOSSIP_ANABEL;
+    if (cleared == 3)
+        return FlagGet(FLAG_ARTISAN_LATI_CAUGHT) ? GOSSIP_SMUGGLER : GOSSIP_SYSTEM_DOWN;
+    if (cleared == 2)
+        return GOSSIP_STEVEN;
+    if (cleared == 1)
+        return GOSSIP_NORMAN;
+    return GOSSIP_ARRIVAL;
+}
+
 void GetFacilityRunGauntlet(void)
 {
     gSpecialVar_Result = gSaveBlock3Ptr->facility.run.gauntlet;

@@ -51,10 +51,50 @@ OldaleTown_EventScript_TownSign::
 @ Birch arc (storyline.md; VAR_BIRCH_STORY_STATE 1-2 while DEVON is at the
 @ lab, 3 on after). LITTLEROOT's own wanderers stay indoors through it.
 OldaleTown_EventScript_Girl::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_ARREST, OldaleTown_Girl_Gossip0
+	case GOSSIP_PALACE, OldaleTown_Girl_Gossip0
+	case GOSSIP_RAID, OldaleTown_Girl_Gossip1
+	case GOSSIP_TAKEN, OldaleTown_Girl_Gossip2
+	case GOSSIP_STANDOFF, OldaleTown_Girl_Gossip2
+	case GOSSIP_ALL_CLEAR, OldaleTown_Girl_Gossip2
 	goto_if_ge VAR_BIRCH_STORY_STATE, 3, OldaleTown_EventScript_GirlAfterLab
 	goto_if_ge VAR_BIRCH_STORY_STATE, 1, OldaleTown_EventScript_GirlDuringLab
 	msgbox OldaleTown_Text_SavingMyProgress, MSGBOX_NPC
 	end
+
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+OldaleTown_Girl_Gossip0::
+	msgbox OldaleTown_Girl_Text_Gossip0, MSGBOX_NPC
+	end
+
+OldaleTown_Girl_Gossip1::
+	msgbox OldaleTown_Girl_Text_Gossip1, MSGBOX_NPC
+	end
+
+OldaleTown_Girl_Gossip2::
+	msgbox OldaleTown_Girl_Text_Gossip2, MSGBOX_NPC
+	end
+
+OldaleTown_Girl_Text_Gossip0:
+	.string "The radio says the ELITE FOUR left\n"
+	.string "the POKéMON LEAGUE, and nobody knows\l"
+	.string "where they went!\p"
+	.string "Mommy says not to worry. She's had the\n"
+	.string "radio on all day.$"
+
+OldaleTown_Girl_Text_Gossip1:
+	.string "Big men in suits ran through OLDALE\n"
+	.string "this morning, carrying boxes and\l"
+	.string "boxes!\p"
+	.string "My friend in LITTLEROOT says they\n"
+	.string "came from the LAB again.$"
+
+OldaleTown_Girl_Text_Gossip2:
+	.string "My friend in LITTLEROOT says your\n"
+	.string "house is all dark now.\p"
+	.string "Where did your mom and dad go?$"
 
 OldaleTown_EventScript_GirlDuringLab::
 	msgbox OldaleTown_Text_GirlDuringLab, MSGBOX_NPC
@@ -67,6 +107,12 @@ OldaleTown_EventScript_GirlAfterLab::
 OldaleTown_EventScript_MartEmployee::
 	lock
 	faceplayer
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_RAID, OldaleTown_MartEmployee_Gossip0
+	case GOSSIP_TAKEN, OldaleTown_MartEmployee_Gossip1
+	case GOSSIP_STANDOFF, OldaleTown_MartEmployee_Gossip1
+	case GOSSIP_ALL_CLEAR, OldaleTown_MartEmployee_Gossip1
 	goto_if_ge VAR_BIRCH_STORY_STATE, 3, OldaleTown_EventScript_MartEmployeeAfterLab
 	goto_if_ge VAR_BIRCH_STORY_STATE, 1, OldaleTown_EventScript_MartEmployeeDuringLab
 	goto_if_set FLAG_RECEIVED_POTION_OLDALE, OldaleTown_EventScript_ExplainPotion
@@ -80,6 +126,30 @@ OldaleTown_EventScript_MartEmployee::
 	case DIR_NORTH, OldaleTown_EventScript_GoToMartNorth
 	case DIR_EAST, OldaleTown_EventScript_GoToMartEast
 	end
+
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+OldaleTown_MartEmployee_Gossip0::
+	msgbox OldaleTown_MartEmployee_Text_Gossip0, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_MartEmployee_Gossip1::
+	msgbox OldaleTown_MartEmployee_Text_Gossip1, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_MartEmployee_Text_Gossip0:
+	.string "Those men in suits came back to PROF.\n"
+	.string "BIRCH's LAB, and this time they\l"
+	.string "brought a truck.\p"
+	.string "Our delivery boy says they carried out\n"
+	.string "every machine in the place.$"
+
+OldaleTown_MartEmployee_Text_Gossip1:
+	.string "PROF. BIRCH's LAB is empty. Our\n"
+	.string "delivery boy says the PROFESSOR just\l"
+	.string "sits in there.\p"
+	.string "We've been sending sandwiches over.$"
 
 OldaleTown_EventScript_GoToMartSouth::
 	applymovement LOCALID_OLDALE_MART_EMPLOYEE, OldaleTown_Movement_EmployeeSouth
@@ -233,6 +303,10 @@ OldaleTown_Movement_Unknown2:
 OldaleTown_EventScript_FootprintsMan::
 	lock
 	faceplayer
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_ARREST, OldaleTown_FootprintsMan_Gossip0
+	case GOSSIP_PALACE, OldaleTown_FootprintsMan_Gossip0
 	goto_if_ge VAR_BIRCH_STORY_STATE, 3, OldaleTown_EventScript_FootprintsManAfterLab
 	goto_if_ge VAR_BIRCH_STORY_STATE, 1, OldaleTown_EventScript_FootprintsManDuringLab
 	goto_if_set FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_NotBlockingPath
@@ -242,6 +316,19 @@ OldaleTown_EventScript_FootprintsMan::
 	waitmovement 0
 	release
 	end
+
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+OldaleTown_FootprintsMan_Gossip0::
+	msgbox OldaleTown_FootprintsMan_Text_Gossip0, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_FootprintsMan_Text_Gossip0:
+	.string "WALLACE flew over again! Right over\n"
+	.string "OLDALE, headed north, fast.\p"
+	.string "And now the radio says the ELITE FOUR\n"
+	.string "are missing. A CHAMPION's footprints\l"
+	.string "are never boring.$"
 
 OldaleTown_EventScript_FootprintsManDuringLab::
 	msgbox OldaleTown_Text_FootprintsManDuringLab, MSGBOX_DEFAULT

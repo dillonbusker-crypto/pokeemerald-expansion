@@ -245,28 +245,121 @@ LittlerootTown_EventScript_SetRivalBirchPosForDexUpgradeFemale::
 	end
 
 LittlerootTown_EventScript_FatMan::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_AFTER_LAB, LittlerootTown_FatMan_Gossip0
+	case GOSSIP_SQUAD, LittlerootTown_FatMan_Gossip0
+	case GOSSIP_ARREST, LittlerootTown_FatMan_Gossip0
+	case GOSSIP_PALACE, LittlerootTown_FatMan_Gossip0
+	case GOSSIP_TAKEN, LittlerootTown_FatMan_Gossip1
+	case GOSSIP_STANDOFF, LittlerootTown_FatMan_Gossip1
+	case GOSSIP_ALL_CLEAR, LittlerootTown_FatMan_Gossip1
 	lock
 	faceplayer
 	msgbox LittlerootTown_Text_CanUsePCToStoreItems, MSGBOX_DEFAULT
 	release
 	end
 
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+LittlerootTown_FatMan_Gossip0::
+	msgbox LittlerootTown_FatMan_Text_Gossip0, MSGBOX_NPC
+	end
+
+LittlerootTown_FatMan_Gossip1::
+	msgbox LittlerootTown_FatMan_Text_Gossip1, MSGBOX_NPC
+	end
+
+LittlerootTown_FatMan_Text_Gossip0:
+	.string "DEVON says PROF. BIRCH owed them\n"
+	.string "money. I don't buy it.\p"
+	.string "The man wears the same lab coat every\n"
+	.string "day. He's not the type to borrow big.$"
+
+LittlerootTown_FatMan_Text_Gossip1:
+	.string "They took the PROFESSOR's machines,\n"
+	.string "his books, everything.\p"
+	.string "The power of science is staggering. So\n"
+	.string "is the power of greed.$"
+
 LittlerootTown_EventScript_Boy::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_AFTER_LAB, LittlerootTown_Boy_Gossip0
+	case GOSSIP_SQUAD, LittlerootTown_Boy_Gossip0
+	case GOSSIP_ARREST, LittlerootTown_Boy_Gossip0
+	case GOSSIP_PALACE, LittlerootTown_Boy_Gossip0
+	case GOSSIP_TAKEN, LittlerootTown_Boy_Gossip1
+	case GOSSIP_STANDOFF, LittlerootTown_Boy_Gossip1
+	case GOSSIP_ALL_CLEAR, LittlerootTown_Boy_Gossip1
 	lock
 	faceplayer
 	msgbox LittlerootTown_Text_BirchSpendsDaysInLab, MSGBOX_DEFAULT
 	release
 	end
 
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+LittlerootTown_Boy_Gossip0::
+	msgbox LittlerootTown_Boy_Text_Gossip0, MSGBOX_NPC
+	end
+
+LittlerootTown_Boy_Gossip1::
+	msgbox LittlerootTown_Boy_Text_Gossip1, MSGBOX_NPC
+	end
+
+LittlerootTown_Boy_Text_Gossip0:
+	.string "I saw it! The CHAMPION, WALLACE,\n"
+	.string "battling DEVON's men right outside\l"
+	.string "the LAB!\p"
+	.string "{RIVAL} came home after that. They\n"
+	.string "help out at the LAB every day now.$"
+
+LittlerootTown_Boy_Text_Gossip1:
+	.string "{RIVAL} says the LAB got emptied out.\n"
+	.string "Every machine, every book.\p"
+	.string "And nobody's seen your mom and dad\n"
+	.string "since. Are they okay?$"
+
 LittlerootTown_EventScript_Twin::
 	lock
 	faceplayer
+	specialvar VAR_RESULT, GetStoryGossipStage
+	switch VAR_RESULT
+	case GOSSIP_AFTER_LAB, LittlerootTown_Twin_Gossip0
+	case GOSSIP_SQUAD, LittlerootTown_Twin_Gossip0
+	case GOSSIP_ARREST, LittlerootTown_Twin_Gossip0
+	case GOSSIP_PALACE, LittlerootTown_Twin_Gossip0
+	case GOSSIP_TAKEN, LittlerootTown_Twin_Gossip1
+	case GOSSIP_STANDOFF, LittlerootTown_Twin_Gossip1
+	case GOSSIP_ALL_CLEAR, LittlerootTown_Twin_Gossip1
 	goto_if_set FLAG_ADVENTURE_STARTED, LittlerootTown_EventScript_GoodLuck
 	goto_if_set FLAG_RESCUED_BIRCH, LittlerootTown_EventScript_YouSavedBirch
 	goto_if_ne VAR_LITTLEROOT_TOWN_STATE, 0, LittlerootTown_EventScript_GoSaveBirch
 	msgbox LittlerootTown_Text_IfYouGoInGrassPokemonWillJumpOut, MSGBOX_DEFAULT
 	release
 	end
+
+@ Story gossip: the line for the current beat (GetStoryGossipStage).
+LittlerootTown_Twin_Gossip0::
+	msgbox LittlerootTown_Twin_Text_Gossip0, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_Twin_Gossip1::
+	msgbox LittlerootTown_Twin_Text_Gossip1, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_Twin_Text_Gossip0:
+	.string "Mommy let me play outside again! The\n"
+	.string "scary men in suits are gone.\p"
+	.string "The CHAMPION chased them away! He's\n"
+	.string "my favorite now.$"
+
+LittlerootTown_Twin_Text_Gossip1:
+	.string "Mommy says I have to stay close to\n"
+	.string "home again.\p"
+	.string "Your house is so quiet now. Where did\n"
+	.string "everyone go?$"
 
 LittlerootTown_EventScript_GoSaveBirch::
 	special GetPlayerBigGuyGirlString

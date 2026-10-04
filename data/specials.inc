@@ -86,6 +86,7 @@ gSpecials::
 	def_special FacilityGetWinsPrice
 	def_special HasReceivedFrontierStartingGrants
 	def_special GetGauntletsClearedCount
+	def_special GetStoryGossipStage
 	def_special SetCableClubWarp
 	def_special DoCableClubWarp, waitstate=1
 	def_special ReturnFromLinkRoom, waitstate=1
