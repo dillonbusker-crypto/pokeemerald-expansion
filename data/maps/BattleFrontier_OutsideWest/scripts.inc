@@ -979,7 +979,7 @@ BattleFrontier_OutsideWest_Text_CaveClosed:
 BattleFrontier_OutsideWest_EventScript_SetupPikeStory::
 	setflag FLAG_TEMP_4
 	setflag FLAG_TEMP_5
-	setflag FLAG_TEMP_6
+	setflag FLAG_HIDE_BIRCH_STORY_PIKE_WALLACE
 	setflag FLAG_TEMP_7
 	setvar VAR_TEMP_4, 1
 	setvar VAR_TEMP_5, 1
@@ -1046,7 +1046,7 @@ BattleFrontier_OutsideWest_EventScript_PikeRivalScene::
 	removeobject VAR_0x8004
 	setvar VAR_BIRCH_STORY_STATE, 1
 	delay 30
-	clearflag FLAG_TEMP_6
+	clearflag FLAG_HIDE_BIRCH_STORY_PIKE_WALLACE
 	addobject LOCALID_FRONTIER_WALLACE
 	applymovement LOCALID_FRONTIER_WALLACE, BattleFrontier_OutsideWest_Movement_WallaceIn
 	waitmovement 0

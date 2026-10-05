@@ -271,6 +271,16 @@ EventScript_ResetAllMapFlags::
 	setflag FLAG_HIDE_FALLARBOR_TOWN_BATTLE_TENT_SCOTT
 	setflag FLAG_HIDE_EVER_GRANDE_POKEMON_CENTER_1F_SCOTT
 	setflag FLAG_HIDE_SKY_PILLAR_WALLACE
+	@ Ten Gauntlets: WALLACE only ever appears during his own story events, so
+	@ every WALLACE starts hidden; each map's setup script shows him at the
+	@ right story state only.
+	setflag FLAG_HIDE_CAVE_OF_ORIGIN_B1F_WALLACE
+	setflag FLAG_HIDE_BIRCH_STORY_PIKE_WALLACE
+	setflag FLAG_HIDE_BIRCH_STORY_LITTLEROOT_WALLACE
+	setflag FLAG_HIDE_BIRCH_STORY_LAB_WALLACE
+	setflag FLAG_HIDE_BROKER_STORY_WALLACE
+	setflag FLAG_HIDE_EVER_GRANDE_STORY_OUTSIDE_WALLACE
+	setflag FLAG_HIDE_EVER_GRANDE_STORY_WALLACE
 	setflag FLAG_HIDE_SKY_PILLAR_TOP_RAYQUAZA_STILL
 	call EventScript_ResetAllBerries
 	end

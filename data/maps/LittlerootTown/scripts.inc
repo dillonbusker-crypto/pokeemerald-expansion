@@ -1147,7 +1147,7 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 @ ROUTE 101 sends the player home first.
 LittlerootTown_EventScript_SetupBirchStory::
 	setflag FLAG_TEMP_1
-	setflag FLAG_TEMP_2
+	setflag FLAG_HIDE_BIRCH_STORY_LITTLEROOT_WALLACE
 	setflag FLAG_TEMP_3
 	setflag FLAG_TEMP_4
 	setflag FLAG_TEMP_5
@@ -1181,7 +1181,7 @@ LittlerootTown_EventScript_ShowFatManAfterLab::
 
 LittlerootTown_EventScript_SetupLabDoor::
 	clearflag FLAG_TEMP_1
-	clearflag FLAG_TEMP_2
+	clearflag FLAG_HIDE_BIRCH_STORY_LITTLEROOT_WALLACE
 	clearflag FLAG_TEMP_3
 	setvar VAR_TEMP_1, 0
 	return
@@ -1193,7 +1193,7 @@ LittlerootTown_EventScript_SetupWallaceInside::
 	return
 
 LittlerootTown_EventScript_SetupLabDebrief::
-	clearflag FLAG_TEMP_2
+	clearflag FLAG_HIDE_BIRCH_STORY_LITTLEROOT_WALLACE
 	clearflag FLAG_TEMP_3
 	setobjectxyperm LOCALID_LITTLEROOT_WALLACE, 6, 18
 	setobjectmovementtype LOCALID_LITTLEROOT_WALLACE, MOVEMENT_TYPE_FACE_RIGHT

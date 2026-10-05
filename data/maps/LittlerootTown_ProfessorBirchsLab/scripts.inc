@@ -1105,19 +1105,20 @@ LittlerootTown_ProfessorBirchsLab_Text_ReceivedPokenav:
 @ the rival helps out in the lab.
 LittlerootTown_ProfessorBirchsLab_EventScript_SetupBirchStory::
 	setvar VAR_TEMP_2, 1
-	@ STONE, his two men and WALLACE (FLAG_TEMP_1-4) are only here for the
-	@ scene. Temp flags start clear on every visit, so hide them first.
+	@ STONE and his two men (FLAG_TEMP_1-3) are only here for the scene. Temp
+	@ flags start clear on every visit, so hide them first. WALLACE has his
+	@ own flag, set on New Game, so nothing but this scene can show him.
 	setflag FLAG_TEMP_1
 	setflag FLAG_TEMP_2
 	setflag FLAG_TEMP_3
-	setflag FLAG_TEMP_4
+	setflag FLAG_HIDE_BIRCH_STORY_LAB_WALLACE
 	setflag FLAG_TEMP_5
 	goto_if_ge VAR_BIRCH_STORY_STATE, 4, LittlerootTown_ProfessorBirchsLab_EventScript_RivalAtLab
 	goto_if_ne VAR_BIRCH_STORY_STATE, 2, Common_EventScript_NopReturn
 	clearflag FLAG_TEMP_1
 	clearflag FLAG_TEMP_2
 	clearflag FLAG_TEMP_3
-	clearflag FLAG_TEMP_4
+	clearflag FLAG_HIDE_BIRCH_STORY_LAB_WALLACE
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL
 	clearflag FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH
 	setobjectxyperm LOCALID_BIRCHS_LAB_BIRCH, 9, 6

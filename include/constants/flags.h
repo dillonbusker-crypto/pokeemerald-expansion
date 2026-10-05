@@ -115,8 +115,8 @@
 #define FLAG_RESCUED_BIRCH                       0x52
 #define FLAG_LEGENDARIES_IN_SOOTOPOLIS           0x53
 
-#define FLAG_UNUSED_0x054                    0x54  // Unused Flag
-#define FLAG_UNUSED_0x055                    0x55  // Unused Flag
+#define FLAG_HIDE_BIRCH_STORY_PIKE_WALLACE       0x54  // Ten Gauntlets: WALLACE outside the Pike (Birch's lab arc) - set on New Game
+#define FLAG_HIDE_BIRCH_STORY_LITTLEROOT_WALLACE  0x55  // Ten Gauntlets: WALLACE by Birch's lab door - set on New Game
 
 #define FLAG_HIDE_CONTEST_POKE_BALL          0x56  // Always set after new game, object it hides is added directly
 #define FLAG_MET_RIVAL_MOM                   0x57
@@ -137,7 +137,7 @@
 #define FLAG_MOSSDEEP_GYM_SWITCH_3           0x66 //
 #define FLAG_MOSSDEEP_GYM_SWITCH_4           0x67 //
 
-#define FLAG_UNUSED_0x068                    0x68  // Unused Flag
+#define FLAG_HIDE_BIRCH_STORY_LAB_WALLACE        0x68  // Ten Gauntlets: WALLACE inside Birch's lab - set on New Game
 
 #define FLAG_OCEANIC_MUSEUM_MET_REPORTER     0x69
 #define FLAG_RECEIVED_HM_STRENGTH            0x6A
