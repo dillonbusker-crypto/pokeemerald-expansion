@@ -1,7 +1,75 @@
-# Session handoff — 2026-10-04 (updated end of day)
+# Session handoff — 2026-10-05
 
-Read `CLAUDE.md` first, then `storyline.md`. This file covers what the last
-two sessions built, what's untested, and the tools left behind.
+Read `CLAUDE.md` first, then `storyline.md`. The newest session is right
+below; the 2026-10-04 notes follow it.
+
+---
+
+## 2026-10-05: endgame planning, and part 1 built
+
+**Docs.** `endgame-teams.md` (new): five Brain rematch teams (Anabel, Tucker,
+Lucy, Noland, Greta; Spenser and Brandon aren't rematched) and the Elite
+Four's teams (levels 52-55, two permanent Megas each), all from the shop pool,
+OU/Uber first, every move checked against this expansion's learnsets.
+`storyline.md`'s endgame was rewritten from the owner's outline (After
+gauntlet 8 through the final battle), with the owner's decisions: five Factory
+guards; the Brains leave with Scott and ambush the allies at Sky Pillar; the
+Wardens ambush Steven and Wallace at Devon (Juan's apology kept); siphon
+first (one permanent Mega, chips off), New Mauville second (six); no bike,
+Sky Pillar is smooth; Scott's Kangaskhan replaced by **Mega Darkrai**; the
+Steven's PokéNav question dropped.
+
+**Shop.** Missing OU/UU picks added: Alomomola, Lokix (wave 1), Polteageist
+(wave 2), Arcanine-Hisui (wave 3), Dracovish (wave 6), Palafin (new wave 8,
+"Endgame Pokemon", after gauntlet 8).
+
+**Endgame part 1 built** (`storyline.md`, "After gauntlet 8: the Factory" and
+"Hoopa's rings"), tracked by `VAR_ENDGAME_STATE` (states listed in
+`BattleFrontier_OutsideEast`'s scripts):
+
+- Outside the Pyramid: harsh sunlight (drought, outdoor Frontier maps only,
+  states 1-4); Wallace swaps the counterfeit badges for real ones.
+- The Factory door: Palkia blasts it open (`SetBattleFactoryUnlocked`), Joy
+  takes her post, Wallace goes in. The Frontier's ABRA moved into its
+  Pokémon Center.
+- 1F lobby: Spenser and Brandon take Wallace on (off-screen). Five guards
+  (`TRAINER_FACTORY_*`), Scrambler, no heal, a loss whites out to the
+  Frontier's Center; each gives a key piece (`GetFactoryBrainsBeaten`) and
+  darkens one of B2F's **five** lights (two cut from the layout).
+- B1F: the cell controls (after Greta and Noland) free Mom, Dad, the Broker
+  and Hoopa. B2F: Wallace at the stairs takes the player down.
+- B3F: the Crown charges, Mewtwo beats Palkia, the player steps in; Scott's
+  level 100 team (`TRAINER_FACTORY_SCOTT_LATIAS`/`_LATIOS`, by the player's
+  Lati) with **no white-out** (`B_FLAG_NO_WHITEOUT` = `FLAG_ENDGAME_NO_WHITEOUT`).
+  Scott leaves, Steven arrives, everyone regroups outside the Arena.
+- The base: shops free (`FLAG_FRONTIER_SHOP_FREE`), the Broker in the
+  Exchange Service Corner (99 Ultra Balls), Hoopa in the Arena lobby, Steven
+  outside: "ready?" sets `FLAG_ABRA_TO_RUSTBORO` (state 7). **Part 2
+  (Rustboro) starts there.**
+- Hoopa's rings: a menu of the twelve box-art legendaries; Island Cave's
+  sealed chamber, level 60, unchipped (`IsFrontierChippedMon`), Zacian with
+  the Rusted Sword. One ring so far (`GetHoopaRingsLeft`).
+- New trainer class `FOUNDER` (Scott). **Scott has no battle sprite: the
+  Gentleman pic is a stand-in.** Trainers used: 974 of 1000.
+
+**Testing:** harness scenario 20 (below), **18/18 checks green**, walking
+Pyramid to Rustboro with every Brain fight, the cells, Scott's battle
+**lost on purpose** (outcome confirmed, no white-out, team healed and items
+back after), the base, the Broker, one Hoopa trip and the ABRA. Bugs it
+caught and fixed:
+`checktrainerflag` sets the comparison result, not `VAR_RESULT` (use
+`goto_if TRUE/FALSE`); a dynamic menu entry whose id equals the
+initial-selection value (0) becomes the starting cursor (Hoopa's CANCEL).
+**Not played in mGBA yet.**
+
+**Loose ends from this session:**
+- Gossip has no beat for the endgame yet (it still reads ALL_CLEAR).
+- Hoopa's catch path (a legendary actually caught) wasn't harness-run; the
+  knock-out path was.
+- Joy's existing heal line says Scott locked her Center, but white-outs land
+  there and it works; worth a line pass.
+- The Factory generator (`~/decomps/headless-harness/factory/`) still makes
+  seven lights; regenerating B2F would undo the five-light edit.
 
 ---
 
@@ -123,7 +191,8 @@ mart has little stock; a Route 103 NPC points at the ferry dock.
 
 ## Tools: `~/decomps/headless-harness/`
 
-- `harness.c`: scripted-input driver. `#define HARNESS_SCENARIO n` (1 Palace
+- `harness.c`: scripted-input driver. `#define HARNESS_SCENARIO n` (20 the
+  endgame's part 1, Pyramid to Rustboro, loses Scott's battle on purpose; 1 Palace
   exit, 2 Littleroot win path, 3 Noland/Greta loss, 4 Scott's house + Factory
   + Lati, 5 girl's house, 6 Ever Grande win, 7 Ever Grande loss, 8 League Abra
   home, 9 Broker control, 10 Devon Factory, 11 endgame towns, 12-13 Wallace

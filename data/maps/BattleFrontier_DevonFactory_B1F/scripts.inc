@@ -12,9 +12,9 @@ BattleFrontier_DevonFactory_B1F_MapScripts::
 
 BattleFrontier_DevonFactory_B1F_OnTransition:
 	checktrainerflag TRAINER_FACTORY_GRETA
-	call_if_eq VAR_RESULT, TRUE, BattleFrontier_DevonFactory_B1F_EventScript_HideGreta
+	call_if TRUE, BattleFrontier_DevonFactory_B1F_EventScript_HideGreta
 	checktrainerflag TRAINER_FACTORY_NOLAND
-	call_if_eq VAR_RESULT, TRUE, BattleFrontier_DevonFactory_B1F_EventScript_HideNoland
+	call_if TRUE, BattleFrontier_DevonFactory_B1F_EventScript_HideNoland
 	call_if_set FLAG_ENDGAME_CELLS_OPENED, BattleFrontier_DevonFactory_B1F_EventScript_HideCaptives
 	call_if_ge VAR_ENDGAME_STATE, 5, BattleFrontier_DevonFactory_B1F_EventScript_HideAll
 	end
@@ -83,9 +83,9 @@ BattleFrontier_DevonFactory_B1F_EventScript_CellControls::
 	goto_if_set FLAG_ENDGAME_CELLS_OPENED, BattleFrontier_DevonFactory_B1F_EventScript_CellsAlreadyOpen
 	goto_if_lt VAR_ENDGAME_STATE, 4, BattleFrontier_DevonFactory_B1F_EventScript_CellsLocked
 	checktrainerflag TRAINER_FACTORY_GRETA
-	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_DevonFactory_B1F_EventScript_CellsGuarded
+	goto_if FALSE, BattleFrontier_DevonFactory_B1F_EventScript_CellsGuarded
 	checktrainerflag TRAINER_FACTORY_NOLAND
-	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_DevonFactory_B1F_EventScript_CellsGuarded
+	goto_if FALSE, BattleFrontier_DevonFactory_B1F_EventScript_CellsGuarded
 	msgbox BattleFrontier_DevonFactory_B1F_Text_OpenCells, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_DevonFactory_B1F_EventScript_CellsEnd
 	closemessage

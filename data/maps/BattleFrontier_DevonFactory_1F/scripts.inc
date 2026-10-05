@@ -18,11 +18,11 @@ BattleFrontier_DevonFactory_1F_OnTransition:
 	setflag FLAG_TEMP_6
 	call_if_eq VAR_ENDGAME_STATE, 3, BattleFrontier_DevonFactory_1F_EventScript_SetupLobby
 	checktrainerflag TRAINER_FACTORY_ANABEL
-	call_if_eq VAR_RESULT, TRUE, BattleFrontier_DevonFactory_1F_EventScript_HideAnabel
+	call_if TRUE, BattleFrontier_DevonFactory_1F_EventScript_HideAnabel
 	checktrainerflag TRAINER_FACTORY_LUCY
-	call_if_eq VAR_RESULT, TRUE, BattleFrontier_DevonFactory_1F_EventScript_HideLucy
+	call_if TRUE, BattleFrontier_DevonFactory_1F_EventScript_HideLucy
 	checktrainerflag TRAINER_FACTORY_TUCKER
-	call_if_eq VAR_RESULT, TRUE, BattleFrontier_DevonFactory_1F_EventScript_HideTucker
+	call_if TRUE, BattleFrontier_DevonFactory_1F_EventScript_HideTucker
 	call_if_ge VAR_ENDGAME_STATE, 5, BattleFrontier_DevonFactory_1F_EventScript_HideGuards
 	end
 

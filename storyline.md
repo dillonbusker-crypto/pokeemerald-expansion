@@ -785,7 +785,12 @@ more. Steven **walks off** (his team is down).
 **Wallace's Palkia** ✅: Wallace has a Palkia, the counterpart to Steven's
 Dialga. It first appears in the tag battle at Ever Grande (after gauntlet 6).
 
-### After gauntlet 8: the Factory 📝
+### After gauntlet 8: the Factory ✅
+
+Built (headless-tested; not yet played). Tracked by `VAR_ENDGAME_STATE`, whose
+states are listed in `BattleFrontier_OutsideEast`'s scripts: 1 gauntlet 8
+cleared, 2 badges real again, 3 door open, 4 inside the Factory, 5 Scott gone,
+6 the Arena base, 7 sent to Rustboro.
 
 **1. The sunlight.** The player walks out of the Pyramid into **harsh
 sunlight** (the overworld drought weather vanilla uses while Groudon is
@@ -841,14 +846,14 @@ are unused (strip them with the vanilla story).
 
 | Floor | Map | Rooms | Who's there |
 |---|---|---|---|
-| 1F | `BattleFrontier_DevonFactory_1F` | Lobby (reception, the empty BOND HARNESS case), Surveillance (screens on every battle room), Control Room (island systems, the harvest log with the player's name on top, auto-heal), Chip Lab (implant stations, Birch's crates), Warehouse (Kanto Master Balls, Mega Stone ore) | Anabel, Lucy, Tucker; Spenser and Brandon in the lobby with Wallace (🔧 the map has Spenser in a room) |
-| B1F | `..._B1F` Holding Block | Four cells: Mom and Dad, the Broker, Hoopa, one empty | Greta (door), Noland (desk) |
-| B2F | `..._B2F` Generator Hall | Stairs to the Pillar, sealed; red lights beside them (metatile `0x224`), one per guard (🔧 seven built, needs five) | No guard (🔧 Brandon moves to the lobby) |
+| 1F | `BattleFrontier_DevonFactory_1F` | Lobby (reception, the empty BOND HARNESS case), Surveillance (screens on every battle room), Control Room (island systems, the harvest log with the player's name on top, auto-heal), Chip Lab (implant stations, Birch's crates), Warehouse (Kanto Master Balls, Mega Stone ore) | Anabel, Lucy, Tucker; Spenser and Brandon in the lobby with Wallace |
+| B1F | `..._B1F` Holding Block | Four cells: Mom and Dad, the Broker, Hoopa, one empty; the cell controls open them once Greta and Noland are beaten | Greta (door), Noland (desk) |
+| B2F | `..._B2F` Generator Hall | Stairs to the Pillar, sealed; **five** red lights beside them (metatile `0x224`, dark = `0x221`), one per guard; Wallace waits here once all is done | No guard |
 | B3F | `..._B3F` Pillar Chamber | The **Mega Pillar** (the glass capsule, unique to this room), the dais in a fence gap, Scott's office | Scott, Mega Mewtwo Y |
 
 - **The front door** opens only with the Factory's door bit (`IsBattleFactoryUnlocked`); Wallace's Palkia scene sets it.
 - **Nurse Joy** stands beside the door as a heal once it's open (`FLAG_HIDE_FACTORY_JOY`).
-- 📝 Still to script: the five fights and their key pieces; each beaten guard turning off a light and leaving; the sealed stairs opening at five Brains and four rescues (now always sealed); the rescues; hiding the Brains who loiter outside their buildings (Tucker, Lucy) while they're in the Factory; Scott's scene. The guards' lines are placeholders.
+- The guards' lines, the fights, the key pieces and lights, the rescues, Scott's scene and the Arena base are all scripted. The Brains who loiter outside (Anabel, Tucker, Lucy) are hidden from gauntlet 8 on (`FLAG_HIDE_FRONTIER_BRAINS_AWAY`, and the Outside West temp flags).
 - The maps are generated: `~/decomps/headless-harness/factory/` (see its README).
 
 **8. The Pillar Chamber (B3F).** Scott stands at the Mega Pillar with **Mega
@@ -881,6 +886,9 @@ of them is a permanent Mega. Mega Mewtwo Y leads.
 | Mega Salamence | Aerilate |
 | Mega Mawile | Huge Power |
 
+(`TRAINER_FACTORY_SCOTT_LATIAS` / `_LATIOS`, by the player's Lati. **No Scott
+battle sprite exists**: the Gentleman pic stands in until there's art.)
+
 A normal battle, but the player is expected to lose. **There's no white-out
 either way**: the party stays fainted (the same path as the Ever Grande loss).
 SCOTT: this is wasting his time. He's off to become **the most powerful trainer
@@ -907,7 +915,12 @@ team.
   there, and **the ABRA at the Pokémon Center** can take the player to
   Rustboro (`FLAG_ABRA_TO_RUSTBORO`). They fly off.
 
-### Hoopa's rings 📝
+### Hoopa's rings ✅
+
+Built: Hoopa in the Arena lobby, the ring menu, the trip to Island Cave's
+sealed chamber (`IslandCave_EventScript_SetupHoopaTrip`). Only the first ring
+exists so far; the Elite Four and New Mauville add theirs in
+`GetHoopaRingsLeft` (`src/facility.c`) when they're built.
 
 The Hoopa the player freed wants to help **recruit the strongest Pokémon in
 existence** to beat Scott. Optional.
@@ -1104,8 +1117,8 @@ happy ending.
 
   | Content | Running total |
   |---|---|
-  | Built now (all eight gauntlets, story trainers, the two Devon Agents, Noland and Greta at Birch's lab, Maxie and Archie at Ever Grande) | 967 |
-  | Five Brain rematches (Spenser and Brandon aren't rematched), Scott ×2 | 974 |
+  | Built (all eight gauntlets, story trainers, the two Devon Agents, Noland and Greta at Birch's lab, Maxie and Archie at Ever Grande) | 967 |
+  | Built: five Brain rematches (Spenser and Brandon aren't rematched), Scott ×2 | 974 |
   | Elite Four (Devon), Archie, Maxie (New Mauville, with Primals) | 980 |
   | The four admins in New Mauville (Tabitha, Courtney, Matt, Shelly) | 984 |
 
@@ -1126,8 +1139,8 @@ happy ending.
 - ✅ **The endgame towns are prepared** (Rustboro, Mauville, Sky Pillar;
   `data/scripts/endgame_towns.inc`):
   - **Abra menu** (`EventScript_EndgameAbra`): an Abra in each town and one
-    beside Joy outside the Factory (🔧 move it to the Frontier's Pokémon
-    Center). It lists the Frontier always, each town
+    in the Frontier's Pokémon Center (moved there with the endgame's first
+    part). It lists the Frontier always, each town
     once its flag is set, never the current place. **The story must set**
     `FLAG_ABRA_TO_RUSTBORO`, `FLAG_ABRA_TO_MAUVILLE` and
     `FLAG_ABRA_TO_SKY_PILLAR` (nothing does yet; the story beats above say
@@ -1156,11 +1169,10 @@ happy ending.
   Experience only if **the badges are real and it isn't chipped** (the Lati,
   from Steven's gauntlet 4 test until Scott swaps the counterfeits back after
   gauntlet 7). "Chipped" = met anywhere but Artisan Cave. 📝 Still to add:
-  - **Wallace's badge swap after gauntlet 8** sets `FLAG_REAL_BADGES` again.
-  - **Hoopa's legendaries aren't chipped.** Easiest: `IsFrontierChippedMon()`
-    also accepts the met location of the reused Regi cave, as it does Artisan
-    Cave. The cave is reachable only through Hoopa's rings, so nothing else
-    is ever met there.
+  - ✅ **Wallace's badge swap after gauntlet 8** sets `FLAG_REAL_BADGES` again.
+  - ✅ **Hoopa's legendaries aren't chipped:** `IsFrontierChippedMon()` also
+    accepts Island Cave, the reused Regi cave. It's reachable only through
+    Hoopa's rings, so nothing else is ever met there.
   - **The Frontier siphon lifts the chip rule** (a flag `IsFrontierChippedMon()`
     checks first), so every Pokémon can gain Experience from then on.
 - **Steven's test battle** is a wild battle (a scripted Aron), so it costs no
@@ -1209,19 +1221,18 @@ happy ending.
   Check a level 50 team can't realistically win, and that winning doesn't
   break anything.
 
-- **The free shop:** a story flag that zeroes shop prices once the Broker takes
-  over (after the Factory). Palafin joins the shop then; it's on the
+- ✅ **The free shop:** `FLAG_FRONTIER_SHOP_FREE` zeroes every shop price
+  (`ShopPrice`, `src/facility_shop.c`), set in the scene outside the Arena. Palafin joins the shop then; it's on the
   gauntlets' permanent ban list, which no longer matters once all eight are
   cleared.
 
-- **The sunlight after gauntlet 8** is overworld drought weather. Drought
+- ✅ **The sunlight after gauntlet 8** is overworld drought weather. Drought
   turns into sun in any battle fought on that map (`src/battle_util.c`), so
   use it on the Frontier's **outdoor** maps only, where the player can't start
   a battle. The Factory's interior maps must keep normal weather, or every
   Brain fight starts in sun.
 
-- **Hoopa's rings:** one reused Regi cave (Desert Ruins, Island Cave or
-  Ancient Tomb) with the legendary's overworld sprite picked by a variable;
+- ✅ **Hoopa's rings:** one reused Regi cave (Island Cave) with the legendary's overworld sprite picked by a variable;
   a wild battle at level 60; a fled or knocked-out legendary reappears next
   visit; a catch uses one ring. Rings come from three story points (the
   Factory, the Elite Four, New Mauville), and unused ones carry over. The
