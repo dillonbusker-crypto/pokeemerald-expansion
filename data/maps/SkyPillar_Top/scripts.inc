@@ -15,6 +15,10 @@ SkyPillar_Top_EventScript_TryRemoveRayquaza::
 	return
 
 SkyPillar_Top_OnTransition:
+	@ Ten Gauntlets: no wild RAYQUAZA here, whatever way the player came in
+	@ (see SkyPillar_Outside_OnTransition).
+	setvar VAR_SKY_PILLAR_STATE, 2
+	setflag FLAG_DEFEATED_RAYQUAZA
 	call_if_lt VAR_SKY_PILLAR_STATE, 2, SkyPillar_Top_EventScript_SetCleanLayout
 	call_if_ge VAR_SKY_PILLAR_STATE, 2, SkyPillar_Top_EventScript_TryShowRayquaza
 	end

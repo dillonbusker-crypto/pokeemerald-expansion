@@ -5,6 +5,13 @@ RustboroCity_MapScripts::
 
 RustboroCity_OnTransition:
 	setflag FLAG_VISITED_RUSTBORO_CITY
+	@ Ten Gauntlets: only reached in the endgame (data/scripts/endgame_towns.inc).
+	@ The vanilla story never runs here: its people stay hidden, and
+	@ VAR_RUSTBORO_CITY_STATE stays 0, where none of its triggers fire.
+	setflag FLAG_HIDE_RUSTBORO_CITY_AQUA_GRUNT
+	setflag FLAG_HIDE_RUSTBORO_CITY_RIVAL
+	setflag FLAG_HIDE_RUSTBORO_CITY_SCIENTIST
+	setflag FLAG_HIDE_RUSTBORO_CITY_DEVON_EMPLOYEE_1
 	call Common_EventScript_SetupRivalGfxId
 	call_if_eq VAR_RUSTBORO_CITY_STATE, 6, RustboroCity_EventScript_HideMapNamePopup
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
@@ -1288,3 +1295,8 @@ RustboroCity_Text_YouCanHave2On2Battle:
 	.string "they'll both challenge you.\p"
 	.string "Don't you think it'd be cool if you\n"
 	.string "could beat two TRAINERS by yourself?$"
+
+@ Ten Gauntlets: the endgame ABRA network (data/scripts/endgame_towns.inc).
+RustboroCity_EventScript_EndgameAbra::
+	setvar VAR_0x8004, ABRA_AT_RUSTBORO
+	goto EventScript_EndgameAbra

@@ -104,10 +104,10 @@
 #define FLAG_HIDE_EVER_GRANDE_STORY_ARCHIE    0x49 // Ten Gauntlets: the Ever Grande trip - ARCHIE in the POKEMON LEAGUE lobby
 #define FLAG_CROWN_CHARGED    0x4A // Ten Gauntlets: the Replica Crown is charged (the Frontier siphon, storyline.md) - it can make a Mega permanent
 #define FLAG_HIDE_FACTORY_JOY    0x4B // Ten Gauntlets: NURSE JOY's quick heal outside the Devon Factory (endgame) - shown/hidden on every map load
-#define FLAG_UNUSED_0x04C    0x4C // Unused Flag
-#define FLAG_UNUSED_0x04D    0x4D // Unused Flag
-#define FLAG_UNUSED_0x04E    0x4E // Unused Flag
-#define FLAG_UNUSED_0x04F    0x4F // Unused Flag
+#define FLAG_ABRA_TO_RUSTBORO    0x4C // Ten Gauntlets: the endgame ABRAs can TELEPORT to RUSTBORO (and the FRONTIER's ABRA appears)
+#define FLAG_ABRA_TO_MAUVILLE    0x4D // Ten Gauntlets: the endgame ABRAs can TELEPORT to MAUVILLE
+#define FLAG_ABRA_TO_SKY_PILLAR    0x4E // Ten Gauntlets: the endgame ABRAs can TELEPORT to SKY PILLAR
+#define FLAG_HIDE_FRONTIER_ENDGAME_ABRA    0x4F // Ten Gauntlets: the endgame ABRA by the Devon Factory - shown/hidden on every map load
 
 // Scripts
 #define FLAG_HIDE_SKY_PILLAR_TOP_RAYQUAZA_STILL  0x50

@@ -4,6 +4,13 @@ MauvilleCity_MapScripts::
 
 MauvilleCity_OnTransition:
 	setflag FLAG_VISITED_MAUVILLE_CITY
+	@ Ten Gauntlets: only reached in the endgame (data/scripts/endgame_towns.inc).
+	@ No WALLY fight, no vanilla SCOTT, and no WATTSON outside with the
+	@ BASEMENT KEY.
+	setflag FLAG_HIDE_MAUVILLE_CITY_WALLY
+	setflag FLAG_HIDE_MAUVILLE_CITY_WALLYS_UNCLE
+	setflag FLAG_HIDE_MAUVILLE_CITY_SCOTT
+	setflag FLAG_HIDE_MAUVILLE_CITY_WATTSON
 	clearflag FLAG_FORCE_MIRAGE_TOWER_VISIBLE
 	clearflag FLAG_HIDE_SLATEPORT_MUSEUM_POPULATION
 	setflag FLAG_SYS_TV_START
@@ -662,3 +669,8 @@ MauvilleCity_Text_ExplainTV:
 
 MauvilleCity_Text_BeenCheckingOutTV:
 	.string "Hi, have you been checking out TVs?$"
+
+@ Ten Gauntlets: the endgame ABRA network (data/scripts/endgame_towns.inc).
+MauvilleCity_EventScript_EndgameAbra::
+	setvar VAR_0x8004, ABRA_AT_MAUVILLE
+	goto EventScript_EndgameAbra

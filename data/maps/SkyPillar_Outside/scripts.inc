@@ -5,6 +5,16 @@ SkyPillar_Outside_MapScripts::
 	.byte 0
 
 SkyPillar_Outside_OnTransition:
+	@ Ten Gauntlets: only reached in the endgame (data/scripts/endgame_towns.inc).
+	@ RAYQUAZA never woke and flew to SOOTOPOLIS: no WALLACE here, and
+	@ VAR_SKY_PILLAR_STATE 2 gives the cracked floors (the bike) without the
+	@ awakening, which needs state 0. FLAG_DEFEATED_RAYQUAZA keeps the wild
+	@ RAYQUAZA off the top floor; SCOTT's scene places its own.
+	setflag FLAG_HIDE_SKY_PILLAR_WALLACE
+	setvar VAR_SKY_PILLAR_STATE, 2
+	setflag FLAG_DEFEATED_RAYQUAZA
+	setflag FLAG_HIDE_SKY_PILLAR_TOP_RAYQUAZA
+	setflag FLAG_HIDE_SKY_PILLAR_TOP_RAYQUAZA_STILL
 	call_if_eq VAR_SOOTOPOLIS_CITY_STATE, 3, SkyPillar_Outside_EventScript_HideMapNamePopup
 	call_if_ge VAR_SOOTOPOLIS_CITY_STATE, 4, SkyPillar_Outside_EventScript_CheckSetAbnormalWeather
 	end
@@ -18,7 +28,9 @@ SkyPillar_Outside_EventScript_CheckSetAbnormalWeather::
 	return
 
 SkyPillar_Outside_OnLoad:
-	call_if_set FLAG_WALLACE_GOES_TO_SKY_PILLAR, SkyPillar_Outside_EventScript_OpenDoor
+	@ Ten Gauntlets: the door is always open (the vanilla game waits for
+	@ WALLACE to open it).
+	call SkyPillar_Outside_EventScript_OpenDoor
 	end
 
 SkyPillar_Outside_EventScript_OpenDoor::
@@ -167,3 +179,8 @@ SkyPillar_Outside_Text_GotToGoBackForSootopolis:
 	.string "I've got to go back.\p"
 	.string "Everything is in your hands now.\n"
 	.string "Don't fail us!$"
+
+@ Ten Gauntlets: the endgame ABRA network (data/scripts/endgame_towns.inc).
+SkyPillar_Outside_EventScript_EndgameAbra::
+	setvar VAR_0x8004, ABRA_AT_SKY_PILLAR
+	goto EventScript_EndgameAbra

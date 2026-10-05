@@ -1003,9 +1003,31 @@ happy ending.
 - **Vanilla maps come back into play:** Rustboro and Devon Corporation,
   Mauville, its cycle shop and New Mauville, the Cave of Origin, Sky Pillar.
   CLAUDE.md plans to strip the vanilla story; these maps must survive it, with
-  their vanilla NPCs and trainers reworked. **Travel is by private transfer**
-  between them, and each city is **blocked off** so the player can't wander
-  out into the rest of Hoenn.
+  their vanilla NPCs and trainers reworked. **Travel is by the Abra
+  network** between them, and each city is **blocked off** so the player
+  can't wander out into the rest of Hoenn.
+- ✅ **The endgame towns are prepared** (Rustboro, Mauville, Sky Pillar;
+  `data/scripts/endgame_towns.inc`):
+  - **Abra menu** (`EventScript_EndgameAbra`): an Abra in each town and one
+    beside Joy outside the Factory. It lists the Frontier always, each town
+    once its flag is set, never the current place. **The story must set**
+    `FLAG_ABRA_TO_RUSTBORO`, `FLAG_ABRA_TO_MAUVILLE` and
+    `FLAG_ABRA_TO_SKY_PILLAR` (nothing does yet); the Frontier's Abra shows
+    once the Rustboro flag is set.
+  - **Sealed exits:** every route edge of Rustboro and Mauville, and Sky
+    Pillar's way down to the sea, shows "Now isn't the time to wander off"
+    and steps the player back.
+  - **Sealed doors:** only the two **Gyms** (`sEndgameSealedDoors`,
+    `src/facility.c`). Every other building is open, by the owner's choice.
+  - **Vanilla events off:** Rustboro hides the Aqua grunt, rival, scientist
+    and Devon employee; Mauville hides Wally, his uncle, vanilla Scott and
+    Wattson; Sky Pillar hides Wallace, keeps the cracked floors (state 2),
+    marks Rayquaza beaten and leaves the door open.
+  - 📝 Still open: New Mauville sits on sealed Route 110 water and needs its
+    own way in; Devon Corp is open, so its vanilla events (Mr. Stone's
+    letter, the Exp. Share, fossils) and the other buildings' vanilla gifts
+    (HM Cut, HM Rock Smash, the Coin Case) may need switching off when
+    their scenes are built.
 
 - **Levels.** ✅ The real rule is built (`FrontierStoryAllowsExp()` and
   `IsFrontierChippedMon()`, `src/facility.c`; see CLAUDE.md): a Pokémon gains

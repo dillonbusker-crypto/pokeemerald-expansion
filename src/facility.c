@@ -19,6 +19,7 @@
 #include "data.h"
 #include "item.h"
 #include "event_data.h"
+#include "event_scripts.h"
 #include "fieldmap.h"
 #include "frontier_util.h"
 #include "pokemon.h"
@@ -346,6 +347,27 @@ bool32 IsStoryLockedHomeDoor(u32 mapGroup, u32 mapNum)
     u32 state = VarGet(VAR_CROWN_STORY_STATE);
 
     return (mapNum | (mapGroup << 8)) == home && state >= 2 && state < 5;
+}
+
+// The endgame towns (storyline.md) are cut off from the rest of Hoenn by
+// their exits; inside them, only the GYMS stay shut. TryDoorWarp runs the
+// returned script instead of warping.
+static const struct { u16 map; const u8 *script; } sEndgameSealedDoors[] =
+{
+    { MAP_RUSTBORO_CITY_GYM, EventScript_EndgameSealedGym },
+    { MAP_MAUVILLE_CITY_GYM, EventScript_EndgameSealedGym },
+};
+
+const u8 *GetEndgameSealedDoorScript(u32 mapGroup, u32 mapNum)
+{
+    u32 i, map = mapNum | (mapGroup << 8);
+
+    for (i = 0; i < ARRAY_COUNT(sEndgameSealedDoors); i++)
+    {
+        if (sEndgameSealedDoors[i].map == map)
+            return sEndgameSealedDoors[i].script;
+    }
+    return NULL;
 }
 
 // DEVON's men stripped BIRCH's lab bare: every piece of furniture goes, and

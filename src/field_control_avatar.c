@@ -1149,6 +1149,12 @@ static bool8 TryDoorWarp(struct MapPosition *position, u16 metatileBehavior, enu
                     ScriptContext_SetupScript(LittlerootTown_EventScript_HomeDoorLocked);
                     return TRUE;
                 }
+                // The endgame towns: the GYMS stay shut, and say so.
+                if (GetEndgameSealedDoorScript(warp->mapGroup, warp->mapNum) != NULL)
+                {
+                    ScriptContext_SetupScript(GetEndgameSealedDoorScript(warp->mapGroup, warp->mapNum));
+                    return TRUE;
+                }
                 StoreInitialPlayerAvatarState();
                 SetupWarp(&gMapHeader, warpEventId, position);
                 DoDoorWarp();

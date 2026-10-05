@@ -31,6 +31,7 @@ BattleFrontier_OutsideWest_OnTransition:
 	call BattleFrontier_OutsideWest_EventScript_SetupBrokerStory
 	call BattleFrontier_OutsideWest_EventScript_SetupCrownStory
 	call BattleFrontier_OutsideWest_EventScript_SetupFactoryJoy
+	call BattleFrontier_OutsideWest_EventScript_SetupEndgameAbra
 	end
 
 BattleFrontier_OutsideWest_EventScript_HideTucker::
@@ -1863,3 +1864,15 @@ BattleFrontier_OutsideWest_Text_FactoryJoy:
 BattleFrontier_OutsideWest_Text_FactoryJoyDone:
 	.string "All better! Come back any time you\n"
 	.string "need me. I'll be right here.$"
+
+@ Ten Gauntlets: the endgame ABRA network (data/scripts/endgame_towns.inc).
+@ Its FRONTIER ABRA waits beside NURSE JOY once the first town is open.
+BattleFrontier_OutsideWest_EventScript_SetupEndgameAbra::
+	setflag FLAG_HIDE_FRONTIER_ENDGAME_ABRA
+	goto_if_unset FLAG_ABRA_TO_RUSTBORO, Common_EventScript_NopReturn
+	clearflag FLAG_HIDE_FRONTIER_ENDGAME_ABRA
+	return
+
+BattleFrontier_OutsideWest_EventScript_EndgameAbra::
+	setvar VAR_0x8004, ABRA_AT_FRONTIER
+	goto EventScript_EndgameAbra

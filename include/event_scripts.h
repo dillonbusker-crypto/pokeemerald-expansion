@@ -808,5 +808,7 @@ extern const u8 EventScript_Indigo_HighestAuthority[];
 
 // Ten Gauntlets: the Crown is taken (storyline.md) - see IsStoryLockedHomeDoor().
 extern const u8 LittlerootTown_EventScript_HomeDoorLocked[];
+// Ten Gauntlets: the endgame towns' locked GYMS - see GetEndgameSealedDoorScript().
+extern const u8 EventScript_EndgameSealedGym[];
 
 #endif // GUARD_EVENT_SCRIPTS_H

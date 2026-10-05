@@ -36,4 +36,12 @@
 #define GOSSIP_STANDOFF      13 // STEVEN beaten by SCOTT's MEWTWO
 #define GOSSIP_ALL_CLEAR     14 // gauntlet 8 cleared
 
+// The endgame ABRA network (data/scripts/endgame_towns.inc): where an ABRA
+// is (VAR_0x8004), and the menu ids of the places it can TELEPORT to.
+#define ABRA_AT_FRONTIER     0
+#define ABRA_AT_RUSTBORO     1
+#define ABRA_AT_MAUVILLE     2
+#define ABRA_AT_SKY_PILLAR   3
+#define ABRA_CANCEL          127
+
 #endif // GUARD_CONSTANTS_FACILITY_H
