@@ -14,7 +14,9 @@ OldaleTown_House2_EventScript_Woman::
 	case GOSSIP_RAID, OldaleTown_House2_Woman_Gossip6
 	case GOSSIP_TAKEN, OldaleTown_House2_Woman_Gossip6
 	case GOSSIP_STANDOFF, OldaleTown_House2_Woman_Gossip7
-	case GOSSIP_ALL_CLEAR, OldaleTown_House2_Woman_Gossip7
+	case GOSSIP_SIEGE, OldaleTown_House2_Woman_Gossip8
+	case GOSSIP_AFTERMATH, OldaleTown_House2_Woman_Gossip9
+	case GOSSIP_DEVON, OldaleTown_House2_Woman_Gossip10
 	msgbox OldaleTown_House2_Text_PokemonLevelUp, MSGBOX_NPC
 	end
 
@@ -50,6 +52,37 @@ OldaleTown_House2_Woman_Gossip6::
 OldaleTown_House2_Woman_Gossip7::
 	msgbox OldaleTown_House2_Woman_Text_Gossip7, MSGBOX_NPC
 	end
+
+OldaleTown_House2_Woman_Gossip8::
+	msgbox OldaleTown_House2_Woman_Text_Gossip8, MSGBOX_NPC
+	end
+
+OldaleTown_House2_Woman_Text_Gossip8:
+	.string "My grandson says the FRONTIER is\n"
+	.string "baking in the sun, and the CHAMPION\l"
+	.string "is there!\p"
+	.string "I told him to stay indoors.$"
+
+OldaleTown_House2_Woman_Gossip9::
+	msgbox OldaleTown_House2_Woman_Text_Gossip9, MSGBOX_NPC
+	end
+
+OldaleTown_House2_Woman_Text_Gossip9:
+	.string "My grandson says the man who owns\n"
+	.string "the FRONTIER is gone, and the shops\l"
+	.string "are free now!\p"
+	.string "He's not coming home after all.\n"
+	.string "He's shopping.$"
+
+OldaleTown_House2_Woman_Gossip10::
+	msgbox OldaleTown_House2_Woman_Text_Gossip10, MSGBOX_NPC
+	end
+
+OldaleTown_House2_Woman_Text_Gossip10:
+	.string "Now my grandson says the ELITE FOUR\n"
+	.string "are guarding DEVON CORPORATION.\p"
+	.string "I told him to stay put. He's still\n"
+	.string "shopping.$"
 
 OldaleTown_House2_Woman_Text_Gossip0:
 	.string "My grandson called from the FRONTIER!\p"

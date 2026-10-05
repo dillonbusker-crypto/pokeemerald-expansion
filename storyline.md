@@ -114,10 +114,11 @@ short radius, including the one using it.
 
 ### The Pokémon Center closes
 
-After gauntlet 8, **Scott shuts the Frontier's Pokémon Center.** **Nurse Joy
-refuses to help Scott or Devon**, so Scott's side has nowhere to heal. With the
-Scrambler blocking their auto-heal too, anyone the player beats **stays
-beaten.** Joy still helps the player.
+After gauntlet 8, **Nurse Joy refuses to help Scott or Devon**, so Scott's side
+has nowhere to heal. With the Scrambler blocking their auto-heal too, anyone
+the player beats **stays beaten.** Joy still helps the player ✅: she stands by
+the Factory door while the player fights through it, and a white-out still
+lands at her Center. Once Scott is gone she's back at her counter.
 
 ---
 
@@ -1108,7 +1109,9 @@ happy ending.
   `src/facility.c`) turns the gauntlet count and each event's state var into
   one beat (`GOSSIP_*`, `include/constants/facility.h`): Norman, Steven, the
   system down, the smuggler, Anabel, the lab, after the lab, Scott's squad,
-  the arrest, the Palace, the raid, the parents taken, the standoff. NPCs in
+  the arrest, the Palace, the raid, the parents taken, the standoff, and
+  for the endgame the siege (the Factory), the aftermath (Scott gone) and
+  Devon (the Elite Four in Rustboro). NPCs in
   Oldale, Littleroot and the Frontier switch on it, falling back to their
   usual line. **Give new events a beat, and update the gossip with them.**
 

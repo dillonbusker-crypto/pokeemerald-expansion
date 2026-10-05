@@ -34,7 +34,9 @@
 #define GOSSIP_RAID          11 // gauntlet 7: the lab raided
 #define GOSSIP_TAKEN         12 // BIRCH has confessed: the parents gone
 #define GOSSIP_STANDOFF      13 // STEVEN beaten by SCOTT's MEWTWO
-#define GOSSIP_ALL_CLEAR     14 // gauntlet 8 cleared
+#define GOSSIP_SIEGE         14 // gauntlet 8 cleared: the sunlight, WALLACE blasts the FACTORY open (endgame states 0-4)
+#define GOSSIP_AFTERMATH     15 // SCOTT gone with the BRAINS, the parents safe, the shops free (states 5-6)
+#define GOSSIP_DEVON         16 // the ELITE FOUR guarding DEVON in RUSTBORO (state 7 on)
 
 // The endgame ABRA network (data/scripts/endgame_towns.inc): where an ABRA
 // is (VAR_0x8004), and the menu ids of the places it can TELEPORT to.

@@ -63,11 +63,18 @@ initial-selection value (0) becomes the starting cursor (Hoopa's CANCEL).
 **Not played in mGBA yet.**
 
 **Loose ends from this session:**
-- Gossip has no beat for the endgame yet (it still reads ALL_CLEAR).
+- ✅ Gossip: ALL_CLEAR is replaced by three beats, SIEGE (endgame states
+  0-4), AFTERMATH (5-6) and DEVON (7 on). The twelve NPCs who had an
+  ALL_CLEAR line got SIEGE and AFTERMATH lines; four (Rival Mom, Rich Boy,
+  the Gentleman, the Oldale grandmother) also got a DEVON line, the rest
+  reuse AFTERMATH. Code-read and built, not harness-run. Parts 2-3 should
+  add their own beats after DEVON.
 - Hoopa's catch path (a legendary actually caught) wasn't harness-run; the
   knock-out path was.
-- Joy's existing heal line says Scott locked her Center, but white-outs land
-  there and it works; worth a line pass.
+- ✅ Joy at the Factory door now refuses Scott's side rather than claiming
+  her Center is locked, and says a white-out lands at her Center. She
+  stands there only during the Factory (states 3-4).
+- Scott's battle sprite: the owner is making it (Gentleman stands in).
 - The Factory generator (`~/decomps/headless-harness/factory/`) still makes
   seven lights; regenerating B2F would undo the five-light edit.
 
@@ -143,7 +150,7 @@ the Birch/Broker/Crown state vars into one beat, `GOSSIP_*` in
 `include/constants/facility.h`:
 
 ARRIVAL, NORMAN, STEVEN, SYSTEM_DOWN, SMUGGLER, ANABEL, LAB, AFTER_LAB, SQUAD,
-ARREST, PALACE, RAID, TAKEN, STANDOFF, ALL_CLEAR.
+ARREST, PALACE, RAID, TAKEN, STANDOFF, SIEGE, AFTERMATH, DEVON.
 
 Twenty NPCs `switch` on it and fall back to their usual line. Each gets a
 `<Prefix>_GossipN` script and `<Prefix>_Text_GossipN` text right after its
@@ -160,8 +167,7 @@ own script:
   during each), and Birch's wife indoors (`RivalsHouse_1F_EventScript_RivalMom`).
 
 **When a new story event is built, give it a beat and update the gossip.**
-The endgame after gauntlet 8 currently maps to ALL_CLEAR, which shares the
-STANDOFF lines.
+After gauntlet 8: SIEGE, AFTERMATH, DEVON (see the 2026-10-05 section).
 
 ## 4. The opening (`611920777c`)
 

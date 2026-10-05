@@ -133,7 +133,9 @@ RivalsHouse_1F_EventScript_RivalMom::
 	case GOSSIP_RAID, RivalsHouse_1F_RivalMom_Gossip3
 	case GOSSIP_TAKEN, RivalsHouse_1F_RivalMom_Gossip4
 	case GOSSIP_STANDOFF, RivalsHouse_1F_RivalMom_Gossip4
-	case GOSSIP_ALL_CLEAR, RivalsHouse_1F_RivalMom_Gossip4
+	case GOSSIP_SIEGE, RivalsHouse_1F_RivalMom_Gossip5
+	case GOSSIP_AFTERMATH, RivalsHouse_1F_RivalMom_Gossip6
+	case GOSSIP_DEVON, RivalsHouse_1F_RivalMom_Gossip7
 	goto_if_set FLAG_DEFEATED_RIVAL_ROUTE103, RivalsHouse_1F_EventScript_GoHomeEverySoOften
 	goto_if_set FLAG_SYS_POKEMON_GET, RivalsHouse_1F_EventScript_RivalIsOnRoute103
 	goto_if_eq VAR_LITTLEROOT_RIVAL_STATE, 3, RivalsHouse_1F_EventScript_RivalTooBusy
@@ -167,6 +169,40 @@ RivalsHouse_1F_RivalMom_Gossip4::
 	msgbox RivalsHouse_1F_RivalMom_Text_Gossip4, MSGBOX_DEFAULT
 	release
 	end
+
+RivalsHouse_1F_RivalMom_Gossip5::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip5, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_RivalMom_Text_Gossip5:
+	.string "{RIVAL} called from the FRONTIER.\n"
+	.string "The CHAMPION himself is there now!\p"
+	.string "Please be careful, {PLAYER}. And\n"
+	.string "bring your parents home.$"
+
+RivalsHouse_1F_RivalMom_Gossip6::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip6, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_RivalMom_Text_Gossip6:
+	.string "Your parents called! They're safe,\n"
+	.string "on the FRONTIER island.\p"
+	.string "They said you got them out. Oh,\n"
+	.string "{PLAYER}… Your mother cried the\l"
+	.string "whole call.$"
+
+RivalsHouse_1F_RivalMom_Gossip7::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip7, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_RivalMom_Text_Gossip7:
+	.string "The ELITE FOUR are guarding DEVON\n"
+	.string "CORPORATION? In RUSTBORO?\p"
+	.string "What in the world is going on?\n"
+	.string "Please, be careful out there.$"
 
 RivalsHouse_1F_RivalMom_Text_Gossip0:
 	.string "My husband barely sleeps. He jumps\n"

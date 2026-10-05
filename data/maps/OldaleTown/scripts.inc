@@ -58,7 +58,9 @@ OldaleTown_EventScript_Girl::
 	case GOSSIP_RAID, OldaleTown_Girl_Gossip1
 	case GOSSIP_TAKEN, OldaleTown_Girl_Gossip2
 	case GOSSIP_STANDOFF, OldaleTown_Girl_Gossip2
-	case GOSSIP_ALL_CLEAR, OldaleTown_Girl_Gossip2
+	case GOSSIP_SIEGE, OldaleTown_Girl_Gossip3
+	case GOSSIP_AFTERMATH, OldaleTown_Girl_Gossip4
+	case GOSSIP_DEVON, OldaleTown_Girl_Gossip4
 	goto_if_ge VAR_BIRCH_STORY_STATE, 3, OldaleTown_EventScript_GirlAfterLab
 	goto_if_ge VAR_BIRCH_STORY_STATE, 1, OldaleTown_EventScript_GirlDuringLab
 	msgbox OldaleTown_Text_SavingMyProgress, MSGBOX_NPC
@@ -76,6 +78,22 @@ OldaleTown_Girl_Gossip1::
 OldaleTown_Girl_Gossip2::
 	msgbox OldaleTown_Girl_Text_Gossip2, MSGBOX_NPC
 	end
+
+OldaleTown_Girl_Gossip3::
+	msgbox OldaleTown_Girl_Text_Gossip3, MSGBOX_NPC
+	end
+
+OldaleTown_Girl_Text_Gossip3:
+	.string "It's so hot today! Mommy says it's\n"
+	.string "coming from far away, over the sea.$"
+
+OldaleTown_Girl_Gossip4::
+	msgbox OldaleTown_Girl_Text_Gossip4, MSGBOX_NPC
+	end
+
+OldaleTown_Girl_Text_Gossip4:
+	.string "My friend in LITTLEROOT says your\n"
+	.string "mom and dad are safe! Yay!$"
 
 OldaleTown_Girl_Text_Gossip0:
 	.string "The radio says the ELITE FOUR left\n"
@@ -112,7 +130,9 @@ OldaleTown_EventScript_MartEmployee::
 	case GOSSIP_RAID, OldaleTown_MartEmployee_Gossip0
 	case GOSSIP_TAKEN, OldaleTown_MartEmployee_Gossip1
 	case GOSSIP_STANDOFF, OldaleTown_MartEmployee_Gossip1
-	case GOSSIP_ALL_CLEAR, OldaleTown_MartEmployee_Gossip1
+	case GOSSIP_SIEGE, OldaleTown_MartEmployee_Gossip2
+	case GOSSIP_AFTERMATH, OldaleTown_MartEmployee_Gossip3
+	case GOSSIP_DEVON, OldaleTown_MartEmployee_Gossip3
 	goto_if_ge VAR_BIRCH_STORY_STATE, 3, OldaleTown_EventScript_MartEmployeeAfterLab
 	goto_if_ge VAR_BIRCH_STORY_STATE, 1, OldaleTown_EventScript_MartEmployeeDuringLab
 	goto_if_set FLAG_RECEIVED_POTION_OLDALE, OldaleTown_EventScript_ExplainPotion
@@ -137,6 +157,27 @@ OldaleTown_MartEmployee_Gossip1::
 	msgbox OldaleTown_MartEmployee_Text_Gossip1, MSGBOX_DEFAULT
 	release
 	end
+
+OldaleTown_MartEmployee_Gossip2::
+	msgbox OldaleTown_MartEmployee_Text_Gossip2, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_MartEmployee_Text_Gossip2:
+	.string "Everyone's buying cold drinks. This\n"
+	.string "heat came out of nowhere!\p"
+	.string "The PROFESSOR wants his sandwiches\n"
+	.string "cold now, too.$"
+
+OldaleTown_MartEmployee_Gossip3::
+	msgbox OldaleTown_MartEmployee_Text_Gossip3, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_MartEmployee_Text_Gossip3:
+	.string "Our delivery boy says the PROFESSOR\n"
+	.string "is eating again. He heard your family\l"
+	.string "is safe.$"
 
 OldaleTown_MartEmployee_Text_Gossip0:
 	.string "Those men in suits came back to PROF.\n"

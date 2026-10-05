@@ -543,7 +543,15 @@ u16 GetStoryGossipStage(void)
     u16 crown = VarGet(VAR_CROWN_STORY_STATE);
 
     if (cleared >= 8)
-        return GOSSIP_ALL_CLEAR;
+    {
+        u16 endgame = VarGet(VAR_ENDGAME_STATE);
+
+        if (endgame <= 4)
+            return GOSSIP_SIEGE;
+        if (endgame <= 6)
+            return GOSSIP_AFTERMATH;
+        return GOSSIP_DEVON;
+    }
     if (cleared == 7)
     {
         if (crown >= 1 && crown <= 4)

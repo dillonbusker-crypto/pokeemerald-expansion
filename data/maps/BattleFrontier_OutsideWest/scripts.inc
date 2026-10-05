@@ -514,7 +514,9 @@ BattleFrontier_OutsideWest_EventScript_Man2::
 	case GOSSIP_STEVEN, BattleFrontier_OutsideWest_Man2_Gossip0
 	case GOSSIP_ANABEL, BattleFrontier_OutsideWest_Man2_Gossip1
 	case GOSSIP_STANDOFF, BattleFrontier_OutsideWest_Man2_Gossip2
-	case GOSSIP_ALL_CLEAR, BattleFrontier_OutsideWest_Man2_Gossip2
+	case GOSSIP_SIEGE, BattleFrontier_OutsideWest_Man2_Gossip3
+	case GOSSIP_AFTERMATH, BattleFrontier_OutsideWest_Man2_Gossip4
+	case GOSSIP_DEVON, BattleFrontier_OutsideWest_Man2_Gossip4
 	msgbox BattleFrontier_OutsideWest_Text_NothingHereNotLongAgo, MSGBOX_NPC
 	end
 
@@ -530,6 +532,25 @@ BattleFrontier_OutsideWest_Man2_Gossip1::
 BattleFrontier_OutsideWest_Man2_Gossip2::
 	msgbox BattleFrontier_OutsideWest_Man2_Text_Gossip2, MSGBOX_NPC
 	end
+
+BattleFrontier_OutsideWest_Man2_Gossip3::
+	msgbox BattleFrontier_OutsideWest_Man2_Text_Gossip3, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideWest_Man2_Text_Gossip3:
+	.string "I saw the CHAMPION's PALKIA tear the\n"
+	.string "FACTORY door open.\p"
+	.string "The FRONTIER's never seen anything\n"
+	.string "like it. Neither have I.$"
+
+BattleFrontier_OutsideWest_Man2_Gossip4::
+	msgbox BattleFrontier_OutsideWest_Man2_Text_Gossip4, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideWest_Man2_Text_Gossip4:
+	.string "The FACTORY's empty now. SCOTT's\n"
+	.string "gone, and everyone's breathing again.\p"
+	.string "For now, anyway.$"
 
 BattleFrontier_OutsideWest_Man2_Text_Gossip0:
 	.string "STEVEN STONE beat the old FRONTIER\n"
@@ -1835,14 +1856,16 @@ BattleFrontier_OutsideWest_Text_StevenNoRoom:
 	.string "come back to me.$"
 
 @ ============================================================================
-@ Ten Gauntlets: once the endgame opens the Devon Factory (storyline.md), NURSE
-@ JOY waits beside its door as a quick heal: SCOTT has shut her POKEMON CENTER,
-@ but she still helps the player.
+@ Ten Gauntlets: while the player fights through the Devon Factory (endgame
+@ states 3-4, storyline.md), NURSE JOY waits beside its door as a quick heal.
+@ She won't heal SCOTT's side, but she helps the player; a white-out still
+@ lands at her POKEMON CENTER. Once SCOTT is gone she's back at her counter.
 @ ============================================================================
 BattleFrontier_OutsideWest_EventScript_SetupFactoryJoy::
 	setflag FLAG_HIDE_FACTORY_JOY
 	special IsBattleFactoryUnlocked
 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_OutsideWest_EventScript_SetupFactoryJoyEnd
+	goto_if_ge VAR_ENDGAME_STATE, 5, BattleFrontier_OutsideWest_EventScript_SetupFactoryJoyEnd
 	clearflag FLAG_HIDE_FACTORY_JOY
 BattleFrontier_OutsideWest_EventScript_SetupFactoryJoyEnd:
 	return
@@ -1857,13 +1880,16 @@ BattleFrontier_OutsideWest_EventScript_FactoryJoy::
 	end
 
 BattleFrontier_OutsideWest_Text_FactoryJoy:
-	.string "SCOTT locked my POKéMON CENTER,\n"
-	.string "but he can't stop me helping you.\p"
+	.string "SCOTT's people won't get a single\n"
+	.string "heal from me. You're another story.\p"
 	.string "Let me see your team.$"
 
 BattleFrontier_OutsideWest_Text_FactoryJoyDone:
 	.string "All better! Come back any time you\n"
-	.string "need me. I'll be right here.$"
+	.string "need me. I'll be right here.\p"
+	.string "And if you fall in there, you'll wake\n"
+	.string "up at my CENTER. Someone will be\l"
+	.string "at the counter.$"
 
 @ ============================================================================
 @ Ten Gauntlets: the endgame after gauntlet 8 (storyline.md; VAR_ENDGAME_STATE

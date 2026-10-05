@@ -253,7 +253,9 @@ LittlerootTown_EventScript_FatMan::
 	case GOSSIP_PALACE, LittlerootTown_FatMan_Gossip0
 	case GOSSIP_TAKEN, LittlerootTown_FatMan_Gossip1
 	case GOSSIP_STANDOFF, LittlerootTown_FatMan_Gossip1
-	case GOSSIP_ALL_CLEAR, LittlerootTown_FatMan_Gossip1
+	case GOSSIP_SIEGE, LittlerootTown_FatMan_Gossip2
+	case GOSSIP_AFTERMATH, LittlerootTown_FatMan_Gossip3
+	case GOSSIP_DEVON, LittlerootTown_FatMan_Gossip3
 	lock
 	faceplayer
 	msgbox LittlerootTown_Text_CanUsePCToStoreItems, MSGBOX_DEFAULT
@@ -268,6 +270,26 @@ LittlerootTown_FatMan_Gossip0::
 LittlerootTown_FatMan_Gossip1::
 	msgbox LittlerootTown_FatMan_Text_Gossip1, MSGBOX_NPC
 	end
+
+LittlerootTown_FatMan_Gossip2::
+	msgbox LittlerootTown_FatMan_Text_Gossip2, MSGBOX_NPC
+	end
+
+LittlerootTown_FatMan_Text_Gossip2:
+	.string "The PROFESSOR hasn't left the LAB in\n"
+	.string "days. He says the FRONTIER is burning\l"
+	.string "with bond energy.\p"
+	.string "The power of science… I'm starting to\n"
+	.string "fear it.$"
+
+LittlerootTown_FatMan_Gossip3::
+	msgbox LittlerootTown_FatMan_Text_Gossip3, MSGBOX_NPC
+	end
+
+LittlerootTown_FatMan_Text_Gossip3:
+	.string "The PROFESSOR heard your family is\n"
+	.string "safe. First time I've seen him smile\l"
+	.string "in weeks.$"
 
 LittlerootTown_FatMan_Text_Gossip0:
 	.string "DEVON says PROF. BIRCH owed them\n"
@@ -290,7 +312,9 @@ LittlerootTown_EventScript_Boy::
 	case GOSSIP_PALACE, LittlerootTown_Boy_Gossip0
 	case GOSSIP_TAKEN, LittlerootTown_Boy_Gossip1
 	case GOSSIP_STANDOFF, LittlerootTown_Boy_Gossip1
-	case GOSSIP_ALL_CLEAR, LittlerootTown_Boy_Gossip1
+	case GOSSIP_SIEGE, LittlerootTown_Boy_Gossip2
+	case GOSSIP_AFTERMATH, LittlerootTown_Boy_Gossip3
+	case GOSSIP_DEVON, LittlerootTown_Boy_Gossip3
 	lock
 	faceplayer
 	msgbox LittlerootTown_Text_BirchSpendsDaysInLab, MSGBOX_DEFAULT
@@ -305,6 +329,22 @@ LittlerootTown_Boy_Gossip0::
 LittlerootTown_Boy_Gossip1::
 	msgbox LittlerootTown_Boy_Text_Gossip1, MSGBOX_NPC
 	end
+
+LittlerootTown_Boy_Gossip2::
+	msgbox LittlerootTown_Boy_Text_Gossip2, MSGBOX_NPC
+	end
+
+LittlerootTown_Boy_Text_Gossip2:
+	.string "{RIVAL} says the FRONTIER is so hot\n"
+	.string "the air shimmers! Is that SCOTT?$"
+
+LittlerootTown_Boy_Gossip3::
+	msgbox LittlerootTown_Boy_Text_Gossip3, MSGBOX_NPC
+	end
+
+LittlerootTown_Boy_Text_Gossip3:
+	.string "Your mom and dad are okay? {RIVAL}\n"
+	.string "told me! That's great!$"
 
 LittlerootTown_Boy_Text_Gossip0:
 	.string "I saw it! The CHAMPION, WALLACE,\n"
@@ -330,7 +370,9 @@ LittlerootTown_EventScript_Twin::
 	case GOSSIP_PALACE, LittlerootTown_Twin_Gossip0
 	case GOSSIP_TAKEN, LittlerootTown_Twin_Gossip1
 	case GOSSIP_STANDOFF, LittlerootTown_Twin_Gossip1
-	case GOSSIP_ALL_CLEAR, LittlerootTown_Twin_Gossip1
+	case GOSSIP_SIEGE, LittlerootTown_Twin_Gossip2
+	case GOSSIP_AFTERMATH, LittlerootTown_Twin_Gossip3
+	case GOSSIP_DEVON, LittlerootTown_Twin_Gossip3
 	goto_if_set FLAG_ADVENTURE_STARTED, LittlerootTown_EventScript_GoodLuck
 	goto_if_set FLAG_RESCUED_BIRCH, LittlerootTown_EventScript_YouSavedBirch
 	goto_if_ne VAR_LITTLEROOT_TOWN_STATE, 0, LittlerootTown_EventScript_GoSaveBirch
@@ -348,6 +390,25 @@ LittlerootTown_Twin_Gossip1::
 	msgbox LittlerootTown_Twin_Text_Gossip1, MSGBOX_DEFAULT
 	release
 	end
+
+LittlerootTown_Twin_Gossip2::
+	msgbox LittlerootTown_Twin_Text_Gossip2, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_Twin_Text_Gossip2:
+	.string "It's hot even here! Mommy says\n"
+	.string "something big is happening across\l"
+	.string "the sea.$"
+
+LittlerootTown_Twin_Gossip3::
+	msgbox LittlerootTown_Twin_Text_Gossip3, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_Twin_Text_Gossip3:
+	.string "Your mom and dad are coming back?\n"
+	.string "Yay! Your house is too quiet.$"
 
 LittlerootTown_Twin_Text_Gossip0:
 	.string "Mommy let me play outside again! The\n"

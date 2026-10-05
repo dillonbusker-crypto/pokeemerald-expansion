@@ -13,7 +13,9 @@ BattleFrontier_Lounge4_EventScript_Cook::
 	case GOSSIP_RAID, BattleFrontier_Lounge4_Cook_Gossip0
 	case GOSSIP_TAKEN, BattleFrontier_Lounge4_Cook_Gossip0
 	case GOSSIP_STANDOFF, BattleFrontier_Lounge4_Cook_Gossip0
-	case GOSSIP_ALL_CLEAR, BattleFrontier_Lounge4_Cook_Gossip0
+	case GOSSIP_SIEGE, BattleFrontier_Lounge4_Cook_Gossip1
+	case GOSSIP_AFTERMATH, BattleFrontier_Lounge4_Cook_Gossip2
+	case GOSSIP_DEVON, BattleFrontier_Lounge4_Cook_Gossip2
 	msgbox BattleFrontier_Lounge4_Text_IfIOpenedRestaurantHere, MSGBOX_NPC
 	end
 
@@ -21,6 +23,26 @@ BattleFrontier_Lounge4_EventScript_Cook::
 BattleFrontier_Lounge4_Cook_Gossip0::
 	msgbox BattleFrontier_Lounge4_Cook_Text_Gossip0, MSGBOX_NPC
 	end
+
+BattleFrontier_Lounge4_Cook_Gossip1::
+	msgbox BattleFrontier_Lounge4_Cook_Text_Gossip1, MSGBOX_NPC
+	end
+
+BattleFrontier_Lounge4_Cook_Text_Gossip1:
+	.string "It's sweltering out there! My kitchen\n"
+	.string "is cooler than the plaza.\p"
+	.string "They say the heat is coming off the\n"
+	.string "FACTORY. I'm keeping the windows shut.$"
+
+BattleFrontier_Lounge4_Cook_Gossip2::
+	msgbox BattleFrontier_Lounge4_Cook_Text_Gossip2, MSGBOX_NPC
+	end
+
+BattleFrontier_Lounge4_Cook_Text_Gossip2:
+	.string "The shops are giving everything away!\n"
+	.string "The BROKER's running the counter.\p"
+	.string "I'm opening that restaurant after\n"
+	.string "all. Who needs a permit now?$"
 
 BattleFrontier_Lounge4_Cook_Text_Gossip0:
 	.string "Somebody WAS running a business out\n"

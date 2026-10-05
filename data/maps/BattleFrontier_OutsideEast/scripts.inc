@@ -574,7 +574,9 @@ BattleFrontier_OutsideEast_EventScript_RichBoy::
 	case GOSSIP_RAID, BattleFrontier_OutsideEast_RichBoy_Gossip6
 	case GOSSIP_TAKEN, BattleFrontier_OutsideEast_RichBoy_Gossip7
 	case GOSSIP_STANDOFF, BattleFrontier_OutsideEast_RichBoy_Gossip8
-	case GOSSIP_ALL_CLEAR, BattleFrontier_OutsideEast_RichBoy_Gossip8
+	case GOSSIP_SIEGE, BattleFrontier_OutsideEast_RichBoy_Gossip9
+	case GOSSIP_AFTERMATH, BattleFrontier_OutsideEast_RichBoy_Gossip10
+	case GOSSIP_DEVON, BattleFrontier_OutsideEast_RichBoy_Gossip11
 	msgbox BattleFrontier_OutsideEast_Text_PeopleCallMeBusybody, MSGBOX_NPC
 	end
 
@@ -614,6 +616,35 @@ BattleFrontier_OutsideEast_RichBoy_Gossip7::
 BattleFrontier_OutsideEast_RichBoy_Gossip8::
 	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip8, MSGBOX_NPC
 	end
+
+BattleFrontier_OutsideEast_RichBoy_Gossip9::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip9, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip9:
+	.string "The CHAMPION blew the FACTORY's door\n"
+	.string "clean off! WALLACE, with a PALKIA!\p"
+	.string "I saw it. I'm telling everyone.\n"
+	.string "Everyone.$"
+
+BattleFrontier_OutsideEast_RichBoy_Gossip10::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip10, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip10:
+	.string "SCOTT is gone. The BRAINS are gone.\n"
+	.string "The shops are giving it all away!\p"
+	.string "And they say WALLACE lost too.\n"
+	.string "…What is going ON?$"
+
+BattleFrontier_OutsideEast_RichBoy_Gossip11::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip11, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip11:
+	.string "The ELITE FOUR are guarding DEVON\n"
+	.string "CORPORATION. Not the LEAGUE, DEVON!\p"
+	.string "I've run out of people to tell.$"
 
 BattleFrontier_OutsideEast_RichBoy_Text_Gossip0:
 	.string "Did you see it? A man stormed the\n"
@@ -728,7 +759,9 @@ BattleFrontier_OutsideEast_EventScript_TriathleteM::
 	case GOSSIP_RAID, BattleFrontier_OutsideEast_TriathleteM_Gossip5
 	case GOSSIP_TAKEN, BattleFrontier_OutsideEast_TriathleteM_Gossip5
 	case GOSSIP_STANDOFF, BattleFrontier_OutsideEast_TriathleteM_Gossip6
-	case GOSSIP_ALL_CLEAR, BattleFrontier_OutsideEast_TriathleteM_Gossip6
+	case GOSSIP_SIEGE, BattleFrontier_OutsideEast_TriathleteM_Gossip7
+	case GOSSIP_AFTERMATH, BattleFrontier_OutsideEast_TriathleteM_Gossip8
+	case GOSSIP_DEVON, BattleFrontier_OutsideEast_TriathleteM_Gossip8
 	msgbox BattleFrontier_OutsideEast_Text_DidScottBringYouHere, MSGBOX_NPC
 	end
 
@@ -760,6 +793,27 @@ BattleFrontier_OutsideEast_TriathleteM_Gossip5::
 BattleFrontier_OutsideEast_TriathleteM_Gossip6::
 	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip6, MSGBOX_NPC
 	end
+
+BattleFrontier_OutsideEast_TriathleteM_Gossip7::
+	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip7, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_TriathleteM_Text_Gossip7:
+	.string "That heat is coming off the FACTORY.\n"
+	.string "Whatever SCOTT's doing, it's pulling\l"
+	.string "in everything.\p"
+	.string "I've stopped running laps. It's too\n"
+	.string "hot.$"
+
+BattleFrontier_OutsideEast_TriathleteM_Gossip8::
+	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip8, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_TriathleteM_Text_Gossip8:
+	.string "They say SCOTT walked out of the\n"
+	.string "FACTORY and left, BRAINS and all.\p"
+	.string "His MEWTWO beat the CHAMPION's\n"
+	.string "PALKIA. I'm glad I missed that one.$"
 
 BattleFrontier_OutsideEast_TriathleteM_Text_Gossip0:
 	.string "Did you hear the shouting? A GYM\n"
@@ -964,7 +1018,9 @@ BattleFrontier_OutsideEast_EventScript_Gentleman::
 	case GOSSIP_ARREST, BattleFrontier_OutsideEast_Gentleman_Gossip3
 	case GOSSIP_PALACE, BattleFrontier_OutsideEast_Gentleman_Gossip4
 	case GOSSIP_STANDOFF, BattleFrontier_OutsideEast_Gentleman_Gossip5
-	case GOSSIP_ALL_CLEAR, BattleFrontier_OutsideEast_Gentleman_Gossip5
+	case GOSSIP_SIEGE, BattleFrontier_OutsideEast_Gentleman_Gossip6
+	case GOSSIP_AFTERMATH, BattleFrontier_OutsideEast_Gentleman_Gossip7
+	case GOSSIP_DEVON, BattleFrontier_OutsideEast_Gentleman_Gossip8
 	msgbox BattleFrontier_OutsideEast_Text_FrontierNotExclusivelyForToughTrainers, MSGBOX_NPC
 	end
 
@@ -992,6 +1048,35 @@ BattleFrontier_OutsideEast_Gentleman_Gossip4::
 BattleFrontier_OutsideEast_Gentleman_Gossip5::
 	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip5, MSGBOX_NPC
 	end
+
+BattleFrontier_OutsideEast_Gentleman_Gossip6::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip6, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip6:
+	.string "This sunlight… It's the FACTORY.\n"
+	.string "I can feel it in my old bones.\p"
+	.string "The eighth gauntlet is cleared, and\n"
+	.string "this is what follows.$"
+
+BattleFrontier_OutsideEast_Gentleman_Gossip7::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip7, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip7:
+	.string "SCOTT is gone, and the island is\n"
+	.string "quiet. Too quiet.\p"
+	.string "A strange POKéMON has taken up in\n"
+	.string "the ARENA. It plays with rings.$"
+
+BattleFrontier_OutsideEast_Gentleman_Gossip8::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip8, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip8:
+	.string "The ELITE FOUR, guarding DEVON…\n"
+	.string "SCOTT's reach is longer than I feared.\p"
+	.string "Be careful, young one.$"
 
 BattleFrontier_OutsideEast_Gentleman_Text_Gossip0:
 	.string "I saw a man in a fine suit outside the\n"
