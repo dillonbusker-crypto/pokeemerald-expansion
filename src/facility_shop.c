@@ -507,6 +507,8 @@ static const struct FacilityShopMon sPremiumMons[] =
     { SPECIES_GENGAR,      250, 1 },
     { SPECIES_HAWLUCHA,    250, 1 },
     { SPECIES_KLEAVOR,     250, 1 },
+    // Added after the gauntlets were built (OU, missed by the first pass).
+    { SPECIES_ALOMOMOLA,   250, 1 },
     // Unlocked clearing gauntlet 2 - shop-unlock-b3.md.
     { SPECIES_VOLCARONA,      400, 2 },
     { SPECIES_FERROTHORN,     400, 2 },
@@ -537,6 +539,8 @@ static const struct FacilityShopMon sPremiumMons[] =
     { SPECIES_SKELEDIRGE,             400, 2 },
     { SPECIES_PRIMARINA,              400, 2 },
     { SPECIES_SLOWKING_GALAR,         400, 2 },
+    // Added after the gauntlets were built (UUBL, missed by the first pass).
+    { SPECIES_POLTEAGEIST,            400, 2 },
     // Unlocked clearing gauntlet 3 - shop-unlock-b4.md.
     { SPECIES_ARCANINE,       500, 3 },
     // Doubles staples gauntlet 4's CPU teams already used but the shop
@@ -601,6 +605,13 @@ static const struct FacilityShopMon sPremiumMons[] =
     { SPECIES_ZYGARDE_50,             1400, 6 },
     { SPECIES_SPECTRIER,              1400, 6 },
     { SPECIES_URSHIFU_SINGLE_STRIKE,  1400, 6 },
+    // Added after the gauntlets were built: only 505 BST, but Ubers-grade
+    // (Strong Jaw Fishious Rend), so it waits with the other Ubers.
+    { SPECIES_DRACOVISH,              1400, 6 },
+    // Endgame stock, unlocked clearing gauntlet 8 (storyline.md, the free
+    // shop). Palafin stays on the gauntlets' permanent ban list; with all
+    // eight cleared there's no gauntlet left for it to break.
+    { SPECIES_PALAFIN,                1400, 8 },
 };
 
 static const struct FacilityShopMon sStrongMons[] =
@@ -665,6 +676,8 @@ static const struct FacilityShopMon sStrongMons[] =
     // Moved down from the gauntlet 7 draft (gauntlet-07.md): never sold, not too
     // strong - gauntlet 2's pool.
     { SPECIES_KILOWATTREL,            200, 1 },
+    // Added after the gauntlets were built (UU, missed by the first pass).
+    { SPECIES_LOKIX,                  200, 1 },
     // Unlocked clearing gauntlet 2 - shop-unlock-b3.md.
     { SPECIES_NINETALES,     300, 2 },
     { SPECIES_GIGALITH,      300, 2 },
@@ -771,6 +784,8 @@ static const struct FacilityShopMon sStrongMons[] =
     { SPECIES_BASCULEGION_M,          375, 3 },
     { SPECIES_TYPHLOSION_HISUI,       375, 3 },
     { SPECIES_SAMUROTT_HISUI,         375, 3 },
+    // Added after the gauntlets were built (UU, missed by the first pass).
+    { SPECIES_ARCANINE_HISUI,         375, 3 },
     // Unlocked clearing gauntlet 4 - gauntlet-05.md.
     { SPECIES_SALAMENCE,       700, 4 },
     { SPECIES_HYDREIGON,       700, 4 },
@@ -1486,9 +1501,10 @@ void FacilityShopSelectRow(void)
 
 // One name per shop wave. Wave N is the stock that unlocks on clearing
 // gauntlet N, i.e. what the player buys *for* gauntlet N+1 - so wave 0 is
-// "Gauntlet 1". All eight are listed up front: a wave with no name here never
-// appears in the menu at all (FacilityShopBuildGauntletMenu only walks this
-// table), which silently hid gauntlets 5 and 6's Pokemon while it stopped at 4.
+// "Gauntlet 1", and wave 8 is the endgame stock. All are listed up front: a
+// wave with no name here never appears in the menu at all
+// (FacilityShopBuildGauntletMenu only walks this table), which silently hid
+// gauntlets 5 and 6's Pokemon while it stopped at 4.
 static const u8 *const sGauntletWaveNames[] =
 {
     COMPOUND_STRING("Gauntlet 1 Pokemon"),
@@ -1499,6 +1515,7 @@ static const u8 *const sGauntletWaveNames[] =
     COMPOUND_STRING("Gauntlet 6 Pokemon"),
     COMPOUND_STRING("Gauntlet 7 Pokemon"),
     COMPOUND_STRING("Gauntlet 8 Pokemon"),
+    COMPOUND_STRING("Endgame Pokemon"),
 };
 
 static const u8 sText_SellAPokemon[] = _("Sell a Pokemon");

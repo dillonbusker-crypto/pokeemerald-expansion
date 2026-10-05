@@ -179,7 +179,8 @@ gauntlet 5, so Steven knows his father is involved from then on.
 
 The player's father. Years ago, Scott tried to recruit him, and Norman refused.
 Scott once threatened to "squash" him ✅, and says the same to the player at
-the end.
+the end. Held in the Factory with Mom after gauntlet 7; once rescued, he joins
+Steven, Wallace and Wattson at Sky Pillar.
 
 ### Steven and Wallace
 
@@ -191,7 +192,8 @@ they're the player's allies for the whole endgame.
 
 Winona, Juan and Roxanne guard gauntlets 1–3 ✅. They joined for Scott's
 promise of unlimited Megas, and **they stay loyal** through the endgame: they
-**ambush Wallace in Rustboro.** Wallace beats all three.
+**ambush Steven and Wallace outside Devon Corporation.** Wallace beats all
+three.
 
 Juan's "tell Wallace I'm sorry" ✅ foreshadows his real apology, which comes
 outside Devon Corporation after that ambush.
@@ -199,15 +201,14 @@ outside Devon Corporation after that ambush.
 ### The Frontier Brains
 
 Scott trained all seven. **Five are gauntlet bosses**: Anabel (4), Tucker (5),
-Lucy (6), Spenser (7) and Brandon (8). They're **loyal until the player beats
-them again** after gauntlet 8. Then they turn: they **keep the Frontier island
-open for the player** while the endgame plays out, so the player can always
-come back to heal, swap teams and use the Broker's free shop.
+Lucy (6), Spenser (7) and Brandon (8). **They stay loyal to the end.** After
+gauntlet 8, five of them guard the Factory (Anabel, Tucker, Lucy, Noland and
+Greta) while Spenser and Brandon hold off Wallace. They leave with Scott, and
+**all seven ambush the allies outside Sky Pillar** at the end.
 
 **Factory Head Noland and Arena Tycoon Greta are Scott's personal
 henchmen**, with no gauntlet. They're the two men Scott sends into Artisan
-Cave after the Lati is caught (replacing the generic men in suits). They
-**stay loyal far into the endgame** before they too switch sides. Greta is
+Cave after the Lati is caught (replacing the generic men in suits). Greta is
 rarely at her own building: the Arena is a sparring ground run by an
 attendant ("The Tycoon's hardly ever around these days").
 
@@ -221,13 +222,15 @@ back.
 
 Sidney, Phoebe, Glacia and Drake. Scott overpowered them, permanently
 Mega Evolved some of their Pokémon, and promised them full access once he was
-in control. Wallace, the Champion, isn't one of them.
+in control. They guard Devon Corporation. Wallace, the Champion, isn't one of
+them.
 
 ### Flotsam, the Broker, Looker, the florist
 
 The Artisan Cave side plot ✅ (`easter-eggs-spec.md`). Flotsam gains the
-Scrambler 🔧. After the Frontier falls, **the Broker takes in the escaped
-shopkeepers** and runs the shop, free, for the cause.
+Scrambler 🔧. After the Factory, **the Broker runs the Exchange Service
+Corner** with its four shopkeepers. The Factory's surge fried Devon's systems,
+so everything is free, for the cause.
 
 - **Looker works with Steven.** Chasing Flotsam is what brought him to the
   Frontier; that's why he hands the Scrambler on to Steven. After gauntlet 6
@@ -248,7 +251,20 @@ Out of work since the PokéNav auto-heal. After gauntlet 6 she lets Steven and
 the player use her empty Center as a hideout, and **overhears everything**,
 which is why she later refuses to help Scott. ✅ In the endgame she brings every
 Chansey and Blissey from Hoenn's Pokémon Centers, taught a new move, **Transfer
-EXP**, and follows the player to Sky Pillar.
+EXP** (one Pokémon at a time to level 100), and follows the player to Sky
+Pillar.
+
+### Wattson
+
+Mauville's Gym Leader. When Aqua and Magma take over his town for Scott, he
+leads the player into New Mauville, and he stands with Steven, Wallace and
+Norman at Sky Pillar.
+
+### Hoopa
+
+Held in the Factory's Holding Block; the player frees it. Out of gratitude it
+opens its rings to the strongest Pokémon in existence, three times
+(see "Hoopa's rings").
 
 ---
 
@@ -769,154 +785,251 @@ more. Steven **walks off** (his team is down).
 **Wallace's Palkia** ✅: Wallace has a Palkia, the counterpart to Steven's
 Dialga. It first appears in the tag battle at Ever Grande (after gauntlet 6).
 
-### After gauntlet 8: the Crown 📝
+### After gauntlet 8: the Factory 📝
 
-Scott is siphoning the Pillar into the Crown to build his team, in the
-**Battle Factory**, Devon's control room, whose big rooms set up the scenes
-before the scripted Scott battle. **The seven Frontier Brains guard him**,
-with upgraded teams: the five gauntlet bosses, plus Noland and Greta.
+**1. The sunlight.** The player walks out of the Pyramid into **harsh
+sunlight** (the overworld drought weather vanilla uses while Groudon is
+awake). It's radiance from the Factory: Scott is pulling in all the energy
+the island has. Drought on outdoor Frontier maps only (see Technical notes:
+it turns into sun in any battle fought there). It ends when Scott leaves.
 
-This isn't a gauntlet. The player **picks them off one at a time**, in any
-order, using the Scrambler. Scott has closed the Pokémon Center and Nurse Joy
-won't help his side, so a beaten Brain can't heal and stays beaten. Joy still
-heals the player between fights.
+**2. Wallace.** Wallace walks up to the player.
 
-Each gauntlet Brain, once beaten, turns: they keep the island open for the
-player for the rest of the endgame. Noland and Greta hold out longer.
+- The Factory is pulling in enormous amounts of energy.
+- He found the **Elite Four guarding Devon Corporation** in Rustboro (he'd been
+  looking into them since Steven's call after gauntlet 7). That will have to
+  wait.
+- **Steven** took his loss to Mewtwo hard. He's regrouping and will meet them
+  at Devon later.
+- **The badges.** Wallace takes Scott's counterfeits and gives the player real
+  ones (`FLAG_REAL_BADGES`), the way Steven did after gauntlet 4.
+- "We need to get into the FACTORY. Now." He runs off.
+
+**3. The Factory door.** Wallace faces the door with **Palkia** out beside him
+(overworld sprite). "PALKIA, Spacial Rend!" A flash, the screen shakes, and
+the door is blasted open (this sets the Factory's door bit). Palkia returns to
+its Ball. **Nurse Joy** walks up: whatever Scott is up to can't be good. She's
+here to help the cause, and she'll stand outside the Factory to heal the
+player (`FLAG_HIDE_FACTORY_JOY`).
+
+**4. The lobby.** As they walk in, **Spenser and Brandon** rush Wallace.
+Wallace: he'll handle these chumps; the player should move on. (Fought
+off-screen. Both are already at full strength, so the player never rematches
+them.)
+
+**5. Five guards, five key pieces.** **Anabel, Tucker and Lucy** (1F) and
+**Greta and Noland** (B1F) guard the way down. The player picks them off one
+at a time, in any order, using the Scrambler. Scott has closed the Pokémon
+Center and Joy won't help his side, so a beaten Brain stays beaten. Joy, at
+the door, still heals the player. Teams: `endgame-teams.md`.
+
+Each beaten Brain hands over **a piece of the Pillar key**, and one of the
+**five red lights** beside the sealed stairs on B2F goes out (the built map
+has seven; cut it to five). Beaten Brains don't turn: they leave with Scott at
+the end.
+
+**6. The rescues (B1F, the Holding Block).** The player frees **Mom and Dad**,
+**the Broker**, and **Hoopa**, held in one of the two empty cells. Each leaves
+once freed (Hoopa through one of its rings).
+
+**7. The stairs open** once all five Brains are beaten and all four captives
+are free. Wallace is waiting there, and they go down together.
 
 **The Devon Factory** ✅ (maps built; fights and scenes 📝). Four floors on
 Devon's own tileset, going down toward the ore. The old Battle Factory maps
 are unused (strip them with the vanilla story).
 
-| Floor | Map | Rooms | Guards |
+| Floor | Map | Rooms | Who's there |
 |---|---|---|---|
-| 1F | `BattleFrontier_DevonFactory_1F` | Lobby (reception, the empty BOND HARNESS case), Surveillance (screens on every battle room), Control Room (island systems, the harvest log with the player's name on top, auto-heal), Chip Lab (implant stations, Birch's crates), Warehouse (Kanto Master Balls, Mega Stone ore) | Anabel, Lucy, Spenser, Tucker |
-| B1F | `..._B1F` Holding Block | Four cells: Mom and Dad, the Broker, two empty | Greta (door), Noland (desk) |
-| B2F | `..._B2F` Generator Hall | Stairs to the Pillar, sealed; **seven red lights** beside them (metatile `0x224`), one per guard | Brandon |
-| B3F | `..._B3F` Pillar Chamber | The **Mega Pillar** (the glass capsule, unique to this room), the dais in a fence gap, Scott's office | Scott |
+| 1F | `BattleFrontier_DevonFactory_1F` | Lobby (reception, the empty BOND HARNESS case), Surveillance (screens on every battle room), Control Room (island systems, the harvest log with the player's name on top, auto-heal), Chip Lab (implant stations, Birch's crates), Warehouse (Kanto Master Balls, Mega Stone ore) | Anabel, Lucy, Tucker; Spenser and Brandon in the lobby with Wallace (🔧 the map has Spenser in a room) |
+| B1F | `..._B1F` Holding Block | Four cells: Mom and Dad, the Broker, Hoopa, one empty | Greta (door), Noland (desk) |
+| B2F | `..._B2F` Generator Hall | Stairs to the Pillar, sealed; red lights beside them (metatile `0x224`), one per guard (🔧 seven built, needs five) | No guard (🔧 Brandon moves to the lobby) |
+| B3F | `..._B3F` Pillar Chamber | The **Mega Pillar** (the glass capsule, unique to this room), the dais in a fence gap, Scott's office | Scott, Mega Mewtwo Y |
 
-- **The front door** opens only with the Factory's door bit (`IsBattleFactoryUnlocked`); the endgame must set it.
-- **Nurse Joy** stands beside the door as a quick heal once it's open (`FLAG_HIDE_FACTORY_JOY`).
-- **Rescues:** Mom, Dad and the Broker leave as the player rescues them. The Broker goes on to run the free shop.
-- 📝 Still to script: the seven fights; each beaten guard turning off a light and leaving; the sealed stairs opening at seven (now always sealed); the rescues; hiding the Brains who loiter outside their buildings (Tucker, Lucy) while they're in the Factory; Scott's scene. The guards' lines are placeholders.
+- **The front door** opens only with the Factory's door bit (`IsBattleFactoryUnlocked`); Wallace's Palkia scene sets it.
+- **Nurse Joy** stands beside the door as a heal once it's open (`FLAG_HIDE_FACTORY_JOY`).
+- 📝 Still to script: the five fights and their key pieces; each beaten guard turning off a light and leaving; the sealed stairs opening at five Brains and four rescues (now always sealed); the rescues; hiding the Brains who loiter outside their buildings (Tucker, Lucy) while they're in the Factory; Scott's scene. The guards' lines are placeholders.
 - The maps are generated: `~/decomps/headless-harness/factory/` (see its README).
 
-**Scott's monologue.** His motives, his childhood, and that no one can stop
-him: he's harnessed the bonds of thousands of trainers into the Crown. He
-laughs at the idea of the player battling him: get out of the way, or he'll
-squash them like he told their father he would. The player insists. "Fine. But
-it's pointless. I don't play by the rules."
+**8. The Pillar Chamber (B3F).** Scott stands at the Mega Pillar with **Mega
+Mewtwo Y** out beside him, charging the Crown. A big flash, the screen shakes.
 
-**The unwinnable battle.** Scott's whole team is **level 100**, and every one of
-them is a permanent Mega:
+- Scott turns: they're too late. The Crown is charged, and just like that he
+  has **unlimited permanent Mega Evolution.**
+- A short monologue. He saves most of it for the final battle.
+- WALLACE: this ends here. SCOTT: he'll do to Wallace what he did to Steven.
+  WALLACE: it's his duty as Champion to try anyway.
+- They step toward each other. "Go, PALKIA!" (overworld). "MEWTWO, take him
+  out." Mewtwo steps up to Palkia, and both lunge. **Palkia lands a Spacial Rend
+  first and Mewtwo shrugs it off**, so the scene doesn't copy Steven's Dialga
+  beat for beat.
+- The screen fades out and back. Wallace is pushed back, the screen shakes.
+  WALLACE: "I lost. I've failed as CHAMPION."
+- SCOTT: "MEWTWO, finish him." {PLAYER} stepped in front of WALLACE. SCOTT:
+  then squash the kid; he doesn't need the player anymore (the line he once
+  used on Norman).
+
+**9. The unwinnable battle.** Scott's whole team is **level 100**, and every one
+of them is a permanent Mega. Mega Mewtwo Y leads.
 
 | Pokémon | Notes |
 |---|---|
 | Mega Mewtwo Y @ Life Orb | The lead. Will likely sweep the player alone. |
 | Mega Latias or Latios | The one the player left behind |
-| Mega Kangaskhan | Parental Bond with an item. **❓ To replace:** only the player gets Mega Kangaskhan. |
+| Mega Darkrai | Replaces Mega Kangaskhan, which stays the player's (Norman's gift). 165 Sp. Atk on a 130/130 frame, and Bad Dreams. Nobody else in the game uses it |
 | Mega Gengar | Shadow Tag |
 | Mega Salamence | Aerilate |
 | Mega Mawile | Huge Power |
 
-Raw power, no balance, as always. The player loses. The story continues either
-way; the script must not depend on the outcome.
+A normal battle, but the player is expected to lose. **There's no white-out
+either way**: the party stays fainted (the same path as the Ever Grande loss).
+SCOTT: this is wasting his time. He's off to become **the most powerful trainer
+that ever lived.** He leaves, and the Brains go with him. The sun ends.
 
-**After the battle:** "Mewtwo came to me courtesy of Giovanni, in Kanto. And I
-have **more to collect**." Scott flees, to catch **Rayquaza, Groudon and
-Kyogre.**
+**10. Steven** rushes in and takes in the scene. Devon is being guarded by the
+Elite Four, for some reason, and they need to find out why.
 
-### Steven and Wallace
+**11. The Arena, the new base.** Fade out. The player, Wallace and Steven
+stand outside the **Battle Arena**, with **Mom and Dad**. Joy has healed the
+team.
 
-They arrive after Scott leaves. While the player climbed, they investigated
-Devon:
+- STEVEN: they'll use the Arena as a base for now. The Brains left with Scott.
+- **The Broker is in the Exchange Service Corner** with the four shopkeepers.
+  The Factory's surge **fried every Devon system** running the Frontier, so
+  **every shop is free**: all Pokémon and items through gauntlet 8, plus
+  Palafin (no gauntlet left for it to break).
+- The Broker found a stash of **Ultra Balls** in the Factory. The player will
+  have to do this "the old-fashioned way". He gives the player **99 Ultra
+  Balls**.
+- **Hoopa is inside the Arena** (see Hoopa's rings).
+- **Steven waits outside the Arena.** Talking to him: is the player ready?
+  **Yes** starts the assault on Devon. He and Wallace will meet the player
+  there, and **the ABRA at the Pokémon Center** can take the player to
+  Rustboro (`FLAG_ABRA_TO_RUSTBORO`). They fly off.
 
-- **President Stone** developed the Bond Harness. (Steven has known his father
-  was involved since Wallace saw him at Birch's lab.)
-- **The chips:** the Broker's letter (after gauntlet 6) revealed them. Every
-  Frontier shop Pokémon carries the shard material, which is why the player's
-  Pokémon still can't grow.
-- They need a way to **disable the chips**, and Devon is the place to find it.
-  Their own Pokémon can still grow, but even so, the two of them alone aren't
-  enough to stop Scott.
+### Hoopa's rings 📝
 
-The player, Steven and Wallace head to **Rustboro**.
+The Hoopa the player freed wants to help **recruit the strongest Pokémon in
+existence** to beat Scott. Optional.
+
+- **Twelve choices:** Miraidon, Xerneas, Yveltal, Zacian, Ho-Oh, Lugia,
+  Reshiram, Zekrom, Solgaleo, Lunala, Necrozma Dusk Mane and Necrozma Dawn
+  Wings. Scott's legendaries (Rayquaza, Groudon, Kyogre, Mewtwo) and the
+  champions' (Dialga, Palkia) aren't on the list.
+- **The cave.** The player is sent through a ring to a cave (one of the Regi
+  caves, reused, its legendary sprite chosen by a variable). **Hoopa blocks
+  the exit.** Walking into the legendary's overworld sprite starts the battle.
+- **The legendary** is **level 60** and **not chipped**, so it gains
+  Experience. Zacian holds the **Rusted Sword**, so it battles as Crowned
+  Zacian and keeps the sword when caught.
+- **Knocked out or escaped:** it flees, and the player can come back to try
+  again. Only a **catch** uses up Hoopa's ring.
+- **After a catch,** Hoopa takes the player back to the Arena and has to
+  recharge.
+- **Three rings in all:** after the Factory, after the Elite Four, and after
+  Archie and Maxie. Any ring the player doesn't use stays available.
 
 ### Rustboro: Devon Corporation 📝
 
-**The Elite Four guard Devon**, their teams upgraded by Scott with permanent
-Megas on some members. They keep **their real levels, up to 55**, because only
-Scott's chipped Pokémon are stuck at 50.
+**Outside.** The ABRA lands the player at Rustboro's Pokémon Center. Steven
+and Wallace are waiting outside Devon. **The three Wardens ambush them**:
+Winona, Juan and Roxanne, loyal to Scott to the end. "It's up to you to get
+past the ELITE FOUR."
 
-- On the way in, **the three Wardens ambush Wallace**: Winona, Juan and
-  Roxanne. "It's up to you to get past the Elite Four."
-- Steven is off tracking Scott.
-- The player beats **Sidney, Phoebe, Glacia and Drake.**
+**Inside.** **Sidney, Phoebe, Glacia and Drake** stand on Devon's 1F and 2F,
+placed so the player must fight them one at a time. Levels 52–55, two
+permanent Megas each (`endgame-teams.md`); they're not chipped, so they keep
+their real levels. **A loss whites out to Rustboro's Pokémon Center**;
+members already beaten stay beaten.
 
-**President Stone.** Steven and Wallace join the player to question him. Scott
-promised Devon would be the most successful company in the world, and that the
-Bond Harness would send its shares through the roof. But Stone kept a
-failsafe: **a replica of the Crown**, which he gives to the player. They don't
-find a way to disable the chips.
+**President Stone (3F).** Steven and Wallace catch up with the player here.
+Stone just wanted Devon to lead in cutting-edge technology, and believed Scott
+truly meant to use the mechanic at the Frontier. He pressured Birch to meet
+stakeholder deadlines, and he crossed lines he never should have. He secretly
+built **a replica of the Crown** as a backup, but has no idea how to use it.
 
-**Outside, Juan.** He's with Wallace. Wallace tells the player he "whooped all
-three of them" and tells Juan to get it together. **Juan apologizes**, to
-Wallace and to the player.
+**The scientist** suggests re-engineering it to **draw its charge from the
+chips** in the Frontier's Pokémon: the chips hold Mega Stone shards, and
+draining them would **disable the chips** too. He re-engineers the replica
+and hands it to the player (`ITEM_REPLICA_CROWN`, uncharged).
 
-**The scientist.** A Devon scientist runs after them: he overheard everything
-and wants to help. In theory, the replica Crown could be **overclocked** to
-disable the chips of every Pokémon in its holder's party. He upgrades it, but
-it needs a massive power source.
+**Outside, Juan.** He's with Wallace. Wallace "whooped all three of them" and
+tells Juan to get it together. **Juan apologizes**, to Wallace and to the
+player (his gauntlet 2 "tell WALLACE I'm sorry" pays off).
+
+Hoopa's second ring is ready. Back to the Frontier by ABRA.
+
+### Back to the Frontier: the siphon 📝
+
+The Pokémon keeper in the Exchange Service Corner has a new option: **"Free
+the POKéMON"**. The screen flashes: every chip in the Frontier's Pokémon is
+disabled, and the shard energy flows into the Crown (`FLAG_CROWN_CHARGED`).
+
+- **The Crown can now make one Pokémon a permanent Mega.** Only one.
+- **The chips are off.** Every Pokémon the player owns can now gain
+  Experience.
+- STEVEN: they'll need a power source as big as the Factory's to stand toe to
+  toe with Scott. WALLACE: their Pokémon will never reach level 100 before
+  Scott is long gone. NURSE JOY: she might be able to help, but she needs time.
+- Steven and Wallace remember **New Mauville's generator**.
+
+When the player is ready (perhaps after another Hoopa catch), talking to
+Steven outside the Arena starts Mauville. Steven and Wallace fly; the player
+takes the ABRA (`FLAG_ABRA_TO_MAUVILLE`).
 
 ### Mauville: New Mauville 📝
 
-Steven and Wallace are on Scott's trail, so they send the player alone to the
-power plant.
+**The town.** Mauville is **overrun by Team Aqua and Team Magma**. **Wattson**
+rushes up:
 
-**Archie and Maxie block the entrance.** Scott gave them **permanent Primal
-Groudon and Kyogre**. Two separate battles, **back to back, no healing** (the
-Scrambler's doing).
+- The town's been taken. The teams said **a new order is here**: Hoenn has a
+  new leader in Scott, and the new empire has begun.
+- **The criminal teams are working together** now.
 
-The player reaches the generator and **overclocks the harness.** The player's
-Pokémon can **gain levels** again.
+Steven and Wallace figure they're guarding **New Mauville** as a backup power
+source for Scott's Crown, in case it ever runs dry. They stay to clear the
+town (off-screen, no grunt battles for the player). **Wattson leads the player
+to New Mauville**, which solves the sealed Route 110 water.
 
-**The bike:** the player picks up a **bike** from Mauville's cycle shop. They'll
-need it to climb Sky Pillar.
+**New Mauville.** The four admins block the way to the generator: **Tabitha
+and Courtney** (Magma) and **Matt and Shelly** (Aqua). The player beats all
+four.
 
-### Back to the Frontier 📝
+**The generator: Maxie and Archie.** Scott gave them **permanent Primal
+Groudon and Kyogre** to guard it. Two battles, **back to back, no healing**
+(the Scrambler). A loss whites out to Mauville's Pokémon Center, and both must
+be fought again.
 
-Steven and Wallace regroup with the player in Mauville. They tracked Scott to
-the **Cave of Origin**, too late: he's heading for **Sky Pillar** to complete
-his team.
+**After the win:**
 
-Steven studies the overclocked harness. Something feels different about it. He
-has an idea: take it back to the Frontier, where hundreds of shop Pokémon carry
-shard chips, and **siphon the energy out of every chip at once.** It would free
-those Pokémon and charge the harness.
+- The player supercharges the Crown at the generator: a flash, the screen
+  shakes. **It can now make all six party Pokémon permanent Megas.**
+- Their Poké Balls flash and go empty: **Scott takes the Primals back**
+  through the Crown, as he warned them he would if they failed. Bitter, they
+  tell the player he's **headed for Sky Pillar.**
 
-At the Frontier:
+**Outside the Pokémon Center.** Wattson, Steven and Wallace; the teams have
+left the city. Wattson thanks them. Hoopa's third ring is ready.
 
-- **The shop is closed.** Scott was careless and let the shopkeepers escape.
-  **The Broker has taken them in**, and every Pokémon, item and Mega Stone is
-  now **free**, for the cause. The player can freely come back to swap teams.
-- The player uses the harness to **siphon the shards.** It's fully charged, and
-  the player can now **permanently Mega Evolve.**
-- **Nurse Joy** has heard the news. She's gathered every Chansey and Blissey
-  from Hoenn's Pokémon Centers and taught them **Transfer EXP.** A Chansey at
-  the Frontier's Pokémon Center can take the player's Pokémon **to level 100.**
-
-The player prepares for the final battle.
+**Back at the Frontier.** **Nurse Joy** has found a way: the supercharged
+Crown can draw in the Experience of every **Chansey** at the Pokémon Center
+(**Transfer EXP**). A Chansey now sits outside the Arena. The player picks a
+Pokémon, and **it goes to level 100**. Steven waits outside the Arena; when the
+player is ready, the ABRA takes them to Sky Pillar (`FLAG_ABRA_TO_SKY_PILLAR`).
 
 ### Sky Pillar 📝
 
-The player, Steven and Wallace arrive. **The Elite Four ambush them.** Steven
-and Wallace take them on so the player can climb. The player needs the bike for
-the cracked floors.
+**Steven, Wallace, Norman and Wattson** are there, meaning to take Scott down
+together. **All seven Frontier Brains ambush them** outside the tower: Anabel,
+Tucker, Lucy, Spenser, Brandon, Noland and Greta. The four hold them off, and
+the player climbs alone.
 
-At the top, Scott throws a **Master Ball** (one of the Kanto shipment he's
-been collecting; the "replica" holds Mewtwo) and **catches Rayquaza.** He turns to the player. He's heard what happened at New Mauville
-from Archie and Maxie. He'd promised them permanent Primal Groudon and Kyogre,
-and took them back after their failure.
+**The climb is smooth all the way up**, with no cracked floors and no bike
+needed (as in vanilla's climb to Rayquaza).
+
+At the top, Scott throws a **Master Ball** (one of the Kanto shipment he's been
+collecting; the "replica" held Mewtwo) and **catches Rayquaza.** He turns to
+the player. He's heard what happened at New Mauville from Archie and Maxie.
 
 He activates the Scrambler. **This is life or death.**
 
@@ -932,7 +1045,7 @@ an item, and no balance at all.**
 | Primal Kyogre | Primordial Sea, taken back from Archie |
 | Mega Mewtwo Y | Giovanni's, 194 base Special Attack |
 | Mega Latias or Latios | The one the player left behind |
-| Mega Kangaskhan | **❓ To replace** (only the player gets Mega Kangaskhan) |
+| Mega Darkrai | Replaces Mega Kangaskhan (see the first battle) |
 
 His first team's other three Megas (Gengar, Salamence, Mawile) make way for
 the legendaries.
@@ -992,16 +1105,20 @@ happy ending.
   | Content | Running total |
   |---|---|
   | Built now (all eight gauntlets, story trainers, the two Devon Agents, Noland and Greta at Birch's lab, Maxie and Archie at Ever Grande) | 967 |
-  | Seven Brain rematches, Scott ×2 | 976 |
-  | Elite Four (Rustboro), Archie, Maxie (New Mauville, with Primals) | 982 |
-  | Elite Four again at Sky Pillar, only if the player fights them there | 986 |
+  | Five Brain rematches (Spenser and Brandon aren't rematched), Scott ×2 | 974 |
+  | Elite Four (Devon), Archie, Maxie (New Mauville, with Primals) | 980 |
+  | The four admins in New Mauville (Tabitha, Courtney, Matt, Shelly) | 984 |
+
+  Fought off-screen, so no IDs: the Wardens at Devon, the Aqua and Magma
+  grunts in Mauville, and the Brains' ambush at Sky Pillar. Any grunt the
+  player does fight costs one, so keep them under about 15.
 
   Past the limit, a trainer silently shares its "defeated" flag with a system
   flag (see CLAUDE.md). There's room to spare, but the Arena's mock battles
   may need their own copies of boss teams (below), so keep counting.
 
 - **Vanilla maps come back into play:** Rustboro and Devon Corporation,
-  Mauville, its cycle shop and New Mauville, the Cave of Origin, Sky Pillar.
+  Mauville and New Mauville, Sky Pillar, and the Regi cave Hoopa reuses.
   CLAUDE.md plans to strip the vanilla story; these maps must survive it, with
   their vanilla NPCs and trainers reworked. **Travel is by the Abra
   network** between them, and each city is **blocked off** so the player
@@ -1009,11 +1126,13 @@ happy ending.
 - ✅ **The endgame towns are prepared** (Rustboro, Mauville, Sky Pillar;
   `data/scripts/endgame_towns.inc`):
   - **Abra menu** (`EventScript_EndgameAbra`): an Abra in each town and one
-    beside Joy outside the Factory. It lists the Frontier always, each town
+    beside Joy outside the Factory (🔧 move it to the Frontier's Pokémon
+    Center). It lists the Frontier always, each town
     once its flag is set, never the current place. **The story must set**
     `FLAG_ABRA_TO_RUSTBORO`, `FLAG_ABRA_TO_MAUVILLE` and
-    `FLAG_ABRA_TO_SKY_PILLAR` (nothing does yet); the Frontier's Abra shows
-    once the Rustboro flag is set.
+    `FLAG_ABRA_TO_SKY_PILLAR` (nothing does yet; the story beats above say
+    where each one is set); the Frontier's Abra shows once the Rustboro flag
+    is set.
   - **Sealed exits:** every route edge of Rustboro and Mauville, and Sky
     Pillar's way down to the sea, shows "Now isn't the time to wander off"
     and steps the player back.
@@ -1022,9 +1141,12 @@ happy ending.
   - **Vanilla events off:** Rustboro hides the Aqua grunt, rival, scientist
     and Devon employee; Mauville hides Wally, his uncle, vanilla Scott and
     Wattson; Sky Pillar hides Wallace, keeps the cracked floors (state 2),
-    marks Rayquaza beaten and leaves the door open.
-  - 📝 Still open: New Mauville sits on sealed Route 110 water and needs its
-    own way in; Devon Corp is open, so its vanilla events (Mr. Stone's
+    marks Rayquaza beaten and leaves the door open. 🔧 **The climb must be
+    smooth**, with no cracked floors and no bike, like vanilla's climb to
+    Rayquaza. Mauville's hidden Wattson needs a story version for New
+    Mauville.
+  - 📝 Still open: New Mauville sits on sealed Route 110 water; **Wattson
+    leads the player in** (the mechanism is still to pick). Devon Corp is open, so its vanilla events (Mr. Stone's
     letter, the Exp. Share, fossils) and the other buildings' vanilla gifts
     (HM Cut, HM Rock Smash, the Coin Case) may need switching off when
     their scenes are built.
@@ -1033,8 +1155,14 @@ happy ending.
   `IsFrontierChippedMon()`, `src/facility.c`; see CLAUDE.md): a Pokémon gains
   Experience only if **the badges are real and it isn't chipped** (the Lati,
   from Steven's gauntlet 4 test until Scott swaps the counterfeits back after
-  gauntlet 7). "Chipped" = met anywhere but Artisan Cave. 📝 Still to add: the
-  New Mauville overclock lifting the chip rule.
+  gauntlet 7). "Chipped" = met anywhere but Artisan Cave. 📝 Still to add:
+  - **Wallace's badge swap after gauntlet 8** sets `FLAG_REAL_BADGES` again.
+  - **Hoopa's legendaries aren't chipped.** Easiest: `IsFrontierChippedMon()`
+    also accepts the met location of the reused Regi cave, as it does Artisan
+    Cave. The cave is reachable only through Hoopa's rings, so nothing else
+    is ever met there.
+  - **The Frontier siphon lifts the chip rule** (a flag `IsFrontierChippedMon()`
+    checks first), so every Pokémon can gain Experience from then on.
 - **Steven's test battle** is a wild battle (a scripted Aron), so it costs no
   trainer ID.
 - **The required quest costs 900 FP of the 1,200 gauntlet 3 pays:** a
@@ -1046,8 +1174,9 @@ happy ending.
   Lati back holding its stone. Steven's handover needs to find the Lati
   wherever it is.
 - **Steven's Metagross** carries a Metagrossite. Mega Metagross is 700 BST,
-  above gauntlet 5's 600 cap for Megas: a deliberate, story-given edge. The Chansey's Transfer EXP needs a special that sets the party to
-  level 100 and recalculates stats.
+  above gauntlet 5's 600 cap for Megas: a deliberate, story-given edge.
+- **The Chansey's Transfer EXP** needs a special that sets one chosen Pokémon
+  to level 100 and recalculates its stats.
 
 - **Permanent Megas** ✅ (engine and item built; the scenes that give and
   charge the Crown are not).
@@ -1063,7 +1192,8 @@ happy ending.
     then come off for a real item. Using it on a permanent Mega turns it back.
     Until `FLAG_CROWN_CHARGED` is set: "The CROWN has no power yet." **The
     Frontier siphon scene must set that flag**, and Stone's scene gives the
-    item.
+    item. 📝 **It needs a limit:** one permanent Mega in the party after the
+    siphon, six after New Mauville (a story var the item checks).
   - Not covered: Mega Rayquaza (Dragon Ascent, no stone), and the player
     can't sell a permanent Mega (Mega species aren't on the price list; the
     shop is free by then anyway).
@@ -1080,7 +1210,22 @@ happy ending.
   break anything.
 
 - **The free shop:** a story flag that zeroes shop prices once the Broker takes
-  over.
+  over (after the Factory). Palafin joins the shop then; it's on the
+  gauntlets' permanent ban list, which no longer matters once all eight are
+  cleared.
+
+- **The sunlight after gauntlet 8** is overworld drought weather. Drought
+  turns into sun in any battle fought on that map (`src/battle_util.c`), so
+  use it on the Frontier's **outdoor** maps only, where the player can't start
+  a battle. The Factory's interior maps must keep normal weather, or every
+  Brain fight starts in sun.
+
+- **Hoopa's rings:** one reused Regi cave (Desert Ruins, Island Cave or
+  Ancient Tomb) with the legendary's overworld sprite picked by a variable;
+  a wild battle at level 60; a fled or knocked-out legendary reappears next
+  visit; a catch uses one ring. Rings come from three story points (the
+  Factory, the Elite Four, New Mauville), and unused ones carry over. The
+  Broker's 99 Ultra Balls are a plain `giveitem`.
 
 - **Every opponent** needs a real class and pic, and anything fought under
   Frontier rules needs `IsFacilityBattleTrainer()` coverage (see CLAUDE.md).
@@ -1091,13 +1236,16 @@ happy ending.
 
 1. Tuning the story fights once playtested: Maxie and Archie at Ever Grande
    (after gauntlet 6), Noland and Greta at Birch's lab (after gauntlet 7).
-2. The seven Brains' upgraded teams after gauntlet 8, and their lines as they
-   turn.
-3. The Elite Four's teams (up to level 55, some permanent Megas) and the
-   Wardens' ambush (off-screen, or shown?).
+2. ~~The Brains' upgraded teams~~ ✅ Proposed in `endgame-teams.md` (five
+   rematches; Spenser and Brandon aren't rematched). Their Factory lines are
+   still placeholders.
+3. ~~The Elite Four's teams~~ ✅ Proposed in `endgame-teams.md` (levels
+   52–55, two permanent Megas each). The Wardens' ambush at Devon is shown,
+   with the fight itself off-screen.
 4. Archie and Maxie's full teams around their permanent Primals.
 5. Scott's movesets, EVs and items (within the item clause).
-6. **Scott's replacement for Mega Kangaskhan** on both his teams.
+6. ~~Scott's replacement for Mega Kangaskhan~~ ✅ **Mega Darkrai**, on both
+   his teams.
 7. How the Arena's sparring works in detail (`frontier-dialogue.md` has the
    spec so far).
 8. **Steven's PokéNav.** Devon makes the PokéNav, and Stone is watching. Why

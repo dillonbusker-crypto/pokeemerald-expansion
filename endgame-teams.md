@@ -20,9 +20,10 @@ teams). Team sets are in Pokémon Showdown syntax, like the gauntlet docs.
 
 ### Which Brains get new teams
 
-The seven Factory guards are Anabel, Tucker, Lucy, Spenser, Brandon, Noland and
-Greta. **Spenser and Brandon keep their gauntlet 7 and 8 teams unchanged**,
-since those were already at full power. That leaves five new teams:
+Five Brains guard the Factory after gauntlet 8: Anabel, Tucker, Lucy, Noland
+and Greta (`storyline.md`, "After gauntlet 8"). **Spenser and Brandon** rush
+Wallace in the lobby and fight him off-screen. They were already at full
+power, so the player never rematches them. That leaves five new teams:
 
 | Brain | Format | Theme | Mega | Notes |
 |---|---|---|---|---|
@@ -34,9 +35,7 @@ since those were already at full power. That leaves five new teams:
 
 **Format** follows each boss's gauntlet: Anabel (gauntlet 4) and Lucy (6) were
 doubles, and Tucker (5) was singles. Noland and Greta fought singles at
-Littleroot. That gives three singles and two doubles, plus Spenser (singles)
-and Brandon (doubles) as they are. See Open questions if you'd rather set it
-differently.
+Littleroot. That gives three singles and two doubles.
 
 ### The Elite Four
 
@@ -726,35 +725,33 @@ Adamant Nature
 
 ## Open questions for review
 
-1. **Brain formats.** As proposed: Anabel and Lucy fight doubles, and Tucker,
-   Noland and Greta fight singles (each Brain's format so far). Spenser and
-   Brandon stay as they are.
-2. **Repeats across opponents.** There are only about 30 OU and Uber Pokémon
+1. **Repeats across opponents.** There are only about 30 OU and Uber Pokémon
    in the pool, so some show up twice. Phoebe now uses Mega Banette and
    Skeledirge, so Mega Gengar is Lucy's alone. Sidney now uses Weavile, so
    Kingambit is Anabel's alone. Repeats that remain:
    - **Mega Salamence:** a normal Mega for Tucker, permanent for Drake.
      It's the signature Pokémon of both. If you want it on only one, Tucker
      can take Mega Metagross (National Dex Uber) instead.
-   - **Against Spenser and Brandon's unchanged teams:** Chien-Pao (Glacia),
+   - **Against Spenser's and Brandon's gauntlet teams:** Chien-Pao (Glacia),
      Flutter Mane (Phoebe), Great Tusk (Tucker), Iron Hands (Anabel) and
-     Tornadus (Lucy) each also appear on one of those two teams. All seven
-     guards are fought in the same Factory, so a player meets the
-     Great Tusk, Iron Hands and Tornadus repeats back to back.
-3. **A third Mega for the Elite Four?** Permanent Megas don't use up the
+     Tornadus (Lucy) each also appear on one of those two teams. The player
+     doesn't fight Spenser or Brandon again, so these only repeat against
+     gauntlets 7 and 8.
+2. **A third Mega for the Elite Four?** Permanent Megas don't use up the
    battle's one Mega Evolution, so each Elite Four member *could* also Mega
    Evolve a normal Mega mid-battle. These teams don't, to keep to "two per
    team." It's an easy way to raise the difficulty later.
-4. **Difficulty.** These are full-strength teams with no handicaps. The Elite
-   Four's level edge plus two permanent Megas may be a wall for a level 50
-   team before the New Mauville overclock. Tune after playtesting
-   (`storyline.md`, Still to decide #1). The simplest dial is the levels.
-5. **Engine checks when built:**
+3. **Difficulty.** These are full-strength teams with no handicaps. The Elite
+   Four comes before the siphon, so the player has no permanent Megas yet;
+   their only edge is a level 60 legendary from Hoopa, if they caught one.
+   The levels stay at 52–55 for playtesting (your call). They're the
+   simplest dial to turn.
+4. **Engine checks when built:**
    - Mega Heatran, Mega Magearna, Mega Absol Z, Mega Garchomp Z, Mega
      Baxcalibur, Mega Froslass and Mega Chandelure are newer Megas (Legends:
      Z-A and later). Check that each one transforms and that its ability
      works in a quick battle.
    - Enemy permanent Megas are tested, but no team has run two yet.
-6. **Trainer IDs:** five new Brain teams plus four Elite Four members makes
-   nine. That fits the "Seven Brain rematches" and "Elite Four" rows of
-   `storyline.md`'s budget (Spenser and Brandon reuse theirs, so two fewer).
+5. **Trainer IDs:** five new Brain teams plus four Elite Four members makes
+   nine, already counted in `storyline.md`'s budget (984 of 1000 with the
+   whole endgame).
