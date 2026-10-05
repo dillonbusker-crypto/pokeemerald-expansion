@@ -1248,9 +1248,7 @@ happy ending.
    his teams.
 7. How the Arena's sparring works in detail (`frontier-dialogue.md` has the
    spec so far).
-8. **Steven's PokéNav.** Devon makes the PokéNav, and Stone is watching. Why
-   does Steven trust his for the call he'll make later (a secure line, as the
-   President's son, or one he modified himself)?
+8. ~~Steven's PokéNav~~ Dropped: not a concern (owner's call).
 9. ~~How the Broker gets out of the Factory~~ ✅ The player rescues him from
    the Holding Block (B1F), with Mom and Dad, and he leaves to run the free
    shop.
