@@ -1,4 +1,4 @@
-# Session handoff — 2026-10-04
+# Session handoff — 2026-10-04 (updated end of day)
 
 Read `CLAUDE.md` first, then `storyline.md`. This file covers what the last
 two sessions built, what's untested, and the tools left behind.
@@ -9,6 +9,10 @@ two sessions built, what's untested, and the tools left behind.
 
 | Commit | What |
 |---|---|
+| `c38d192abd` | Wallace only appears in his own story events (playtester report) |
+| `6d2277189e` | Endgame towns: Abra network, sealed exits and gyms, vanilla events off |
+| `66a2c86d64` | The Battle Factory rebuilt as Devon's facility |
+| `b2a96de6f0` | Permanent Megas and the Replica Crown |
 | `611920777c` | Opening: vanilla lines flavored to fit the story (small hints, no reveals) |
 | `dd3ebcfa8d` | Townsfolk gossip that follows the story (`GetStoryGossipStage`) |
 | `e79e71c30f` | Full dialogue pass: the player never speaks; contradictions fixed |
@@ -18,7 +22,7 @@ two sessions built, what's untested, and the tools left behind.
 | `78b842b8f7` | Built "the Crown is taken", the event after gauntlet 7 |
 
 Nothing is pushed: GitHub auth in WSL is still not set up. Local `master`
-is 51 commits ahead of `origin/master`.
+is ahead of `origin/master` (not pushed since).
 
 The owner has playtested in mGBA: the Ever Grande event (found the tag-battle
 bug below) and the whole Littleroot event after gauntlet 7 ("runs clean").
@@ -112,6 +116,8 @@ mart has little stock; a Route 103 NPC points at the ferry dock.
 | Broker's-letter event as a whole | Never hand-tested (Ever Grande part now played) |
 | Crown event visuals | Littleroot part hand-tested by the owner; the Factory standoff (Dialga sprite, shake, flash) not yet confirmed |
 | Price changes (wins) | Built and code-read, not run |
+| Endgame towns | Harness scenario 11, 14/14 checks green. **Not played** |
+| Wallace hiding | Harness scenario 14, 7/7 green (incl. an old-save simulation). **Not played** |
 
 ---
 
@@ -120,8 +126,11 @@ mart has little stock; a Route 103 NPC points at the ferry dock.
 - `harness.c`: scripted-input driver. `#define HARNESS_SCENARIO n` (1 Palace
   exit, 2 Littleroot win path, 3 Noland/Greta loss, 4 Scott's house + Factory
   + Lati, 5 girl's house, 6 Ever Grande win, 7 Ever Grande loss, 8 League Abra
-  home). Scenarios 6 and 7 now use six different species and pick slots 1,4,3,
-  and log the party before and after (`LogParty`).
+  home, 9 Broker control, 10 Devon Factory, 11 endgame towns, 12-13 Wallace
+  probes (logs objects), 14 Wallace hidden/shown checks). Scenarios 6 and 7
+  use six different species, pick slots 1,4,3, and log the party before and
+  after (`LogParty`). **Plan the path before running** (collision, bounds,
+  triggers, door types, post-warp timing) so one run is enough.
 - `main.c.patch`, `script.c.additions`, `text.c.additions`: apply to a
   **copy** of the repo, never the real one.
 - `render_map.py`, `textwidth.py` (checks added `.string` lines in `git diff`
@@ -177,9 +186,71 @@ auto-tiler + stamps cut from vanilla maps); its `render_lib.py` also fixes
 changes (Experience off, save layout grown, one vanilla item description).
 Any count above 15 is new.
 
+## The endgame towns (done, `6d2277189e`)
+
+The owner's request: prepare **Rustboro, Mauville and Sky Pillar** for the
+endgame. The player travels only by **ABRA**, from a menu of destinations;
+the towns are cut off from the rest of Hoenn. Details are in `storyline.md`
+(Technical notes, "The endgame towns are prepared").
+
+- **`data/scripts/endgame_towns.inc`**: the ABRA menu
+  (`EventScript_EndgameAbra`, caller sets `VAR_0x8004` = `ABRA_AT_*`), the
+  sealed-exit script and the Gym message.
+- **Sealed exits:** coord events (elevation 0, `VAR_TEMP_F` == 0) on every
+  route edge of Rustboro and Mauville, and Sky Pillar's way back down.
+- **Sealed doors: only the two Gyms.** The owner decided mid-session not to
+  lock any other building ("just seal off the routes ... and the gym").
+  `sEndgameSealedDoors` (`src/facility.c`) via `TryDoorWarp`. Both Gyms are
+  animated doors; note that **glass doors** (`MB_NON_ANIMATED_DOOR`, e.g.
+  Devon Corp, the Game Corner) warp on step through `TryStartWarpEventScript`
+  instead, so sealing one later needs a check there too.
+- **Vanilla events off** in each map's load script (Rustboro's grunt, rival,
+  scientist, Devon employee; Mauville's Wally, his uncle, Scott, Wattson; Sky
+  Pillar's Wallace and Rayquaza, cracked floors kept, door always open).
+- **Flags the story must set (nothing does yet):** `FLAG_ABRA_TO_RUSTBORO`,
+  `FLAG_ABRA_TO_MAUVILLE`, `FLAG_ABRA_TO_SKY_PILLAR`.
+- Text widths checked (all under 208 px).
+
+**Still open for later:**
+- **New Mauville** sits on Route 110's water, which is sealed; it needs its
+  own way in (an ABRA stop or Wattson).
+- With every non-Gym building open, vanilla gifts and events inside are
+  reachable: Devon Corp (Mr. Stone's letter, the Exp. Share, fossils),
+  Cutter's house (HM Cut), Mauville house 1 (HM Rock Smash), house 2 (Coin
+  Case), the Game Corner. Switch off what matters when those scenes are built.
+- Tucker and Lucy, who loiter outside their buildings, still need hiding
+  during the endgame. The Factory door bit and the ABRA flags need story
+  triggers.
+
+## Wallace at the lab at the start (fixed, `c38d192abd`)
+
+A playtester saw Wallace at or in Birch's lab at the very beginning.
+
+- **Not reproducible on a fresh New Game** (harness scenarios 12, 13: truck
+  arrival, Route 101 into Littleroot, the lab before and after the starter).
+- **The weakness:** the Wallaces at the lab door, inside the lab and outside
+  the Pike were hidden with **temp flags**, which reset to "visible" on every
+  map load, so he showed unless the map's setup script re-hid him. Any load
+  that skips that (most likely: continuing a save made on an older build, then
+  walking until he scrolls into view) shows him.
+- **Fix:** those three now use permanent flags
+  (`FLAG_HIDE_BIRCH_STORY_PIKE_WALLACE` 0x54, `..._LITTLEROOT_WALLACE` 0x55,
+  `..._LAB_WALLACE` 0x68, formerly unused, so saves keep their layout), and
+  `EventScript_ResetAllMapFlags` (`data/scripts/new_game.inc`) hides **every**
+  Wallace on New Game, including the Broker/Ever Grande ones and Cave of
+  Origin's (which nothing ever hid). The setup scripts are unchanged: each
+  still shows him only at his story state (Birch arc 1-3 / the Pike scene at
+  5 gauntlets, Broker state 6 ledge, Ever Grande 7-9).
+- Champion's Room and Hall of Fame Wallaces are vanilla with no flag; they're
+  unreachable (the League is sealed). Give them flags if the Elite Four
+  endgame opens those rooms.
+- **Existing saves:** the new flags are clear in a save that predates them,
+  but the map setups set them on the next map load, so they self-correct.
+  The playtester should still be told to start a New Game to be sure.
+
 ## Next
 
-The endgame after gauntlet 8. Open design questions first (`storyline.md`,
-"Still to decide"): the Brains' upgraded teams, the Elite Four's teams,
-Scott's Kangaskhan replacement, Steven's PokéNav, how the Broker gets out of
-the Factory. (The permanent-Mega question is answered: built, see above.)
+The endgame after gauntlet 8 (the towns are ready, above). The
+open design questions are in `storyline.md`, "Still to decide": the Brains'
+upgraded teams, the Elite Four's teams, Scott's Kangaskhan replacement and
+Steven's PokéNav.
