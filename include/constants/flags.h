@@ -107,7 +107,7 @@
 #define FLAG_ABRA_TO_RUSTBORO    0x4C // Ten Gauntlets: the endgame ABRAs can TELEPORT to RUSTBORO (and the FRONTIER's ABRA appears)
 #define FLAG_ABRA_TO_MAUVILLE    0x4D // Ten Gauntlets: the endgame ABRAs can TELEPORT to MAUVILLE
 #define FLAG_ABRA_TO_SKY_PILLAR    0x4E // Ten Gauntlets: the endgame ABRAs can TELEPORT to SKY PILLAR
-#define FLAG_HIDE_FRONTIER_ENDGAME_ABRA    0x4F // Ten Gauntlets: the endgame ABRA by the Devon Factory - shown/hidden on every map load
+#define FLAG_HIDE_FRONTIER_ENDGAME_ABRA    0x4F // Ten Gauntlets: the endgame ABRA in the Frontier's POKEMON CENTER - shown/hidden on every map load
 
 // Scripts
 #define FLAG_HIDE_SKY_PILLAR_TOP_RAYQUAZA_STILL  0x50
@@ -673,28 +673,28 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_123_RARE_CANDY                (FLAG_HIDDEN_ITEMS_START + 0x6E)
 #define FLAG_HIDDEN_ITEM_ROUTE_105_BIG_PEARL                 (FLAG_HIDDEN_ITEMS_START + 0x6F)
 
-#define FLAG_UNUSED_0x264  0x264 // Unused Flag
-#define FLAG_UNUSED_0x265  0x265 // Unused Flag
-#define FLAG_UNUSED_0x266  0x266 // Unused Flag
-#define FLAG_UNUSED_0x267  0x267 // Unused Flag
-#define FLAG_UNUSED_0x268  0x268 // Unused Flag
-#define FLAG_UNUSED_0x269  0x269 // Unused Flag
-#define FLAG_UNUSED_0x26A  0x26A // Unused Flag
-#define FLAG_UNUSED_0x26B  0x26B // Unused Flag
-#define FLAG_UNUSED_0x26C  0x26C // Unused Flag
-#define FLAG_UNUSED_0x26D  0x26D // Unused Flag
-#define FLAG_UNUSED_0x26E  0x26E // Unused Flag
-#define FLAG_UNUSED_0x26F  0x26F // Unused Flag
-#define FLAG_UNUSED_0x270  0x270 // Unused Flag
-#define FLAG_UNUSED_0x271  0x271 // Unused Flag
-#define FLAG_UNUSED_0x272  0x272 // Unused Flag
-#define FLAG_UNUSED_0x273  0x273 // Unused Flag
-#define FLAG_UNUSED_0x274  0x274 // Unused Flag
-#define FLAG_UNUSED_0x275  0x275 // Unused Flag
-#define FLAG_UNUSED_0x276  0x276 // Unused Flag
-#define FLAG_UNUSED_0x277  0x277 // Unused Flag
-#define FLAG_UNUSED_0x278  0x278 // Unused Flag
-#define FLAG_UNUSED_0x279  0x279 // Unused Flag
+#define FLAG_HIDE_ENDGAME_PYRAMID_WALLACE  0x264 // Ten Gauntlets: WALLACE waiting by the Pyramid after gauntlet 8 - shown/hidden on every map load
+#define FLAG_HIDE_ENDGAME_DOOR_WALLACE  0x265 // Ten Gauntlets: WALLACE at the Devon Factory door - shown/hidden on every map load
+#define FLAG_HIDE_ENDGAME_DOOR_PALKIA  0x266 // Ten Gauntlets: WALLACE's PALKIA at the Devon Factory door - shown/hidden on every map load
+#define FLAG_HIDE_ENDGAME_BASE_ALLIES  0x267 // Ten Gauntlets: STEVEN and WALLACE outside the Battle Arena (the base) - shown/hidden on every map load
+#define FLAG_HIDE_ENDGAME_BASE_PARENTS  0x268 // Ten Gauntlets: MOM and DAD outside the Battle Arena (the base) - shown/hidden on every map load
+#define FLAG_HIDE_FRONTIER_BRAINS_AWAY  0x269 // Ten Gauntlets: the Frontier Brains are gone from their usual spots (in the Factory, then with SCOTT)
+#define FLAG_ENDGAME_CELLS_OPENED  0x26A // Ten Gauntlets: the Holding Block's cells are open: MOM, DAD, the BROKER and HOOPA are free
+#define FLAG_ENDGAME_NO_WHITEOUT  0x26B // Ten Gauntlets: B_FLAG_NO_WHITEOUT: the next trainer battle can't white out (SCOTT's, in the Factory)
+#define FLAG_FRONTIER_SHOP_FREE  0x26C // Ten Gauntlets: the Factory's surge fried DEVON's systems: every shop at the Frontier is free
+#define FLAG_RECEIVED_BROKER_ULTRA_BALLS  0x26D // Ten Gauntlets: the BROKER has handed over the 99 ULTRA BALLs from the Factory
+#define FLAG_HOOPA_CAUGHT_MIRAIDON  0x26E // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
+#define FLAG_HOOPA_CAUGHT_XERNEAS  0x26F // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
+#define FLAG_HOOPA_CAUGHT_YVELTAL  0x270 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
+#define FLAG_HOOPA_CAUGHT_ZACIAN  0x271 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
+#define FLAG_HOOPA_CAUGHT_HO_OH  0x272 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
+#define FLAG_HOOPA_CAUGHT_LUGIA  0x273 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
+#define FLAG_HOOPA_CAUGHT_RESHIRAM  0x274 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
+#define FLAG_HOOPA_CAUGHT_ZEKROM  0x275 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
+#define FLAG_HOOPA_CAUGHT_SOLGALEO  0x276 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
+#define FLAG_HOOPA_CAUGHT_LUNALA  0x277 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
+#define FLAG_HOOPA_CAUGHT_NECROZMA_DUSK_MANE  0x278 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
+#define FLAG_HOOPA_CAUGHT_NECROZMA_DAWN_WINGS  0x279 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
 #define FLAG_UNUSED_0x27A  0x27A // Unused Flag
 #define FLAG_UNUSED_0x27B  0x27B // Unused Flag
 #define FLAG_UNUSED_0x27C  0x27C // Unused Flag

@@ -24642,3 +24642,507 @@ Calm Nature
 - Muddy Water
 - Calm Mind
 - Protect
+
+
+/* Ten Gauntlets: the Devon Factory, after gauntlet 8 (storyline.md). Five
+ * Brains guard it, fought one at a time with no heal between (the SCRAMBLER);
+ * the teams are endgame-teams.md's, each with one normal Mega. Level 50:
+ * they're SCOTT's chipped trainers. SPENSER and BRANDON hold off WALLACE in
+ * the lobby, off-screen, so they have no rematch. */
+
+=== TRAINER_FACTORY_ANABEL ===
+Name: ANABEL
+Class: Salon Maiden
+Pic: Salon Maiden Anabel
+Gender: Female
+Music: Female
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Hatterene @ Mental Herb
+Ability: Magic Bounce
+Level: 50
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 0 Spe
+EVs: 252 HP / 252 SpA / 4 SpD
+Quiet Nature
+- Trick Room
+- Dazzling Gleam
+- Psychic
+- Protect
+
+Farigiraf @ Sitrus Berry
+Ability: Armor Tail
+Level: 50
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 0 Spe
+EVs: 252 HP / 4 Def / 252 SpD
+Sassy Nature
+- Trick Room
+- Psychic Noise
+- Hyper Voice
+- Protect
+
+Heatran @ Heatranite
+Ability: Flash Fire
+Level: 50
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 0 Spe
+EVs: 252 HP / 252 SpA / 4 SpD
+Quiet Nature
+- Heat Wave
+- Earth Power
+- Flash Cannon
+- Protect
+
+Ursaluna-Bloodmoon @ Assault Vest
+Ability: Mind's Eye
+Level: 50
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 0 Spe
+EVs: 252 HP / 252 SpA / 4 SpD
+Quiet Nature
+- Blood Moon
+- Earth Power
+- Hyper Voice
+- Vacuum Wave
+
+Kingambit @ Black Glasses
+Ability: Defiant
+Level: 50
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 0 Spe
+EVs: 252 HP / 252 Atk / 4 SpD
+Brave Nature
+- Kowtow Cleave
+- Iron Head
+- Sucker Punch
+- Protect
+
+Iron Hands @ Booster Energy
+Ability: Quark Drive
+Level: 50
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 0 Spe
+EVs: 252 HP / 252 Atk / 4 SpD
+Brave Nature
+- Fake Out
+- Drain Punch
+- Wild Charge
+- Ice Punch
+
+=== TRAINER_FACTORY_TUCKER ===
+Name: TUCKER
+Class: Dome Ace
+Pic: Dome Ace Tucker
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Great Tusk @ Rocky Helmet
+Ability: Protosynthesis
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Stealth Rock
+- Headlong Rush
+- Rapid Spin
+- Knock Off
+
+Roaring Moon @ Booster Energy
+Ability: Protosynthesis
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Dragon Dance
+- Acrobatics
+- Knock Off
+- Earthquake
+
+Volcarona @ Heavy-Duty Boots
+Ability: Flame Body
+Level: 50
+EVs: 252 HP / 4 SpA / 252 Spe
+Timid Nature
+- Quiver Dance
+- Fiery Dance
+- Giga Drain
+- Morning Sun
+
+Dragapult @ Choice Specs
+Ability: Infiltrator
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Draco Meteor
+- Shadow Ball
+- Flamethrower
+- U-turn
+
+Iron Valiant @ Life Orb
+Ability: Quark Drive
+Level: 50
+EVs: 4 Atk / 252 SpA / 252 Spe
+Naive Nature
+- Moonblast
+- Close Combat
+- Knock Off
+- Shadow Ball
+
+Salamence @ Salamencite
+Ability: Intimidate
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Dragon Dance
+- Double-Edge
+- Earthquake
+- Roost
+
+=== TRAINER_FACTORY_LUCY ===
+Name: LUCY
+Class: Pike Queen
+Pic: Pike Queen Lucy
+Gender: Female
+Music: Female
+Double Battle: Yes
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Gengar @ Gengarite
+Ability: Cursed Body
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Shadow Ball
+- Sludge Bomb
+- Perish Song
+- Protect
+
+Pecharunt @ Leftovers
+Ability: Poison Puppeteer
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Malignant Chain
+- Shadow Ball
+- Parting Shot
+- Protect
+
+Amoonguss @ Rocky Helmet
+Ability: Regenerator
+Level: 50
+IVs: 31 HP / 31 Atk / 31 Def / 31 SpA / 31 SpD / 0 Spe
+EVs: 252 HP / 252 Def / 4 SpD
+Relaxed Nature
+- Spore
+- Rage Powder
+- Sludge Bomb
+- Protect
+
+Tornadus @ Covert Cloak
+Ability: Prankster
+Level: 50
+EVs: 252 HP / 4 SpD / 252 Spe
+Timid Nature
+- Tailwind
+- Bleakwind Storm
+- Taunt
+- Protect
+
+Grimmsnarl @ Light Clay
+Ability: Prankster
+Level: 50
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Reflect
+- Light Screen
+- Thunder Wave
+- Spirit Break
+
+Incineroar @ Sitrus Berry
+Ability: Intimidate
+Level: 50
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Fake Out
+- Flare Blitz
+- Knock Off
+- U-turn
+
+=== TRAINER_FACTORY_GRETA ===
+Name: GRETA
+Class: Arena Tycoon
+Pic: Arena Tycoon Greta
+Gender: Female
+Music: Intense
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Sneasler @ White Herb
+Ability: Unburden
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Dire Claw
+- Close Combat
+- Rock Slide
+
+Annihilape @ Leftovers
+Ability: Defiant
+Level: 50
+EVs: 240 HP / 16 Atk / 252 SpD
+Careful Nature
+- Bulk Up
+- Rage Fist
+- Drain Punch
+- Taunt
+
+Marshadow @ Life Orb
+Ability: Technician
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Spectral Thief
+- Close Combat
+- Shadow Sneak
+- Ice Punch
+
+Urshifu @ Choice Band
+Ability: Unseen Fist
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Wicked Blow
+- Close Combat
+- Sucker Punch
+- U-turn
+
+Kommo-o @ Throat Spray
+Ability: Soundproof
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Clangorous Soul
+- Clanging Scales
+- Aura Sphere
+- Flamethrower
+
+Blaziken @ Blazikenite
+Ability: Speed Boost
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Swords Dance
+- Flare Blitz
+- Close Combat
+- Protect
+
+=== TRAINER_FACTORY_NOLAND ===
+Name: NOLAND
+Class: Factory Head
+Pic: Factory Head Noland
+Gender: Male
+Music: Intense
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Iron Treads @ Rocky Helmet
+Ability: Quark Drive
+Level: 50
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Stealth Rock
+- Rapid Spin
+- Earthquake
+- Knock Off
+
+Iron Crown @ Booster Energy
+Ability: Quark Drive
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Tachyon Cutter
+- Psyshock
+- Focus Blast
+- Volt Switch
+
+Iron Moth @ Choice Specs
+Ability: Quark Drive
+Level: 50
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Fiery Dance
+- Sludge Wave
+- Energy Ball
+- Dazzling Gleam
+
+Genesect @ Choice Scarf
+Ability: Download
+Level: 50
+EVs: 252 Atk / 4 SpA / 252 Spe
+Naive Nature
+- U-turn
+- Iron Head
+- Flamethrower
+- Ice Beam
+
+Rotom-Wash @ Leftovers
+Ability: Levitate
+Level: 50
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Volt Switch
+- Hydro Pump
+- Will-O-Wisp
+- Pain Split
+
+Magearna @ Magearnite
+Ability: Soul-Heart
+Level: 50
+EVs: 4 HP / 252 SpA / 252 Spe
+Modest Nature
+- Fleur Cannon
+- Flash Cannon
+- Aura Sphere
+- Volt Switch
+
+/* SCOTT in the Pillar Chamber: the battle the player is meant to lose
+ * (storyline.md). Level 100, every one a permanent Mega (listed already in
+ * Mega form, holding a real item), raw power and no balance. Mega Darkrai
+ * replaces Mega Kangaskhan, which stays the player's. He has the Lati the
+ * player didn't catch. No SCOTT battle sprite exists yet: Gentleman is a
+ * stand-in until there's art. */
+
+=== TRAINER_FACTORY_SCOTT_LATIAS ===
+Name: SCOTT
+Class: Founder
+Pic: Gentleman
+Gender: Male
+Music: Intense
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient
+
+Mewtwo-Mega-Y @ Life Orb
+Ability: Insomnia
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psystrike
+- Aura Sphere
+- Ice Beam
+- Fire Blast
+
+Latias-Mega @ Choice Specs
+Ability: Levitate
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Draco Meteor
+- Mist Ball
+- Thunderbolt
+- Ice Beam
+
+Darkrai-Mega @ Black Glasses
+Ability: Bad Dreams
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Dark Pulse
+- Sludge Bomb
+- Focus Blast
+- Ice Beam
+
+Gengar-Mega @ Expert Belt
+Ability: Shadow Tag
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Shadow Ball
+- Sludge Wave
+- Focus Blast
+- Thunderbolt
+
+Salamence-Mega @ Choice Band
+Ability: Aerilate
+Level: 100
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Double-Edge
+- Earthquake
+- Outrage
+- Fire Fang
+
+Mawile-Mega @ Muscle Band
+Ability: Huge Power
+Level: 100
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Play Rough
+- Iron Head
+- Sucker Punch
+- Fire Fang
+
+=== TRAINER_FACTORY_SCOTT_LATIOS ===
+Name: SCOTT
+Class: Founder
+Pic: Gentleman
+Gender: Male
+Music: Intense
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient
+
+Mewtwo-Mega-Y @ Life Orb
+Ability: Insomnia
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psystrike
+- Aura Sphere
+- Ice Beam
+- Fire Blast
+
+Latios-Mega @ Choice Specs
+Ability: Levitate
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Draco Meteor
+- Psyshock
+- Thunderbolt
+- Ice Beam
+
+Darkrai-Mega @ Black Glasses
+Ability: Bad Dreams
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Dark Pulse
+- Sludge Bomb
+- Focus Blast
+- Ice Beam
+
+Gengar-Mega @ Expert Belt
+Ability: Shadow Tag
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Shadow Ball
+- Sludge Wave
+- Focus Blast
+- Thunderbolt
+
+Salamence-Mega @ Choice Band
+Ability: Aerilate
+Level: 100
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Double-Edge
+- Earthquake
+- Outrage
+- Fire Fang
+
+Mawile-Mega @ Muscle Band
+Ability: Huge Power
+Level: 100
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Play Rough
+- Iron Head
+- Sucker Punch
+- Fire Fang

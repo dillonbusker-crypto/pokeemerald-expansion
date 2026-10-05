@@ -7,6 +7,8 @@ BattleFrontier_OutsideEast_MapScripts::
 BattleFrontier_OutsideEast_OnFrame:
 	map_script_2 VAR_BROKER_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_CenterScott
 	map_script_2 VAR_TEMP_7, 1, BattleFrontier_OutsideEast_EventScript_CrownRival
+	map_script_2 VAR_TEMP_2, 1, BattleFrontier_OutsideEast_EventScript_PyramidWallaceScene
+	map_script_2 VAR_TEMP_3, 1, BattleFrontier_OutsideEast_EventScript_BaseScene
 	.2byte 0
 
 BattleFrontier_OutsideEast_OnResume:
@@ -34,6 +36,7 @@ BattleFrontier_OutsideEast_OnTransition:
 	call BattleFrontier_OutsideEast_EventScript_SetupBrokerStory
 	call BattleFrontier_OutsideEast_EventScript_SetupRival
 	call BattleFrontier_OutsideEast_EventScript_SetupCrownStory
+	call BattleFrontier_OutsideEast_EventScript_SetupEndgame
 	setflag FLAG_TEMP_5
 	call_if_eq VAR_NORMAN_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_ShowNorman
 	end
@@ -2867,3 +2870,267 @@ BattleFrontier_OutsideEast_Text_WallaceAbra:
 
 BattleFrontier_OutsideEast_Text_AbraUsedTeleport:
 	.string "ABRA used TELEPORT!$"
+
+@ ============================================================================
+@ Ten Gauntlets: the endgame after gauntlet 8 (storyline.md). VAR_ENDGAME_STATE:
+@   0 not started
+@   1 gauntlet 8 cleared: WALLACE waits by the Pyramid
+@   2 WALLACE has swapped the badges for real ones and run to the Factory door
+@     (BattleFrontier_OutsideWest)
+@   3 PALKIA has blasted the door open; WALLACE waits in the lobby
+@     (BattleFrontier_DevonFactory_1F)
+@   4 inside: SPENSER and BRANDON took WALLACE on; the five guards and the
+@     cells (the stairs to the PILLAR open once all are done)
+@   5 SCOTT has the CROWN and is gone; the scene outside the Arena is next
+@   6 the Arena is the base: the BROKER's free shop, HOOPA, STEVEN waiting
+@   7 STEVEN has sent the player to RUSTBORO (storyline.md, Rustboro)
+@ The Factory's radiance shows as harsh sunlight on the outdoor maps in states
+@ 1-4. Outdoor maps only: drought turns into sun in any battle fought on the
+@ map, and no battle is ever fought out here.
+@ ============================================================================
+
+BattleFrontier_OutsideEast_EventScript_SetupEndgame::
+	setflag FLAG_HIDE_ENDGAME_PYRAMID_WALLACE
+	setflag FLAG_HIDE_ENDGAME_BASE_ALLIES
+	setflag FLAG_HIDE_ENDGAME_BASE_PARENTS
+	clearflag FLAG_HIDE_FRONTIER_BRAINS_AWAY
+	call_if_eq VAR_ENDGAME_STATE, 0, BattleFrontier_OutsideEast_EventScript_TryStartEndgame
+	goto_if_eq VAR_ENDGAME_STATE, 0, Common_EventScript_NopReturn
+	setflag FLAG_HIDE_FRONTIER_BRAINS_AWAY
+	call_if_lt VAR_ENDGAME_STATE, 5, BattleFrontier_OutsideEast_EventScript_EndgameSunlight
+	call_if_eq VAR_ENDGAME_STATE, 1, BattleFrontier_OutsideEast_EventScript_SetupPyramidWallace
+	goto_if_lt VAR_ENDGAME_STATE, 5, Common_EventScript_NopReturn
+	clearflag FLAG_HIDE_ENDGAME_BASE_PARENTS
+	call_if_eq VAR_ENDGAME_STATE, 5, BattleFrontier_OutsideEast_EventScript_SetupBaseScene
+	call_if_eq VAR_ENDGAME_STATE, 6, BattleFrontier_OutsideEast_EventScript_ShowBaseAllies
+	return
+
+BattleFrontier_OutsideEast_EventScript_TryStartEndgame::
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_lt VAR_RESULT, 8, Common_EventScript_NopReturn
+	setvar VAR_ENDGAME_STATE, 1
+	return
+
+BattleFrontier_OutsideEast_EventScript_EndgameSunlight::
+	setweather WEATHER_DROUGHT
+	return
+
+@ WALLACE waits below the Pyramid at (58, 18). Coming out of the door, the
+@ player steps down to (58, 15) and he walks up to meet them; anyone who
+@ arrives some other way can just talk to him.
+BattleFrontier_OutsideEast_EventScript_SetupPyramidWallace::
+	clearflag FLAG_HIDE_ENDGAME_PYRAMID_WALLACE
+	getplayerxy VAR_0x8004, VAR_0x8005
+	goto_if_ne VAR_0x8004, 58, Common_EventScript_NopReturn
+	goto_if_ne VAR_0x8005, 14, Common_EventScript_NopReturn
+	setvar VAR_TEMP_2, 1
+	return
+
+BattleFrontier_OutsideEast_EventScript_PyramidWallaceScene::
+	lockall
+	setvar VAR_TEMP_2, 0
+	applymovement LOCALID_FRONTIER_ENDGAME_PYRAMID_WALLACE, BattleFrontier_OutsideEast_Movement_WallaceToPyramid
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	goto BattleFrontier_OutsideEast_EventScript_PyramidWallaceTalk
+
+BattleFrontier_OutsideEast_EventScript_PyramidWallace::
+	lockall
+	applymovement LOCALID_FRONTIER_ENDGAME_PYRAMID_WALLACE, Common_Movement_FacePlayer
+	waitmovement 0
+BattleFrontier_OutsideEast_EventScript_PyramidWallaceTalk::
+	msgbox BattleFrontier_OutsideEast_Text_PyramidWallace1, MSGBOX_DEFAULT
+	closemessage
+	playse SE_PIN
+	message BattleFrontier_OutsideEast_Text_PyramidBadgesSwapped
+	waitmessage
+	waitse
+	waitbuttonpress
+	setflag FLAG_REAL_BADGES
+	msgbox BattleFrontier_OutsideEast_Text_PyramidWallace2, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_FRONTIER_ENDGAME_PYRAMID_WALLACE, BattleFrontier_OutsideEast_Movement_WallaceRunsOff
+	waitmovement 0
+	removeobject LOCALID_FRONTIER_ENDGAME_PYRAMID_WALLACE
+	setvar VAR_ENDGAME_STATE, 2
+	releaseall
+	end
+
+BattleFrontier_OutsideEast_Movement_WallaceToPyramid:
+	walk_up
+	walk_up
+	step_end
+
+BattleFrontier_OutsideEast_Movement_WallaceRunsOff:
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	walk_fast_down
+	step_end
+
+@ State 5: the player arrives at (39, 31) from the Pillar Chamber, below the
+@ Arena door, with STEVEN and WALLACE to the right and MOM and DAD to the
+@ left. JOY healed the team before the warp.
+BattleFrontier_OutsideEast_EventScript_SetupBaseScene::
+	call BattleFrontier_OutsideEast_EventScript_ShowBaseAllies
+	setvar VAR_TEMP_3, 1
+	return
+
+BattleFrontier_OutsideEast_EventScript_ShowBaseAllies::
+	clearflag FLAG_HIDE_ENDGAME_BASE_ALLIES
+	return
+
+BattleFrontier_OutsideEast_EventScript_BaseScene::
+	lockall
+	setvar VAR_TEMP_3, 0
+	msgbox BattleFrontier_OutsideEast_Text_BaseSteven1, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	msgbox BattleFrontier_OutsideEast_Text_BaseMom, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_BaseDad, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	msgbox BattleFrontier_OutsideEast_Text_BaseSteven2, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_BaseWallace, MSGBOX_DEFAULT
+	closemessage
+	setflag FLAG_FRONTIER_SHOP_FREE
+	setvar VAR_ENDGAME_STATE, 6
+	releaseall
+	end
+
+@ STEVEN asks if the player is ready for DEVON. Yes sends them to RUSTBORO by
+@ the ABRA in the POKEMON CENTER (state 7); STEVEN and WALLACE fly ahead.
+BattleFrontier_OutsideEast_EventScript_BaseSteven::
+	lock
+	faceplayer
+	goto_if_ge VAR_ENDGAME_STATE, 7, BattleFrontier_OutsideEast_EventScript_BaseStevenGone
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenReady, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideEast_EventScript_BaseStevenNotYet
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenGo, MSGBOX_DEFAULT
+	closemessage
+	setflag FLAG_ABRA_TO_RUSTBORO
+	setvar VAR_ENDGAME_STATE, 7
+	playse SE_M_FLY
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_FRONTIER_ENDGAME_BASE_STEVEN
+	removeobject LOCALID_FRONTIER_ENDGAME_BASE_WALLACE
+	setflag FLAG_HIDE_ENDGAME_BASE_ALLIES
+	waitse
+	fadescreen FADE_FROM_BLACK
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_BaseStevenNotYet::
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenNotYet, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_BaseStevenGone::
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_BaseWallace::
+	msgbox BattleFrontier_OutsideEast_Text_BaseWallaceTalk, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_EventScript_BaseMom::
+	msgbox BattleFrontier_OutsideEast_Text_BaseMomTalk, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_EventScript_BaseDad::
+	msgbox BattleFrontier_OutsideEast_Text_BaseDadTalk, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Text_PyramidWallace1:
+	.string "WALLACE: {PLAYER}! There you are.\p"
+	.string "Feel that heat? That isn't the sun.\n"
+	.string "It's pouring off the FACTORY.\p"
+	.string "SCOTT is pulling in every scrap of\n"
+	.string "energy this island has.\p"
+	.string "I found the ELITE FOUR, too. They're\n"
+	.string "guarding DEVON CORPORATION, in\l"
+	.string "RUSTBORO. That will have to wait.\p"
+	.string "STEVEN… Losing to that MEWTWO took\n"
+	.string "a chip out of his confidence.\p"
+	.string "He's regrouping. He'll meet us at\n"
+	.string "DEVON later.\p"
+	.string "One more thing. Those are SCOTT's\n"
+	.string "counterfeit BADGES again, aren't\l"
+	.string "they? Hand them over.$"
+
+BattleFrontier_OutsideEast_Text_PyramidBadgesSwapped:
+	.string "WALLACE took the counterfeit BADGES\n"
+	.string "and gave {PLAYER} real ones.$"
+
+BattleFrontier_OutsideEast_Text_PyramidWallace2:
+	.string "WALLACE: There. Your wins won't feed\n"
+	.string "SCOTT's machine anymore.\p"
+	.string "Now come on. We need to get into\n"
+	.string "the FACTORY. Now!$"
+
+BattleFrontier_OutsideEast_Text_BaseSteven1:
+	.string "STEVEN: Easy. Catch your breath.\n"
+	.string "NURSE JOY has seen to your team.\p"
+	.string "SCOTT is gone, and the BRAINS left\n"
+	.string "the island with him.\p"
+	.string "We'll use the BATTLE ARENA as our\n"
+	.string "base for the time being.$"
+
+BattleFrontier_OutsideEast_Text_BaseMom:
+	.string "MOM: {PLAYER}! You're all right!\p"
+	.string "When they told us what you did down\n"
+	.string "there… Oh, come here.$"
+
+BattleFrontier_OutsideEast_Text_BaseDad:
+	.string "DAD: You stood between WALLACE and\n"
+	.string "that MEWTWO.\p"
+	.string "SCOTT always said he'd squash me.\n"
+	.string "He never once thought about you.\p"
+	.string "That was his mistake.$"
+
+BattleFrontier_OutsideEast_Text_BaseSteven2:
+	.string "STEVEN: The BROKER is in the\n"
+	.string "EXCHANGE SERVICE CORNER, with the\l"
+	.string "four shopkeepers. Go and see him.\p"
+	.string "And there's a POKéMON in the ARENA\n"
+	.string "that wants to meet you.\p"
+	.string "When you're ready to move on DEVON,\n"
+	.string "come and find me. I'll be here.$"
+
+BattleFrontier_OutsideEast_Text_BaseWallace:
+	.string "WALLACE: …Thank you, {PLAYER}.\n"
+	.string "I won't forget it.$"
+
+BattleFrontier_OutsideEast_Text_BaseStevenReady:
+	.string "STEVEN: The ELITE FOUR are guarding\n"
+	.string "DEVON, for some reason. We need to\l"
+	.string "find out why.\p"
+	.string "Are you ready to go to RUSTBORO?$"
+
+BattleFrontier_OutsideEast_Text_BaseStevenGo:
+	.string "STEVEN: Then WALLACE and I will meet\n"
+	.string "you there.\p"
+	.string "The ABRA at the POKéMON CENTER can\n"
+	.string "TELEPORT you to RUSTBORO.\p"
+	.string "See you at DEVON.$"
+
+BattleFrontier_OutsideEast_Text_BaseStevenNotYet:
+	.string "STEVEN: Take your time. The shop is\n"
+	.string "free now, so use it.$"
+
+BattleFrontier_OutsideEast_Text_BaseWallaceTalk:
+	.string "WALLACE: PALKIA will be fine. My\n"
+	.string "pride may take a little longer.$"
+
+BattleFrontier_OutsideEast_Text_BaseMomTalk:
+	.string "MOM: We'll stay right here. Go and\n"
+	.string "do what you have to do.$"
+
+BattleFrontier_OutsideEast_Text_BaseDadTalk:
+	.string "DAD: Whatever SCOTT is planning,\n"
+	.string "you've stood up to him once\l"
+	.string "already. Remember that.$"

@@ -31,7 +31,7 @@ BattleFrontier_OutsideWest_OnTransition:
 	call BattleFrontier_OutsideWest_EventScript_SetupBrokerStory
 	call BattleFrontier_OutsideWest_EventScript_SetupCrownStory
 	call BattleFrontier_OutsideWest_EventScript_SetupFactoryJoy
-	call BattleFrontier_OutsideWest_EventScript_SetupEndgameAbra
+	call BattleFrontier_OutsideWest_EventScript_SetupEndgame
 	end
 
 BattleFrontier_OutsideWest_EventScript_HideTucker::
@@ -1865,14 +1865,221 @@ BattleFrontier_OutsideWest_Text_FactoryJoyDone:
 	.string "All better! Come back any time you\n"
 	.string "need me. I'll be right here.$"
 
-@ Ten Gauntlets: the endgame ABRA network (data/scripts/endgame_towns.inc).
-@ Its FRONTIER ABRA waits beside NURSE JOY once the first town is open.
-BattleFrontier_OutsideWest_EventScript_SetupEndgameAbra::
-	setflag FLAG_HIDE_FRONTIER_ENDGAME_ABRA
-	goto_if_unset FLAG_ABRA_TO_RUSTBORO, Common_EventScript_NopReturn
-	clearflag FLAG_HIDE_FRONTIER_ENDGAME_ABRA
+@ ============================================================================
+@ Ten Gauntlets: the endgame after gauntlet 8 (storyline.md; VAR_ENDGAME_STATE
+@ is explained in BattleFrontier_OutsideEast). The Brains who loiter out here
+@ are in the Factory, then gone with SCOTT. State 2: WALLACE waits at the
+@ Factory door, PALKIA out in front of him at (11, 40); walking up the
+@ courtyard (row 43) plays the scene that blasts the door open. The harsh
+@ sunlight shows in states 1-4 (see BattleFrontier_OutsideEast).
+@ ============================================================================
+
+BattleFrontier_OutsideWest_EventScript_SetupEndgame::
+	setflag FLAG_HIDE_ENDGAME_DOOR_WALLACE
+	setflag FLAG_HIDE_ENDGAME_DOOR_PALKIA
+	setvar VAR_TEMP_9, 1
+	goto_if_eq VAR_ENDGAME_STATE, 0, Common_EventScript_NopReturn
+	setflag FLAG_TEMP_1
+	setflag FLAG_TEMP_2
+	call_if_lt VAR_ENDGAME_STATE, 5, BattleFrontier_OutsideWest_EventScript_EndgameSunlight
+	goto_if_ne VAR_ENDGAME_STATE, 2, Common_EventScript_NopReturn
+	clearflag FLAG_HIDE_ENDGAME_DOOR_WALLACE
+	clearflag FLAG_HIDE_ENDGAME_DOOR_PALKIA
+	setvar VAR_TEMP_9, 0
 	return
 
-BattleFrontier_OutsideWest_EventScript_EndgameAbra::
-	setvar VAR_0x8004, ABRA_AT_FRONTIER
-	goto EventScript_EndgameAbra
+BattleFrontier_OutsideWest_EventScript_EndgameSunlight::
+	setweather WEATHER_DROUGHT
+	return
+
+BattleFrontier_OutsideWest_EventScript_DoorWallace::
+	msgbox BattleFrontier_OutsideWest_Text_DoorWallaceWaiting, MSGBOX_NPC
+	end
+
+@ The player comes up the courtyard to (11, 42), below PALKIA. The blast is a
+@ lunge at the door, a white flash and a shake; the door is open from then on
+@ (SetBattleFactoryUnlocked). NURSE JOY walks up from the south to (11, 43),
+@ then takes her post beside the door at (13, 38). WALLACE goes in first.
+BattleFrontier_OutsideWest_EventScript_FactoryDoorScene::
+	lockall
+	setvar VAR_TEMP_9, 1
+	getplayerxy VAR_0x8004, VAR_0x8005
+	call_if_eq VAR_0x8004, 9, BattleFrontier_OutsideWest_EventScript_DoorPlayerFrom9
+	call_if_eq VAR_0x8004, 10, BattleFrontier_OutsideWest_EventScript_DoorPlayerFrom10
+	call_if_eq VAR_0x8004, 11, BattleFrontier_OutsideWest_EventScript_DoorPlayerFrom11
+	call_if_eq VAR_0x8004, 12, BattleFrontier_OutsideWest_EventScript_DoorPlayerFrom12
+	call_if_eq VAR_0x8004, 13, BattleFrontier_OutsideWest_EventScript_DoorPlayerFrom13
+	waitmovement 0
+	msgbox BattleFrontier_OutsideWest_Text_DoorWallace1, MSGBOX_DEFAULT
+	closemessage
+	@ Spacial Rend.
+	playmoncry SPECIES_PALKIA, CRY_MODE_ENCOUNTER
+	waitmoncry
+	applymovement LOCALID_FRONTIER_ENDGAME_DOOR_PALKIA, BattleFrontier_OutsideWest_Movement_PalkiaLungeUp
+	waitmovement 0
+	playse SE_M_EXPLOSION
+	fadescreen FADE_TO_WHITE
+	special SetBattleFactoryUnlocked
+	fadescreen FADE_FROM_WHITE
+	call BattleFrontier_OutsideWest_EventScript_CrownShake
+	waitse
+	opendoor 11, 38
+	waitdooranim
+	msgbox BattleFrontier_OutsideWest_Text_DoorBlasted, MSGBOX_DEFAULT
+	closemessage
+	playse SE_BALL_OPEN
+	removeobject LOCALID_FRONTIER_ENDGAME_DOOR_PALKIA
+	setflag FLAG_HIDE_ENDGAME_DOOR_PALKIA
+	waitse
+	msgbox BattleFrontier_OutsideWest_Text_DoorWallace2, MSGBOX_DEFAULT
+	closemessage
+	@ NURSE JOY.
+	clearflag FLAG_HIDE_FACTORY_JOY
+	setobjectxyperm LOCALID_FRONTIER_FACTORY_JOY, 11, 47
+	setobjectmovementtype LOCALID_FRONTIER_FACTORY_JOY, MOVEMENT_TYPE_FACE_UP
+	addobject LOCALID_FRONTIER_FACTORY_JOY
+	applymovement LOCALID_FRONTIER_FACTORY_JOY, BattleFrontier_OutsideWest_Movement_JoyUp
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox BattleFrontier_OutsideWest_Text_DoorJoy, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_FRONTIER_FACTORY_JOY, BattleFrontier_OutsideWest_Movement_JoyToPost
+	waitmovement 0
+	setobjectxyperm LOCALID_FRONTIER_FACTORY_JOY, 13, 38
+	setobjectmovementtype LOCALID_FRONTIER_FACTORY_JOY, MOVEMENT_TYPE_FACE_DOWN
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	@ WALLACE goes in first.
+	applymovement LOCALID_FRONTIER_ENDGAME_DOOR_WALLACE, Common_Movement_FaceLeft
+	waitmovement 0
+	msgbox BattleFrontier_OutsideWest_Text_DoorWallace3, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_FRONTIER_ENDGAME_DOOR_WALLACE, BattleFrontier_OutsideWest_Movement_WallaceIntoFactory
+	waitmovement 0
+	removeobject LOCALID_FRONTIER_ENDGAME_DOOR_WALLACE
+	setflag FLAG_HIDE_ENDGAME_DOOR_WALLACE
+	closedoor 11, 38
+	waitdooranim
+	setvar VAR_ENDGAME_STATE, 3
+	releaseall
+	end
+
+BattleFrontier_OutsideWest_EventScript_DoorPlayerFrom9::
+	applymovement LOCALID_PLAYER, BattleFrontier_OutsideWest_Movement_DoorFrom9
+	return
+
+BattleFrontier_OutsideWest_EventScript_DoorPlayerFrom10::
+	applymovement LOCALID_PLAYER, BattleFrontier_OutsideWest_Movement_DoorFrom10
+	return
+
+BattleFrontier_OutsideWest_EventScript_DoorPlayerFrom11::
+	applymovement LOCALID_PLAYER, BattleFrontier_OutsideWest_Movement_DoorFrom11
+	return
+
+BattleFrontier_OutsideWest_EventScript_DoorPlayerFrom12::
+	applymovement LOCALID_PLAYER, BattleFrontier_OutsideWest_Movement_DoorFrom12
+	return
+
+BattleFrontier_OutsideWest_EventScript_DoorPlayerFrom13::
+	applymovement LOCALID_PLAYER, BattleFrontier_OutsideWest_Movement_DoorFrom13
+	return
+
+@ Every start on row 43 ends at (11, 42), facing up.
+BattleFrontier_OutsideWest_Movement_DoorFrom9:
+	walk_right
+	walk_right
+	walk_up
+	face_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_DoorFrom10:
+	walk_right
+	walk_up
+	face_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_DoorFrom11:
+	walk_up
+	face_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_DoorFrom12:
+	walk_left
+	walk_up
+	face_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_DoorFrom13:
+	walk_left
+	walk_left
+	walk_up
+	face_up
+	step_end
+
+BattleFrontier_OutsideWest_Movement_PalkiaLungeUp:
+	walk_fast_up
+	walk_fast_down
+	face_up
+	step_end
+
+@ From (11, 47) up to (11, 43), below the player.
+BattleFrontier_OutsideWest_Movement_JoyUp:
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+@ From (11, 43) round the player to her post at (13, 38).
+BattleFrontier_OutsideWest_Movement_JoyToPost:
+	walk_right
+	walk_right
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	face_down
+	step_end
+
+@ From (12, 41) to the door at (11, 38).
+BattleFrontier_OutsideWest_Movement_WallaceIntoFactory:
+	walk_up
+	walk_left
+	walk_up
+	walk_up
+	step_end
+
+BattleFrontier_OutsideWest_Text_DoorWallaceWaiting:
+	.string "WALLACE: SCOTT sealed this door\n"
+	.string "from the inside. Come here,\l"
+	.string "{PLAYER}.$"
+
+BattleFrontier_OutsideWest_Text_DoorWallace1:
+	.string "WALLACE: SCOTT has sealed the door\n"
+	.string "from the inside.\p"
+	.string "No matter. Stand back, {PLAYER}.\p"
+	.string "PALKIA! Spacial Rend!$"
+
+BattleFrontier_OutsideWest_Text_DoorBlasted:
+	.string "The FACTORY's door was blasted\n"
+	.string "open!$"
+
+BattleFrontier_OutsideWest_Text_DoorWallace2:
+	.string "WALLACE: That will do. Good work,\n"
+	.string "PALKIA.$"
+
+BattleFrontier_OutsideWest_Text_DoorJoy:
+	.string "NURSE JOY: {PLAYER}! WALLACE!\p"
+	.string "Whatever SCOTT is up to in there,\n"
+	.string "it can't be good.\p"
+	.string "I want to help the cause. I'll stand\n"
+	.string "right outside the FACTORY.\p"
+	.string "Come to me whenever your team needs\n"
+	.string "healing!$"
+
+BattleFrontier_OutsideWest_Text_DoorWallace3:
+	.string "WALLACE: Thank you, NURSE JOY.\p"
+	.string "I'll go in first, {PLAYER}.\n"
+	.string "Stay close behind me.$"

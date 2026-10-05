@@ -8,7 +8,21 @@ BattleFrontier_PokemonCenter_1F_OnTransition:
 	setrespawn HEAL_LOCATION_BATTLE_FRONTIER_OUTSIDE_EAST
 	setflag FLAG_TEMP_5
 	call_if_eq VAR_BROKER_STORY_STATE, 2, BattleFrontier_PokemonCenter_1F_EventScript_SetupHideout
+	call BattleFrontier_PokemonCenter_1F_EventScript_SetupEndgameAbra
 	end
+
+@ Ten Gauntlets: the endgame ABRA network (data/scripts/endgame_towns.inc).
+@ The FRONTIER's ABRA waits by the counter once STEVEN has sent the player to
+@ RUSTBORO (storyline.md).
+BattleFrontier_PokemonCenter_1F_EventScript_SetupEndgameAbra::
+	setflag FLAG_HIDE_FRONTIER_ENDGAME_ABRA
+	goto_if_unset FLAG_ABRA_TO_RUSTBORO, Common_EventScript_NopReturn
+	clearflag FLAG_HIDE_FRONTIER_ENDGAME_ABRA
+	return
+
+BattleFrontier_PokemonCenter_1F_EventScript_EndgameAbra::
+	setvar VAR_0x8004, ABRA_AT_FRONTIER
+	goto EventScript_EndgameAbra
 
 BattleFrontier_PokemonCenter_1F_OnFrame:
 	map_script_2 VAR_BROKER_STORY_STATE, 2, BattleFrontier_PokemonCenter_1F_EventScript_Hideout

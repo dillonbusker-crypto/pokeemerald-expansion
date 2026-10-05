@@ -78,6 +78,7 @@ void IsLinkMultisMatUnlocked(void);
 // `special IsBattleDomeUnlocked` then `goto_if_eq VAR_RESULT, FALSE, ...`.
 void IsBattleDomeUnlocked(void);
 void IsBattleFactoryUnlocked(void);
+void SetBattleFactoryUnlocked(void);
 void IsBattlePikeUnlocked(void);
 void IsBattleArenaUnlocked(void);
 void IsBattlePalaceUnlocked(void);
@@ -100,5 +101,7 @@ const u8 *GetEndgameSealedDoorScript(u32 mapGroup, u32 mapNum);
 void FacilityGetWinsPrice(void);
 void StripBirchsLab(void);
 void GiveStevenLatiBack(void);
+void GetFactoryBrainsBeaten(void);
+void GetHoopaRingsLeft(void);
 
 #endif // GUARD_FACILITY_H

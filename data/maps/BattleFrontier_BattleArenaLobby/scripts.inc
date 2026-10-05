@@ -1,4 +1,5 @@
 BattleFrontier_BattleArenaLobby_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_BattleArenaLobby_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, BattleFrontier_BattleArenaLobby_OnFrame
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, BattleFrontier_BattleArenaLobby_OnWarp
 	.byte 0
@@ -1019,3 +1020,229 @@ BattleFrontier_BattleArenaLobby_Text_SparYoungster:
 	.string "She knows every boss you've\n"
 	.string "beaten... I wonder if there's any\l"
 	.string "other way she could know a team?$"
+
+@ ============================================================================
+@ Ten Gauntlets: HOOPA's rings (storyline.md). The HOOPA the player freed in
+@ the Factory waits here once the Arena is the base (state 6). It sends the
+@ player through a ring to ISLAND CAVE's sealed chamber, where the chosen
+@ legendary waits (IslandCave_EventScript_SetupHoopaTrip). Each catch uses a
+@ ring (GetHoopaRingsLeft); a legendary that's knocked out or escapes can be
+@ tried again. Caught ones drop off the list.
+@ ============================================================================
+
+BattleFrontier_BattleArenaLobby_OnTransition:
+	setflag FLAG_TEMP_1
+	call_if_ge VAR_ENDGAME_STATE, 6, BattleFrontier_BattleArenaLobby_EventScript_ShowHoopa
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_ShowHoopa::
+	clearflag FLAG_TEMP_1
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_Hoopa::
+	lock
+	faceplayer
+	playmoncry SPECIES_HOOPA, CRY_MODE_NORMAL
+	waitmoncry
+	specialvar VAR_RESULT, GetHoopaRingsLeft
+	goto_if_eq VAR_RESULT, 0, BattleFrontier_BattleArenaLobby_EventScript_HoopaRecharging
+	msgbox BattleFrontier_BattleArenaLobby_Text_HoopaOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_BattleArenaLobby_EventScript_HoopaEnd
+	msgbox BattleFrontier_BattleArenaLobby_Text_HoopaWhichOne, MSGBOX_DEFAULT
+	call_if_unset FLAG_HOOPA_CAUGHT_MIRAIDON, BattleFrontier_BattleArenaLobby_EventScript_PushMiraidon
+	call_if_unset FLAG_HOOPA_CAUGHT_XERNEAS, BattleFrontier_BattleArenaLobby_EventScript_PushXerneas
+	call_if_unset FLAG_HOOPA_CAUGHT_YVELTAL, BattleFrontier_BattleArenaLobby_EventScript_PushYveltal
+	call_if_unset FLAG_HOOPA_CAUGHT_ZACIAN, BattleFrontier_BattleArenaLobby_EventScript_PushZacian
+	call_if_unset FLAG_HOOPA_CAUGHT_HO_OH, BattleFrontier_BattleArenaLobby_EventScript_PushHoOh
+	call_if_unset FLAG_HOOPA_CAUGHT_LUGIA, BattleFrontier_BattleArenaLobby_EventScript_PushLugia
+	call_if_unset FLAG_HOOPA_CAUGHT_RESHIRAM, BattleFrontier_BattleArenaLobby_EventScript_PushReshiram
+	call_if_unset FLAG_HOOPA_CAUGHT_ZEKROM, BattleFrontier_BattleArenaLobby_EventScript_PushZekrom
+	call_if_unset FLAG_HOOPA_CAUGHT_SOLGALEO, BattleFrontier_BattleArenaLobby_EventScript_PushSolgaleo
+	call_if_unset FLAG_HOOPA_CAUGHT_LUNALA, BattleFrontier_BattleArenaLobby_EventScript_PushLunala
+	call_if_unset FLAG_HOOPA_CAUGHT_NECROZMA_DUSK_MANE, BattleFrontier_BattleArenaLobby_EventScript_PushNecrozmaDuskMane
+	call_if_unset FLAG_HOOPA_CAUGHT_NECROZMA_DAWN_WINGS, BattleFrontier_BattleArenaLobby_EventScript_PushNecrozmaDawnWings
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_HoopaCancel, 0
+	dynmultistack 0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE
+	switch VAR_RESULT
+	case SPECIES_MIRAIDON, BattleFrontier_BattleArenaLobby_EventScript_RingMiraidon
+	case SPECIES_XERNEAS, BattleFrontier_BattleArenaLobby_EventScript_RingXerneas
+	case SPECIES_YVELTAL, BattleFrontier_BattleArenaLobby_EventScript_RingYveltal
+	case SPECIES_ZACIAN, BattleFrontier_BattleArenaLobby_EventScript_RingZacian
+	case SPECIES_HO_OH, BattleFrontier_BattleArenaLobby_EventScript_RingHoOh
+	case SPECIES_LUGIA, BattleFrontier_BattleArenaLobby_EventScript_RingLugia
+	case SPECIES_RESHIRAM, BattleFrontier_BattleArenaLobby_EventScript_RingReshiram
+	case SPECIES_ZEKROM, BattleFrontier_BattleArenaLobby_EventScript_RingZekrom
+	case SPECIES_SOLGALEO, BattleFrontier_BattleArenaLobby_EventScript_RingSolgaleo
+	case SPECIES_LUNALA, BattleFrontier_BattleArenaLobby_EventScript_RingLunala
+	case SPECIES_NECROZMA_DUSK_MANE, BattleFrontier_BattleArenaLobby_EventScript_RingNecrozmaDuskMane
+	case SPECIES_NECROZMA_DAWN_WINGS, BattleFrontier_BattleArenaLobby_EventScript_RingNecrozmaDawnWings
+BattleFrontier_BattleArenaLobby_EventScript_HoopaEnd::
+	release
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_HoopaRecharging::
+	msgbox BattleFrontier_BattleArenaLobby_Text_HoopaRecharging, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_OpenRing::
+	msgbox BattleFrontier_BattleArenaLobby_Text_HoopaOpensRing, MSGBOX_DEFAULT
+	closemessage
+	playse SE_M_TELEPORT
+	warpteleport MAP_ISLAND_CAVE, 8, 10
+	waitstate
+	release
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_PushMiraidon::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_Miraidon, SPECIES_MIRAIDON
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_PushXerneas::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_Xerneas, SPECIES_XERNEAS
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_PushYveltal::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_Yveltal, SPECIES_YVELTAL
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_PushZacian::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_Zacian, SPECIES_ZACIAN
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_PushHoOh::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_HoOh, SPECIES_HO_OH
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_PushLugia::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_Lugia, SPECIES_LUGIA
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_PushReshiram::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_Reshiram, SPECIES_RESHIRAM
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_PushZekrom::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_Zekrom, SPECIES_ZEKROM
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_PushSolgaleo::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_Solgaleo, SPECIES_SOLGALEO
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_PushLunala::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_Lunala, SPECIES_LUNALA
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_PushNecrozmaDuskMane::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_NecrozmaDuskMane, SPECIES_NECROZMA_DUSK_MANE
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_PushNecrozmaDawnWings::
+	dynmultipush BattleFrontier_BattleArenaLobby_Text_NecrozmaDawnWings, SPECIES_NECROZMA_DAWN_WINGS
+	return
+
+BattleFrontier_BattleArenaLobby_EventScript_RingMiraidon::
+	setvar VAR_HOOPA_TARGET, SPECIES_MIRAIDON
+	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
+
+BattleFrontier_BattleArenaLobby_EventScript_RingXerneas::
+	setvar VAR_HOOPA_TARGET, SPECIES_XERNEAS
+	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
+
+BattleFrontier_BattleArenaLobby_EventScript_RingYveltal::
+	setvar VAR_HOOPA_TARGET, SPECIES_YVELTAL
+	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
+
+BattleFrontier_BattleArenaLobby_EventScript_RingZacian::
+	setvar VAR_HOOPA_TARGET, SPECIES_ZACIAN
+	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
+
+BattleFrontier_BattleArenaLobby_EventScript_RingHoOh::
+	setvar VAR_HOOPA_TARGET, SPECIES_HO_OH
+	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
+
+BattleFrontier_BattleArenaLobby_EventScript_RingLugia::
+	setvar VAR_HOOPA_TARGET, SPECIES_LUGIA
+	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
+
+BattleFrontier_BattleArenaLobby_EventScript_RingReshiram::
+	setvar VAR_HOOPA_TARGET, SPECIES_RESHIRAM
+	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
+
+BattleFrontier_BattleArenaLobby_EventScript_RingZekrom::
+	setvar VAR_HOOPA_TARGET, SPECIES_ZEKROM
+	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
+
+BattleFrontier_BattleArenaLobby_EventScript_RingSolgaleo::
+	setvar VAR_HOOPA_TARGET, SPECIES_SOLGALEO
+	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
+
+BattleFrontier_BattleArenaLobby_EventScript_RingLunala::
+	setvar VAR_HOOPA_TARGET, SPECIES_LUNALA
+	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
+
+BattleFrontier_BattleArenaLobby_EventScript_RingNecrozmaDuskMane::
+	setvar VAR_HOOPA_TARGET, SPECIES_NECROZMA_DUSK_MANE
+	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
+
+BattleFrontier_BattleArenaLobby_EventScript_RingNecrozmaDawnWings::
+	setvar VAR_HOOPA_TARGET, SPECIES_NECROZMA_DAWN_WINGS
+	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
+
+BattleFrontier_BattleArenaLobby_Text_Miraidon:
+	.string "MIRAIDON$"
+
+BattleFrontier_BattleArenaLobby_Text_Xerneas:
+	.string "XERNEAS$"
+
+BattleFrontier_BattleArenaLobby_Text_Yveltal:
+	.string "YVELTAL$"
+
+BattleFrontier_BattleArenaLobby_Text_Zacian:
+	.string "ZACIAN$"
+
+BattleFrontier_BattleArenaLobby_Text_HoOh:
+	.string "HO-OH$"
+
+BattleFrontier_BattleArenaLobby_Text_Lugia:
+	.string "LUGIA$"
+
+BattleFrontier_BattleArenaLobby_Text_Reshiram:
+	.string "RESHIRAM$"
+
+BattleFrontier_BattleArenaLobby_Text_Zekrom:
+	.string "ZEKROM$"
+
+BattleFrontier_BattleArenaLobby_Text_Solgaleo:
+	.string "SOLGALEO$"
+
+BattleFrontier_BattleArenaLobby_Text_Lunala:
+	.string "LUNALA$"
+
+BattleFrontier_BattleArenaLobby_Text_NecrozmaDuskMane:
+	.string "DUSK MANE NECROZMA$"
+
+BattleFrontier_BattleArenaLobby_Text_NecrozmaDawnWings:
+	.string "DAWN WINGS NECROZMA$"
+
+BattleFrontier_BattleArenaLobby_Text_HoopaCancel:
+	.string "CANCEL$"
+
+BattleFrontier_BattleArenaLobby_Text_HoopaOffer:
+	.string "HOOPA wants to help {PLAYER} recruit\n"
+	.string "the strongest POKéMON in existence.\p"
+	.string "It can open a ring to one of them.\n"
+	.string "Go through?$"
+
+BattleFrontier_BattleArenaLobby_Text_HoopaWhichOne:
+	.string "Which POKéMON should HOOPA's ring\n"
+	.string "lead to?$"
+
+BattleFrontier_BattleArenaLobby_Text_HoopaOpensRing:
+	.string "HOOPA opened a ring!\n"
+	.string "{PLAYER} stepped through…$"
+
+BattleFrontier_BattleArenaLobby_Text_HoopaRecharging:
+	.string "HOOPA is resting. Its rings need\n"
+	.string "time to recharge.$"

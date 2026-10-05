@@ -400,7 +400,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "BattleFrontier_OutsideEast_EventScript_Anabel",
-      "flag": "0"
+      "flag": "FLAG_HIDE_FRONTIER_BRAINS_AWAY"
     },
     {
       "local_id": "LOCALID_FRONTIER_RIVAL_MAY",
@@ -583,6 +583,76 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "BattleFrontier_OutsideEast_EventScript_WallaceAbra",
       "flag": "FLAG_HIDE_EVER_GRANDE_STORY_FRONTIER_ABRA"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_ENDGAME_PYRAMID_WALLACE",
+      "graphics_id": "OBJ_EVENT_GFX_WALLACE",
+      "x": 58,
+      "y": 18,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "BattleFrontier_OutsideEast_EventScript_PyramidWallace",
+      "flag": "FLAG_HIDE_ENDGAME_PYRAMID_WALLACE"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_ENDGAME_BASE_STEVEN",
+      "graphics_id": "OBJ_EVENT_GFX_STEVEN",
+      "x": 41,
+      "y": 30,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "BattleFrontier_OutsideEast_EventScript_BaseSteven",
+      "flag": "FLAG_HIDE_ENDGAME_BASE_ALLIES"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_ENDGAME_BASE_WALLACE",
+      "graphics_id": "OBJ_EVENT_GFX_WALLACE",
+      "x": 42,
+      "y": 30,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "BattleFrontier_OutsideEast_EventScript_BaseWallace",
+      "flag": "FLAG_HIDE_ENDGAME_BASE_ALLIES"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_ENDGAME_BASE_MOM",
+      "graphics_id": "OBJ_EVENT_GFX_MOM",
+      "x": 37,
+      "y": 30,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "BattleFrontier_OutsideEast_EventScript_BaseMom",
+      "flag": "FLAG_HIDE_ENDGAME_BASE_PARENTS"
+    },
+    {
+      "local_id": "LOCALID_FRONTIER_ENDGAME_BASE_DAD",
+      "graphics_id": "OBJ_EVENT_GFX_NORMAN",
+      "x": 36,
+      "y": 30,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "BattleFrontier_OutsideEast_EventScript_BaseDad",
+      "flag": "FLAG_HIDE_ENDGAME_BASE_PARENTS"
     }
   ],
   "warp_events": [

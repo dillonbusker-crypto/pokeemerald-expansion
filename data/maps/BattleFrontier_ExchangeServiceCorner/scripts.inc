@@ -1,5 +1,41 @@
 BattleFrontier_ExchangeServiceCorner_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_ExchangeServiceCorner_OnTransition
 	.byte 0
+
+BattleFrontier_ExchangeServiceCorner_OnTransition:
+	setflag FLAG_TEMP_1
+	call_if_ge VAR_ENDGAME_STATE, 6, BattleFrontier_ExchangeServiceCorner_EventScript_ShowBroker
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_ShowBroker::
+	clearflag FLAG_TEMP_1
+	return
+
+@ Ten Gauntlets: after the Factory (storyline.md), the BROKER runs the shop
+@ for the cause: the Factory's surge fried every DEVON system, so it's all
+@ free (FLAG_FRONTIER_SHOP_FREE, set in the scene outside the Arena). He
+@ hands over the 99 ULTRA BALLs he found in the Factory, for HOOPA's rings.
+BattleFrontier_ExchangeServiceCorner_EventScript_EndgameBroker::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_BROKER_ULTRA_BALLS, BattleFrontier_ExchangeServiceCorner_EventScript_BrokerAfter
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_BrokerFree, MSGBOX_DEFAULT
+	giveitem ITEM_ULTRA_BALL, 99
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_ExchangeServiceCorner_EventScript_BrokerBagFull
+	setflag FLAG_RECEIVED_BROKER_ULTRA_BALLS
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_BrokerOldFashioned, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_BrokerBagFull::
+	msgbox gText_TooBadBagIsFull, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_BrokerAfter::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_BrokerAfter, MSGBOX_DEFAULT
+	release
+	end
 
 @ ============================================================================
 @ Ten Gauntlets shop - see shop-spec.md and shop-unlock-b2.md. Replaces the
@@ -727,3 +763,27 @@ BattleFrontier_ExchangeServiceCorner_Text_StockMilotic:
 
 BattleFrontier_ExchangeServiceCorner_Text_StockNothing:
 	.string "Nothing$"
+
+BattleFrontier_ExchangeServiceCorner_Text_BrokerFree:
+	.string "BROKER: My best customer! Told you\n"
+	.string "I'd make it worth your while.\p"
+	.string "That surge from the FACTORY fried\n"
+	.string "every DEVON system on the island.\l"
+	.string "The tills, the prices, the lot.\p"
+	.string "So the shopkeepers and I agreed:\n"
+	.string "everything's free. For the cause.\p"
+	.string "Every POKéMON, every item, every\n"
+	.string "MEGA STONE. Take what you need.\p"
+	.string "And I found a stash of these in the\n"
+	.string "FACTORY. Here.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_BrokerOldFashioned:
+	.string "BROKER: No MASTER BALLS, I'm afraid.\n"
+	.string "SCOTT took every last one.\p"
+	.string "If you want to catch something\n"
+	.string "special, you'll have to do it the\l"
+	.string "old-fashioned way.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_BrokerAfter:
+	.string "BROKER: It's all free, friend.\n"
+	.string "Take whatever you need.$"

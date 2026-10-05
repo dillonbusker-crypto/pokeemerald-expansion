@@ -1005,6 +1005,18 @@
 #define TRAINER_EVER_GRANDE_MAXIE               965
 #define TRAINER_EVER_GRANDE_ARCHIE              966
 
+// Ten Gauntlets: the Devon Factory, after gauntlet 8 (storyline.md). The five
+// Brains guarding it (endgame-teams.md), fought one at a time with no heal,
+// and SCOTT's battle the player is meant to lose. He has whichever Lati the
+// player didn't catch.
+#define TRAINER_FACTORY_ANABEL                  967
+#define TRAINER_FACTORY_TUCKER                  968
+#define TRAINER_FACTORY_LUCY                    969
+#define TRAINER_FACTORY_GRETA                   970
+#define TRAINER_FACTORY_NOLAND                  971
+#define TRAINER_FACTORY_SCOTT_LATIAS            972
+#define TRAINER_FACTORY_SCOTT_LATIOS            973
+
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
 //       the system flags (Pokedex, badges, ...) start right after it, so an ID at or past this limit
@@ -1018,7 +1030,7 @@
 //       so it invalidates existing saves - don't grow it again casually. Costs ~14 bytes of SaveBlock1
 //       (304 B free, see save-data-findings.md), checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
 
-#define TRAINERS_COUNT_EMERALD     967
+#define TRAINERS_COUNT_EMERALD     974
 #define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG

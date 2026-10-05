@@ -78,6 +78,14 @@ struct FacilityShopItem
     const u8 *description; // NULL if this row doesn't show one (Keeper 2's stock)
 };
 
+// After the Factory (storyline.md), its surge has fried DEVON's systems and
+// the BROKER runs the shop for the cause: everything is free. A free row
+// draws no price (FacilityShop's itemPrintFunc skips a price of 0).
+static u16 ShopPrice(u16 price)
+{
+    return FlagGet(FLAG_FRONTIER_SHOP_FREE) ? 0 : price;
+}
+
 static bool8 IsShopEntryUnlocked(u8 unlockGauntlet)
 {
     if (unlockGauntlet == 0)
@@ -1280,7 +1288,7 @@ void FacilityShopBuildConsumablesMenu(void)
         if (!IsShopEntryUnlocked(sConsumables[i].unlockGauntlet))
             continue;
         sMenuRows[count].id = sConsumables[i].item;
-        sMenuRows[count].price = sConsumables[i].price;
+        sMenuRows[count].price = ShopPrice(sConsumables[i].price);
         sMenuRows[count].name = GetItemName(sConsumables[i].item);
         sMenuRows[count].description = sConsumables[i].description;
         count++;
@@ -1305,7 +1313,7 @@ void FacilityShopBuildHeldItemsMenu(void)
         if (!IsShopEntryUnlocked(sHeldItems[i].unlockGauntlet))
             continue;
         sMenuRows[count].id = sHeldItems[i].item;
-        sMenuRows[count].price = sHeldItems[i].price;
+        sMenuRows[count].price = ShopPrice(sHeldItems[i].price);
         sMenuRows[count].name = GetItemName(sHeldItems[i].item);
         sMenuRows[count].description = NULL;
         count++;
@@ -1336,7 +1344,7 @@ void FacilityShopBuildMegaStonesMenu(void)
         if (!IsShopEntryUnlocked(sMegaStones[i].unlockGauntlet))
             continue;
         sMenuRows[count].id = sMegaStones[i].item;
-        sMenuRows[count].price = sMegaStones[i].price;
+        sMenuRows[count].price = ShopPrice(sMegaStones[i].price);
         sMenuRows[count].name = GetItemName(sMegaStones[i].item);
         sMenuRows[count].description = NULL;
         count++;
@@ -1381,7 +1389,7 @@ static u16 StageMonTier(u8 tier, u8 typeFilter)
         if (typeFilter != FACILITY_SHOP_TYPE_ALL && GetSpeciesType(pool[i].species, 0) != typeFilter)
             continue;
         sMenuRows[count].id = pool[i].species;
-        sMenuRows[count].price = pool[i].price;
+        sMenuRows[count].price = ShopPrice(pool[i].price);
         sMenuRows[count].name = GetSpeciesName(pool[i].species);
         sMenuRows[count].description = NULL;
         count++;

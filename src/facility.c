@@ -269,6 +269,12 @@ void IsBattleFactoryUnlocked(void)
     gSpecialVar_Result = IsFacilityDoorUnlocked(FACILITY_DOOR_FACTORY);
 }
 
+// special: WALLACE's PALKIA blasts the Factory door open after gauntlet 8.
+void SetBattleFactoryUnlocked(void)
+{
+    gSaveBlock3Ptr->facility.progress.unlockedFacilityDoors |= FACILITY_DOOR_FACTORY;
+}
+
 // The Pike hosts gauntlet 6, so it opens when gauntlet 5 is cleared.
 void IsBattlePikeUnlocked(void)
 {
@@ -595,9 +601,53 @@ bool32 FrontierStoryAllowsExp(void)
     return FlagGet(FLAG_REAL_BADGES);
 }
 
+// After gauntlet 8, HOOPA's rings lead to the legendaries, in ISLAND CAVE's
+// sealed chamber (reached no other way): caught wild, so no chip either.
 bool32 IsFrontierChippedMon(struct Pokemon *mon)
 {
-    return GetMonData(mon, MON_DATA_MET_LOCATION) != MAPSEC_ARTISAN_CAVE;
+    u32 metLocation = GetMonData(mon, MON_DATA_MET_LOCATION);
+
+    return metLocation != MAPSEC_ARTISAN_CAVE && metLocation != MAPSEC_ISLAND_CAVE;
+}
+
+// The endgame after gauntlet 8 (storyline.md; VAR_ENDGAME_STATE is explained
+// in BattleFrontier_OutsideEast). special: VAR_RESULT = how many of the five
+// Brains guarding the Factory are beaten. Each one hands over a piece of the
+// PILLAR key and turns off one of the red lights on B2F.
+static const u16 sFactoryBrains[] =
+{
+    TRAINER_FACTORY_ANABEL,
+    TRAINER_FACTORY_TUCKER,
+    TRAINER_FACTORY_LUCY,
+    TRAINER_FACTORY_GRETA,
+    TRAINER_FACTORY_NOLAND,
+};
+
+void GetFactoryBrainsBeaten(void)
+{
+    u32 i;
+
+    gSpecialVar_Result = 0;
+    for (i = 0; i < ARRAY_COUNT(sFactoryBrains); i++)
+    {
+        if (FlagGet(TRAINER_FLAGS_START + sFactoryBrains[i]))
+            gSpecialVar_Result++;
+    }
+}
+
+// special: VAR_RESULT = HOOPA's rings the player can still use. One opens at
+// the Arena base after the Factory; the Elite Four and New Mauville will add
+// one each when they're built. Only a catch uses a ring up.
+void GetHoopaRingsLeft(void)
+{
+    u32 rings = 0;
+
+    if (VarGet(VAR_ENDGAME_STATE) >= 6)
+        rings++;
+    if (rings > VarGet(VAR_HOOPA_CATCHES))
+        gSpecialVar_Result = rings - VarGet(VAR_HOOPA_CATCHES);
+    else
+        gSpecialVar_Result = 0;
 }
 
 bool16 IsFrontierPOSDown(void)

@@ -57,10 +57,10 @@ EventScript_EndgameAbra_Teleport::
 	playse SE_M_TELEPORT
 	return
 
-@ Arrivals: in front of the Devon Factory, and beside each town's ABRA.
+@ Arrivals: beside each ABRA - the FRONTIER's is in its POKEMON CENTER.
 EventScript_EndgameAbra_GoFrontier::
 	call EventScript_EndgameAbra_Teleport
-	warpteleport MAP_BATTLE_FRONTIER_OUTSIDE_WEST, 15, 39
+	warpteleport MAP_BATTLE_FRONTIER_POKEMON_CENTER_1F, 13, 6
 	waitstate
 	release
 	end

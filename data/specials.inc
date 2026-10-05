@@ -44,6 +44,7 @@ gSpecials::
 	def_special FacilitySwapPartyMonSlots
 	def_special IsBattleDomeUnlocked
 	def_special IsBattleFactoryUnlocked
+	def_special SetBattleFactoryUnlocked
 	def_special IsBattlePikeUnlocked
 	def_special IsBattleArenaUnlocked
 	def_special IsBattlePalaceUnlocked
@@ -83,6 +84,8 @@ gSpecials::
 	def_special FrontierFloristTakeMon
 	def_special StripBirchsLab
 	def_special GiveStevenLatiBack
+	def_special GetFactoryBrainsBeaten
+	def_special GetHoopaRingsLeft
 	def_special FacilityGetWinsPrice
 	def_special HasReceivedFrontierStartingGrants
 	def_special GetGauntletsClearedCount

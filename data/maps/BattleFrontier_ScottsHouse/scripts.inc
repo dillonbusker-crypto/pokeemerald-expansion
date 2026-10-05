@@ -706,9 +706,15 @@ BattleFrontier_ScottsHouse_EventScript_SetupCrownStory::
 	clearflag FLAG_HIDE_CROWN_STORY_MASTER_BALL
 	goto_if_eq VAR_CROWN_STORY_STATE, 0, Common_EventScript_NopReturn
 	setflag FLAG_HIDE_CROWN_STORY_MASTER_BALL
+	@ After gauntlet 8 he's in the Factory, then gone for good (storyline.md).
+	goto_if_ne VAR_ENDGAME_STATE, 0, BattleFrontier_ScottsHouse_EventScript_ScottGone
 	goto_if_ge VAR_CROWN_STORY_STATE, 9, Common_EventScript_NopReturn
 	setflag FLAG_HIDE_CROWN_STORY_SCOTT_HOME
 	setvar VAR_TEMP_2, 1
+	return
+
+BattleFrontier_ScottsHouse_EventScript_ScottGone::
+	setflag FLAG_HIDE_CROWN_STORY_SCOTT_HOME
 	return
 
 BattleFrontier_ScottsHouse_EventScript_LeftInAHurry::

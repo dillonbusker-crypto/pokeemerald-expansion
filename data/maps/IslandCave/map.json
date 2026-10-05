@@ -27,6 +27,34 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "IslandCave_EventScript_Regice",
       "flag": "FLAG_HIDE_REGICE"
+    },
+    {
+      "local_id": "LOCALID_ISLAND_CAVE_LEGENDARY",
+      "graphics_id": "OBJ_EVENT_GFX_VAR_0",
+      "x": 8,
+      "y": 7,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "IslandCave_EventScript_HoopaLegendary",
+      "flag": "FLAG_TEMP_5"
+    },
+    {
+      "local_id": "LOCALID_ISLAND_CAVE_HOOPA",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(HOOPA)",
+      "x": 8,
+      "y": 11,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "IslandCave_EventScript_CaveHoopa",
+      "flag": "FLAG_TEMP_6"
     }
   ],
   "warp_events": [
