@@ -3675,8 +3675,8 @@ BattleFrontier_OutsideEast_Text_BaseStevenReadySkyPillar:
 
 BattleFrontier_OutsideEast_Text_BaseStevenGoSkyPillar:
 	.string "STEVEN: Then we'll go ahead.\p"
-	.string "STEVEN, WALLACE, NORMAN and WATTSON\n"
-	.string "mean to take SCOTT down together.\p"
+	.string "WALLACE, NORMAN, WATTSON and I will\n"
+	.string "be waiting for you at the tower.\p"
 	.string "The ABRA at the POKéMON CENTER can\n"
 	.string "TELEPORT you to SKY PILLAR.$"
 
