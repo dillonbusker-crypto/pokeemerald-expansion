@@ -474,6 +474,8 @@ BattleFrontier_BattlePikeLobby_EventScript_FacilityAttendantB6::
 	goto_if_eq VAR_RESULT, TRUE, Facility_ResumeRun
 	special IsFacilityRunActiveForDifferentGauntlet
 	goto_if_eq VAR_RESULT, TRUE, Facility_BusyElsewhere
+	specialvar VAR_RESULT, IsBadDreamsActive
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattlePikeLobby_EventScript_BadDreams
 	special IsFacilityGauntletCompleted
 	goto_if_eq VAR_RESULT, TRUE, Facility_AlreadyCleared
 	goto_if_lt VAR_BIRCH_STORY_STATE, 6, BattleFrontier_BattlePikeLobby_EventScript_B6SystemDown
@@ -487,6 +489,46 @@ BattleFrontier_BattlePikeLobby_EventScript_FacilityAttendantB6::
 	call Common_EventScript_SaveGame
 	goto Facility_DoBattle
 	end
+
+@ Ten Gauntlets: Bad Dreams (storyline.md, "During gauntlet 7"). Only while
+@ IsBadDreamsActive() (gauntlet 6 cleared, gauntlet 7 not, DARKRAI not freed).
+@ The PIKE is closed; with the LUNAR WING the attendant looks away and the
+@ player goes through the curtains into DARKRAI's lair
+@ (BattleFrontier_BattlePikeRoomFinal). Gauntlet 6 itself never gets here:
+@ the window opens only after it is cleared.
+BattleFrontier_BattlePikeLobby_EventScript_BadDreams::
+	msgbox BattleFrontier_BattlePikeLobby_Text_PikeClosed, MSGBOX_DEFAULT
+	checkitem ITEM_LUNAR_WING
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_BattlePikeLobby_EventScript_BadDreamsNoWing
+	msgbox BattleFrontier_BattlePikeLobby_Text_WingGlows, MSGBOX_DEFAULT
+	closemessage
+	playse SE_PIKE_CURTAIN_OPEN
+	waitse
+	warp MAP_BATTLE_FRONTIER_BATTLE_PIKE_ROOM_FINAL, 2, 6
+	waitstate
+	end
+
+BattleFrontier_BattlePikeLobby_EventScript_BadDreamsNoWing::
+	msgbox BattleFrontier_BattlePikeLobby_Text_ColdDraft, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_BattlePikeLobby_Text_PikeClosed:
+	.string "I'm sorry. The BATTLE PIKE is\n"
+	.string "closed. Nobody goes past the\l"
+	.string "curtains.$"
+
+BattleFrontier_BattlePikeLobby_Text_ColdDraft:
+	.string "A cold draft comes from behind the\n"
+	.string "curtains.$"
+
+BattleFrontier_BattlePikeLobby_Text_WingGlows:
+	.string "The LUNAR WING is glowing…\n"
+	.string "pulling toward the curtains.\p"
+	.string "The attendant looks at it, then at\n"
+	.string "the floor.\p"
+	.string "“…I didn't see anything. Go\n"
+	.string "ahead.”$"
 
 @ Ten Gauntlets: Birch's lab arc (storyline.md). DEVON's technology runs the
 @ Frontier's systems, and PRESIDENT STONE has paused gauntlet 6 until SCOTT

@@ -1019,3 +1019,16 @@ void FacilitySwapPartyMonSlots(void)
     gParties[B_TRAINER_PLAYER][slotA] = gParties[B_TRAINER_PLAYER][slotB];
     gParties[B_TRAINER_PLAYER][slotB] = temp;
 }
+
+// Bad Dreams: the wild DARKRAI that setwildbattle just made (enemy party slot
+// 0) gets a fixed set with no sleep moves. Called between setwildbattle and
+// dowildbattle.
+void SetBadDreamsDarkraiMoves(void)
+{
+    struct Pokemon *mon = &gParties[B_TRAINER_OPPONENT_A][0];
+
+    SetMonMoveSlot(mon, MOVE_DARK_PULSE, 0);
+    SetMonMoveSlot(mon, MOVE_SLUDGE_BOMB, 1);
+    SetMonMoveSlot(mon, MOVE_FOCUS_BLAST, 2);
+    SetMonMoveSlot(mon, MOVE_NASTY_PLOT, 3);
+}

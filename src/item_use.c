@@ -1129,6 +1129,9 @@ static u32 GetBallThrowableState(void)
         return BALL_THROW_UNABLE_NO_ROOM;
     else if (GetConfig(B_SEMI_INVULNERABLE_CATCH) >= GEN_4 &&  IsSemiInvulnerable(GetCatchingBattler(), CHECK_ALL))
         return BALL_THROW_UNABLE_SEMI_INVULNERABLE;
+    // Ten Gauntlets: Bad Dreams. DARKRAI is chipped to SCOTT and can't be caught.
+    else if (FlagGet(FLAG_BATTLE_NO_CATCHING))
+        return BALL_THROW_UNABLE_CHIPPED;
     else if (FlagGet(WE_FLAG_NO_CATCHING) || !IsAllowedToUseBag())
         return BALL_THROW_UNABLE_DISABLED_FLAG;
 
@@ -1143,6 +1146,8 @@ bool32 CanThrowBall(void)
 static const u8 sText_CantThrowPokeBall_TwoMons[] = _("Cannot throw a ball!\nThere are two Pokémon out there!\p");
 static const u8 sText_CantThrowPokeBall_SemiInvulnerable[] = _("Cannot throw a ball!\nThere's no Pokémon in sight!\p");
 static const u8 sText_CantThrowPokeBall_Disabled[] = _("POKé BALLS cannot be used\nright now!\p");
+// Ten Gauntlets: Bad Dreams (FLAG_BATTLE_NO_CATCHING).
+static const u8 sText_CantThrowPokeBall_Chipped[] = _("It's chipped to SCOTT.\nThe BALL won't take!\p");
 
 static void ItemUseInBattle_ShowPartyMenu(u8 taskId)
 {
@@ -1255,6 +1260,10 @@ bool32 CannotUseItemsInBattle(enum Item itemId, struct Pokemon *mon)
             break;
         case BALL_THROW_UNABLE_DISABLED_FLAG:
             failStr = sText_CantThrowPokeBall_Disabled;
+            cannotUse = TRUE;
+            break;
+        case BALL_THROW_UNABLE_CHIPPED: // Ten Gauntlets: Bad Dreams
+            failStr = sText_CantThrowPokeBall_Chipped;
             cannotUse = TRUE;
             break;
         }

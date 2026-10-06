@@ -454,6 +454,7 @@ void Overworld_ResetBattleFlagsAndVars(void)
     FlagClear(B_FLAG_DYNAMAX_BATTLE);
     FlagClear(B_FLAG_SKY_BATTLE);
     FlagClear(B_FLAG_NO_WHITEOUT);
+    FlagClear(FLAG_BATTLE_NO_CATCHING); // Ten Gauntlets: Bad Dreams, a loss to DARKRAI whites out mid-script
 }
 #endif
 
