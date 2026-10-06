@@ -655,7 +655,7 @@ take."). **Win:** the chip shatters, Darkrai vanishes, the collar leaves a
 sleepers wake. **Lose:** white-out to the Frontier Center as usual (Joy has a
 line); Darkrai is still there. **Run:** it stays, for another try.
 
-**5. The payoff.** With `FLAG_DARKRAI_FREED`, Scott's two later battles use
+**5. The payoff ✅ built.** With `FLAG_DARKRAI_FREED`, Scott's two later battles use
 teams without Darkrai, **five Pokémon each**
 (`TRAINER_FACTORY_SCOTT_NO_DARKRAI_*`, `TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_*`),
 and he says so: in the Factory, "Someone cut my DARKRAI loose while I was
