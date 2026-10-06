@@ -112,5 +112,6 @@ void StripBirchsLab(void);
 void GiveStevenLatiBack(void);
 void GetFactoryBrainsBeaten(void);
 void GetHoopaRingsLeft(void);
+void SetBadDreamsDarkraiMoves(void);
 
 #endif // GUARD_FACILITY_H

@@ -663,6 +663,17 @@ the runs used to start from: with the Wing, examining it (or talking to the
 attendant) lets the player through into the Pike's rooms, empty now that
 gauntlet 6 is done.
 
+✅ built (the sleepers' half is another part). In the **Pike lobby**, while
+`IsBadDreamsActive()`, the attendant says the Pike is closed. Without the
+Wing: "A cold draft comes from behind the curtains." With it: "The LUNAR WING
+is glowing... pulling toward the curtains", the attendant looks away, and the
+player warps into **DARKRAI's lair** (`BattleFrontier_BattlePikeRoomFinal`,
+entry at (2, 6)). The check sits after the run-active checks in
+`..._EventScript_FacilityAttendantB6`, and the window opens only once
+gauntlet 6 is cleared, so gauntlet 6's own flow is untouched. The way out is
+the room's bottom row ("Go back out through the curtains?"), which returns to
+the lobby.
+
 **4. Darkrai.** At the end, in a dark room: Darkrai, with a glowing collar.
 A short scene (the collar, the realization that Scott did this). A **wild
 battle, level 60**, Bad Dreams, moves Dark Pulse, Sludge Bomb, Focus Blast,
@@ -672,6 +683,21 @@ take."). **Win:** the chip shatters, Darkrai vanishes, the collar leaves a
 **Darkranite** (`ITEM_DARKRANITE`, never sold), `FLAG_DARKRAI_FREED`; the
 sleepers wake. **Lose:** white-out to the Frontier Center as usual (Joy has a
 line); Darkrai is still there. **Run:** it stays, for another try.
+
+✅ built. The lair is the Pike's final room, lit by a small flash radius
+(`setflashlevel 2` in its `OnTransition`). DARKRAI is the room's one object
+(`VAR_OBJ_GFX_ID_0`, hidden by `FLAG_DARKRAI_FREED`); talking to it plays the
+collar scene (in full on the first visit, a short line on a retry), refuses if
+the bag has no room for the Darkranite (checked before the fight, so the item
+can't be lost), then `setwildbattle SPECIES_DARKRAI, 60` and
+`special SetBadDreamsDarkraiMoves` (`src/facility.c`) fix the four moves.
+Win: "The collar shattered!", the object vanishes, `FLAG_DARKRAI_FREED`,
+`giveitem ITEM_DARKRANITE`. Run: it stays. **The guard:**
+`FLAG_BATTLE_NO_CATCHING` is set around the battle; `GetBallThrowableState()`
+in `src/item_use.c` returns the new `BALL_THROW_UNABLE_CHIPPED` while it is set
+(the BAG shows "It's chipped to SCOTT. The BALL won't take!" and no ball is
+used), and `Overworld_ResetBattleFlagsAndVars()` clears it on a white-out.
+Harness scenario 30 (`harness-badC.c`) covers it.
 
 **5. The payoff.** With `FLAG_DARKRAI_FREED`, Scott's two later battles use
 teams without Darkrai, **five Pokémon each**
