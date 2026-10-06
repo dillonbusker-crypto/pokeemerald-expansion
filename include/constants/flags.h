@@ -699,9 +699,9 @@
 #define FLAG_CHANSEY_TRANSFER_EXP_USED  0x27B // Ten Gauntlets: the CHANSEY's Transfer EXP has made one Pokemon level 100 (once only)
 #define FLAG_HIDE_ENDGAME_BASE_DAD  0x27C // Ten Gauntlets: DAD outside the Battle Arena (the base): gone with STEVEN in states 16-17 - shown/hidden on every map load
 #define FLAG_HIDE_ENDGAME_BASE_JOY  0x27D // Ten Gauntlets: NURSE JOY and her CHANSEY outside the Battle Arena (state 15 on) - shown/hidden on every map load
-#define FLAG_UNUSED_0x27E  0x27E // Unused Flag
-#define FLAG_UNUSED_0x27F  0x27F // Unused Flag
-#define FLAG_UNUSED_0x280  0x280 // Unused Flag (reserved: endgame part 4, Mauville and New Mauville, 0x280-0x287)
+#define FLAG_DARKRAI_FREED  0x27E // Ten Gauntlets: Bad Dreams (storyline.md, during gauntlet 7): the player broke DARKRAI's chip; SCOTT fights without it
+#define FLAG_RECEIVED_LUNAR_WING  0x27F // Ten Gauntlets: Bad Dreams: NURSE JOY made the LUNAR WING from the player's CRESSELIA
+#define FLAG_BATTLE_NO_CATCHING  0x280 // Ten Gauntlets: Bad Dreams: while set, POKE BALLS can't be thrown (DARKRAI is chipped to SCOTT)
 #define FLAG_UNUSED_0x281  0x281 // Unused Flag
 #define FLAG_UNUSED_0x282  0x282 // Unused Flag
 #define FLAG_UNUSED_0x283  0x283 // Unused Flag

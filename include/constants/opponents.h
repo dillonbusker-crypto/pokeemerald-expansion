@@ -1040,6 +1040,14 @@
 #define TRAINER_SKY_PILLAR_SCOTT_LATIAS         984
 #define TRAINER_SKY_PILLAR_SCOTT_LATIOS         985
 
+// Ten Gauntlets: Bad Dreams (storyline.md, during gauntlet 7). If the player
+// freed DARKRAI (FLAG_DARKRAI_FREED), SCOTT's two later battles use these:
+// the same teams with no DARKRAI, five POKEMON each.
+#define TRAINER_FACTORY_SCOTT_NO_DARKRAI_LATIAS     986
+#define TRAINER_FACTORY_SCOTT_NO_DARKRAI_LATIOS     987
+#define TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIAS  988
+#define TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIOS  989
+
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
 //       the system flags (Pokedex, badges, ...) start right after it, so an ID at or past this limit
@@ -1053,7 +1061,7 @@
 //       so it invalidates existing saves - don't grow it again casually. Costs ~14 bytes of SaveBlock1
 //       (304 B free, see save-data-findings.md), checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
 
-#define TRAINERS_COUNT_EMERALD     986
+#define TRAINERS_COUNT_EMERALD     990
 #define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG

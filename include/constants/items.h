@@ -1142,6 +1142,7 @@ enum __attribute__((packed)) Item
     ITEM_SCRAMBLER = 940,
     ITEM_SECOND_WIND = 941, // Ten Gauntlets: one retry of a lost gauntlet battle, boss included (Lounge 7)
     ITEM_REPLICA_CROWN = 942, // Ten Gauntlets: President Stone's failsafe; once charged, makes a Mega permanent (storyline.md)
+    ITEM_LUNAR_WING = 943, // Ten Gauntlets: Bad Dreams (storyline.md): NURSE JOY's remedy, from a CRESSELIA; shows the way to DARKRAI
 
     ITEMS_COUNT,
     ITEM_FIELD_ARROW = ITEMS_COUNT,

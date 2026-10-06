@@ -93,6 +93,7 @@ gSpecials::
 	def_special TransferExpToLevel100
 	def_special OldaleCheckParadox
 	def_special OldaleMarkParadoxShown
+	def_special IsBadDreamsActive
 	def_special SetCableClubWarp
 	def_special DoCableClubWarp, waitstate=1
 	def_special ReturnFromLinkRoom, waitstate=1

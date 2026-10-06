@@ -607,6 +607,61 @@ Center, which knows Teleport and the way to Ever Grande, and flies ahead.
 Frontier Pokémon don't grow. Bond energy is being harvested and goes
 somewhere. Scott is collecting Master Balls. The Elite Four are missing.
 
+### During gauntlet 7: Bad Dreams (optional) 📝
+
+**The window:** from the end of the Broker's letter (`VAR_BROKER_STORY_STATE`
+11) until gauntlet 7 is cleared: the stretch when Scott is "out of town".
+`IsBadDreamsActive()` (specialvar, `src/facility.c`) is TRUE exactly then,
+until `FLAG_DARKRAI_FREED`. Skipping the event changes nothing but Scott's
+later teams.
+
+**The secret.** Scott wasn't away on business: he was catching **Darkrai**,
+his replacement for the Mega Kangaskhan Norman gave the player. He chipped it
+like the Frontier's Pokémon (a collar cut from Mega Stone shard) and leashed
+it in the empty **Battle Pike**, where it feeds on the island's bond energy
+and spills nightmares while he's gone.
+
+**1. The sleepers.** While the window is open, three Frontier regulars are
+asleep where they stand and can't be woken: the **Lounge 4 cook** over his
+counter, the **Pike lobby's beauty**, and the **twin by the Tower**
+(Outside East). Talking to them: they mumble the same dream: "a shadow… one
+blue eye… a hall full of curtains". Two gossip NPCs who speak during
+gauntlet 7 mention it (everyone's dreaming the same thing). Once Darkrai is
+freed, the sleepers are awake and say so (a line each); after gauntlet 7 is
+cleared without it, they just wake (their normal lines).
+
+**2. Nurse Joy's remedy.** Joy (Frontier Pokémon Center), out of work since
+the auto-heal, finally has patients. In the window, talking to her (before
+the heal) she explains an old remedy: a **Cresselia**'s feather, the **Lunar
+Wing**. "If someone could bring me a Cresselia, even for a moment…" The
+player picks a party Pokémon; a Cresselia gets the **Lunar Wing** (key item,
+`ITEM_LUNAR_WING`, `FLAG_RECEIVED_LUNAR_WING`). Cresselia is sold from wave
+5 (700 FP): a real choice in gauntlet 7's economy. Anything else: "That's
+not a CRESSELIA." The heal works as always.
+
+**3. The trail.** The Lunar Wing glows near the sleepers ("The LUNAR WING
+glows faintly…") and, in the **Pike lobby**, pulls toward the curtained door
+the runs used to start from: with the Wing, examining it (or talking to the
+attendant) lets the player through into the Pike's rooms, empty now that
+gauntlet 6 is done.
+
+**4. Darkrai.** At the end, in a dark room: Darkrai, with a glowing collar.
+A short scene (the collar, the realization that Scott did this). A **wild
+battle, level 60**, Bad Dreams, moves Dark Pulse, Sludge Bomb, Focus Blast,
+Nasty Plot (no sleep moves), against the player's level 50 team; **it can't be
+caught** (`FLAG_BATTLE_NO_CATCHING`: "It's chipped to SCOTT. The BALL won't
+take."). **Win:** the chip shatters, Darkrai vanishes, the collar leaves a
+**Darkranite** (`ITEM_DARKRANITE`, never sold), `FLAG_DARKRAI_FREED`; the
+sleepers wake. **Lose:** white-out to the Frontier Center as usual (Joy has a
+line); Darkrai is still there. **Run:** it stays, for another try.
+
+**5. The payoff.** With `FLAG_DARKRAI_FREED`, Scott's two later battles use
+teams without Darkrai, **five Pokémon each**
+(`TRAINER_FACTORY_SCOTT_NO_DARKRAI_*`, `TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_*`),
+and he says so: in the Factory, "Someone cut my DARKRAI loose while I was
+away. It doesn't matter."; at Sky Pillar, a line that he's one short and
+doesn't care. The final battle becomes 6v5.
+
 ### After gauntlet 7: the Crown is taken ✅
 
 Built, playtested headless (not yet by hand). Tracked by

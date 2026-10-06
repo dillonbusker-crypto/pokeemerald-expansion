@@ -720,6 +720,17 @@ void OldaleCheckParadox(void)
     gSpecialVar_Result = (mask & (1u << index)) ? 2 : 1;
 }
 
+// Ten Gauntlets: Bad Dreams (storyline.md). specialvar: TRUE while the event
+// can run - gauntlet 6 cleared and the Broker's letter done (gauntlet 7 is
+// open), gauntlet 7 not yet cleared (SCOTT is still away), and DARKRAI not
+// freed yet. The sleepers, NURSE JOY's offer and the PIKE all check this.
+u16 IsBadDreamsActive(void)
+{
+    return GetGauntletsClearedCount() == 6
+        && VarGet(VAR_BROKER_STORY_STATE) >= 11
+        && !FlagGet(FLAG_DARKRAI_FREED);
+}
+
 // Called once the BOOSTER ENERGY is in the bag.
 void OldaleMarkParadoxShown(void)
 {

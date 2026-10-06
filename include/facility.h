@@ -103,6 +103,7 @@ u32 GetReplicaCrownLimit(void);
 void TransferExpToLevel100(void);
 // The Paradox researcher in OLDALE (src/facility.c).
 void OldaleCheckParadox(void);
+u16 IsBadDreamsActive(void);
 void OldaleMarkParadoxShown(void);
 u32 CountPermanentMegasInParty(void);
 // special: VAR_0x8008 = VAR_0x8004 wins' FP for the current gauntlet (src/facility.c).
