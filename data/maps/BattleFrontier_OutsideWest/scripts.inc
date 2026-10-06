@@ -2107,3 +2107,39 @@ BattleFrontier_OutsideWest_Text_DoorWallace3:
 	.string "WALLACE: Thank you, NURSE JOY.\p"
 	.string "I'll go in first, {PLAYER}.\n"
 	.string "Stay close behind me.$"
+
+@ ============================================================================
+@ TESTING ONLY - remove before release. The man on the ferry dock hands out a
+@ level 100 MIRAIDON, as many times as asked, to speed through playtests.
+@ To undo: point his object in map.json back at
+@ BattleFrontier_OutsideWest_EventScript_Man3 and delete this block.
+@ ============================================================================
+BattleFrontier_OutsideWest_EventScript_TestMiraidon::
+	lock
+	faceplayer
+	msgbox BattleFrontier_OutsideWest_Text_TestMiraidonOffer, MSGBOX_YESNO
+	goto_if_ne VAR_RESULT, YES, BattleFrontier_OutsideWest_EventScript_TestMiraidonEnd
+	givemon SPECIES_MIRAIDON, 100
+	goto_if_eq VAR_RESULT, MON_CANT_GIVE, BattleFrontier_OutsideWest_EventScript_TestMiraidonNoRoom
+	playfanfare MUS_OBTAIN_ITEM
+	message BattleFrontier_OutsideWest_Text_TestMiraidonReceived
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+BattleFrontier_OutsideWest_EventScript_TestMiraidonEnd:
+	release
+	end
+
+BattleFrontier_OutsideWest_EventScript_TestMiraidonNoRoom::
+	msgbox BattleFrontier_OutsideWest_Text_TestMiraidonNoRoom, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideWest_Text_TestMiraidonOffer:
+	.string "TEST: Want a level 100 MIRAIDON?$"
+
+BattleFrontier_OutsideWest_Text_TestMiraidonReceived:
+	.string "{PLAYER} received a MIRAIDON!$"
+
+BattleFrontier_OutsideWest_Text_TestMiraidonNoRoom:
+	.string "TEST: No room in your party or PC.$"
