@@ -1130,12 +1130,12 @@ happy ending.
   player does fight costs one, so keep them under about 15.
 
   Past the limit, a trainer silently shares its "defeated" flag with a system
-  flag (see CLAUDE.md). There's room to spare, but the Arena's mock battles
+  flag (see `project-guide.md`). There's room to spare, but the Arena's mock battles
   may need their own copies of boss teams (below), so keep counting.
 
 - **Vanilla maps come back into play:** Rustboro and Devon Corporation,
   Mauville and New Mauville, Sky Pillar, and the Regi cave Hoopa reuses.
-  CLAUDE.md plans to strip the vanilla story; these maps must survive it, with
+  `project-guide.md` plans to strip the vanilla story; these maps must survive it, with
   their vanilla NPCs and trainers reworked. **Travel is by the Abra
   network** between them, and each city is **blocked off** so the player
   can't wander out into the rest of Hoenn.
@@ -1168,7 +1168,7 @@ happy ending.
     their scenes are built.
 
 - **Levels.** ✅ The real rule is built (`FrontierStoryAllowsExp()` and
-  `IsFrontierChippedMon()`, `src/facility.c`; see CLAUDE.md): a Pokémon gains
+  `IsFrontierChippedMon()`, `src/facility.c`; see `project-guide.md`): a Pokémon gains
   Experience only if **the badges are real and it isn't chipped** (the Lati,
   from Steven's gauntlet 4 test until Scott swaps the counterfeits back after
   gauntlet 7). "Chipped" = met anywhere but Artisan Cave. 📝 Still to add:
@@ -1242,7 +1242,7 @@ happy ending.
   Broker's 99 Ultra Balls are a plain `giveitem`.
 
 - **Every opponent** needs a real class and pic, and anything fought under
-  Frontier rules needs `IsFacilityBattleTrainer()` coverage (see CLAUDE.md).
+  Frontier rules needs `IsFacilityBattleTrainer()` coverage (see `project-guide.md`).
 
 ---
 

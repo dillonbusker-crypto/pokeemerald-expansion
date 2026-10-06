@@ -1,182 +1,70 @@
-# Session handoff — 2026-10-05
+# Handoff — current state (2026-10-05)
 
-Read `CLAUDE.md` first, then `storyline.md`. The newest session is right
-below; the 2026-10-04 notes follow it.
-
----
-
-## 2026-10-05: endgame planning, and part 1 built
-
-**Docs.** `endgame-teams.md` (new): five Brain rematch teams (Anabel, Tucker,
-Lucy, Noland, Greta; Spenser and Brandon aren't rematched) and the Elite
-Four's teams (levels 52-55, two permanent Megas each), all from the shop pool,
-OU/Uber first, every move checked against this expansion's learnsets.
-`storyline.md`'s endgame was rewritten from the owner's outline (After
-gauntlet 8 through the final battle), with the owner's decisions: five Factory
-guards; the Brains leave with Scott and ambush the allies at Sky Pillar; the
-Wardens ambush Steven and Wallace at Devon (Juan's apology kept); siphon
-first (one permanent Mega, chips off), New Mauville second (six); no bike,
-Sky Pillar is smooth; Scott's Kangaskhan replaced by **Mega Darkrai**; the
-Steven's PokéNav question dropped.
-
-**Shop.** Missing OU/UU picks added: Alomomola, Lokix (wave 1), Polteageist
-(wave 2), Arcanine-Hisui (wave 3), Dracovish (wave 6), Palafin (new wave 8,
-"Endgame Pokemon", after gauntlet 8).
-
-**Endgame part 1 built** (`storyline.md`, "After gauntlet 8: the Factory" and
-"Hoopa's rings"), tracked by `VAR_ENDGAME_STATE` (states listed in
-`BattleFrontier_OutsideEast`'s scripts):
-
-- Outside the Pyramid: harsh sunlight (drought, outdoor Frontier maps only,
-  states 1-4); Wallace swaps the counterfeit badges for real ones.
-- The Factory door: Palkia blasts it open (`SetBattleFactoryUnlocked`), Joy
-  takes her post, Wallace goes in. The Frontier's ABRA moved into its
-  Pokémon Center.
-- 1F lobby: Spenser and Brandon take Wallace on (off-screen). Five guards
-  (`TRAINER_FACTORY_*`), Scrambler, no heal, a loss whites out to the
-  Frontier's Center; each gives a key piece (`GetFactoryBrainsBeaten`) and
-  darkens one of B2F's **five** lights (two cut from the layout).
-- B1F: the cell controls (after Greta and Noland) free Mom, Dad, the Broker
-  and Hoopa. B2F: Wallace at the stairs takes the player down.
-- B3F: the Crown charges, Mewtwo beats Palkia, the player steps in; Scott's
-  level 100 team (`TRAINER_FACTORY_SCOTT_LATIAS`/`_LATIOS`, by the player's
-  Lati) with **no white-out** (`B_FLAG_NO_WHITEOUT` = `FLAG_ENDGAME_NO_WHITEOUT`).
-  Scott leaves, Steven arrives, everyone regroups outside the Arena.
-- The base: shops free (`FLAG_FRONTIER_SHOP_FREE`), the Broker in the
-  Exchange Service Corner (99 Ultra Balls), Hoopa in the Arena lobby, Steven
-  outside: "ready?" sets `FLAG_ABRA_TO_RUSTBORO` (state 7). **Part 2
-  (Rustboro) starts there.**
-- Hoopa's rings: a menu of the twelve box-art legendaries; Island Cave's
-  sealed chamber, level 60, unchipped (`IsFrontierChippedMon`), Zacian with
-  the Rusted Sword. One ring so far (`GetHoopaRingsLeft`).
-- New trainer class `FOUNDER` (Scott). **Scott has no battle sprite: the
-  Gentleman pic is a stand-in.** Trainers used: 974 of 1000.
-
-**Testing:** harness scenario 20 (below), **18/18 checks green**, walking
-Pyramid to Rustboro with every Brain fight, the cells, Scott's battle
-**lost on purpose** (outcome confirmed, no white-out, team healed and items
-back after), the base, the Broker, one Hoopa trip and the ABRA. Bugs it
-caught and fixed:
-`checktrainerflag` sets the comparison result, not `VAR_RESULT` (use
-`goto_if TRUE/FALSE`); a dynamic menu entry whose id equals the
-initial-selection value (0) becomes the starting cursor (Hoopa's CANCEL).
-**Not played in mGBA yet.**
-
-**Loose ends from this session:**
-- ✅ Gossip: ALL_CLEAR is replaced by three beats, SIEGE (endgame states
-  0-4), AFTERMATH (5-6) and DEVON (7 on). The twelve NPCs who had an
-  ALL_CLEAR line got SIEGE and AFTERMATH lines; four (Rival Mom, Rich Boy,
-  the Gentleman, the Oldale grandmother) also got a DEVON line, the rest
-  reuse AFTERMATH. Code-read and built, not harness-run. Parts 2-3 should
-  add their own beats after DEVON.
-- Hoopa's catch path (a legendary actually caught) wasn't harness-run; the
-  knock-out path was.
-- ✅ Joy at the Factory door now refuses Scott's side rather than claiming
-  her Center is locked, and says a white-out lands at her Center. She
-  stands there only during the Factory (states 3-4).
-- Scott's battle sprite: the owner is making it (Gentleman stands in).
-- The Factory generator (`~/decomps/headless-harness/factory/`) still makes
-  seven lights; regenerating B2F would undo the five-light edit.
+Read `CLAUDE.md` and `project-guide.md` first. This file is where the work
+stands: what's built, what's tested, what's loose, what's next, and the test
+harness. History is in `git log`; the story is in `storyline.md`.
 
 ---
 
-## Commits (newest first)
+## Where things stand
 
-| Commit | What |
+- **All eight gauntlets, the shop and the run loop** are built.
+- **The story is built through endgame part 1**: everything up to and
+  including the events after gauntlet 7, then the after-gauntlet-8 Factory
+  sequence and the Arena base (`storyline.md`, "After gauntlet 8: the
+  Factory" ✅ and "Hoopa's rings" ✅).
+- **The endgame's team plans** are in `endgame-teams.md` (five Brain
+  rematches, built; the Elite Four, not yet built).
+- **63 commits are local only.** Pushing from WSL isn't set up.
+
+## Next: endgame part 2, Rustboro
+
+`storyline.md`, "Rustboro: Devon Corporation". Part 1 ends with Steven
+outside the Arena setting `FLAG_ABRA_TO_RUSTBORO` and `VAR_ENDGAME_STATE` = 7;
+the ABRA in the Frontier's Pokémon Center takes the player to Rustboro.
+Part 2 needs:
+
+- The ABRA's Rustboro arrival moved to the Pokémon Center (the owner's
+  choice; it's beside the town's ABRA now, `data/scripts/endgame_towns.inc`).
+- Steven and Wallace outside Devon; the **Wardens' ambush** (Winona, Juan,
+  Roxanne; fight off-screen).
+- The **Elite Four** on Devon 1F/2F (`endgame-teams.md`, levels 52-55, two
+  permanent Megas each), a loss whiting out to Rustboro's Center.
+- **President Stone** and the scientist; the **Replica Crown** given
+  (`ITEM_REPLICA_CROWN`, uncharged); Juan's apology outside.
+- Switching off Devon Corp's vanilla events (Mr. Stone's letter, the Exp.
+  Share, fossils).
+- Hoopa's second ring (`GetHoopaRingsLeft`, `src/facility.c`) and a gossip beat
+  after DEVON.
+
+After that: the Frontier siphon (one permanent Mega, chips off), New Mauville
+(Wattson, the admins, Archie and Maxie's Primals, six permanent Megas), the
+Chansey's level 100, Sky Pillar and the final battle. Open questions are in
+`storyline.md`, "Still to decide".
+
+---
+
+## Endgame part 1 in brief
+
+Tracked by `VAR_ENDGAME_STATE` (states listed in `BattleFrontier_OutsideEast`'s
+scripts: 1 gauntlet 8 cleared ... 7 sent to Rustboro).
+
+| Piece | Where |
 |---|---|
-| `c38d192abd` | Wallace only appears in his own story events (playtester report) |
-| `6d2277189e` | Endgame towns: Abra network, sealed exits and gyms, vanilla events off |
-| `66a2c86d64` | The Battle Factory rebuilt as Devon's facility |
-| `b2a96de6f0` | Permanent Megas and the Replica Crown |
-| `611920777c` | Opening: vanilla lines flavored to fit the story (small hints, no reveals) |
-| `dd3ebcfa8d` | Townsfolk gossip that follows the story (`GetStoryGossipStage`) |
-| `e79e71c30f` | Full dialogue pass: the player never speaks; contradictions fixed |
-| `5f78b4cb0b` | Fix: tag battles overwrote party slots with the wrong Pokémon |
-| `6b9bfa5124` | FP rewards scale from gauntlet 4; Second Wind, trader and psychic priced in "wins" |
-| `cd43993e58` | Broker's letter: Wallace and the trip to Ever Grande (+ Wallace's back sprite) |
-| `78b842b8f7` | Built "the Crown is taken", the event after gauntlet 7 |
+| Harsh sunlight (drought, outdoor Frontier maps, states 1-4) | Outside East/West `SetupEndgame` |
+| Wallace at the Pyramid swaps the badges back to real | Outside East |
+| Palkia blasts the Factory door (`SetBattleFactoryUnlocked`); Joy's post | Outside West |
+| Spenser and Brandon take Wallace on; five guards (`TRAINER_FACTORY_*`), key pieces, five lights | `BattleFrontier_DevonFactory_*` |
+| Cells free Mom, Dad, the Broker, Hoopa | Factory B1F |
+| Scott's no-white-out battle (`B_FLAG_NO_WHITEOUT`), level 100, Mega Darkrai | Factory B3F |
+| The Arena base: free shop (`FLAG_FRONTIER_SHOP_FREE`), 99 Ultra Balls, Steven | Outside East, Exchange Service Corner |
+| Hoopa's rings: twelve box-art legendaries, Island Cave, level 60, unchipped | Arena lobby, Island Cave |
+| Gossip: SIEGE, AFTERMATH, DEVON beats | `GetStoryGossipStage` |
+| The Frontier's ABRA, now in the Pokémon Center | Pokémon Center 1F |
 
-Nothing is pushed: GitHub auth in WSL is still not set up. Local `master`
-is ahead of `origin/master` (not pushed since).
-
-The owner has playtested in mGBA: the Ever Grande event (found the tag-battle
-bug below) and the whole Littleroot event after gauntlet 7 ("runs clean").
-
----
-
-## 1. Tag-battle bug (fixed, `5f78b4cb0b`)
-
-The owner's slot-4 Miraidon came back from the Ever Grande tag battle as a
-copy of their slot-2 Landorus.
-
-**Cause:** the expansion's `multi_*` macros call `AreMultiPartiesFullTeams()`
-before `BattleSetup_StartMultiBattle` sets the battle type, so it read the
-*previous* battle's flags. Without `BATTLE_TYPE_TRAINER` it answered "full
-teams": the party was never cut to the three chosen, and the write-back after
-the battle copied party slots 1–3 over the chosen slots.
-
-**Fix:** `SetMultiTrainerBattle` (`src/battle_setup.c`) now sets the battle
-type the check needs. Maxie and Archie at Ever Grande are also `Multi Party:
-Half` in `trainers.party`. **Any future tag battle where the player picks
-three needs `Multi Party: Half` on both opponents.**
-
-The owner's save still has the duplicate Landorus; the lost Miraidon can be
-re-taken from the TEMP ferry-dock man (no one-time flag). The Devon Agents tag
-battle (Littleroot, after gauntlet 5) had the same risk and is covered by the
-same fix, but wasn't harness-tested.
-
-## 2. Dialogue pass (`e79e71c30f`)
-
-All ~18,000 words of project dialogue were read end to end.
-
-- **The player never speaks.** No `{PLAYER}: ...` lines and no first-person
-  "I should..." blockers. Narrate ("{PLAYER} asked SCOTT why...",
-  "{PLAYER} decided to go home first.") or have the NPC echo it ("He dropped
-  a letter? For me?"). This is the owner's standing rule (also in memory).
-- Contradictions fixed: Wardens are Scott's (not Anabel's); the florist's
-  Leafeon timing; Steven's gauntlet-7 call no longer says he's still tracking
-  the Broker (Looker already found him in the Factory); Steven learns the
-  badges are fakes because the player says their father called them that;
-  Hall of Eight plaques 7–8 use gauntlet names; the FP tip; "LINK MULTI mat"
-  is "the fourth mat"; Scott threatens to "squash" Norman (endgame callback).
-- Flow: Steven's gauntlet-2 goodbye now comes after the player agrees to help
-  (the only script-order change); the narrator says the player shows him the
-  Scrambler; POKéNAV spelling; Tucker no longer says "crown".
-
-## 3. Gossip that follows the story (`dd3ebcfa8d`)
-
-`GetStoryGossipStage` (special, `src/facility.c`) turns the gauntlet count and
-the Birch/Broker/Crown state vars into one beat, `GOSSIP_*` in
-`include/constants/facility.h`:
-
-ARRIVAL, NORMAN, STEVEN, SYSTEM_DOWN, SMUGGLER, ANABEL, LAB, AFTER_LAB, SQUAD,
-ARREST, PALACE, RAID, TAKEN, STANDOFF, SIEGE, AFTERMATH, DEVON.
-
-Twenty NPCs `switch` on it and fall back to their usual line. Each gets a
-`<Prefix>_GossipN` script and `<Prefix>_Text_GossipN` text right after its
-own script:
-
-- **Frontier, east:** TriathleteM (the Scott-watcher, pays off "I've never
-  once seen him battle"), Gentleman, RichBoy (the busybody).
-- **Frontier, elsewhere:** OutsideWest Man1 and Man2, Lounge 4 Cook, the
-  Pokémon Center School Kid (now tells the "crying in the cave... then
-  nothing" rumor; marked ✅ in `storyline.md`).
-- **Oldale:** House 2 grandmother (her grandson calls from the Frontier, so
-  Oldale hears Frontier news), Girl, Mart Employee, Footprints Man.
-- **Littleroot:** Boy, Twin, Fat Man (only between arcs; they stay indoors
-  during each), and Birch's wife indoors (`RivalsHouse_1F_EventScript_RivalMom`).
-
-**When a new story event is built, give it a beat and update the gossip.**
-After gauntlet 8: SIEGE, AFTERMATH, DEVON (see the 2026-10-05 section).
-
-## 4. The opening (`611920777c`)
-
-Light hints only, nothing about chips, the harvest or the Crown. Birch's intro
-speech mentions bond research; the TV report says the Gyms went quiet since the
-gauntlets opened; Mom says Birch works day and night and knows the POKéNAV is
-Devon's; the rival does Birch's fieldwork because he never leaves the lab;
-Birch on Route 101 was coming back from a meeting (matches the aide); Oldale's
-mart has little stock; a Route 103 NPC points at the ferry dock.
+Scott's trainer class is `FOUNDER`. **He has no battle sprite yet: the owner
+is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
+`src/data/trainers.party`; Gentleman stands in).
 
 ---
 
@@ -184,148 +72,83 @@ mart has little stock; a Route 103 NPC points at the ferry dock.
 
 | What | Status |
 |---|---|
-| Tag-battle fix | Harness: Ever Grande win and loss paths with six different species picked 1,4,3; party intact. Reproduced the bug without the fix |
-| Dialogue pass, gossip, opening | Built, widths checked against the font. **Not played** |
-| Gossip stage logic | Code-read only. Worth checking a few NPCs at different story points |
-| Broker's-letter event as a whole | Never hand-tested (Ever Grande part now played) |
-| Crown event visuals | Littleroot part hand-tested by the owner; the Factory standoff (Dialga sprite, shake, flash) not yet confirmed |
-| Price changes (wins) | Built and code-read, not run |
-| Endgame towns | Harness scenario 11, 14/14 checks green. **Not played** |
-| Wallace hiding | Harness scenario 14, 7/7 green (incl. an old-save simulation). **Not played** |
-
----
-
-## Tools: `~/decomps/headless-harness/`
-
-- `harness.c`: scripted-input driver. `#define HARNESS_SCENARIO n` (20 the
-  endgame's part 1, Pyramid to Rustboro, loses Scott's battle on purpose; 1 Palace
-  exit, 2 Littleroot win path, 3 Noland/Greta loss, 4 Scott's house + Factory
-  + Lati, 5 girl's house, 6 Ever Grande win, 7 Ever Grande loss, 8 League Abra
-  home, 9 Broker control, 10 Devon Factory, 11 endgame towns, 12-13 Wallace
-  probes (logs objects), 14 Wallace hidden/shown checks). Scenarios 6 and 7
-  use six different species, pick slots 1,4,3, and log the party before and
-  after (`LogParty`). **Plan the path before running** (collision, bounds,
-  triggers, door types, post-warp timing) so one run is enough.
-- `main.c.patch`, `script.c.additions`, `text.c.additions`: apply to a
-  **copy** of the repo, never the real one.
-- `render_map.py`, `textwidth.py` (checks added `.string` lines in `git diff`
-  against real font widths, limit ~208 px).
-
-How to run: rsync the repo to the scratchpad **excluding `build/`** but **not**
-`*.gba` (`data/mb_*.gba` are build inputs). `touch .histignore`, `patch -p0 <
-main.c.patch` from the copy's root. The two `.additions` files start with
-their source file's original last lines: append only from the `Harness_`
-functions on. Drop in `harness.c` as `src/harness.c`, `make`, then
-`tools/mgba/mgba-rom-test -S 3 -R r0 -l 15 pokeemerald.gba`, piped through
-`grep --line-buffered "GBA Debug"`. Runs take a few minutes.
-
-Gotchas: runs are always a New Game (never the owner's save); watch the right
-story var (`STORY_VAR`); text speed fast, battle style Set; in the choose-three
-menu write `gSelectedOrderFromParty`, set `gPartyMenu.slotId = PARTY_SIZE`,
-press only A; use `gMain.inBattle` for in-battle menus; a silent log with no
-TICK lines means the game froze. **Party checks need distinct species and an
-out-of-order pick**, or a wrong write-back looks identical.
+| Endgame part 1 | Harness scenario 20, **18/18 green**: Pyramid to Rustboro, every Brain fight, the cells, Scott's battle **lost on purpose** (outcome checked, no white-out, team healed, items back), the base, the Broker, a Hoopa trip, the ABRA. **Not played** |
+| Hoopa catching a legendary | Not run (the knock-out path was) |
+| Endgame gossip beats | Built, widths checked; code-read only |
+| Endgame towns | Harness scenario 11, 14/14. **Not played** |
+| Wallace hiding | Harness scenario 14, 7/7 (incl. an old save). **Not played** |
+| Tag-battle party fix | Harness: Ever Grande win and loss, distinct species picked 1,4,3 |
+| Devon Factory maps | Harness scenario 10. **Not played** |
+| Permanent Megas, Replica Crown | Engine tests in `test/battle/ten_gauntlets_perma_mega.c`. No scene gives the Crown yet |
+| Crown event (after gauntlet 7) | Littleroot part played by the owner; the Factory standoff visuals not confirmed |
+| Broker's-letter event | Ever Grande part played; the rest not hand-tested |
+| Dialogue pass, opening, gossip | Built, widths checked. **Not played** |
+| Prices in wins | Built and code-read, not run |
+| `make check` | 15 known failures (the baseline) |
 
 ---
 
 ## Loose ends
 
 - **`TEMP` Miraidon** on the ferry dock (commit `ad68c3ceb0`): revert before
-  release.
-- **Open pricing questions:** should the Arena's 100 FP mock battle be priced
-  in wins too? Should early service prices have a floor (Second Wind is 150
-  FP in gauntlets 1–2)?
-- The Factory lobby still has gauntlet-6 "Assembly Line" text, but the door
-  never unlocks (`FACILITY_DOOR_FACTORY` is never set), so it's unreachable.
+  release. The owner's save also still has the duplicate Landorus from the
+  old tag-battle bug.
+- **Scott's battle sprite** (above).
+- **Tag battles** where the player picks three need `Multi Party: Half` on both
+  opponents (`trainers.party`).
+- **Pricing questions:** should the Arena's 100 FP mock battle be priced in
+  wins? Should early services have a floor (Second Wind is 150 FP in
+  gauntlets 1-2)?
+- **Endgame towns:** the vanilla gifts inside open buildings are still
+  reachable (Cutter's house HM Cut, Mauville house 1 HM Rock Smash, house 2
+  Coin Case, the Game Corner), and **glass doors** (Devon Corp, the Game
+  Corner) warp through `TryStartWarpEventScript`, so sealing one needs a
+  check there. Sky Pillar still has its cracked floors; the owner wants the
+  climb smooth (no bike). New Mauville needs Wattson's way in.
+- **The Factory generator** (`~/decomps/headless-harness/factory/`) still makes
+  seven B2F lights; regenerating B2F would undo the five-light edit.
+- The old Battle Factory maps (gauntlet-6 "Assembly Line" text) are unused:
+  the Factory door leads to the Devon Factory. Strip them with the vanilla
+  story.
+- Champion's Room and Hall of Fame Wallaces have no hide flag; give them one
+  if the endgame opens those rooms.
 - `~/decomps/wallace-backsprite-for-artist/` can be deleted.
-- Trainer IDs: 967 used of 1000. Don't raise `MAX_TRAINERS_COUNT`.
 
-## Permanent Megas (built after this handoff was written)
+---
 
-The engine rule and the Replica Crown item are built and tested
-(`storyline.md`, "Permanent Megas"). The Crown works only once
-`FLAG_CROWN_CHARGED` is set, which the planned Frontier siphon scene must do.
-Not yet hand-tested in mGBA (no scene gives the item yet).
+## The headless harness: `~/decomps/headless-harness/`
 
-## The Devon Factory (built after this handoff was written)
+- `harness.c`: scripted-input driver; `#define HARNESS_SCENARIO n`. 20
+  endgame part 1 (Pyramid to Rustboro, loses Scott on purpose); 14 Wallace
+  hidden/shown; 12-13 Wallace probes; 11 endgame towns; 10 Devon Factory; 9
+  Broker control; 8 League Abra home; 6/7 Ever Grande win/loss; 5 girl's house;
+  4 Scott's house, Factory, Lati; 3 Noland/Greta loss; 2 Littleroot win; 1
+  Palace exit. `harness.c.pre-*` are older copies.
+- `main.c.patch`, `script.c.additions`, `text.c.additions`: apply to a
+  **copy** of the repo, never the real one.
+- `textwidth.py` checks new `.string` lines in `git diff` against the font
+  (~208 px). `factory/render_lib.py` renders maps (plain `render_map.py`
+  garbles gTileset_General and FRLG maps).
 
-The Battle Factory's interior is rebuilt as Devon's facility, four new maps
-(`storyline.md`, "The Devon Factory"). Harness scenario 10 walks it: locked
-door and hidden Joy, then unlocked, every staircase, the sealed Pillar
-stairs, Scott. **Not hand-played**; use the debug menu (R + START, warp).
-The maps come from `~/decomps/headless-harness/factory/` (ASCII plans + an
-auto-tiler + stamps cut from vanilla maps); its `render_lib.py` also fixes
-`render_map.py`'s gTileset_General and FRLG rendering.
+**How to run:** rsync the repo to the scratchpad excluding `build/`, `.git/`
+and `pokeemerald*.gba` (but not `data/mb_*.gba`, a build input). In the copy:
+`touch .histignore`, `patch -p0 < main.c.patch`, append each `.additions` file
+from its first `Harness_` line on, copy `harness.c` to `src/harness.c`,
+`make`, then `tools/mgba/mgba-rom-test -S 3 -R r0 -l 15 pokeemerald.gba |
+grep --line-buffered "GBA Debug"`. A run takes a few minutes.
 
-**`make check` baseline:** 15 known failures, all from deliberate project
-changes (Experience off, save layout grown, one vanilla item description).
-Any count above 15 is new.
-
-## The endgame towns (done, `6d2277189e`)
-
-The owner's request: prepare **Rustboro, Mauville and Sky Pillar** for the
-endgame. The player travels only by **ABRA**, from a menu of destinations;
-the towns are cut off from the rest of Hoenn. Details are in `storyline.md`
-(Technical notes, "The endgame towns are prepared").
-
-- **`data/scripts/endgame_towns.inc`**: the ABRA menu
-  (`EventScript_EndgameAbra`, caller sets `VAR_0x8004` = `ABRA_AT_*`), the
-  sealed-exit script and the Gym message.
-- **Sealed exits:** coord events (elevation 0, `VAR_TEMP_F` == 0) on every
-  route edge of Rustboro and Mauville, and Sky Pillar's way back down.
-- **Sealed doors: only the two Gyms.** The owner decided mid-session not to
-  lock any other building ("just seal off the routes ... and the gym").
-  `sEndgameSealedDoors` (`src/facility.c`) via `TryDoorWarp`. Both Gyms are
-  animated doors; note that **glass doors** (`MB_NON_ANIMATED_DOOR`, e.g.
-  Devon Corp, the Game Corner) warp on step through `TryStartWarpEventScript`
-  instead, so sealing one later needs a check there too.
-- **Vanilla events off** in each map's load script (Rustboro's grunt, rival,
-  scientist, Devon employee; Mauville's Wally, his uncle, Scott, Wattson; Sky
-  Pillar's Wallace and Rayquaza, cracked floors kept, door always open).
-- **Flags the story must set (nothing does yet):** `FLAG_ABRA_TO_RUSTBORO`,
-  `FLAG_ABRA_TO_MAUVILLE`, `FLAG_ABRA_TO_SKY_PILLAR`.
-- Text widths checked (all under 208 px).
-
-**Still open for later:**
-- **New Mauville** sits on Route 110's water, which is sealed; it needs its
-  own way in (an ABRA stop or Wattson).
-- With every non-Gym building open, vanilla gifts and events inside are
-  reachable: Devon Corp (Mr. Stone's letter, the Exp. Share, fossils),
-  Cutter's house (HM Cut), Mauville house 1 (HM Rock Smash), house 2 (Coin
-  Case), the Game Corner. Switch off what matters when those scenes are built.
-- Tucker and Lucy, who loiter outside their buildings, still need hiding
-  during the endgame. The Factory door bit and the ABRA flags need story
-  triggers.
-
-## Wallace at the lab at the start (fixed, `c38d192abd`)
-
-A playtester saw Wallace at or in Birch's lab at the very beginning.
-
-- **Not reproducible on a fresh New Game** (harness scenarios 12, 13: truck
-  arrival, Route 101 into Littleroot, the lab before and after the starter).
-- **The weakness:** the Wallaces at the lab door, inside the lab and outside
-  the Pike were hidden with **temp flags**, which reset to "visible" on every
-  map load, so he showed unless the map's setup script re-hid him. Any load
-  that skips that (most likely: continuing a save made on an older build, then
-  walking until he scrolls into view) shows him.
-- **Fix:** those three now use permanent flags
-  (`FLAG_HIDE_BIRCH_STORY_PIKE_WALLACE` 0x54, `..._LITTLEROOT_WALLACE` 0x55,
-  `..._LAB_WALLACE` 0x68, formerly unused, so saves keep their layout), and
-  `EventScript_ResetAllMapFlags` (`data/scripts/new_game.inc`) hides **every**
-  Wallace on New Game, including the Broker/Ever Grande ones and Cave of
-  Origin's (which nothing ever hid). The setup scripts are unchanged: each
-  still shows him only at his story state (Birch arc 1-3 / the Pike scene at
-  5 gauntlets, Broker state 6 ledge, Ever Grande 7-9).
-- Champion's Room and Hall of Fame Wallaces are vanilla with no flag; they're
-  unreachable (the League is sealed). Give them flags if the Elite Four
-  endgame opens those rooms.
-- **Existing saves:** the new flags are clear in a save that predates them,
-  but the map setups set them on the next map load, so they self-correct.
-  The playtester should still be told to start a New Game to be sure.
-
-## Next
-
-The endgame after gauntlet 8 (the towns are ready, above). The
-open design questions are in `storyline.md`, "Still to decide": the Brains'
-upgraded teams, the Elite Four's teams, Scott's Kangaskhan replacement and
-Steven's PokéNav.
+**Gotchas:**
+- Runs are always a **New Game**, never the owner's save.
+- Watch the right story var (`STORY_VAR`). Fast text, battle style Set.
+- **Plan the path first** (collision, bounds, triggers, door types, timing)
+  so one run is enough.
+- Don't press B in the overworld when mashing through YES/NO prompts.
+- Battles: the HP hack weakens foes and keeps the player healthy. The test
+  team needs a move nothing is immune to, with PP refilled (scenario 20 uses
+  Nature's Madness). A battle meant to be lost holds the player at 1 HP
+  instead, and the check requires `B_OUTCOME_LOST`.
+- Choose-three menus: write `gSelectedOrderFromParty`, set
+  `gPartyMenu.slotId = PARTY_SIZE`, press only A. Party checks need distinct
+  species and an out-of-order pick.
+- A log with no TICK lines means the game froze. The BTL lines (every 300
+  frames in battle) show where a battle is stuck.

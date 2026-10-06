@@ -483,7 +483,7 @@ The Arena hosts no gauntlet. An attendant runs it as a sparring ground
     `VAR_PSYCHIC_READ_GAUNTLET` is the current gauntlet. A full party of six
     is required, like a real gauntlet.
   - `FLAG_SPARRING_BATTLE` (a temp flag) makes the battle Frontier-typed
-    (the Set/Shift protection in `CLAUDE.md`) and stops a loss from whiting
+    (the Set/Shift protection in `project-guide.md`) and stops a loss from whiting
     out (`src/battle_setup.c`). The bosses are already covered by
     `IsFacilityBattleTrainer()`, so their own pics show.
   - The boss's trainer flag is cleared before each match so the battle isn't
