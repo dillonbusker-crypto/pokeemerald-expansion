@@ -3011,6 +3011,8 @@ BattleFrontier_OutsideEast_EventScript_SetupEndgame::
 	setflag FLAG_HIDE_ENDGAME_PYRAMID_WALLACE
 	setflag FLAG_HIDE_ENDGAME_BASE_ALLIES
 	setflag FLAG_HIDE_ENDGAME_BASE_PARENTS
+	setflag FLAG_HIDE_ENDGAME_BASE_DAD
+	setflag FLAG_HIDE_ENDGAME_BASE_JOY
 	clearflag FLAG_HIDE_FRONTIER_BRAINS_AWAY
 	call_if_eq VAR_ENDGAME_STATE, 0, BattleFrontier_OutsideEast_EventScript_TryStartEndgame
 	goto_if_eq VAR_ENDGAME_STATE, 0, Common_EventScript_NopReturn
@@ -3019,8 +3021,27 @@ BattleFrontier_OutsideEast_EventScript_SetupEndgame::
 	call_if_eq VAR_ENDGAME_STATE, 1, BattleFrontier_OutsideEast_EventScript_SetupPyramidWallace
 	goto_if_lt VAR_ENDGAME_STATE, 5, Common_EventScript_NopReturn
 	clearflag FLAG_HIDE_ENDGAME_BASE_PARENTS
+	clearflag FLAG_HIDE_ENDGAME_BASE_DAD
 	call_if_eq VAR_ENDGAME_STATE, 5, BattleFrontier_OutsideEast_EventScript_SetupBaseScene
 	call_if_eq VAR_ENDGAME_STATE, 6, BattleFrontier_OutsideEast_EventScript_ShowBaseAllies
+	@ Endgame part 3: STEVEN and WALLACE wait here in states 10, 11, 15 and 18 (they
+	@ are in the towns in 7-9, 12-14 and 16-17); DAD goes with them to SKY PILLAR
+	@ (16-17); NURSE JOY and her CHANSEY arrive in state 15.
+	call_if_eq VAR_ENDGAME_STATE, 10, BattleFrontier_OutsideEast_EventScript_ShowBaseAllies
+	call_if_eq VAR_ENDGAME_STATE, 11, BattleFrontier_OutsideEast_EventScript_ShowBaseAllies
+	call_if_eq VAR_ENDGAME_STATE, 15, BattleFrontier_OutsideEast_EventScript_ShowBaseAllies
+	call_if_eq VAR_ENDGAME_STATE, 18, BattleFrontier_OutsideEast_EventScript_ShowBaseAllies
+	call_if_eq VAR_ENDGAME_STATE, 16, BattleFrontier_OutsideEast_EventScript_HideBaseDad
+	call_if_eq VAR_ENDGAME_STATE, 17, BattleFrontier_OutsideEast_EventScript_HideBaseDad
+	call_if_ge VAR_ENDGAME_STATE, 15, BattleFrontier_OutsideEast_EventScript_ShowBaseJoy
+	return
+
+BattleFrontier_OutsideEast_EventScript_HideBaseDad::
+	setflag FLAG_HIDE_ENDGAME_BASE_DAD
+	return
+
+BattleFrontier_OutsideEast_EventScript_ShowBaseJoy::
+	clearflag FLAG_HIDE_ENDGAME_BASE_JOY
 	return
 
 BattleFrontier_OutsideEast_EventScript_TryStartEndgame::
@@ -3122,9 +3143,14 @@ BattleFrontier_OutsideEast_EventScript_BaseScene::
 
 @ STEVEN asks if the player is ready for DEVON. Yes sends them to RUSTBORO by
 @ the ABRA in the POKEMON CENTER (state 7); STEVEN and WALLACE fly ahead.
+@ Endgame part 3: he is back from state 10 (see the state table below).
 BattleFrontier_OutsideEast_EventScript_BaseSteven::
 	lock
 	faceplayer
+	goto_if_eq VAR_ENDGAME_STATE, 10, BattleFrontier_OutsideEast_EventScript_BaseStevenSiphon
+	goto_if_eq VAR_ENDGAME_STATE, 11, BattleFrontier_OutsideEast_EventScript_BaseStevenMauville
+	goto_if_eq VAR_ENDGAME_STATE, 15, BattleFrontier_OutsideEast_EventScript_BaseStevenSkyPillar
+	goto_if_eq VAR_ENDGAME_STATE, 18, BattleFrontier_OutsideEast_EventScript_BaseStevenEnd
 	goto_if_ge VAR_ENDGAME_STATE, 7, BattleFrontier_OutsideEast_EventScript_BaseStevenGone
 	msgbox BattleFrontier_OutsideEast_Text_BaseStevenReady, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideEast_EventScript_BaseStevenNotYet
@@ -3151,16 +3177,183 @@ BattleFrontier_OutsideEast_EventScript_BaseStevenGone::
 	release
 	end
 
+@ State 10: back from RUSTBORO, the CROWN uncharged.
+BattleFrontier_OutsideEast_EventScript_BaseStevenSiphon::
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenSiphon, MSGBOX_DEFAULT
+	release
+	end
+
+@ State 11: the siphon is done. STEVEN and WALLACE remember NEW MAUVILLE, then
+@ STEVEN asks if the player is ready (VAR_TEMP_4: already explained this visit).
+BattleFrontier_OutsideEast_EventScript_BaseStevenMauville::
+	goto_if_eq VAR_TEMP_4, 1, BattleFrontier_OutsideEast_EventScript_BaseStevenMauvilleAsk
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenPower, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_BaseWallaceLevels, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenMauvilleIdea, MSGBOX_DEFAULT
+	setvar VAR_TEMP_4, 1
+BattleFrontier_OutsideEast_EventScript_BaseStevenMauvilleAsk::
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenReadyMauville, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideEast_EventScript_BaseStevenMauvilleNotYet
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenGoMauville, MSGBOX_DEFAULT
+	closemessage
+	setflag FLAG_ABRA_TO_MAUVILLE
+	setvar VAR_ENDGAME_STATE, 12
+	playse SE_M_FLY
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_FRONTIER_ENDGAME_BASE_STEVEN
+	removeobject LOCALID_FRONTIER_ENDGAME_BASE_WALLACE
+	setflag FLAG_HIDE_ENDGAME_BASE_ALLIES
+	waitse
+	fadescreen FADE_FROM_BLACK
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_BaseStevenMauvilleNotYet::
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenMauvilleNotYet, MSGBOX_DEFAULT
+	release
+	end
+
+@ State 15: back from MAUVILLE. NURSE JOY's CHANSEY is outside (below); STEVEN
+@ asks if the player is ready for SKY PILLAR. DAD goes with them.
+BattleFrontier_OutsideEast_EventScript_BaseStevenSkyPillar::
+	goto_if_eq VAR_TEMP_4, 1, BattleFrontier_OutsideEast_EventScript_BaseStevenSkyPillarAsk
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenChansey, MSGBOX_DEFAULT
+	setvar VAR_TEMP_4, 1
+BattleFrontier_OutsideEast_EventScript_BaseStevenSkyPillarAsk::
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenReadySkyPillar, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideEast_EventScript_BaseStevenSkyPillarNotYet
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenGoSkyPillar, MSGBOX_DEFAULT
+	closemessage
+	setflag FLAG_ABRA_TO_SKY_PILLAR
+	setvar VAR_ENDGAME_STATE, 16
+	playse SE_M_FLY
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_FRONTIER_ENDGAME_BASE_STEVEN
+	removeobject LOCALID_FRONTIER_ENDGAME_BASE_WALLACE
+	removeobject LOCALID_FRONTIER_ENDGAME_BASE_DAD
+	setflag FLAG_HIDE_ENDGAME_BASE_ALLIES
+	setflag FLAG_HIDE_ENDGAME_BASE_DAD
+	waitse
+	fadescreen FADE_FROM_BLACK
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_BaseStevenSkyPillarNotYet::
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenSkyPillarNotYet, MSGBOX_DEFAULT
+	release
+	end
+
+@ State 18: it's over.
+BattleFrontier_OutsideEast_EventScript_BaseStevenEnd::
+	msgbox BattleFrontier_OutsideEast_Text_BaseStevenEnd, MSGBOX_DEFAULT
+	release
+	end
+
 BattleFrontier_OutsideEast_EventScript_BaseWallace::
+	goto_if_eq VAR_ENDGAME_STATE, 10, BattleFrontier_OutsideEast_EventScript_BaseWallaceSiphon
+	goto_if_eq VAR_ENDGAME_STATE, 11, BattleFrontier_OutsideEast_EventScript_BaseWallaceLevels
+	goto_if_eq VAR_ENDGAME_STATE, 15, BattleFrontier_OutsideEast_EventScript_BaseWallaceChansey
+	goto_if_eq VAR_ENDGAME_STATE, 18, BattleFrontier_OutsideEast_EventScript_BaseWallaceEnd
 	msgbox BattleFrontier_OutsideEast_Text_BaseWallaceTalk, MSGBOX_NPC
 	end
 
+BattleFrontier_OutsideEast_EventScript_BaseWallaceSiphon::
+	msgbox BattleFrontier_OutsideEast_Text_BaseWallaceSiphon, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_EventScript_BaseWallaceLevels::
+	msgbox BattleFrontier_OutsideEast_Text_BaseWallaceLevels, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_EventScript_BaseWallaceChansey::
+	msgbox BattleFrontier_OutsideEast_Text_BaseWallaceChansey, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_EventScript_BaseWallaceEnd::
+	msgbox BattleFrontier_OutsideEast_Text_BaseWallaceEnd, MSGBOX_NPC
+	end
+
 BattleFrontier_OutsideEast_EventScript_BaseMom::
+	goto_if_eq VAR_ENDGAME_STATE, 18, BattleFrontier_OutsideEast_EventScript_BaseMomEnd
+	goto_if_ge VAR_ENDGAME_STATE, 16, BattleFrontier_OutsideEast_EventScript_BaseMomSkyPillar
 	msgbox BattleFrontier_OutsideEast_Text_BaseMomTalk, MSGBOX_NPC
 	end
 
+BattleFrontier_OutsideEast_EventScript_BaseMomSkyPillar::
+	msgbox BattleFrontier_OutsideEast_Text_BaseMomSkyPillar, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_EventScript_BaseMomEnd::
+	msgbox BattleFrontier_OutsideEast_Text_BaseMomEnd, MSGBOX_NPC
+	end
+
 BattleFrontier_OutsideEast_EventScript_BaseDad::
+	goto_if_eq VAR_ENDGAME_STATE, 18, BattleFrontier_OutsideEast_EventScript_BaseDadEnd
 	msgbox BattleFrontier_OutsideEast_Text_BaseDadTalk, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_EventScript_BaseDadEnd::
+	msgbox BattleFrontier_OutsideEast_Text_BaseDadEnd, MSGBOX_NPC
+	end
+
+@ ----------------------------------------------------------------------------
+@ Endgame part 3: NURSE JOY and her CHANSEY (state 15 on). JOY explains Transfer
+@ EXP; the player picks one Pokemon and it goes to level 100, once only
+@ (FLAG_CHANSEY_TRANSFER_EXP_USED).
+@ ----------------------------------------------------------------------------
+BattleFrontier_OutsideEast_EventScript_JoyChansey::
+	lock
+	faceplayer
+	goto_if_set FLAG_CHANSEY_TRANSFER_EXP_USED, BattleFrontier_OutsideEast_EventScript_JoyChanseyUsed
+	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyExplain, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideEast_EventScript_JoyChanseyNotNow
+BattleFrontier_OutsideEast_EventScript_JoyChanseyPick::
+	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyWhich, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, BattleFrontier_OutsideEast_EventScript_JoyChanseyNotNow
+	special TransferExpToLevel100
+	goto_if_eq VAR_RESULT, 1, BattleFrontier_OutsideEast_EventScript_JoyChanseyEgg
+	goto_if_eq VAR_RESULT, 2, BattleFrontier_OutsideEast_EventScript_JoyChanseyAlready100
+	setflag FLAG_CHANSEY_TRANSFER_EXP_USED
+	bufferpartymonnick STR_VAR_1, VAR_0x8004
+	playfanfare MUS_LEVEL_UP
+	message BattleFrontier_OutsideEast_Text_JoyChanseyGrew
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyDone, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_JoyChanseyEgg::
+	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyEgg, MSGBOX_DEFAULT
+	goto BattleFrontier_OutsideEast_EventScript_JoyChanseyPick
+	end
+
+BattleFrontier_OutsideEast_EventScript_JoyChanseyAlready100::
+	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyAlready100, MSGBOX_DEFAULT
+	goto BattleFrontier_OutsideEast_EventScript_JoyChanseyPick
+	end
+
+BattleFrontier_OutsideEast_EventScript_JoyChanseyNotNow::
+	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyNotNow, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_JoyChanseyUsed::
+	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyUsed, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_EventScript_Chansey::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_CHANSEY, CRY_MODE_NORMAL
+	msgbox BattleFrontier_OutsideEast_Text_ChanseyCry, MSGBOX_DEFAULT
+	waitmoncry
+	release
 	end
 
 BattleFrontier_OutsideEast_Text_PyramidWallace1:
@@ -3252,3 +3445,161 @@ BattleFrontier_OutsideEast_Text_BaseDadTalk:
 	.string "DAD: Whatever SCOTT is planning,\n"
 	.string "you've stood up to him once\l"
 	.string "already. Remember that.$"
+
+@ ----------------------------------------------------------------------------
+@ Endgame part 3: the base after the siphon (states 10, 11, 15, 18).
+@ ----------------------------------------------------------------------------
+
+BattleFrontier_OutsideEast_Text_BaseStevenSiphon:
+	.string "STEVEN: Back from RUSTBORO. Good.\p"
+	.string "The scientist said the CROWN will\n"
+	.string "charge from the chips in the\l"
+	.string "FRONTIER's POKéMON.\p"
+	.string "The POKéMON keeper in the EXCHANGE\n"
+	.string "SERVICE CORNER can do it. Ask him\l"
+	.string "to free the POKéMON.$"
+
+BattleFrontier_OutsideEast_Text_BaseWallaceSiphon:
+	.string "WALLACE: The CROWN is in your hands\n"
+	.string "now. Put it to work.$"
+
+BattleFrontier_OutsideEast_Text_BaseStevenPower:
+	.string "STEVEN: It worked. Every POKéMON\n"
+	.string "here is free of its chip.\p"
+	.string "But the CROWN can only make one\n"
+	.string "POKéMON a permanent MEGA for now.\p"
+	.string "To stand toe to toe with SCOTT,\n"
+	.string "we'll need a power source as big\l"
+	.string "as the FACTORY's.$"
+
+BattleFrontier_OutsideEast_Text_BaseWallaceLevels:
+	.string "WALLACE: And your POKéMON won't\n"
+	.string "reach level 100 before SCOTT is\l"
+	.string "long gone.\p"
+	.string "We need something bigger.$"
+
+BattleFrontier_OutsideEast_Text_BaseStevenMauvilleIdea:
+	.string "STEVEN: Something bigger…\p"
+	.string "WALLACE, are you thinking what I'm\n"
+	.string "thinking? NEW MAUVILLE.\p"
+	.string "The generator under MAUVILLE.\n"
+	.string "Nothing else in HOENN comes close.\p"
+	.string "NURSE JOY says she might be able to\n"
+	.string "help too, but she needs time.$"
+
+BattleFrontier_OutsideEast_Text_BaseStevenReadyMauville:
+	.string "STEVEN: We'll go ahead to MAUVILLE.\p"
+	.string "Are you ready to follow us?$"
+
+BattleFrontier_OutsideEast_Text_BaseStevenGoMauville:
+	.string "STEVEN: Then WALLACE and I will see\n"
+	.string "you there.\p"
+	.string "The ABRA at the POKéMON CENTER can\n"
+	.string "TELEPORT you to MAUVILLE.$"
+
+BattleFrontier_OutsideEast_Text_BaseStevenMauvilleNotYet:
+	.string "STEVEN: Take your time. HOOPA's\n"
+	.string "rings are open, if you want to\l"
+	.string "catch something first.$"
+
+BattleFrontier_OutsideEast_Text_BaseStevenChansey:
+	.string "STEVEN: You're back. WATTSON's\n"
+	.string "generator did it.\p"
+	.string "NURSE JOY has found a way to use it,\n"
+	.string "too. She's waiting with a CHANSEY\l"
+	.string "just below. Go and see her.\p"
+	.string "After that, SCOTT is at SKY PILLAR.\n"
+	.string "NORMAN, WATTSON, WALLACE and I mean\l"
+	.string "to take him down together.$"
+
+BattleFrontier_OutsideEast_Text_BaseWallaceChansey:
+	.string "WALLACE: That CHANSEY has more\n"
+	.string "power than it looks.$"
+
+BattleFrontier_OutsideEast_Text_BaseStevenReadySkyPillar:
+	.string "STEVEN: Are you ready for SKY\n"
+	.string "PILLAR?$"
+
+BattleFrontier_OutsideEast_Text_BaseStevenGoSkyPillar:
+	.string "STEVEN: Then we'll go ahead.\p"
+	.string "STEVEN, WALLACE, NORMAN and WATTSON\n"
+	.string "mean to take SCOTT down together.\p"
+	.string "The ABRA at the POKéMON CENTER can\n"
+	.string "TELEPORT you to SKY PILLAR.$"
+
+BattleFrontier_OutsideEast_Text_BaseStevenSkyPillarNotYet:
+	.string "STEVEN: Take your time. We'll wait\n"
+	.string "for you at SKY PILLAR.$"
+
+BattleFrontier_OutsideEast_Text_BaseStevenEnd:
+	.string "STEVEN: It's over, {PLAYER}.\p"
+	.string "SCOTT is in custody, and the CROWN\n"
+	.string "is locked away for good.\p"
+	.string "HOENN owes you more than it knows.$"
+
+BattleFrontier_OutsideEast_Text_BaseWallaceEnd:
+	.string "WALLACE: It's over. And you did it,\n"
+	.string "{PLAYER}.\p"
+	.string "The FRONTIER is yours again.$"
+
+BattleFrontier_OutsideEast_Text_BaseMomSkyPillar:
+	.string "MOM: NORMAN went with STEVEN and\n"
+	.string "the others. I told him to be\l"
+	.string "careful. He didn't listen.\p"
+	.string "You be careful too.$"
+
+BattleFrontier_OutsideEast_Text_BaseMomEnd:
+	.string "MOM: It's over. Oh, {PLAYER}, we're\n"
+	.string "going home.$"
+
+BattleFrontier_OutsideEast_Text_BaseDadEnd:
+	.string "DAD: It's over. SCOTT never\n"
+	.string "squashed anyone after all.\p"
+	.string "I'm proud of you, {PLAYER}.$"
+
+BattleFrontier_OutsideEast_Text_JoyChanseyExplain:
+	.string "NURSE JOY: I've been working on it.\p"
+	.string "The supercharged CROWN can draw in\n"
+	.string "the EXPERIENCE of every CHANSEY in\l"
+	.string "HOENN's POKéMON CENTERS.\p"
+	.string "I taught this one a new move:\n"
+	.string "TRANSFER EXP.\p"
+	.string "One POKéMON will rise to level\n"
+	.string "100. Only one, and only once.$"
+
+BattleFrontier_OutsideEast_Text_JoyChanseyAsk:
+	.string "NURSE JOY: Shall we do it now?$"
+
+BattleFrontier_OutsideEast_Text_JoyChanseyWhich:
+	.string "NURSE JOY: Which POKéMON?$"
+
+BattleFrontier_OutsideEast_Text_JoyChanseyEgg:
+	.string "NURSE JOY: That's an EGG. It has\n"
+	.string "nothing to take it in with.\p"
+	.string "Choose another POKéMON.$"
+
+BattleFrontier_OutsideEast_Text_JoyChanseyAlready100:
+	.string "NURSE JOY: That one is already\n"
+	.string "level 100. Choose another.$"
+
+BattleFrontier_OutsideEast_Text_JoyChanseyNotNow:
+	.string "NURSE JOY: Take your time. I'll be\n"
+	.string "right here.$"
+
+BattleFrontier_OutsideEast_Text_JoyChanseyGrew:
+	.string "CHANSEY used TRANSFER EXP!\p"
+	.string "{STR_VAR_1} grew to LV. 100!$"
+
+BattleFrontier_OutsideEast_Text_JoyChanseyDone:
+	.string "NURSE JOY: There. CHANSEY and I\n"
+	.string "gave everything we had.\p"
+	.string "Go and put it to good use.$"
+
+BattleFrontier_OutsideEast_Text_JoyChanseyUsed:
+	.string "NURSE JOY: CHANSEY is spent. That\n"
+	.string "was all the EXPERIENCE it could\l"
+	.string "give.\p"
+	.string "Go and finish this, {PLAYER}.$"
+
+BattleFrontier_OutsideEast_Text_ChanseyCry:
+	.string "CHANSEY: Chan! Chansey!$"

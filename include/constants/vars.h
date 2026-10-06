@@ -206,7 +206,7 @@
 #define VAR_ENDGAME_STATE                                0x40B8 // Ten Gauntlets: the endgame after gauntlet 8 (storyline.md) - see BattleFrontier_OutsideEast_EventScript_SetupEndgame
 #define VAR_MT_PYRE_STATE                                0x40B9
 #define VAR_NEW_MAUVILLE_STATE                           0x40BA
-#define VAR_UNUSED_0x40BB                                0x40BB // Unused Var (reserved: endgame part 3)
+#define VAR_FRONTIER_JOY_HINTED                           0x40BB // Ten Gauntlets: 1 once NURSE JOY has dropped her hint about the CROWN (states 11-14)
 #define VAR_BRAVO_TRAINER_BATTLE_TOWER_ON                0x40BC
 #define VAR_JAGGED_PASS_ASH_WEATHER                      0x40BD
 #define VAR_GLASS_WORKSHOP_STATE                         0x40BE

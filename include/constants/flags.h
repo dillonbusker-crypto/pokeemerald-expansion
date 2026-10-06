@@ -696,9 +696,9 @@
 #define FLAG_HOOPA_CAUGHT_NECROZMA_DUSK_MANE  0x278 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
 #define FLAG_HOOPA_CAUGHT_NECROZMA_DAWN_WINGS  0x279 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
 #define FLAG_FRONTIER_CHIPS_OFF  0x27A // Ten Gauntlets: the Frontier siphon drained every chip: every Pokemon can gain Experience (IsFrontierChippedMon)
-#define FLAG_UNUSED_0x27B  0x27B // Unused Flag (reserved: endgame part 3, the siphon and the Frontier hub, 0x27B-0x27F)
-#define FLAG_UNUSED_0x27C  0x27C // Unused Flag
-#define FLAG_UNUSED_0x27D  0x27D // Unused Flag
+#define FLAG_CHANSEY_TRANSFER_EXP_USED  0x27B // Ten Gauntlets: the CHANSEY's Transfer EXP has made one Pokemon level 100 (once only)
+#define FLAG_HIDE_ENDGAME_BASE_DAD  0x27C // Ten Gauntlets: DAD outside the Battle Arena (the base): gone with STEVEN in states 16-17 - shown/hidden on every map load
+#define FLAG_HIDE_ENDGAME_BASE_JOY  0x27D // Ten Gauntlets: NURSE JOY and her CHANSEY outside the Battle Arena (state 15 on) - shown/hidden on every map load
 #define FLAG_UNUSED_0x27E  0x27E // Unused Flag
 #define FLAG_UNUSED_0x27F  0x27F // Unused Flag
 #define FLAG_UNUSED_0x280  0x280 // Unused Flag (reserved: endgame part 4, Mauville and New Mauville, 0x280-0x287)
