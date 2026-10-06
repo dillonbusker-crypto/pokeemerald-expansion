@@ -256,6 +256,8 @@ SkyPillar_Top_EventScript_CatchScene::
 	applymovement LOCALID_SKY_PILLAR_TOP_SCOTT, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
 	msgbox SkyPillar_Top_Text_ScottTurns, MSGBOX_DEFAULT
+	@ Bad Dreams: he's a POKéMON short, and says so (once; not after a loss).
+	call_if_set FLAG_DARKRAI_FREED, SkyPillar_Top_EventScript_ScottOneShort
 	goto SkyPillar_Top_EventScript_ScottBattle
 	end
 
@@ -280,8 +282,11 @@ SkyPillar_Top_EventScript_ScottBattle::
 	@ He has the Lati the player didn't catch: FLAG_STEVEN_HAS_LATIOS means the
 	@ player's is a LATIOS. A loss is a normal white-out (to NURSE JOY), so
 	@ nothing below this runs then.
+	@ Bad Dreams: a player who freed DARKRAI fights the five-Pokemon teams.
+	goto_if_set FLAG_DARKRAI_FREED, SkyPillar_Top_EventScript_BattleScottNoDarkrai
 	call_if_set FLAG_STEVEN_HAS_LATIOS, SkyPillar_Top_EventScript_BattleScottLatias
 	call_if_unset FLAG_STEVEN_HAS_LATIOS, SkyPillar_Top_EventScript_BattleScottLatios
+SkyPillar_Top_EventScript_ScottBattleDone::
 	special RestoreFacilityHeldItems
 	clearflag FLAG_STORY_HELD_ITEMS_SAVED
 	msgbox SkyPillar_Top_Text_ScottBeaten, MSGBOX_DEFAULT
@@ -312,6 +317,24 @@ SkyPillar_Top_EventScript_BattleScottLatias::
 
 SkyPillar_Top_EventScript_BattleScottLatios::
 	trainerbattle_no_intro TRAINER_SKY_PILLAR_SCOTT_LATIOS, SkyPillar_Top_Text_ScottDefeat
+	return
+
+SkyPillar_Top_EventScript_ScottOneShort::
+	msgbox SkyPillar_Top_Text_ScottOneShort, MSGBOX_DEFAULT
+	return
+
+@ Falls back into the common tail above (ScottBattleDone).
+SkyPillar_Top_EventScript_BattleScottNoDarkrai::
+	call_if_set FLAG_STEVEN_HAS_LATIOS, SkyPillar_Top_EventScript_BattleScottNoDarkraiLatias
+	call_if_unset FLAG_STEVEN_HAS_LATIOS, SkyPillar_Top_EventScript_BattleScottNoDarkraiLatios
+	goto SkyPillar_Top_EventScript_ScottBattleDone
+
+SkyPillar_Top_EventScript_BattleScottNoDarkraiLatias::
+	trainerbattle_no_intro TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIAS, SkyPillar_Top_Text_ScottDefeatFive
+	return
+
+SkyPillar_Top_EventScript_BattleScottNoDarkraiLatios::
+	trainerbattle_no_intro TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIOS, SkyPillar_Top_Text_ScottDefeatFive
 	return
 
 @ The stairs let the player out at (16, 15): left to (12, 15), up to (12, 11),
@@ -387,6 +410,11 @@ SkyPillar_Top_Text_ScottTurns:
 	.string "Power doesn't need balance, kid.\n"
 	.string "It needs to be bigger than yours.$"
 
+SkyPillar_Top_Text_ScottOneShort:
+	.string "SCOTT: I'm one short, thanks to\n"
+	.string "whoever freed my DARKRAI.\p"
+	.string "Five is plenty.$"
+
 SkyPillar_Top_Text_ScottAgain:
 	.string "SCOTT: Back for more?\p"
 	.string "Fine. I don't tire of this.$"
@@ -398,6 +426,10 @@ SkyPillar_Top_Text_ScottScrambler:
 
 SkyPillar_Top_Text_ScottDefeat:
 	.string "…Six of the strongest POKéMON\n"
+	.string "there are.$"
+
+SkyPillar_Top_Text_ScottDefeatFive:
+	.string "…Five of the strongest POKéMON\n"
 	.string "there are.$"
 
 SkyPillar_Top_Text_ScottBeaten:

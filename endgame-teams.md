@@ -1330,3 +1330,17 @@ Timid Nature
 The same team, with **Latios-Mega** in the fifth slot: Draco Meteor,
 **Psyshock** (instead of Mist Ball), Thunderbolt, Ice Beam, still Choice
 Specs and Timid, as on his Factory team.
+
+## Scott without Darkrai (Bad Dreams)
+
+A player who freed Darkrai in the optional Bad Dreams event
+(`FLAG_DARKRAI_FREED`, see storyline.md) fights a Scott who has lost it.
+Both level-100 battles then use **five-Pokémon** variants that are the teams
+above with the Mega Darkrai entry removed and nothing else changed:
+`TRAINER_FACTORY_SCOTT_NO_DARKRAI_LATIAS` / `_LATIOS` in the Pillar Chamber
+(Mewtwo, Lati@s, Gengar, Salamence, Mawile) and
+`TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIAS` / `_LATIOS` at the top of Sky
+Pillar (Rayquaza, Kyogre, Groudon, Mewtwo, Lati@s). The Latias/Latios choice
+still follows `FLAG_STEVEN_HAS_LATIOS`, and the rematch after a loss uses the
+same variant. Scott acknowledges it before the Factory battle and in the Sky
+Pillar scene.

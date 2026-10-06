@@ -96,8 +96,11 @@ BattleFrontier_DevonFactory_B3F_EventScript_PillarScene::
 	setflag FLAG_STORY_HELD_ITEMS_SAVED
 	special SaveFacilityHeldItems
 	setflag FLAG_ENDGAME_NO_WHITEOUT
+	@ Bad Dreams: a player who freed DARKRAI fights the five-Pokemon teams.
+	goto_if_set FLAG_DARKRAI_FREED, BattleFrontier_DevonFactory_B3F_EventScript_BattleScottNoDarkrai
 	call_if_set FLAG_STEVEN_HAS_LATIOS, BattleFrontier_DevonFactory_B3F_EventScript_BattleScottLatias
 	call_if_unset FLAG_STEVEN_HAS_LATIOS, BattleFrontier_DevonFactory_B3F_EventScript_BattleScottLatios
+BattleFrontier_DevonFactory_B3F_EventScript_ScottBattleDone::
 	clearflag FLAG_ENDGAME_NO_WHITEOUT
 	specialvar VAR_RESULT, GetBattleOutcome
 	call_if_eq VAR_RESULT, B_OUTCOME_WON, BattleFrontier_DevonFactory_B3F_EventScript_ScottBeaten
@@ -138,6 +141,23 @@ BattleFrontier_DevonFactory_B3F_EventScript_BattleScottLatias::
 
 BattleFrontier_DevonFactory_B3F_EventScript_BattleScottLatios::
 	trainerbattle_no_intro TRAINER_FACTORY_SCOTT_LATIOS, BattleFrontier_DevonFactory_B3F_Text_ScottDefeat
+	return
+
+@ DARKRAI is gone from SCOTT's team: he says so, then the same fight with
+@ five. Falls back into the common tail above.
+BattleFrontier_DevonFactory_B3F_EventScript_BattleScottNoDarkrai::
+	msgbox BattleFrontier_DevonFactory_B3F_Text_ScottNoDarkrai, MSGBOX_DEFAULT
+	closemessage
+	call_if_set FLAG_STEVEN_HAS_LATIOS, BattleFrontier_DevonFactory_B3F_EventScript_BattleScottNoDarkraiLatias
+	call_if_unset FLAG_STEVEN_HAS_LATIOS, BattleFrontier_DevonFactory_B3F_EventScript_BattleScottNoDarkraiLatios
+	goto BattleFrontier_DevonFactory_B3F_EventScript_ScottBattleDone
+
+BattleFrontier_DevonFactory_B3F_EventScript_BattleScottNoDarkraiLatias::
+	trainerbattle_no_intro TRAINER_FACTORY_SCOTT_NO_DARKRAI_LATIAS, BattleFrontier_DevonFactory_B3F_Text_ScottDefeat
+	return
+
+BattleFrontier_DevonFactory_B3F_EventScript_BattleScottNoDarkraiLatios::
+	trainerbattle_no_intro TRAINER_FACTORY_SCOTT_NO_DARKRAI_LATIOS, BattleFrontier_DevonFactory_B3F_Text_ScottDefeat
 	return
 
 BattleFrontier_DevonFactory_B3F_EventScript_ScottBeaten::
@@ -329,6 +349,11 @@ BattleFrontier_DevonFactory_B3F_Text_ScottSquash:
 	.string "I'd squash him.\p"
 	.string "I don't need you anymore, kid.\n"
 	.string "MEWTWO, squash them.$"
+
+BattleFrontier_DevonFactory_B3F_Text_ScottNoDarkrai:
+	.string "SCOTT: Someone cut my DARKRAI loose\n"
+	.string "while I was away.\p"
+	.string "It doesn't matter.$"
 
 BattleFrontier_DevonFactory_B3F_Text_ScottDefeat:
 	.string "…Interesting.$"

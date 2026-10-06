@@ -26005,3 +26005,239 @@ Timid Nature
 /* Ten Gauntlets: Bad Dreams (storyline.md, during gauntlet 7). SCOTT's teams
  * without DARKRAI, for a player who freed it. Entries go right after this
  * comment. */
+
+=== TRAINER_FACTORY_SCOTT_NO_DARKRAI_LATIAS ===
+Name: SCOTT
+Class: Founder
+Pic: Gentleman
+Gender: Male
+Music: Intense
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient
+
+Mewtwo-Mega-Y @ Life Orb
+Ability: Insomnia
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psystrike
+- Aura Sphere
+- Ice Beam
+- Fire Blast
+
+Latias-Mega @ Choice Specs
+Ability: Levitate
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Draco Meteor
+- Mist Ball
+- Thunderbolt
+- Ice Beam
+
+Gengar-Mega @ Expert Belt
+Ability: Shadow Tag
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Shadow Ball
+- Sludge Wave
+- Focus Blast
+- Thunderbolt
+
+Salamence-Mega @ Choice Band
+Ability: Aerilate
+Level: 100
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Double-Edge
+- Earthquake
+- Outrage
+- Fire Fang
+
+Mawile-Mega @ Muscle Band
+Ability: Huge Power
+Level: 100
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Play Rough
+- Iron Head
+- Sucker Punch
+- Fire Fang
+
+=== TRAINER_FACTORY_SCOTT_NO_DARKRAI_LATIOS ===
+Name: SCOTT
+Class: Founder
+Pic: Gentleman
+Gender: Male
+Music: Intense
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient
+
+Mewtwo-Mega-Y @ Life Orb
+Ability: Insomnia
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psystrike
+- Aura Sphere
+- Ice Beam
+- Fire Blast
+
+Latios-Mega @ Choice Specs
+Ability: Levitate
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Draco Meteor
+- Psyshock
+- Thunderbolt
+- Ice Beam
+
+Gengar-Mega @ Expert Belt
+Ability: Shadow Tag
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Shadow Ball
+- Sludge Wave
+- Focus Blast
+- Thunderbolt
+
+Salamence-Mega @ Choice Band
+Ability: Aerilate
+Level: 100
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Double-Edge
+- Earthquake
+- Outrage
+- Fire Fang
+
+Mawile-Mega @ Muscle Band
+Ability: Huge Power
+Level: 100
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Play Rough
+- Iron Head
+- Sucker Punch
+- Fire Fang
+
+=== TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIAS ===
+Name: SCOTT
+Class: Founder
+Pic: Gentleman
+Gender: Male
+Music: Intense
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient
+
+Rayquaza-Mega @ Choice Band
+Ability: Delta Stream
+Level: 100
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+- Dragon Ascent
+- Extreme Speed
+- Earthquake
+- Stone Edge
+
+Kyogre-Primal @ Blue Orb
+Ability: Primordial Sea
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Water Spout
+- Origin Pulse
+- Ice Beam
+- Thunder
+
+Groudon-Primal @ Red Orb
+Ability: Desolate Land
+Level: 100
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+- Precipice Blades
+- Fire Punch
+- Stone Edge
+- Thunder Punch
+
+Mewtwo-Mega-Y @ Life Orb
+Ability: Insomnia
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psystrike
+- Aura Sphere
+- Ice Beam
+- Fire Blast
+
+Latias-Mega @ Choice Specs
+Ability: Levitate
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Draco Meteor
+- Mist Ball
+- Thunderbolt
+- Ice Beam
+
+=== TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIOS ===
+Name: SCOTT
+Class: Founder
+Pic: Gentleman
+Gender: Male
+Music: Intense
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient
+
+Rayquaza-Mega @ Choice Band
+Ability: Delta Stream
+Level: 100
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+- Dragon Ascent
+- Extreme Speed
+- Earthquake
+- Stone Edge
+
+Kyogre-Primal @ Blue Orb
+Ability: Primordial Sea
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Water Spout
+- Origin Pulse
+- Ice Beam
+- Thunder
+
+Groudon-Primal @ Red Orb
+Ability: Desolate Land
+Level: 100
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+- Precipice Blades
+- Fire Punch
+- Stone Edge
+- Thunder Punch
+
+Mewtwo-Mega-Y @ Life Orb
+Ability: Insomnia
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psystrike
+- Aura Sphere
+- Ice Beam
+- Fire Blast
+
+Latios-Mega @ Choice Specs
+Ability: Levitate
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Draco Meteor
+- Psyshock
+- Thunderbolt
+- Ice Beam

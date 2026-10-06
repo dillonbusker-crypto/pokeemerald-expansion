@@ -607,7 +607,7 @@ Center, which knows Teleport and the way to Ever Grande, and flies ahead.
 Frontier Pokémon don't grow. Bond energy is being harvested and goes
 somewhere. Scott is collecting Master Balls. The Elite Four are missing.
 
-### During gauntlet 7: Bad Dreams (optional) 📝
+### During gauntlet 7: Bad Dreams (optional) ✅
 
 **The window:** from the end of the Broker's letter (`VAR_BROKER_STORY_STATE`
 11) until gauntlet 7 is cleared: the stretch when Scott is "out of town".
@@ -699,7 +699,7 @@ in `src/item_use.c` returns the new `BALL_THROW_UNABLE_CHIPPED` while it is set
 used), and `Overworld_ResetBattleFlagsAndVars()` clears it on a white-out.
 Harness scenario 30 (`harness-badC.c`) covers it.
 
-**5. The payoff.** With `FLAG_DARKRAI_FREED`, Scott's two later battles use
+**5. The payoff ✅ built.** With `FLAG_DARKRAI_FREED`, Scott's two later battles use
 teams without Darkrai, **five Pokémon each**
 (`TRAINER_FACTORY_SCOTT_NO_DARKRAI_*`, `TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_*`),
 and he says so: in the Factory, "Someone cut my DARKRAI loose while I was
