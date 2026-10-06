@@ -3,7 +3,8 @@ SkyPillar_1F_MapScripts::
 	.byte 0
 
 SkyPillar_1F_OnTransition:
-	call_if_lt VAR_SKY_PILLAR_STATE, 2, SkyPillar_1F_EventScript_CleanFloor
+	@ Ten Gauntlets: always the smooth layout (the vanilla awakening never runs here).
+	call SkyPillar_1F_EventScript_CleanFloor
 	end
 
 SkyPillar_1F_EventScript_CleanFloor::
