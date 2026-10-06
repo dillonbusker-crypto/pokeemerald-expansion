@@ -14,14 +14,28 @@
   "show_map_name": true,
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": null,
-  "object_events": [],
+  "object_events": [
+    {
+      "graphics_id": "OBJ_EVENT_GFX_WATTSON",
+      "x": 6,
+      "y": 4,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NewMauville_Entrance_EventScript_Wattson",
+      "flag": "FLAG_TEMP_1"
+    }
+  ],
   "warp_events": [
     {
       "x": 4,
       "y": 6,
       "elevation": 3,
-      "dest_map": "MAP_ROUTE110",
-      "dest_warp_id": "0"
+      "dest_map": "MAP_MAUVILLE_CITY",
+      "dest_warp_id": "1"
     },
     {
       "x": 4,
@@ -31,16 +45,6 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [
-    {
-      "type": "trigger",
-      "x": 4,
-      "y": 2,
-      "elevation": 3,
-      "var": "VAR_NEW_MAUVILLE_STATE",
-      "var_value": "0",
-      "script": "NewMauville_Entrance_EventScript_Door"
-    }
-  ],
+  "coord_events": [],
   "bg_events": []
 }

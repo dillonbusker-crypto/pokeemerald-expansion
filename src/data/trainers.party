@@ -25437,5 +25437,422 @@ Adamant Nature
 /* Ten Gauntlets: endgame part 4, New Mauville (storyline.md). The admins and
  * MAXIE/ARCHIE go right after this comment. */
 
+=== TRAINER_NEW_MAUVILLE_TABITHA ===
+Name: TABITHA
+Class: Magma Admin
+Pic: Magma Admin
+Gender: Male
+Music: Magma
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Torkoal @ Heat Rock
+Ability: Drought
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+IVs: 0 Atk
+- Stealth Rock
+- Lava Plume
+- Earth Power
+- Rapid Spin
+
+Rhyperior @ Choice Band
+Ability: Solid Rock
+Level: 60
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+- Earthquake
+- Stone Edge
+- Megahorn
+- Ice Punch
+
+Heatran @ Leftovers
+Ability: Flash Fire
+Level: 60
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Magma Storm
+- Earth Power
+- Flash Cannon
+- Taunt
+
+Excadrill @ Life Orb
+Ability: Mold Breaker
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Earthquake
+- Iron Head
+- Rock Slide
+
+Garchomp @ Choice Scarf
+Ability: Rough Skin
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Earthquake
+- Outrage
+- Stone Edge
+- Fire Fang
+
+Camerupt-Mega @ Cameruptite
+Ability: Sheer Force
+Level: 60
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Lava Plume
+- Earth Power
+- Flash Cannon
+- Rock Slide
+
+=== TRAINER_NEW_MAUVILLE_COURTNEY ===
+Name: COURTNEY
+Class: Magma Admin
+Pic: Magma Admin
+Gender: Female
+Music: Magma
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Volcarona @ Heavy-Duty Boots
+Ability: Flame Body
+Level: 60
+EVs: 252 HP / 4 SpA / 252 Spe
+Timid Nature
+- Quiver Dance
+- Fiery Dance
+- Bug Buzz
+- Morning Sun
+
+Landorus-Therian @ Rocky Helmet
+Ability: Intimidate
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpD
+Impish Nature
+- Stealth Rock
+- Earthquake
+- U-turn
+- Knock Off
+
+Coalossal @ Leftovers
+Ability: Flash Fire
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Rapid Spin
+- Flamethrower
+- Stone Edge
+- Will-O-Wisp
+
+Ting-Lu @ Sitrus Berry
+Ability: Vessel of Ruin
+Level: 60
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Ruination
+- Earthquake
+- Spikes
+- Whirlwind
+
+Tyranitar @ Assault Vest
+Ability: Sand Stream
+Level: 60
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Knock Off
+- Stone Edge
+- Earthquake
+- Fire Punch
+
+Houndoom-Mega @ Houndoominite
+Ability: Solar Power
+Level: 60
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Nasty Plot
+- Fire Blast
+- Dark Pulse
+- Sludge Bomb
+
+=== TRAINER_NEW_MAUVILLE_MATT ===
+Name: MATT
+Class: Aqua Admin
+Pic: Aqua Admin M
+Gender: Male
+Music: Aqua
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Pelipper @ Damp Rock
+Ability: Drizzle
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Hurricane
+- Scald
+- U-turn
+- Roost
+
+Crawdaunt @ Life Orb
+Ability: Adaptability
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Crabhammer
+- Knock Off
+- Aqua Jet
+
+Toxapex @ Black Sludge
+Ability: Regenerator
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+IVs: 0 Atk
+- Baneful Bunker
+- Scald
+- Recover
+- Haze
+
+Greninja @ Choice Specs
+Ability: Protean
+Level: 60
+EVs: 4 Def / 252 SpA / 252 Spe
+Timid Nature
+- Hydro Pump
+- Dark Pulse
+- Ice Beam
+- U-turn
+
+Weavile @ Black Glasses
+Ability: Pressure
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Triple Axel
+- Knock Off
+- Ice Shard
+
+Sharpedo-Mega @ Sharpedonite
+Ability: Strong Jaw
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Protect
+- Crunch
+- Waterfall
+- Ice Fang
+
+=== TRAINER_NEW_MAUVILLE_SHELLY ===
+Name: SHELLY
+Class: Aqua Admin
+Pic: Aqua Admin F
+Gender: Female
+Music: Aqua
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Politoed @ Damp Rock
+Ability: Drizzle
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Scald
+- Ice Beam
+- Encore
+- Haze
+
+Kingdra @ Choice Specs
+Ability: Swift Swim
+Level: 60
+EVs: 4 HP / 252 SpA / 252 Spe
+Modest Nature
+- Hydro Pump
+- Draco Meteor
+- Ice Beam
+- Flip Turn
+
+Gyarados @ Lum Berry
+Ability: Intimidate
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Dragon Dance
+- Waterfall
+- Earthquake
+- Stone Edge
+
+Mandibuzz @ Rocky Helmet
+Ability: Overcoat
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Foul Play
+- Roost
+- Defog
+- U-turn
+
+Krookodile @ Life Orb
+Ability: Intimidate
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Bulk Up
+- Earthquake
+- Knock Off
+- Stone Edge
+
+Swampert-Mega @ Swampertite
+Ability: Swift Swim
+Level: 60
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Waterfall
+- Earthquake
+- Ice Punch
+- Stealth Rock
+
+=== TRAINER_NEW_MAUVILLE_MAXIE ===
+Name: MAXIE
+Class: Magma Leader
+Pic: Magma Leader Maxie
+Gender: Male
+Music: Magma
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Groudon-Primal @ Leftovers
+Ability: Desolate Land
+Level: 65
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Swords Dance
+- Precipice Blades
+- Fire Punch
+- Stone Edge
+
+Torkoal @ Heat Rock
+Ability: Drought
+Level: 65
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+IVs: 0 Atk
+- Stealth Rock
+- Lava Plume
+- Earth Power
+- Rapid Spin
+
+Venusaur @ Black Sludge
+Ability: Chlorophyll
+Level: 65
+EVs: 4 HP / 252 SpA / 252 Spe
+Timid Nature
+- Growth
+- Giga Drain
+- Sludge Bomb
+- Earth Power
+
+Volcarona @ Heavy-Duty Boots
+Ability: Flame Body
+Level: 65
+EVs: 252 HP / 4 SpA / 252 Spe
+Timid Nature
+- Quiver Dance
+- Fiery Dance
+- Bug Buzz
+- Morning Sun
+
+Heatran @ Air Balloon
+Ability: Flash Fire
+Level: 65
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Magma Storm
+- Earth Power
+- Flash Cannon
+- Taunt
+
+Charizard @ Choice Specs
+Ability: Solar Power
+Level: 65
+EVs: 4 Def / 252 SpA / 252 Spe
+Timid Nature
+- Fire Blast
+- Air Slash
+- Focus Blast
+- Solar Beam
+
+=== TRAINER_NEW_MAUVILLE_ARCHIE ===
+Name: ARCHIE
+Class: Aqua Leader
+Pic: Aqua Leader Archie
+Gender: Male
+Music: Aqua
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Kyogre-Primal @ Leftovers
+Ability: Primordial Sea
+Level: 65
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Origin Pulse
+- Thunder
+- Ice Beam
+- Calm Mind
+
+Pelipper @ Damp Rock
+Ability: Drizzle
+Level: 65
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Hurricane
+- Scald
+- U-turn
+- Roost
+
+Kingdra @ Choice Specs
+Ability: Swift Swim
+Level: 65
+EVs: 4 HP / 252 SpA / 252 Spe
+Modest Nature
+- Hydro Pump
+- Draco Meteor
+- Ice Beam
+- Flip Turn
+
+Barraskewda @ Choice Band
+Ability: Swift Swim
+Level: 65
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Liquidation
+- Close Combat
+- Flip Turn
+- Psychic Fangs
+
+Ludicolo @ Life Orb
+Ability: Swift Swim
+Level: 65
+EVs: 4 HP / 252 SpA / 252 Spe
+Modest Nature
+- Hydro Pump
+- Giga Drain
+- Ice Beam
+- Focus Blast
+
+Zapdos @ Heavy-Duty Boots
+Ability: Pressure
+Level: 65
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Thunder
+- Hurricane
+- Heat Wave
+- Roost
+
 /* Ten Gauntlets: endgame part 5, the final battle at SKY PILLAR
  * (storyline.md). SCOTT's two level-100 teams go right after this comment. */

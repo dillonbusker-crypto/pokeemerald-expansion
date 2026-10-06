@@ -19,9 +19,11 @@ NewMauville_Inside_EventScript_TryRemoveVoltorb::
 NewMauville_Inside_OnTransition:
 	setvar VAR_TEMP_1, 0
 	setvar VAR_TEMP_2, 0
-	call_if_unset FLAG_DEFEATED_VOLTORB_1_NEW_MAUVILLE, NewMauville_Inside_EventScript_ShowVoltorb1
-	call_if_unset FLAG_DEFEATED_VOLTORB_2_NEW_MAUVILLE, NewMauville_Inside_EventScript_ShowVoltorb2
-	call_if_unset FLAG_DEFEATED_VOLTORB_3_NEW_MAUVILLE, NewMauville_Inside_EventScript_ShowVoltorb3
+	@ Ten Gauntlets: the VOLTORBs are switched off (and no wild encounters).
+	setflag FLAG_HIDE_NEW_MAUVILLE_VOLTORB_1
+	setflag FLAG_HIDE_NEW_MAUVILLE_VOLTORB_2
+	setflag FLAG_HIDE_NEW_MAUVILLE_VOLTORB_3
+	call NewMauville_Inside_EventScript_SetupEndgame
 	end
 
 NewMauville_Inside_EventScript_ShowVoltorb1::
@@ -261,3 +263,377 @@ NewMauville_Inside_Text_SteppedOnSwitchGeneratorStopped:
 	.string "… … … … … … … …\p"
 	.string "The generator appears to have\n"
 	.string "stopped…$"
+
+@ ============================================================================
+@ Ten Gauntlets: New Mauville (storyline.md; VAR_ENDGAME_STATE is explained in
+@ BattleFrontier_OutsideEast). The VOLTORBs, the wild encounters, the locked
+@ door and the red switch are switched off; the buttons and barriers still
+@ work as in vanilla.
+@   13 four ADMINS hold the corridors, each fought once, in order (TABITHA,
+@      COURTNEY, MATT, SHELLY: VAR_NEW_MAUVILLE_ADMINS counts them, and a
+@      trigger just before each starts the fight). Each leaves when beaten.
+@      The party is healed after each, and the held items come back
+@      (EventScript_RestoreStoryHeldItems), win or white-out.
+@      At the generator MAXIE and ARCHIE are fought back to back, with no
+@      heal (the SCRAMBLER). A loss whites out to MAUVILLE's POKEMON CENTER
+@      and BOTH are fought again: their trainer flags are never checked, and
+@      state 14 is only set after the second win.
+@   14 the CROWN is supercharged; MAXIE and ARCHIE are gone
+@ FLAG_TEMP_1-4 the admins, 5 MAXIE, 6 ARCHIE.
+@ ============================================================================
+
+NewMauville_Inside_EventScript_SetupEndgame::
+	setflag FLAG_TEMP_1
+	setflag FLAG_TEMP_2
+	setflag FLAG_TEMP_3
+	setflag FLAG_TEMP_4
+	setflag FLAG_TEMP_5
+	setflag FLAG_TEMP_6
+	goto_if_ne VAR_ENDGAME_STATE, 13, Common_EventScript_NopReturn
+	setrespawn HEAL_LOCATION_MAUVILLE_CITY
+	clearflag FLAG_TEMP_5
+	clearflag FLAG_TEMP_6
+	checktrainerflag TRAINER_NEW_MAUVILLE_TABITHA
+	call_if FALSE, NewMauville_Inside_EventScript_ShowTabitha
+	checktrainerflag TRAINER_NEW_MAUVILLE_COURTNEY
+	call_if FALSE, NewMauville_Inside_EventScript_ShowCourtney
+	checktrainerflag TRAINER_NEW_MAUVILLE_MATT
+	call_if FALSE, NewMauville_Inside_EventScript_ShowMatt
+	checktrainerflag TRAINER_NEW_MAUVILLE_SHELLY
+	call_if FALSE, NewMauville_Inside_EventScript_ShowShelly
+	return
+
+NewMauville_Inside_EventScript_ShowTabitha::
+	clearflag FLAG_TEMP_1
+	return
+
+NewMauville_Inside_EventScript_ShowCourtney::
+	clearflag FLAG_TEMP_2
+	return
+
+NewMauville_Inside_EventScript_ShowMatt::
+	clearflag FLAG_TEMP_3
+	return
+
+NewMauville_Inside_EventScript_ShowShelly::
+	clearflag FLAG_TEMP_4
+	return
+
+@ Each admin is on a one-tile-wide stretch (SHELLY's is two wide, so two
+@ triggers), and the trigger is the tile just before. The fight scripts
+@ start from either the trigger or a talk.
+NewMauville_Inside_EventScript_TabithaTrigger::
+	lockall
+	setvar VAR_LAST_TALKED, LOCALID_NEW_MAUVILLE_TABITHA
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	goto NewMauville_Inside_EventScript_TabithaFight
+
+NewMauville_Inside_EventScript_Tabitha::
+	lockall
+	faceplayer
+	goto NewMauville_Inside_EventScript_TabithaFight
+
+NewMauville_Inside_EventScript_TabithaFight::
+	msgbox NewMauville_Inside_Text_Tabitha, MSGBOX_DEFAULT
+	call NewMauville_Inside_EventScript_SaveHeldItems
+	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_TABITHA, NewMauville_Inside_Text_TabithaDefeat
+	msgbox NewMauville_Inside_Text_TabithaAfter, MSGBOX_DEFAULT
+	setvar VAR_NEW_MAUVILLE_ADMINS, 1
+	goto NewMauville_Inside_EventScript_AdminLeaves
+
+NewMauville_Inside_EventScript_CourtneyTrigger::
+	lockall
+	setvar VAR_LAST_TALKED, LOCALID_NEW_MAUVILLE_COURTNEY
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	goto NewMauville_Inside_EventScript_CourtneyFight
+
+NewMauville_Inside_EventScript_Courtney::
+	lockall
+	faceplayer
+	goto_if_ne VAR_NEW_MAUVILLE_ADMINS, 1, NewMauville_Inside_EventScript_NotYet
+	goto NewMauville_Inside_EventScript_CourtneyFight
+
+NewMauville_Inside_EventScript_CourtneyFight::
+	msgbox NewMauville_Inside_Text_Courtney, MSGBOX_DEFAULT
+	call NewMauville_Inside_EventScript_SaveHeldItems
+	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_COURTNEY, NewMauville_Inside_Text_CourtneyDefeat
+	msgbox NewMauville_Inside_Text_CourtneyAfter, MSGBOX_DEFAULT
+	setvar VAR_NEW_MAUVILLE_ADMINS, 2
+	goto NewMauville_Inside_EventScript_AdminLeaves
+
+NewMauville_Inside_EventScript_MattTrigger::
+	lockall
+	setvar VAR_LAST_TALKED, LOCALID_NEW_MAUVILLE_MATT
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	goto NewMauville_Inside_EventScript_MattFight
+
+NewMauville_Inside_EventScript_Matt::
+	lockall
+	faceplayer
+	goto_if_ne VAR_NEW_MAUVILLE_ADMINS, 2, NewMauville_Inside_EventScript_NotYet
+	goto NewMauville_Inside_EventScript_MattFight
+
+NewMauville_Inside_EventScript_MattFight::
+	msgbox NewMauville_Inside_Text_Matt, MSGBOX_DEFAULT
+	call NewMauville_Inside_EventScript_SaveHeldItems
+	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_MATT, NewMauville_Inside_Text_MattDefeat
+	msgbox NewMauville_Inside_Text_MattAfter, MSGBOX_DEFAULT
+	setvar VAR_NEW_MAUVILLE_ADMINS, 3
+	goto NewMauville_Inside_EventScript_AdminLeaves
+
+@ SHELLY stands at (21, 5); on the upper lane the trigger brings her up beside
+@ the player first.
+NewMauville_Inside_EventScript_ShellyTrigger4::
+	lockall
+	setvar VAR_LAST_TALKED, LOCALID_NEW_MAUVILLE_SHELLY
+	applymovement LOCALID_NEW_MAUVILLE_SHELLY, Common_Movement_WalkUp
+	waitmovement 0
+	goto NewMauville_Inside_EventScript_ShellyTrigger
+
+NewMauville_Inside_EventScript_ShellyTrigger5::
+	lockall
+	setvar VAR_LAST_TALKED, LOCALID_NEW_MAUVILLE_SHELLY
+	goto NewMauville_Inside_EventScript_ShellyTrigger
+
+NewMauville_Inside_EventScript_ShellyTrigger::
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	goto NewMauville_Inside_EventScript_ShellyFight
+
+NewMauville_Inside_EventScript_Shelly::
+	lockall
+	faceplayer
+	goto_if_ne VAR_NEW_MAUVILLE_ADMINS, 3, NewMauville_Inside_EventScript_NotYet
+	goto NewMauville_Inside_EventScript_ShellyFight
+
+NewMauville_Inside_EventScript_ShellyFight::
+	msgbox NewMauville_Inside_Text_Shelly, MSGBOX_DEFAULT
+	call NewMauville_Inside_EventScript_SaveHeldItems
+	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_SHELLY, NewMauville_Inside_Text_ShellyDefeat
+	msgbox NewMauville_Inside_Text_ShellyAfter, MSGBOX_DEFAULT
+	setvar VAR_NEW_MAUVILLE_ADMINS, 4
+	goto NewMauville_Inside_EventScript_AdminLeaves
+
+NewMauville_Inside_EventScript_NotYet::
+	msgbox NewMauville_Inside_Text_NotYet, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ Shared by all four. VAR_LAST_TALKED is the admin just beaten.
+NewMauville_Inside_EventScript_SaveHeldItems::
+	closemessage
+	setflag FLAG_STORY_HELD_ITEMS_SAVED
+	special SaveFacilityHeldItems
+	return
+
+NewMauville_Inside_EventScript_AdminLeaves::
+	special RestoreFacilityHeldItems
+	clearflag FLAG_STORY_HELD_ITEMS_SAVED
+	closemessage
+	fadescreen FADE_TO_BLACK
+	removeobject VAR_LAST_TALKED
+	special HealPlayerParty
+	fadescreen FADE_FROM_BLACK
+	msgbox NewMauville_Inside_Text_Healed, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ MAXIE and ARCHIE stand at (33, 5) and (34, 5). Walking into the room (x 29)
+@ or talking to either starts the same scene.
+NewMauville_Inside_EventScript_GeneratorLeadersTrigger::
+	lockall
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	applymovement LOCALID_NEW_MAUVILLE_MAXIE, Common_Movement_FaceLeft
+	applymovement LOCALID_NEW_MAUVILLE_ARCHIE, Common_Movement_FaceLeft
+	waitmovement 0
+	goto NewMauville_Inside_EventScript_GeneratorLeadersScene
+
+NewMauville_Inside_EventScript_GeneratorLeaders::
+	lockall
+	goto_if_ne VAR_ENDGAME_STATE, 13, NewMauville_Inside_EventScript_NotYet
+	goto NewMauville_Inside_EventScript_GeneratorLeadersScene
+
+NewMauville_Inside_EventScript_GeneratorLeadersScene::
+	msgbox NewMauville_Inside_Text_Maxie1, MSGBOX_DEFAULT
+	msgbox NewMauville_Inside_Text_Archie1, MSGBOX_DEFAULT
+	msgbox NewMauville_Inside_Text_Maxie2, MSGBOX_DEFAULT
+	call DevonFactory_EventScript_UseScrambler
+	setvar VAR_LAST_TALKED, LOCALID_NEW_MAUVILLE_MAXIE
+	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_MAXIE, NewMauville_Inside_Text_MaxieDefeat
+	msgbox NewMauville_Inside_Text_ArchieNext, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_LAST_TALKED, LOCALID_NEW_MAUVILLE_ARCHIE
+	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_ARCHIE, NewMauville_Inside_Text_ArchieDefeat
+	special RestoreFacilityHeldItems
+	clearflag FLAG_STORY_HELD_ITEMS_SAVED
+	msgbox NewMauville_Inside_Text_LeadersBeaten, MSGBOX_DEFAULT
+	closemessage
+	@ The CROWN, held up to the generator.
+	playse SE_M_THUNDERBOLT2
+	fadescreen FADE_TO_WHITE
+	setvar VAR_0x8004, 1  @ vertical pan
+	setvar VAR_0x8005, 2  @ horizontal pan
+	setvar VAR_0x8006, 16 @ num shakes
+	setvar VAR_0x8007, 4  @ shake delay
+	special ShakeCamera
+	waitstate
+	fadescreen FADE_FROM_WHITE
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox NewMauville_Inside_Text_Supercharged, MSGBOX_DEFAULT
+	waitfanfare
+	closemessage
+	setvar VAR_ENDGAME_STATE, 14
+	@ Scott takes the PRIMALS back through the CROWN.
+	playse SE_BALL_OPEN
+	delay 8
+	playse SE_BALL_OPEN
+	fadescreen FADE_TO_WHITE
+	fadescreen FADE_FROM_WHITE
+	msgbox NewMauville_Inside_Text_BallsEmpty, MSGBOX_DEFAULT
+	msgbox NewMauville_Inside_Text_MaxieBitter, MSGBOX_DEFAULT
+	msgbox NewMauville_Inside_Text_ArchieBitter, MSGBOX_DEFAULT
+	closemessage
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_NEW_MAUVILLE_MAXIE
+	removeobject LOCALID_NEW_MAUVILLE_ARCHIE
+	fadescreen FADE_FROM_BLACK
+	msgbox NewMauville_Inside_Text_LeadersGone, MSGBOX_DEFAULT
+	releaseall
+	end
+
+NewMauville_Inside_Text_NotYet:
+	.string "…Not yet. Whoever stands in front\n"
+	.string "of the generator isn't ready to\l"
+	.string "talk.$"
+
+NewMauville_Inside_Text_Healed:
+	.string "A charging coil nearby hummed.\n"
+	.string "{PLAYER}'s POKéMON were restored.$"
+
+NewMauville_Inside_Text_Tabitha:
+	.string "TABITHA: Hehehe! So you're the kid\n"
+	.string "SCOTT warned us about.\p"
+	.string "MAGMA works with AQUA now, and the\n"
+	.string "generator under MAUVILLE is ours\l"
+	.string "to guard.\p"
+	.string "You'll go through the four of us\n"
+	.string "to reach it. I'm the first!$"
+
+NewMauville_Inside_Text_TabithaDefeat:
+	.string "Hehehe… Hahahaha!\n"
+	.string "That was something!$"
+
+NewMauville_Inside_Text_TabithaAfter:
+	.string "TABITHA: Hehehe… Fine, I'm out.\p"
+	.string "COURTNEY is down the corridor.\n"
+	.string "She won't be as much fun about it.$"
+
+NewMauville_Inside_Text_Courtney:
+	.string "COURTNEY: …Ah. So you got past\n"
+	.string "TABITHA.\p"
+	.string "…Then I have to do this myself.\n"
+	.string "…Hm. Target acquired.$"
+
+NewMauville_Inside_Text_CourtneyDefeat:
+	.string "…Ah…\n"
+	.string "…I calculated wrong.$"
+
+NewMauville_Inside_Text_CourtneyAfter:
+	.string "COURTNEY: …Ah. You're strong.\p"
+	.string "…MATT and SHELLY hold the next\n"
+	.string "stretch. …AQUA. I have to work with\l"
+	.string "them now. …Nothing personal.$"
+
+NewMauville_Inside_Text_Matt:
+	.string "MATT: Hah! So you're the one who's\n"
+	.string "been cutting through MAGMA's lot.\p"
+	.string "That's their problem. TEAM AQUA's\n"
+	.string "finest stands in your way now!$"
+
+NewMauville_Inside_Text_MattDefeat:
+	.string "Gwaaah!\n"
+	.string "Washed away!$"
+
+NewMauville_Inside_Text_MattAfter:
+	.string "MATT: Grr… Go on, then.\p"
+	.string "SHELLY is just ahead. She hates\n"
+	.string "losing even more than I do.$"
+
+NewMauville_Inside_Text_Shelly:
+	.string "SHELLY: Ahahaha! You came all this\n"
+	.string "way?\p"
+	.string "I'm the last wall before the\n"
+	.string "generator. Let's see what you're\l"
+	.string "made of!$"
+
+NewMauville_Inside_Text_ShellyDefeat:
+	.string "Ahahaha… Swept away by the tide!$"
+
+NewMauville_Inside_Text_ShellyAfter:
+	.string "SHELLY: Fine, fine. I lost.\p"
+	.string "The generator's through the door\n"
+	.string "ahead. ARCHIE and MAXIE are waiting.\l"
+	.string "Don't come crying to me.$"
+
+NewMauville_Inside_Text_Maxie1:
+	.string "MAXIE: So. You've come through my\n"
+	.string "ADMINS, and ARCHIE's.\p"
+	.string "SCOTT warned us you would.$"
+
+NewMauville_Inside_Text_Archie1:
+	.string "ARCHIE: Hah! SCOTT gave us what we\n"
+	.string "always wanted, kid. GROUDON and\l"
+	.string "KYOGRE, for good.\p"
+	.string "All we had to do was guard this\n"
+	.string "generator.$"
+
+NewMauville_Inside_Text_Maxie2:
+	.string "MAXIE: Just this once, ARCHIE,\n"
+	.string "we do it together.\p"
+	.string "ARCHIE: Together, MAXIE. Nobody\n"
+	.string "touches the generator!$"
+
+NewMauville_Inside_Text_MaxieDefeat:
+	.string "Impossible… GROUDON's power…$"
+
+NewMauville_Inside_Text_ArchieNext:
+	.string "ARCHIE: Don't gloat, kid. Your\n"
+	.string "POKéMON are hurt.\p"
+	.string "I'm next. KYOGRE and I aren't done!$"
+
+NewMauville_Inside_Text_ArchieDefeat:
+	.string "No… Not even KYOGRE…$"
+
+NewMauville_Inside_Text_LeadersBeaten:
+	.string "MAXIE and ARCHIE were beaten.\p"
+	.string "{PLAYER} held the REPLICA CROWN up\n"
+	.string "to the generator.$"
+
+NewMauville_Inside_Text_Supercharged:
+	.string "The CROWN drank in the current!\p"
+	.string "It can now make all six party\n"
+	.string "POKéMON permanent MEGAS!$"
+
+NewMauville_Inside_Text_BallsEmpty:
+	.string "Light flared from MAXIE's and\n"
+	.string "ARCHIE's POKé BALLS, then died.\p"
+	.string "The BALLS were empty.$"
+
+NewMauville_Inside_Text_MaxieBitter:
+	.string "MAXIE: …GROUDON. Gone, through the\n"
+	.string "CROWN, just as SCOTT said he would\l"
+	.string "take it if we failed.$"
+
+NewMauville_Inside_Text_ArchieBitter:
+	.string "ARCHIE: And KYOGRE with it. Hmph.\p"
+	.string "Listen, kid. SCOTT's headed for\n"
+	.string "SKY PILLAR. If you want him,\l"
+	.string "that's where he'll be.$"
+
+NewMauville_Inside_Text_LeadersGone:
+	.string "MAXIE and ARCHIE walked out of the\n"
+	.string "generator hall without a word.$"
