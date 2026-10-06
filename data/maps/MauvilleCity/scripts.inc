@@ -1,5 +1,6 @@
 MauvilleCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, MauvilleCity_OnTransition
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, MauvilleCity_OnFrame
 	.byte 0
 
 MauvilleCity_OnTransition:
@@ -17,7 +18,13 @@ MauvilleCity_OnTransition:
 	clearflag FLAG_MAUVILLE_GYM_BARRIERS_STATE
 	setvar VAR_MAUVILLE_GYM_STATE, 0
 	call_if_set FLAG_GOT_TM_THUNDERBOLT_FROM_WATTSON, MauvilleCity_EventScript_MoveWattsonBackToGym
+	call MauvilleCity_EventScript_SetupEndgame
 	end
+
+MauvilleCity_OnFrame:
+	map_script_2 VAR_TEMP_1, 1, MauvilleCity_EventScript_ArrivalScene
+	map_script_2 VAR_TEMP_1, 2, MauvilleCity_EventScript_CenterScene
+	.2byte 0
 
 MauvilleCity_EventScript_MoveWattsonBackToGym::
 	clearflag FLAG_HIDE_MAUVILLE_GYM_WATTSON
@@ -674,3 +681,276 @@ MauvilleCity_Text_BeenCheckingOutTV:
 MauvilleCity_EventScript_EndgameAbra::
 	setvar VAR_0x8004, ABRA_AT_MAUVILLE
 	goto EventScript_EndgameAbra
+
+@ ============================================================================
+@ Ten Gauntlets: Mauville and New Mauville (storyline.md; VAR_ENDGAME_STATE is
+@ explained in BattleFrontier_OutsideEast). The ABRA lands the player at
+@ (22, 6), above the POKEMON CENTER's door.
+@   12 TEAM AQUA and TEAM MAGMA hold the town. WATTSON rushes up; STEVEN and
+@      WALLACE stay to clear it, and WATTSON leads the player to NEW MAUVILLE
+@      (state 13). A white-out anywhere from here on lands in the CENTER.
+@   13 WATTSON waits by the CENTER's door, ready to lead the player back down
+@   14 MAXIE and ARCHIE are beaten: the player comes out of the CENTER (New
+@      Mauville's exit warp), the teams have left, and WATTSON, STEVEN and
+@      WALLACE wait outside (state 15 after the scene)
+@   15 WATTSON stays in town; STEVEN and WALLACE are at the FRONTIER
+@ FLAG_TEMP_1 WATTSON, 2 STEVEN, 3 WALLACE, 4 the grunts.
+@ ============================================================================
+
+MauvilleCity_EventScript_SetupEndgame::
+	setflag FLAG_TEMP_1
+	setflag FLAG_TEMP_2
+	setflag FLAG_TEMP_3
+	setflag FLAG_TEMP_4
+	goto_if_lt VAR_ENDGAME_STATE, 12, Common_EventScript_NopReturn
+	setrespawn HEAL_LOCATION_MAUVILLE_CITY
+	call_if_le VAR_ENDGAME_STATE, 13, MauvilleCity_EventScript_ShowGrunts
+	call_if_eq VAR_ENDGAME_STATE, 12, MauvilleCity_EventScript_SetupArrivalScene
+	call_if_eq VAR_ENDGAME_STATE, 13, MauvilleCity_EventScript_ShowWattsonAtCenter
+	call_if_eq VAR_ENDGAME_STATE, 14, MauvilleCity_EventScript_SetupCenterScene
+	call_if_eq VAR_ENDGAME_STATE, 15, MauvilleCity_EventScript_ShowWattsonAtCenter
+	return
+
+MauvilleCity_EventScript_ShowGrunts::
+	clearflag FLAG_TEMP_4
+	return
+
+@ WATTSON starts at (22, 10) and runs up to (22, 7); STEVEN and WALLACE are
+@ already beside it, at (21, 7) and (23, 7).
+MauvilleCity_EventScript_SetupArrivalScene::
+	clearflag FLAG_TEMP_1
+	clearflag FLAG_TEMP_2
+	clearflag FLAG_TEMP_3
+	setvar VAR_TEMP_1, 1
+	return
+
+MauvilleCity_EventScript_ShowWattsonAtCenter::
+	clearflag FLAG_TEMP_1
+	setobjectxyperm LOCALID_MAUVILLE_ENDGAME_WATTSON, 21, 8
+	setobjectmovementtype LOCALID_MAUVILLE_ENDGAME_WATTSON, MOVEMENT_TYPE_FACE_RIGHT
+	return
+
+@ The player steps out of the CENTER to (22, 6). STEVEN (22, 7) and WALLACE
+@ (23, 7) wait right below.
+MauvilleCity_EventScript_SetupCenterScene::
+	clearflag FLAG_TEMP_1
+	clearflag FLAG_TEMP_2
+	clearflag FLAG_TEMP_3
+	setobjectxyperm LOCALID_MAUVILLE_ENDGAME_WATTSON, 21, 8
+	setobjectmovementtype LOCALID_MAUVILLE_ENDGAME_WATTSON, MOVEMENT_TYPE_FACE_UP
+	setobjectxyperm LOCALID_MAUVILLE_ENDGAME_STEVEN, 22, 7
+	setobjectxyperm LOCALID_MAUVILLE_ENDGAME_WALLACE, 23, 7
+	setvar VAR_TEMP_1, 2
+	return
+
+MauvilleCity_EventScript_ArrivalScene::
+	lockall
+	setvar VAR_TEMP_1, 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	applymovement LOCALID_MAUVILLE_ENDGAME_WATTSON, MauvilleCity_Movement_WattsonRushesUp
+	waitmovement 0
+	playse SE_PIN
+	applymovement LOCALID_MAUVILLE_ENDGAME_WATTSON, Common_Movement_ExclamationMark
+	waitmovement 0
+	msgbox MauvilleCity_Text_ArrivalWattson1, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_ArrivalWattson2, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_ArrivalSteven1, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_ArrivalWattson3, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_ArrivalSteven2, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_ArrivalWallace, MSGBOX_DEFAULT
+	closemessage
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_MAUVILLE_ENDGAME_STEVEN
+	removeobject LOCALID_MAUVILLE_ENDGAME_WALLACE
+	fadescreen FADE_FROM_BLACK
+	msgbox MauvilleCity_Text_ArrivalLedAway, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_ArrivalWattson4, MSGBOX_DEFAULT
+	goto MauvilleCity_EventScript_LeadToNewMauville
+	end
+
+MauvilleCity_Movement_WattsonRushesUp:
+	walk_fast_up
+	walk_fast_up
+	walk_fast_up
+	step_end
+
+@ Shared by the first trip and every return after a white-out or a walk back
+@ up. The door is always open in the endgame (NewMauville_Entrance).
+MauvilleCity_EventScript_LeadToNewMauville::
+	closemessage
+	fadescreen FADE_TO_BLACK
+	msgbox MauvilleCity_Text_LedDown, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_NEW_MAUVILLE_STATE, 1
+	setvar VAR_ENDGAME_STATE, 13
+	warp MAP_NEW_MAUVILLE_ENTRANCE, 4, 5
+	waitstate
+	releaseall
+	end
+
+MauvilleCity_EventScript_EndgameWattson::
+	lock
+	faceplayer
+	goto_if_eq VAR_ENDGAME_STATE, 13, MauvilleCity_EventScript_WattsonBackDown
+	msgbox MauvilleCity_Text_WattsonStays, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_WattsonBackDown::
+	msgbox MauvilleCity_Text_WattsonReady, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_WattsonNotYet
+	goto MauvilleCity_EventScript_LeadToNewMauville
+	end
+
+MauvilleCity_EventScript_WattsonNotYet::
+	msgbox MauvilleCity_Text_WattsonNotYet, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_CenterScene::
+	lockall
+	setvar VAR_TEMP_1, 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox MauvilleCity_Text_CenterWattson1, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_MAUVILLE_ENDGAME_WATTSON, Common_Movement_FaceRight
+	waitmovement 0
+	msgbox MauvilleCity_Text_CenterWattson2, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_CenterSteven, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_CenterWallace, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_ENDGAME_STATE, 15
+	playse SE_M_FLY
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_MAUVILLE_ENDGAME_STEVEN
+	removeobject LOCALID_MAUVILLE_ENDGAME_WALLACE
+	waitse
+	fadescreen FADE_FROM_BLACK
+	msgbox MauvilleCity_Text_CenterWattson3, MSGBOX_DEFAULT
+	releaseall
+	end
+
+MauvilleCity_EventScript_EndgameAllies::
+	msgbox MauvilleCity_Text_AlliesBusy, MSGBOX_NPC
+	end
+
+MauvilleCity_EventScript_EndgameGruntAqua::
+	msgbox MauvilleCity_Text_GruntAqua, MSGBOX_NPC
+	end
+
+MauvilleCity_EventScript_EndgameGruntMagma::
+	msgbox MauvilleCity_Text_GruntMagma, MSGBOX_NPC
+	end
+
+MauvilleCity_Text_GruntAqua:
+	.string "A new order is here, kid.\p"
+	.string "TEAM AQUA and TEAM MAGMA are on the\n"
+	.string "same side now. Don't get in the way.$"
+
+MauvilleCity_Text_GruntMagma:
+	.string "HOENN has a new leader, and it\n"
+	.string "isn't the LEAGUE.\p"
+	.string "Move along, and keep your POKéMON\n"
+	.string "to yourself.$"
+
+MauvilleCity_Text_AlliesBusy:
+	.string "We'll clear the town. Go on.$"
+
+MauvilleCity_Text_ArrivalWattson1:
+	.string "WATTSON: Wahah-- no. No laughing\n"
+	.string "today.\p"
+	.string "MAUVILLE has been taken, STEVEN!\n"
+	.string "TEAM AQUA and TEAM MAGMA marched\l"
+	.string "in together at dawn.$"
+
+MauvilleCity_Text_ArrivalWattson2:
+	.string "WATTSON: They say a new order is\n"
+	.string "here. That HOENN has a new leader,\l"
+	.string "a man called SCOTT.\p"
+	.string "AQUA and MAGMA, working side by\n"
+	.string "side! I never thought I'd see it.$"
+
+MauvilleCity_Text_ArrivalSteven1:
+	.string "STEVEN: They aren't here for the\n"
+	.string "town. They're guarding something.\p"
+	.string "WATTSON, what lies under MAUVILLE?$"
+
+MauvilleCity_Text_ArrivalWattson3:
+	.string "WATTSON: NEW MAUVILLE. My old\n"
+	.string "generator, beneath ROUTE 110.\p"
+	.string "It's been dead for years, but a\n"
+	.string "generator that size can be woken.$"
+
+MauvilleCity_Text_ArrivalSteven2:
+	.string "STEVEN: A backup power source for\n"
+	.string "SCOTT's CROWN, in case the FACTORY\l"
+	.string "ever runs dry.\p"
+	.string "That's what the teams are here to\n"
+	.string "protect.$"
+
+MauvilleCity_Text_ArrivalWallace:
+	.string "WALLACE: Then that's where you\n"
+	.string "strike, {PLAYER}.\p"
+	.string "STEVEN and I will clear the town.\n"
+	.string "Quietly, and with great style.\p"
+	.string "WATTSON will see you through.$"
+
+MauvilleCity_Text_ArrivalLedAway:
+	.string "STEVEN and WALLACE drew the\n"
+	.string "grunts away from the streets.$"
+
+MauvilleCity_Text_ArrivalWattson4:
+	.string "WATTSON: I know the way down to the\n"
+	.string "generator. Follow me!\p"
+	.string "Down to the water, and across to\n"
+	.string "NEW MAUVILLE!$"
+
+MauvilleCity_Text_LedDown:
+	.string "WATTSON led {PLAYER} down to the\n"
+	.string "water and across to NEW MAUVILLE.$"
+
+MauvilleCity_Text_WattsonReady:
+	.string "WATTSON: The generator's waiting.\n"
+	.string "Shall I lead you back down?$"
+
+MauvilleCity_Text_WattsonNotYet:
+	.string "WATTSON: Take your time. I'll be\n"
+	.string "right here.$"
+
+MauvilleCity_Text_WattsonStays:
+	.string "WATTSON: I'll stay and get MAUVILLE\n"
+	.string "back on its feet.\p"
+	.string "If SCOTT is still out there, I'll\n"
+	.string "be ready when you call.$"
+
+MauvilleCity_Text_CenterWattson1:
+	.string "WATTSON: You're back! And the\n"
+	.string "grunts cleared out the moment the\l"
+	.string "generator went quiet.$"
+
+MauvilleCity_Text_CenterWattson2:
+	.string "WATTSON: Wahahahah! The lights of\n"
+	.string "MAUVILLE are on again.\p"
+	.string "Thank you, {PLAYER}. This town is in\n"
+	.string "your debt.$"
+
+MauvilleCity_Text_CenterSteven:
+	.string "STEVEN: Well done. The CROWN holds\n"
+	.string "all the power it can now: six\l"
+	.string "permanent MEGAS.\p"
+	.string "And HOOPA's third ring should be\n"
+	.string "ready.$"
+
+MauvilleCity_Text_CenterWallace:
+	.string "WALLACE: Take the ABRA home to the\n"
+	.string "FRONTIER, {PLAYER}.\p"
+	.string "STEVEN and I will fly ahead. We'll\n"
+	.string "meet you there.$"
+
+MauvilleCity_Text_CenterWattson3:
+	.string "WATTSON: STEVEN and WALLACE are\n"
+	.string "off. I'll stay and mind the town.\p"
+	.string "Go on, {PLAYER}. The ABRA's by the\n"
+	.string "POKéMON CENTER.$"

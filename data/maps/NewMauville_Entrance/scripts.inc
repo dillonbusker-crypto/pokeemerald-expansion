@@ -4,7 +4,8 @@ NewMauville_Entrance_MapScripts::
 	.byte 0
 
 NewMauville_Entrance_OnLoad:
-	call_if_eq VAR_NEW_MAUVILLE_STATE, 0, NewMauville_Entrance_EventScript_CloseDoor
+	@ Ten Gauntlets: the door is always open in the endgame, and the locked
+	@ door's trigger is gone from the map (WATTSON leads the player in).
 	end
 
 NewMauville_Entrance_EventScript_CloseDoor::
@@ -18,7 +19,25 @@ NewMauville_Entrance_EventScript_CloseDoor::
 
 NewMauville_Entrance_OnTransition:
 	setflag FLAG_LANDMARK_NEW_MAUVILLE
+	@ Ten Gauntlets: WATTSON waits inside the door with a hint (state 13).
+	setflag FLAG_TEMP_1
+	call_if_eq VAR_ENDGAME_STATE, 13, NewMauville_Entrance_EventScript_ShowWattson
 	end
+
+NewMauville_Entrance_EventScript_ShowWattson::
+	clearflag FLAG_TEMP_1
+	return
+
+NewMauville_Entrance_EventScript_Wattson::
+	msgbox NewMauville_Entrance_Text_WattsonHint, MSGBOX_NPC
+	end
+
+NewMauville_Entrance_Text_WattsonHint:
+	.string "WATTSON: The ADMINS are down in the\n"
+	.string "tunnels, one after another. The\l"
+	.string "generator is at the far end.\p"
+	.string "I'll keep the way back open. If you\n"
+	.string "need to rest, my town's right above.$"
 
 NewMauville_Entrance_EventScript_Door::
 	lockall

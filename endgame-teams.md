@@ -724,6 +724,481 @@ Adamant Nature
 
 ---
 
+# New Mauville (admins level 60, leaders level 65)
+
+Six teams in `src/data/trainers.party` (`TRAINER_NEW_MAUVILLE_*`, 978-983),
+answering `storyline.md`, "Still to decide" #4. Same rules table as above:
+every species and item is sold by the shop by gauntlet 8 (checked against
+`src/facility_shop.c`; the Mega Stones are Cameruptite, Houndoominite,
+Sharpedonite and Swampertite), item clause per team, every move checked
+against the expansion's learnsets, no OHKO, no evasion, no sleep. AI as the
+Elite Four: omniscient, proactive switching. All singles. The Primals are
+the one exception to the shop rule: Groudon and Kyogre aren't sold, because
+Scott lent them.
+
+**Levels.** The four admins are level 60, five over the top of the Elite
+Four (52-55): the player has had the siphon and (perhaps) another Hoopa
+legend since, and gains Experience now that the chips are off. The leaders
+are level 65, five over the admins, and their five teammates match their
+Primal. The player has at most one permanent Mega here (the Crown holds six
+only after these fights are won).
+
+**Megas.** Each admin has **one normal Mega**, holding its stone and Mega
+Evolving in battle (like the Brains). Maxie and Archie have **no Mega**: each
+has a permanent Primal, listed directly in Primal form (`Groudon-Primal`,
+`Kyogre-Primal`) holding Leftovers, so it doesn't revert on switching or
+fainting and Desolate Land or Primordial Sea starts the battle.
+
+| Trainer | Theme | Mega | Level |
+|---|---|---|---|
+| Tabitha | Magma: Fire, Ground, Rock | Mega Camerupt | 60 |
+| Courtney | Magma: Fire, Rock, Ground, Dark | Mega Houndoom | 60 |
+| Matt | Aqua: Water, Dark, Ice | Mega Sharpedo | 60 |
+| Shelly | Aqua: Water, Dark, Ground | Mega Swampert | 60 |
+| Maxie | Sun, built around Primal Groudon | none | 65 |
+| Archie | Rain, built around Primal Kyogre | none | 65 |
+
+## Tabitha: Magma, Fire and Ground
+
+Torkoal sets sun with Stealth Rock, and Rapid Spin to clear the player's
+hazards. Heatran, Excadrill and Rhyperior hit the player's Steel and Rock
+answers from the Ground side, Garchomp's Choice Scarf cleans up, and **Mega
+Camerupt** (Sheer Force, 145 Sp. Atk) is the ace.
+
+```
+Torkoal @ Heat Rock
+Ability: Drought
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+IVs: 0 Atk
+- Stealth Rock
+- Lava Plume
+- Earth Power
+- Rapid Spin
+
+Rhyperior @ Choice Band
+Ability: Solid Rock
+Level: 60
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+- Earthquake
+- Stone Edge
+- Megahorn
+- Ice Punch
+
+Heatran @ Leftovers
+Ability: Flash Fire
+Level: 60
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Magma Storm
+- Earth Power
+- Flash Cannon
+- Taunt
+
+Excadrill @ Life Orb
+Ability: Mold Breaker
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Earthquake
+- Iron Head
+- Rock Slide
+
+Garchomp @ Choice Scarf
+Ability: Rough Skin
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Earthquake
+- Outrage
+- Stone Edge
+- Fire Fang
+
+Camerupt-Mega @ Cameruptite
+Ability: Sheer Force
+Level: 60
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Lava Plume
+- Earth Power
+- Flash Cannon
+- Rock Slide
+```
+
+**How to beat it:** Water, Grass and Ice hit most of the team. Torkoal's sun
+doubles the Fire moves, so take it out early or set your own weather.
+
+## Courtney: Magma, Fire, Rock and Dark
+
+Volcarona, Landorus-Therian and Ting-Lu are the setup and hazard core; Coalossal
+spins. Tyranitar's Sand Stream adds sand chip damage, and **Mega
+Houndoom** (Solar Power, 140 Sp. Atk) with Nasty Plot is the ace.
+
+```
+Volcarona @ Heavy-Duty Boots
+Ability: Flame Body
+Level: 60
+EVs: 252 HP / 4 SpA / 252 Spe
+Timid Nature
+- Quiver Dance
+- Fiery Dance
+- Bug Buzz
+- Morning Sun
+
+Landorus-Therian @ Rocky Helmet
+Ability: Intimidate
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpD
+Impish Nature
+- Stealth Rock
+- Earthquake
+- U-turn
+- Knock Off
+
+Coalossal @ Leftovers
+Ability: Flash Fire
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Rapid Spin
+- Flamethrower
+- Stone Edge
+- Will-O-Wisp
+
+Ting-Lu @ Sitrus Berry
+Ability: Vessel of Ruin
+Level: 60
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Ruination
+- Earthquake
+- Spikes
+- Whirlwind
+
+Tyranitar @ Assault Vest
+Ability: Sand Stream
+Level: 60
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Knock Off
+- Stone Edge
+- Earthquake
+- Fire Punch
+
+Houndoom-Mega @ Houndoominite
+Ability: Solar Power
+Level: 60
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Nasty Plot
+- Fire Blast
+- Dark Pulse
+- Sludge Bomb
+```
+
+**How to beat it:** Fighting, Water and Ground. Quiver Dance Volcarona is the
+sweep to stop; Ting-Lu's Whirlwind and Spikes make it hard to stall.
+
+## Matt: Aqua, Water and Dark
+
+Pelipper sets rain. Crawdaunt (Adaptability), Greninja and Weavile are the
+Dark attackers; Toxapex stalls with Baneful Bunker and Haze. **Mega Sharpedo**
+(Strong Jaw, 140 Attack) runs Crunch and Ice Fang.
+
+```
+Pelipper @ Damp Rock
+Ability: Drizzle
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Hurricane
+- Scald
+- U-turn
+- Roost
+
+Crawdaunt @ Life Orb
+Ability: Adaptability
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Crabhammer
+- Knock Off
+- Aqua Jet
+
+Toxapex @ Black Sludge
+Ability: Regenerator
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+IVs: 0 Atk
+- Baneful Bunker
+- Scald
+- Recover
+- Haze
+
+Greninja @ Choice Specs
+Ability: Protean
+Level: 60
+EVs: 4 Def / 252 SpA / 252 Spe
+Timid Nature
+- Hydro Pump
+- Dark Pulse
+- Ice Beam
+- U-turn
+
+Weavile @ Black Glasses
+Ability: Pressure
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Triple Axel
+- Knock Off
+- Ice Shard
+
+Sharpedo-Mega @ Sharpedonite
+Ability: Strong Jaw
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Protect
+- Crunch
+- Waterfall
+- Ice Fang
+```
+
+**How to beat it:** Grass, Electric and Fighting. Toxapex wants Poison-proof
+or Steel attackers; Weavile and Greninja are frail.
+
+## Shelly: Aqua, Water, Dark and Ground
+
+Politoed sets rain for Kingdra and **Mega Swampert** (Swift Swim, 150 Attack),
+which is the ace. Gyarados and Krookodile Intimidate, Mandibuzz is the
+defensive pivot.
+
+```
+Politoed @ Damp Rock
+Ability: Drizzle
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Scald
+- Ice Beam
+- Encore
+- Haze
+
+Kingdra @ Choice Specs
+Ability: Swift Swim
+Level: 60
+EVs: 4 HP / 252 SpA / 252 Spe
+Modest Nature
+- Hydro Pump
+- Draco Meteor
+- Ice Beam
+- Flip Turn
+
+Gyarados @ Lum Berry
+Ability: Intimidate
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Dragon Dance
+- Waterfall
+- Earthquake
+- Stone Edge
+
+Mandibuzz @ Rocky Helmet
+Ability: Overcoat
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Foul Play
+- Roost
+- Defog
+- U-turn
+
+Krookodile @ Life Orb
+Ability: Intimidate
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Bulk Up
+- Earthquake
+- Knock Off
+- Stone Edge
+
+Swampert-Mega @ Swampertite
+Ability: Swift Swim
+Level: 60
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Waterfall
+- Earthquake
+- Ice Punch
+- Stealth Rock
+```
+
+**How to beat it:** Grass, and Electric into the Flying and Water types. The
+rain boosts Water and halves Fire, so remove Politoed before it sets up.
+
+## Maxie: sun, Primal Groudon at level 65
+
+Maxie is the first of the generator pair (the Scrambler: no heal between him
+and Archie). **Primal Groudon leads.**
+Desolate Land makes harsh sunlight, and when Groudon leaves or faints, Torkoal's
+Drought resumes ordinary sun. Venusaur and Charizard are the sun sweepers,
+Volcarona and Heatran the Fire attackers. No Mega: Groudon-Primal is the ace.
+
+```
+Groudon-Primal @ Leftovers
+Ability: Desolate Land
+Level: 65
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Swords Dance
+- Precipice Blades
+- Fire Punch
+- Stone Edge
+
+Torkoal @ Heat Rock
+Ability: Drought
+Level: 65
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+IVs: 0 Atk
+- Stealth Rock
+- Lava Plume
+- Earth Power
+- Rapid Spin
+
+Venusaur @ Black Sludge
+Ability: Chlorophyll
+Level: 65
+EVs: 4 HP / 252 SpA / 252 Spe
+Timid Nature
+- Growth
+- Giga Drain
+- Sludge Bomb
+- Earth Power
+
+Volcarona @ Heavy-Duty Boots
+Ability: Flame Body
+Level: 65
+EVs: 252 HP / 4 SpA / 252 Spe
+Timid Nature
+- Quiver Dance
+- Fiery Dance
+- Bug Buzz
+- Morning Sun
+
+Heatran @ Air Balloon
+Ability: Flash Fire
+Level: 65
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Magma Storm
+- Earth Power
+- Flash Cannon
+- Taunt
+
+Charizard @ Choice Specs
+Ability: Solar Power
+Level: 65
+EVs: 4 Def / 252 SpA / 252 Spe
+Timid Nature
+- Fire Blast
+- Air Slash
+- Focus Blast
+- Solar Beam
+```
+
+*(Primal Groudon holds Leftovers, not the Red Orb, because the Red Orb isn't
+sold. Listed as Groudon-Primal, it needs no orb to be Primal.)*
+
+**How to beat it:** Desolate Land makes Water moves fail outright, so use
+Grass, Ice and Steel. Take Groudon out before it sets up Swords Dance.
+Once it's gone, Torkoal's Drought keeps the sun going and Venusaur
+Chlorophyll sweeps.
+
+## Archie: rain, Primal Kyogre at level 65
+
+The mirror of Maxie. **Primal Kyogre leads**, and Primordial Sea makes heavy
+rain (Fire moves fail outright). Pelipper's Drizzle takes over once Kyogre is
+gone. Kingdra, Barraskewda and Ludicolo all have Swift Swim; Zapdos's Thunder
+never misses in rain. No Mega.
+
+```
+Kyogre-Primal @ Leftovers
+Ability: Primordial Sea
+Level: 65
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Origin Pulse
+- Thunder
+- Ice Beam
+- Calm Mind
+
+Pelipper @ Damp Rock
+Ability: Drizzle
+Level: 65
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Hurricane
+- Scald
+- U-turn
+- Roost
+
+Kingdra @ Choice Specs
+Ability: Swift Swim
+Level: 65
+EVs: 4 HP / 252 SpA / 252 Spe
+Modest Nature
+- Hydro Pump
+- Draco Meteor
+- Ice Beam
+- Flip Turn
+
+Barraskewda @ Choice Band
+Ability: Swift Swim
+Level: 65
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Liquidation
+- Close Combat
+- Flip Turn
+- Psychic Fangs
+
+Ludicolo @ Life Orb
+Ability: Swift Swim
+Level: 65
+EVs: 4 HP / 252 SpA / 252 Spe
+Modest Nature
+- Hydro Pump
+- Giga Drain
+- Ice Beam
+- Focus Blast
+
+Zapdos @ Heavy-Duty Boots
+Ability: Pressure
+Level: 65
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Thunder
+- Hurricane
+- Heat Wave
+- Roost
+```
+
+**How to beat it:** Electric and Grass hit the Water types, and Primordial Sea
+blanks Fire. Kyogre's Calm Mind makes it a wall, so pressure it before it
+stacks.
+
+---
+
 ## Open questions for review
 
 1. **Repeats across opponents.** There are only about 30 OU and Uber Pokémon

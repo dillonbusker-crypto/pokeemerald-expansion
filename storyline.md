@@ -1009,7 +1009,26 @@ Wallace stand outside the Arena in states 10, 11, 15 and 18; at 11 Steven asks
 (YES/NO) and they fly (state 12). Nurse Joy hints once in states 11-14
 (`VAR_FRONTIER_JOY_HINTED`) before her normal heal.
 
-### Mauville: New Mauville 📝
+### Mauville: New Mauville ✅
+
+**Built (endgame part 4).** States 12-15 of `VAR_ENDGAME_STATE`, in
+`MauvilleCity`, `NewMauville_Entrance` and `NewMauville_Inside`'s scripts
+(headers explain each state). The decided mechanism: WATTSON, STEVEN and
+WALLACE meet the player at the ABRA's landing (22, 6); WALLACE and STEVEN
+clear the town off-screen; Wattson says he knows the way down, a fade, the
+narration "WATTSON led {PLAYER} down to the water and across to NEW
+MAUVILLE", and a warp just inside the door (state 13). From state 12 on,
+`setrespawn HEAL_LOCATION_MAUVILLE_CITY`, so a white-out lands in the Center,
+and Wattson outside it leads the player back down (state 13). New
+Mauville's wild encounters, VOLTORBs, locked door, red switch and
+Thunderstone are off; its only exit warp now leads to Mauville's Center
+door, never Route 110. The admins stand on one-tile stretches, in order
+Tabitha, Courtney, Matt, Shelly (`VAR_NEW_MAUVILLE_ADMINS`); the party is healed
+after each, held items restored. Maxie and Archie are fought back to back
+with no heal (the Scrambler); a loss whites out and both are fought again,
+because state 14 is only set after the second win. Teams: `endgame-teams.md`,
+"New Mauville".
+
 
 **The town.** Mauville is **overrun by Team Aqua and Team Magma**. **Wattson**
 rushes up:
@@ -1285,7 +1304,10 @@ happy ending.
 3. ~~The Elite Four's teams~~ ✅ Proposed in `endgame-teams.md` (levels
    52–55, two permanent Megas each). The Wardens' ambush at Devon is shown,
    with the fight itself off-screen.
-4. Archie and Maxie's full teams around their permanent Primals.
+4. ~~Archie and Maxie's full teams around their permanent Primals~~ ✅
+   Built (`endgame-teams.md`, "New Mauville"): level 65, a sun team around
+   Primal Groudon and a rain team around Primal Kyogre; the four admins
+   (level 60, one normal Mega each) go with them.
 5. Scott's movesets, EVs and items (within the item clause).
 6. ~~Scott's replacement for Mega Kangaskhan~~ ✅ **Mega Darkrai**, on both
    his teams.
