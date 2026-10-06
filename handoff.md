@@ -14,7 +14,7 @@ harness. History is in `git log`; the story is in `storyline.md`.
   headless-tested only (below). The owner's next step is a full playthrough.
 - **The endgame's teams** are all in `endgame-teams.md` and
   `src/data/trainers.party`; difficulty is untuned.
-- **Trainer IDs: 986 of 1000 used.**
+- **Trainer IDs: 990 of 1000 used.**
 - **Commits are local only.** Pushing from WSL isn't set up.
 
 ## Next: the owner's full playthrough, then tuning
@@ -115,6 +115,7 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 
 | What | Status |
 |---|---|
+| Bad Dreams (the optional Darkrai event, gauntlet 7) | Re-run together on the merged `master`: 29 and 30 green. Scenarios 29 (`harness-badB.c`, the sleepers and Joy, 18/18), 30 (`harness-badC.c`, the Pike, Darkrai, the ball guard, a loss, the win, a gauntlet 6 regression, 9/9) and 24/28 (`harness-badA.c`, Scott's 5-Pokémon teams in both battles). **Not played** |
 | The Oldale Paradox researcher (Booster Energy, one per Paradox species; the shop no longer sells it) | Harness scenario 25, 4/4: a non-Paradox refused, a new species paid, a repeat refused, a second species paid. **Not played** |
 | Parts 3-5 after the merge | Scenarios 22, 23 and 24 re-run on the merged `master`: 10/10, 16/16, 14/14 |
 | Endgame part 3 (the siphon, the hub, the Chansey) | Harness scenario 22 (`harness-part3.c`), 10/10: the keeper's menu, the flags, chips off, Steven's send-offs, Transfer EXP (Eggs and level 100 refused, once only), every state's cast. **Not played** |
@@ -145,6 +146,11 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
   `BattleFrontier_OutsideWest_EventScript_Man3` and delete the block at the
   end of its `scripts.inc` before release.
 - **Unplayed endgame** (parts 1-5): see "Next" above.
+- **Bad Dreams** (`storyline.md`, "During gauntlet 7"): look at the Pike
+  lair's darkness on screen (`setflashlevel 2` in
+  `BattleFrontier_BattlePikeRoomFinal`'s `SetUpLair`), and the Latios
+  variants of Scott's Darkrai-less teams (987, 989) weren't run, only the
+  Latias ones.
 - **Side quests:** the Oldale Paradox researcher (`OldaleTown_House1`,
   `VAR_PARADOX_SHOWN_LO/HI`) is the first; the owner wants more of these for
   late-game items.
