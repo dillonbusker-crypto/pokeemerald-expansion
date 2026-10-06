@@ -25439,3 +25439,148 @@ Adamant Nature
 
 /* Ten Gauntlets: endgame part 5, the final battle at SKY PILLAR
  * (storyline.md). SCOTT's two level-100 teams go right after this comment. */
+
+/* SCOTT at the top of SKY PILLAR, the final battle (storyline.md, endgame-
+ * teams.md, "The final battle"). Level 100, every one listed directly in its
+ * permanent form (Mega Rayquaza keeps no stone; the Primals hold their orbs),
+ * every one holding a different item, raw power and no balance: the three
+ * weathers overwrite each other on purpose. Latias or Latios is the one the
+ * player didn't catch. Gentleman stands in for his missing battle sprite. */
+
+=== TRAINER_SKY_PILLAR_SCOTT_LATIAS ===
+Name: SCOTT
+Class: Founder
+Pic: Gentleman
+Gender: Male
+Music: Intense
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient
+
+Rayquaza-Mega @ Choice Band
+Ability: Delta Stream
+Level: 100
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+- Dragon Ascent
+- Extreme Speed
+- Earthquake
+- Stone Edge
+
+Kyogre-Primal @ Blue Orb
+Ability: Primordial Sea
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Water Spout
+- Origin Pulse
+- Ice Beam
+- Thunder
+
+Groudon-Primal @ Red Orb
+Ability: Desolate Land
+Level: 100
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+- Precipice Blades
+- Fire Punch
+- Stone Edge
+- Thunder Punch
+
+Mewtwo-Mega-Y @ Life Orb
+Ability: Insomnia
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psystrike
+- Aura Sphere
+- Ice Beam
+- Fire Blast
+
+Latias-Mega @ Choice Specs
+Ability: Levitate
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Draco Meteor
+- Mist Ball
+- Thunderbolt
+- Ice Beam
+
+Darkrai-Mega @ Black Glasses
+Ability: Bad Dreams
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Dark Pulse
+- Sludge Bomb
+- Focus Blast
+- Ice Beam
+
+=== TRAINER_SKY_PILLAR_SCOTT_LATIOS ===
+Name: SCOTT
+Class: Founder
+Pic: Gentleman
+Gender: Male
+Music: Intense
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient
+
+Rayquaza-Mega @ Choice Band
+Ability: Delta Stream
+Level: 100
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+- Dragon Ascent
+- Extreme Speed
+- Earthquake
+- Stone Edge
+
+Kyogre-Primal @ Blue Orb
+Ability: Primordial Sea
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Water Spout
+- Origin Pulse
+- Ice Beam
+- Thunder
+
+Groudon-Primal @ Red Orb
+Ability: Desolate Land
+Level: 100
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+- Precipice Blades
+- Fire Punch
+- Stone Edge
+- Thunder Punch
+
+Mewtwo-Mega-Y @ Life Orb
+Ability: Insomnia
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psystrike
+- Aura Sphere
+- Ice Beam
+- Fire Blast
+
+Latios-Mega @ Choice Specs
+Ability: Levitate
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Draco Meteor
+- Psyshock
+- Thunderbolt
+- Ice Beam
+
+Darkrai-Mega @ Black Glasses
+Ability: Bad Dreams
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Dark Pulse
+- Sludge Bomb
+- Focus Blast
+- Ice Beam

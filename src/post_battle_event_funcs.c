@@ -6,6 +6,7 @@
 #include "hall_of_fame_frlg.h"
 #include "load_save.h"
 #include "overworld.h"
+#include "save.h"
 #include "script_pokemon_util.h"
 #include "tv.h"
 #include "constants/heal_locations.h"
@@ -83,6 +84,25 @@ int GameClear(void)
     }
 
     SetMainCallback2(CB2_DoHallOfFameScreen);
+    return 0;
+}
+
+// Ten Gauntlets: the ending (SkyPillar_Top, storyline.md). Scott is beaten:
+// a plain save, then the credits. No Hall of Fame: the PC and the party's
+// records aren't touched. The game continues in the BATTLE FRONTIER, not
+// Littleroot. The script sets VAR_ENDGAME_STATE before this, so the save
+// has it.
+int EndgameClear(void)
+{
+    HealPlayerParty();
+    gHasHallOfFameRecords = (FlagGet(FLAG_SYS_GAME_CLEAR) == TRUE);
+    FlagSet(FLAG_SYS_GAME_CLEAR);
+    if (GetGameStat(GAME_STAT_FIRST_HOF_PLAY_TIME) == 0)
+        SetGameStat(GAME_STAT_FIRST_HOF_PLAY_TIME, (gSaveBlock2Ptr->playTimeHours << 16) | (gSaveBlock2Ptr->playTimeMinutes << 8) | gSaveBlock2Ptr->playTimeSeconds);
+    SetContinueGameWarpStatus();
+    SetContinueGameWarpToHealLocation(HEAL_LOCATION_BATTLE_FRONTIER_OUTSIDE_EAST);
+    TrySavingData(SAVE_NORMAL);
+    SetMainCallback2(CB2_StartCreditsSequence);
     return 0;
 }
 

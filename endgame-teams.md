@@ -756,3 +756,100 @@ Adamant Nature
 5. **Trainer IDs:** five new Brain teams plus four Elite Four members makes
    nine, already counted in `storyline.md`'s budget (984 of 1000 with the
    whole endgame).
+
+---
+
+# The final battle
+
+**Built** (`TRAINER_SKY_PILLAR_SCOTT_LATIAS` / `_LATIOS`, 984-985,
+`src/data/trainers.party`). Answers `storyline.md`, "Still to decide" #5
+(Scott's movesets, EVs and items). Scott at the top of Sky Pillar: **level
+100, every Pokémon listed directly in its permanent form** (Mega Rayquaza
+keeps no stone, the Primals hold their orbs), **every one holding a different
+item** (item clause), four attacks each, max EVs in their attacking stat and
+Speed, and **no balance at all.**
+
+| Rule | Applied as |
+|---|---|
+| Pool | None. This is Scott's own team, so the shop's pool doesn't apply: legendaries, Primals and Mega Rayquaza |
+| Which Lati | Same logic as the Factory: `FLAG_STEVEN_HAS_LATIOS` set (the player's is a Latios) means Scott has **Latias**, otherwise Latios |
+| Overlap with the Factory | Mewtwo-Mega-Y, the Lati and Darkrai-Mega are the Factory sets unchanged. Gengar, Salamence and Mawile make way for the three legendaries |
+| Order | Rayquaza leads, then Kyogre, Groudon, Mewtwo, the Lati, Darkrai |
+| AI | As the Factory teams (`Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient`), `Music: Intense`, class `Founder`, `Gentleman` standing in for his missing sprite |
+| Whiteout | A normal white-out: the player wakes up beside Nurse Joy outside the tower, and the held items come back |
+
+**The weathers fight each other on purpose.** Mega Rayquaza (Delta Stream)
+leads. Kyogre (Primordial Sea) and Groudon (Desolate Land) each overwrite the
+last when they come in, and a Primal's weather also cancels Rayquaza's. His
+own weather cancels his teammates' advantage. It's "raw power, no balance"
+made literal. A balanced team with pivots and speed control beats it.
+
+## Scott: the Latias team (a Latios player)
+
+```
+Rayquaza-Mega @ Choice Band
+Ability: Delta Stream
+Level: 100
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+- Dragon Ascent
+- Extreme Speed
+- Earthquake
+- Stone Edge
+
+Kyogre-Primal @ Blue Orb
+Ability: Primordial Sea
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Water Spout
+- Origin Pulse
+- Ice Beam
+- Thunder
+
+Groudon-Primal @ Red Orb
+Ability: Desolate Land
+Level: 100
+EVs: 252 Atk / 4 SpD / 252 Spe
+Adamant Nature
+- Precipice Blades
+- Fire Punch
+- Stone Edge
+- Thunder Punch
+
+Mewtwo-Mega-Y @ Life Orb
+Ability: Insomnia
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Psystrike
+- Aura Sphere
+- Ice Beam
+- Fire Blast
+
+Latias-Mega @ Choice Specs
+Ability: Levitate
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Draco Meteor
+- Mist Ball
+- Thunderbolt
+- Ice Beam
+
+Darkrai-Mega @ Black Glasses
+Ability: Bad Dreams
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Dark Pulse
+- Sludge Bomb
+- Focus Blast
+- Ice Beam
+```
+
+## Scott: the Latios team (a Latias player)
+
+The same team, with **Latios-Mega** in the fifth slot: Draco Meteor,
+**Psyshock** (instead of Mist Ball), Thunderbolt, Ice Beam, still Choice
+Specs and Timid, as on his Factory team.

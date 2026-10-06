@@ -709,7 +709,7 @@
 #define FLAG_UNUSED_0x285  0x285 // Unused Flag
 #define FLAG_UNUSED_0x286  0x286 // Unused Flag
 #define FLAG_UNUSED_0x287  0x287 // Unused Flag
-#define FLAG_UNUSED_0x288  0x288 // Unused Flag (reserved: endgame part 5, Sky Pillar and the ending, 0x288-0x28F)
+#define FLAG_SKY_PILLAR_RAYQUAZA_CAUGHT  0x288 // Ten Gauntlets: SCOTT has caught RAYQUAZA at the top of SKY PILLAR (the scene never replays after a loss). Endgame part 5 owns 0x288-0x28F
 #define FLAG_UNUSED_0x289  0x289 // Unused Flag
 #define FLAG_UNUSED_0x28A  0x28A // Unused Flag
 #define FLAG_UNUSED_0x28B  0x28B // Unused Flag

@@ -2,6 +2,7 @@ SkyPillar_Top_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, SkyPillar_Top_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, SkyPillar_Top_OnTransition
 	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, SkyPillar_Top_OnWarp
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, SkyPillar_Top_OnFrame
 	.byte 0
 
 SkyPillar_Top_OnResume:
@@ -16,12 +17,31 @@ SkyPillar_Top_EventScript_TryRemoveRayquaza::
 
 SkyPillar_Top_OnTransition:
 	@ Ten Gauntlets: no wild RAYQUAZA here, whatever way the player came in
-	@ (see SkyPillar_Outside_OnTransition).
+	@ (see SkyPillar_Outside_OnTransition), and the smooth floor always. The
+	@ vanilla awakening trigger is switched off.
 	setvar VAR_SKY_PILLAR_STATE, 2
 	setflag FLAG_DEFEATED_RAYQUAZA
-	call_if_lt VAR_SKY_PILLAR_STATE, 2, SkyPillar_Top_EventScript_SetCleanLayout
-	call_if_ge VAR_SKY_PILLAR_STATE, 2, SkyPillar_Top_EventScript_TryShowRayquaza
+	setvar VAR_SKY_PILLAR_RAYQUAZA_CRY_DONE, 1
+	setmaplayoutindex LAYOUT_SKY_PILLAR_TOP_CLEAN
+	@ The final scene (VAR_ENDGAME_STATE 17): TEMP_1 hides SCOTT's RAYQUAZA,
+	@ TEMP_2 SCOTT, TEMP_3 STEVEN and LOOKER. SCOTT waits at the top from
+	@ state 17 on; the catch scene plays until FLAG_SKY_PILLAR_RAYQUAZA_CAUGHT
+	@ is set, and never again after a loss.
+	setflag FLAG_TEMP_1
+	setflag FLAG_TEMP_2
+	setflag FLAG_TEMP_3
+	call_if_eq VAR_ENDGAME_STATE, 17, SkyPillar_Top_EventScript_SetupFinalScene
 	end
+
+SkyPillar_Top_EventScript_SetupFinalScene::
+	clearflag FLAG_TEMP_2
+	call_if_unset FLAG_SKY_PILLAR_RAYQUAZA_CAUGHT, SkyPillar_Top_EventScript_SetupCatchScene
+	return
+
+SkyPillar_Top_EventScript_SetupCatchScene::
+	clearflag FLAG_TEMP_1
+	setvar VAR_TEMP_1, 1
+	return
 
 SkyPillar_Top_EventScript_SetCleanLayout::
 	setmaplayoutindex LAYOUT_SKY_PILLAR_TOP_CLEAN
@@ -184,3 +204,241 @@ SkyPillar_Top_Movement_CameraPanDown:
 SkyPillar_Top_Text_RayquazaFlewOff:
 	.string "The awakened RAYQUAZA flew off…$"
 
+
+@ ============================================================================
+@ Ten Gauntlets: SCOTT at the top of SKY PILLAR (storyline.md, "Sky Pillar" and
+@ "The final battle"). VAR_ENDGAME_STATE 17 on arrival: the player is walked
+@ up the path to (14, 10), SCOTT throws a MASTER BALL at RAYQUAZA and catches
+@ it, switches on the SCRAMBLER and fights (TRAINER_SKY_PILLAR_SCOTT_*; a loss
+@ whites out to NURSE JOY, SkyPillar_Outside). After a loss the catch never
+@ replays (FLAG_SKY_PILLAR_RAYQUAZA_CAUGHT): SCOTT waits and the battle starts
+@ again on talk. A win: LOOKER and STEVEN arrive, SCOTT is arrested, state 18,
+@ then the credits (EndgameClear: a plain save, no Hall of Fame, and the game
+@ continues at the BATTLE FRONTIER).
+@ ============================================================================
+
+SkyPillar_Top_OnFrame:
+	map_script_2 VAR_TEMP_1, 1, SkyPillar_Top_EventScript_CatchScene
+	.2byte 0
+
+SkyPillar_Top_EventScript_CatchScene::
+	lockall
+	setvar VAR_TEMP_1, 0
+	applymovement LOCALID_PLAYER, SkyPillar_Top_Movement_PlayerWalksUp
+	waitmovement 0
+	applymovement LOCALID_SKY_PILLAR_TOP_SCOTT, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	msgbox SkyPillar_Top_Text_ScottRayquaza, MSGBOX_DEFAULT
+	closemessage
+	@ The MASTER BALL.
+	playse SE_BALL_THROW
+	delay 30
+	playse SE_BALL_OPEN
+	fadescreen FADE_TO_WHITE
+	removeobject LOCALID_SKY_PILLAR_TOP_RAYQUAZA
+	delay 10
+	fadescreen FADE_FROM_WHITE
+	waitse
+	delay 20
+	playse SE_BALL
+	delay 40
+	playse SE_BALL
+	delay 40
+	playse SE_BALL
+	delay 40
+	playse SE_SUCCESS
+	playfanfare MUS_CAUGHT
+	message SkyPillar_Top_Text_ScottCaught
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	setflag FLAG_SKY_PILLAR_RAYQUAZA_CAUGHT
+	applymovement LOCALID_SKY_PILLAR_TOP_SCOTT, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox SkyPillar_Top_Text_ScottTurns, MSGBOX_DEFAULT
+	goto SkyPillar_Top_EventScript_ScottBattle
+	end
+
+@ After a loss: SCOTT waits where he was.
+SkyPillar_Top_EventScript_Scott::
+	lockall
+	faceplayer
+	msgbox SkyPillar_Top_Text_ScottAgain, MSGBOX_DEFAULT
+	goto SkyPillar_Top_EventScript_ScottBattle
+	end
+
+SkyPillar_Top_EventScript_ScottBattle::
+	@ The SCRAMBLER, as in the Factory: no heal between battles, and the held
+	@ items come back (EventScript_RestoreStoryHeldItems) after a loss too.
+	closemessage
+	playse SE_PC_OFF
+	msgbox SkyPillar_Top_Text_ScottScrambler, MSGBOX_DEFAULT
+	waitse
+	closemessage
+	setflag FLAG_STORY_HELD_ITEMS_SAVED
+	special SaveFacilityHeldItems
+	@ He has the Lati the player didn't catch: FLAG_STEVEN_HAS_LATIOS means the
+	@ player's is a LATIOS. A loss is a normal white-out (to NURSE JOY), so
+	@ nothing below this runs then.
+	call_if_set FLAG_STEVEN_HAS_LATIOS, SkyPillar_Top_EventScript_BattleScottLatias
+	call_if_unset FLAG_STEVEN_HAS_LATIOS, SkyPillar_Top_EventScript_BattleScottLatios
+	special RestoreFacilityHeldItems
+	clearflag FLAG_STORY_HELD_ITEMS_SAVED
+	msgbox SkyPillar_Top_Text_ScottBeaten, MSGBOX_DEFAULT
+	closemessage
+	@ LOOKER and STEVEN come up the stairs.
+	clearflag FLAG_TEMP_3
+	addobject LOCALID_SKY_PILLAR_TOP_STEVEN
+	addobject LOCALID_SKY_PILLAR_TOP_LOOKER
+	applymovement LOCALID_SKY_PILLAR_TOP_STEVEN, SkyPillar_Top_Movement_StevenIn
+	applymovement LOCALID_SKY_PILLAR_TOP_LOOKER, SkyPillar_Top_Movement_LookerIn
+	waitmovement 0
+	msgbox SkyPillar_Top_Text_StevenArrives, MSGBOX_DEFAULT
+	msgbox SkyPillar_Top_Text_LookerArrests, MSGBOX_DEFAULT
+	msgbox SkyPillar_Top_Text_ScottSilent, MSGBOX_DEFAULT
+	msgbox SkyPillar_Top_Text_LookerCrown, MSGBOX_DEFAULT
+	msgbox SkyPillar_Top_Text_StevenEnd, MSGBOX_DEFAULT
+	closemessage
+	@ The ending: the state is set before the save the credits start with.
+	setvar VAR_ENDGAME_STATE, 18
+	fadescreenspeed FADE_TO_BLACK, 24
+	special EndgameClear
+	waitstate
+	end
+
+SkyPillar_Top_EventScript_BattleScottLatias::
+	trainerbattle_no_intro TRAINER_SKY_PILLAR_SCOTT_LATIAS, SkyPillar_Top_Text_ScottDefeat
+	return
+
+SkyPillar_Top_EventScript_BattleScottLatios::
+	trainerbattle_no_intro TRAINER_SKY_PILLAR_SCOTT_LATIOS, SkyPillar_Top_Text_ScottDefeat
+	return
+
+@ The stairs let the player out at (16, 15): left to (12, 15), up to (12, 11),
+@ right to (14, 11) and up to (14, 10), below SCOTT at (14, 8).
+SkyPillar_Top_Movement_PlayerWalksUp:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	walk_up
+	step_end
+
+SkyPillar_Top_Movement_StevenIn:
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	walk_right
+	face_up
+	step_end
+
+SkyPillar_Top_Movement_LookerIn:
+	delay_16
+	delay_16
+	delay_16
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_right
+	face_up
+	step_end
+
+SkyPillar_Top_Text_ScottRayquaza:
+	.string "SCOTT: RAYQUAZA. The sky's own\n"
+	.string "weapon, asleep at the top of the\l"
+	.string "world, and I'm the only one who\l"
+	.string "ever climbed up to take it.\p"
+	.string "The BALL in my house wasn't a\n"
+	.string "replica, you know. It held MEWTWO.\p"
+	.string "This one's from the same shipment\n"
+	.string "out of KANTO.$"
+
+SkyPillar_Top_Text_ScottCaught:
+	.string "SCOTT caught RAYQUAZA!$"
+
+SkyPillar_Top_Text_ScottTurns:
+	.string "SCOTT: Hm. Hoenn's sky, in my\n"
+	.string "hand.\p"
+	.string "ARCHIE and MAXIE crawled back to\n"
+	.string "tell me what happened in NEW\l"
+	.string "MAUVILLE. Their PRIMALS were mine\l"
+	.string "to take back, and I took them.\p"
+	.string "I never needed a partner. I needed\n"
+	.string "the strongest ones there are.\p"
+	.string "Power doesn't need balance, kid.\n"
+	.string "It needs to be bigger than yours.$"
+
+SkyPillar_Top_Text_ScottAgain:
+	.string "SCOTT: Back for more?\p"
+	.string "Fine. I don't tire of this.$"
+
+SkyPillar_Top_Text_ScottScrambler:
+	.string "SCOTT switched on the SCRAMBLER!\p"
+	.string "Every POKéNAV nearby went dark.\p"
+	.string "SCOTT: This is life or death.$"
+
+SkyPillar_Top_Text_ScottDefeat:
+	.string "…Six of the strongest POKéMON\n"
+	.string "there are.$"
+
+SkyPillar_Top_Text_ScottBeaten:
+	.string "SCOTT: …How?\p"
+	.string "Every one of mine was stronger\n"
+	.string "than yours. I made sure of it.\p"
+	.string "I've watched teams my whole life.\n"
+	.string "I thought I understood what made\l"
+	.string "one win.\p"
+	.string "I never understood a single one.$"
+
+SkyPillar_Top_Text_StevenArrives:
+	.string "STEVEN: It's over, SCOTT.\p"
+	.string "{PLAYER}, are you all right?\n"
+	.string "The BRAINS stood down the moment\l"
+	.string "they felt RAYQUAZA's BALL go\l"
+	.string "quiet. WALLACE, NORMAN and\l"
+	.string "WATTSON are fine.$"
+
+SkyPillar_Top_Text_LookerArrests:
+	.string "LOOKER: I am LOOKER, of the\n"
+	.string "International Police!\p"
+	.string "SCOTT, Founder of the BATTLE\n"
+	.string "FRONTIER. Kidnapping. Tampering\l"
+	.string "with protected POKéMON. Seizing\l"
+	.string "a whole region's trainers.\p"
+	.string "You are under arrest!$"
+
+SkyPillar_Top_Text_ScottSilent:
+	.string "SCOTT didn't answer. He looked at\n"
+	.string "his empty hands as if he'd never\l"
+	.string "seen them before.$"
+
+SkyPillar_Top_Text_LookerCrown:
+	.string "LOOKER: And this is SCOTT's real\n"
+	.string "CROWN. Evidence. It's confiscated.\p"
+	.string "The REPLICA CROWN {PLAYER} carries\n"
+	.string "was made to free the island, not\l"
+	.string "to rule it. {PLAYER} keeps that.$"
+
+SkyPillar_Top_Text_StevenEnd:
+	.string "STEVEN: Let's go home.\p"
+	.string "Everyone's waiting at the\n"
+	.string "FRONTIER.$"

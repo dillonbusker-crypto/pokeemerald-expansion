@@ -1042,7 +1042,9 @@ Crown can draw in the Experience of every **Chansey** at the Pokémon Center
 Pokémon, and **it goes to level 100**. Steven waits outside the Arena; when the
 player is ready, the ABRA takes them to Sky Pillar (`FLAG_ABRA_TO_SKY_PILLAR`).
 
-### Sky Pillar 📝
+### Sky Pillar ✅
+
+**Built** (endgame part 5; `SkyPillar_Outside`/`_Top` scripts): the ambush at state 16 -> 17, Nurse Joy by the door (the white-out respawn, `HEAL_LOCATION_SKY_PILLAR_OUTSIDE`), the climb on the `*_CLEAN` layouts with no wild encounters (4F still drops you through its one cracked tile into 3F's inner room, as vanilla's climb does), Scott's Master Ball catch and the battle at the top.
 
 **Steven, Wallace, Norman and Wattson** are there, meaning to take Scott down
 together. **All seven Frontier Brains ambush them** outside the tower: Anabel,
@@ -1058,7 +1060,9 @@ the player. He's heard what happened at New Mauville from Archie and Maxie.
 
 He activates the Scrambler. **This is life or death.**
 
-### The final battle 📝
+### The final battle ✅
+
+**Built:** `TRAINER_SKY_PILLAR_SCOTT_LATIAS/_LATIOS`; the two teams are in `endgame-teams.md`, "The final battle". A win sets state 18, Looker and Steven arrest Scott, then `EndgameClear` saves and rolls the credits (no Hall of Fame); the game continues at the Frontier.
 
 **Scott, level 100, every Pokémon permanently transformed, every one holding
 an item, and no balance at all.**
@@ -1270,7 +1274,7 @@ happy ending.
    52–55, two permanent Megas each). The Wardens' ambush at Devon is shown,
    with the fight itself off-screen.
 4. Archie and Maxie's full teams around their permanent Primals.
-5. Scott's movesets, EVs and items (within the item clause).
+5. ~~Scott's movesets, EVs and items~~ ✅ Built, in `endgame-teams.md` ("The final battle").
 6. ~~Scott's replacement for Mega Kangaskhan~~ ✅ **Mega Darkrai**, on both
    his teams.
 7. How the Arena's sparring works in detail (`frontier-dialogue.md` has the
