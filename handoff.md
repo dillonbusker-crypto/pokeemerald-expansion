@@ -115,6 +115,7 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 
 | What | Status |
 |---|---|
+| Parts 3-5 after the merge | Scenarios 22, 23 and 24 re-run on the merged `master`: 10/10, 16/16, 14/14 |
 | Endgame part 3 (the siphon, the hub, the Chansey) | Harness scenario 22 (`harness-part3.c`), 10/10: the keeper's menu, the flags, chips off, Steven's send-offs, Transfer EXP (Eggs and level 100 refused, once only), every state's cast. **Not played** |
 | Endgame part 4 (Mauville, New Mauville) | Harness scenario 23 (`harness-part4.c`), 16/16: Wattson's way in, the four admins, Archie **lost on purpose** (white-out to Mauville's Center, both leaders reset), both won, the supercharge, the exit scene, three rings; Primals stayed Primal with their weather. **Not played** |
 | Endgame part 5 (Sky Pillar, the ending) | Harness scenario 24 (`harness-part5.c`), 14/14: the ambush, the bikeless climb of all five floors, Scott **lost on purpose** (white-out to Joy outside, healed, items back, no re-catch), won, Looker, state 18, the credits entered with the continue warp at the Frontier; Mega Rayquaza (no stone) and both Primals kept their forms and abilities. **Not played** |
