@@ -18,6 +18,11 @@ OldaleTown_House2_EventScript_Woman::
 	case GOSSIP_AFTERMATH, OldaleTown_House2_Woman_Gossip9
 	case GOSSIP_DEVON, OldaleTown_House2_Woman_Gossip10
 	case GOSSIP_DEVON_FREED, OldaleTown_House2_Woman_Gossip11
+	case GOSSIP_SIPHON, OldaleTown_House2_Woman_Gossip12
+	case GOSSIP_MAUVILLE, OldaleTown_House2_Woman_Gossip13
+	case GOSSIP_MAUVILLE_FREED, OldaleTown_House2_Woman_Gossip14
+	case GOSSIP_SKY_PILLAR, OldaleTown_House2_Woman_Gossip15
+	case GOSSIP_ENDING, OldaleTown_House2_Woman_Gossip16
 	msgbox OldaleTown_House2_Text_PokemonLevelUp, MSGBOX_NPC
 	end
 
@@ -94,6 +99,57 @@ OldaleTown_House2_Woman_Text_Gossip11:
 	.string "the whole ELITE FOUR at DEVON.\p"
 	.string "He wants to be a TRAINER now.\n"
 	.string "I've told him to finish his soup.$"
+
+OldaleTown_House2_Woman_Gossip12::
+	msgbox OldaleTown_House2_Woman_Text_Gossip12, MSGBOX_NPC
+	end
+
+OldaleTown_House2_Woman_Text_Gossip12:
+	.string "My grandson says the POKéMON at the\n"
+	.string "FRONTIER can grow again!\p"
+	.string "He's training all day now. I told him\n"
+	.string "to at least pack a lunch.$"
+
+OldaleTown_House2_Woman_Gossip13::
+	msgbox OldaleTown_House2_Woman_Text_Gossip13, MSGBOX_NPC
+	end
+
+OldaleTown_House2_Woman_Text_Gossip13:
+	.string "My grandson says TEAM AQUA and TEAM\n"
+	.string "MAGMA took over MAUVILLE together!\p"
+	.string "They say a “new order” is coming.\n"
+	.string "I told him the old one was fine.$"
+
+OldaleTown_House2_Woman_Gossip14::
+	msgbox OldaleTown_House2_Woman_Text_Gossip14, MSGBOX_NPC
+	end
+
+OldaleTown_House2_Woman_Text_Gossip14:
+	.string "My grandson says MAUVILLE is free!\n"
+	.string "And that a CHANSEY can take a\l"
+	.string "POKéMON to level 100.\p"
+	.string "He's standing in line already. I told\n"
+	.string "him to mind his manners.$"
+
+OldaleTown_House2_Woman_Gossip15::
+	msgbox OldaleTown_House2_Woman_Text_Gossip15, MSGBOX_NPC
+	end
+
+OldaleTown_House2_Woman_Text_Gossip15:
+	.string "My grandson says all seven BRAINS\n"
+	.string "ambushed STEVEN STONE at SKY PILLAR!\p"
+	.string "And somebody climbed up alone. He\n"
+	.string "asked me if it was you. Was it?$"
+
+OldaleTown_House2_Woman_Gossip16::
+	msgbox OldaleTown_House2_Woman_Text_Gossip16, MSGBOX_NPC
+	end
+
+OldaleTown_House2_Woman_Text_Gossip16:
+	.string "My grandson says SCOTT was arrested,\n"
+	.string "and the shops are still free!\p"
+	.string "He's coming home for a visit. To do\n"
+	.string "his laundry, I suspect.$"
 
 OldaleTown_House2_Woman_Text_Gossip0:
 	.string "My grandson called from the FRONTIER!\p"

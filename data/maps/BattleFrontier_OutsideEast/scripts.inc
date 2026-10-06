@@ -578,6 +578,11 @@ BattleFrontier_OutsideEast_EventScript_RichBoy::
 	case GOSSIP_AFTERMATH, BattleFrontier_OutsideEast_RichBoy_Gossip10
 	case GOSSIP_DEVON, BattleFrontier_OutsideEast_RichBoy_Gossip11
 	case GOSSIP_DEVON_FREED, BattleFrontier_OutsideEast_RichBoy_Gossip12
+	case GOSSIP_SIPHON, BattleFrontier_OutsideEast_RichBoy_Gossip13
+	case GOSSIP_MAUVILLE, BattleFrontier_OutsideEast_RichBoy_Gossip14
+	case GOSSIP_MAUVILLE_FREED, BattleFrontier_OutsideEast_RichBoy_Gossip15
+	case GOSSIP_SKY_PILLAR, BattleFrontier_OutsideEast_RichBoy_Gossip16
+	case GOSSIP_ENDING, BattleFrontier_OutsideEast_RichBoy_Gossip17
 	msgbox BattleFrontier_OutsideEast_Text_PeopleCallMeBusybody, MSGBOX_NPC
 	end
 
@@ -655,6 +660,60 @@ BattleFrontier_OutsideEast_RichBoy_Text_Gossip12:
 	.string "Somebody beat the whole ELITE FOUR,\n"
 	.string "one after another, inside DEVON!\p"
 	.string "...It was you again, wasn't it?$"
+
+BattleFrontier_OutsideEast_RichBoy_Gossip13::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip13, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip13:
+	.string "The chips are OFF! Every POKéMON on\n"
+	.string "this island can grow again!\p"
+	.string "The CROWN is glowing, and MAUVILLE\n"
+	.string "is next, I heard. I'm telling everyone!$"
+
+BattleFrontier_OutsideEast_RichBoy_Gossip14::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip14, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip14:
+	.string "TEAM AQUA and TEAM MAGMA are working\n"
+	.string "together! They took all of MAUVILLE!\p"
+	.string "“A new order,” they keep saying.\n"
+	.string "And something about a generator.\l"
+	.string "I heard it from a guy who heard it...$"
+
+BattleFrontier_OutsideEast_RichBoy_Gossip15::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip15, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip15:
+	.string "MAUVILLE is free! And SCOTT is headed\n"
+	.string "for SKY PILLAR!\p"
+	.string "And NURSE JOY's CHANSEY can take a\n"
+	.string "POKéMON to level 100! ...You've been\l"
+	.string "busy, haven't you?$"
+
+BattleFrontier_OutsideEast_RichBoy_Gossip16::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip16, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip16:
+	.string "STEVEN, WALLACE, NORMAN and WATTSON\n"
+	.string "are at SKY PILLAR! And all seven\l"
+	.string "BRAINS jumped them!\p"
+	.string "Somebody climbed up alone. I'd bet\n"
+	.string "my allowance it was you.$"
+
+BattleFrontier_OutsideEast_RichBoy_Gossip17::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip17, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip17:
+	.string "SCOTT was ARRESTED! And the CROWN\n"
+	.string "was confiscated! The shops are still\l"
+	.string "free!\p"
+	.string "I told everyone. Everyone.\n"
+	.string "...Thank you, by the way.$"
 
 BattleFrontier_OutsideEast_RichBoy_Text_Gossip0:
 	.string "Did you see it? A man stormed the\n"
@@ -773,6 +832,11 @@ BattleFrontier_OutsideEast_EventScript_TriathleteM::
 	case GOSSIP_AFTERMATH, BattleFrontier_OutsideEast_TriathleteM_Gossip8
 	case GOSSIP_DEVON, BattleFrontier_OutsideEast_TriathleteM_Gossip8
 	case GOSSIP_DEVON_FREED, BattleFrontier_OutsideEast_TriathleteM_Gossip8
+	case GOSSIP_SIPHON, BattleFrontier_OutsideEast_TriathleteM_Gossip9
+	case GOSSIP_MAUVILLE, BattleFrontier_OutsideEast_TriathleteM_Gossip9
+	case GOSSIP_MAUVILLE_FREED, BattleFrontier_OutsideEast_TriathleteM_Gossip9
+	case GOSSIP_SKY_PILLAR, BattleFrontier_OutsideEast_TriathleteM_Gossip10
+	case GOSSIP_ENDING, BattleFrontier_OutsideEast_TriathleteM_Gossip11
 	msgbox BattleFrontier_OutsideEast_Text_DidScottBringYouHere, MSGBOX_NPC
 	end
 
@@ -825,6 +889,36 @@ BattleFrontier_OutsideEast_TriathleteM_Text_Gossip8:
 	.string "FACTORY and left, BRAINS and all.\p"
 	.string "His MEWTWO beat the CHAMPION's\n"
 	.string "PALKIA. I'm glad I missed that one.$"
+
+BattleFrontier_OutsideEast_TriathleteM_Gossip9::
+	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip9, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_TriathleteM_Text_Gossip9:
+	.string "The chips are off! My POKéMON gain\n"
+	.string "EXP on my morning laps again!\p"
+	.string "I've doubled my laps. MAUVILLE is on\n"
+	.string "the news, but I'll worry after my\l"
+	.string "cooldown.$"
+
+BattleFrontier_OutsideEast_TriathleteM_Gossip10::
+	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip10, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_TriathleteM_Text_Gossip10:
+	.string "All seven BRAINS ambushed STEVEN at\n"
+	.string "SKY PILLAR? Seven! I couldn't beat\l"
+	.string "one of them.$"
+
+BattleFrontier_OutsideEast_TriathleteM_Gossip11::
+	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip11, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_TriathleteM_Text_Gossip11:
+	.string "They arrested SCOTT. Clean sweep.\n"
+	.string "And the shops are still free.\p"
+	.string "Personal best this week, too. Best week\n"
+	.string "of my life.$"
 
 BattleFrontier_OutsideEast_TriathleteM_Text_Gossip0:
 	.string "Did you hear the shouting? A GYM\n"
@@ -1033,6 +1127,11 @@ BattleFrontier_OutsideEast_EventScript_Gentleman::
 	case GOSSIP_AFTERMATH, BattleFrontier_OutsideEast_Gentleman_Gossip7
 	case GOSSIP_DEVON, BattleFrontier_OutsideEast_Gentleman_Gossip8
 	case GOSSIP_DEVON_FREED, BattleFrontier_OutsideEast_Gentleman_Gossip9
+	case GOSSIP_SIPHON, BattleFrontier_OutsideEast_Gentleman_Gossip10
+	case GOSSIP_MAUVILLE, BattleFrontier_OutsideEast_Gentleman_Gossip11
+	case GOSSIP_MAUVILLE_FREED, BattleFrontier_OutsideEast_Gentleman_Gossip12
+	case GOSSIP_SKY_PILLAR, BattleFrontier_OutsideEast_Gentleman_Gossip13
+	case GOSSIP_ENDING, BattleFrontier_OutsideEast_Gentleman_Gossip14
 	msgbox BattleFrontier_OutsideEast_Text_FrontierNotExclusivelyForToughTrainers, MSGBOX_NPC
 	end
 
@@ -1099,6 +1198,60 @@ BattleFrontier_OutsideEast_Gentleman_Text_Gossip9:
 	.string "humbled. I hear you carry something\l"
 	.string "back from RUSTBORO.\p"
 	.string "Guard it well, young one.$"
+
+BattleFrontier_OutsideEast_Gentleman_Gossip10::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip10, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip10:
+	.string "The chips lie silent. Every POKéMON\n"
+	.string "on this island may grow again.\p"
+	.string "But the energy has gone into the\n"
+	.string "CROWN, I fear. Be wary of MAUVILLE,\l"
+	.string "young one.$"
+
+BattleFrontier_OutsideEast_Gentleman_Gossip11::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip11, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip11:
+	.string "AQUA and MAGMA, side by side.\n"
+	.string "Two old enemies, one “new order.”\p"
+	.string "That is no friendship, young one.\n"
+	.string "It is a pact waiting to break.$"
+
+BattleFrontier_OutsideEast_Gentleman_Gossip12::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip12, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip12:
+	.string "MAUVILLE is free, and SCOTT is bound\n"
+	.string "for SKY PILLAR.\p"
+	.string "The NURSE's CHANSEY can now lift a\n"
+	.string "POKéMON to level 100. A fine gift,\l"
+	.string "young one. Use it well.$"
+
+BattleFrontier_OutsideEast_Gentleman_Gossip13::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip13, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip13:
+	.string "STEVEN, WALLACE, NORMAN and WATTSON\n"
+	.string "hold SKY PILLAR against all seven\l"
+	.string "BRAINS.\p"
+	.string "And the climb is yours alone. I would\n"
+	.string "go with you, if my knees allowed.$"
+
+BattleFrontier_OutsideEast_Gentleman_Gossip14::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip14, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip14:
+	.string "SCOTT in handcuffs, and the CROWN in\n"
+	.string "the hands of the police.\l"
+	.string "HOENN breathes again.\p"
+	.string "The shops stay free, and the island is\n"
+	.string "at peace. Well done, young one.$"
 
 BattleFrontier_OutsideEast_Gentleman_Text_Gossip0:
 	.string "I saw a man in a fine suit outside the\n"

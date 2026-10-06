@@ -62,6 +62,11 @@ OldaleTown_EventScript_Girl::
 	case GOSSIP_AFTERMATH, OldaleTown_Girl_Gossip4
 	case GOSSIP_DEVON, OldaleTown_Girl_Gossip4
 	case GOSSIP_DEVON_FREED, OldaleTown_Girl_Gossip4
+	case GOSSIP_SIPHON, OldaleTown_Girl_Gossip5
+	case GOSSIP_MAUVILLE, OldaleTown_Girl_Gossip5
+	case GOSSIP_MAUVILLE_FREED, OldaleTown_Girl_Gossip5
+	case GOSSIP_SKY_PILLAR, OldaleTown_Girl_Gossip6
+	case GOSSIP_ENDING, OldaleTown_Girl_Gossip7
 	goto_if_ge VAR_BIRCH_STORY_STATE, 3, OldaleTown_EventScript_GirlAfterLab
 	goto_if_ge VAR_BIRCH_STORY_STATE, 1, OldaleTown_EventScript_GirlDuringLab
 	msgbox OldaleTown_Text_SavingMyProgress, MSGBOX_NPC
@@ -95,6 +100,33 @@ OldaleTown_Girl_Gossip4::
 OldaleTown_Girl_Text_Gossip4:
 	.string "My friend in LITTLEROOT says your\n"
 	.string "mom and dad are safe! Yay!$"
+
+OldaleTown_Girl_Gossip5::
+	msgbox OldaleTown_Girl_Text_Gossip5, MSGBOX_NPC
+	end
+
+OldaleTown_Girl_Text_Gossip5:
+	.string "My friend in LITTLEROOT says POKéMON\n"
+	.string "can grow again on the island!\p"
+	.string "Mommy says MAUVILLE is on the radio\n"
+	.string "now. She keeps turning it up.$"
+
+OldaleTown_Girl_Gossip6::
+	msgbox OldaleTown_Girl_Text_Gossip6, MSGBOX_NPC
+	end
+
+OldaleTown_Girl_Text_Gossip6:
+	.string "Mommy has the radio on again. Something\n"
+	.string "about SKY PILLAR. She won't let me\l"
+	.string "listen!$"
+
+OldaleTown_Girl_Gossip7::
+	msgbox OldaleTown_Girl_Text_Gossip7, MSGBOX_NPC
+	end
+
+OldaleTown_Girl_Text_Gossip7:
+	.string "SCOTT got arrested! Mommy turned the\n"
+	.string "radio off and made pancakes!$"
 
 OldaleTown_Girl_Text_Gossip0:
 	.string "The radio says the ELITE FOUR left\n"
@@ -135,6 +167,11 @@ OldaleTown_EventScript_MartEmployee::
 	case GOSSIP_AFTERMATH, OldaleTown_MartEmployee_Gossip3
 	case GOSSIP_DEVON, OldaleTown_MartEmployee_Gossip3
 	case GOSSIP_DEVON_FREED, OldaleTown_MartEmployee_Gossip3
+	case GOSSIP_SIPHON, OldaleTown_MartEmployee_Gossip4
+	case GOSSIP_MAUVILLE, OldaleTown_MartEmployee_Gossip4
+	case GOSSIP_MAUVILLE_FREED, OldaleTown_MartEmployee_Gossip4
+	case GOSSIP_SKY_PILLAR, OldaleTown_MartEmployee_Gossip5
+	case GOSSIP_ENDING, OldaleTown_MartEmployee_Gossip6
 	goto_if_ge VAR_BIRCH_STORY_STATE, 3, OldaleTown_EventScript_MartEmployeeAfterLab
 	goto_if_ge VAR_BIRCH_STORY_STATE, 1, OldaleTown_EventScript_MartEmployeeDuringLab
 	goto_if_set FLAG_RECEIVED_POTION_OLDALE, OldaleTown_EventScript_ExplainPotion
@@ -180,6 +217,38 @@ OldaleTown_MartEmployee_Text_Gossip3:
 	.string "Our delivery boy says the PROFESSOR\n"
 	.string "is eating again. He heard your family\l"
 	.string "is safe.$"
+
+OldaleTown_MartEmployee_Gossip4::
+	msgbox OldaleTown_MartEmployee_Text_Gossip4, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_MartEmployee_Text_Gossip4:
+	.string "Our delivery boy says trainers are\n"
+	.string "buying POTIONS by the box. POKéMON\l"
+	.string "on that island can grow again!\p"
+	.string "The MAUVILLE news has us all on edge,\n"
+	.string "though.$"
+
+OldaleTown_MartEmployee_Gossip5::
+	msgbox OldaleTown_MartEmployee_Text_Gossip5, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_MartEmployee_Text_Gossip5:
+	.string "Everyone in the MART is listening to\n"
+	.string "the radio. Something about SKY PILLAR.\l"
+	.string "Nobody's buying a thing.$"
+
+OldaleTown_MartEmployee_Gossip6::
+	msgbox OldaleTown_MartEmployee_Text_Gossip6, MSGBOX_DEFAULT
+	release
+	end
+
+OldaleTown_MartEmployee_Text_Gossip6:
+	.string "SCOTT's been arrested! Our delivery\n"
+	.string "boy says a truck of new machines just\l"
+	.string "arrived at the LAB.$"
 
 OldaleTown_MartEmployee_Text_Gossip0:
 	.string "Those men in suits came back to PROF.\n"

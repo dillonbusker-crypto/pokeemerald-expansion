@@ -1,9 +1,16 @@
 RustboroCity_CuttersHouse_MapScripts::
 	.byte 0
 
+@ Ten Gauntlets: no HM Cut here. The Cutter just talks about the island; the
+@ original gift script below is unreachable.
 RustboroCity_CuttersHouse_EventScript_Cutter::
 	lock
 	faceplayer
+	msgbox RustboroCity_CuttersHouse_Text_TenGauntletsNoHM, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_CuttersHouse_EventScript_CutterVanilla::
 	goto_if_set FLAG_RECEIVED_HM_CUT, RustboroCity_CuttersHouse_EventScript_ExplainCut
 	msgbox RustboroCity_CuttersHouse_Text_YouCanPutThisHMToGoodUse, MSGBOX_DEFAULT
 	giveitem ITEM_HM_CUT
@@ -20,6 +27,13 @@ RustboroCity_CuttersHouse_EventScript_ExplainCut::
 RustboroCity_CuttersHouse_EventScript_Lass::
 	msgbox RustboroCity_CuttersHouse_Text_DadHelpedClearLandOfTrees, MSGBOX_NPC
 	end
+
+RustboroCity_CuttersHouse_Text_TenGauntletsNoHM:
+	.string "I used to hand out HIDDEN MACHINES to\n"
+	.string "any TRAINER with a spark.\p"
+	.string "But everyone's off at that island\n"
+	.string "now. I'm just waiting for the day\l"
+	.string "they all come home.$"
 
 RustboroCity_CuttersHouse_Text_YouCanPutThisHMToGoodUse:
 	.string "That determined expression…\n"

@@ -12,9 +12,16 @@ MauvilleCity_GameCorner_MapScripts::
 	.set COINS_PRICE_50,  1000
 	.set COINS_PRICE_500, 10000
 
+@ Ten Gauntlets: the coin and prize counters are closed. The original
+@ scripts below are unreachable.
 MauvilleCity_GameCorner_EventScript_CoinsClerk::
 	lock
 	faceplayer
+	msgbox MauvilleCity_GameCorner_Text_TenGauntletsClosed, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_GameCorner_EventScript_CoinsClerkVanilla::
 	msgbox MauvilleCity_GameCorner_Text_ThisIsMauvilleGameCorner, MSGBOX_DEFAULT
 	checkitem ITEM_COIN_CASE
 	goto_if_eq VAR_RESULT, FALSE, MauvilleCity_GameCorner_EventScript_NeedCoinCase
@@ -102,6 +109,11 @@ MauvilleCity_GameCorner_EventScript_NoRoomForCoins::
 MauvilleCity_GameCorner_EventScript_PrizeCornerDolls::
 	lock
 	faceplayer
+	msgbox MauvilleCity_GameCorner_Text_TenGauntletsClosed, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_GameCorner_EventScript_PrizeCornerDollsVanilla::
 	msgbox MauvilleCity_GameCorner_Text_ExchangeCoinsForPrizes, MSGBOX_DEFAULT
 	checkitem ITEM_COIN_CASE
 	goto_if_eq VAR_RESULT, TRUE, MauvilleCity_GameCorner_EventScript_ChooseDollPrizeMessage
@@ -215,6 +227,11 @@ MauvilleCity_GameCorner_EventScript_CancelDollSelect::
 MauvilleCity_GameCorner_EventScript_PrizeCornerTMs::
 	lock
 	faceplayer
+	msgbox MauvilleCity_GameCorner_Text_TenGauntletsClosed, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_GameCorner_EventScript_PrizeCornerTMsVanilla::
 	msgbox MauvilleCity_GameCorner_Text_ExchangeCoinsForPrizes, MSGBOX_DEFAULT
 	checkitem ITEM_COIN_CASE
 	goto_if_eq VAR_RESULT, TRUE, MauvilleCity_GameCorner_EventScript_ChooseTMPrizeMessage
@@ -776,3 +793,6 @@ MauvilleCity_GameCorner_Text_CantPlayWithNoCoinCase:
 	.string "You can't play if you don't have\n"
 	.string "a COIN CASE.$"
 
+MauvilleCity_GameCorner_Text_TenGauntletsClosed:
+	.string "Sorry! The counter is closed until\n"
+	.string "further notice.$"

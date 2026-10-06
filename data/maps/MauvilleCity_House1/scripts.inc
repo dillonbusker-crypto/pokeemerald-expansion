@@ -1,9 +1,16 @@
 MauvilleCity_House1_MapScripts::
 	.byte 0
 
+@ Ten Gauntlets: no HM Rock Smash here. The Dude just talks; the original
+@ gift script below is unreachable.
 MauvilleCity_House1_EventScript_RockSmashDude::
 	lock
 	faceplayer
+	msgbox MauvilleCity_House1_Text_TenGauntletsNoHM, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_House1_EventScript_RockSmashDudeVanilla::
 	goto_if_set FLAG_RECEIVED_HM_ROCK_SMASH, MauvilleCity_House1_EventScript_ReceivedRockSmash
 	msgbox MauvilleCity_House1_Text_ImRockSmashDudeTakeThis, MSGBOX_DEFAULT
 	giveitem ITEM_HM_ROCK_SMASH
@@ -17,6 +24,12 @@ MauvilleCity_House1_EventScript_ReceivedRockSmash::
 	msgbox MauvilleCity_House1_Text_MonCanFlyOutOfSmashedRock, MSGBOX_DEFAULT
 	release
 	end
+
+MauvilleCity_House1_Text_TenGauntletsNoHM:
+	.string "Woohoo! ...Well, no. Not today.\p"
+	.string "With all the trouble in town, I'm\n"
+	.string "keeping my ROCK SMASHING to myself.\p"
+	.string "Stay safe out there!$"
 
 MauvilleCity_House1_Text_ImRockSmashDudeTakeThis:
 	.string "Woohoo!\p"

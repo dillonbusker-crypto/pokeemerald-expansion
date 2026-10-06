@@ -17,6 +17,11 @@ BattleFrontier_Lounge4_EventScript_Cook::
 	case GOSSIP_AFTERMATH, BattleFrontier_Lounge4_Cook_Gossip2
 	case GOSSIP_DEVON, BattleFrontier_Lounge4_Cook_Gossip2
 	case GOSSIP_DEVON_FREED, BattleFrontier_Lounge4_Cook_Gossip2
+	case GOSSIP_SIPHON, BattleFrontier_Lounge4_Cook_Gossip3
+	case GOSSIP_MAUVILLE, BattleFrontier_Lounge4_Cook_Gossip3
+	case GOSSIP_MAUVILLE_FREED, BattleFrontier_Lounge4_Cook_Gossip3
+	case GOSSIP_SKY_PILLAR, BattleFrontier_Lounge4_Cook_Gossip4
+	case GOSSIP_ENDING, BattleFrontier_Lounge4_Cook_Gossip5
 	msgbox BattleFrontier_Lounge4_Text_IfIOpenedRestaurantHere, MSGBOX_NPC
 	end
 
@@ -44,6 +49,35 @@ BattleFrontier_Lounge4_Cook_Text_Gossip2:
 	.string "The BROKER's running the counter.\p"
 	.string "I'm opening that restaurant after\n"
 	.string "all. Who needs a permit now?$"
+
+BattleFrontier_Lounge4_Cook_Gossip3::
+	msgbox BattleFrontier_Lounge4_Cook_Text_Gossip3, MSGBOX_NPC
+	end
+
+BattleFrontier_Lounge4_Cook_Text_Gossip3:
+	.string "Everyone's POKéMON can grow again!\n"
+	.string "The plaza is full of trainers.\p"
+	.string "MAUVILLE has been on the news, too.\n"
+	.string "I keep the radio low and the pot full.$"
+
+BattleFrontier_Lounge4_Cook_Gossip4::
+	msgbox BattleFrontier_Lounge4_Cook_Text_Gossip4, MSGBOX_NPC
+	end
+
+BattleFrontier_Lounge4_Cook_Text_Gossip4:
+	.string "Seven BRAINS against STEVEN's friends,\n"
+	.string "at SKY PILLAR? On the radio, no less.\l"
+	.string "I burned the soup.$"
+
+BattleFrontier_Lounge4_Cook_Gossip5::
+	msgbox BattleFrontier_Lounge4_Cook_Text_Gossip5, MSGBOX_NPC
+	end
+
+BattleFrontier_Lounge4_Cook_Text_Gossip5:
+	.string "SCOTT's been arrested! And nobody\n"
+	.string "has asked me for a permit yet.\p"
+	.string "The shops are still free. I'm calling\n"
+	.string "this my grand opening.$"
 
 BattleFrontier_Lounge4_Cook_Text_Gossip0:
 	.string "Somebody WAS running a business out\n"

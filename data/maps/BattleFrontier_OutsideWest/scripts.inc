@@ -518,6 +518,11 @@ BattleFrontier_OutsideWest_EventScript_Man2::
 	case GOSSIP_AFTERMATH, BattleFrontier_OutsideWest_Man2_Gossip4
 	case GOSSIP_DEVON, BattleFrontier_OutsideWest_Man2_Gossip4
 	case GOSSIP_DEVON_FREED, BattleFrontier_OutsideWest_Man2_Gossip4
+	case GOSSIP_SIPHON, BattleFrontier_OutsideWest_Man2_Gossip5
+	case GOSSIP_MAUVILLE, BattleFrontier_OutsideWest_Man2_Gossip5
+	case GOSSIP_MAUVILLE_FREED, BattleFrontier_OutsideWest_Man2_Gossip5
+	case GOSSIP_SKY_PILLAR, BattleFrontier_OutsideWest_Man2_Gossip6
+	case GOSSIP_ENDING, BattleFrontier_OutsideWest_Man2_Gossip7
 	msgbox BattleFrontier_OutsideWest_Text_NothingHereNotLongAgo, MSGBOX_NPC
 	end
 
@@ -552,6 +557,34 @@ BattleFrontier_OutsideWest_Man2_Text_Gossip4:
 	.string "The FACTORY's empty now. SCOTT's\n"
 	.string "gone, and everyone's breathing again.\p"
 	.string "For now, anyway.$"
+
+BattleFrontier_OutsideWest_Man2_Gossip5::
+	msgbox BattleFrontier_OutsideWest_Man2_Text_Gossip5, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideWest_Man2_Text_Gossip5:
+	.string "POKéMON growing on this island again.\n"
+	.string "Feels like the old FRONTIER.\p"
+	.string "Something's up in MAUVILLE, though.\n"
+	.string "The news won't stop.$"
+
+BattleFrontier_OutsideWest_Man2_Gossip6::
+	msgbox BattleFrontier_OutsideWest_Man2_Text_Gossip6, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideWest_Man2_Text_Gossip6:
+	.string "I hear the BRAINS went after STEVEN's\n"
+	.string "group at SKY PILLAR. All seven.\l"
+	.string "That's not the FRONTIER I knew.$"
+
+BattleFrontier_OutsideWest_Man2_Gossip7::
+	msgbox BattleFrontier_OutsideWest_Man2_Text_Gossip7, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideWest_Man2_Text_Gossip7:
+	.string "SCOTT's under arrest, and the CROWN is\n"
+	.string "gone. The FRONTIER is quiet again.\p"
+	.string "The good kind of quiet, this time.$"
 
 BattleFrontier_OutsideWest_Man2_Text_Gossip0:
 	.string "STEVEN STONE beat the old FRONTIER\n"
@@ -1454,42 +1487,6 @@ BattleFrontier_OutsideWest_Text_FactoryLooker:
 	.string "has come out since.\p"
 	.string "I will keep watching. You keep\n"
 	.string "winning, yes? And act natural!$"
-
-@ ============================================================================
-@ TESTING ONLY - remove before release. The man on the ferry dock hands out a
-@ level 100 MIRAIDON, as many times as asked, to speed through playtests.
-@ To undo: point his object in map.json back at
-@ BattleFrontier_OutsideWest_EventScript_Man3 and delete this block.
-@ ============================================================================
-BattleFrontier_OutsideWest_EventScript_TestMiraidon::
-	lock
-	faceplayer
-	msgbox BattleFrontier_OutsideWest_Text_TestMiraidonOffer, MSGBOX_YESNO
-	goto_if_ne VAR_RESULT, YES, BattleFrontier_OutsideWest_EventScript_TestMiraidonEnd
-	givemon SPECIES_MIRAIDON, 100
-	goto_if_eq VAR_RESULT, MON_CANT_GIVE, BattleFrontier_OutsideWest_EventScript_TestMiraidonNoRoom
-	playfanfare MUS_OBTAIN_ITEM
-	message BattleFrontier_OutsideWest_Text_TestMiraidonReceived
-	waitmessage
-	waitfanfare
-	waitbuttonpress
-BattleFrontier_OutsideWest_EventScript_TestMiraidonEnd:
-	release
-	end
-
-BattleFrontier_OutsideWest_EventScript_TestMiraidonNoRoom::
-	msgbox BattleFrontier_OutsideWest_Text_TestMiraidonNoRoom, MSGBOX_DEFAULT
-	release
-	end
-
-BattleFrontier_OutsideWest_Text_TestMiraidonOffer:
-	.string "TEST: Want a level 100 MIRAIDON?$"
-
-BattleFrontier_OutsideWest_Text_TestMiraidonReceived:
-	.string "{PLAYER} received a MIRAIDON!$"
-
-BattleFrontier_OutsideWest_Text_TestMiraidonNoRoom:
-	.string "TEST: No room in your party or PC.$"
 
 @ ============================================================================
 @ Ten Gauntlets: a facility that isn't open yet keeps its door shut - walking

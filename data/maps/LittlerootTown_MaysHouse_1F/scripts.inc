@@ -137,6 +137,11 @@ RivalsHouse_1F_EventScript_RivalMom::
 	case GOSSIP_AFTERMATH, RivalsHouse_1F_RivalMom_Gossip6
 	case GOSSIP_DEVON, RivalsHouse_1F_RivalMom_Gossip7
 	case GOSSIP_DEVON_FREED, RivalsHouse_1F_RivalMom_Gossip8
+	case GOSSIP_SIPHON, RivalsHouse_1F_RivalMom_Gossip9
+	case GOSSIP_MAUVILLE, RivalsHouse_1F_RivalMom_Gossip10
+	case GOSSIP_MAUVILLE_FREED, RivalsHouse_1F_RivalMom_Gossip11
+	case GOSSIP_SKY_PILLAR, RivalsHouse_1F_RivalMom_Gossip12
+	case GOSSIP_ENDING, RivalsHouse_1F_RivalMom_Gossip13
 	goto_if_set FLAG_DEFEATED_RIVAL_ROUTE103, RivalsHouse_1F_EventScript_GoHomeEverySoOften
 	goto_if_set FLAG_SYS_POKEMON_GET, RivalsHouse_1F_EventScript_RivalIsOnRoute103
 	goto_if_eq VAR_LITTLEROOT_RIVAL_STATE, 3, RivalsHouse_1F_EventScript_RivalTooBusy
@@ -215,6 +220,65 @@ RivalsHouse_1F_RivalMom_Text_Gossip8:
 	.string "at DEVON, one after another.\p"
 	.string "And DEVON's PRESIDENT is\n"
 	.string "finally answering questions.$"
+
+RivalsHouse_1F_RivalMom_Gossip9::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip9, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_RivalMom_Text_Gossip9:
+	.string "{RIVAL} called from the FRONTIER.\n"
+	.string "They say the POKéMON there can\l"
+	.string "grow strong again!\p"
+	.string "And MAUVILLE is next? Oh, {PLAYER},\n"
+	.string "please eat something first.$"
+
+RivalsHouse_1F_RivalMom_Gossip10::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip10, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_RivalMom_Text_Gossip10:
+	.string "The radio says TEAM AQUA and TEAM\n"
+	.string "MAGMA took MAUVILLE. Together!\p"
+	.string "They keep saying “a new order.”\n"
+	.string "I don't like the sound of that.\l"
+	.string "Please be careful, {PLAYER}.$"
+
+RivalsHouse_1F_RivalMom_Gossip11::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip11, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_RivalMom_Text_Gossip11:
+	.string "MAUVILLE is free again! {RIVAL}\n"
+	.string "called to say the TEAMS are gone.\p"
+	.string "Something about NURSE JOY's CHANSEY\n"
+	.string "taking a POKéMON to level 100?\l"
+	.string "I never understand these things.$"
+
+RivalsHouse_1F_RivalMom_Gossip12::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip12, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_RivalMom_Text_Gossip12:
+	.string "{RIVAL} says STEVEN, WALLACE, NORMAN\n"
+	.string "and WATTSON are at SKY PILLAR.\p"
+	.string "The BRAINS ambushed them, all seven!\n"
+	.string "And you climb alone? Oh, {PLAYER},\l"
+	.string "please come home safe.$"
+
+RivalsHouse_1F_RivalMom_Gossip13::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip13, MSGBOX_DEFAULT
+	release
+	end
+
+RivalsHouse_1F_RivalMom_Text_Gossip13:
+	.string "SCOTT has been arrested, and the\n"
+	.string "police took that CROWN away.\p"
+	.string "My husband sleeps through the night\n"
+	.string "again. Come for supper, {PLAYER}!$"
 
 RivalsHouse_1F_RivalMom_Text_Gossip0:
 	.string "My husband barely sleeps. He jumps\n"

@@ -257,6 +257,11 @@ LittlerootTown_EventScript_FatMan::
 	case GOSSIP_AFTERMATH, LittlerootTown_FatMan_Gossip3
 	case GOSSIP_DEVON, LittlerootTown_FatMan_Gossip3
 	case GOSSIP_DEVON_FREED, LittlerootTown_FatMan_Gossip3
+	case GOSSIP_SIPHON, LittlerootTown_FatMan_Gossip4
+	case GOSSIP_MAUVILLE, LittlerootTown_FatMan_Gossip4
+	case GOSSIP_MAUVILLE_FREED, LittlerootTown_FatMan_Gossip4
+	case GOSSIP_SKY_PILLAR, LittlerootTown_FatMan_Gossip5
+	case GOSSIP_ENDING, LittlerootTown_FatMan_Gossip6
 	lock
 	faceplayer
 	msgbox LittlerootTown_Text_CanUsePCToStoreItems, MSGBOX_DEFAULT
@@ -292,6 +297,35 @@ LittlerootTown_FatMan_Text_Gossip3:
 	.string "safe. First time I've seen him smile\l"
 	.string "in weeks.$"
 
+LittlerootTown_FatMan_Gossip4::
+	msgbox LittlerootTown_FatMan_Text_Gossip4, MSGBOX_NPC
+	end
+
+LittlerootTown_FatMan_Text_Gossip4:
+	.string "The PROFESSOR says POKéMON can grow\n"
+	.string "again on that island. He's been\l"
+	.string "smiling all day.\p"
+	.string "MAUVILLE is in the news, though.\n"
+	.string "Always something.$"
+
+LittlerootTown_FatMan_Gossip5::
+	msgbox LittlerootTown_FatMan_Text_Gossip5, MSGBOX_NPC
+	end
+
+LittlerootTown_FatMan_Text_Gossip5:
+	.string "The PROFESSOR keeps the radio on all\n"
+	.string "day. Something about SKY PILLAR.\l"
+	.string "He hasn't touched his sandwich.$"
+
+LittlerootTown_FatMan_Gossip6::
+	msgbox LittlerootTown_FatMan_Text_Gossip6, MSGBOX_NPC
+	end
+
+LittlerootTown_FatMan_Text_Gossip6:
+	.string "SCOTT's in custody. The PROFESSOR is\n"
+	.string "rebuilding the LAB, machine by machine.\p"
+	.string "I'd carry a box, if my back allowed.$"
+
 LittlerootTown_FatMan_Text_Gossip0:
 	.string "DEVON says PROF. BIRCH owed them\n"
 	.string "money. I don't buy it.\p"
@@ -317,6 +351,11 @@ LittlerootTown_EventScript_Boy::
 	case GOSSIP_AFTERMATH, LittlerootTown_Boy_Gossip3
 	case GOSSIP_DEVON, LittlerootTown_Boy_Gossip3
 	case GOSSIP_DEVON_FREED, LittlerootTown_Boy_Gossip3
+	case GOSSIP_SIPHON, LittlerootTown_Boy_Gossip4
+	case GOSSIP_MAUVILLE, LittlerootTown_Boy_Gossip4
+	case GOSSIP_MAUVILLE_FREED, LittlerootTown_Boy_Gossip4
+	case GOSSIP_SKY_PILLAR, LittlerootTown_Boy_Gossip5
+	case GOSSIP_ENDING, LittlerootTown_Boy_Gossip6
 	lock
 	faceplayer
 	msgbox LittlerootTown_Text_BirchSpendsDaysInLab, MSGBOX_DEFAULT
@@ -348,6 +387,35 @@ LittlerootTown_Boy_Text_Gossip3:
 	.string "Your mom and dad are okay? {RIVAL}\n"
 	.string "told me! That's great!$"
 
+LittlerootTown_Boy_Gossip4::
+	msgbox LittlerootTown_Boy_Text_Gossip4, MSGBOX_NPC
+	end
+
+LittlerootTown_Boy_Text_Gossip4:
+	.string "They say POKéMON on the island can\n"
+	.string "level up again! I'm training mine\l"
+	.string "all day!\p"
+	.string "And MAUVILLE is on TV! I want to go\n"
+	.string "see it.$"
+
+LittlerootTown_Boy_Gossip5::
+	msgbox LittlerootTown_Boy_Text_Gossip5, MSGBOX_NPC
+	end
+
+LittlerootTown_Boy_Text_Gossip5:
+	.string "The CHAMPION and STEVEN are at SKY\n"
+	.string "PILLAR! And a whole bunch of BRAINS!\l"
+	.string "I heard it on the radio!$"
+
+LittlerootTown_Boy_Gossip6::
+	msgbox LittlerootTown_Boy_Text_Gossip6, MSGBOX_NPC
+	end
+
+LittlerootTown_Boy_Text_Gossip6:
+	.string "SCOTT got arrested! Everyone's saying\n"
+	.string "so!\p"
+	.string "I told everyone you'd win, {PLAYER}!$"
+
 LittlerootTown_Boy_Text_Gossip0:
 	.string "I saw it! The CHAMPION, WALLACE,\n"
 	.string "battling DEVON's men right outside\l"
@@ -376,6 +444,11 @@ LittlerootTown_EventScript_Twin::
 	case GOSSIP_AFTERMATH, LittlerootTown_Twin_Gossip3
 	case GOSSIP_DEVON, LittlerootTown_Twin_Gossip3
 	case GOSSIP_DEVON_FREED, LittlerootTown_Twin_Gossip3
+	case GOSSIP_SIPHON, LittlerootTown_Twin_Gossip4
+	case GOSSIP_MAUVILLE, LittlerootTown_Twin_Gossip4
+	case GOSSIP_MAUVILLE_FREED, LittlerootTown_Twin_Gossip4
+	case GOSSIP_SKY_PILLAR, LittlerootTown_Twin_Gossip5
+	case GOSSIP_ENDING, LittlerootTown_Twin_Gossip6
 	goto_if_set FLAG_ADVENTURE_STARTED, LittlerootTown_EventScript_GoodLuck
 	goto_if_set FLAG_RESCUED_BIRCH, LittlerootTown_EventScript_YouSavedBirch
 	goto_if_ne VAR_LITTLEROOT_TOWN_STATE, 0, LittlerootTown_EventScript_GoSaveBirch
@@ -412,6 +485,36 @@ LittlerootTown_Twin_Gossip3::
 LittlerootTown_Twin_Text_Gossip3:
 	.string "Your mom and dad are coming back?\n"
 	.string "Yay! Your house is too quiet.$"
+
+LittlerootTown_Twin_Gossip4::
+	msgbox LittlerootTown_Twin_Text_Gossip4, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_Twin_Text_Gossip4:
+	.string "Mommy says the POKéMON on the island\n"
+	.string "can grow up now!\p"
+	.string "And bad people are in MAUVILLE.\n"
+	.string "I'm not going there.$"
+
+LittlerootTown_Twin_Gossip5::
+	msgbox LittlerootTown_Twin_Text_Gossip5, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_Twin_Text_Gossip5:
+	.string "Mommy turned the radio up loud. She\n"
+	.string "says there's a big fight at SKY\l"
+	.string "PILLAR. Is that far?$"
+
+LittlerootTown_Twin_Gossip6::
+	msgbox LittlerootTown_Twin_Text_Gossip6, MSGBOX_DEFAULT
+	release
+	end
+
+LittlerootTown_Twin_Text_Gossip6:
+	.string "The bad man got arrested! Mommy says\n"
+	.string "I can play outside forever!$"
 
 LittlerootTown_Twin_Text_Gossip0:
 	.string "Mommy let me play outside again! The\n"

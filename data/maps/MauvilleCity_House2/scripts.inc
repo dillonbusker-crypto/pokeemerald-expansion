@@ -1,9 +1,16 @@
 MauvilleCity_House2_MapScripts::
 	.byte 0
 
+@ Ten Gauntlets: no Coin Case here. The woman just talks; the original trade
+@ script below is unreachable.
 MauvilleCity_House2_EventScript_Woman::
 	lock
 	faceplayer
+	msgbox MauvilleCity_House2_Text_TenGauntletsNoCoinCase, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_House2_EventScript_WomanVanilla::
 	goto_if_set FLAG_RECEIVED_COIN_CASE, MauvilleCity_House2_EventScript_ReceivedCoinCase
 	msgbox MauvilleCity_House2_Text_BuyHarborMailAtSlateport, MSGBOX_DEFAULT
 	checkitem ITEM_HARBOR_MAIL
@@ -40,6 +47,11 @@ MauvilleCity_House2_EventScript_DeclineTrade::
 	msgbox MauvilleCity_House2_Text_ThatsDisappointing, MSGBOX_DEFAULT
 	release
 	end
+
+MauvilleCity_House2_Text_TenGauntletsNoCoinCase:
+	.string "I'd love a bike ride to SLATEPORT, but\n"
+	.string "not with the town like this.\p"
+	.string "I'll wait until it's quiet again.$"
 
 MauvilleCity_House2_Text_BuyHarborMailAtSlateport:
 	.string "If I had a BIKE, it'd be easy to cycle to\n"
