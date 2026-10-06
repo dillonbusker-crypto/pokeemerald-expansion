@@ -98,6 +98,15 @@ BattleFrontier_PokemonCenter_1F_Movement_PlayerToCounter:
 
 BattleFrontier_PokemonCenter_1F_EventScript_Nurse::
 	setvar VAR_0x800B, LOCALID_FRONTIER_NURSE
+	@ Ten Gauntlets: after the siphon (states 11-14) she hints once, then heals as usual.
+	goto_if_lt VAR_ENDGAME_STATE, 11, BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal
+	goto_if_ge VAR_ENDGAME_STATE, 15, BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal
+	goto_if_eq VAR_FRONTIER_JOY_HINTED, 1, BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal
+	setvar VAR_FRONTIER_JOY_HINTED, 1
+	lock
+	faceplayer
+	msgbox BattleFrontier_PokemonCenter_1F_Text_NurseCrownHint, MSGBOX_DEFAULT
+BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal::
 	call Common_EventScript_PkmnCenterNurse
 	waitmessage
 	waitbuttonpress
@@ -167,6 +176,14 @@ BattleFrontier_PokemonCenter_1F_Text_GoingThroughEveryChallenge:
 BattleFrontier_PokemonCenter_1F_Text_Skitty:
 	.string "SKITTY: Mya myaaah!$"
 
+
+BattleFrontier_PokemonCenter_1F_Text_NurseCrownHint:
+	.string "NURSE JOY: The CROWN drained every\n"
+	.string "chip on the island in one go. What\l"
+	.string "power!\p"
+	.string "It makes me think. I may be able to\n"
+	.string "help you with it, but I need time\l"
+	.string "to work it out.$"
 
 BattleFrontier_PokemonCenter_1F_Text_HideoutNurseGreets:
 	.string "NURSE JOY: Oh, STEVEN! And you've\n"

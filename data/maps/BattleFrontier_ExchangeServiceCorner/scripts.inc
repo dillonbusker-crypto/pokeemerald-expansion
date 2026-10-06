@@ -269,7 +269,15 @@ BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeper::
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_ShopClosedMidRun
 	specialvar VAR_RESULT, IsFrontierPOSDown
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeperPOSDown
+	goto_if_ge VAR_ENDGAME_STATE, 11, BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeperFreed
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemon, MSGBOX_DEFAULT
+	special ShowFacilityFPWindow
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	end
+
+@ Ten Gauntlets: after the siphon the keeper has a line about the freed POKéMON.
+BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeperFreed::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemonFreed, MSGBOX_DEFAULT
 	special ShowFacilityFPWindow
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
 	end
@@ -281,8 +289,36 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet::
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbyeFP
 	copyvar VAR_0x8004, VAR_RESULT
 	special FacilityShopSelectGauntletRow
+	goto_if_eq VAR_RESULT, 2, BattleFrontier_ExchangeServiceCorner_EventScript_FreeThePokemon
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonToSell
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonTier
+	end
+
+@ Ten Gauntlets: the Frontier siphon (storyline.md). Offered at state 10 with
+@ the Crown in the bag (FacilityShopBuildGauntletMenu). Charges the CROWN and
+@ switches every chip off (FLAG_FRONTIER_CHIPS_OFF): state 11.
+BattleFrontier_ExchangeServiceCorner_EventScript_FreeThePokemon::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmSiphon, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	special CloseFacilityFPWindow
+	special FacilityShopFreeMenuRows
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_SiphonBegins, MSGBOX_DEFAULT
+	closemessage
+	playse SE_M_REFLECT
+	fadescreen FADE_TO_WHITE
+	setvar VAR_0x8004, 1  @ vertical pan
+	setvar VAR_0x8005, 2  @ horizontal pan
+	setvar VAR_0x8006, 12 @ num shakes
+	setvar VAR_0x8007, 4  @ shake delay
+	special ShakeCamera
+	waitstate
+	delay 30
+	setflag FLAG_CROWN_CHARGED
+	setflag FLAG_FRONTIER_CHIPS_OFF
+	setvar VAR_ENDGAME_STATE, 11
+	fadescreen FADE_FROM_WHITE
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_SiphonDone, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonTier::
@@ -500,6 +536,31 @@ BattleFrontier_ExchangeServiceCorner_Text_YouNeedAMegaRing:
 	.string "Hold on - you don't have a MEGA RING?\n"
 	.string "These stones are no use without one.\l"
 	.string "Here, take this.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_ConfirmSiphon:
+	.string "Every POKéMON in the FRONTIER has a\n"
+	.string "chip in it. The CROWN can drain them\l"
+	.string "all at once, and take the energy.\p"
+	.string "Free the POKéMON?$"
+
+BattleFrontier_ExchangeServiceCorner_Text_SiphonBegins:
+	.string "{PLAYER} held the REPLICA CROWN up.\p"
+	.string "The shop fell silent…$"
+
+BattleFrontier_ExchangeServiceCorner_Text_SiphonDone:
+	.string "Every chip in the FRONTIER's POKéMON\n"
+	.string "went dark. The energy flowed into\l"
+	.string "the CROWN, and the CROWN is charged.\p"
+	.string "KEEPER: Look at them! They're\n"
+	.string "stretching. They're ready to grow\l"
+	.string "again!$"
+
+BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemonFreed:
+	.string "Welcome!\p"
+	.string "Since the chips went dark, the\n"
+	.string "POKéMON here are growing again.\l"
+	.string "They seem so much happier.\p"
+	.string "Take your pick.$"
 
 BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemon:
 	.string "Welcome!\p"

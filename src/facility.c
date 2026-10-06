@@ -648,6 +648,32 @@ u32 GetReplicaCrownLimit(void)
     return 0;
 }
 
+// Ten Gauntlets: the Chansey's Transfer EXP (storyline.md, Mauville). The
+// supercharged CROWN pours the Experience of every CHANSEY in the Pokemon
+// Centers into one Pokemon: it goes to level 100, once per game
+// (FLAG_CHANSEY_TRANSFER_EXP_USED, set by the script on success).
+// In: gSpecialVar_0x8004 = party slot. Out: gSpecialVar_Result = 0 done,
+// 1 an Egg, 2 already level 100.
+void TransferExpToLevel100(void)
+{
+    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
+
+    if (species == SPECIES_EGG)
+    {
+        gSpecialVar_Result = 1;
+        return;
+    }
+    if (GetMonData(mon, MON_DATA_LEVEL) >= MAX_LEVEL)
+    {
+        gSpecialVar_Result = 2;
+        return;
+    }
+    SetMonData(mon, MON_DATA_EXP, &gExperienceTables[gSpeciesInfo[species].growthRate][MAX_LEVEL]);
+    CalculateMonStats(mon);
+    gSpecialVar_Result = 0;
+}
+
 // How many of the party are permanent Megas right now.
 u32 CountPermanentMegasInParty(void)
 {

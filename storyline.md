@@ -984,7 +984,7 @@ Hoopa's second ring is ready (Wallace mentions it). Back to the Frontier by
 ABRA. **Steven stays on 3F with his father** until the player leaves
 Rustboro; where Steven and Wallace stand next is for the siphon to decide.
 
-### Back to the Frontier: the siphon 📝
+### Back to the Frontier: the siphon ✅
 
 The Pokémon keeper in the Exchange Service Corner has a new option: **"Free
 the POKéMON"**. The screen flashes: every chip in the Frontier's Pokémon is
@@ -1001,6 +1001,13 @@ disabled, and the shard energy flows into the Crown (`FLAG_CROWN_CHARGED`).
 When the player is ready (perhaps after another Hoopa catch), talking to
 Steven outside the Arena starts Mauville. Steven and Wallace fly; the player
 takes the ABRA (`FLAG_ABRA_TO_MAUVILLE`).
+
+✅ **Built.** The keeper's "Free the Pokemon" row appears at `VAR_ENDGAME_STATE`
+10 with the Crown in the bag (`FacilityShopBuildGauntletMenu`); the flash, the
+shake, `FLAG_CROWN_CHARGED`, `FLAG_FRONTIER_CHIPS_OFF`, state 11. Steven and
+Wallace stand outside the Arena in states 10, 11, 15 and 18; at 11 Steven asks
+(YES/NO) and they fly (state 12). Nurse Joy hints once in states 11-14
+(`VAR_FRONTIER_JOY_HINTED`) before her normal heal.
 
 ### Mauville: New Mauville 📝
 
@@ -1041,6 +1048,15 @@ Crown can draw in the Experience of every **Chansey** at the Pokémon Center
 (**Transfer EXP**). A Chansey now sits outside the Arena. The player picks a
 Pokémon, and **it goes to level 100**. Steven waits outside the Arena; when the
 player is ready, the ABRA takes them to Sky Pillar (`FLAG_ABRA_TO_SKY_PILLAR`).
+
+✅ **Built** (endgame part 3). Joy and the Chansey stand at (41, 32) and (42, 32)
+below the Arena door from state 15 (`FLAG_HIDE_ENDGAME_BASE_JOY`). Talking to
+Joy: explanation, YES/NO, pick a party Pokémon, `TransferExpToLevel100`
+(`src/facility.c`; Eggs and level-100 Pokémon are refused without using it),
+once per game (`FLAG_CHANSEY_TRANSFER_EXP_USED`). Steven (state 15) asks if
+the player is ready; YES sets `FLAG_ABRA_TO_SKY_PILLAR`, state 16, and Steven,
+Wallace and Dad (`FLAG_HIDE_ENDGAME_BASE_DAD`, hidden in 16-17) fly to Sky
+Pillar. State 18: Steven, Wallace, Dad, Mom, Joy and the Chansey are all out.
 
 ### Sky Pillar 📝
 

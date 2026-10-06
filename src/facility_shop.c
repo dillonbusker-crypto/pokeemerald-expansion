@@ -1210,6 +1210,7 @@ struct FacilityShopMenuRow
 // keeps it out of the u8 wave range (0-9) the same way FACILITY_SHOP_TYPE_ALL
 // keeps its sentinel out of the Type range.
 #define FACILITY_SHOP_GAUNTLET_SELECT_SELL 0xFFFF
+#define FACILITY_SHOP_GAUNTLET_SELECT_FREE 0xFFFE // Ten Gauntlets: "Free the Pokemon" (the siphon)
 
 static EWRAM_DATA struct FacilityShopMenuRow *sMenuRows = NULL;
 static EWRAM_DATA u16 sMenuRowCount = 0;
@@ -1527,6 +1528,14 @@ static const u8 *const sGauntletWaveNames[] =
 };
 
 static const u8 sText_SellAPokemon[] = _("Sell a Pokemon");
+static const u8 sText_FreeThePokemon[] = _("Free the Pokemon");
+
+// Ten Gauntlets: the Frontier siphon (storyline.md) is offered once, after
+// Rustboro (VAR_ENDGAME_STATE 10), while the player holds the uncharged Crown.
+static bool8 ShouldOfferSiphon(void)
+{
+    return VarGet(VAR_ENDGAME_STATE) == 10 && CheckBagHasItem(ITEM_REPLICA_CROWN, 1);
+}
 
 // Guards against a wave number that's unlocked (in the IsShopEntryUnlocked
 // sense) but was never actually given any Pokemon of its own - e.g. a future
@@ -1561,6 +1570,8 @@ void FacilityShopBuildGauntletMenu(void)
             count++;
     }
     count++; // Sell a Pokemon
+    if (ShouldOfferSiphon())
+        count++; // Free the Pokemon
 
     FreeMenuRows();
     sMenuRows = Alloc(count * sizeof(struct FacilityShopMenuRow));
@@ -1580,11 +1591,20 @@ void FacilityShopBuildGauntletMenu(void)
     sMenuRows[count].price = 0;
     sMenuRows[count].name = sText_SellAPokemon;
     sMenuRows[count].description = NULL;
+    if (ShouldOfferSiphon())
+    {
+        count++;
+        sMenuRows[count].id = FACILITY_SHOP_GAUNTLET_SELECT_FREE;
+        sMenuRows[count].price = 0;
+        sMenuRows[count].name = sText_FreeThePokemon;
+        sMenuRows[count].description = NULL;
+    }
 }
 
 // gSpecialVar_0x8004 = chosen row index into the just-shown gauntlet menu.
 // gSpecialVar_Result = TRUE means the player picked "Sell a Pokemon" - the
-// caller goes straight to the sell flow. FALSE means sPendingGauntletWave is
+// caller goes straight to the sell flow; 2 means "Free the Pokemon" (the
+// siphon, only offered at VAR_ENDGAME_STATE 10). FALSE means sPendingGauntletWave is
 // now set and the caller should show tier-select next.
 void FacilityShopSelectGauntletRow(void)
 {
@@ -1594,6 +1614,10 @@ void FacilityShopSelectGauntletRow(void)
     if (id == FACILITY_SHOP_GAUNTLET_SELECT_SELL)
     {
         gSpecialVar_Result = TRUE;
+    }
+    else if (id == FACILITY_SHOP_GAUNTLET_SELECT_FREE)
+    {
+        gSpecialVar_Result = 2;
     }
     else
     {
