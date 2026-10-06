@@ -37,9 +37,18 @@ BattleFrontier_OutsideEast_OnTransition:
 	call BattleFrontier_OutsideEast_EventScript_SetupRival
 	call BattleFrontier_OutsideEast_EventScript_SetupCrownStory
 	call BattleFrontier_OutsideEast_EventScript_SetupEndgame
+	call BattleFrontier_OutsideEast_EventScript_SetupBadDreams
 	setflag FLAG_TEMP_5
 	call_if_eq VAR_NORMAN_STORY_STATE, 3, BattleFrontier_OutsideEast_EventScript_ShowNorman
 	end
+
+@ Ten Gauntlets: Bad Dreams (storyline.md). The twin sleeps where she stands
+@ while the event runs: facing down, no looking around.
+BattleFrontier_OutsideEast_EventScript_SetupBadDreams::
+	specialvar VAR_RESULT, IsBadDreamsActive
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
+	setobjectmovementtype LOCALID_FRONTIER_TWIN, MOVEMENT_TYPE_FACE_DOWN
+	return
 
 BattleFrontier_OutsideEast_EventScript_ShowNorman::
 	clearflag FLAG_TEMP_5
@@ -799,8 +808,47 @@ BattleFrontier_OutsideEast_EventScript_TriathleteF_Cleared4:
 	end
 
 BattleFrontier_OutsideEast_EventScript_Twin::
+	@ Ten Gauntlets: Bad Dreams (storyline.md). Asleep during the event, awake
+	@ once DARKRAI is freed (while gauntlet 7 is still open).
+	specialvar VAR_RESULT, IsBadDreamsActive
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideEast_Twin_Asleep
+	goto_if_unset FLAG_DARKRAI_FREED, BattleFrontier_OutsideEast_Twin_Normal
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_eq VAR_RESULT, 6, BattleFrontier_OutsideEast_Twin_Awake
+BattleFrontier_OutsideEast_Twin_Normal::
 	msgbox BattleFrontier_OutsideEast_Text_BetterThanDaddyAtPokemon, MSGBOX_NPC
 	end
+
+BattleFrontier_OutsideEast_Twin_Asleep::
+	lock
+	msgbox BattleFrontier_OutsideEast_Twin_Text_Asleep, MSGBOX_DEFAULT
+	checkitem ITEM_LUNAR_WING
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_OutsideEast_Twin_WingGlows
+	release
+	end
+
+BattleFrontier_OutsideEast_Twin_WingGlows::
+	msgbox BattleFrontier_OutsideEast_Twin_Text_WingGlows, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_OutsideEast_Twin_Awake::
+	msgbox BattleFrontier_OutsideEast_Twin_Text_Awake, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Twin_Text_Asleep:
+	.string "…Mmm… daddy, there's a shadow…\n"
+	.string "it has one blue eye… it's behind\l"
+	.string "the curtain… Zzz…$"
+
+BattleFrontier_OutsideEast_Twin_Text_WingGlows:
+	.string "The LUNAR WING glows faintly.$"
+
+BattleFrontier_OutsideEast_Twin_Text_Awake:
+	.string "I had a scary dream and daddy\n"
+	.string "couldn't wake me up!\p"
+	.string "Then it just went away. I slept so\n"
+	.string "well last night!$"
 
 BattleFrontier_OutsideEast_EventScript_Man2::
 	lock
@@ -824,7 +872,7 @@ BattleFrontier_OutsideEast_EventScript_TriathleteM::
 	case GOSSIP_SMUGGLER, BattleFrontier_OutsideEast_TriathleteM_Gossip2
 	case GOSSIP_AFTER_LAB, BattleFrontier_OutsideEast_TriathleteM_Gossip3
 	case GOSSIP_ARREST, BattleFrontier_OutsideEast_TriathleteM_Gossip4
-	case GOSSIP_PALACE, BattleFrontier_OutsideEast_TriathleteM_Gossip4
+	case GOSSIP_PALACE, BattleFrontier_OutsideEast_TriathleteM_GossipPalace
 	case GOSSIP_RAID, BattleFrontier_OutsideEast_TriathleteM_Gossip5
 	case GOSSIP_TAKEN, BattleFrontier_OutsideEast_TriathleteM_Gossip5
 	case GOSSIP_STANDOFF, BattleFrontier_OutsideEast_TriathleteM_Gossip6
@@ -860,6 +908,21 @@ BattleFrontier_OutsideEast_TriathleteM_Gossip3::
 BattleFrontier_OutsideEast_TriathleteM_Gossip4::
 	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip4, MSGBOX_NPC
 	end
+
+@ GOSSIP_PALACE: the arrest line, or the dream while Bad Dreams runs.
+BattleFrontier_OutsideEast_TriathleteM_GossipPalace::
+	specialvar VAR_RESULT, IsBadDreamsActive
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_OutsideEast_TriathleteM_Gossip4
+	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_BadDreams, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_TriathleteM_Text_BadDreams:
+	.string "Everyone on the island is dreaming\n"
+	.string "the same dream. A shadow, a blue\l"
+	.string "eye, a hall of curtains.\p"
+	.string "Some of them can't wake up. I've\n"
+	.string "moved my laps to the early morning,\l"
+	.string "before I get drowsy.$"
 
 BattleFrontier_OutsideEast_TriathleteM_Gossip5::
 	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip5, MSGBOX_NPC
@@ -1121,7 +1184,7 @@ BattleFrontier_OutsideEast_EventScript_Gentleman::
 	case GOSSIP_ANABEL, BattleFrontier_OutsideEast_Gentleman_Gossip1
 	case GOSSIP_LAB, BattleFrontier_OutsideEast_Gentleman_Gossip2
 	case GOSSIP_ARREST, BattleFrontier_OutsideEast_Gentleman_Gossip3
-	case GOSSIP_PALACE, BattleFrontier_OutsideEast_Gentleman_Gossip4
+	case GOSSIP_PALACE, BattleFrontier_OutsideEast_Gentleman_GossipPalace
 	case GOSSIP_STANDOFF, BattleFrontier_OutsideEast_Gentleman_Gossip5
 	case GOSSIP_SIEGE, BattleFrontier_OutsideEast_Gentleman_Gossip6
 	case GOSSIP_AFTERMATH, BattleFrontier_OutsideEast_Gentleman_Gossip7
@@ -1155,6 +1218,21 @@ BattleFrontier_OutsideEast_Gentleman_Gossip3::
 BattleFrontier_OutsideEast_Gentleman_Gossip4::
 	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip4, MSGBOX_NPC
 	end
+
+@ GOSSIP_PALACE: the trench coat line, or the dream while Bad Dreams runs.
+BattleFrontier_OutsideEast_Gentleman_GossipPalace::
+	specialvar VAR_RESULT, IsBadDreamsActive
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_OutsideEast_Gentleman_Gossip4
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_BadDreams, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_Gentleman_Text_BadDreams:
+	.string "Odd. Half the island is asleep on\n"
+	.string "its feet, and every one of them\l"
+	.string "mumbles the same dream.\p"
+	.string "A shadow, one blue eye, and rows of\n"
+	.string "curtains. I haven't slept a wink\l"
+	.string "since I heard it.$"
 
 BattleFrontier_OutsideEast_Gentleman_Gossip5::
 	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip5, MSGBOX_NPC

@@ -1,11 +1,31 @@
 BattleFrontier_Lounge4_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_Lounge4_OnTransition
 	.byte 0
+
+@ Ten Gauntlets: Bad Dreams (storyline.md). While the event runs the cook is
+@ asleep over his counter: facing down, no wandering.
+BattleFrontier_Lounge4_OnTransition:
+	specialvar VAR_RESULT, IsBadDreamsActive
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_Lounge4_EventScript_CookToSleep
+	end
+
+BattleFrontier_Lounge4_EventScript_CookToSleep::
+	setobjectmovementtype LOCALID_LOUNGE4_COOK, MOVEMENT_TYPE_FACE_DOWN
+	end
 
 BattleFrontier_Lounge4_EventScript_Woman::
 	msgbox BattleFrontier_Lounge4_Text_WonderIfInterviewsAiring, MSGBOX_NPC
 	end
 
 BattleFrontier_Lounge4_EventScript_Cook::
+	@ Ten Gauntlets: Bad Dreams. Asleep during the event, awake once DARKRAI is
+	@ freed (while gauntlet 7 is still open); otherwise the normal gossip.
+	specialvar VAR_RESULT, IsBadDreamsActive
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_Lounge4_Cook_Asleep
+	goto_if_unset FLAG_DARKRAI_FREED, BattleFrontier_Lounge4_Cook_Normal
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_eq VAR_RESULT, 6, BattleFrontier_Lounge4_Cook_Awake
+BattleFrontier_Lounge4_Cook_Normal::
 	specialvar VAR_RESULT, GetStoryGossipStage
 	switch VAR_RESULT
 	case GOSSIP_ARREST, BattleFrontier_Lounge4_Cook_Gossip0
@@ -24,6 +44,37 @@ BattleFrontier_Lounge4_EventScript_Cook::
 	case GOSSIP_ENDING, BattleFrontier_Lounge4_Cook_Gossip5
 	msgbox BattleFrontier_Lounge4_Text_IfIOpenedRestaurantHere, MSGBOX_NPC
 	end
+
+BattleFrontier_Lounge4_Cook_Asleep::
+	lock
+	msgbox BattleFrontier_Lounge4_Cook_Text_Asleep, MSGBOX_DEFAULT
+	checkitem ITEM_LUNAR_WING
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_Lounge4_Cook_WingGlows
+	release
+	end
+
+BattleFrontier_Lounge4_Cook_WingGlows::
+	msgbox BattleFrontier_Lounge4_Cook_Text_WingGlows, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_Lounge4_Cook_Awake::
+	msgbox BattleFrontier_Lounge4_Cook_Text_Awake, MSGBOX_NPC
+	end
+
+BattleFrontier_Lounge4_Cook_Text_Asleep:
+	.string "…Zzz… a shadow… one blue eye…\n"
+	.string "so many curtains… the soup's\l"
+	.string "boiling over… Zzz…$"
+
+BattleFrontier_Lounge4_Cook_Text_WingGlows:
+	.string "The LUNAR WING glows faintly.$"
+
+BattleFrontier_Lounge4_Cook_Text_Awake:
+	.string "I slept so well last night. First\n"
+	.string "time in weeks!\p"
+	.string "I dreamed about soup. Plain,\n"
+	.string "wonderful soup.$"
 
 @ Story gossip: the line for the current beat (GetStoryGossipStage).
 BattleFrontier_Lounge4_Cook_Gossip0::

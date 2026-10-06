@@ -98,6 +98,54 @@ BattleFrontier_PokemonCenter_1F_Movement_PlayerToCounter:
 
 BattleFrontier_PokemonCenter_1F_EventScript_Nurse::
 	setvar VAR_0x800B, LOCALID_FRONTIER_NURSE
+	@ Ten Gauntlets: Bad Dreams (storyline.md). While the event runs she has
+	@ patients and asks for a CRESSELIA's feather; once DARKRAI is freed, and
+	@ while gauntlet 7 is still open, she says so once per visit (FLAG_TEMP_7).
+	specialvar VAR_RESULT, IsBadDreamsActive
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_PokemonCenter_1F_EventScript_NurseBadDreams
+	goto_if_unset FLAG_DARKRAI_FREED, BattleFrontier_PokemonCenter_1F_EventScript_NurseNormal
+	goto_if_set FLAG_TEMP_7, BattleFrontier_PokemonCenter_1F_EventScript_NurseNormal
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_ne VAR_RESULT, 6, BattleFrontier_PokemonCenter_1F_EventScript_NurseNormal
+	setflag FLAG_TEMP_7
+	lock
+	faceplayer
+	msgbox BattleFrontier_PokemonCenter_1F_Text_NurseWokeUp, MSGBOX_DEFAULT
+	goto BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal
+
+BattleFrontier_PokemonCenter_1F_EventScript_NurseBadDreams::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_LUNAR_WING, BattleFrontier_PokemonCenter_1F_EventScript_NurseCurtains
+	msgbox BattleFrontier_PokemonCenter_1F_Text_NurseDreamers, MSGBOX_DEFAULT
+	msgbox BattleFrontier_PokemonCenter_1F_Text_NurseHaveCresselia, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal
+	msgbox BattleFrontier_PokemonCenter_1F_Text_NurseWhich, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	waitstate
+	goto_if_ge VAR_0x8004, PARTY_SIZE, BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal
+	specialvar VAR_RESULT, ScriptGetPartyMonSpecies
+	goto_if_ne VAR_RESULT, SPECIES_CRESSELIA, BattleFrontier_PokemonCenter_1F_EventScript_NurseNotCresselia
+	msgbox BattleFrontier_PokemonCenter_1F_Text_NurseThanksCresselia, MSGBOX_DEFAULT
+	giveitem ITEM_LUNAR_WING
+	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_PokemonCenter_1F_EventScript_NurseBagFull
+	setflag FLAG_RECEIVED_LUNAR_WING
+	msgbox BattleFrontier_PokemonCenter_1F_Text_NurseWingGlows, MSGBOX_DEFAULT
+	goto BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal
+
+BattleFrontier_PokemonCenter_1F_EventScript_NurseNotCresselia::
+	msgbox BattleFrontier_PokemonCenter_1F_Text_NurseNotCresselia, MSGBOX_DEFAULT
+	goto BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal
+
+BattleFrontier_PokemonCenter_1F_EventScript_NurseBagFull::
+	msgbox BattleFrontier_PokemonCenter_1F_Text_NurseBagFull, MSGBOX_DEFAULT
+	goto BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal
+
+BattleFrontier_PokemonCenter_1F_EventScript_NurseCurtains::
+	msgbox BattleFrontier_PokemonCenter_1F_Text_NurseCurtains, MSGBOX_DEFAULT
+	goto BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal
+
+BattleFrontier_PokemonCenter_1F_EventScript_NurseNormal::
 	@ Ten Gauntlets: after the siphon (states 11-14) she hints once, then heals as usual.
 	goto_if_lt VAR_ENDGAME_STATE, 11, BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal
 	goto_if_ge VAR_ENDGAME_STATE, 15, BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal
@@ -184,6 +232,50 @@ BattleFrontier_PokemonCenter_1F_Text_NurseCrownHint:
 	.string "It makes me think. I may be able to\n"
 	.string "help you with it, but I need time\l"
 	.string "to work it out.$"
+
+BattleFrontier_PokemonCenter_1F_Text_NurseDreamers:
+	.string "NURSE JOY: I finally have patients,\n"
+	.string "and I can't wake a single one.\p"
+	.string "They fell asleep on their feet, all\n"
+	.string "dreaming the same dream.\p"
+	.string "The old remedy is a CRESSELIA's\n"
+	.string "feather: the LUNAR WING.\p"
+	.string "If someone could bring me a\n"
+	.string "CRESSELIA, even for a moment…$"
+
+BattleFrontier_PokemonCenter_1F_Text_NurseHaveCresselia:
+	.string "NURSE JOY: Do you have a CRESSELIA\n"
+	.string "with you?$"
+
+BattleFrontier_PokemonCenter_1F_Text_NurseWhich:
+	.string "NURSE JOY: Which one?$"
+
+BattleFrontier_PokemonCenter_1F_Text_NurseNotCresselia:
+	.string "NURSE JOY: That's not a CRESSELIA.$"
+
+BattleFrontier_PokemonCenter_1F_Text_NurseThanksCresselia:
+	.string "NURSE JOY: A CRESSELIA! Thank you,\n"
+	.string "CRESSELIA.\p"
+	.string "Just one feather… There. That's all\n"
+	.string "it takes.$"
+
+BattleFrontier_PokemonCenter_1F_Text_NurseWingGlows:
+	.string "NURSE JOY: They say it glows near\n"
+	.string "the dreamers, and leads you to\l"
+	.string "whatever is causing it.$"
+
+BattleFrontier_PokemonCenter_1F_Text_NurseBagFull:
+	.string "NURSE JOY: Your BAG is full. Make\n"
+	.string "room, and ask me again.$"
+
+BattleFrontier_PokemonCenter_1F_Text_NurseCurtains:
+	.string "NURSE JOY: The dreamers all talk\n"
+	.string "about curtains. The PIKE has\l"
+	.string "curtains…$"
+
+BattleFrontier_PokemonCenter_1F_Text_NurseWokeUp:
+	.string "NURSE JOY: My patients all woke up!\n"
+	.string "Was that you?$"
 
 BattleFrontier_PokemonCenter_1F_Text_HideoutNurseGreets:
 	.string "NURSE JOY: Oh, STEVEN! And you've\n"

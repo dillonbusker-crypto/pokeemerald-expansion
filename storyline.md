@@ -621,7 +621,7 @@ like the Frontier's Pokémon (a collar cut from Mega Stone shard) and leashed
 it in the empty **Battle Pike**, where it feeds on the island's bond energy
 and spills nightmares while he's gone.
 
-**1. The sleepers.** While the window is open, three Frontier regulars are
+**1. The sleepers.** ✅ built. While the window is open, three Frontier regulars are
 asleep where they stand and can't be woken: the **Lounge 4 cook** over his
 counter, the **Pike lobby's beauty**, and the **twin by the Tower**
 (Outside East). Talking to them: they mumble the same dream: "a shadow… one
@@ -630,7 +630,19 @@ gauntlet 7 mention it (everyone's dreaming the same thing). Once Darkrai is
 freed, the sleepers are awake and say so (a line each); after gauntlet 7 is
 cleared without it, they just wake (their normal lines).
 
-**2. Nurse Joy's remedy.** Joy (Frontier Pokémon Center), out of work since
+*Built:* the cook (`BattleFrontier_Lounge4_EventScript_Cook`), the Pike
+lobby's beauty (`..._BattlePikeLobby_EventScript_G6Beauty`) and the twin
+(`BattleFrontier_OutsideEast_EventScript_Twin`) check `IsBadDreamsActive`
+first: each mumbles its own dream line, plus "The LUNAR WING glows faintly."
+if the Wing is in the bag; after `FLAG_DARKRAI_FREED` (six gauntlets
+cleared) each has an "I slept so well" line. The cook and the twin are also
+put to sleep visibly (facing down, no wandering) by their map's OnTransition;
+the beauty keeps wandering, since the Pike lobby's OnTransition isn't part of
+this step. The gossipers are the Outside East Gentleman and Triathlete (M):
+their `GOSSIP_PALACE` case goes through a `..._GossipPalace` label that
+swaps in the shared-dream line while the event is active.
+
+**2. Nurse Joy's remedy.** ✅ built. Joy (Frontier Pokémon Center), out of work since
 the auto-heal, finally has patients. In the window, talking to her (before
 the heal) she explains an old remedy: a **Cresselia**'s feather, the **Lunar
 Wing**. "If someone could bring me a Cresselia, even for a moment…" The
@@ -638,6 +650,12 @@ player picks a party Pokémon; a Cresselia gets the **Lunar Wing** (key item,
 `ITEM_LUNAR_WING`, `FLAG_RECEIVED_LUNAR_WING`). Cresselia is sold from wave
 5 (700 FP): a real choice in gauntlet 7's economy. Anything else: "That's
 not a CRESSELIA." The heal works as always.
+
+*Built* in `BattleFrontier_PokemonCenter_1F_EventScript_Nurse`: the offer, a
+YES/NO, the party pick, and the Wing for a Cresselia; after the Wing, every
+visit opens with a one-line nudge about curtains (the Pike's); after
+`FLAG_DARKRAI_FREED` (six gauntlets cleared) she says "My patients all woke
+up!" once per visit (`FLAG_TEMP_7`). The heal always follows.
 
 **3. The trail.** The Lunar Wing glows near the sleepers ("The LUNAR WING
 glows faintly…") and, in the **Pike lobby**, pulls toward the curtained door

@@ -152,6 +152,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_FRONTIER_TWIN",
       "graphics_id": "OBJ_EVENT_GFX_TWIN",
       "x": 18,
       "y": 40,

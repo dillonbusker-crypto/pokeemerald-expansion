@@ -29,6 +29,7 @@
       "flag": "0"
     },
     {
+      "local_id": "LOCALID_LOUNGE4_COOK",
       "graphics_id": "OBJ_EVENT_GFX_COOK",
       "x": 6,
       "y": 6,

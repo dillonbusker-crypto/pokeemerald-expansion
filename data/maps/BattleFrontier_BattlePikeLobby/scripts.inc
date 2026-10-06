@@ -620,8 +620,47 @@ BattleFrontier_BattlePikeLobby_EventScript_G6Twin::
 	end
 
 BattleFrontier_BattlePikeLobby_EventScript_G6Beauty::
+	@ Ten Gauntlets: Bad Dreams (storyline.md). Asleep during the event, awake
+	@ once DARKRAI is freed (while gauntlet 7 is still open).
+	specialvar VAR_RESULT, IsBadDreamsActive
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattlePikeLobby_G6Beauty_Asleep
+	goto_if_unset FLAG_DARKRAI_FREED, BattleFrontier_BattlePikeLobby_G6Beauty_Normal
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_eq VAR_RESULT, 6, BattleFrontier_BattlePikeLobby_G6Beauty_Awake
+BattleFrontier_BattlePikeLobby_G6Beauty_Normal::
 	msgbox BattleFrontier_BattlePikeLobby_Text_G6Beauty, MSGBOX_NPC
 	end
+
+BattleFrontier_BattlePikeLobby_G6Beauty_Asleep::
+	lock
+	msgbox BattleFrontier_BattlePikeLobby_Text_G6BeautyAsleep, MSGBOX_DEFAULT
+	checkitem ITEM_LUNAR_WING
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattlePikeLobby_G6Beauty_WingGlows
+	release
+	end
+
+BattleFrontier_BattlePikeLobby_G6Beauty_WingGlows::
+	msgbox BattleFrontier_BattlePikeLobby_Text_G6BeautyWingGlows, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_BattlePikeLobby_G6Beauty_Awake::
+	msgbox BattleFrontier_BattlePikeLobby_Text_G6BeautyAwake, MSGBOX_NPC
+	end
+
+BattleFrontier_BattlePikeLobby_Text_G6BeautyAsleep:
+	.string "…Zzz… I keep opening the curtains…\n"
+	.string "and the blue eye is still there…\p"
+	.string "…Zzz…$"
+
+BattleFrontier_BattlePikeLobby_Text_G6BeautyWingGlows:
+	.string "The LUNAR WING glows faintly.$"
+
+BattleFrontier_BattlePikeLobby_Text_G6BeautyAwake:
+	.string "I dreamed of an endless hall of\n"
+	.string "curtains for weeks. Last night it\l"
+	.string "just stopped.\p"
+	.string "I feel wonderful!$"
 
 BattleFrontier_BattlePikeLobby_Text_G6Plaque:
 	.string "GAUNTLET 6 - THE CROSSROADS.\p"
