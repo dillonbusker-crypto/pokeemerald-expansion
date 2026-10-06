@@ -266,8 +266,8 @@
 #define VAR_ROXANNE_CALL_STEP_COUNTER                    0x40F4
 #define VAR_SCOTT_BF_CALL_STEP_COUNTER                   0x40F5
 #define VAR_RIVAL_RAYQUAZA_CALL_STEP_COUNTER             0x40F6
-#define VAR_UNUSED_0x40F7                                0x40F7 // Unused Var (reserved: endgame part 4)
-#define VAR_UNUSED_0x40F8                                0x40F8 // Unused Var (reserved: endgame part 5)
+#define VAR_PARADOX_SHOWN_LO                             0x40F7 // Ten Gauntlets: bits 0-15 of the Paradox species shown to the researcher in OLDALE (OldaleCheckParadox, src/facility.c)
+#define VAR_PARADOX_SHOWN_HI                             0x40F8 // Ten Gauntlets: bits 16-31 of the same
 #define VAR_UNUSED_0x40F9                                0x40F9 // Unused Var
 #define VAR_UNUSED_0x40FA                                0x40FA // Unused Var
 #define VAR_UNUSED_0x40FB                                0x40FB // Unused Var

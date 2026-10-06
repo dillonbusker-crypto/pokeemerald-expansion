@@ -101,6 +101,9 @@ const u8 *GetEndgameSealedDoorScript(u32 mapGroup, u32 mapNum);
 // (src/facility.c; used by ItemUseCB_ReplicaCrown).
 u32 GetReplicaCrownLimit(void);
 void TransferExpToLevel100(void);
+// The Paradox researcher in OLDALE (src/facility.c).
+void OldaleCheckParadox(void);
+void OldaleMarkParadoxShown(void);
 u32 CountPermanentMegasInParty(void);
 // special: VAR_0x8008 = VAR_0x8004 wins' FP for the current gauntlet (src/facility.c).
 void FacilityGetWinsPrice(void);

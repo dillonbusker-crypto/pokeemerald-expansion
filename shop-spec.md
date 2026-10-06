@@ -154,7 +154,7 @@ to retune.
 | 4 | — | Weakness Policy, Rocky Helmet, Mental Herb, Clear Amulet | 600 pseudo-legendaries |
 | 5 | — | Covert Cloak, Light Clay, Ability Shield, Utility Umbrella | — |
 | 6 | — | — | Legendaries, Paradox, Ultra Beasts (curated) |
-| 7 | — | Booster Energy | Full 600 legendary set |
+| 7 | — | — (Booster Energy comes from the Oldale researcher, one per Paradox shown) | Full 600 legendary set |
 | 8 | — | — | 680 box-art legendaries (curated) |
 | 9 | — | Orbs | Unrestricted |
 

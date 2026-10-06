@@ -115,6 +115,7 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 
 | What | Status |
 |---|---|
+| The Oldale Paradox researcher (Booster Energy, one per Paradox species; the shop no longer sells it) | Harness scenario 25, 4/4: a non-Paradox refused, a new species paid, a repeat refused, a second species paid. **Not played** |
 | Parts 3-5 after the merge | Scenarios 22, 23 and 24 re-run on the merged `master`: 10/10, 16/16, 14/14 |
 | Endgame part 3 (the siphon, the hub, the Chansey) | Harness scenario 22 (`harness-part3.c`), 10/10: the keeper's menu, the flags, chips off, Steven's send-offs, Transfer EXP (Eggs and level 100 refused, once only), every state's cast. **Not played** |
 | Endgame part 4 (Mauville, New Mauville) | Harness scenario 23 (`harness-part4.c`), 16/16: Wattson's way in, the four admins, Archie **lost on purpose** (white-out to Mauville's Center, both leaders reset), both won, the supercharge, the exit scene, three rings; Primals stayed Primal with their weather. **Not played** |
@@ -144,6 +145,9 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
   `BattleFrontier_OutsideWest_EventScript_Man3` and delete the block at the
   end of its `scripts.inc` before release.
 - **Unplayed endgame** (parts 1-5): see "Next" above.
+- **Side quests:** the Oldale Paradox researcher (`OldaleTown_House1`,
+  `VAR_PARADOX_SHOWN_LO/HI`) is the first; the owner wants more of these for
+  late-game items.
 - **Free flags and vars** left from the endgame's reservations: 0x27E-0x27F,
   0x280-0x287, 0x289-0x28F; `VAR_UNUSED_0x40F7`, `0x40F8`.
 - **The four admins** use grunt overworld sprites (they have none of their

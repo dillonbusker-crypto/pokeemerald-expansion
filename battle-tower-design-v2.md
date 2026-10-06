@@ -182,7 +182,7 @@ unlock alongside them.
 | Gauntlet 4 | **Focus Sash**, Assault Vest, Heavy-Duty Boots |
 | Gauntlet 5 | **Choice items**, Rocky Helmet, Mental Herb, Weakness Policy, **first Mega Stones** |
 | Gauntlet 6 | Covert Cloak, Clear Amulet, **doubles-leaning Mega Stones** |
-| Gauntlet 7 | Booster Energy, **all remaining Mega Stones** (Kangaskhanite is never sold) |
+| Gauntlet 7 | **All remaining Mega Stones** (Kangaskhanite is never sold). Booster Energy is never sold: the Oldale researcher pays one per Paradox species shown |
 
 Focus Sash sits at gauntlet 4 deliberately. Under full healing, reusable items
 and no bag access, a permanent guaranteed-survive in every battle is far

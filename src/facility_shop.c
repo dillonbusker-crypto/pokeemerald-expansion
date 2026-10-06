@@ -252,7 +252,8 @@ static const struct FacilityShopItem sHeldItems[] =
     // competitive item. Luck items (King's Rock, Razor Fang, Quick Claw, Focus
     // Band, Bright Powder, Lax Incense, Berserk Gene) stay out, as do the
     // duplicate incenses and anything with no legal holder.
-    { ITEM_BOOSTER_ENERGY,   400, 6, NULL },
+    // Booster Energy isn't sold: the researcher in OLDALE's first house gives
+    // one per Paradox species shown (OldaleCheckParadox, src/facility.c).
     { ITEM_AIR_BALLOON,      250, 6, NULL },
     { ITEM_POWER_HERB,       250, 6, NULL },
     { ITEM_PROTECTIVE_PADS,  200, 6, NULL },

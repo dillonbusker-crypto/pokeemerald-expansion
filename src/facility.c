@@ -674,6 +674,65 @@ void TransferExpToLevel100(void)
     gSpecialVar_Result = 0;
 }
 
+// Ten Gauntlets: the researcher in OLDALE's first house pays one BOOSTER
+// ENERGY for each Paradox species the player shows him (the shop doesn't
+// sell it). The shown species are a 32-bit mask across VAR_PARADOX_SHOWN_LO/HI,
+// bit i = the i-th species with isParadox set, in species-id order (20 of
+// them). In: gSpecialVar_0x8004 = party slot. Out: gSpecialVar_Result = 0 not
+// a Paradox (or an Egg), 1 a Paradox he hasn't seen, 2 one he has; the
+// species name in gStringVar1, and how many he's seen in gStringVar2.
+static s32 ParadoxIndex(u16 species)
+{
+    u32 s, i = 0;
+
+    for (s = 1; s < NUM_SPECIES; s++)
+    {
+        if (!gSpeciesInfo[s].isParadox)
+            continue;
+        if (s == species)
+            return i;
+        i++;
+    }
+    return -1;
+}
+
+static u32 ParadoxShownMask(void)
+{
+    return VarGet(VAR_PARADOX_SHOWN_LO) | ((u32)VarGet(VAR_PARADOX_SHOWN_HI) << 16);
+}
+
+void OldaleCheckParadox(void)
+{
+    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
+    s32 index = (species == SPECIES_EGG) ? -1 : ParadoxIndex(species);
+    u32 mask = ParadoxShownMask(), seen = 0, i;
+
+    for (i = 0; i < 32; i++)
+        seen += (mask >> i) & 1;
+    ConvertIntToDecimalStringN(gStringVar2, seen, STR_CONV_MODE_LEFT_ALIGN, 2);
+    if (index < 0)
+    {
+        gSpecialVar_Result = 0;
+        return;
+    }
+    StringCopy(gStringVar1, GetSpeciesName(species));
+    gSpecialVar_Result = (mask & (1u << index)) ? 2 : 1;
+}
+
+// Called once the BOOSTER ENERGY is in the bag.
+void OldaleMarkParadoxShown(void)
+{
+    s32 index = ParadoxIndex(GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES));
+    u32 mask;
+
+    if (index < 0)
+        return;
+    mask = ParadoxShownMask() | (1u << index);
+    VarSet(VAR_PARADOX_SHOWN_LO, mask & 0xFFFF);
+    VarSet(VAR_PARADOX_SHOWN_HI, mask >> 16);
+}
+
 // How many of the party are permanent Megas right now.
 u32 CountPermanentMegasInParty(void)
 {

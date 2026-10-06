@@ -1237,8 +1237,10 @@ Speed picks off B6's frail speed demons, and Heatran traps D11's stall walls.
 4. **The uncapped boss.** Crowned Zacian and Mega Zeraora are a deliberate
    jump above the pool. Check it's beatable with wave 6 and earlier; the
    counter-team above is the benchmark.
-5. **Booster Energy on pool teams (A3, B5).** It's sold this wave, so pool
-   teams may carry it. Check the AI uses Raging Bolt and Flutter Mane's boosts
+5. **Booster Energy on pool teams (A3, B5).** The shop doesn't sell it any
+   more: the researcher in Oldale's first house pays one per Paradox species
+   shown, reachable by ferry from gauntlet 5 (the first Paradox wave), so
+   pool teams may carry it. Check the AI uses Raging Bolt and Flutter Mane's boosts
    sensibly.
 6. **Repeated Pokémon.** Heatran, Toxapex, Corviknight and Venusaur each
    appear on two teams. Swap some if it feels repetitive.
