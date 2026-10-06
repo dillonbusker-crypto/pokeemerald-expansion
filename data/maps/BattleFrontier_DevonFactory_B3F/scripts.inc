@@ -96,7 +96,7 @@ BattleFrontier_DevonFactory_B3F_EventScript_PillarScene::
 	setflag FLAG_STORY_HELD_ITEMS_SAVED
 	special SaveFacilityHeldItems
 	setflag FLAG_ENDGAME_NO_WHITEOUT
-	@ Bad Dreams: a player who freed DARKRAI fights the five-Pokemon teams.
+	@ Bad Dreams: a player who freed DARKRAI fights the teams with MAGEARNA in its place.
 	goto_if_set FLAG_DARKRAI_FREED, BattleFrontier_DevonFactory_B3F_EventScript_BattleScottNoDarkrai
 	call_if_set FLAG_STEVEN_HAS_LATIOS, BattleFrontier_DevonFactory_B3F_EventScript_BattleScottLatias
 	call_if_unset FLAG_STEVEN_HAS_LATIOS, BattleFrontier_DevonFactory_B3F_EventScript_BattleScottLatios

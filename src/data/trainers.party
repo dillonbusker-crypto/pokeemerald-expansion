@@ -26035,6 +26035,16 @@ Timid Nature
 - Thunderbolt
 - Ice Beam
 
+Magearna-Mega @ Wise Glasses
+Ability: Soul-Heart
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Fleur Cannon
+- Flash Cannon
+- Aura Sphere
+- Thunderbolt
+
 Gengar-Mega @ Expert Belt
 Ability: Shadow Tag
 Level: 100
@@ -26093,6 +26103,16 @@ Timid Nature
 - Psyshock
 - Thunderbolt
 - Ice Beam
+
+Magearna-Mega @ Wise Glasses
+Ability: Soul-Heart
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Fleur Cannon
+- Flash Cannon
+- Aura Sphere
+- Thunderbolt
 
 Gengar-Mega @ Expert Belt
 Ability: Shadow Tag
@@ -26183,6 +26203,17 @@ Timid Nature
 - Thunderbolt
 - Ice Beam
 
+Magearna-Mega @ Expert Belt
+Ability: Soul-Heart
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Fleur Cannon
+- Flash Cannon
+- Aura Sphere
+- Thunderbolt
+
+
 === TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIOS ===
 Name: SCOTT
 Class: Founder
@@ -26241,3 +26272,13 @@ Timid Nature
 - Psyshock
 - Thunderbolt
 - Ice Beam
+
+Magearna-Mega @ Expert Belt
+Ability: Soul-Heart
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Fleur Cannon
+- Flash Cannon
+- Aura Sphere
+- Thunderbolt

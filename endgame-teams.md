@@ -1335,12 +1335,30 @@ Specs and Timid, as on his Factory team.
 
 A player who freed Darkrai in the optional Bad Dreams event
 (`FLAG_DARKRAI_FREED`, see storyline.md) fights a Scott who has lost it.
-Both level-100 battles then use **five-Pokémon** variants that are the teams
-above with the Mega Darkrai entry removed and nothing else changed:
+Both level-100 battles then use variants with **Mega Magearna standing in**
+for Mega Darkrai, in Darkrai's slot, and nothing else changed (the owner's
+call: a stand-in, not an empty slot). Magearna is Devon-built, so it needed
+no chip to obey:
 `TRAINER_FACTORY_SCOTT_NO_DARKRAI_LATIAS` / `_LATIOS` in the Pillar Chamber
-(Mewtwo, Lati@s, Gengar, Salamence, Mawile) and
+(Mewtwo, Lati@s, Magearna @ Wise Glasses, Gengar, Salamence, Mawile) and
 `TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIAS` / `_LATIOS` at the top of Sky
-Pillar (Rayquaza, Kyogre, Groudon, Mewtwo, Lati@s). The Latias/Latios choice
+Pillar (Rayquaza, Kyogre, Groudon, Mewtwo, Lati@s, Magearna @ Expert Belt).
+
+```
+Magearna-Mega @ Expert Belt   (Wise Glasses on the Factory team)
+Ability: Soul-Heart
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+Modest Nature
+- Fleur Cannon
+- Flash Cannon
+- Aura Sphere
+- Thunderbolt
+```
+
+Darkrai hit harder on the Dark side; Magearna trades that for a Steel/Fairy
+body and Soul-Heart snowballing off every faint. A real loss of power, so
+freeing Darkrai still pays, without leaving the slot empty. The Latias/Latios choice
 still follows `FLAG_STEVEN_HAS_LATIOS`, and the rematch after a loss uses the
 same variant. Scott acknowledges it before the Factory battle and in the Sky
 Pillar scene.

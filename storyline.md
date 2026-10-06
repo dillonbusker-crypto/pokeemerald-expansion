@@ -700,11 +700,11 @@ used), and `Overworld_ResetBattleFlagsAndVars()` clears it on a white-out.
 Harness scenario 30 (`harness-badC.c`) covers it.
 
 **5. The payoff ✅ built.** With `FLAG_DARKRAI_FREED`, Scott's two later battles use
-teams without Darkrai, **five Pokémon each**
+teams with **Mega Magearna standing in** for Darkrai
 (`TRAINER_FACTORY_SCOTT_NO_DARKRAI_*`, `TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_*`),
 and he says so: in the Factory, "Someone cut my DARKRAI loose while I was
-away. It doesn't matter."; at Sky Pillar, a line that he's one short and
-doesn't care. The final battle becomes 6v5.
+away. It doesn't matter."; at Sky Pillar, that it only cost him a spare:
+Devon built him a Magearna, which never needed a chip to obey.
 
 ### After gauntlet 7: the Crown is taken ✅
 
