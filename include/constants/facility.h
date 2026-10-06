@@ -37,7 +37,12 @@
 #define GOSSIP_SIEGE         14 // gauntlet 8 cleared: the sunlight, WALLACE blasts the FACTORY open (endgame states 0-4)
 #define GOSSIP_AFTERMATH     15 // SCOTT gone with the BRAINS, the parents safe, the shops free (states 5-6)
 #define GOSSIP_DEVON         16 // the ELITE FOUR guarding DEVON in RUSTBORO (states 7-9)
-#define GOSSIP_DEVON_FREED   17 // the ELITE FOUR beaten, STONE's REPLICA CROWN (state 10 on)
+#define GOSSIP_DEVON_FREED   17 // the ELITE FOUR beaten, STONE's REPLICA CROWN (state 10)
+#define GOSSIP_SIPHON        18 // the chips drained, the CROWN charged; MAUVILLE next (states 11-12)
+#define GOSSIP_MAUVILLE      19 // AQUA and MAGMA hold MAUVILLE; the generator (states 13-14)
+#define GOSSIP_MAUVILLE_FREED 20 // MAUVILLE freed, SCOTT headed for SKY PILLAR, the CHANSEY (state 15)
+#define GOSSIP_SKY_PILLAR    21 // the allies at SKY PILLAR, the BRAINS' ambush (states 16-17)
+#define GOSSIP_ENDING        22 // SCOTT arrested, the CROWN confiscated (state 18)
 
 // The endgame ABRA network (data/scripts/endgame_towns.inc): where an ABRA
 // is (VAR_0x8004), and the menu ids of the places it can TELEPORT to.

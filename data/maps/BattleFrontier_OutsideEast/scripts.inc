@@ -2991,6 +2991,17 @@ BattleFrontier_OutsideEast_Text_AbraUsedTeleport:
 @   5 SCOTT has the CROWN and is gone; the scene outside the Arena is next
 @   6 the Arena is the base: the BROKER's free shop, HOOPA, STEVEN waiting
 @   7 STEVEN has sent the player to RUSTBORO (storyline.md, Rustboro)
+@   8-10 Rustboro (RustboroCity's scripts): the ambush, the CROWN, JUAN
+@  11 the siphon is done: the CROWN is charged, the chips are off; STEVEN
+@     waits outside the Arena (endgame part 3)
+@  12 STEVEN has sent the player to MAUVILLE (FLAG_ABRA_TO_MAUVILLE)
+@  13 WATTSON has led the player into NEW MAUVILLE (MauvilleCity's scripts)
+@  14 MAXIE and ARCHIE beaten: the CROWN is supercharged (six Megas)
+@  15 the teams have left MAUVILLE; HOOPA's third ring; the CHANSEY outside
+@     the Arena; STEVEN waits outside the Arena
+@  16 STEVEN has sent the player to SKY PILLAR (FLAG_ABRA_TO_SKY_PILLAR)
+@  17 the BRAINS' ambush: the player climbs alone (SkyPillar_Outside)
+@  18 SCOTT beaten and arrested: the ending (SkyPillar_Top)
 @ The Factory's radiance shows as harsh sunlight on the outdoor maps in states
 @ 1-4. Outdoor maps only: drought turns into sun in any battle fought on the
 @ map, and no battle is ever fought out here.

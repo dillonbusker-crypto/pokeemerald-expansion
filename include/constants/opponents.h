@@ -1025,6 +1025,21 @@
 #define TRAINER_DEVON_GLACIA                    976
 #define TRAINER_DEVON_DRAKE                     977
 
+// Ten Gauntlets: New Mauville (storyline.md). The four admins block the way
+// to the generator; MAXIE and ARCHIE guard it with permanent Primals, fought
+// back to back with no heal.
+#define TRAINER_NEW_MAUVILLE_TABITHA            978
+#define TRAINER_NEW_MAUVILLE_COURTNEY           979
+#define TRAINER_NEW_MAUVILLE_MATT               980
+#define TRAINER_NEW_MAUVILLE_SHELLY             981
+#define TRAINER_NEW_MAUVILLE_MAXIE              982
+#define TRAINER_NEW_MAUVILLE_ARCHIE             983
+
+// Ten Gauntlets: the final battle at the top of SKY PILLAR (storyline.md).
+// SCOTT at level 100 with the Lati the player didn't catch.
+#define TRAINER_SKY_PILLAR_SCOTT_LATIAS         984
+#define TRAINER_SKY_PILLAR_SCOTT_LATIOS         985
+
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
 //       the system flags (Pokedex, badges, ...) start right after it, so an ID at or past this limit
@@ -1038,7 +1053,7 @@
 //       so it invalidates existing saves - don't grow it again casually. Costs ~14 bytes of SaveBlock1
 //       (304 B free, see save-data-findings.md), checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
 
-#define TRAINERS_COUNT_EMERALD     978
+#define TRAINERS_COUNT_EMERALD     986
 #define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG

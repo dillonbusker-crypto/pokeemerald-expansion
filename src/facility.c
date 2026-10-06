@@ -552,7 +552,17 @@ u16 GetStoryGossipStage(void)
             return GOSSIP_AFTERMATH;
         if (endgame <= 9)
             return GOSSIP_DEVON;
-        return GOSSIP_DEVON_FREED;
+        if (endgame == 10)
+            return GOSSIP_DEVON_FREED;
+        if (endgame <= 12)
+            return GOSSIP_SIPHON;
+        if (endgame <= 14)
+            return GOSSIP_MAUVILLE;
+        if (endgame == 15)
+            return GOSSIP_MAUVILLE_FREED;
+        if (endgame <= 17)
+            return GOSSIP_SKY_PILLAR;
+        return GOSSIP_ENDING;
     }
     if (cleared == 7)
     {
@@ -613,11 +623,42 @@ bool32 FrontierStoryAllowsExp(void)
 
 // After gauntlet 8, HOOPA's rings lead to the legendaries, in ISLAND CAVE's
 // sealed chamber (reached no other way): caught wild, so no chip either.
+// The Frontier siphon (endgame part 3) drains every chip for the CROWN's
+// charge, and from then on nothing is chipped.
 bool32 IsFrontierChippedMon(struct Pokemon *mon)
 {
     u32 metLocation = GetMonData(mon, MON_DATA_MET_LOCATION);
 
+    if (FlagGet(FLAG_FRONTIER_CHIPS_OFF))
+        return FALSE;
     return metLocation != MAPSEC_ARTISAN_CAVE && metLocation != MAPSEC_ISLAND_CAVE;
+}
+
+// How many permanent Megas the REPLICA CROWN can hold in the party at once
+// (storyline.md): one once the siphon charges it (VAR_ENDGAME_STATE 11),
+// all six once New Mauville's generator supercharges it (state 14).
+u32 GetReplicaCrownLimit(void)
+{
+    u32 state = VarGet(VAR_ENDGAME_STATE);
+
+    if (state >= 14)
+        return PARTY_SIZE;
+    if (state >= 11)
+        return 1;
+    return 0;
+}
+
+// How many of the party are permanent Megas right now.
+u32 CountPermanentMegasInParty(void)
+{
+    u32 i, n = 0;
+
+    for (i = 0; i < gPlayerPartyCount; i++)
+    {
+        if (gSpeciesInfo[GetMonData(&gParties[B_TRAINER_PLAYER][i], MON_DATA_SPECIES)].isMegaEvolution)
+            n++;
+    }
+    return n;
 }
 
 // The endgame after gauntlet 8 (storyline.md; VAR_ENDGAME_STATE is explained
@@ -646,9 +687,8 @@ void GetFactoryBrainsBeaten(void)
 }
 
 // special: VAR_RESULT = HOOPA's rings the player can still use. One opens at
-// the Arena base after the Factory and one after DEVON (JUAN's apology);
-// New Mauville will add the third when it's built. Only a catch uses a ring
-// up.
+// the Arena base after the Factory, one after DEVON (JUAN's apology) and one
+// after New Mauville (the teams leave the city). Only a catch uses a ring up.
 void GetHoopaRingsLeft(void)
 {
     u32 rings = 0;
@@ -656,6 +696,8 @@ void GetHoopaRingsLeft(void)
     if (VarGet(VAR_ENDGAME_STATE) >= 6)
         rings++;
     if (VarGet(VAR_ENDGAME_STATE) >= 10)
+        rings++;
+    if (VarGet(VAR_ENDGAME_STATE) >= 15)
         rings++;
     if (rings > VarGet(VAR_HOOPA_CATCHES))
         gSpecialVar_Result = rings - VarGet(VAR_HOOPA_CATCHES);

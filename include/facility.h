@@ -97,6 +97,10 @@ bool32 IsStoryLockedHomeDoor(u32 mapGroup, u32 mapNum);
 // The endgame towns' locked doors (the GYMS): the script to run instead of
 // warping, or NULL (TryDoorWarp).
 const u8 *GetEndgameSealedDoorScript(u32 mapGroup, u32 mapNum);
+// The REPLICA CROWN's limit on permanent Megas in the party, and the count
+// (src/facility.c; used by ItemUseCB_ReplicaCrown).
+u32 GetReplicaCrownLimit(void);
+u32 CountPermanentMegasInParty(void);
 // special: VAR_0x8008 = VAR_0x8004 wins' FP for the current gauntlet (src/facility.c).
 void FacilityGetWinsPrice(void);
 void StripBirchsLab(void);

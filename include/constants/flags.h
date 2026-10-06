@@ -695,13 +695,13 @@
 #define FLAG_HOOPA_CAUGHT_LUNALA  0x277 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
 #define FLAG_HOOPA_CAUGHT_NECROZMA_DUSK_MANE  0x278 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
 #define FLAG_HOOPA_CAUGHT_NECROZMA_DAWN_WINGS  0x279 // Ten Gauntlets: caught through HOOPA's ring (it's no longer offered)
-#define FLAG_UNUSED_0x27A  0x27A // Unused Flag
-#define FLAG_UNUSED_0x27B  0x27B // Unused Flag
+#define FLAG_FRONTIER_CHIPS_OFF  0x27A // Ten Gauntlets: the Frontier siphon drained every chip: every Pokemon can gain Experience (IsFrontierChippedMon)
+#define FLAG_UNUSED_0x27B  0x27B // Unused Flag (reserved: endgame part 3, the siphon and the Frontier hub, 0x27B-0x27F)
 #define FLAG_UNUSED_0x27C  0x27C // Unused Flag
 #define FLAG_UNUSED_0x27D  0x27D // Unused Flag
 #define FLAG_UNUSED_0x27E  0x27E // Unused Flag
 #define FLAG_UNUSED_0x27F  0x27F // Unused Flag
-#define FLAG_UNUSED_0x280  0x280 // Unused Flag
+#define FLAG_UNUSED_0x280  0x280 // Unused Flag (reserved: endgame part 4, Mauville and New Mauville, 0x280-0x287)
 #define FLAG_UNUSED_0x281  0x281 // Unused Flag
 #define FLAG_UNUSED_0x282  0x282 // Unused Flag
 #define FLAG_UNUSED_0x283  0x283 // Unused Flag
@@ -709,7 +709,7 @@
 #define FLAG_UNUSED_0x285  0x285 // Unused Flag
 #define FLAG_UNUSED_0x286  0x286 // Unused Flag
 #define FLAG_UNUSED_0x287  0x287 // Unused Flag
-#define FLAG_UNUSED_0x288  0x288 // Unused Flag
+#define FLAG_UNUSED_0x288  0x288 // Unused Flag (reserved: endgame part 5, Sky Pillar and the ending, 0x288-0x28F)
 #define FLAG_UNUSED_0x289  0x289 // Unused Flag
 #define FLAG_UNUSED_0x28A  0x28A // Unused Flag
 #define FLAG_UNUSED_0x28B  0x28B // Unused Flag

@@ -34,6 +34,7 @@
 #include "item.h"
 #include "item_menu.h"
 #include "item_use.h"
+#include "facility.h"
 #include "caps.h"
 #include "link.h"
 #include "link_rfu.h"
@@ -6878,6 +6879,18 @@ void ItemUseCB_ReplicaCrown(u8 taskId, TaskFunc task)
         gPartyMenuUseExitCallback = FALSE;
         PlaySE(SE_SELECT);
         DisplayPartyMenuMessage(gText_WontHaveEffect, TRUE);
+        ScheduleBgCopyTilemapToVram(2);
+        gTasks[taskId].func = task;
+        return;
+    }
+
+    // The CROWN holds one permanent Mega after the siphon, six after New
+    // Mauville (GetReplicaCrownLimit). Turning one back is always allowed.
+    if (!gSpeciesInfo[species].isMegaEvolution && CountPermanentMegasInParty() >= GetReplicaCrownLimit())
+    {
+        gPartyMenuUseExitCallback = FALSE;
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gText_CrownAtLimit, TRUE);
         ScheduleBgCopyTilemapToVram(2);
         gTasks[taskId].func = task;
         return;
