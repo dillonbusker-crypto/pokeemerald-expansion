@@ -577,6 +577,7 @@ BattleFrontier_OutsideEast_EventScript_RichBoy::
 	case GOSSIP_SIEGE, BattleFrontier_OutsideEast_RichBoy_Gossip9
 	case GOSSIP_AFTERMATH, BattleFrontier_OutsideEast_RichBoy_Gossip10
 	case GOSSIP_DEVON, BattleFrontier_OutsideEast_RichBoy_Gossip11
+	case GOSSIP_DEVON_FREED, BattleFrontier_OutsideEast_RichBoy_Gossip12
 	msgbox BattleFrontier_OutsideEast_Text_PeopleCallMeBusybody, MSGBOX_NPC
 	end
 
@@ -641,10 +642,19 @@ BattleFrontier_OutsideEast_RichBoy_Gossip11::
 	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip11, MSGBOX_NPC
 	end
 
+BattleFrontier_OutsideEast_RichBoy_Gossip12::
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip12, MSGBOX_NPC
+	end
+
 BattleFrontier_OutsideEast_RichBoy_Text_Gossip11:
 	.string "The ELITE FOUR are guarding DEVON\n"
 	.string "CORPORATION. Not the LEAGUE, DEVON!\p"
 	.string "I've run out of people to tell.$"
+
+BattleFrontier_OutsideEast_RichBoy_Text_Gossip12:
+	.string "Somebody beat the whole ELITE FOUR,\n"
+	.string "one after another, inside DEVON!\p"
+	.string "...It was you again, wasn't it?$"
 
 BattleFrontier_OutsideEast_RichBoy_Text_Gossip0:
 	.string "Did you see it? A man stormed the\n"
@@ -762,6 +772,7 @@ BattleFrontier_OutsideEast_EventScript_TriathleteM::
 	case GOSSIP_SIEGE, BattleFrontier_OutsideEast_TriathleteM_Gossip7
 	case GOSSIP_AFTERMATH, BattleFrontier_OutsideEast_TriathleteM_Gossip8
 	case GOSSIP_DEVON, BattleFrontier_OutsideEast_TriathleteM_Gossip8
+	case GOSSIP_DEVON_FREED, BattleFrontier_OutsideEast_TriathleteM_Gossip8
 	msgbox BattleFrontier_OutsideEast_Text_DidScottBringYouHere, MSGBOX_NPC
 	end
 
@@ -1021,6 +1032,7 @@ BattleFrontier_OutsideEast_EventScript_Gentleman::
 	case GOSSIP_SIEGE, BattleFrontier_OutsideEast_Gentleman_Gossip6
 	case GOSSIP_AFTERMATH, BattleFrontier_OutsideEast_Gentleman_Gossip7
 	case GOSSIP_DEVON, BattleFrontier_OutsideEast_Gentleman_Gossip8
+	case GOSSIP_DEVON_FREED, BattleFrontier_OutsideEast_Gentleman_Gossip9
 	msgbox BattleFrontier_OutsideEast_Text_FrontierNotExclusivelyForToughTrainers, MSGBOX_NPC
 	end
 
@@ -1073,10 +1085,20 @@ BattleFrontier_OutsideEast_Gentleman_Gossip8::
 	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip8, MSGBOX_NPC
 	end
 
+BattleFrontier_OutsideEast_Gentleman_Gossip9::
+	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip9, MSGBOX_NPC
+	end
+
 BattleFrontier_OutsideEast_Gentleman_Text_Gossip8:
 	.string "The ELITE FOUR, guarding DEVON…\n"
 	.string "SCOTT's reach is longer than I feared.\p"
 	.string "Be careful, young one.$"
+
+BattleFrontier_OutsideEast_Gentleman_Text_Gossip9:
+	.string "DEVON free, and the ELITE FOUR\n"
+	.string "humbled. I hear you carry something\l"
+	.string "back from RUSTBORO.\p"
+	.string "Guard it well, young one.$"
 
 BattleFrontier_OutsideEast_Gentleman_Text_Gossip0:
 	.string "I saw a man in a fine suit outside the\n"

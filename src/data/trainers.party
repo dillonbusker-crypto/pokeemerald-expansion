@@ -25146,3 +25146,290 @@ Adamant Nature
 - Iron Head
 - Sucker Punch
 - Fire Fang
+
+
+/* Ten Gauntlets: Rustboro, the Elite Four guarding Devon Corporation
+ * (storyline.md). The teams are endgame-teams.md's: real levels 52-55, not
+ * chipped, and two permanent Megas each (listed already in Mega form, holding
+ * a real item), which don't use up the battle's one Mega Evolution. Fought one
+ * at a time; a loss whites out to RUSTBORO's POKEMON CENTER. */
+
+=== TRAINER_DEVON_SIDNEY ===
+Name: SIDNEY
+Class: Elite Four
+Pic: Elite Four Sidney
+Gender: Male
+Music: Elite Four
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+Mugshot: Purple
+
+Ting-Lu @ Leftovers
+Ability: Vessel of Ruin
+Level: 52
+EVs: 252 HP / 4 Atk / 252 SpD
+Careful Nature
+- Stealth Rock
+- Ruination
+- Earthquake
+- Whirlwind
+
+Meowscarada @ Choice Band
+Ability: Protean
+Level: 52
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Flower Trick
+- Knock Off
+- Triple Axel
+- U-turn
+
+Weavile @ Black Glasses
+Ability: Pressure
+Level: 53
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Triple Axel
+- Knock Off
+- Ice Shard
+
+Darkrai @ Choice Specs
+Ability: Bad Dreams
+Level: 53
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Dark Pulse
+- Sludge Bomb
+- Focus Blast
+- Ice Beam
+
+Tyranitar-Mega @ Weakness Policy
+Ability: Sand Stream
+Level: 54
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Dragon Dance
+- Stone Edge
+- Knock Off
+- Earthquake
+
+Absol-Mega-Z @ Life Orb
+Ability: Sharpness
+Level: 55
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Night Slash
+- Shadow Claw
+- Close Combat
+
+=== TRAINER_DEVON_PHOEBE ===
+Name: PHOEBE
+Class: Elite Four
+Pic: Elite Four Phoebe
+Gender: Female
+Music: Elite Four
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+Mugshot: Green
+
+Gholdengo @ Air Balloon
+Ability: Good as Gold
+Level: 52
+EVs: 252 HP / 252 SpA / 4 Spe
+Modest Nature
+- Nasty Plot
+- Make It Rain
+- Shadow Ball
+- Recover
+
+Ceruledge @ Focus Sash
+Ability: Flash Fire
+Level: 52
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Bitter Blade
+- Poltergeist
+- Shadow Sneak
+
+Skeledirge @ Leftovers
+Ability: Unaware
+Level: 53
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Torch Song
+- Hex
+- Slack Off
+- Will-O-Wisp
+
+Flutter Mane @ Booster Energy
+Ability: Protosynthesis
+Level: 53
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Calm Mind
+- Moonblast
+- Shadow Ball
+- Mystical Fire
+
+Banette-Mega @ Life Orb
+Ability: Prankster
+Level: 54
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+- Poltergeist
+- Gunk Shot
+- Will-O-Wisp
+- Destiny Bond
+
+Chandelure-Mega @ Choice Specs
+Ability: Infiltrator
+Level: 55
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Shadow Ball
+- Fire Blast
+- Energy Ball
+- Psychic
+
+=== TRAINER_DEVON_GLACIA ===
+Name: GLACIA
+Class: Elite Four
+Pic: Elite Four Glacia
+Gender: Female
+Music: Elite Four
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+Mugshot: Pink
+
+Ninetales-Alola @ Light Clay
+Ability: Snow Warning
+Level: 52
+EVs: 252 HP / 4 SpA / 252 Spe
+Timid Nature
+- Aurora Veil
+- Freeze-Dry
+- Moonblast
+- Encore
+
+Chien-Pao @ Choice Band
+Ability: Sword of Ruin
+Level: 52
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Icicle Crash
+- Sucker Punch
+- Sacred Sword
+- Ice Shard
+
+Cloyster @ White Herb
+Ability: Skill Link
+Level: 53
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Shell Smash
+- Icicle Spear
+- Rock Blast
+- Ice Shard
+
+Iron Bundle @ Booster Energy
+Ability: Quark Drive
+Level: 53
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Freeze-Dry
+- Hydro Pump
+- Taunt
+- Flip Turn
+
+Froslass-Mega @ Icy Rock
+Ability: Snow Warning
+Level: 54
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Blizzard
+- Shadow Ball
+- Spikes
+- Will-O-Wisp
+
+Baxcalibur-Mega @ Loaded Dice
+Ability: Thermal Exchange
+Level: 55
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Icicle Spear
+- Scale Shot
+- Earthquake
+
+=== TRAINER_DEVON_DRAKE ===
+Name: DRAKE
+Class: Elite Four
+Pic: Elite Four Drake
+Gender: Male
+Music: Elite Four
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+Mugshot: Blue
+
+Archaludon @ Leftovers
+Ability: Stamina
+Level: 52
+EVs: 252 HP / 252 Def / 4 SpA
+Bold Nature
+- Stealth Rock
+- Draco Meteor
+- Flash Cannon
+- Body Press
+
+Walking Wake @ Choice Specs
+Ability: Protosynthesis
+Level: 52
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Hydro Steam
+- Draco Meteor
+- Flamethrower
+- Flip Turn
+
+Raging Bolt @ Booster Energy
+Ability: Protosynthesis
+Level: 53
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Calm Mind
+- Thunderclap
+- Dragon Pulse
+- Thunderbolt
+
+Dragonite @ Choice Band
+Ability: Multiscale
+Level: 53
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Extreme Speed
+- Outrage
+- Earthquake
+- Fire Punch
+
+Garchomp-Mega-Z @ Life Orb
+Ability: Levitate
+Level: 54
+EVs: 4 Atk / 252 SpA / 252 Spe
+Naive Nature
+- Draco Meteor
+- Earthquake
+- Fire Blast
+- Stone Edge
+
+Salamence-Mega @ Heavy-Duty Boots
+Ability: Aerilate
+Level: 55
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Dragon Dance
+- Double-Edge
+- Earthquake
+- Roost

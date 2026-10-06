@@ -17,6 +17,7 @@ OldaleTown_House2_EventScript_Woman::
 	case GOSSIP_SIEGE, OldaleTown_House2_Woman_Gossip8
 	case GOSSIP_AFTERMATH, OldaleTown_House2_Woman_Gossip9
 	case GOSSIP_DEVON, OldaleTown_House2_Woman_Gossip10
+	case GOSSIP_DEVON_FREED, OldaleTown_House2_Woman_Gossip11
 	msgbox OldaleTown_House2_Text_PokemonLevelUp, MSGBOX_NPC
 	end
 
@@ -78,11 +79,21 @@ OldaleTown_House2_Woman_Gossip10::
 	msgbox OldaleTown_House2_Woman_Text_Gossip10, MSGBOX_NPC
 	end
 
+OldaleTown_House2_Woman_Gossip11::
+	msgbox OldaleTown_House2_Woman_Text_Gossip11, MSGBOX_NPC
+	end
+
 OldaleTown_House2_Woman_Text_Gossip10:
 	.string "Now my grandson says the ELITE FOUR\n"
 	.string "are guarding DEVON CORPORATION.\p"
 	.string "I told him to stay put. He's still\n"
 	.string "shopping.$"
+
+OldaleTown_House2_Woman_Text_Gossip11:
+	.string "My grandson says some child beat\n"
+	.string "the whole ELITE FOUR at DEVON.\p"
+	.string "He wants to be a TRAINER now.\n"
+	.string "I've told him to finish his soup.$"
 
 OldaleTown_House2_Woman_Text_Gossip0:
 	.string "My grandson called from the FRONTIER!\p"

@@ -9,38 +9,58 @@ harness. History is in `git log`; the story is in `storyline.md`.
 ## Where things stand
 
 - **All eight gauntlets, the shop and the run loop** are built.
-- **The story is built through endgame part 1**: everything up to and
-  including the events after gauntlet 7, then the after-gauntlet-8 Factory
-  sequence and the Arena base (`storyline.md`, "After gauntlet 8: the
-  Factory" ✅ and "Hoopa's rings" ✅).
-- **The endgame's team plans** are in `endgame-teams.md` (five Brain
-  rematches, built; the Elite Four, not yet built).
-- **63 commits are local only.** Pushing from WSL isn't set up.
+- **The story is built through endgame part 2**: everything up to and
+  including the events after gauntlet 7, the after-gauntlet-8 Factory
+  sequence and the Arena base, and Rustboro (`storyline.md`, "After gauntlet
+  8: the Factory" ✅, "Hoopa's rings" ✅, "Rustboro: Devon Corporation" ✅).
+- **The endgame's teams** in `endgame-teams.md` are built: the five Brain
+  rematches and the Elite Four.
+- **64 commits are local only.** Pushing from WSL isn't set up.
 
-## Next: endgame part 2, Rustboro
+## Next: endgame part 3, the Frontier siphon
 
-`storyline.md`, "Rustboro: Devon Corporation". Part 1 ends with Steven
-outside the Arena setting `FLAG_ABRA_TO_RUSTBORO` and `VAR_ENDGAME_STATE` = 7;
-the ABRA in the Frontier's Pokémon Center takes the player to Rustboro.
-Part 2 needs:
+`storyline.md`, "Back to the Frontier: the siphon". Part 2 ends with Juan's
+apology outside Devon: `VAR_ENDGAME_STATE` = 10, the player holds the
+uncharged `ITEM_REPLICA_CROWN`, and Hoopa's second ring is open. Steven and
+Wallace are nowhere at the Frontier yet (the base allies stay hidden from
+state 7 on, and Steven is on Devon 3F only at state 9). Part 3 needs:
 
-- The ABRA's Rustboro arrival moved to the Pokémon Center (the owner's
-  choice; it's beside the town's ABRA now, `data/scripts/endgame_towns.inc`).
-- Steven and Wallace outside Devon; the **Wardens' ambush** (Winona, Juan,
-  Roxanne; fight off-screen).
-- The **Elite Four** on Devon 1F/2F (`endgame-teams.md`, levels 52-55, two
-  permanent Megas each), a loss whiting out to Rustboro's Center.
-- **President Stone** and the scientist; the **Replica Crown** given
-  (`ITEM_REPLICA_CROWN`, uncharged); Juan's apology outside.
-- Switching off Devon Corp's vanilla events (Mr. Stone's letter, the Exp.
-  Share, fossils).
-- Hoopa's second ring (`GetHoopaRingsLeft`, `src/facility.c`) and a gossip beat
-  after DEVON.
+- Steven and Wallace back outside the Arena (or wherever the siphon scene
+  wants them) from state 10.
+- The Pokémon keeper's **"Free the POKéMON"** option in the Exchange Service
+  Corner: the flash, `FLAG_CROWN_CHARGED`, and **the chips off** (a flag
+  `IsFrontierChippedMon()`, `src/facility.c`, checks first).
+- **The Crown's limit:** one permanent Mega after the siphon, six after New
+  Mauville (a story var `ITEM_REPLICA_CROWN`'s use checks; see
+  `storyline.md`, Technical notes, "Permanent Megas").
+- Steven, Wallace and Nurse Joy's lines; Steven starting Mauville and
+  `FLAG_ABRA_TO_MAUVILLE`.
+- A gossip beat after `GOSSIP_DEVON_FREED`.
 
-After that: the Frontier siphon (one permanent Mega, chips off), New Mauville
-(Wattson, the admins, Archie and Maxie's Primals, six permanent Megas), the
-Chansey's level 100, Sky Pillar and the final battle. Open questions are in
-`storyline.md`, "Still to decide".
+After that: New Mauville (Wattson, the admins, Archie and Maxie's Primals,
+six permanent Megas), the Chansey's level 100, Sky Pillar and the final
+battle. Open questions are in `storyline.md`, "Still to decide".
+
+---
+
+## Endgame part 2 in brief
+
+Rustboro, tracked by `VAR_ENDGAME_STATE` 7-10 (listed in `RustboroCity`'s
+scripts).
+
+| Piece | Where |
+|---|---|
+| The ABRA lands in Rustboro's Pokémon Center, beside the town's ABRA | `RustboroCity_PokemonCenter_1F`, `endgame_towns.inc` |
+| Steven and Wallace block Devon's door; talking starts the Wardens' ambush (off-screen) | `RustboroCity` (state 7 → 8) |
+| Elite Four, in order, each leaves when beaten; a loss whites out to the Center | Devon 1F (Sidney, Phoebe), 2F (Glacia, Drake) |
+| Stone's confession, the scientist, `ITEM_REPLICA_CROWN` | Devon 3F (state 8 → 9) |
+| Juan's apology as the player comes out; Hoopa's second ring | `RustboroCity` (state 9 → 10), `GetHoopaRingsLeft` |
+| Devon's staff hidden; the letter, PokéNav, Exp. Share and fossils off | Devon 1F-3F |
+| Gossip: `GOSSIP_DEVON_FREED` (state 10 on) | `GetStoryGossipStage`, four new lines |
+
+The Elite Four (`TRAINER_DEVON_*`, 974-977) are plain trainer battles, not
+Frontier battles: their real levels, and held items restored afterwards
+like every story fight.
 
 ---
 
@@ -72,6 +92,7 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 
 | What | Status |
 |---|---|
+| Endgame part 2 (Rustboro) | Harness scenario 21, **19/19 green**: the ABRA in and out of the Centers, the ambush, the Elite Four in order (out-of-order talks refused), a loss to Glacia whiting out to Rustboro's Center (healed, items back, beaten members stay gone), Stone's scene and the Crown, vanilla 3F events off, Juan, two Hoopa rings, the new gossip beat. **Not played** |
 | Endgame part 1 | Harness scenario 20, **18/18 green**: Pyramid to Rustboro, every Brain fight, the cells, Scott's battle **lost on purpose** (outcome checked, no white-out, team healed, items back), the base, the Broker, a Hoopa trip, the ABRA. **Not played** |
 | Hoopa catching a legendary | Not run (the knock-out path was) |
 | Endgame gossip beats | Built, widths checked; code-read only |
@@ -89,6 +110,19 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 ---
 
 ## Loose ends
+
+- **The ABRA arrivals were a dead end** (fixed in part 2): in the Pokémon
+  Center layout, (13, 6) below the ABRA is boxed in by the table, so anyone
+  arriving at the Frontier by ABRA could only teleport away. Arrivals are now
+  (12, 5) in both Centers. Mauville and Sky Pillar's ABRAs are outdoors and
+  unaffected.
+- **A parallel build once corrupted `src/data/heal_locations.json`**
+  (a missing comma, then a JSON parse error). `git checkout
+  src/data/heal_locations.json` and building again fixed it. If a build
+  fails with `JSONPROC_ERROR` there, that's the fix.
+- **The Elite Four's lines** are first drafts in their vanilla voices; tune
+  them after a playthrough, along with the teams' difficulty
+  (`endgame-teams.md`, Open questions 2 and 3).
 
 - **`TEMP` Miraidon** on the ferry dock (commit `ad68c3ceb0`): revert before
   release. The owner's save also still has the duplicate Landorus from the
@@ -118,7 +152,8 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 
 ## The headless harness: `~/decomps/headless-harness/`
 
-- `harness.c`: scripted-input driver; `#define HARNESS_SCENARIO n`. 20
+- `harness.c`: scripted-input driver; `#define HARNESS_SCENARIO n`. 21
+  endgame part 2 (Rustboro, loses to Glacia once on purpose); 20
   endgame part 1 (Pyramid to Rustboro, loses Scott on purpose); 14 Wallace
   hidden/shown; 12-13 Wallace probes; 11 endgame towns; 10 Devon Factory; 9
   Broker control; 8 League Abra home; 6/7 Ever Grande win/loss; 5 girl's house;
@@ -143,6 +178,10 @@ grep --line-buffered "GBA Debug"`. A run takes a few minutes.
 - **Plan the path first** (collision, bounds, triggers, door types, timing)
   so one run is enough.
 - Don't press B in the overworld when mashing through YES/NO prompts.
+- Leaving a building means stepping **off** the door mat: walk one tile past
+  the warp tile.
+- Objects more than about seven tiles from the player aren't loaded yet, so
+  check a far object's position only once the player is near it.
 - Battles: the HP hack weakens foes and keeps the player healthy. The test
   team needs a move nothing is immune to, with PP refilled (scenario 20 uses
   Nature's Madness). A battle meant to be lost holds the player at 1 HP

@@ -3,7 +3,76 @@ RustboroCity_DevonCorp_1F_MapScripts::
 	.byte 0
 
 RustboroCity_DevonCorp_1F_OnTransition:
+	call RustboroCity_DevonCorp_1F_EventScript_SetupEndgame
 	call_if_unset FLAG_RETURNED_DEVON_GOODS, RustboroCity_DevonCorp_1F_EventScript_BlockStairs
+	end
+
+@ ============================================================================
+@ Ten Gauntlets: Rustboro, Devon Corporation (storyline.md; the states are
+@ explained in RustboroCity's scripts). The staff are gone, and the ELITE FOUR
+@ hold the building: SIDNEY in the lobby and PHOEBE on the stairs here,
+@ GLACIA and DRAKE on 2F. Each is fought once, in order, and leaves; a loss
+@ whites out to RUSTBORO's POKEMON CENTER, and whoever is beaten stays beaten.
+@ ============================================================================
+
+RustboroCity_DevonCorp_1F_EventScript_SetupEndgame::
+	setflag FLAG_TEMP_1
+	checktrainerflag TRAINER_DEVON_SIDNEY
+	call_if TRUE, RustboroCity_DevonCorp_1F_EventScript_HideSidney
+	checktrainerflag TRAINER_DEVON_PHOEBE
+	call_if TRUE, RustboroCity_DevonCorp_1F_EventScript_HidePhoebe
+	return
+
+RustboroCity_DevonCorp_1F_EventScript_HideSidney::
+	setflag FLAG_TEMP_2
+	return
+
+RustboroCity_DevonCorp_1F_EventScript_HidePhoebe::
+	setflag FLAG_TEMP_3
+	return
+
+RustboroCity_DevonCorp_1F_EventScript_Sidney::
+	lock
+	faceplayer
+	msgbox RustboroCity_DevonCorp_1F_Text_Sidney, MSGBOX_DEFAULT
+	call DevonCorp_EventScript_SaveHeldItems
+	trainerbattle_no_intro TRAINER_DEVON_SIDNEY, RustboroCity_DevonCorp_1F_Text_SidneyDefeat
+	msgbox RustboroCity_DevonCorp_1F_Text_SidneyAfter, MSGBOX_DEFAULT
+	goto DevonCorp_EventScript_EliteFourLeaves
+
+RustboroCity_DevonCorp_1F_EventScript_Phoebe::
+	lock
+	faceplayer
+	checktrainerflag TRAINER_DEVON_SIDNEY
+	goto_if FALSE, RustboroCity_DevonCorp_1F_EventScript_PhoebeNotYet
+	msgbox RustboroCity_DevonCorp_1F_Text_Phoebe, MSGBOX_DEFAULT
+	call DevonCorp_EventScript_SaveHeldItems
+	trainerbattle_no_intro TRAINER_DEVON_PHOEBE, RustboroCity_DevonCorp_1F_Text_PhoebeDefeat
+	msgbox RustboroCity_DevonCorp_1F_Text_PhoebeAfter, MSGBOX_DEFAULT
+	goto DevonCorp_EventScript_EliteFourLeaves
+
+RustboroCity_DevonCorp_1F_EventScript_PhoebeNotYet::
+	msgbox RustboroCity_DevonCorp_1F_Text_PhoebeNotYet, MSGBOX_DEFAULT
+	release
+	end
+
+@ Shared by all four. The held items they use up come back, win or white-out
+@ (EventScript_RestoreStoryHeldItems), as after any story fight.
+DevonCorp_EventScript_SaveHeldItems::
+	closemessage
+	setflag FLAG_STORY_HELD_ITEMS_SAVED
+	special SaveFacilityHeldItems
+	return
+
+@ VAR_LAST_TALKED is still the member just beaten.
+DevonCorp_EventScript_EliteFourLeaves::
+	special RestoreFacilityHeldItems
+	clearflag FLAG_STORY_HELD_ITEMS_SAVED
+	closemessage
+	fadescreen FADE_TO_BLACK
+	removeobject VAR_LAST_TALKED
+	fadescreen FADE_FROM_BLACK
+	release
 	end
 
 RustboroCity_DevonCorp_1F_EventScript_BlockStairs::
@@ -142,3 +211,44 @@ RustboroCity_DevonCorp_1F_Text_ProductDisplay:
 	.string "tools for POKéMON TRAINERS, including\l"
 	.string "POKé BALLS and POKéNAV systems.”$"
 
+RustboroCity_DevonCorp_1F_Text_Sidney:
+	.string "SIDNEY: Well, look who it is.\p"
+	.string "SCOTT beat all four of us, kid. Then\n"
+	.string "he made us an offer.\p"
+	.string "MEGAS that never wear off, and the\n"
+	.string "LEAGUE all to ourselves once he's\l"
+	.string "in charge.\p"
+	.string "All we've gotta do is stand here.\n"
+	.string "Nothing personal. Let's go!$"
+
+RustboroCity_DevonCorp_1F_Text_SidneyDefeat:
+	.string "Ha! Now that's what I call a\n"
+	.string "battle!$"
+
+RustboroCity_DevonCorp_1F_Text_SidneyAfter:
+	.string "SIDNEY: I lost fair and square.\n"
+	.string "I'm done guarding doors.\p"
+	.string "PHOEBE's on the stairs. Good luck.$"
+
+RustboroCity_DevonCorp_1F_Text_PhoebeNotYet:
+	.string "PHOEBE: Not so fast.\p"
+	.string "We do this the LEAGUE's way. SIDNEY\n"
+	.string "first, then me.$"
+
+RustboroCity_DevonCorp_1F_Text_Phoebe:
+	.string "PHOEBE: You got past SIDNEY.\p"
+	.string "SCOTT's CROWN bound my BANETTE's\n"
+	.string "MEGA EVOLUTION for good.\p"
+	.string "It said it never wanted to change\n"
+	.string "back. I believed it.\p"
+	.string "Show me if our bond is any less\n"
+	.string "than yours!$"
+
+RustboroCity_DevonCorp_1F_Text_PhoebeDefeat:
+	.string "Oh, darn.\n"
+	.string "I've gone and lost.$"
+
+RustboroCity_DevonCorp_1F_Text_PhoebeAfter:
+	.string "PHOEBE: The stairs are yours.\p"
+	.string "GLACIA is upstairs. She won't go\n"
+	.string "easy on you.$"

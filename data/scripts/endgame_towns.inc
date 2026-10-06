@@ -57,17 +57,19 @@ EventScript_EndgameAbra_Teleport::
 	playse SE_M_TELEPORT
 	return
 
-@ Arrivals: beside each ABRA - the FRONTIER's is in its POKEMON CENTER.
+@ Arrivals: beside each ABRA - the FRONTIER's and RUSTBORO's are in their
+@ POKEMON CENTERS, at (13, 5), so the player lands on its left at (12, 5).
+@ (13, 6) below it is boxed in by the table: landing there was a dead end.
 EventScript_EndgameAbra_GoFrontier::
 	call EventScript_EndgameAbra_Teleport
-	warpteleport MAP_BATTLE_FRONTIER_POKEMON_CENTER_1F, 13, 6
+	warpteleport MAP_BATTLE_FRONTIER_POKEMON_CENTER_1F, 12, 5
 	waitstate
 	release
 	end
 
 EventScript_EndgameAbra_GoRustboro::
 	call EventScript_EndgameAbra_Teleport
-	warpteleport MAP_RUSTBORO_CITY, 16, 39
+	warpteleport MAP_RUSTBORO_CITY_POKEMON_CENTER_1F, 12, 5
 	waitstate
 	release
 	end

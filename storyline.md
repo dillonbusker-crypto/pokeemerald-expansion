@@ -919,9 +919,9 @@ team.
 ### Hoopa's rings ✅
 
 Built: Hoopa in the Arena lobby, the ring menu, the trip to Island Cave's
-sealed chamber (`IslandCave_EventScript_SetupHoopaTrip`). Only the first ring
-exists so far; the Elite Four and New Mauville add theirs in
-`GetHoopaRingsLeft` (`src/facility.c`) when they're built.
+sealed chamber (`IslandCave_EventScript_SetupHoopaTrip`). Two rings exist so
+far (the Factory, and Devon at `VAR_ENDGAME_STATE` 10); New Mauville adds the
+third in `GetHoopaRingsLeft` (`src/facility.c`) when it's built.
 
 The Hoopa the player freed wants to help **recruit the strongest Pokémon in
 existence** to beat Scott. Optional.
@@ -943,7 +943,13 @@ existence** to beat Scott. Optional.
 - **Three rings in all:** after the Factory, after the Elite Four, and after
   Archie and Maxie. Any ring the player doesn't use stays available.
 
-### Rustboro: Devon Corporation 📝
+### Rustboro: Devon Corporation ✅
+
+Built (headless-tested; not yet played). `VAR_ENDGAME_STATE` goes on from 7
+(listed in `RustboroCity`'s scripts): 8 the Wardens' ambush done, 9 the Crown
+given, 10 Juan's apology done. The Elite Four are `TRAINER_DEVON_*`; Devon's
+vanilla staff, the letter, the PokéNav, the Exp. Share and the fossils are
+all switched off. The Rustboro ABRA now waits in the Pokémon Center.
 
 **Outside.** The ABRA lands the player at Rustboro's Pokémon Center. Steven
 and Wallace are waiting outside Devon. **The three Wardens ambush them**:
@@ -951,7 +957,10 @@ Winona, Juan and Roxanne, loyal to Scott to the end. "It's up to you to get
 past the ELITE FOUR."
 
 **Inside.** **Sidney, Phoebe, Glacia and Drake** stand on Devon's 1F and 2F,
-placed so the player must fight them one at a time. Levels 52–55, two
+placed so the player must fight them one at a time: Sidney in the lobby and
+Phoebe on the stairs, Glacia in the 2F hall and Drake on the stairs to 3F.
+Each refuses until the one before is beaten ("We do this the League's way"),
+and each leaves once beaten. Levels 52–55, two
 permanent Megas each (`endgame-teams.md`); they're not chipped, so they keep
 their real levels. **A loss whites out to Rustboro's Pokémon Center**;
 members already beaten stay beaten.
@@ -971,7 +980,9 @@ and hands it to the player (`ITEM_REPLICA_CROWN`, uncharged).
 tells Juan to get it together. **Juan apologizes**, to Wallace and to the
 player (his gauntlet 2 "tell WALLACE I'm sorry" pays off).
 
-Hoopa's second ring is ready. Back to the Frontier by ABRA.
+Hoopa's second ring is ready (Wallace mentions it). Back to the Frontier by
+ABRA. **Steven stays on 3F with his father** until the player leaves
+Rustboro; where Steven and Wallace stand next is for the siphon to decide.
 
 ### Back to the Frontier: the siphon 📝
 
@@ -1111,7 +1122,8 @@ happy ending.
   system down, the smuggler, Anabel, the lab, after the lab, Scott's squad,
   the arrest, the Palace, the raid, the parents taken, the standoff, and
   for the endgame the siege (the Factory), the aftermath (Scott gone) and
-  Devon (the Elite Four in Rustboro). NPCs in
+  Devon (the Elite Four in Rustboro), Devon freed (after Juan's apology).
+  NPCs in
   Oldale, Littleroot and the Frontier switch on it, falling back to their
   usual line. **Give new events a beat, and update the gossip with them.**
 
@@ -1122,7 +1134,8 @@ happy ending.
   |---|---|
   | Built (all eight gauntlets, story trainers, the two Devon Agents, Noland and Greta at Birch's lab, Maxie and Archie at Ever Grande) | 967 |
   | Built: five Brain rematches (Spenser and Brandon aren't rematched), Scott ×2 | 974 |
-  | Elite Four (Devon), Archie, Maxie (New Mauville, with Primals) | 980 |
+  | Built: the Elite Four at Devon (`TRAINER_DEVON_*`) | 978 |
+  | Archie, Maxie (New Mauville, with Primals) | 980 |
   | The four admins in New Mauville (Tabitha, Courtney, Matt, Shelly) | 984 |
 
   Fought off-screen, so no IDs: the Wardens at Devon, the Aqua and Magma
@@ -1141,9 +1154,9 @@ happy ending.
   can't wander out into the rest of Hoenn.
 - ✅ **The endgame towns are prepared** (Rustboro, Mauville, Sky Pillar;
   `data/scripts/endgame_towns.inc`):
-  - **Abra menu** (`EventScript_EndgameAbra`): an Abra in each town and one
-    in the Frontier's Pokémon Center (moved there with the endgame's first
-    part). It lists the Frontier always, each town
+  - **Abra menu** (`EventScript_EndgameAbra`): an Abra in each town; the
+    Frontier's and Rustboro's are in their Pokémon Centers at (13, 5), and
+    the player lands at (12, 5) beside them. It lists the Frontier always, each town
     once its flag is set, never the current place. **The story must set**
     `FLAG_ABRA_TO_RUSTBORO`, `FLAG_ABRA_TO_MAUVILLE` and
     `FLAG_ABRA_TO_SKY_PILLAR` (nothing does yet; the story beats above say
@@ -1162,10 +1175,10 @@ happy ending.
     Rayquaza. Mauville's hidden Wattson needs a story version for New
     Mauville.
   - 📝 Still open: New Mauville sits on sealed Route 110 water; **Wattson
-    leads the player in** (the mechanism is still to pick). Devon Corp is open, so its vanilla events (Mr. Stone's
-    letter, the Exp. Share, fossils) and the other buildings' vanilla gifts
-    (HM Cut, HM Rock Smash, the Coin Case) may need switching off when
-    their scenes are built.
+    leads the player in** (the mechanism is still to pick). ✅ Devon Corp's vanilla events (Mr. Stone's letter
+    and PokéNav, the Exp. Share, fossils) are off. The other buildings'
+    vanilla gifts (HM Cut, HM Rock Smash, the Coin Case) may still need
+    switching off.
 
 - **Levels.** ✅ The real rule is built (`FrontierStoryAllowsExp()` and
   `IsFrontierChippedMon()`, `src/facility.c`; see `project-guide.md`): a Pokémon gains
@@ -1206,7 +1219,7 @@ happy ending.
     Pokémon; the held Mega Stone picks its Mega (so X or Y), and the stone can
     then come off for a real item. Using it on a permanent Mega turns it back.
     Until `FLAG_CROWN_CHARGED` is set: "The CROWN has no power yet." **The
-    Frontier siphon scene must set that flag**, and Stone's scene gives the
+    Frontier siphon scene must set that flag**; ✅ Stone's scene gives the
     item. 📝 **It needs a limit:** one permanent Mega in the party after the
     siphon, six after New Mauville (a story var the item checks).
   - Not covered: Mega Rayquaza (Dragon Ascent, no stone), and the player

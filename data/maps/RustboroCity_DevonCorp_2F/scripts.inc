@@ -3,7 +3,52 @@ RustboroCity_DevonCorp_2F_MapScripts::
 	.byte 0
 
 RustboroCity_DevonCorp_2F_OnTransition:
+	call RustboroCity_DevonCorp_2F_EventScript_SetupEndgame
 	call_if_eq VAR_FOSSIL_RESURRECTION_STATE, 1, RustboroCity_DevonCorp_2F_EventScript_SetFossilReady
+	end
+
+@ Ten Gauntlets: Rustboro, Devon Corporation (see RustboroCity_DevonCorp_1F).
+@ The scientists are gone; GLACIA guards the hall and DRAKE the stairs to
+@ STONE's office.
+RustboroCity_DevonCorp_2F_EventScript_SetupEndgame::
+	setflag FLAG_TEMP_1
+	checktrainerflag TRAINER_DEVON_GLACIA
+	call_if TRUE, RustboroCity_DevonCorp_2F_EventScript_HideGlacia
+	checktrainerflag TRAINER_DEVON_DRAKE
+	call_if TRUE, RustboroCity_DevonCorp_2F_EventScript_HideDrake
+	return
+
+RustboroCity_DevonCorp_2F_EventScript_HideGlacia::
+	setflag FLAG_TEMP_2
+	return
+
+RustboroCity_DevonCorp_2F_EventScript_HideDrake::
+	setflag FLAG_TEMP_3
+	return
+
+RustboroCity_DevonCorp_2F_EventScript_Glacia::
+	lock
+	faceplayer
+	msgbox RustboroCity_DevonCorp_2F_Text_Glacia, MSGBOX_DEFAULT
+	call DevonCorp_EventScript_SaveHeldItems
+	trainerbattle_no_intro TRAINER_DEVON_GLACIA, RustboroCity_DevonCorp_2F_Text_GlaciaDefeat
+	msgbox RustboroCity_DevonCorp_2F_Text_GlaciaAfter, MSGBOX_DEFAULT
+	goto DevonCorp_EventScript_EliteFourLeaves
+
+RustboroCity_DevonCorp_2F_EventScript_Drake::
+	lock
+	faceplayer
+	checktrainerflag TRAINER_DEVON_GLACIA
+	goto_if FALSE, RustboroCity_DevonCorp_2F_EventScript_DrakeNotYet
+	msgbox RustboroCity_DevonCorp_2F_Text_Drake, MSGBOX_DEFAULT
+	call DevonCorp_EventScript_SaveHeldItems
+	trainerbattle_no_intro TRAINER_DEVON_DRAKE, RustboroCity_DevonCorp_2F_Text_DrakeDefeat
+	msgbox RustboroCity_DevonCorp_2F_Text_DrakeAfter, MSGBOX_DEFAULT
+	goto DevonCorp_EventScript_EliteFourLeaves
+
+RustboroCity_DevonCorp_2F_EventScript_DrakeNotYet::
+	msgbox RustboroCity_DevonCorp_2F_Text_DrakeNotYet, MSGBOX_DEFAULT
+	release
 	end
 
 RustboroCity_DevonCorp_2F_EventScript_SetFossilReady::
@@ -380,3 +425,40 @@ RustboroCity_DevonCorp_2F_Text_WhatToWorkOnNext:
 	.string "One couldn't ask for a better\n"
 	.string "environment as an engineer.$"
 
+RustboroCity_DevonCorp_2F_Text_Glacia:
+	.string "GLACIA: So the child who beat SCOTT's\n"
+	.string "gauntlets has come this far.\p"
+	.string "I came to HOENN for strong TRAINERS,\n"
+	.string "and found none. Then SCOTT came.\p"
+	.string "He promised me power that never\n"
+	.string "melts. Let's see if yours is real!$"
+
+RustboroCity_DevonCorp_2F_Text_GlaciaDefeat:
+	.string "You and your POKéMON…\n"
+	.string "How hot your spirits burn!$"
+
+RustboroCity_DevonCorp_2F_Text_GlaciaAfter:
+	.string "GLACIA: Go on. DRAKE is waiting by\n"
+	.string "the stairs.$"
+
+RustboroCity_DevonCorp_2F_Text_DrakeNotYet:
+	.string "DRAKE: Hmph. GLACIA first.\p"
+	.string "You'll face me last, or not at all.$"
+
+RustboroCity_DevonCorp_2F_Text_Drake:
+	.string "DRAKE: I am the last of the\n"
+	.string "ELITE FOUR.\p"
+	.string "A sailor knows when the tide has\n"
+	.string "turned. I sided with SCOTT because\l"
+	.string "he was the stronger.\p"
+	.string "Prove me wrong. Prove you have what\n"
+	.string "it takes!$"
+
+RustboroCity_DevonCorp_2F_Text_DrakeDefeat:
+	.string "Superb, it should be said.$"
+
+RustboroCity_DevonCorp_2F_Text_DrakeAfter:
+	.string "DRAKE: Then the tide has turned\n"
+	.string "again.\p"
+	.string "STONE is upstairs. He has a great\n"
+	.string "deal to answer for.$"

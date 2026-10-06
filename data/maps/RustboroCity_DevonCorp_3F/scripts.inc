@@ -5,6 +5,7 @@ RustboroCity_DevonCorp_3F_MapScripts::
 	.byte 0
 
 RustboroCity_DevonCorp_3F_OnTransition:
+	call RustboroCity_DevonCorp_3F_EventScript_SetupEndgame
 	call_if_eq VAR_DEVON_CORP_3F_STATE, 0, RustboroCity_DevonCorp_3F_EventScript_SetEmployeePos
 	end
 
@@ -22,6 +23,7 @@ RustboroCity_DevonCorp_3F_EventScript_PlayerFaceEast::
 	end
 
 RustboroCity_DevonCorp_3F_OnFrame:
+	map_script_2 VAR_ENDGAME_STATE, 8, RustboroCity_DevonCorp_3F_EventScript_StoneScene
 	map_script_2 VAR_DEVON_CORP_3F_STATE, 0, RustboroCity_DevonCorp_3F_EventScript_MeetPresident
 	.2byte 0
 
@@ -304,3 +306,251 @@ RustboroCity_DevonCorp_3F_Text_RareRocksDisplay:
 	.string "It's a collection of rare rocks and\n"
 	.string "stones assembled by the PRESIDENT.$"
 
+@ ============================================================================
+@ Ten Gauntlets: Rustboro, Devon Corporation (storyline.md; the states are
+@ explained in RustboroCity's scripts). Vanilla's first visit (the LETTER and
+@ the POKENAV) and STONE's EXP. SHARE are switched off. Past DRAKE (state 8),
+@ the player walks up to STONE's desk; STEVEN and WALLACE catch up, STONE
+@ confesses, and his scientist re-engineers the REPLICA CROWN (state 9).
+@ STEVEN stays with his father until the player has left RUSTBORO (state 10).
+@ ============================================================================
+
+RustboroCity_DevonCorp_3F_EventScript_SetupEndgame::
+	setvar VAR_DEVON_CORP_3F_STATE, 1
+	setflag FLAG_HIDE_RUSTBORO_CITY_DEVON_CORP_3F_EMPLOYEE
+	setflag FLAG_TEMP_1
+	setflag FLAG_TEMP_2
+	call_if_eq VAR_ENDGAME_STATE, 9, RustboroCity_DevonCorp_3F_EventScript_ShowSteven
+	return
+
+RustboroCity_DevonCorp_3F_EventScript_ShowSteven::
+	clearflag FLAG_TEMP_1
+	setobjectxyperm LOCALID_DEVON_CORP_3F_STEVEN, 13, 4
+	return
+
+@ The player comes up the stairs to (2, 2) and walks to (14, 5), across the
+@ desk from STONE at (17, 5). STEVEN and WALLACE follow to (13, 4) and
+@ (13, 6); the scientist comes round from (17, 7) to (14, 6).
+RustboroCity_DevonCorp_3F_EventScript_StoneScene::
+	lockall
+	applymovement LOCALID_PLAYER, RustboroCity_DevonCorp_3F_Movement_PlayerToDesk
+	waitmovement 0
+	msgbox RustboroCity_DevonCorp_3F_Text_Stone1, MSGBOX_DEFAULT
+	closemessage
+	clearflag FLAG_TEMP_1
+	addobject LOCALID_DEVON_CORP_3F_STEVEN
+	applymovement LOCALID_DEVON_CORP_3F_STEVEN, RustboroCity_DevonCorp_3F_Movement_StevenToDesk
+	delay 32
+	clearflag FLAG_TEMP_2
+	addobject LOCALID_DEVON_CORP_3F_WALLACE
+	applymovement LOCALID_DEVON_CORP_3F_WALLACE, RustboroCity_DevonCorp_3F_Movement_WallaceToDesk
+	waitmovement LOCALID_DEVON_CORP_3F_STEVEN
+	waitmovement LOCALID_DEVON_CORP_3F_WALLACE
+	msgbox RustboroCity_DevonCorp_3F_Text_Steven1, MSGBOX_DEFAULT
+	msgbox RustboroCity_DevonCorp_3F_Text_Stone2, MSGBOX_DEFAULT
+	msgbox RustboroCity_DevonCorp_3F_Text_Steven2, MSGBOX_DEFAULT
+	msgbox RustboroCity_DevonCorp_3F_Text_Stone3, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_DEVON_CORP_3F_SCIENTIST, RustboroCity_DevonCorp_3F_Movement_ScientistToPlayer
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox RustboroCity_DevonCorp_3F_Text_Scientist1, MSGBOX_DEFAULT
+	msgbox RustboroCity_DevonCorp_3F_Text_Wallace1, MSGBOX_DEFAULT
+	msgbox RustboroCity_DevonCorp_3F_Text_Scientist2, MSGBOX_DEFAULT
+	closemessage
+	fadescreen FADE_TO_BLACK
+	playse SE_SELECT
+	delay 20
+	playse SE_SELECT
+	delay 20
+	playse SE_REPEL
+	waitse
+	fadescreen FADE_FROM_BLACK
+	msgbox RustboroCity_DevonCorp_3F_Text_Scientist3, MSGBOX_DEFAULT
+	giveitem ITEM_REPLICA_CROWN
+	msgbox RustboroCity_DevonCorp_3F_Text_Scientist4, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_DEVON_CORP_3F_SCIENTIST, RustboroCity_DevonCorp_3F_Movement_ScientistBack
+	waitmovement 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterLeft
+	waitmovement 0
+	msgbox RustboroCity_DevonCorp_3F_Text_Steven3, MSGBOX_DEFAULT
+	msgbox RustboroCity_DevonCorp_3F_Text_Wallace2, MSGBOX_DEFAULT
+	closemessage
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_DEVON_CORP_3F_WALLACE
+	setvar VAR_ENDGAME_STATE, 9
+	fadescreen FADE_FROM_BLACK
+	releaseall
+	end
+
+RustboroCity_DevonCorp_3F_Movement_PlayerToDesk:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_down
+	walk_in_place_faster_right
+	step_end
+
+RustboroCity_DevonCorp_3F_Movement_StevenToDesk:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_in_place_faster_right
+	step_end
+
+RustboroCity_DevonCorp_3F_Movement_WallaceToDesk:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_up
+	walk_in_place_faster_right
+	step_end
+
+RustboroCity_DevonCorp_3F_Movement_ScientistToPlayer:
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	step_end
+
+RustboroCity_DevonCorp_3F_Movement_ScientistBack:
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	walk_in_place_faster_left
+	step_end
+
+RustboroCity_DevonCorp_3F_EventScript_EndgameStone::
+	lock
+	msgbox RustboroCity_DevonCorp_3F_Text_StoneAfter, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_DevonCorp_3F_EventScript_Steven::
+	msgbox RustboroCity_DevonCorp_3F_Text_StevenAfter, MSGBOX_NPC
+	end
+
+RustboroCity_DevonCorp_3F_EventScript_Scientist::
+	msgbox RustboroCity_DevonCorp_3F_Text_ScientistAfter, MSGBOX_NPC
+	end
+
+RustboroCity_DevonCorp_3F_Text_Stone1:
+	.string "MR. STONE: So. You're the one who\n"
+	.string "got past the ELITE FOUR.\p"
+	.string "I suppose you've come for answers.$"
+
+RustboroCity_DevonCorp_3F_Text_Steven1:
+	.string "STEVEN: Father.$"
+
+RustboroCity_DevonCorp_3F_Text_Stone2:
+	.string "MR. STONE: STEVEN…\p"
+	.string "All I ever wanted was for DEVON to\n"
+	.string "lead the world in technology.\p"
+	.string "SCOTT came to me with the BOND\n"
+	.string "HARNESS. He swore it was for the\l"
+	.string "FRONTIER, and I believed him.\p"
+	.string "When BIRCH tried to back out, I\n"
+	.string "pressed him to meet our deadlines.\p"
+	.string "I crossed lines I never should\n"
+	.string "have. I see that now.$"
+
+RustboroCity_DevonCorp_3F_Text_Steven2:
+	.string "STEVEN: SCOTT has the CROWN.\n"
+	.string "Is there anything left that can\l"
+	.string "stand against it?$"
+
+RustboroCity_DevonCorp_3F_Text_Stone3:
+	.string "MR. STONE: …There is one thing.\p"
+	.string "I never trusted SCOTT completely.\n"
+	.string "So I had a second CROWN built, in\l"
+	.string "secret. A failsafe.\p"
+	.string "But it has no power, and I haven't\n"
+	.string "the faintest idea how to use it.$"
+
+RustboroCity_DevonCorp_3F_Text_Scientist1:
+	.string "If I may, PRESIDENT.\p"
+	.string "The chips in the FRONTIER's POKéMON\n"
+	.string "are made from MEGA STONE shards.\p"
+	.string "I could re-engineer the replica to\n"
+	.string "draw its charge from those chips.$"
+
+RustboroCity_DevonCorp_3F_Text_Wallace1:
+	.string "WALLACE: And the chips themselves?$"
+
+RustboroCity_DevonCorp_3F_Text_Scientist2:
+	.string "Drained dry. They'd stop working\n"
+	.string "altogether.\p"
+	.string "Every POKéMON at the FRONTIER could\n"
+	.string "grow again. Give me a moment!$"
+
+RustboroCity_DevonCorp_3F_Text_Scientist3:
+	.string "There. It's done.\n"
+	.string "This belongs with you.$"
+
+RustboroCity_DevonCorp_3F_Text_Scientist4:
+	.string "It's empty for now. Charge it from\n"
+	.string "the chips at the FRONTIER, and it\l"
+	.string "can make a MEGA EVOLUTION last.$"
+
+RustboroCity_DevonCorp_3F_Text_Steven3:
+	.string "STEVEN: I'll stay here with my father\n"
+	.string "for a while. We have a lot to talk\l"
+	.string "about.\p"
+	.string "Take the CROWN back to the FRONTIER.\n"
+	.string "I'll join you there.$"
+
+RustboroCity_DevonCorp_3F_Text_Wallace2:
+	.string "WALLACE: I'll head down first. JUAN\n"
+	.string "is waiting outside.\p"
+	.string "He has something to say to you.$"
+
+RustboroCity_DevonCorp_3F_Text_StoneAfter:
+	.string "MR. STONE: I'll answer for what I've\n"
+	.string "done. But first, stop SCOTT.$"
+
+RustboroCity_DevonCorp_3F_Text_StevenAfter:
+	.string "STEVEN: Go on. JUAN is waiting\n"
+	.string "outside, and the CROWN needs its\l"
+	.string "charge.$"
+
+RustboroCity_DevonCorp_3F_Text_ScientistAfter:
+	.string "Charge the CROWN from the chips at\n"
+	.string "the FRONTIER. After that, it can make\l"
+	.string "a MEGA EVOLUTION last.$"

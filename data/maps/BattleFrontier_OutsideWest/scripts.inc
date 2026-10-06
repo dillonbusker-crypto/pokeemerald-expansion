@@ -517,6 +517,7 @@ BattleFrontier_OutsideWest_EventScript_Man2::
 	case GOSSIP_SIEGE, BattleFrontier_OutsideWest_Man2_Gossip3
 	case GOSSIP_AFTERMATH, BattleFrontier_OutsideWest_Man2_Gossip4
 	case GOSSIP_DEVON, BattleFrontier_OutsideWest_Man2_Gossip4
+	case GOSSIP_DEVON_FREED, BattleFrontier_OutsideWest_Man2_Gossip4
 	msgbox BattleFrontier_OutsideWest_Text_NothingHereNotLongAgo, MSGBOX_NPC
 	end
 

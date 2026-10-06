@@ -26,7 +26,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "RustboroCity_DevonCorp_1F_EventScript_Employee",
-      "flag": "0"
+      "flag": "FLAG_TEMP_1"
     },
     {
       "local_id": "LOCALID_DEVON_CORP_STAIR_GUARD",
@@ -40,7 +40,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "RustboroCity_DevonCorp_1F_EventScript_StairGuard",
-      "flag": "0"
+      "flag": "FLAG_TEMP_1"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
@@ -53,7 +53,35 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "RustboroCity_DevonCorp_1F_EventScript_Greeter",
-      "flag": "0"
+      "flag": "FLAG_TEMP_1"
+    },
+    {
+      "local_id": "LOCALID_DEVON_CORP_SIDNEY",
+      "graphics_id": "OBJ_EVENT_GFX_SIDNEY",
+      "x": 14,
+      "y": 5,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "RustboroCity_DevonCorp_1F_EventScript_Sidney",
+      "flag": "FLAG_TEMP_2"
+    },
+    {
+      "local_id": "LOCALID_DEVON_CORP_PHOEBE",
+      "graphics_id": "OBJ_EVENT_GFX_PHOEBE",
+      "x": 14,
+      "y": 2,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "RustboroCity_DevonCorp_1F_EventScript_Phoebe",
+      "flag": "FLAG_TEMP_3"
     }
   ],
   "warp_events": [

@@ -1017,6 +1017,14 @@
 #define TRAINER_FACTORY_SCOTT_LATIAS            972
 #define TRAINER_FACTORY_SCOTT_LATIOS            973
 
+// Ten Gauntlets: Rustboro, the Elite Four guarding Devon Corporation
+// (storyline.md, endgame-teams.md). Real levels (52-55), two permanent Megas
+// each, fought one at a time in vanilla order.
+#define TRAINER_DEVON_SIDNEY                    974
+#define TRAINER_DEVON_PHOEBE                    975
+#define TRAINER_DEVON_GLACIA                    976
+#define TRAINER_DEVON_DRAKE                     977
+
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
 //       the system flags (Pokedex, badges, ...) start right after it, so an ID at or past this limit
@@ -1030,7 +1038,7 @@
 //       so it invalidates existing saves - don't grow it again casually. Costs ~14 bytes of SaveBlock1
 //       (304 B free, see save-data-findings.md), checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
 
-#define TRAINERS_COUNT_EMERALD     974
+#define TRAINERS_COUNT_EMERALD     978
 #define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG

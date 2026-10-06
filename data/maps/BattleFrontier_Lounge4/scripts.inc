@@ -16,6 +16,7 @@ BattleFrontier_Lounge4_EventScript_Cook::
 	case GOSSIP_SIEGE, BattleFrontier_Lounge4_Cook_Gossip1
 	case GOSSIP_AFTERMATH, BattleFrontier_Lounge4_Cook_Gossip2
 	case GOSSIP_DEVON, BattleFrontier_Lounge4_Cook_Gossip2
+	case GOSSIP_DEVON_FREED, BattleFrontier_Lounge4_Cook_Gossip2
 	msgbox BattleFrontier_Lounge4_Text_IfIOpenedRestaurantHere, MSGBOX_NPC
 	end
 

@@ -550,7 +550,9 @@ u16 GetStoryGossipStage(void)
             return GOSSIP_SIEGE;
         if (endgame <= 6)
             return GOSSIP_AFTERMATH;
-        return GOSSIP_DEVON;
+        if (endgame <= 9)
+            return GOSSIP_DEVON;
+        return GOSSIP_DEVON_FREED;
     }
     if (cleared == 7)
     {
@@ -644,13 +646,16 @@ void GetFactoryBrainsBeaten(void)
 }
 
 // special: VAR_RESULT = HOOPA's rings the player can still use. One opens at
-// the Arena base after the Factory; the Elite Four and New Mauville will add
-// one each when they're built. Only a catch uses a ring up.
+// the Arena base after the Factory and one after DEVON (JUAN's apology);
+// New Mauville will add the third when it's built. Only a catch uses a ring
+// up.
 void GetHoopaRingsLeft(void)
 {
     u32 rings = 0;
 
     if (VarGet(VAR_ENDGAME_STATE) >= 6)
+        rings++;
+    if (VarGet(VAR_ENDGAME_STATE) >= 10)
         rings++;
     if (rings > VarGet(VAR_HOOPA_CATCHES))
         gSpecialVar_Result = rings - VarGet(VAR_HOOPA_CATCHES);

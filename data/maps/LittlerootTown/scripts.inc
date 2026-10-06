@@ -256,6 +256,7 @@ LittlerootTown_EventScript_FatMan::
 	case GOSSIP_SIEGE, LittlerootTown_FatMan_Gossip2
 	case GOSSIP_AFTERMATH, LittlerootTown_FatMan_Gossip3
 	case GOSSIP_DEVON, LittlerootTown_FatMan_Gossip3
+	case GOSSIP_DEVON_FREED, LittlerootTown_FatMan_Gossip3
 	lock
 	faceplayer
 	msgbox LittlerootTown_Text_CanUsePCToStoreItems, MSGBOX_DEFAULT
@@ -315,6 +316,7 @@ LittlerootTown_EventScript_Boy::
 	case GOSSIP_SIEGE, LittlerootTown_Boy_Gossip2
 	case GOSSIP_AFTERMATH, LittlerootTown_Boy_Gossip3
 	case GOSSIP_DEVON, LittlerootTown_Boy_Gossip3
+	case GOSSIP_DEVON_FREED, LittlerootTown_Boy_Gossip3
 	lock
 	faceplayer
 	msgbox LittlerootTown_Text_BirchSpendsDaysInLab, MSGBOX_DEFAULT
@@ -373,6 +375,7 @@ LittlerootTown_EventScript_Twin::
 	case GOSSIP_SIEGE, LittlerootTown_Twin_Gossip2
 	case GOSSIP_AFTERMATH, LittlerootTown_Twin_Gossip3
 	case GOSSIP_DEVON, LittlerootTown_Twin_Gossip3
+	case GOSSIP_DEVON_FREED, LittlerootTown_Twin_Gossip3
 	goto_if_set FLAG_ADVENTURE_STARTED, LittlerootTown_EventScript_GoodLuck
 	goto_if_set FLAG_RESCUED_BIRCH, LittlerootTown_EventScript_YouSavedBirch
 	goto_if_ne VAR_LITTLEROOT_TOWN_STATE, 0, LittlerootTown_EventScript_GoSaveBirch

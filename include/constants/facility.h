@@ -36,7 +36,8 @@
 #define GOSSIP_STANDOFF      13 // STEVEN beaten by SCOTT's MEWTWO
 #define GOSSIP_SIEGE         14 // gauntlet 8 cleared: the sunlight, WALLACE blasts the FACTORY open (endgame states 0-4)
 #define GOSSIP_AFTERMATH     15 // SCOTT gone with the BRAINS, the parents safe, the shops free (states 5-6)
-#define GOSSIP_DEVON         16 // the ELITE FOUR guarding DEVON in RUSTBORO (state 7 on)
+#define GOSSIP_DEVON         16 // the ELITE FOUR guarding DEVON in RUSTBORO (states 7-9)
+#define GOSSIP_DEVON_FREED   17 // the ELITE FOUR beaten, STONE's REPLICA CROWN (state 10 on)
 
 // The endgame ABRA network (data/scripts/endgame_towns.inc): where an ABRA
 // is (VAR_0x8004), and the menu ids of the places it can TELEPORT to.

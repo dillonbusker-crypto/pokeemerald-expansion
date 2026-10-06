@@ -8,6 +8,13 @@ RustboroCity_PokemonCenter_1F_OnTransition:
 	call Common_EventScript_UpdateBrineyLocation
 	end
 
+@ Ten Gauntlets: the endgame ABRA network (data/scripts/endgame_towns.inc).
+@ RUSTBORO's ABRA waits by the counter, and the others land the player
+@ beside it.
+RustboroCity_PokemonCenter_1F_EventScript_EndgameAbra::
+	setvar VAR_0x8004, ABRA_AT_RUSTBORO
+	goto EventScript_EndgameAbra
+
 RustboroCity_PokemonCenter_1F_EventScript_Nurse::
 	setvar VAR_0x800B, LOCALID_RUSTBORO_NURSE
 	call Common_EventScript_PkmnCenterNurse

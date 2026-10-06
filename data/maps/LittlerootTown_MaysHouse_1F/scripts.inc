@@ -136,6 +136,7 @@ RivalsHouse_1F_EventScript_RivalMom::
 	case GOSSIP_SIEGE, RivalsHouse_1F_RivalMom_Gossip5
 	case GOSSIP_AFTERMATH, RivalsHouse_1F_RivalMom_Gossip6
 	case GOSSIP_DEVON, RivalsHouse_1F_RivalMom_Gossip7
+	case GOSSIP_DEVON_FREED, RivalsHouse_1F_RivalMom_Gossip8
 	goto_if_set FLAG_DEFEATED_RIVAL_ROUTE103, RivalsHouse_1F_EventScript_GoHomeEverySoOften
 	goto_if_set FLAG_SYS_POKEMON_GET, RivalsHouse_1F_EventScript_RivalIsOnRoute103
 	goto_if_eq VAR_LITTLEROOT_RIVAL_STATE, 3, RivalsHouse_1F_EventScript_RivalTooBusy
@@ -198,11 +199,22 @@ RivalsHouse_1F_RivalMom_Gossip7::
 	release
 	end
 
+RivalsHouse_1F_RivalMom_Gossip8::
+	msgbox RivalsHouse_1F_RivalMom_Text_Gossip8, MSGBOX_DEFAULT
+	release
+	end
+
 RivalsHouse_1F_RivalMom_Text_Gossip7:
 	.string "The ELITE FOUR are guarding DEVON\n"
 	.string "CORPORATION? In RUSTBORO?\p"
 	.string "What in the world is going on?\n"
 	.string "Please, be careful out there.$"
+
+RivalsHouse_1F_RivalMom_Text_Gossip8:
+	.string "They say the ELITE FOUR stood aside\n"
+	.string "at DEVON, one after another.\p"
+	.string "And DEVON's PRESIDENT is\n"
+	.string "finally answering questions.$"
 
 RivalsHouse_1F_RivalMom_Text_Gossip0:
 	.string "My husband barely sleeps. He jumps\n"

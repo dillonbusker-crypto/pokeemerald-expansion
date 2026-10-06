@@ -12,6 +12,7 @@ RustboroCity_OnTransition:
 	setflag FLAG_HIDE_RUSTBORO_CITY_RIVAL
 	setflag FLAG_HIDE_RUSTBORO_CITY_SCIENTIST
 	setflag FLAG_HIDE_RUSTBORO_CITY_DEVON_EMPLOYEE_1
+	call RustboroCity_EventScript_SetupEndgame
 	call Common_EventScript_SetupRivalGfxId
 	call_if_eq VAR_RUSTBORO_CITY_STATE, 6, RustboroCity_EventScript_HideMapNamePopup
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
@@ -32,6 +33,7 @@ RustboroCity_EventScript_HideMapNamePopup::
 	return
 
 RustboroCity_OnFrame:
+	map_script_2 VAR_TEMP_2, 1, RustboroCity_EventScript_JuanScene
 	map_script_2 VAR_RUSTBORO_CITY_STATE, 6, RustboroCity_EventScript_ScientistAddMatchCall
 	.2byte 0
 
@@ -1296,7 +1298,195 @@ RustboroCity_Text_YouCanHave2On2Battle:
 	.string "Don't you think it'd be cool if you\n"
 	.string "could beat two TRAINERS by yourself?$"
 
-@ Ten Gauntlets: the endgame ABRA network (data/scripts/endgame_towns.inc).
-RustboroCity_EventScript_EndgameAbra::
-	setvar VAR_0x8004, ABRA_AT_RUSTBORO
-	goto EventScript_EndgameAbra
+@ ============================================================================
+@ Ten Gauntlets: Rustboro, Devon Corporation (storyline.md; VAR_ENDGAME_STATE
+@ is explained in BattleFrontier_OutsideEast). The ABRA lands the player in
+@ the POKEMON CENTER, where the town's ABRA now waits.
+@   7 STEVEN and WALLACE wait in front of DEVON's door. Talking to them sets
+@     off the WARDENS' ambush; they fight it out off-screen (state 8)
+@   8 the ELITE FOUR hold DEVON (RustboroCity_DevonCorp_1F, 2F)
+@   9 STONE has handed over the REPLICA CROWN (RustboroCity_DevonCorp_3F):
+@     WALLACE and JUAN wait outside the door, and JUAN apologizes as the
+@     player comes out (state 10)
+@  10 done: back to the FRONTIER by ABRA, and HOOPA's second ring is ready
+@ ============================================================================
+
+RustboroCity_EventScript_SetupEndgame::
+	setflag FLAG_TEMP_1
+	setflag FLAG_TEMP_2
+	setflag FLAG_TEMP_3
+	setflag FLAG_TEMP_4
+	setflag FLAG_TEMP_5
+	call_if_eq VAR_ENDGAME_STATE, 7, RustboroCity_EventScript_ShowAlliesAtDevon
+	call_if_eq VAR_ENDGAME_STATE, 9, RustboroCity_EventScript_SetupJuanScene
+	return
+
+RustboroCity_EventScript_ShowAlliesAtDevon::
+	clearflag FLAG_TEMP_1
+	clearflag FLAG_TEMP_2
+	return
+
+@ State 9 only follows STONE's scene, so the player is coming out of DEVON's
+@ door: they step down to (11, 16) or (12, 16), with WALLACE and JUAN two
+@ tiles below.
+RustboroCity_EventScript_SetupJuanScene::
+	clearflag FLAG_TEMP_2
+	clearflag FLAG_TEMP_4
+	setobjectxyperm LOCALID_RUSTBORO_ENDGAME_WALLACE, 11, 18
+	setobjectmovementtype LOCALID_RUSTBORO_ENDGAME_WALLACE, MOVEMENT_TYPE_FACE_UP
+	setobjectxyperm LOCALID_RUSTBORO_ENDGAME_JUAN, 12, 18
+	setobjectmovementtype LOCALID_RUSTBORO_ENDGAME_JUAN, MOVEMENT_TYPE_FACE_UP
+	setvar VAR_TEMP_2, 1
+	return
+
+@ STEVEN at (11, 16) and WALLACE at (12, 16) block DEVON's door. The WARDENS
+@ come up from (10-12, 21) to (10-12, 19), below wherever the player stands.
+RustboroCity_EventScript_EndgameAllies::
+	goto_if_ne VAR_ENDGAME_STATE, 7, RustboroCity_EventScript_EndgameAlliesEnd
+	lockall
+	faceplayer
+	msgbox RustboroCity_Text_AmbushSteven1, MSGBOX_DEFAULT
+	closemessage
+	playse SE_PIN
+	clearflag FLAG_TEMP_3
+	clearflag FLAG_TEMP_4
+	clearflag FLAG_TEMP_5
+	addobject LOCALID_RUSTBORO_ENDGAME_WINONA
+	addobject LOCALID_RUSTBORO_ENDGAME_JUAN
+	addobject LOCALID_RUSTBORO_ENDGAME_ROXANNE
+	applymovement LOCALID_RUSTBORO_ENDGAME_WINONA, Common_Movement_WalkUp2
+	applymovement LOCALID_RUSTBORO_ENDGAME_JUAN, Common_Movement_WalkUp2
+	applymovement LOCALID_RUSTBORO_ENDGAME_ROXANNE, Common_Movement_WalkUp2
+	waitmovement LOCALID_RUSTBORO_ENDGAME_WINONA
+	waitmovement LOCALID_RUSTBORO_ENDGAME_JUAN
+	waitmovement LOCALID_RUSTBORO_ENDGAME_ROXANNE
+	turnobject LOCALID_RUSTBORO_ENDGAME_STEVEN, DIR_SOUTH
+	turnobject LOCALID_RUSTBORO_ENDGAME_WALLACE, DIR_SOUTH
+	turnobject LOCALID_PLAYER, DIR_SOUTH
+	msgbox RustboroCity_Text_AmbushWinona, MSGBOX_DEFAULT
+	msgbox RustboroCity_Text_AmbushRoxanne, MSGBOX_DEFAULT
+	msgbox RustboroCity_Text_AmbushJuan, MSGBOX_DEFAULT
+	msgbox RustboroCity_Text_AmbushWallace, MSGBOX_DEFAULT
+	msgbox RustboroCity_Text_AmbushSteven2, MSGBOX_DEFAULT
+	closemessage
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_RUSTBORO_ENDGAME_STEVEN
+	removeobject LOCALID_RUSTBORO_ENDGAME_WALLACE
+	removeobject LOCALID_RUSTBORO_ENDGAME_WINONA
+	removeobject LOCALID_RUSTBORO_ENDGAME_JUAN
+	removeobject LOCALID_RUSTBORO_ENDGAME_ROXANNE
+	setvar VAR_ENDGAME_STATE, 8
+	fadescreen FADE_FROM_BLACK
+	msgbox RustboroCity_Text_AmbushLedAway, MSGBOX_DEFAULT
+	releaseall
+	end
+
+RustboroCity_EventScript_EndgameAlliesEnd::
+	end
+
+RustboroCity_EventScript_JuanScene::
+	lockall
+	setvar VAR_TEMP_2, 0
+	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	msgbox RustboroCity_Text_JuanWallace1, MSGBOX_DEFAULT
+	closemessage
+	turnobject LOCALID_RUSTBORO_ENDGAME_WALLACE, DIR_EAST
+	turnobject LOCALID_RUSTBORO_ENDGAME_JUAN, DIR_WEST
+	msgbox RustboroCity_Text_JuanWallace2, MSGBOX_DEFAULT
+	msgbox RustboroCity_Text_JuanToWallace, MSGBOX_DEFAULT
+	closemessage
+	turnobject LOCALID_RUSTBORO_ENDGAME_JUAN, DIR_NORTH
+	msgbox RustboroCity_Text_JuanToPlayer, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_RUSTBORO_ENDGAME_JUAN, RustboroCity_Movement_JuanLeaves
+	waitmovement 0
+	removeobject LOCALID_RUSTBORO_ENDGAME_JUAN
+	turnobject LOCALID_RUSTBORO_ENDGAME_WALLACE, DIR_NORTH
+	msgbox RustboroCity_Text_JuanWallace3, MSGBOX_DEFAULT
+	closemessage
+	setvar VAR_ENDGAME_STATE, 10
+	playse SE_M_FLY
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_RUSTBORO_ENDGAME_WALLACE
+	waitse
+	fadescreen FADE_FROM_BLACK
+	releaseall
+	end
+
+RustboroCity_Movement_JuanLeaves:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+RustboroCity_Text_AmbushSteven1:
+	.string "STEVEN: {PLAYER}. You made it.\p"
+	.string "The ELITE FOUR are inside. My\n"
+	.string "father's office is on the top floor.\p"
+	.string "Whatever SCOTT is hiding here, we'll\n"
+	.string "find it together. Let's--$"
+
+RustboroCity_Text_AmbushWinona:
+	.string "WINONA: Going somewhere, STEVEN?$"
+
+RustboroCity_Text_AmbushRoxanne:
+	.string "ROXANNE: SCOTT said you'd come.\n"
+	.string "Nobody goes into DEVON.$"
+
+RustboroCity_Text_AmbushJuan:
+	.string "JUAN: …WALLACE. I hoped it would\n"
+	.string "not be you.$"
+
+RustboroCity_Text_AmbushWallace:
+	.string "WALLACE: JUAN. My old teacher.\n"
+	.string "So this is where you've been.\p"
+	.string "Very well. STEVEN and I will handle\n"
+	.string "the three of you.$"
+
+RustboroCity_Text_AmbushSteven2:
+	.string "STEVEN: {PLAYER}, go! We'll hold\n"
+	.string "them here.\p"
+	.string "It's up to you to get past the\n"
+	.string "ELITE FOUR.$"
+
+RustboroCity_Text_AmbushLedAway:
+	.string "STEVEN and WALLACE drew the\n"
+	.string "WARDENS away from the door.\p"
+	.string "The way into DEVON is open.$"
+
+RustboroCity_Text_JuanWallace1:
+	.string "WALLACE: There you are. I whooped\n"
+	.string "all three of them.\p"
+	.string "WINONA and ROXANNE have gone home\n"
+	.string "to think about what they've done.$"
+
+RustboroCity_Text_JuanWallace2:
+	.string "WALLACE: JUAN. You taught me\n"
+	.string "everything I know.\p"
+	.string "Now get it together.$"
+
+RustboroCity_Text_JuanToWallace:
+	.string "JUAN: …You are right, WALLACE.\p"
+	.string "SCOTT promised me MEGA EVOLUTION\n"
+	.string "without limit, and I let that\l"
+	.string "promise blind me.\p"
+	.string "I left my GYM, and my student.\n"
+	.string "I am sorry.$"
+
+RustboroCity_Text_JuanToPlayer:
+	.string "JUAN: And you, child. At the TOWER,\n"
+	.string "I asked you to tell WALLACE I was\l"
+	.string "sorry.\p"
+	.string "It was not yours to carry.\n"
+	.string "Forgive me.$"
+
+RustboroCity_Text_JuanWallace3:
+	.string "WALLACE: STEVEN is staying with his\n"
+	.string "father for now.\p"
+	.string "Take the ABRA in the POKéMON CENTER\n"
+	.string "back to the FRONTIER. I'll meet you\l"
+	.string "there.\p"
+	.string "Oh, and HOOPA has been restless.\n"
+	.string "I think another ring is ready.$"

@@ -61,6 +61,7 @@ OldaleTown_EventScript_Girl::
 	case GOSSIP_SIEGE, OldaleTown_Girl_Gossip3
 	case GOSSIP_AFTERMATH, OldaleTown_Girl_Gossip4
 	case GOSSIP_DEVON, OldaleTown_Girl_Gossip4
+	case GOSSIP_DEVON_FREED, OldaleTown_Girl_Gossip4
 	goto_if_ge VAR_BIRCH_STORY_STATE, 3, OldaleTown_EventScript_GirlAfterLab
 	goto_if_ge VAR_BIRCH_STORY_STATE, 1, OldaleTown_EventScript_GirlDuringLab
 	msgbox OldaleTown_Text_SavingMyProgress, MSGBOX_NPC
@@ -133,6 +134,7 @@ OldaleTown_EventScript_MartEmployee::
 	case GOSSIP_SIEGE, OldaleTown_MartEmployee_Gossip2
 	case GOSSIP_AFTERMATH, OldaleTown_MartEmployee_Gossip3
 	case GOSSIP_DEVON, OldaleTown_MartEmployee_Gossip3
+	case GOSSIP_DEVON_FREED, OldaleTown_MartEmployee_Gossip3
 	goto_if_ge VAR_BIRCH_STORY_STATE, 3, OldaleTown_EventScript_MartEmployeeAfterLab
 	goto_if_ge VAR_BIRCH_STORY_STATE, 1, OldaleTown_EventScript_MartEmployeeDuringLab
 	goto_if_set FLAG_RECEIVED_POTION_OLDALE, OldaleTown_EventScript_ExplainPotion
