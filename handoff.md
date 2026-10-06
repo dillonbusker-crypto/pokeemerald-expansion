@@ -1,4 +1,4 @@
-# Handoff — current state (2026-10-05)
+# Handoff — current state (2026-10-05, evening)
 
 Read `CLAUDE.md` and `project-guide.md` first. This file is where the work
 stands: what's built, what's tested, what's loose, what's next, and the test
@@ -8,38 +8,61 @@ harness. History is in `git log`; the story is in `storyline.md`.
 
 ## Where things stand
 
-- **All eight gauntlets, the shop and the run loop** are built.
-- **The story is built through endgame part 2**: everything up to and
-  including the events after gauntlet 7, the after-gauntlet-8 Factory
-  sequence and the Arena base, and Rustboro (`storyline.md`, "After gauntlet
-  8: the Factory" ✅, "Hoopa's rings" ✅, "Rustboro: Devon Corporation" ✅).
-- **The endgame's teams** in `endgame-teams.md` are built: the five Brain
-  rematches and the Elite Four.
-- **64 commits are local only.** Pushing from WSL isn't set up.
+- **The whole game is built**: all eight gauntlets, the shop, the run loop,
+  and the story from the opening to the credits (`storyline.md`, every beat
+  ✅). **None of the endgame has been played by hand**: parts 1-5 are
+  headless-tested only (below). The owner's next step is a full playthrough.
+- **The endgame's teams** are all in `endgame-teams.md` and
+  `src/data/trainers.party`; difficulty is untuned.
+- **Trainer IDs: 986 of 1000 used.**
+- **Commits are local only.** Pushing from WSL isn't set up.
 
-## Next: endgame part 3, the Frontier siphon
+## Next: the owner's full playthrough, then tuning
 
-`storyline.md`, "Back to the Frontier: the siphon". Part 2 ends with Juan's
-apology outside Devon: `VAR_ENDGAME_STATE` = 10, the player holds the
-uncharged `ITEM_REPLICA_CROWN`, and Hoopa's second ring is open. Steven and
-Wallace are nowhere at the Frontier yet (the base allies stay hidden from
-state 7 on, and Steven is on Devon 3F only at state 9). Part 3 needs:
+Play from a New Game through the credits (the TEMP Miraidon on the ferry dock
+is there for speed). Things to look at especially, because no one has seen
+them on a screen:
 
-- Steven and Wallace back outside the Arena (or wherever the siphon scene
-  wants them) from state 10.
-- The Pokémon keeper's **"Free the POKéMON"** option in the Exchange Service
-  Corner: the flash, `FLAG_CROWN_CHARGED`, and **the chips off** (a flag
-  `IsFrontierChippedMon()`, `src/facility.c`, checks first).
-- **The Crown's limit:** one permanent Mega after the siphon, six after New
-  Mauville (a story var `ITEM_REPLICA_CROWN`'s use checks; see
-  `storyline.md`, Technical notes, "Permanent Megas").
-- Steven, Wallace and Nurse Joy's lines; Steven starting Mauville and
-  `FLAG_ABRA_TO_MAUVILLE`.
-- A gossip beat after `GOSSIP_DEVON_FREED`.
+- Every endgame scene's **staging** (who walks where, facing, timing).
+- **Difficulty** of the Elite Four (52-55), the admins (60), Maxie and
+  Archie (65, no heal between them) and Scott at 100; and the Chansey's
+  single level-100 transfer.
+- **Sky Pillar's 4F**: the clean layout still has three cracked tiles at
+  (6-9, 4), and vanilla's bikeless route drops through one into 3F's inner
+  room to reach the upper stairs. The harness walks it fine; decide whether
+  that's "smooth" enough or whether 4F needs a re-tiled floor.
+- **The ending** is a plain save-and-credits (`EndgameClear`,
+  `src/post_battle_event_funcs.c`): no Hall of Fame screen. The continue
+  after the credits lands at the Frontier's heal spot (3, 52), not at the
+  Arena base.
+- **Dialogue tone** in the new scenes (the Elite Four, Stone, Maxie and
+  Archie, Scott's last words, Looker's arrest).
 
-After that: New Mauville (Wattson, the admins, Archie and Maxie's Primals,
-six permanent Megas), the Chansey's level 100, Sky Pillar and the final
-battle. Open questions are in `storyline.md`, "Still to decide".
+---
+
+## Endgame parts 3-5 in brief
+
+`VAR_ENDGAME_STATE` 11-18 (the full table is at the top of
+`BattleFrontier_OutsideEast`'s endgame block).
+
+| Piece | Where |
+|---|---|
+| The siphon: the Pokémon keeper's "Free the POKéMON" (state 10 with the Crown), `FLAG_CROWN_CHARGED`, `FLAG_FRONTIER_CHIPS_OFF`; state 11 | `BattleFrontier_ExchangeServiceCorner`, `src/facility_shop.c` |
+| The Crown's limit: one permanent Mega from state 11, six from 14 | `GetReplicaCrownLimit`, `src/party_menu.c` |
+| Steven's hub outside the Arena: every state's lines, the Mauville send-off (12, `FLAG_ABRA_TO_MAUVILLE`), the Sky Pillar send-off (16, `FLAG_ABRA_TO_SKY_PILLAR`), the post-credits lines (18) | `BattleFrontier_OutsideEast` |
+| Mauville overrun; Wattson, Steven and Wallace; Wattson leads the player down (fade + warp, state 13); respawn at Mauville's Center | `MauvilleCity` |
+| New Mauville: wild encounters off, the door open, exits lead back to Mauville; the four admins in order (`VAR_NEW_MAUVILLE_ADMINS`); Maxie and Archie back to back, no heal, a loss repeats both; the Crown supercharged (state 14) | `NewMauville_Entrance`, `NewMauville_Inside` |
+| The teams leave; Hoopa's third ring; state 15 | `MauvilleCity` |
+| Nurse Joy and the Chansey outside the Arena: `TransferExpToLevel100`, once (`FLAG_CHANSEY_TRANSFER_EXP_USED`) | `BattleFrontier_OutsideEast`, `src/facility.c` |
+| Sky Pillar: the allies, the seven Brains' ambush (state 17), Joy by the door as the white-out respawn (`HEAL_LOCATION_SKY_PILLAR_OUTSIDE`), clean floors, no wild Pokémon | `SkyPillar_Outside`, `SkyPillar_1F-5F` |
+| The top: the Master Ball and Rayquaza (`FLAG_SKY_PILLAR_RAYQUAZA_CAUGHT`), the Scrambler, Scott at 100 (Mega Rayquaza, both Primals, Mega Mewtwo Y, the Lati, Mega Darkrai), Looker's arrest, state 18, the credits | `SkyPillar_Top`, `EndgameClear` |
+| Gossip: SIPHON, MAUVILLE, MAUVILLE_FREED, SKY_PILLAR, ENDING | `GetStoryGossipStage`, all 12 gossip NPCs |
+| Vanilla gifts off in Rustboro's Cutter's house, Mauville's houses 1-2 and the Game Corner | those interiors |
+
+Engine facts the harness confirmed: a trainer's `Groudon-Primal` /
+`Kyogre-Primal` / `Rayquaza-Mega` listed directly stays in that form through
+faints and switches, with Desolate Land, Primordial Sea and Delta Stream
+firing; no stone or orb is needed.
 
 ---
 
@@ -92,6 +115,9 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 
 | What | Status |
 |---|---|
+| Endgame part 3 (the siphon, the hub, the Chansey) | Harness scenario 22 (`harness-part3.c`), 10/10: the keeper's menu, the flags, chips off, Steven's send-offs, Transfer EXP (Eggs and level 100 refused, once only), every state's cast. **Not played** |
+| Endgame part 4 (Mauville, New Mauville) | Harness scenario 23 (`harness-part4.c`), 16/16: Wattson's way in, the four admins, Archie **lost on purpose** (white-out to Mauville's Center, both leaders reset), both won, the supercharge, the exit scene, three rings; Primals stayed Primal with their weather. **Not played** |
+| Endgame part 5 (Sky Pillar, the ending) | Harness scenario 24 (`harness-part5.c`), 14/14: the ambush, the bikeless climb of all five floors, Scott **lost on purpose** (white-out to Joy outside, healed, items back, no re-catch), won, Looker, state 18, the credits entered with the continue warp at the Frontier; Mega Rayquaza (no stone) and both Primals kept their forms and abilities. **Not played** |
 | Endgame part 2 (Rustboro) | Harness scenario 21, **19/19 green**: the ABRA in and out of the Centers, the ambush, the Elite Four in order (out-of-order talks refused), a loss to Glacia whiting out to Rustboro's Center (healed, items back, beaten members stay gone), Stone's scene and the Crown, vanilla 3F events off, Juan, two Hoopa rings, the new gossip beat. **Not played** |
 | Endgame part 1 | Harness scenario 20, **18/18 green**: Pyramid to Rustboro, every Brain fight, the cells, Scott's battle **lost on purpose** (outcome checked, no white-out, team healed, items back), the base, the Broker, a Hoopa trip, the ABRA. **Not played** |
 | Hoopa catching a legendary | Not run (the knock-out path was) |
@@ -111,6 +137,19 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 
 ## Loose ends
 
+- **`TEMP` Miraidon** on the ferry dock is back for the owner's playthrough
+  (commit "TEMP: test Miraidon back on the ferry dock"): point the dock
+  man's object in `BattleFrontier_OutsideWest/map.json` back at
+  `BattleFrontier_OutsideWest_EventScript_Man3` and delete the block at the
+  end of its `scripts.inc` before release.
+- **Unplayed endgame** (parts 1-5): see "Next" above.
+- **Free flags and vars** left from the endgame's reservations: 0x27E-0x27F,
+  0x280-0x287, 0x289-0x28F; `VAR_UNUSED_0x40F7`, `0x40F8`.
+- **The four admins** use grunt overworld sprites (they have none of their
+  own); Looker uses the Gentleman sprite at Sky Pillar.
+- **The old Battle Factory maps** and the rest of the vanilla story are still
+  in the ROM (the strip is still to do; the endgame's maps must survive it:
+  Rustboro, Devon Corp, Mauville, New Mauville, Sky Pillar, Island Cave).
 - **The ABRA arrivals were a dead end** (fixed in part 2): in the Pokémon
   Center layout, (13, 6) below the ABRA is boxed in by the table, so anyone
   arriving at the Frontier by ABRA could only teleport away. Arrivals are now
@@ -124,9 +163,8 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
   them after a playthrough, along with the teams' difficulty
   (`endgame-teams.md`, Open questions 2 and 3).
 
-- **`TEMP` Miraidon** on the ferry dock (commit `ad68c3ceb0`): revert before
-  release. The owner's save also still has the duplicate Landorus from the
-  old tag-battle bug.
+- The owner's save still has the duplicate Landorus from the old tag-battle
+  bug.
 - **Scott's battle sprite** (above).
 - **Tag battles** where the player picks three need `Multi Party: Half` on both
   opponents (`trainers.party`).
@@ -152,7 +190,11 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 
 ## The headless harness: `~/decomps/headless-harness/`
 
-- `harness.c`: scripted-input driver; `#define HARNESS_SCENARIO n`. 21
+- `harness.c`: scripted-input driver; `#define HARNESS_SCENARIO n`.
+  **`harness-part3.c`, `harness-part4.c`, `harness-part5.c`** are copies of
+  it with scenarios 22, 23 and 24 added (endgame parts 3-5; each was written
+  by a separate agent, so they live in their own files: use the file whose
+  scenario you want as `src/harness.c`). In `harness.c` itself: 21
   endgame part 2 (Rustboro, loses to Glacia once on purpose); 20
   endgame part 1 (Pyramid to Rustboro, loses Scott on purpose); 14 Wallace
   hidden/shown; 12-13 Wallace probes; 11 endgame towns; 10 Devon Factory; 9

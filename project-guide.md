@@ -79,7 +79,7 @@ which doesn't depend on any flag.)
 
 Each trainer's "defeated" flag is `TRAINER_FLAGS_START + id`. Past the limit
 it silently shares a **system flag** and is read as a battle partner, so the
-wrong team loads. A `STATIC_ASSERT` in `src/facility.c` guards it. **978 used.**
+wrong team loads. A `STATIC_ASSERT` in `src/facility.c` guards it. **986 used.**
 Don't raise the limit: it shifts every flag and SaveBlock1 field after it and
 breaks existing saves (the last raise already needed a New Game).
 

@@ -1,7 +1,9 @@
 # Endgame Teams — Brain Rematches and the Elite Four
 
-**Status: built.** The five Brain rematches (`TRAINER_FACTORY_*`) and the
-Elite Four (`TRAINER_DEVON_*`) are in `src/data/trainers.party`. Answers `storyline.md`,
+**Status: built.** The five Brain rematches (`TRAINER_FACTORY_*`), the
+Elite Four (`TRAINER_DEVON_*`), New Mauville (`TRAINER_NEW_MAUVILLE_*`) and
+Scott's final teams (`TRAINER_SKY_PILLAR_SCOTT_*`) are in
+`src/data/trainers.party`. Nothing is tuned by play yet. Answers `storyline.md`,
 "Still to decide" #2 (the Brains' upgraded teams) and #3 (the Elite Four's
 teams). Team sets are in Pokémon Showdown syntax, like the gauntlet docs.
 
