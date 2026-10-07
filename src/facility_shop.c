@@ -1113,6 +1113,63 @@ static const u16 sMonTierSizes[] =
     [FACILITY_SHOP_TIER_BUDGET]   = ARRAY_COUNT(sBudgetMons),
 };
 
+// GetSpeciesName() gives every form its base name ("Rotom" for all three
+// Rotoms), so the shop names the forms it sells itself, Showdown-style. A
+// default form keeps its plain name. Longest is Ursaluna-Bloodmoon (103 px),
+// which is why the Pokemon lists' box is wider (field_specials.c).
+static const struct
+{
+    u16 species;
+    const u8 *name;
+} sShopFormNames[] =
+{
+    { SPECIES_ARCANINE_HISUI,       COMPOUND_STRING("Arcanine-Hisui") },
+    { SPECIES_ARTICUNO_GALAR,       COMPOUND_STRING("Articuno-Galar") },
+    { SPECIES_DARMANITAN_GALAR,     COMPOUND_STRING("Darmanitan-Galar") },
+    { SPECIES_DEOXYS_ATTACK,        COMPOUND_STRING("Deoxys-Attack") },
+    { SPECIES_DEOXYS_DEFENSE,       COMPOUND_STRING("Deoxys-Defense") },
+    { SPECIES_DEOXYS_SPEED,         COMPOUND_STRING("Deoxys-Speed") },
+    { SPECIES_ENAMORUS_THERIAN,     COMPOUND_STRING("Enamorus-Therian") },
+    { SPECIES_FLOETTE_ETERNAL,      COMPOUND_STRING("Floette-Eternal") },
+    { SPECIES_GOODRA_HISUI,         COMPOUND_STRING("Goodra-Hisui") },
+    { SPECIES_INDEEDEE_F,           COMPOUND_STRING("Indeedee-F") },
+    { SPECIES_LANDORUS_THERIAN,     COMPOUND_STRING("Landorus-Therian") },
+    { SPECIES_MAROWAK_ALOLA,        COMPOUND_STRING("Marowak-Alola") },
+    { SPECIES_MOLTRES_GALAR,        COMPOUND_STRING("Moltres-Galar") },
+    { SPECIES_MUK_ALOLA,            COMPOUND_STRING("Muk-Alola") },
+    { SPECIES_NINETALES_ALOLA,      COMPOUND_STRING("Ninetales-Alola") },
+    { SPECIES_RAICHU_ALOLA,         COMPOUND_STRING("Raichu-Alola") },
+    { SPECIES_RAPIDASH_GALAR,       COMPOUND_STRING("Rapidash-Galar") },
+    { SPECIES_ROTOM_HEAT,           COMPOUND_STRING("Rotom-Heat") },
+    { SPECIES_ROTOM_MOW,            COMPOUND_STRING("Rotom-Mow") },
+    { SPECIES_ROTOM_WASH,           COMPOUND_STRING("Rotom-Wash") },
+    { SPECIES_SAMUROTT_HISUI,       COMPOUND_STRING("Samurott-Hisui") },
+    { SPECIES_SHAYMIN_SKY,          COMPOUND_STRING("Shaymin-Sky") },
+    { SPECIES_SLOWKING_GALAR,       COMPOUND_STRING("Slowking-Galar") },
+    { SPECIES_THUNDURUS_THERIAN,    COMPOUND_STRING("Thundurus-Therian") },
+    { SPECIES_TORNADUS_THERIAN,     COMPOUND_STRING("Tornadus-Therian") },
+    { SPECIES_TYPHLOSION_HISUI,     COMPOUND_STRING("Typhlosion-Hisui") },
+    { SPECIES_URSALUNA_BLOODMOON,   COMPOUND_STRING("Ursaluna-Bloodmoon") },
+    // Both Urshifu are named: neither reads as "the normal one". Showdown's
+    // full names don't fit the box.
+    { SPECIES_URSHIFU_RAPID_STRIKE, COMPOUND_STRING("Urshifu-Rapid") },
+    { SPECIES_URSHIFU_SINGLE_STRIKE, COMPOUND_STRING("Urshifu-Single") },
+    { SPECIES_WEEZING_GALAR,        COMPOUND_STRING("Weezing-Galar") },
+    { SPECIES_ZAPDOS_GALAR,         COMPOUND_STRING("Zapdos-Galar") },
+    { SPECIES_ZOROARK_HISUI,        COMPOUND_STRING("Zoroark-Hisui") },
+};
+
+static const u8 *GetShopMonName(u16 species)
+{
+    u32 i;
+    for (i = 0; i < ARRAY_COUNT(sShopFormNames); i++)
+    {
+        if (sShopFormNames[i].species == species)
+            return sShopFormNames[i].name;
+    }
+    return GetSpeciesName(species);
+}
+
 // Above the default (index 0, primary) ability, a handful of these mons are
 // on the list specifically *because* of a non-default ability - selling the
 // default would quietly break the reason they're here. Named exceptions per
@@ -1392,7 +1449,7 @@ static u16 StageMonTier(u8 tier, u8 typeFilter)
             continue;
         sMenuRows[count].id = pool[i].species;
         sMenuRows[count].price = ShopPrice(pool[i].price);
-        sMenuRows[count].name = GetSpeciesName(pool[i].species);
+        sMenuRows[count].name = GetShopMonName(pool[i].species);
         sMenuRows[count].description = NULL;
         count++;
     }
@@ -1772,7 +1829,7 @@ void FacilityShopSellMonPrompt(void)
         return;
     }
 
-    StringCopy(gStringVar1, GetSpeciesName(species));
+    StringCopy(gStringVar1, GetShopMonName(species));
     gSpecialVar_0x8008 = price / 2;
     gSpecialVar_Result = SELL_MON_OK;
 }
@@ -2028,7 +2085,7 @@ void FacilityBrokerBuildMonMenu(void)
     {
         sMenuRows[i].id = candidates[picked[i]]->species;
         sMenuRows[i].price = BrokerPrice(candidates[picked[i]]->price);
-        sMenuRows[i].name = GetSpeciesName(candidates[picked[i]]->species);
+        sMenuRows[i].name = GetShopMonName(candidates[picked[i]]->species);
         sMenuRows[i].description = NULL;
     }
 }
@@ -2136,7 +2193,7 @@ void FacilityTraderTrade(void)
         AddBagItem(item, 1);
     GetMonData(mon, MON_DATA_NICKNAME, gStringVar1);
     StringGet_Nickname(gStringVar1);
-    StringCopy(gStringVar2, GetSpeciesName(species));
+    StringCopy(gStringVar2, GetShopMonName(species));
     CreateShopMon(mon, species);
     gSpecialVar_Result = species;
 }

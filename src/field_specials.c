@@ -2697,7 +2697,16 @@ static void Task_ShowScrollableMultichoice(u8 taskId)
     // FacilityShopPrintPriceInList below) at a fixed offset past the widest
     // reasonable name, so it keeps its geometry from ShowScrollableMultichoice
     // instead of shrinking to whatever the names alone measure out to.
-    if (task->tScrollMultiId != SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC)
+    // Lists without the description box (the Pokemon lists, the Broker's)
+    // stretch three tiles left into its space, for the shop's form names
+    // ("Ursaluna-Bloodmoon"). Tile 9 is as far as it goes before touching
+    // the FP window.
+    if (task->tScrollMultiId == SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC && !FacilityShopMenuHasDescriptions())
+    {
+        task->tLeft = 9;
+        task->tWidth = 20;
+    }
+    else if (task->tScrollMultiId != SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC)
     {
         task->tWidth = ConvertPixelWidthToTileWidth(width);
 
@@ -2785,7 +2794,7 @@ static void FacilityShopPrintPriceInList(u8 windowId, u32 id, u8 y)
         return;
 
     StringCopy(ConvertIntToDecimalStringN(string, price, STR_CONV_MODE_LEFT_ALIGN, 4), sText_FacilityShopPriceSuffix);
-    x = GetStringRightAlignXOffset(FONT_NORMAL, string, 128);
+    x = GetStringRightAlignXOffset(FONT_NORMAL, string, GetWindowAttribute(windowId, WINDOW_WIDTH) * 8 - 8);
     AddTextPrinterParameterized(windowId, FONT_NORMAL, string, x, y, TEXT_SKIP_DRAW, NULL);
 }
 
