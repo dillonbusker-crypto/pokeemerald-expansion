@@ -416,8 +416,10 @@ void StripBirchsLab(void)
 // (FLAG_STEVEN_HAS_LATIOS says which), holding its Mega Stone. It's the one
 // caught wild in Artisan Cave, so it keeps that met location - the one
 // Pokemon without a chip (IsFrontierChippedMon) - and the Broker's MASTER
-// BALL it was caught in. The original was released from the party when
-// STEVEN took it, so this builds a fresh one. VAR_RESULT = MON_GIVEN_TO_*.
+// BALL it was caught in - and shiny, as both Lati in the cave are
+// (P_FLAG_FORCE_SHINY, ArtisanCave_B1F). The original was released from the
+// party when STEVEN took it, so this builds a fresh one.
+// VAR_RESULT = MON_GIVEN_TO_*.
 void GiveStevenLatiBack(void)
 {
     struct Pokemon mon;
@@ -426,11 +428,13 @@ void GiveStevenLatiBack(void)
     u16 item = latios ? ITEM_LATIOSITE : ITEM_LATIASITE;
     u8 metLocation = MAPSEC_ARTISAN_CAVE;
     u8 ball = BALL_MASTER;
+    bool8 shiny = TRUE;
 
     CreateRandomMon(&mon, species, 50);
     SetMonData(&mon, MON_DATA_HELD_ITEM, &item);
     SetMonData(&mon, MON_DATA_MET_LOCATION, &metLocation);
     SetMonData(&mon, MON_DATA_POKEBALL, &ball);
+    SetMonData(&mon, MON_DATA_IS_SHINY, &shiny);
     gSpecialVar_Result = GiveScriptedMonToPlayer(&mon, PARTY_SIZE);
 }
 
