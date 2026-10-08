@@ -63,7 +63,18 @@ RustboroCity_PokemonSchool_EventScript_RichBoy::
 	end
 
 RustboroCity_PokemonSchool_EventScript_Lass::
+	checktrainerflag TRAINER_ENDGAME_ROXANNE
+	goto_if FALSE, RustboroCity_PokemonSchool_EventScript_LassOld
+	goto_if_set FLAG_GIRATINA_CAUGHT, RustboroCity_PokemonSchool_EventScript_LassTearClosed
+	msgbox RustboroCity_PokemonSchool_Text_LassTear, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_LassOld::
 	msgbox RustboroCity_PokemonSchool_Text_ConfusedPokemonAttacksItself, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_LassTearClosed::
+	msgbox RustboroCity_PokemonSchool_Text_LassTearClosed, MSGBOX_NPC
 	end
 
 RustboroCity_PokemonSchool_EventScript_SchoolKidM::
@@ -349,3 +360,19 @@ RustboroCity_PokemonSchool_Text_ScottMetAlreadyStoneBadge:
 	.string "It's hard to tell what you're like as\n"
 	.string "a TRAINER from a LEAGUE BADGE.$"
 
+
+@ Ten Gauntlets: "The Tear" (sprint-a-giratina.md). The lass after ROXANNE's
+@ rematch, then once GIRATINA is caught.
+RustboroCity_PokemonSchool_Text_LassTear:
+	.string "My big brother says RUSTURF TUNNEL\n"
+	.string "goes upward now.\p"
+	.string "It runs under a mountain! A tunnel\n"
+	.string "can't go up and still come out the\l"
+	.string "other side.\p"
+	.string "He says he isn't joking. He looked\n"
+	.string "a little green.$"
+
+RustboroCity_PokemonSchool_Text_LassTearClosed:
+	.string "My brother says RUSTURF TUNNEL goes\n"
+	.string "down again, like a tunnel should.\p"
+	.string "He seems a little disappointed.$"

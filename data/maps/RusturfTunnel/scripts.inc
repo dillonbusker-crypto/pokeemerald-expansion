@@ -1,15 +1,27 @@
 RusturfTunnel_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, RusturfTunnel_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, RusturfTunnel_OnFrame
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, RusturfTunnel_OnWarp
 	.byte 0
 
+RusturfTunnel_OnWarp:
+	map_script_2 VAR_TEMP_4, 0, RusturfTunnel_EventScript_FaceNorth
+	.2byte 0
+
+RusturfTunnel_EventScript_FaceNorth::
+	setvar VAR_TEMP_4, 1
+	turnobject LOCALID_PLAYER, DIR_NORTH
+	end
+
 RusturfTunnel_OnFrame:
+	map_script_2 VAR_GIRATINA_EVENT, 1, RusturfTunnel_EventScript_FirstEntry
 	map_script_2 VAR_RUSTURF_TUNNEL_STATE, 4, RusturfTunnel_EventScript_ClearTunnelScene
 	map_script_2 VAR_RUSTURF_TUNNEL_STATE, 5, RusturfTunnel_EventScript_ClearTunnelScene
 	.2byte 0
 
 RusturfTunnel_OnTransition:
 	call_if_eq VAR_RUSTURF_TUNNEL_STATE, 2, RusturfTunnel_EventScript_SetAquaGruntAndPeekoPos
+	call_if_ge VAR_ENDGAME_STATE, 10, RusturfTunnel_EventScript_SetupEndgame
 	end
 
 RusturfTunnel_EventScript_SetAquaGruntAndPeekoPos::
@@ -525,3 +537,209 @@ RusturfTunnel_Text_MikePostBattle:
 	.string "protect POKéMON, right?\l"
 	.string "There's a feel-good story!$"
 
+
+@ Endgame setup: the vanilla people and rocks stay hidden (most are already
+@ hidden from New Game; the two rocks and Hiker Mike are not), the exits all lead
+@ to RUSTBORO, no fog over the dark, and the tunnel is dark until GIRATINA is
+@ caught.
+RusturfTunnel_EventScript_SetupEndgame::
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_WANDA
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_WANDAS_BOYFRIEND
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_AQUA_GRUNT
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_PEEKO
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_BRINEY
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_ROCK_1
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_ROCK_2
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_MIKE
+	setdynamicwarp MAP_RUSTBORO_CITY, 31, 9
+	setweather WEATHER_NONE
+	goto_if_set FLAG_GIRATINA_CAUGHT, Common_EventScript_NopReturn
+	setflashlevel 2
+	return
+
+RusturfTunnel_EventScript_FirstEntry::
+	lockall
+	msgbox RusturfTunnel_Text_Enter, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 2
+	releaseall
+	end
+
+RusturfTunnel_EventScript_Shadow::
+	lockall
+	msgbox RusturfTunnel_Text_Shadow, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 3
+	releaseall
+	end
+
+RusturfTunnel_EventScript_Prints::
+	lockall
+	msgbox RusturfTunnel_Text_Prints, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 4
+	releaseall
+	end
+
+RusturfTunnel_EventScript_Writing::
+	lockall
+	msgbox RusturfTunnel_Text_Writing, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 5
+	releaseall
+	end
+
+RusturfTunnel_EventScript_Sighting::
+	lockall
+	playmoncry SPECIES_GIRATINA, CRY_MODE_ENCOUNTER
+	waitmoncry
+	msgbox RusturfTunnel_Text_Sighting, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 6
+	releaseall
+	end
+
+@ GIRATINA. Checked before the fight, so there is always room for the
+@ GRISEOUS CORE. Anything but a catch leaves it here to try again.
+RusturfTunnel_EventScript_Giratina::
+	lock
+	faceplayer
+	checkitemspace ITEM_GRISEOUS_CORE
+	goto_if_eq VAR_RESULT, FALSE, RusturfTunnel_EventScript_GiratinaBagFull
+	goto_if_ge VAR_GIRATINA_EVENT, 7, RusturfTunnel_EventScript_GiratinaAgain
+	msgbox RusturfTunnel_Text_GiratinaFirst, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 7
+	goto RusturfTunnel_EventScript_GiratinaBattle
+
+RusturfTunnel_EventScript_GiratinaAgain::
+	msgbox RusturfTunnel_Text_GiratinaAgain, MSGBOX_DEFAULT
+RusturfTunnel_EventScript_GiratinaBattle::
+	closemessage
+	playmoncry SPECIES_GIRATINA, CRY_MODE_ENCOUNTER
+	waitmoncry
+	setwildbattle SPECIES_GIRATINA, 60
+	dowildbattle
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, RusturfTunnel_EventScript_GiratinaCaught
+	msgbox RusturfTunnel_Text_GiratinaStays, MSGBOX_DEFAULT
+	release
+	end
+
+RusturfTunnel_EventScript_GiratinaCaught::
+	setflag FLAG_GIRATINA_CAUGHT
+	setvar VAR_GIRATINA_EVENT, 8
+	removeobject LOCALID_RUSTURF_TUNNEL_GIRATINA
+	animateflash 0
+	setflashlevel 0
+	msgbox RusturfTunnel_Text_Caught, MSGBOX_DEFAULT
+	giveitem ITEM_GRISEOUS_CORE
+	msgbox RusturfTunnel_Text_Core, MSGBOX_DEFAULT
+	release
+	end
+
+RusturfTunnel_EventScript_GiratinaBagFull::
+	msgbox RusturfTunnel_Text_BagFull, MSGBOX_DEFAULT
+	release
+	end
+
+@ ============================================================================
+@ Ten Gauntlets: "The Tear" (sprint-a-giratina.md). After ROXANNE's rematch, the
+@ DEVON 3F scientist leads the player here; GIRATINA waits in the last chamber.
+@ VAR_GIRATINA_EVENT (0x40F9), forward only:
+@   0 nothing yet     1 briefed by the scientist   2 entered once (Text_Enter)
+@   3 shadow seen     4 footprints seen            5 writing seen
+@   6 GIRATINA sighted  7 fought, not caught       8 caught, GRISEOUS CORE given
+@ FLAG_GIRATINA_CAUGHT is set with 8 and hides GIRATINA's object. The tunnel is
+@ dark (setflashlevel 2) until then; every exit is a dynamic warp to RUSTBORO.
+@ ============================================================================
+
+RusturfTunnel_Text_Enter:
+	.string "The scientist stopped at the first\n"
+	.string "bend and raised his lamp. It\l"
+	.string "guttered out. His instruments went\l"
+	.string "dead a moment later.\p"
+	.string "“This is as far as I go,” he said.\n"
+	.string "“Follow the tunnel east. Any way\l"
+	.string "out will bring you back under\l"
+	.string "RUSTBORO. Don't ask me how.”\p"
+	.string "Then his footsteps were gone, and\n"
+	.string "{PLAYER} was alone in the dark.\p"
+	.string "Somewhere ahead, something was\n"
+	.string "breathing, slowly.$"
+
+RusturfTunnel_Text_Shadow:
+	.string "{PLAYER}'s shadow didn't fall\n"
+	.string "behind. It stretched ahead, long\l"
+	.string "and thin, as if it knew the way.\p"
+	.string "When {PLAYER} stopped, it took one\n"
+	.string "more step.$"
+
+RusturfTunnel_Text_Prints:
+	.string "There were footprints in the dust.\n"
+	.string "Small, fresh, the same tread as\l"
+	.string "{PLAYER}'s own boots.\p"
+	.string "They led the way {PLAYER} was\n"
+	.string "going. And they looked newer the\l"
+	.string "farther they went.$"
+
+RusturfTunnel_Text_Writing:
+	.string "Something was scratched into the\n"
+	.string "rock, about eye height:\p"
+	.string "“.KCAB OG”\p"
+	.string "The letters were cut from right to\n"
+	.string "left. The scratches were still\l"
+	.string "bright.$"
+
+RusturfTunnel_Text_Sighting:
+	.string "The tunnel opened into a narrow\n"
+	.string "chamber. The dark was thicker here.\p"
+	.string "Above the floor, where nothing\n"
+	.string "should hang, something did: long\l"
+	.string "and black, with golden spikes\l"
+	.string "folded like broken wings.\p"
+	.string "It cast no shadow. The stone\n"
+	.string "around it was bent, like a glass\l"
+	.string "seen through water.\p"
+	.string "One red eye opened.$"
+
+RusturfTunnel_Text_GiratinaFirst:
+	.string "GIRATINA's eye held {PLAYER}.\n"
+	.string "The walls flexed like skin.\p"
+	.string "A voice with no sound filled the\n"
+	.string "chamber.\p"
+	.string "GIRATINA: …Another hand… in my\n"
+	.string "world…\p"
+	.string "Every door you tear lets my dark\n"
+	.string "leak out.\p"
+	.string "I was cast out once. I will not be\n"
+	.string "cast out again.$"
+
+RusturfTunnel_Text_GiratinaAgain:
+	.string "GIRATINA hung where it had been,\n"
+	.string "its red eye fixed on {PLAYER}.\p"
+	.string "The tear hadn't closed. The dark\n"
+	.string "still leaked out of it, cold.$"
+
+RusturfTunnel_Text_GiratinaStays:
+	.string "GIRATINA didn't follow. The dark\n"
+	.string "folded around it and went still.\p"
+	.string "It hadn't left. The tear hadn't\n"
+	.string "closed.$"
+
+RusturfTunnel_Text_BagFull:
+	.string "GIRATINA waited in the dark. But\n"
+	.string "{PLAYER}'s BAG was full.\p"
+	.string "Whatever it left behind would need\n"
+	.string "room. Better to make some first.$"
+
+RusturfTunnel_Text_Caught:
+	.string "The ball clicked shut.\p"
+	.string "The dark let go of the chamber all\n"
+	.string "at once. The walls stopped\l"
+	.string "breathing.\p"
+	.string "The tunnel brightened, and it was\n"
+	.string "only a tunnel again.\p"
+	.string "Something small rolled across the\n"
+	.string "floor to {PLAYER}'s feet.$"
+
+RusturfTunnel_Text_Core:
+	.string "The GRISEOUS CORE was warm. It\n"
+	.string "hummed, the way GIRATINA's cry had.\p"
+	.string "Held by GIRATINA, it would remember\n"
+	.string "the world behind the world, the one\l"
+	.string "it was born in.$"

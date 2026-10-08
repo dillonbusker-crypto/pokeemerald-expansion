@@ -468,7 +468,50 @@ RustboroCity_DevonCorp_3F_EventScript_Steven::
 	end
 
 RustboroCity_DevonCorp_3F_EventScript_Scientist::
-	msgbox RustboroCity_DevonCorp_3F_Text_ScientistAfter, MSGBOX_NPC
+	lock
+	faceplayer
+	checktrainerflag TRAINER_ENDGAME_ROXANNE
+	goto_if FALSE, RustboroCity_DevonCorp_3F_EventScript_ScientistCrown
+	goto_if_set FLAG_GIRATINA_CAUGHT, RustboroCity_DevonCorp_3F_EventScript_ScientistTearClosed
+	goto_if_ge VAR_GIRATINA_EVENT, 1, RustboroCity_DevonCorp_3F_EventScript_ScientistTearAgain
+	msgbox RustboroCity_DevonCorp_3F_Text_TearBrief1, MSGBOX_DEFAULT
+	msgbox RustboroCity_DevonCorp_3F_Text_TearBrief2, MSGBOX_DEFAULT
+	msgbox RustboroCity_DevonCorp_3F_Text_TearBrief3, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 1
+	msgbox RustboroCity_DevonCorp_3F_Text_TearAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, RustboroCity_DevonCorp_3F_EventScript_ScientistTearNotYet
+	goto RustboroCity_DevonCorp_3F_EventScript_ScientistTearLead
+
+@ Before ROXANNE's rematch (and the old line forever after for the CROWN).
+RustboroCity_DevonCorp_3F_EventScript_ScientistCrown::
+	msgbox RustboroCity_DevonCorp_3F_Text_ScientistAfter, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_DevonCorp_3F_EventScript_ScientistTearAgain::
+	msgbox RustboroCity_DevonCorp_3F_Text_TearAskAgain, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, RustboroCity_DevonCorp_3F_EventScript_ScientistTearNotYet
+	goto RustboroCity_DevonCorp_3F_EventScript_ScientistTearLead
+
+RustboroCity_DevonCorp_3F_EventScript_ScientistTearNotYet::
+	msgbox RustboroCity_DevonCorp_3F_Text_TearNotYet, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_DevonCorp_3F_EventScript_ScientistTearClosed::
+	msgbox RustboroCity_DevonCorp_3F_Text_TearClosed, MSGBOX_DEFAULT
+	release
+	end
+
+@ Same pattern as WATTSON leading the player to NEW MAUVILLE.
+RustboroCity_DevonCorp_3F_EventScript_ScientistTearLead::
+	closemessage
+	fadescreen FADE_TO_BLACK
+	msgbox RustboroCity_DevonCorp_3F_Text_TearLed, MSGBOX_DEFAULT
+	closemessage
+	warp MAP_RUSTURF_TUNNEL, 4, 9
+	waitstate
+	releaseall
 	end
 
 RustboroCity_DevonCorp_3F_Text_Stone1:
@@ -554,3 +597,63 @@ RustboroCity_DevonCorp_3F_Text_ScientistAfter:
 	.string "Charge the CROWN from the chips at\n"
 	.string "the FRONTIER. After that, it can make\l"
 	.string "a MEGA EVOLUTION last.$"
+
+@ ============================================================================
+@ Ten Gauntlets: "The Tear" (sprint-a-giratina.md). After ROXANNE's rematch the
+@ scientist briefs the player and offers to lead them to RUSTURF TUNNEL.
+@ ============================================================================
+
+RustboroCity_DevonCorp_3F_Text_TearBrief1:
+	.string "{PLAYER}, good. You need to see\n"
+	.string "these readings.\p"
+	.string "Every ring HOOPA opens leaves a\n"
+	.string "scar in space. The FACTORY blast\l"
+	.string "left a bigger one.\p"
+	.string "They should have healed by now.\n"
+	.string "They haven't. They're growing.$"
+
+RustboroCity_DevonCorp_3F_Text_TearBrief2:
+	.string "The needles all lean the same way:\n"
+	.string "east, toward RUSTURF TUNNEL.\p"
+	.string "ROXANNE says the stone under it\n"
+	.string "rings wrong, too. Two instruments\l"
+	.string "that never met, agreeing.\p"
+	.string "Something has come through the tear\n"
+	.string "there. Something large, and still.$"
+
+RustboroCity_DevonCorp_3F_Text_TearBrief3:
+	.string "RUSTBORO's gates are sealed, but\n"
+	.string "DEVON keeps a service shaft under\l"
+	.string "the plant. It comes out in that\l"
+	.string "tunnel.\p"
+	.string "I can take you as far as the first\n"
+	.string "bend, and no farther.$"
+
+RustboroCity_DevonCorp_3F_Text_TearAsk:
+	.string "Shall I take you to RUSTURF\n"
+	.string "TUNNEL?$"
+
+RustboroCity_DevonCorp_3F_Text_TearAskAgain:
+	.string "The needles are still leaning east.\p"
+	.string "Shall I take you to RUSTURF\n"
+	.string "TUNNEL?$"
+
+RustboroCity_DevonCorp_3F_Text_TearNotYet:
+	.string "Of course. Come back when you're\n"
+	.string "ready. The needles aren't going\l"
+	.string "anywhere.$"
+
+RustboroCity_DevonCorp_3F_Text_TearLed:
+	.string "The scientist led {PLAYER} down a\n"
+	.string "service shaft that was on no map.\p"
+	.string "It ended in raw stone: RUSTURF\n"
+	.string "TUNNEL.$"
+
+RustboroCity_DevonCorp_3F_Text_TearClosed:
+	.string "The needles went still all at once,\n"
+	.string "about the time that tunnel stopped\l"
+	.string "being strange.\p"
+	.string "Whatever was in there, it's yours\n"
+	.string "now. Keep that CORE close.\p"
+	.string "I'd give a year's salary to read\n"
+	.string "what it does to a POKéMON.$"

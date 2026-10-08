@@ -32,7 +32,18 @@ RustboroCity_PokemonCenter_1F_EventScript_Boy::
 	end
 
 RustboroCity_PokemonCenter_1F_EventScript_Girl::
+	checktrainerflag TRAINER_ENDGAME_ROXANNE
+	goto_if FALSE, RustboroCity_PokemonCenter_1F_EventScript_GirlOld
+	goto_if_set FLAG_GIRATINA_CAUGHT, RustboroCity_PokemonCenter_1F_EventScript_GirlTearClosed
+	msgbox RustboroCity_PokemonCenter_1F_Text_GirlTear, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonCenter_1F_EventScript_GirlOld::
 	msgbox RustboroCity_PokemonCenter_1F_Text_HMCutNextDoor, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonCenter_1F_EventScript_GirlTearClosed::
+	msgbox RustboroCity_PokemonCenter_1F_Text_GirlTearClosed, MSGBOX_NPC
 	end
 
 RustboroCity_PokemonCenter_1F_Text_PokemonHavePersonalities:
@@ -52,3 +63,18 @@ RustboroCity_PokemonCenter_1F_Text_HMCutNextDoor:
 	.string "I used it to teach my POKéMON how to\n"
 	.string "CUT down skinny trees.$"
 
+
+@ Ten Gauntlets: "The Tear" (sprint-a-giratina.md). The girl after ROXANNE's
+@ rematch, then once GIRATINA is caught (FLAG_GIRATINA_CAUGHT).
+RustboroCity_PokemonCenter_1F_Text_GirlTear:
+	.string "My shadow was on the wrong side of\n"
+	.string "me this morning. It pointed at the\l"
+	.string "lamp instead of away from it.\p"
+	.string "The floor tiles in here don't match\n"
+	.string "the lights, either. Is that normal?$"
+
+RustboroCity_PokemonCenter_1F_Text_GirlTearClosed:
+	.string "My shadow behaves again!\p"
+	.string "I almost miss it. It was the most\n"
+	.string "interesting thing that ever\l"
+	.string "happened to me.$"
