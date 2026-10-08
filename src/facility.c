@@ -631,7 +631,8 @@ bool32 IsFrontierChippedMon(struct Pokemon *mon)
 
     if (FlagGet(FLAG_FRONTIER_CHIPS_OFF))
         return FALSE;
-    return metLocation != MAPSEC_ARTISAN_CAVE && metLocation != MAPSEC_ISLAND_CAVE;
+    return metLocation != MAPSEC_ARTISAN_CAVE && metLocation != MAPSEC_ISLAND_CAVE
+        && metLocation != MAPSEC_RUSTURF_TUNNEL;
 }
 
 // How many permanent Megas the REPLICA CROWN can hold in the party at once
