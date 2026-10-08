@@ -19,6 +19,7 @@ MauvilleCity_OnTransition:
 	setvar VAR_MAUVILLE_GYM_STATE, 0
 	call_if_set FLAG_GOT_TM_THUNDERBOLT_FROM_WATTSON, MauvilleCity_EventScript_MoveWattsonBackToGym
 	call MauvilleCity_EventScript_SetupEndgame
+	call MauvilleCity_EventScript_SetupCalyrex
 	end
 
 MauvilleCity_OnFrame:
@@ -953,3 +954,301 @@ MauvilleCity_Text_CenterWattson3:
 	.string "off. I'll stay and mind the town.\p"
 	.string "Go on, {PLAYER}. The ABRA's by the\n"
 	.string "POKéMON CENTER.$"
+
+@ ============================================================================
+@ Ten Gauntlets: CALYREX, "The True King" (sprint-b-calyrex.md).
+@ VAR_CALYREX_EVENT: 0 nothing, 1 the old man's legend heard, 2 the statue
+@ restored, 3 CALYREX has asked for a steed, 4 caught. Gated on the GYM
+@ rematch (TRAINER_ENDGAME_WATTSON). FLAG_TEMP_6 rubble, 7 statue, 8 CALYREX.
+@ ============================================================================
+
+MauvilleCity_EventScript_SetupCalyrex::
+	setflag FLAG_TEMP_6
+	setflag FLAG_TEMP_7
+	setflag FLAG_TEMP_8
+	goto_if_lt VAR_ENDGAME_STATE, 15, Common_EventScript_NopReturn
+	goto_if_ge VAR_CALYREX_EVENT, 2, MauvilleCity_EventScript_ShowRestoredStatue
+	clearflag FLAG_TEMP_6
+	return
+
+MauvilleCity_EventScript_ShowRestoredStatue::
+	clearflag FLAG_TEMP_7
+	call_if_lt VAR_CALYREX_EVENT, 4, MauvilleCity_EventScript_ShowCalyrex
+	return
+
+MauvilleCity_EventScript_ShowCalyrex::
+	clearflag FLAG_TEMP_8
+	return
+
+@ The rubble. Not beaten WATTSON: nothing. Beaten: a hint, and once the legend
+@ is heard (state 1) the restoration.
+MauvilleCity_EventScript_StatueRubble::
+	lockall
+	goto_if_not_defeated TRAINER_ENDGAME_WATTSON, MauvilleCity_EventScript_RubbleBare
+	goto_if_eq VAR_CALYREX_EVENT, 1, MauvilleCity_EventScript_RestoreStatue
+	msgbox MauvilleCity_Text_RubbleCracked, MSGBOX_DEFAULT
+	releaseall
+	end
+
+MauvilleCity_EventScript_RubbleBare::
+	msgbox MauvilleCity_Text_RubbleBare, MSGBOX_DEFAULT
+	releaseall
+	end
+
+MauvilleCity_EventScript_RestoreStatue::
+	msgbox MauvilleCity_Text_RestorePrompt, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_RestoreLater
+	msgbox MauvilleCity_Text_StatueMends, MSGBOX_DEFAULT
+	closemessage
+	playse SE_M_TELEPORT
+	fadescreen FADE_TO_WHITE
+	removeobject LOCALID_MAUVILLE_STATUE_RUBBLE
+	@ addobject leaves the hide flag set, and a set flag stops the object
+	@ respawning when it scrolls back into view: clear it first.
+	clearflag FLAG_TEMP_7
+	addobject LOCALID_MAUVILLE_STATUE
+	setflag FLAG_MAUVILLE_STATUE_RESTORED
+	setvar VAR_CALYREX_EVENT, 2
+	fadescreen FADE_FROM_WHITE
+	delay 30
+	msgbox MauvilleCity_Text_WindRises, MSGBOX_DEFAULT
+	closemessage
+	fadescreen FADE_TO_WHITE
+	clearflag FLAG_TEMP_8
+	addobject LOCALID_MAUVILLE_CALYREX
+	fadescreen FADE_FROM_WHITE
+	applymovement LOCALID_MAUVILLE_CALYREX, Common_Movement_FacePlayer
+	waitmovement 0
+	playmoncry SPECIES_CALYREX, CRY_MODE_ENCOUNTER
+	waitmoncry
+	msgbox MauvilleCity_Text_CalyrexAppears, MSGBOX_DEFAULT
+	goto MauvilleCity_EventScript_CalyrexSpeaks
+	end
+
+MauvilleCity_EventScript_RestoreLater::
+	msgbox MauvilleCity_Text_RestoreLater, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ The restored statue, in every state from 2 on.
+MauvilleCity_EventScript_StatueWhole::
+	lockall
+	msgbox MauvilleCity_Text_StatueWhole, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ CALYREX. State 2: its first words (a reset mid-scene lands here). State 3:
+@ the steed check.
+MauvilleCity_EventScript_Calyrex::
+	lock
+	faceplayer
+	goto_if_eq VAR_CALYREX_EVENT, 2, MauvilleCity_EventScript_CalyrexSpeaks
+	goto MauvilleCity_EventScript_CalyrexSteedCheck
+	end
+
+MauvilleCity_EventScript_CalyrexSpeaks::
+	msgbox MauvilleCity_Text_CalyrexVoice, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_CalyrexCrown1, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_CalyrexCrown2, MSGBOX_DEFAULT
+	setvar VAR_CALYREX_EVENT, 3
+	msgbox MauvilleCity_Text_CalyrexSteed, MSGBOX_DEFAULT
+	goto MauvilleCity_EventScript_CalyrexSteedCheck
+	end
+
+MauvilleCity_EventScript_CalyrexSteedCheck::
+	checkspecies SPECIES_GLASTRIER
+	goto_if_eq VAR_RESULT, TRUE, MauvilleCity_EventScript_CalyrexHasSteed
+	checkspecies SPECIES_SPECTRIER
+	goto_if_eq VAR_RESULT, TRUE, MauvilleCity_EventScript_CalyrexHasSteed
+	msgbox MauvilleCity_Text_CalyrexNoSteed, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_CalyrexHasSteed::
+	msgbox MauvilleCity_Text_CalyrexSees, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_CalyrexReady, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_CalyrexWaits
+	@ Checked before the fight, so the REINS always fit.
+	checkitemspace ITEM_REINS_OF_UNITY
+	goto_if_eq VAR_RESULT, FALSE, MauvilleCity_EventScript_CalyrexBagFull
+	closemessage
+	playmoncry SPECIES_CALYREX, CRY_MODE_ENCOUNTER
+	waitmoncry
+	setwildbattle SPECIES_CALYREX, 60
+	dowildbattle
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, MauvilleCity_EventScript_CalyrexCaught
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, MauvilleCity_EventScript_CalyrexStands
+	msgbox MauvilleCity_Text_CalyrexRan, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_CalyrexWaits::
+	msgbox MauvilleCity_Text_CalyrexWaits, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_CalyrexBagFull::
+	msgbox MauvilleCity_Text_CalyrexBagFull, MSGBOX_DEFAULT
+	release
+	end
+
+@ Knocked out: it stays, at full strength next time. Same for a run.
+MauvilleCity_EventScript_CalyrexStands::
+	msgbox MauvilleCity_Text_CalyrexStands, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_CalyrexCaught::
+	setflag FLAG_CALYREX_CAUGHT
+	setvar VAR_CALYREX_EVENT, 4
+	fadescreen FADE_TO_WHITE
+	removeobject LOCALID_MAUVILLE_CALYREX
+	fadescreen FADE_FROM_WHITE
+	msgbox MauvilleCity_Text_CalyrexCaught, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_CalyrexThanks, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_CalyrexReins, MSGBOX_DEFAULT
+	giveitem ITEM_REINS_OF_UNITY
+	msgbox MauvilleCity_Text_CalyrexReinsHow, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_StatueBlooms, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_Text_RubbleBare:
+	.string "A heap of broken stone lies in the\n"
+	.string "grass, scorched and trampled.$"
+
+MauvilleCity_Text_RubbleCracked:
+	.string "A statue lies in pieces in the grass.\n"
+	.string "Its crown is cracked clean through.\p"
+	.string "Whoever he was, he was somebody\n"
+	.string "once. Someone in town might\l"
+	.string "remember.$"
+
+MauvilleCity_Text_RestorePrompt:
+	.string "The broken crown has a clean seam,\n"
+	.string "as if it were waiting for a mate.\p"
+	.string "Hold the REPLICA CROWN to the break?$"
+
+MauvilleCity_Text_RestoreLater:
+	.string "{PLAYER} lowered the CROWN. The\n"
+	.string "stone lay still.$"
+
+MauvilleCity_Text_StatueMends:
+	.string "{PLAYER} held the REPLICA CROWN to\n"
+	.string "the break in the stone.\p"
+	.string "Its light ran into the crack like\n"
+	.string "rain into a dry field.\p"
+	.string "The pieces ground together. The\n"
+	.string "crown closed, and the statue stood\l"
+	.string "whole.$"
+
+MauvilleCity_Text_WindRises:
+	.string "A warm wind crossed the lawn,\n"
+	.string "though the air had been still.$"
+
+MauvilleCity_Text_CalyrexAppears:
+	.string "At the statue's side, where there\n"
+	.string "had been nothing, a small king\l"
+	.string "stood. CALYREX.$"
+
+MauvilleCity_Text_CalyrexVoice:
+	.string "A voice settled into {PLAYER}'s\n"
+	.string "mind, soft and old. It had no\l"
+	.string "mouth to speak it.\p"
+	.string "“I felt my likeness mend. Someone\n"
+	.string "remembered me, after so many\l"
+	.string "seasons.”$"
+
+MauvilleCity_Text_CalyrexCrown1:
+	.string "“You carry a crown.”\p"
+	.string "“No. Look closer, and it is not.”\p"
+	.string "“That is no crown. It is a chain.”$"
+
+MauvilleCity_Text_CalyrexCrown2:
+	.string "“Thousands of bonds are wound into\n"
+	.string "it. None were given. All were\l"
+	.string "taken.\p"
+	.string "“It lent its light to mend my\n"
+	.string "stone, and for that I thank you.\p"
+	.string "“But a crown is a weight carried\n"
+	.string "for others. A chain only binds.”$"
+
+MauvilleCity_Text_CalyrexSteed:
+	.string "“I am faint. The harvest forgot me,\n"
+	.string "and I forgot how to rise.\p"
+	.string "“A king does not walk alone. Show\n"
+	.string "me the steed you trust: the white\l"
+	.string "steed of frost, or the dark steed\l"
+	.string "of shade.”$"
+
+MauvilleCity_Text_CalyrexNoSteed:
+	.string "“You have no steed with you.\n"
+	.string "Without one, I cannot rise, and\l"
+	.string "you cannot be measured.\p"
+	.string "“The old teller of tales, in the\n"
+	.string "house of healing, remembers where\l"
+	.string "such steeds are kept.”$"
+
+MauvilleCity_Text_CalyrexSees:
+	.string "“A steed walks with you. I know\n"
+	.string "that stride.\p"
+	.string "“Then let me see how you ride, and\n"
+	.string "what you do with a chain in your\l"
+	.string "hand.”$"
+
+MauvilleCity_Text_CalyrexReady:
+	.string "“Are you ready to be measured?”$"
+
+MauvilleCity_Text_CalyrexWaits:
+	.string "“Then ready yourself, {PLAYER}.\n"
+	.string "I am in no hurry.”$"
+
+MauvilleCity_Text_CalyrexBagFull:
+	.string "CALYREX waits, but {PLAYER}'s BAG is\n"
+	.string "full.\p"
+	.string "Whatever the king gives will need\n"
+	.string "room. Make some first.$"
+
+MauvilleCity_Text_CalyrexStands:
+	.string "CALYREX swayed, then rose again as\n"
+	.string "if the grass itself held it up.\p"
+	.string "“Not yet, {PLAYER}. Come back when\n"
+	.string "you are ready.”$"
+
+MauvilleCity_Text_CalyrexRan:
+	.string "“You turn from the trial. I will\n"
+	.string "wait. Kings are good at it.”$"
+
+MauvilleCity_Text_CalyrexCaught:
+	.string "The ball closed on CALYREX without\n"
+	.string "a struggle, calm and unhurried.\p"
+	.string "It had not been bound. It had\n"
+	.string "chosen.$"
+
+MauvilleCity_Text_CalyrexThanks:
+	.string "“I will ride with you, {PLAYER}.\p"
+	.string "“I judged the chain. I should have\n"
+	.string "judged the hand that held it.\p"
+	.string "“You stood the trial, and you\n"
+	.string "never asked me to bow.”$"
+
+MauvilleCity_Text_CalyrexReins:
+	.string "“Take the REINS. They bind a king\n"
+	.string "to his steed in trust, not in\l"
+	.string "chains.”$"
+
+MauvilleCity_Text_CalyrexReinsHow:
+	.string "“Use them on me and my steed, and\n"
+	.string "we are one. Use them again, and we\l"
+	.string "part.”$"
+
+MauvilleCity_Text_StatueBlooms:
+	.string "The stone king stood whole on the\n"
+	.string "lawn. Around its feet, wildflowers\l"
+	.string "had opened in the bare grass.$"
+
+MauvilleCity_Text_StatueWhole:
+	.string "A stone king stands on the lawn,\n"
+	.string "his crown whole. Wildflowers have\l"
+	.string "opened around the base.$"
