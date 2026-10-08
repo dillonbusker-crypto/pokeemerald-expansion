@@ -1,6 +1,15 @@
 # Sprint A: Giratina in Rustboro, "The Tear" (Phase 1 design)
 
-Design only. Nothing is built. Read with `sprint-endgame-towns.md` (section 2A
+**Phase 2 (2026-10-08): built and harness-tested.** Scenario 33
+(`~/decomps/headless-harness/harness-giratina.c`, from `harness-lucy.c`) passes
+all 31 checks in one New Game run, including the catch with a MASTER BALL (the
+last-used-ball button, R). Lead's decisions applied: Mike's flag kept, the
+tunnel's encounters removed, `MAP_DYNAMIC` exits (the vanilla Route 116 /
+Verdanturf warps need restoring or deleting at the strip), no Experience cap,
+`setweather WEATHER_NONE` in the endgame. Fixed on the way: HOOPA's hint
+subroutine sat in the ring switch's fall-through (CANCEL ran into it).
+
+Phase 1 text follows. Design only. Nothing is built. Read with `sprint-endgame-towns.md` (section 2A
 and the decisions in section 1). Written 2026-10-08 on branch
 `worktree-agent-ae0427905d4b54fd1`, based on `sprint/endgame-towns` at
 `2ebbf4d7e3` (the Phase 0 reservations are in place: `FLAG_GIRATINA_CAUGHT`
