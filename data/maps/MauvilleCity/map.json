@@ -341,6 +341,48 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "MauvilleCity_EventScript_EndgameGruntMagma",
       "flag": "FLAG_TEMP_4"
+    },
+    {
+      "local_id": "LOCALID_MAUVILLE_STATUE_RUBBLE",
+      "graphics_id": "OBJ_EVENT_GFX_BREAKABLE_ROCK",
+      "x": 29,
+      "y": 6,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "MauvilleCity_EventScript_StatueRubble",
+      "flag": "FLAG_TEMP_6"
+    },
+    {
+      "local_id": "LOCALID_MAUVILLE_STATUE",
+      "graphics_id": "OBJ_EVENT_GFX_TRICK_HOUSE_STATUE",
+      "x": 29,
+      "y": 6,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "MauvilleCity_EventScript_StatueWhole",
+      "flag": "FLAG_TEMP_7"
+    },
+    {
+      "local_id": "LOCALID_MAUVILLE_CALYREX",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(CALYREX)",
+      "x": 28,
+      "y": 7,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "MauvilleCity_EventScript_Calyrex",
+      "flag": "FLAG_TEMP_8"
     }
   ],
   "warp_events": [
