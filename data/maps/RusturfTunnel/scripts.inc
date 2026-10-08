@@ -540,7 +540,8 @@ RusturfTunnel_Text_MikePostBattle:
 
 @ Endgame setup: the vanilla people and rocks stay hidden (most are already
 @ hidden from New Game; the two rocks and Hiker Mike are not), the exits all lead
-@ to RUSTBORO, and the tunnel is dark until GIRATINA is caught.
+@ to RUSTBORO, no fog over the dark, and the tunnel is dark until GIRATINA is
+@ caught.
 RusturfTunnel_EventScript_SetupEndgame::
 	setflag FLAG_HIDE_RUSTURF_TUNNEL_WANDA
 	setflag FLAG_HIDE_RUSTURF_TUNNEL_WANDAS_BOYFRIEND
@@ -551,6 +552,7 @@ RusturfTunnel_EventScript_SetupEndgame::
 	setflag FLAG_HIDE_RUSTURF_TUNNEL_ROCK_2
 	setflag FLAG_HIDE_RUSTURF_TUNNEL_MIKE
 	setdynamicwarp MAP_RUSTBORO_CITY, 31, 9
+	setweather WEATHER_NONE
 	goto_if_set FLAG_GIRATINA_CAUGHT, Common_EventScript_NopReturn
 	setflashlevel 2
 	return
