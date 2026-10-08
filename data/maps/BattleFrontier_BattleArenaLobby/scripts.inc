@@ -1246,3 +1246,15 @@ BattleFrontier_BattleArenaLobby_Text_HoopaOpensRing:
 BattleFrontier_BattleArenaLobby_Text_HoopaRecharging:
 	.string "HOOPA is resting. Its rings need\n"
 	.string "time to recharge.$"
+
+@ Ten Gauntlets: "The Tear" (sprint-a-giratina.md). Said once, from ROXANNE's
+@ rematch until GIRATINA is caught.
+BattleFrontier_BattleArenaLobby_Text_HoopaTear:
+	.string "HOOPA reached for a ring that wasn't\n"
+	.string "on its list. It buckled and snapped\l"
+	.string "shut.\p"
+	.string "HOOPA flinched and shook its head.\n"
+	.string "Something on the other side was\l"
+	.string "angry.\p"
+	.string "HOOPA pointed in the direction of\n"
+	.string "RUSTBORO, and wouldn't try again.$"

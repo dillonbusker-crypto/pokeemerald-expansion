@@ -525,3 +525,110 @@ RusturfTunnel_Text_MikePostBattle:
 	.string "protect POKéMON, right?\l"
 	.string "There's a feel-good story!$"
 
+
+@ ============================================================================
+@ Ten Gauntlets: "The Tear" (sprint-a-giratina.md). After ROXANNE's rematch, the
+@ DEVON 3F scientist leads the player here; GIRATINA waits in the last chamber.
+@ VAR_GIRATINA_EVENT (0x40F9), forward only:
+@   0 nothing yet     1 briefed by the scientist   2 entered once (Text_Enter)
+@   3 shadow seen     4 footprints seen            5 writing seen
+@   6 GIRATINA sighted  7 fought, not caught       8 caught, GRISEOUS CORE given
+@ FLAG_GIRATINA_CAUGHT is set with 8 and hides GIRATINA's object. The tunnel is
+@ dark (setflashlevel 2) until then; every exit is a dynamic warp to RUSTBORO.
+@ ============================================================================
+
+RusturfTunnel_Text_Enter:
+	.string "The scientist stopped at the first\n"
+	.string "bend and raised his lamp. It\l"
+	.string "guttered out. His instruments went\l"
+	.string "dead a moment later.\p"
+	.string "“This is as far as I go,” he said.\n"
+	.string "“Follow the tunnel east. Any way\l"
+	.string "out will bring you back under\l"
+	.string "RUSTBORO. Don't ask me how.”\p"
+	.string "Then his footsteps were gone, and\n"
+	.string "{PLAYER} was alone in the dark.\p"
+	.string "Somewhere ahead, something was\n"
+	.string "breathing, slowly.$"
+
+RusturfTunnel_Text_Shadow:
+	.string "{PLAYER}'s shadow didn't fall\n"
+	.string "behind. It stretched ahead, long\l"
+	.string "and thin, as if it knew the way.\p"
+	.string "When {PLAYER} stopped, it took one\n"
+	.string "more step.$"
+
+RusturfTunnel_Text_Prints:
+	.string "There were footprints in the dust.\n"
+	.string "Small, fresh, the same tread as\l"
+	.string "{PLAYER}'s own boots.\p"
+	.string "They led the way {PLAYER} was\n"
+	.string "going. And they looked newer the\l"
+	.string "farther they went.$"
+
+RusturfTunnel_Text_Writing:
+	.string "Something was scratched into the\n"
+	.string "rock, about eye height:\p"
+	.string "“.KCAB OG”\p"
+	.string "The letters were cut from right to\n"
+	.string "left. The scratches were still\l"
+	.string "bright.$"
+
+RusturfTunnel_Text_Sighting:
+	.string "The tunnel opened into a narrow\n"
+	.string "chamber. The dark was thicker here.\p"
+	.string "Above the floor, where nothing\n"
+	.string "should hang, something did: long\l"
+	.string "and black, with golden spikes\l"
+	.string "folded like broken wings.\p"
+	.string "It cast no shadow. The stone\n"
+	.string "around it was bent, like a glass\l"
+	.string "seen through water.\p"
+	.string "One red eye opened.$"
+
+RusturfTunnel_Text_GiratinaFirst:
+	.string "GIRATINA's eye held {PLAYER}.\n"
+	.string "The walls flexed like skin.\p"
+	.string "A voice with no sound filled the\n"
+	.string "chamber.\p"
+	.string "GIRATINA: …Another hand… in my\n"
+	.string "world…\p"
+	.string "Every door you tear lets my dark\n"
+	.string "leak out.\p"
+	.string "I was cast out once. I will not be\n"
+	.string "cast out again.$"
+
+RusturfTunnel_Text_GiratinaAgain:
+	.string "GIRATINA hung where it had been,\n"
+	.string "its red eye fixed on {PLAYER}.\p"
+	.string "The tear hadn't closed. The dark\n"
+	.string "still leaked out of it, cold.$"
+
+RusturfTunnel_Text_GiratinaStays:
+	.string "GIRATINA didn't follow. The dark\n"
+	.string "folded around it and went still.\p"
+	.string "It hadn't left. The tear hadn't\n"
+	.string "closed.$"
+
+RusturfTunnel_Text_BagFull:
+	.string "GIRATINA waited in the dark. But\n"
+	.string "{PLAYER}'s BAG was full.\p"
+	.string "Whatever it left behind would need\n"
+	.string "room. Better to make some first.$"
+
+RusturfTunnel_Text_Caught:
+	.string "The ball clicked shut.\p"
+	.string "The dark let go of the chamber all\n"
+	.string "at once. The walls stopped\l"
+	.string "breathing.\p"
+	.string "The tunnel brightened, and it was\n"
+	.string "only a tunnel again.\p"
+	.string "Something small rolled across the\n"
+	.string "floor to {PLAYER}'s feet.$"
+
+RusturfTunnel_Text_Core:
+	.string "The GRISEOUS CORE was warm. It\n"
+	.string "hummed, the way GIRATINA's cry had.\p"
+	.string "Held by GIRATINA, it would remember\n"
+	.string "the world behind the world, the one\l"
+	.string "it was born in.$"
