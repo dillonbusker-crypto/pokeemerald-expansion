@@ -98,10 +98,11 @@ MauvilleCity_Gym_EventScript_Wattson::
 	release
 	end
 
-@ The endgame rematch (TRAINER_ENDGAME_WATTSON, level 65). A loss whites out to
-@ the Center (the held items come back there) and he can be fought again; a
-@ win sets his trainer flag, which opens the CALYREX event, and he heals the
-@ party and passes on his lead.
+@ The endgame rematch (TRAINER_ENDGAME_WATTSON, level 65): a friendly fight, no
+@ SCRAMBLER (storyline.md). Win or lose he heals the party and the held items
+@ come back; a loss never whites out (FLAG_ENDGAME_NO_WHITEOUT), and he can be
+@ fought again on the spot. A win sets his trainer flag, which opens the
+@ CALYREX event, and he passes on his lead.
 MauvilleCity_Gym_EventScript_EndgameWattson::
 	lock
 	faceplayer
@@ -109,11 +110,20 @@ MauvilleCity_Gym_EventScript_EndgameWattson::
 	goto_if TRUE, MauvilleCity_Gym_EventScript_EndgameWattsonLead
 	msgbox MauvilleCity_Gym_Text_EndgameWattsonIntro, MSGBOX_DEFAULT
 	call MauvilleCity_Gym_EventScript_SaveHeldItems
+	setflag FLAG_ENDGAME_NO_WHITEOUT
 	trainerbattle_no_intro TRAINER_ENDGAME_WATTSON, MauvilleCity_Gym_Text_EndgameWattsonDefeat
+	clearflag FLAG_ENDGAME_NO_WHITEOUT
 	special RestoreFacilityHeldItems
 	clearflag FLAG_STORY_HELD_ITEMS_SAVED
 	special HealPlayerParty
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_ne VAR_RESULT, B_OUTCOME_WON, MauvilleCity_Gym_EventScript_EndgameWattsonLost
 	msgbox MauvilleCity_Gym_Text_EndgameWattsonAfter, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_Gym_EventScript_EndgameWattsonLost::
+	msgbox MauvilleCity_Gym_Text_EndgameWattsonLost, MSGBOX_DEFAULT
 	release
 	end
 
@@ -486,6 +496,13 @@ MauvilleCity_Gym_Text_EndgameWattsonDefeat:
 	.string "Wahahahah! Bzzt!\p"
 	.string "Overloaded! And I loved every\n"
 	.string "volt of it!$"
+
+MauvilleCity_Gym_Text_EndgameWattsonLost:
+	.string "WATTSON: Wahahahah! Short-circuited!\p"
+	.string "WATTSON topped up {PLAYER}'s\n"
+	.string "POKéMON.\p"
+	.string "WATTSON: Recharge and come back any\n"
+	.string "time. My door's open!$"
 
 MauvilleCity_Gym_Text_EndgameWattsonAfter:
 	.string "WATTSON: What a jolt! My old\n"

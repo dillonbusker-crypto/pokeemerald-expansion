@@ -24,10 +24,11 @@ RustboroCity_Gym_EventScript_Roxanne::
 	release
 	end
 
-@ The endgame rematch (TRAINER_ENDGAME_ROXANNE, level 60). A loss whites out to
-@ the Center (the held items come back there) and she can be fought again; a
-@ win sets her trainer flag, which opens the GIRATINA event, and she heals the
-@ party and passes on her lead.
+@ The endgame rematch (TRAINER_ENDGAME_ROXANNE, level 60): a friendly fight, no
+@ SCRAMBLER (storyline.md). Win or lose she heals the party and the held items
+@ come back; a loss never whites out (FLAG_ENDGAME_NO_WHITEOUT), and she can be
+@ fought again on the spot. A win sets her trainer flag, which opens the
+@ GIRATINA event, and she passes on her lead.
 RustboroCity_Gym_EventScript_EndgameRoxanne::
 	lock
 	faceplayer
@@ -35,11 +36,20 @@ RustboroCity_Gym_EventScript_EndgameRoxanne::
 	goto_if TRUE, RustboroCity_Gym_EventScript_EndgameRoxanneLead
 	msgbox RustboroCity_Gym_Text_EndgameRoxanneIntro, MSGBOX_DEFAULT
 	call RustboroCity_Gym_EventScript_SaveHeldItems
+	setflag FLAG_ENDGAME_NO_WHITEOUT
 	trainerbattle_no_intro TRAINER_ENDGAME_ROXANNE, RustboroCity_Gym_Text_EndgameRoxanneDefeat
+	clearflag FLAG_ENDGAME_NO_WHITEOUT
 	special RestoreFacilityHeldItems
 	clearflag FLAG_STORY_HELD_ITEMS_SAVED
 	special HealPlayerParty
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_ne VAR_RESULT, B_OUTCOME_WON, RustboroCity_Gym_EventScript_EndgameRoxanneLost
 	msgbox RustboroCity_Gym_Text_EndgameRoxanneAfter, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_Gym_EventScript_EndgameRoxanneLost::
+	msgbox RustboroCity_Gym_Text_EndgameRoxanneLost, MSGBOX_DEFAULT
 	release
 	end
 
@@ -343,6 +353,13 @@ RustboroCity_Gym_Text_EndgameRoxanneIntro:
 RustboroCity_Gym_Text_EndgameRoxanneDefeat:
 	.string "Not a crack. Not even a chip…\p"
 	.string "So this is what you have built.$"
+
+RustboroCity_Gym_Text_EndgameRoxanneLost:
+	.string "ROXANNE: The stone held. This time.\p"
+	.string "ROXANNE had {PLAYER}'s POKéMON\n"
+	.string "restored to full health.\p"
+	.string "ROXANNE: Study what broke you, and\n"
+	.string "come back. The lesson will wait.$"
 
 RustboroCity_Gym_Text_EndgameRoxanneAfter:
 	.string "ROXANNE: Thank you, {PLAYER}. I needed\n"

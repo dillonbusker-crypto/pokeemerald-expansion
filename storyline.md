@@ -115,8 +115,9 @@ short radius, including the one using it.
   Maxie and Archie at Ever Grande, the five Brains in the Factory, the Elite
   Four at Devon, the four admins and Maxie and Archie at New Mauville, and
   Scott at Sky Pillar (his). Friendly fights that heal either way and never
-  white out don't: the rival, Norman, the Devon agents' tag battle, and Scott
-  at the Factory (meant to be lost, no white-out).
+  white out don't: the rival, Norman, the Devon agents' tag battle, Roxanne's
+  and Wattson's Gym rematches, and Scott at the Factory (meant to be lost, no
+  white-out).
 
 ### The Pokémon Center closes
 
@@ -1129,9 +1130,10 @@ rematch → Giratina. All of it stays open after the credits.
 `src/facility.c`). Inside, only Roxanne (`FLAG_TEMP_1` hides her trainers and
 the guide). She was gauntlet 3's boss and a Warden; now she gives the player
 "the whole lesson": `TRAINER_ENDGAME_ROXANNE` (990), six at level 60, sand,
-with **Mega Zygarde** (`endgame-teams.md`, "The Gym rematches"). A loss
-whites out to the Center; a win heals the party, and she tells of Rusturf
-Tunnel's stone "reading wrong" and sends the player to Devon's scientist.
+with **Mega Zygarde** (`endgame-teams.md`, "The Gym rematches"). A friendly
+fight, no Scrambler: win or lose she heals the party, and a loss never whites
+out (try again on the spot). A win: she tells of Rusturf Tunnel's stone
+"reading wrong" and sends the player to Devon's scientist.
 
 **The Tear.** Palkia's blast and Hoopa's rings keep tearing space, and
 **Giratina** has come through in **Rusturf Tunnel**. Gated on Roxanne's
@@ -1232,7 +1234,8 @@ Pillar. State 18: Steven, Wallace, Dad, Mom, Joy and the Chansey are all out.
 gone from then on. Inside, only Wattson, and **the barrier puzzle is off**
 (he switched it off; the switches do nothing). `TRAINER_ENDGAME_WATTSON`
 (991), six at level 65, Electric Terrain around **Miraidon**, with
-Magnezone and Mega Zeraora. A win heals the party, and he tells of the crowned statue he built
+Magnezone and Mega Zeraora. A friendly fight like Roxanne's (no Scrambler, a
+heal either way, no white-out). A win: he tells of the crowned statue he built
 the town around, toppled by the teams on the lawn by the Center.
 
 **The True King.** The teams crowned Scott; **Calyrex** is a real king, and
