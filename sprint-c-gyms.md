@@ -1,6 +1,15 @@
 # Sprint C: the Gym rematches (Roxanne in Rustboro, Wattson in Mauville)
 
-**Phase 1 design, nothing built.** Workstream C of `sprint-endgame-towns.md`
+**Phase 2: built and tested** (2026-10-08). The lead's decisions: the
+state-15 Wattson line removed from `MauvilleCity` (approved), Sky Pillar
+left alone, **Miraidon** as Wattson's box-art legendary (not Zekrom), puzzle
+off, heal kept. Results: the build is clean, widths fit (widest 198 px),
+`test/battle/ten_gauntlets_enemy_mega.c` passes 4/4, and harness scenario 35
+(`harness-gyms.c`) passes 17/17. Correction to section 6: Brandon's gauntlet
+8 team already lists `Zygarde-Complete @ Zygardite` (doubles, level 50);
+Roxanne's is the first singles one and the first with a test.
+
+The original Phase 1 design follows. Workstream C of `sprint-endgame-towns.md`
 (section 2C). The teams are in `endgame-teams.md`, "Gym rematches (Roxanne 60,
 Wattson 65)". Everything below was checked against the code and map data on
 `sprint/endgame-towns` (base `2ebbf4d7e3`). Where I assumed something instead
