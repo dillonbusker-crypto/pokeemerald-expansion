@@ -16,8 +16,9 @@ enum
 // FacilityShopSelectMonMenuRow()'s result.
 enum
 {
-    MON_MENU_LIST,  // a Pokemon list is staged
-    MON_MENU_TYPES, // Low Tier's type menu is staged
+    MON_MENU_LIST,     // a Pokemon list is staged
+    MON_MENU_TYPES,    // Low Tier Other's type menu is staged
+    MON_MENU_LOW_TIER, // Low Tier's menu (Competitive, Other) is staged
     MON_MENU_SELL,
     MON_MENU_FREE,
 };

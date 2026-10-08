@@ -66,6 +66,8 @@ gSpecials::
 	def_special FacilityShopBuildMonMenu
 	def_special FacilityShopSelectMonMenuRow
 	def_special FacilityShopSelectMonType
+	def_special FacilityShopSelectLowTierRow
+	def_special FacilityShopStageLowTierMenu
 	def_special FacilityShopLeaveMonList
 	def_special FacilityShopSelectRow
 	def_special FacilityShopFreeMenuRows

@@ -9,7 +9,9 @@
 #
 # A Pokemon takes its Gen 9 tier; one not in Scarlet/Violet ("Illegal") takes
 # its tier from the last generation it was legal in. BL tiers fold into the
-# tier above, and PU and below become Low Tier.
+# tier above, and PU and below become Low Tier: PU and ZUBL as its
+# Competitive list (SHOWDOWN_TIER_PU), ZU, NFE and LC as its Other list
+# (SHOWDOWN_TIER_LOW).
 
 import collections, datetime, os, re, sys, urllib.request
 
@@ -24,7 +26,8 @@ BUCKETS = {
     'UU': 'UU', 'RUBL': 'UU',
     'RU': 'RU', 'NUBL': 'RU',
     'NU': 'NU', 'PUBL': 'NU',
-    'PU': 'LOW', 'ZUBL': 'LOW', 'ZU': 'LOW', 'NFE': 'LOW', 'LC': 'LOW',
+    'PU': 'PU', 'ZUBL': 'PU',
+    'ZU': 'LOW', 'NFE': 'LOW', 'LC': 'LOW',
 }
 
 # Never had a Showdown tier.
@@ -103,7 +106,7 @@ def main():
                 '// Showdown singles tier of every shop Pokemon (shop-spec.md).\n\n'
                 'static const u8 sShowdownTiers[NUM_SPECIES] =\n{\n')
         f.write('\n'.join(rows) + '\n};\n')
-    order = ['UBER', 'OU', 'UU', 'RU', 'NU', 'LOW']
+    order = ['UBER', 'OU', 'UU', 'RU', 'NU', 'PU', 'LOW']
     print(f'{len(rows)} Pokemon written to {OUT}: ' +
           ', '.join(f'{b} {counts[b]}' for b in order))
 

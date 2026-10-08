@@ -33,14 +33,19 @@ void FacilityShopBuildMegaStonesMenu(void);
 // The Pokemon keeper's first screen: New arrivals, the Showdown tiers, Sell
 // (and Free). gSpecialVar_0x8004 = chosen row index in;
 // FacilityShopSelectMonMenuRow's gSpecialVar_Result = MON_MENU_* says what
-// it staged (a list, Low Tier's type menu) or where to go (Sell, Free).
+// it staged (a list, Low Tier's menu) or where to go (Sell, Free).
 void FacilityShopBuildMonMenu(void);
 void FacilityShopSelectMonMenuRow(void);
-// gSpecialVar_0x8004 = chosen row index from Low Tier's type menu; stages
-// that type's list.
+// Low Tier's menu: Competitive (a list) or Other (a type menu, then a list).
+// gSpecialVar_Result = MON_MENU_LIST or MON_MENU_TYPES.
+void FacilityShopSelectLowTierRow(void);
+// B on Other's type menu: stages Low Tier's menu again.
+void FacilityShopStageLowTierMenu(void);
+// gSpecialVar_0x8004 = chosen row index from Other's type menu; stages that
+// type's list.
 void FacilityShopSelectMonType(void);
-// B on a Pokemon list: gSpecialVar_Result TRUE means Low Tier's type menu is
-// staged again, FALSE means go back to the main menu.
+// B on a Pokemon list: stages the level above. gSpecialVar_Result =
+// MON_MENU_TYPES, MON_MENU_LOW_TIER, or MON_MENU_LIST for the main menu.
 void FacilityShopLeaveMonList(void);
 
 // gSpecialVar_0x8004 = chosen row index into whichever list is currently

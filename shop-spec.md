@@ -100,14 +100,18 @@ OU              includes UUBL
 UU              includes RUBL
 RU              includes NUBL
 NU              includes PUBL
-Low Tier        PU, ZUBL, ZU, NFE and LC; opens on a type menu first
+Low Tier        opens on two lists:
+  Competitive     PU and ZUBL, one list
+  Other           ZU, NFE and LC, by type (no "All")
 Sell a Pokemon
 Free the Pokemon   endgame state 10 with the Crown only
 ```
 
 - Each tier lists every Pokémon unlocked so far; a tier with nothing unlocked
-  is hidden. Only Low Tier has a type menu, and it lists a Pokémon under both
-  of its types ("All" stays at the top).
+  is hidden. Only Low Tier's Other has a type menu, and it lists a Pokémon
+  under both of its types. It has no "All": Low Tier at full unlock is 264,
+  and a list past 255 rows froze the game (a `u8` counter in
+  `Task_ShowScrollableMultichoice`, now a `u16`). B steps back one level.
 - Every list is sorted by price, most expensive first; ties are alphabetical.
 - Prices and unlock gauntlets are unchanged. Premium/Strong/Standard/Budget
   below are now only price bands and the tables the code keeps its rows in
@@ -118,7 +122,8 @@ Free the Pokemon   endgame state 10 with the Crown only
   the last generation it was legal in (Gen 8 or 7). Floette-Eternal never had
   a tier and is set to OU by hand. A new shop Pokémon needs the script rerun,
   or it lands in no tier and never shows.
-- Fully unlocked: Uber 29, OU 64, UU 53, RU 60, NU 43, Low Tier 264 (513).
+- Fully unlocked: Uber 29, OU 64, UU 53, RU 60, NU 43, Low Tier 264
+  (Competitive 41, Other 223): 513.
 - Forms show Showdown-style names (Rotom-Wash, Landorus-Therian, Urshifu-Rapid);
   `sShopFormNames` in `src/facility_shop.c`.
 
@@ -208,8 +213,9 @@ during it.
 
 ## Open questions for implementation
 
-1. ~~**Menu structure for 105 Pokémon.**~~ Settled: Showdown tiers, with type
-   submenus in Low Tier (see "The Pokémon menu" above).
+1. ~~**Menu structure for 105 Pokémon.**~~ Settled: Showdown tiers, with
+   Low Tier split into Competitive and Other, Other by type (see "The Pokémon
+   menu" above).
 2. **Does the shop show stats?** A player choosing between Ferroseed and
    Parasect with no visible base stats is guessing. At minimum: types, ability,
    and BST.

@@ -290,7 +290,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu::
 	special FacilityShopSelectMonMenuRow
 	goto_if_eq VAR_RESULT, MON_MENU_FREE, BattleFrontier_ExchangeServiceCorner_EventScript_FreeThePokemon
 	goto_if_eq VAR_RESULT, MON_MENU_SELL, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonToSell
-	goto_if_eq VAR_RESULT, MON_MENU_TYPES, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonType
+	goto_if_eq VAR_RESULT, MON_MENU_LOW_TIER, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseLowTier
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfList
 	end
 
@@ -321,12 +321,24 @@ BattleFrontier_ExchangeServiceCorner_EventScript_FreeThePokemon::
 	release
 	end
 
-@ Low Tier's type menu (staged by FacilityShopSelectMonMenuRow or
+@ Low Tier's menu: Competitive and Other (staged by FacilityShopSelectMonMenuRow,
+@ FacilityShopLeaveMonList or FacilityShopStageLowTierMenu).
+BattleFrontier_ExchangeServiceCorner_EventScript_ChooseLowTier::
+	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC
+	special ShowScrollableMultichoice
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
+	copyvar VAR_0x8004, VAR_RESULT
+	special FacilityShopSelectLowTierRow
+	goto_if_eq VAR_RESULT, MON_MENU_TYPES, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonType
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfList
+	end
+
+@ Low Tier Other's type menu (staged by FacilityShopSelectLowTierRow or
 @ FacilityShopLeaveMonList).
 BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonType::
 	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC
 	special ShowScrollableMultichoice
-	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_BackToLowTier
 	copyvar VAR_0x8004, VAR_RESULT
 	special FacilityShopSelectMonType
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfList
@@ -341,9 +353,15 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfList::
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ConfirmBuyMon
 	end
 
+BattleFrontier_ExchangeServiceCorner_EventScript_BackToLowTier::
+	special FacilityShopStageLowTierMenu
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseLowTier
+	end
+
 BattleFrontier_ExchangeServiceCorner_EventScript_LeaveMonList::
 	special FacilityShopLeaveMonList
-	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonType
+	goto_if_eq VAR_RESULT, MON_MENU_TYPES, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonType
+	goto_if_eq VAR_RESULT, MON_MENU_LOW_TIER, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseLowTier
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	end
 

@@ -1408,8 +1408,10 @@ void FacilityShopBuildMegaStonesMenu(void)
 // The Pokemon menu (shop-spec.md, "The Pokemon menu"). The keeper's first
 // screen lists New arrivals, then Showdown's singles tiers strongest first,
 // then Sell (and Free, for the siphon). Each tier lists every Pokemon
-// unlocked so far; Low Tier (PU and below) opens on a type menu first. Every
-// list is sorted by price, most expensive first. The tiers come from
+// unlocked so far. Low Tier (PU and below) opens on Competitive (PU and ZUBL,
+// one list) and Other (ZU, NFE and LC, by type, with no "All": 223 rows at
+// full unlock is too long to browse). Every list is sorted by price, most
+// expensive first. The tiers come from
 // src/data/facility_shop_tiers.h (tools/showdown_tiers.py).
 // ----------------------------------------------------------------------------
 
@@ -1421,7 +1423,8 @@ enum
     SHOWDOWN_TIER_UU,
     SHOWDOWN_TIER_RU,
     SHOWDOWN_TIER_NU,
-    SHOWDOWN_TIER_LOW,
+    SHOWDOWN_TIER_LOW, // Low Tier's Other list (ZU, NFE, LC); the main menu's "Low Tier" row
+    SHOWDOWN_TIER_PU,  // Low Tier's Competitive list (PU, ZUBL); not a main-menu row
     SHOWDOWN_TIER_COUNT,
 };
 
@@ -1438,11 +1441,12 @@ static const u8 *const sShowdownTierNames[SHOWDOWN_TIER_COUNT] =
 };
 
 static const u8 sText_NewArrivals[] = _("New arrivals");
-static const u8 sText_TypeFilterAll[] = _("All");
+static const u8 sText_LowTierCompetitive[] = _("Competitive");
+static const u8 sText_LowTierOther[] = _("Other");
 static const u8 sText_SellAPokemon[] = _("Sell a Pokemon");
 static const u8 sText_FreeThePokemon[] = _("Free the Pokemon");
 
-// What the browsed list is: one tier, plus a type within Low Tier
+// What the browsed list is: one tier, plus a type within Low Tier's Other
 // (FACILITY_SHOP_TYPE_ALL for none), or New arrivals.
 static EWRAM_DATA u8 sBrowsedList = 0;
 static EWRAM_DATA u8 sBrowsedType = 0;
@@ -1539,12 +1543,12 @@ static void StageMonList(void)
     Free(mons);
 }
 
-// Stages Low Tier's type menu: "All", then every type at least one unlocked
-// Low Tier Pokemon has, as either of its types.
+// Stages Low Tier Other's type menu: every type at least one unlocked Other
+// Pokemon has, as either of its types.
 static void StageLowTierTypeMenu(void)
 {
     bool8 typePresent[NUMBER_OF_MON_TYPES] = {0};
-    u32 tier, i, count = 1; // slot 0 is "All"
+    u32 tier, i, count = 0;
 
     for (tier = 0; tier < ARRAY_COUNT(sMonTiers); tier++)
     {
@@ -1567,11 +1571,7 @@ static void StageLowTierTypeMenu(void)
     FreeMenuRows();
     sMenuRows = Alloc(count * sizeof(struct FacilityShopMenuRow));
     sMenuRowCount = count;
-    sMenuRows[0].id = FACILITY_SHOP_TYPE_ALL;
-    sMenuRows[0].price = 0;
-    sMenuRows[0].name = sText_TypeFilterAll;
-    sMenuRows[0].description = NULL;
-    for (i = 0, count = 1; i < NUMBER_OF_MON_TYPES; i++)
+    for (i = 0, count = 0; i < NUMBER_OF_MON_TYPES; i++)
     {
         if (!typePresent[i])
             continue;
@@ -1583,9 +1583,8 @@ static void StageLowTierTypeMenu(void)
     }
 }
 
-// Whether the main menu shows a row: New arrivals or a tier with at least
-// one unlocked Pokemon.
-static bool8 MonMenuRowHasStock(u8 list)
+// Whether a list (New arrivals or a tier) has at least one unlocked Pokemon.
+static bool8 ListHasStock(u8 list)
 {
     u32 tier, i;
 
@@ -1602,6 +1601,14 @@ static bool8 MonMenuRowHasStock(u8 list)
         }
     }
     return FALSE;
+}
+
+// Whether the main menu shows a row. Low Tier's covers both of its lists.
+static bool8 MonMenuRowHasStock(u8 list)
+{
+    if (list == SHOWDOWN_TIER_LOW)
+        return ListHasStock(SHOWDOWN_TIER_PU) || ListHasStock(SHOWDOWN_TIER_LOW);
+    return ListHasStock(list);
 }
 
 static void AddMonMenuRow(u16 *count, u16 id, const u8 *name)
@@ -1624,7 +1631,7 @@ static u16 StageMonMenuRows(void)
 
     if (MonMenuRowHasStock(FACILITY_SHOP_MON_MENU_NEW))
         AddMonMenuRow(&count, FACILITY_SHOP_MON_MENU_NEW, sText_NewArrivals);
-    for (tier = SHOWDOWN_TIER_UBER; tier < SHOWDOWN_TIER_COUNT; tier++)
+    for (tier = SHOWDOWN_TIER_UBER; tier <= SHOWDOWN_TIER_LOW; tier++)
     {
         if (MonMenuRowHasStock(tier))
             AddMonMenuRow(&count, tier, sShowdownTierNames[tier]);
@@ -1646,6 +1653,20 @@ void FacilityShopBuildMonMenu(void)
     StageMonMenuRows();
 }
 
+// Stages Low Tier's menu: Competitive and Other, each only if it has stock.
+static void StageLowTierMenu(void)
+{
+    u16 count = 0;
+
+    FreeMenuRows();
+    sMenuRows = Alloc(2 * sizeof(struct FacilityShopMenuRow));
+    if (ListHasStock(SHOWDOWN_TIER_PU))
+        AddMonMenuRow(&count, SHOWDOWN_TIER_PU, sText_LowTierCompetitive);
+    if (ListHasStock(SHOWDOWN_TIER_LOW))
+        AddMonMenuRow(&count, SHOWDOWN_TIER_LOW, sText_LowTierOther);
+    sMenuRowCount = count;
+}
+
 // gSpecialVar_0x8004 = chosen row index into the main menu. Stages what the
 // row opens; gSpecialVar_Result = MON_MENU_* says what to show.
 void FacilityShopSelectMonMenuRow(void)
@@ -1662,9 +1683,8 @@ void FacilityShopSelectMonMenuRow(void)
     }
     else if (id == SHOWDOWN_TIER_LOW)
     {
-        sBrowsedList = SHOWDOWN_TIER_LOW;
-        StageLowTierTypeMenu();
-        gSpecialVar_Result = MON_MENU_TYPES;
+        StageLowTierMenu();
+        gSpecialVar_Result = MON_MENU_LOW_TIER;
     }
     else
     {
@@ -1675,26 +1695,56 @@ void FacilityShopSelectMonMenuRow(void)
     }
 }
 
-// gSpecialVar_0x8004 = chosen row index into Low Tier's type menu. Stages
-// that type's list.
+// gSpecialVar_0x8004 = chosen row index into Low Tier's menu. Competitive
+// stages its list (MON_MENU_LIST); Other stages its type menu (MON_MENU_TYPES).
+void FacilityShopSelectLowTierRow(void)
+{
+    sBrowsedList = sMenuRows[gSpecialVar_0x8004].id;
+    sBrowsedType = FACILITY_SHOP_TYPE_ALL;
+    if (sBrowsedList == SHOWDOWN_TIER_PU)
+    {
+        StageMonList();
+        gSpecialVar_Result = MON_MENU_LIST;
+    }
+    else
+    {
+        StageLowTierTypeMenu();
+        gSpecialVar_Result = MON_MENU_TYPES;
+    }
+}
+
+// B on Other's type menu: Low Tier's menu, staged again.
+void FacilityShopStageLowTierMenu(void)
+{
+    StageLowTierMenu();
+}
+
+// gSpecialVar_0x8004 = chosen row index into Low Tier Other's type menu.
+// Stages that type's list.
 void FacilityShopSelectMonType(void)
 {
     sBrowsedType = sMenuRows[gSpecialVar_0x8004].id;
     StageMonList();
 }
 
-// B on a Pokemon list. Low Tier goes back to its type menu (staged again,
-// gSpecialVar_Result TRUE); everything else goes back to the main menu.
+// B on a Pokemon list: one level up, staged again. gSpecialVar_Result is
+// MON_MENU_TYPES (Other's type menu), MON_MENU_LOW_TIER (Low Tier's menu,
+// from Competitive) or MON_MENU_LIST (meaning the main menu).
 void FacilityShopLeaveMonList(void)
 {
     if (sBrowsedList == SHOWDOWN_TIER_LOW)
     {
         StageLowTierTypeMenu();
-        gSpecialVar_Result = TRUE;
+        gSpecialVar_Result = MON_MENU_TYPES;
+    }
+    else if (sBrowsedList == SHOWDOWN_TIER_PU)
+    {
+        StageLowTierMenu();
+        gSpecialVar_Result = MON_MENU_LOW_TIER;
     }
     else
     {
-        gSpecialVar_Result = FALSE;
+        gSpecialVar_Result = MON_MENU_LIST;
     }
 }
 
