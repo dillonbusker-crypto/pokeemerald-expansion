@@ -500,13 +500,13 @@ MauvilleCity_Gym_Text_EndgameWattsonAfter:
 	.string "carved long before my time.\p"
 	.string "AQUA and MAGMA toppled it during\n"
 	.string "their little occupation. It lies in\l"
-	.string "pieces in the plaza.\p"
+	.string "pieces on the lawn by the CENTER.\p"
 	.string "I haven't the heart to look at it.\n"
 	.string "Would you, {PLAYER}? Young eyes\l"
 	.string "notice things.$"
 
 MauvilleCity_Gym_Text_EndgameWattsonRepeat:
-	.string "WATTSON: The statue in the plaza,\n"
+	.string "WATTSON: The statue on the lawn,\n"
 	.string "{PLAYER}. A crowned POKéMON deserves\l"
 	.string "better than rubble!\p"
 	.string "Have a look when you can.$"

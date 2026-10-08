@@ -631,12 +631,11 @@ bool32 IsFrontierChippedMon(struct Pokemon *mon)
 {
     u32 metLocation = GetMonData(mon, MON_DATA_MET_LOCATION);
 
-    if (metLocation == MAPSEC_MAUVILLE_CITY) // CALYREX, caught in MAUVILLE (sprint B)
-        return FALSE;
     if (FlagGet(FLAG_FRONTIER_CHIPS_OFF))
         return FALSE;
+    // Never chipped: the two caves, GIRATINA's tunnel and CALYREX's MAUVILLE
     return metLocation != MAPSEC_ARTISAN_CAVE && metLocation != MAPSEC_ISLAND_CAVE
-        && metLocation != MAPSEC_RUSTURF_TUNNEL;
+        && metLocation != MAPSEC_RUSTURF_TUNNEL && metLocation != MAPSEC_MAUVILLE_CITY;
 }
 
 // How many permanent Megas the REPLICA CROWN can hold in the party at once

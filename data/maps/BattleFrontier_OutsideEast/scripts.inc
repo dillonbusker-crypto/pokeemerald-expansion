@@ -714,7 +714,16 @@ BattleFrontier_OutsideEast_RichBoy_Text_Gossip16:
 	.string "my allowance it was you.$"
 
 BattleFrontier_OutsideEast_RichBoy_Gossip17::
+	goto_if_set FLAG_GIRATINA_CAUGHT, BattleFrontier_OutsideEast_RichBoy_Gossip17Tear
 	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip17, MSGBOX_NPC
+	end
+
+BattleFrontier_OutsideEast_RichBoy_Gossip17Tear::
+	lock
+	faceplayer
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Gossip17, MSGBOX_DEFAULT
+	msgbox BattleFrontier_OutsideEast_RichBoy_Text_Tear, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_OutsideEast_RichBoy_Text_Gossip17:
@@ -723,6 +732,11 @@ BattleFrontier_OutsideEast_RichBoy_Text_Gossip17:
 	.string "free!\p"
 	.string "I told everyone. Everyone.\n"
 	.string "...Thank you, by the way.$"
+
+BattleFrontier_OutsideEast_RichBoy_Text_Tear:
+	.string "Oh! And DEVON's needles all went\n"
+	.string "still at once. Something under\l"
+	.string "RUSTBORO finally calmed down!$"
 
 BattleFrontier_OutsideEast_RichBoy_Text_Gossip0:
 	.string "Did you see it? A man stormed the\n"
@@ -962,7 +976,11 @@ BattleFrontier_OutsideEast_TriathleteM_Text_Gossip9:
 	.string "EXP on my morning laps again!\p"
 	.string "I've doubled my laps. MAUVILLE is on\n"
 	.string "the news, but I'll worry after my\l"
-	.string "cooldown.$"
+	.string "cooldown.\p"
+	.string "Heard they knocked over MAUVILLE's\n"
+	.string "old stone king in the fighting.\p"
+	.string "WATTSON built the town around it.\n"
+	.string "Bet he's not happy.$"
 
 BattleFrontier_OutsideEast_TriathleteM_Gossip10::
 	msgbox BattleFrontier_OutsideEast_TriathleteM_Text_Gossip10, MSGBOX_NPC
@@ -1307,7 +1325,11 @@ BattleFrontier_OutsideEast_Gentleman_Text_Gossip12:
 	.string "for SKY PILLAR.\p"
 	.string "The NURSE's CHANSEY can now lift a\n"
 	.string "POKéMON to level 100. A fine gift,\l"
-	.string "young one. Use it well.$"
+	.string "young one. Use it well.\p"
+	.string "I hear the GYM LEADERS of RUSTBORO\n"
+	.string "and MAUVILLE are battling again.\p"
+	.string "They hold nothing back, but they do\n"
+	.string "tell winners what troubles them.$"
 
 BattleFrontier_OutsideEast_Gentleman_Gossip13::
 	msgbox BattleFrontier_OutsideEast_Gentleman_Text_Gossip13, MSGBOX_NPC
