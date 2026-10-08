@@ -109,8 +109,14 @@ short radius, including the one using it.
   Scrambler to the player.
 - **After gauntlet 4**, the player shows it to Steven.
 - **It's for story fights only.** The gauntlets keep their full heal between
-  battles, a locked design decision. The Scrambler runs in the endgame's
-  scripted fights: the Brains after gauntlet 8, Archie and Maxie, and Scott.
+  battles, a locked design decision. The rule: **a hostile story fight where a
+  loss whites out, or the beaten stay beaten, shows the Scrambler** ("{PLAYER}
+  used the SCRAMBLER!"). Flotsam's betrayal (his), Noland and Greta at the lab,
+  Maxie and Archie at Ever Grande, the five Brains in the Factory, the Elite
+  Four at Devon, the four admins and Maxie and Archie at New Mauville, and
+  Scott at Sky Pillar (his). Friendly fights that heal either way and never
+  white out don't: the rival, Norman, the Devon agents' tag battle, and Scott
+  at the Factory (meant to be lost, no white-out).
 
 ### The Pokémon Center closes
 
@@ -1065,7 +1071,7 @@ past the ELITE FOUR."
 placed so the player must fight them one at a time: Sidney in the lobby and
 Phoebe on the stairs, Glacia in the 2F hall and Drake on the stairs to 3F.
 Each refuses until the one before is beaten ("We do this the League's way"),
-and each leaves once beaten. Levels 52–55, two
+the player uses the Scrambler before each, and each leaves once beaten. Levels 52–55, two
 permanent Megas each (`endgame-teams.md`); they're not chipped, so they keep
 their real levels. **A loss whites out to Rustboro's Pokémon Center**;
 members already beaten stay beaten.
@@ -1162,8 +1168,9 @@ and Wattson outside it leads the player back down (state 13). New
 Mauville's wild encounters, VOLTORBs, locked door, red switch and
 Thunderstone are off; its only exit warp now leads to Mauville's Center
 door, never Route 110. The admins stand on one-tile stretches, in order
-Tabitha, Courtney, Matt, Shelly (`VAR_NEW_MAUVILLE_ADMINS`); the party is healed
-after each, held items restored. Maxie and Archie are fought back to back
+Tabitha, Courtney, Matt, Shelly (`VAR_NEW_MAUVILLE_ADMINS`); the player uses the
+Scrambler before each, and a charging coil heals the party after each, held
+items restored. Maxie and Archie are fought back to back
 with no heal (the Scrambler); a loss whites out and both are fought again,
 because state 14 is only set after the second win. Teams: `endgame-teams.md`,
 "New Mauville".

@@ -30,7 +30,7 @@ RustboroCity_DevonCorp_2F_EventScript_Glacia::
 	lock
 	faceplayer
 	msgbox RustboroCity_DevonCorp_2F_Text_Glacia, MSGBOX_DEFAULT
-	call DevonCorp_EventScript_SaveHeldItems
+	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_DEVON_GLACIA, RustboroCity_DevonCorp_2F_Text_GlaciaDefeat
 	msgbox RustboroCity_DevonCorp_2F_Text_GlaciaAfter, MSGBOX_DEFAULT
 	goto DevonCorp_EventScript_EliteFourLeaves
@@ -41,7 +41,7 @@ RustboroCity_DevonCorp_2F_EventScript_Drake::
 	checktrainerflag TRAINER_DEVON_GLACIA
 	goto_if FALSE, RustboroCity_DevonCorp_2F_EventScript_DrakeNotYet
 	msgbox RustboroCity_DevonCorp_2F_Text_Drake, MSGBOX_DEFAULT
-	call DevonCorp_EventScript_SaveHeldItems
+	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_DEVON_DRAKE, RustboroCity_DevonCorp_2F_Text_DrakeDefeat
 	msgbox RustboroCity_DevonCorp_2F_Text_DrakeAfter, MSGBOX_DEFAULT
 	goto DevonCorp_EventScript_EliteFourLeaves

@@ -11,8 +11,10 @@ RustboroCity_DevonCorp_1F_OnTransition:
 @ Ten Gauntlets: Rustboro, Devon Corporation (storyline.md; the states are
 @ explained in RustboroCity's scripts). The staff are gone, and the ELITE FOUR
 @ hold the building: SIDNEY in the lobby and PHOEBE on the stairs here,
-@ GLACIA and DRAKE on 2F. Each is fought once, in order, and leaves; a loss
-@ whites out to RUSTBORO's POKEMON CENTER, and whoever is beaten stays beaten.
+@ GLACIA and DRAKE on 2F. Each is fought once, in order, and leaves. The
+@ player uses the SCRAMBLER before each (DevonFactory_EventScript_UseScrambler):
+@ no heal between them, a loss whites out to RUSTBORO's POKEMON CENTER, and
+@ whoever is beaten stays beaten.
 @ ============================================================================
 
 RustboroCity_DevonCorp_1F_EventScript_SetupEndgame::
@@ -35,7 +37,7 @@ RustboroCity_DevonCorp_1F_EventScript_Sidney::
 	lock
 	faceplayer
 	msgbox RustboroCity_DevonCorp_1F_Text_Sidney, MSGBOX_DEFAULT
-	call DevonCorp_EventScript_SaveHeldItems
+	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_DEVON_SIDNEY, RustboroCity_DevonCorp_1F_Text_SidneyDefeat
 	msgbox RustboroCity_DevonCorp_1F_Text_SidneyAfter, MSGBOX_DEFAULT
 	goto DevonCorp_EventScript_EliteFourLeaves
@@ -46,7 +48,7 @@ RustboroCity_DevonCorp_1F_EventScript_Phoebe::
 	checktrainerflag TRAINER_DEVON_SIDNEY
 	goto_if FALSE, RustboroCity_DevonCorp_1F_EventScript_PhoebeNotYet
 	msgbox RustboroCity_DevonCorp_1F_Text_Phoebe, MSGBOX_DEFAULT
-	call DevonCorp_EventScript_SaveHeldItems
+	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_DEVON_PHOEBE, RustboroCity_DevonCorp_1F_Text_PhoebeDefeat
 	msgbox RustboroCity_DevonCorp_1F_Text_PhoebeAfter, MSGBOX_DEFAULT
 	goto DevonCorp_EventScript_EliteFourLeaves
@@ -58,12 +60,6 @@ RustboroCity_DevonCorp_1F_EventScript_PhoebeNotYet::
 
 @ Shared by all four. The held items they use up come back, win or white-out
 @ (EventScript_RestoreStoryHeldItems), as after any story fight.
-DevonCorp_EventScript_SaveHeldItems::
-	closemessage
-	setflag FLAG_STORY_HELD_ITEMS_SAVED
-	special SaveFacilityHeldItems
-	return
-
 @ VAR_LAST_TALKED is still the member just beaten.
 DevonCorp_EventScript_EliteFourLeaves::
 	special RestoreFacilityHeldItems

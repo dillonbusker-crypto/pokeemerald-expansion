@@ -271,8 +271,9 @@ NewMauville_Inside_Text_SteppedOnSwitchGeneratorStopped:
 @ work as in vanilla.
 @   13 four ADMINS hold the corridors, each fought once, in order (TABITHA,
 @      COURTNEY, MATT, SHELLY: VAR_NEW_MAUVILLE_ADMINS counts them, and a
-@      trigger just before each starts the fight). Each leaves when beaten.
-@      The party is healed after each, and the held items come back
+@      trigger just before each starts the fight). The player uses the
+@      SCRAMBLER before each, so a beaten admin stays beaten; each leaves,
+@      a charging coil heals the party, and the held items come back
 @      (EventScript_RestoreStoryHeldItems), win or white-out.
 @      At the generator MAXIE and ARCHIE are fought back to back, with no
 @      heal (the SCRAMBLER). A loss whites out to MAUVILLE's POKEMON CENTER
@@ -336,7 +337,7 @@ NewMauville_Inside_EventScript_Tabitha::
 
 NewMauville_Inside_EventScript_TabithaFight::
 	msgbox NewMauville_Inside_Text_Tabitha, MSGBOX_DEFAULT
-	call NewMauville_Inside_EventScript_SaveHeldItems
+	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_TABITHA, NewMauville_Inside_Text_TabithaDefeat
 	msgbox NewMauville_Inside_Text_TabithaAfter, MSGBOX_DEFAULT
 	setvar VAR_NEW_MAUVILLE_ADMINS, 1
@@ -357,7 +358,7 @@ NewMauville_Inside_EventScript_Courtney::
 
 NewMauville_Inside_EventScript_CourtneyFight::
 	msgbox NewMauville_Inside_Text_Courtney, MSGBOX_DEFAULT
-	call NewMauville_Inside_EventScript_SaveHeldItems
+	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_COURTNEY, NewMauville_Inside_Text_CourtneyDefeat
 	msgbox NewMauville_Inside_Text_CourtneyAfter, MSGBOX_DEFAULT
 	setvar VAR_NEW_MAUVILLE_ADMINS, 2
@@ -378,7 +379,7 @@ NewMauville_Inside_EventScript_Matt::
 
 NewMauville_Inside_EventScript_MattFight::
 	msgbox NewMauville_Inside_Text_Matt, MSGBOX_DEFAULT
-	call NewMauville_Inside_EventScript_SaveHeldItems
+	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_MATT, NewMauville_Inside_Text_MattDefeat
 	msgbox NewMauville_Inside_Text_MattAfter, MSGBOX_DEFAULT
 	setvar VAR_NEW_MAUVILLE_ADMINS, 3
@@ -411,7 +412,7 @@ NewMauville_Inside_EventScript_Shelly::
 
 NewMauville_Inside_EventScript_ShellyFight::
 	msgbox NewMauville_Inside_Text_Shelly, MSGBOX_DEFAULT
-	call NewMauville_Inside_EventScript_SaveHeldItems
+	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_SHELLY, NewMauville_Inside_Text_ShellyDefeat
 	msgbox NewMauville_Inside_Text_ShellyAfter, MSGBOX_DEFAULT
 	setvar VAR_NEW_MAUVILLE_ADMINS, 4
@@ -423,12 +424,6 @@ NewMauville_Inside_EventScript_NotYet::
 	end
 
 @ Shared by all four. VAR_LAST_TALKED is the admin just beaten.
-NewMauville_Inside_EventScript_SaveHeldItems::
-	closemessage
-	setflag FLAG_STORY_HELD_ITEMS_SAVED
-	special SaveFacilityHeldItems
-	return
-
 NewMauville_Inside_EventScript_AdminLeaves::
 	special RestoreFacilityHeldItems
 	clearflag FLAG_STORY_HELD_ITEMS_SAVED
