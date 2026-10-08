@@ -1096,3 +1096,26 @@ Phase 0 files. I first read them from `git archive sprint/endgame-towns`, then
 9. Report: files, checks passed, anything skipped, and the hand-test list
    (the learn-move prompt, Spectrier, a full-party unfuse, save and reload
    while fused, the art on screen).
+
+---
+
+## 11. Phase 2 result (2026-10-08)
+
+- **Built** clean (`make -j12`, after a `make clean`: the WSL crash had left
+  zero-byte tool binaries and objects in the worktree's ignored build files).
+  `LOCALID_MAUVILLE_STATUE_RUBBLE/STATUE/CALYREX` generate as 24/25/26.
+- **One script fix found while planning the harness:** `addobject` does not
+  clear an object's hide flag, and the camera-scroll respawn skips any object
+  whose flag is set, so the restored statue and CALYREX vanished for good once
+  the player walked far enough away. `RestoreStatue` now clears `FLAG_TEMP_7`
+  and `FLAG_TEMP_8` before each `addobject` (check 3407/3408).
+- **Correction to 3.2/4:** the old man faces left at (2, 3) and does not
+  wander (`MOVEMENT_TYPE_FACE_LEFT` in the map); the harness talks to him from
+  (2, 4).
+- **Widths:** 148 new segments, widest 195 px, none over 208.
+- **Harness scenario 34** (`~/decomps/headless-harness/harness-calyrex.c`,
+  needs three accessor lines appended to the copy, listed in its header):
+  **22/22**. The catch uses the expansion's last-used-ball shortcut (tap R in
+  the action menu), the run cursors to RUN, the knock-out is the usual mash;
+  the fusion and unfusion go through START, BAG (key items, REINS), USE and the
+  party menu. After the restoration 7 objects are active on the lawn view.
