@@ -619,14 +619,13 @@ Facility_B6_Text_AskEnter:
 Facility_B6_Text_BossIntro:
 	.string "LUCY: ...I am LUCY. The PIKE\n"
 	.string "QUEEN.\p"
-	.string "My POKéMON won't overpower you.\n"
-	.string "They'll wear you down.\p"
-	.string "Burned. Paralyzed. Asleep.\n"
-	.string "Trapped.\p"
-	.string "...Then gone.$"
+	.string "You walked all four roads to\n"
+	.string "reach me.\p"
+	.string "Mine has only one. The storm.\p"
+	.string "...It doesn't stop for you.$"
 
 Facility_B6_Text_BossDefeat:
-	.string "...You slipped every trap. Go.$"
+	.string "...The rain stopped. Go.$"
 
 BattleFrontier_BattlePikeLobby_Text_B6SystemDown:
 	.string "I'm sorry. THE CROSSROADS is\n"

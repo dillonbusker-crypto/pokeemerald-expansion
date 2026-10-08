@@ -21870,65 +21870,65 @@ Music: Female
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 
-Gengar @ Gengarite
-Ability: Cursed Body
+Pelipper @ Damp Rock
+Ability: Drizzle
 Level: 50
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-- Shadow Ball
-- Sludge Bomb
-- Will-O-Wisp
-- Protect
-
-Grimmsnarl @ Light Clay
-Ability: Prankster
-Level: 50
-EVs: 252 HP / 4 Atk / 252 SpD
-Careful Nature
-- Reflect
-- Light Screen
-- Thunder Wave
-- Spirit Break
-
-Tornadus @ Covert Cloak
-Ability: Prankster
-Level: 50
-EVs: 252 HP / 4 SpD / 252 Spe
-Timid Nature
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Hurricane
+- Weather Ball
 - Tailwind
-- Bleakwind Storm
-- Taunt
+- Wide Guard
+
+Swampert @ Swampertite
+Ability: Torrent
+Level: 50
+EVs: 4 HP / 252 Atk / 252 Spe
+Adamant Nature
+- Liquidation
+- High Horsepower
+- Ice Punch
 - Protect
 
-Milotic @ Leftovers
+Urshifu-Rapid-Strike @ Mystic Water
+Ability: Unseen Fist
+Level: 50
+EVs: 4 HP / 252 Atk / 252 Spe
+Jolly Nature
+- Surging Strikes
+- Close Combat
+- Aqua Jet
+- Protect
+
+Milotic @ Choice Specs
 Ability: Competitive
 Level: 50
 EVs: 252 HP / 252 SpA / 4 SpD
 Modest Nature
+- Hydro Pump
 - Scald
-- Icy Wind
-- Recover
-- Protect
+- Ice Beam
+- Dragon Pulse
 
-Amoonguss @ Rocky Helmet
-Ability: Regenerator
+Raging Bolt @ Assault Vest
+Ability: Protosynthesis
 Level: 50
-EVs: 252 HP / 252 Def / 4 SpD
-Relaxed Nature
-- Spore
-- Rage Powder
-- Pollen Puff
-- Protect
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Thunderclap
+- Thunder
+- Draco Meteor
+- Snarl
 
-Incineroar @ Sitrus Berry
-Ability: Intimidate
+Rillaboom @ Sitrus Berry
+Ability: Grassy Surge
 Level: 50
-EVs: 252 HP / 4 Atk / 252 SpD
-Careful Nature
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
 - Fake Out
-- Flare Blitz
-- Knock Off
-- Parting Shot
+- Grassy Glide
+- Wood Hammer
+- U-turn
 
 /* Ten Gauntlets: the rival's rematch outside the Battle Tower. The Route 103
  * battle was a level 50 starter against their level 5 one; this is the fair

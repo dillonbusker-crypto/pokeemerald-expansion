@@ -1027,88 +1027,97 @@ Careful Nature
 
 ## Boss — Pike Queen Lucy
 
-Rethemed from Noland's sun team (below, kept for reference) when gauntlet 6
-moved to the Pike. **Status and disruption**, Lucy's specialty: burns,
-paralysis, sleep, screens, Taunt, and Shadow Tag. Built only from gauntlet 7's
-Pokémon and item pool and earlier, with one Mega the player can't own yet:
-**Mega Gengar** (Gengarite is held for gauntlet 7). Item clause compliant.
-
-> **Provisional until gauntlet 7 is designed.** Only Mega Gengar depends on
-> it: Gengarite was penciled in for gauntlet 7 under the old ten-gauntlet
-> plan. If gauntlet 7's shop doesn't sell it, swap in whichever
-> disruption-flavoured Mega does land there. The other five Pokémon and
-> every item are already sold by gauntlet 6.
+**Rain, built around Milotic** (2026-10-07). The first Lucy team (status and
+disruption around Mega Gengar, kept below for reference) was played and
+wiped: four of its six had no attacking investment, so it set up screens,
+Tailwind and status and had nothing to cash them in. This one is a doubles
+offense team. Built only from gauntlet 7's Pokémon and item pool and
+earlier, with one Mega the player can't own yet: **Mega Swampert**
+(Swampertite is sold from wave 6). Item clause compliant; every move checked
+against the expansion's learnsets (Milotic can't learn Muddy Water here).
 
 **AI:** omniscient, proactive switching. No ace flag.
 
 ```
-Gengar @ Gengarite
-Ability: Cursed Body
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-- Shadow Ball
-- Sludge Bomb
-- Will-O-Wisp
-- Protect
-
-Grimmsnarl @ Light Clay
-Ability: Prankster
-EVs: 252 HP / 4 Atk / 252 SpD
-Careful Nature
-- Reflect
-- Light Screen
-- Thunder Wave
-- Spirit Break
-
-Tornadus @ Covert Cloak
-Ability: Prankster
-EVs: 252 HP / 4 SpD / 252 Spe
-Timid Nature
+Pelipper @ Damp Rock
+Ability: Drizzle
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Hurricane
+- Weather Ball
 - Tailwind
-- Bleakwind Storm
-- Taunt
+- Wide Guard
+
+Swampert @ Swampertite
+Ability: Torrent (Swift Swim as a Mega)
+EVs: 4 HP / 252 Atk / 252 Spe
+Adamant Nature
+- Liquidation
+- High Horsepower
+- Ice Punch
 - Protect
 
-Milotic @ Leftovers
+Urshifu-Rapid-Strike @ Mystic Water
+Ability: Unseen Fist
+EVs: 4 HP / 252 Atk / 252 Spe
+Jolly Nature
+- Surging Strikes
+- Close Combat
+- Aqua Jet
+- Protect
+
+Milotic @ Choice Specs
 Ability: Competitive
 EVs: 252 HP / 252 SpA / 4 SpD
 Modest Nature
+- Hydro Pump
 - Scald
-- Icy Wind
-- Recover
-- Protect
+- Ice Beam
+- Dragon Pulse
 
-Amoonguss @ Rocky Helmet
-Ability: Regenerator
-EVs: 252 HP / 252 Def / 4 SpD
-Relaxed Nature
-- Spore
-- Rage Powder
-- Pollen Puff
-- Protect
+Raging Bolt @ Assault Vest
+Ability: Protosynthesis
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Thunderclap
+- Thunder
+- Draco Meteor
+- Snarl
 
-Incineroar @ Sitrus Berry
-Ability: Intimidate
-EVs: 252 HP / 4 Atk / 252 SpD
-Careful Nature
+Rillaboom @ Sitrus Berry
+Ability: Grassy Surge
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
 - Fake Out
-- Flare Blitz
-- Knock Off
-- Parting Shot
+- Grassy Glide
+- Wood Hammer
+- U-turn
 ```
 
-**The strategic dependency:** Mega Gengar traps (Shadow Tag) while Grimmsnarl's
-screens and Tornadus's Tailwind buy it turns; Amoonguss redirects and puts
-attackers to sleep; Milotic punishes Intimidate and Parting Shot with
-Competitive. Lucy's own signature Seviper and Shuckle aren't in any pool, so
-Milotic carries her vanilla identity.
+**The plan:** Pelipper and Mega Swampert lead: eight turns of rain, Swift
+Swim from turn 1, and Wide Guard against the player's Rock Slide, Icy Wind
+and Heat Wave. Urshifu's Unseen Fist hits through Protect and Surging Strikes
+always crits (past Reflect and boosts). Specs Milotic is the ace, and
+Competitive turns the player's Intimidate leads into +2. Raging Bolt answers
+the Water mirror (Thunder can't miss in rain, Thunderclap is priority, Snarl
+spreads) and resists Water, Electric and Grass. Rillaboom's Fake Out buys
+turns and covers Swampert's and Milotic's Grass and Electric weaknesses.
+Priority (Aqua Jet, Thunderclap, Grassy Glide) keeps pressure under Trick
+Room.
 
-**Counterplay at tier 6:** Safety Goggles and Grass types ignore Spore and
-Rage Powder; Covert Cloak or Clear Amulet against Bleakwind Storm and Icy
-Wind drops; Taunt or Encore against the screen setter; Trick Room flips
-Tailwind; Dark and Ghost attackers for Gengar, which can't escape its own
-trapping game if it's the one taking hits. **Playtest note:** a disruption
-team may deal less damage than Noland's did; check that it still threatens.
+**Counterplay at tier 6:** take the weather (Drought, Snow Warning; the A2
+and A3 teams teach it), Storm Drain or Water Absorb, Electric or Grass spread
+moves, Fairies for Urshifu, or outlast the eight turns. It shares only
+Pelipper with A1 (Monsoon), which has no Mega and no physical threats.
+
+### The first Lucy team (status and disruption, replaced)
+
+Mega Gengar (Shadow Ball, Sludge Bomb, Will-O-Wisp, Protect), Grimmsnarl
+(screens, Thunder Wave), Tornadus (Tailwind, Bleakwind Storm, Taunt),
+Milotic (Scald, Icy Wind, Recover), Amoonguss (Spore, Rage Powder) and
+Incineroar (Fake Out, Flare Blitz, Knock Off, Parting Shot, which Incineroar
+can't learn in this expansion). Its own playtest note warned it might not
+threaten; it didn't.
 
 ---
 

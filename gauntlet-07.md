@@ -124,9 +124,9 @@ Every remaining stone except the wave 7 group and the story locks.
 | **Strong** | 750 | Charizardite X (634, Tough Claws), Charizardite Y (634, Drought), Gyaradosite (640, Mold Breaker), Swampertite (635, Swift Swim), Blastoisinite (630, Mega Launcher), Sceptilite (630, Lightning Rod), Greninjite (630, Protean), Golisopite (630, Tough Claws), Chesnaughtite (630, Bulletproof), Feraligite (630, Dragonize), Delphoxite (634, Levitate), Emboarite (628, Mold Breaker), Lucarionite (625, Adaptability), Lucarionite Z (625, Aura Guard), Glimmoranite (625, Adaptability), Venusaurite (625, Thick Fat), Meganiumite (625, Mega Sol), Starminite (620, Huge Power), Chandelurite (620, Infiltrator), Gardevoirite (618, Pixilate), Galladite (618, Inner Focus), Aerodactylite (615, Tough Claws), Eelektrossite (615, Eelevate), Excadrite (608, Piercing Drill), Pyroarite (607, Fire Mane) |
 | **Standard** | 300 | Banettite (555, Prankster), Scolipite (585, Shell Armor), Falinksite (570, Battle Armor) |
 
-- **Gengarite at wave 6 keeps Lucy's gauntlet 6 team valid.** Mega Gengar is
-  the "one Mega the player can't own yet" during gauntlet 6
-  (`gauntlet-06.md`).
+- **Swampertite at wave 6 keeps Lucy's gauntlet 6 team valid.** Mega Swampert
+  is the "one Mega the player can't own yet" during gauntlet 6
+  (`gauntlet-06.md`; Lucy used Mega Gengar until her rain team).
 - **Mega Banette, Scolipede and Falinks** were "cut as outclassed" in
   gauntlet 5. With every stone on sale they come back cheap, for
   completeness.
@@ -1287,4 +1287,4 @@ and every move was checked against `all_learnables.json`.
 1. Playtest gauntlet 7 (see "Open for playtesting").
 2. Settle open questions 1, 2 and 5, then design gauntlet 8 (doubles, the
    Battle Pyramid, Pyramid King Brandon) and wave 7.
-3. Update Lucy (`gauntlet-06.md`) only if Gengarite's wave changes.
+3. Update Lucy (`gauntlet-06.md`) only if Swampertite's wave changes.
