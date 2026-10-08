@@ -134,7 +134,7 @@
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "3",
       "script": "RusturfTunnel_EventScript_Mike",
-      "flag": "0"
+      "flag": "FLAG_HIDE_RUSTURF_TUNNEL_MIKE"
     },
     {
       "local_id": "LOCALID_RUSTURF_TUNNEL_WANDA",
@@ -149,6 +149,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "RusturfTunnel_EventScript_Wanda",
       "flag": "FLAG_HIDE_RUSTURF_TUNNEL_WANDA"
+    },
+    {
+      "local_id": "LOCALID_RUSTURF_TUNNEL_GIRATINA",
+      "graphics_id": "OBJ_EVENT_GFX_SPECIES(GIRATINA)",
+      "x": 19,
+      "y": 18,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "RusturfTunnel_EventScript_Giratina",
+      "flag": "FLAG_GIRATINA_CAUGHT"
     }
   ],
   "warp_events": [
@@ -156,22 +170,22 @@
       "x": 4,
       "y": 10,
       "elevation": 3,
-      "dest_map": "MAP_ROUTE116",
-      "dest_warp_id": "0"
+      "dest_map": "MAP_DYNAMIC",
+      "dest_warp_id": "WARP_ID_DYNAMIC"
     },
     {
       "x": 29,
       "y": 16,
       "elevation": 3,
-      "dest_map": "MAP_VERDANTURF_TOWN",
-      "dest_warp_id": "4"
+      "dest_map": "MAP_DYNAMIC",
+      "dest_warp_id": "WARP_ID_DYNAMIC"
     },
     {
       "x": 18,
       "y": 20,
       "elevation": 3,
-      "dest_map": "MAP_ROUTE116",
-      "dest_warp_id": "2"
+      "dest_map": "MAP_DYNAMIC",
+      "dest_warp_id": "WARP_ID_DYNAMIC"
     }
   ],
   "coord_events": [
@@ -219,6 +233,69 @@
       "var": "TRIGGER_RUN_IMMEDIATELY",
       "var_value": "0",
       "script": "RusturfTunnel_EventScript_TunnelBlockagePos3"
+    },
+    {
+      "type": "trigger",
+      "x": 7,
+      "y": 4,
+      "elevation": 3,
+      "var": "VAR_GIRATINA_EVENT",
+      "var_value": "2",
+      "script": "RusturfTunnel_EventScript_Shadow"
+    },
+    {
+      "type": "trigger",
+      "x": 7,
+      "y": 5,
+      "elevation": 3,
+      "var": "VAR_GIRATINA_EVENT",
+      "var_value": "2",
+      "script": "RusturfTunnel_EventScript_Shadow"
+    },
+    {
+      "type": "trigger",
+      "x": 16,
+      "y": 4,
+      "elevation": 3,
+      "var": "VAR_GIRATINA_EVENT",
+      "var_value": "3",
+      "script": "RusturfTunnel_EventScript_Prints"
+    },
+    {
+      "type": "trigger",
+      "x": 16,
+      "y": 5,
+      "elevation": 3,
+      "var": "VAR_GIRATINA_EVENT",
+      "var_value": "3",
+      "script": "RusturfTunnel_EventScript_Prints"
+    },
+    {
+      "type": "trigger",
+      "x": 27,
+      "y": 4,
+      "elevation": 3,
+      "var": "VAR_GIRATINA_EVENT",
+      "var_value": "4",
+      "script": "RusturfTunnel_EventScript_Writing"
+    },
+    {
+      "type": "trigger",
+      "x": 27,
+      "y": 5,
+      "elevation": 3,
+      "var": "VAR_GIRATINA_EVENT",
+      "var_value": "4",
+      "script": "RusturfTunnel_EventScript_Writing"
+    },
+    {
+      "type": "trigger",
+      "x": 21,
+      "y": 16,
+      "elevation": 3,
+      "var": "VAR_GIRATINA_EVENT",
+      "var_value": "5",
+      "script": "RusturfTunnel_EventScript_Sighting"
     }
   ],
   "bg_events": []
