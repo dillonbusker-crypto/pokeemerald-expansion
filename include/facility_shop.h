@@ -30,22 +30,18 @@ void FacilityShopBuildHeldItemsMenu(void);
 // gSpecialVar_Result = FALSE if no Mega Stone is unlocked yet.
 void FacilityShopBuildMegaStonesMenu(void);
 
-// The Pokemon keeper's first screen - one row per unlocked gauntlet's shop
-// wave plus "Sell a Pokemon". gSpecialVar_0x8004 = chosen row index in;
-// FacilityShopSelectGauntletRow's gSpecialVar_Result = TRUE means the player
-// picked Sell (go straight to the sell flow), FALSE means the wave to browse
-// is now remembered internally and the caller should show tier-select next.
-void FacilityShopBuildGauntletMenu(void);
-void FacilityShopSelectGauntletRow(void);
-
-// gSpecialVar_0x8009 = FACILITY_SHOP_TIER_* in. gSpecialVar_Result = TRUE if
-// a type-filter menu was staged instead of the species list (too many
-// unlocked mons in this tier to browse flat) - show that menu, feed the
-// chosen row to FacilityShopSelectMonType, then show the list again. FALSE
-// means the species list is already staged and ready to show.
-void FacilityShopBuildMonTierList(void);
-// gSpecialVar_0x8004 = chosen row index from the type-filter menu.
+// The Pokemon keeper's first screen: New arrivals, the Showdown tiers, Sell
+// (and Free). gSpecialVar_0x8004 = chosen row index in;
+// FacilityShopSelectMonMenuRow's gSpecialVar_Result = MON_MENU_* says what
+// it staged (a list, Low Tier's type menu) or where to go (Sell, Free).
+void FacilityShopBuildMonMenu(void);
+void FacilityShopSelectMonMenuRow(void);
+// gSpecialVar_0x8004 = chosen row index from Low Tier's type menu; stages
+// that type's list.
 void FacilityShopSelectMonType(void);
+// B on a Pokemon list: gSpecialVar_Result TRUE means Low Tier's type menu is
+// staged again, FALSE means go back to the main menu.
+void FacilityShopLeaveMonList(void);
 
 // gSpecialVar_0x8004 = chosen row index into whichever list is currently
 // staged. Out: gSpecialVar_0x8009 = species/item id, VAR_0x8008 = price,

@@ -13,6 +13,15 @@ enum
     FACILITY_SHOP_TIER_BUDGET,
 };
 
+// FacilityShopSelectMonMenuRow()'s result.
+enum
+{
+    MON_MENU_LIST,  // a Pokemon list is staged
+    MON_MENU_TYPES, // Low Tier's type menu is staged
+    MON_MENU_SELL,
+    MON_MENU_FREE,
+};
+
 // FacilityShopSellMonPrompt()'s result - SELL_MON_OK means the confirm
 // prompt should show; everything else is a reason to refuse with its own
 // message instead of the generic "can't sell that" one.

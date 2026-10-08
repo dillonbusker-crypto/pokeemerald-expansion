@@ -63,10 +63,10 @@ gSpecials::
 	def_special FacilityTagLastPartyMonBroker
 	def_special FacilityTraderHasStock
 	def_special FacilityTraderTrade
-	def_special FacilityShopBuildGauntletMenu
-	def_special FacilityShopSelectGauntletRow
-	def_special FacilityShopBuildMonTierList
+	def_special FacilityShopBuildMonMenu
+	def_special FacilityShopSelectMonMenuRow
 	def_special FacilityShopSelectMonType
+	def_special FacilityShopLeaveMonList
 	def_special FacilityShopSelectRow
 	def_special FacilityShopFreeMenuRows
 	def_special ShowFacilityFPWindow

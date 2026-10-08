@@ -19,13 +19,11 @@
 // just nine more rows with an unlockGauntlet value, not nine more
 // conditionals.
 //
-// Keeper 4 (Pokemon) additionally organizes its master tables by that same
-// `unlockGauntlet` value, calling it a "wave": the player picks a gauntlet's
-// wave first (FacilityShopBuildGauntletMenu), then a tier within it, so
-// browsing one gauntlet's additions doesn't mean scrolling through every
-// other gauntlet's too. That's one generic gauntlet-select screen shared by
-// every gauntlet, not a new screen per gauntlet - a gauntlet's worth of new
-// mons is still just new rows with that gauntlet's unlockGauntlet value.
+// Keeper 4 (Pokemon) sorts what's unlocked into Showdown's singles tiers
+// (FacilityShopBuildMonMenu), with a New arrivals row for the last cleared
+// gauntlet's unlocks. The Premium/Strong/Standard/Budget tables below are
+// only where the rows live now (the Broker and the trader still read them
+// that way); the player never sees those names.
 //
 // The list itself is generated at runtime instead of living as a
 // SCROLL_MULTI_TEN_GAUNTLETS_MON_STANDARD_1..6-style static COMPOUND_STRING
@@ -34,7 +32,7 @@
 // pagination (MAX_SCROLL_MULTI_LENGTH is 16, an artifact of that table's
 // second dimension, not a real engine limit) kept in sync by hand across two
 // files. Now the "Build" specials below filter the master tables by unlock
-// and (for Pokemon) by wave/tier/type, and stage the result in sMenuRows -
+// and (for Pokemon) by Showdown tier and type, and stage the result in sMenuRows -
 // heap-allocated per visit, same lifetime as ShowScrollableMultichoice's own
 // sScrollableMultichoice_ListMenuItem, so steady-state EWRAM use doesn't grow
 // no matter how many rows a tier eventually holds. Name pointers come
@@ -1262,18 +1260,14 @@ struct FacilityShopMenuRow
 };
 
 #define FACILITY_SHOP_TYPE_ALL NUMBER_OF_MON_TYPES
-#define FACILITY_SHOP_TYPE_FILTER_THRESHOLD 20
 
-// Sentinel id for the "Sell a Pokemon" row on the gauntlet-select menu -
-// keeps it out of the u8 wave range (0-9) the same way FACILITY_SHOP_TYPE_ALL
-// keeps its sentinel out of the Type range.
-#define FACILITY_SHOP_GAUNTLET_SELECT_SELL 0xFFFF
-#define FACILITY_SHOP_GAUNTLET_SELECT_FREE 0xFFFE // Ten Gauntlets: "Free the Pokemon" (the siphon)
+// Ids of the Pokemon menu's rows that aren't a tier (SHOWDOWN_TIER_*).
+#define FACILITY_SHOP_MON_MENU_NEW  0xFD
+#define FACILITY_SHOP_MON_MENU_FREE 0xFE // Ten Gauntlets: "Free the Pokemon" (the siphon)
+#define FACILITY_SHOP_MON_MENU_SELL 0xFF
 
 static EWRAM_DATA struct FacilityShopMenuRow *sMenuRows = NULL;
 static EWRAM_DATA u16 sMenuRowCount = 0;
-static EWRAM_DATA u8 sPendingMonTier = 0; // tier remembered between BuildMonTierList and SelectMonType
-static EWRAM_DATA u8 sPendingGauntletWave = 0; // wave remembered between BuildBuildingMenu and BuildMonTierList
 
 static void FreeMenuRows(void)
 {
@@ -1410,69 +1404,159 @@ void FacilityShopBuildMegaStonesMenu(void)
     }
 }
 
-// A mon is in the currently-browsed gauntlet submenu if its wave is the one
-// the player picked on the gauntlet-select screen. IsShopEntryUnlocked is a
-// belt-and-suspenders check - sPendingGauntletWave can't be set to a wave
-// that isn't unlocked (FacilityShopBuildGauntletMenu only ever offers
-// unlocked waves), but the check is one word and worth keeping honest.
-static bool8 IsMonInPendingWave(const struct FacilityShopMon *mon)
+// ----------------------------------------------------------------------------
+// The Pokemon menu (shop-spec.md, "The Pokemon menu"). The keeper's first
+// screen lists New arrivals, then Showdown's singles tiers strongest first,
+// then Sell (and Free, for the siphon). Each tier lists every Pokemon
+// unlocked so far; Low Tier (PU and below) opens on a type menu first. Every
+// list is sorted by price, most expensive first. The tiers come from
+// src/data/facility_shop_tiers.h (tools/showdown_tiers.py).
+// ----------------------------------------------------------------------------
+
+enum
 {
-    return mon->unlockGauntlet == sPendingGauntletWave && IsShopEntryUnlocked(mon->unlockGauntlet);
+    SHOWDOWN_TIER_NONE,
+    SHOWDOWN_TIER_UBER,
+    SHOWDOWN_TIER_OU,
+    SHOWDOWN_TIER_UU,
+    SHOWDOWN_TIER_RU,
+    SHOWDOWN_TIER_NU,
+    SHOWDOWN_TIER_LOW,
+    SHOWDOWN_TIER_COUNT,
+};
+
+#include "data/facility_shop_tiers.h"
+
+static const u8 *const sShowdownTierNames[SHOWDOWN_TIER_COUNT] =
+{
+    [SHOWDOWN_TIER_UBER] = COMPOUND_STRING("Uber"),
+    [SHOWDOWN_TIER_OU]   = COMPOUND_STRING("OU"),
+    [SHOWDOWN_TIER_UU]   = COMPOUND_STRING("UU"),
+    [SHOWDOWN_TIER_RU]   = COMPOUND_STRING("RU"),
+    [SHOWDOWN_TIER_NU]   = COMPOUND_STRING("NU"),
+    [SHOWDOWN_TIER_LOW]  = COMPOUND_STRING("Low Tier"),
+};
+
+static const u8 sText_NewArrivals[] = _("New arrivals");
+static const u8 sText_TypeFilterAll[] = _("All");
+static const u8 sText_SellAPokemon[] = _("Sell a Pokemon");
+static const u8 sText_FreeThePokemon[] = _("Free the Pokemon");
+
+// What the browsed list is: one tier, plus a type within Low Tier
+// (FACILITY_SHOP_TYPE_ALL for none), or New arrivals.
+static EWRAM_DATA u8 sBrowsedList = 0;
+static EWRAM_DATA u8 sBrowsedType = 0;
+
+// Ten Gauntlets: the Frontier siphon (storyline.md) is offered once, after
+// Rustboro (VAR_ENDGAME_STATE 10), while the player holds the uncharged Crown.
+static bool8 ShouldOfferSiphon(void)
+{
+    return VarGet(VAR_ENDGAME_STATE) == 10 && CheckBagHasItem(ITEM_REPLICA_CROWN, 1);
 }
 
-// Stages the final species list for the remembered tier/gauntlet wave,
-// optionally restricted to one primary type. typeFilter ==
-// FACILITY_SHOP_TYPE_ALL means no restriction.
-static u16 StageMonTier(u8 tier, u8 typeFilter)
+// New arrivals is the stock the last cleared gauntlet unlocked (wave N for
+// gauntlet N). 0 before any gauntlet is cleared: no New arrivals row.
+static u8 GetNewArrivalsWave(void)
 {
-    const struct FacilityShopMon *pool = sMonTiers[tier];
-    u16 size = sMonTierSizes[tier];
-    u16 i, count = 0;
+    u16 completed = gSaveBlock3Ptr->facility.progress.gauntletsCompleted;
+    u8 wave = 0;
+
+    while (completed != 0)
+    {
+        wave++;
+        completed >>= 1;
+    }
+    return wave;
+}
+
+static bool8 MonHasType(u16 species, u8 type)
+{
+    return GetSpeciesType(species, 0) == type || GetSpeciesType(species, 1) == type;
+}
+
+static bool8 IsMonInBrowsedList(const struct FacilityShopMon *mon)
+{
+    if (!IsShopEntryUnlocked(mon->unlockGauntlet))
+        return FALSE;
+    if (sBrowsedList == FACILITY_SHOP_MON_MENU_NEW)
+        return mon->unlockGauntlet == GetNewArrivalsWave();
+    if (sShowdownTiers[mon->species] != sBrowsedList)
+        return FALSE;
+    return sBrowsedType == FACILITY_SHOP_TYPE_ALL || MonHasType(mon->species, sBrowsedType);
+}
+
+// Most expensive first; ties alphabetical. Base prices, so the order holds
+// while the shop is free.
+static bool8 ShopMonGoesBefore(const struct FacilityShopMon *a, const struct FacilityShopMon *b)
+{
+    if (a->price != b->price)
+        return a->price > b->price;
+    return StringCompare(GetShopMonName(a->species), GetShopMonName(b->species)) < 0;
+}
+
+// Stages the browsed list (sBrowsedList, sBrowsedType), sorted.
+static void StageMonList(void)
+{
+    const struct FacilityShopMon **mons;
+    u32 tier, i, j, count = 0;
 
     FreeMenuRows();
-    for (i = 0; i < size; i++)
+    for (tier = 0; tier < ARRAY_COUNT(sMonTiers); tier++)
     {
-        if (!IsMonInPendingWave(&pool[i]))
-            continue;
-        if (typeFilter != FACILITY_SHOP_TYPE_ALL && GetSpeciesType(pool[i].species, 0) != typeFilter)
-            continue;
-        count++;
+        for (i = 0; i < sMonTierSizes[tier]; i++)
+        {
+            if (IsMonInBrowsedList(&sMonTiers[tier][i]))
+                count++;
+        }
     }
 
     sMenuRows = Alloc(count * sizeof(struct FacilityShopMenuRow));
     sMenuRowCount = count;
-    for (i = 0, count = 0; i < size; i++)
+    mons = Alloc(count * sizeof(*mons));
+    for (count = 0, tier = 0; tier < ARRAY_COUNT(sMonTiers); tier++)
     {
-        if (!IsMonInPendingWave(&pool[i]))
-            continue;
-        if (typeFilter != FACILITY_SHOP_TYPE_ALL && GetSpeciesType(pool[i].species, 0) != typeFilter)
-            continue;
-        sMenuRows[count].id = pool[i].species;
-        sMenuRows[count].price = ShopPrice(pool[i].price);
-        sMenuRows[count].name = GetShopMonName(pool[i].species);
-        sMenuRows[count].description = NULL;
-        count++;
+        for (i = 0; i < sMonTierSizes[tier]; i++)
+        {
+            const struct FacilityShopMon *mon = &sMonTiers[tier][i];
+
+            if (!IsMonInBrowsedList(mon))
+                continue;
+            // Insertion sort: at most a few hundred rows.
+            for (j = count; j > 0 && ShopMonGoesBefore(mon, mons[j - 1]); j--)
+                mons[j] = mons[j - 1];
+            mons[j] = mon;
+            count++;
+        }
     }
-    return count;
+
+    for (i = 0; i < count; i++)
+    {
+        sMenuRows[i].id = mons[i]->species;
+        sMenuRows[i].price = ShopPrice(mons[i]->price);
+        sMenuRows[i].name = GetShopMonName(mons[i]->species);
+        sMenuRows[i].description = NULL;
+    }
+    Free(mons);
 }
 
-static const u8 sText_TypeFilterAll[] = _("All");
-
-// Stages the type-filter menu: one row per distinct primary type actually
-// present among the tier's currently-browsed gauntlet wave, plus "All" up
-// front.
-static void StageMonTypeMenu(u8 tier)
+// Stages Low Tier's type menu: "All", then every type at least one unlocked
+// Low Tier Pokemon has, as either of its types.
+static void StageLowTierTypeMenu(void)
 {
-    const struct FacilityShopMon *pool = sMonTiers[tier];
-    u16 size = sMonTierSizes[tier];
     bool8 typePresent[NUMBER_OF_MON_TYPES] = {0};
-    u16 i, count = 1; // slot 0 reserved for "All"
+    u32 tier, i, count = 1; // slot 0 is "All"
 
-    for (i = 0; i < size; i++)
+    for (tier = 0; tier < ARRAY_COUNT(sMonTiers); tier++)
     {
-        if (!IsMonInPendingWave(&pool[i]))
-            continue;
-        typePresent[GetSpeciesType(pool[i].species, 0)] = TRUE;
+        for (i = 0; i < sMonTierSizes[tier]; i++)
+        {
+            const struct FacilityShopMon *mon = &sMonTiers[tier][i];
+
+            if (!IsShopEntryUnlocked(mon->unlockGauntlet) || sShowdownTiers[mon->species] != SHOWDOWN_TIER_LOW)
+                continue;
+            typePresent[GetSpeciesType(mon->species, 0)] = TRUE;
+            typePresent[GetSpeciesType(mon->species, 1)] = TRUE;
+        }
     }
     for (i = 0; i < NUMBER_OF_MON_TYPES; i++)
     {
@@ -1499,55 +1583,123 @@ static void StageMonTypeMenu(u8 tier)
     }
 }
 
-// gSpecialVar_0x8009 = FACILITY_SHOP_TIER_* in. sPendingGauntletWave must
-// already be set (FacilityShopSelectGauntletRow does this before the caller
-// ever reaches the tier-select screen).
-// gSpecialVar_Result = TRUE if this tier/wave combination has more mons than
-// fit in one screenful of browsing and a type-filter menu was staged instead
-// of the species list directly - the caller shows that menu and then calls
-// FacilityShopSelectMonType with the chosen row before showing the (now
-// staged) species list. FALSE means the species list is already staged and
-// ready to show. Splitting the master tables by gauntlet wave first means
-// this threshold rarely trips anymore - it's kept for the rare wave whose
-// single tier is still a big pool on its own.
-void FacilityShopBuildMonTierList(void)
+// Whether the main menu shows a row: New arrivals or a tier with at least
+// one unlocked Pokemon.
+static bool8 MonMenuRowHasStock(u8 list)
 {
-    u8 tier = gSpecialVar_0x8009;
-    u16 unlockedCount = 0;
-    const struct FacilityShopMon *pool = sMonTiers[tier];
-    u16 size = sMonTierSizes[tier];
-    u16 i;
+    u32 tier, i;
 
-    sPendingMonTier = tier;
-    for (i = 0; i < size; i++)
+    if (list == FACILITY_SHOP_MON_MENU_NEW && GetNewArrivalsWave() == 0)
+        return FALSE;
+    sBrowsedList = list;
+    sBrowsedType = FACILITY_SHOP_TYPE_ALL;
+    for (tier = 0; tier < ARRAY_COUNT(sMonTiers); tier++)
     {
-        if (IsMonInPendingWave(&pool[i]))
-            unlockedCount++;
+        for (i = 0; i < sMonTierSizes[tier]; i++)
+        {
+            if (IsMonInBrowsedList(&sMonTiers[tier][i]))
+                return TRUE;
+        }
     }
+    return FALSE;
+}
 
-    if (unlockedCount > FACILITY_SHOP_TYPE_FILTER_THRESHOLD)
+static void AddMonMenuRow(u16 *count, u16 id, const u8 *name)
+{
+    if (sMenuRows != NULL)
     {
-        StageMonTypeMenu(tier);
+        sMenuRows[*count].id = id;
+        sMenuRows[*count].price = 0;
+        sMenuRows[*count].name = name;
+        sMenuRows[*count].description = NULL;
+    }
+    (*count)++;
+}
+
+// Walks the main menu's rows; with sMenuRows NULL it only counts them.
+static u16 StageMonMenuRows(void)
+{
+    u16 count = 0;
+    u32 tier;
+
+    if (MonMenuRowHasStock(FACILITY_SHOP_MON_MENU_NEW))
+        AddMonMenuRow(&count, FACILITY_SHOP_MON_MENU_NEW, sText_NewArrivals);
+    for (tier = SHOWDOWN_TIER_UBER; tier < SHOWDOWN_TIER_COUNT; tier++)
+    {
+        if (MonMenuRowHasStock(tier))
+            AddMonMenuRow(&count, tier, sShowdownTierNames[tier]);
+    }
+    AddMonMenuRow(&count, FACILITY_SHOP_MON_MENU_SELL, sText_SellAPokemon);
+    if (ShouldOfferSiphon())
+        AddMonMenuRow(&count, FACILITY_SHOP_MON_MENU_FREE, sText_FreeThePokemon);
+    return count;
+}
+
+void FacilityShopBuildMonMenu(void)
+{
+    u16 count;
+
+    FreeMenuRows();
+    count = StageMonMenuRows();
+    sMenuRows = Alloc(count * sizeof(struct FacilityShopMenuRow));
+    sMenuRowCount = count;
+    StageMonMenuRows();
+}
+
+// gSpecialVar_0x8004 = chosen row index into the main menu. Stages what the
+// row opens; gSpecialVar_Result = MON_MENU_* says what to show.
+void FacilityShopSelectMonMenuRow(void)
+{
+    u16 id = sMenuRows[gSpecialVar_0x8004].id;
+
+    if (id == FACILITY_SHOP_MON_MENU_SELL)
+    {
+        gSpecialVar_Result = MON_MENU_SELL;
+    }
+    else if (id == FACILITY_SHOP_MON_MENU_FREE)
+    {
+        gSpecialVar_Result = MON_MENU_FREE;
+    }
+    else if (id == SHOWDOWN_TIER_LOW)
+    {
+        sBrowsedList = SHOWDOWN_TIER_LOW;
+        StageLowTierTypeMenu();
+        gSpecialVar_Result = MON_MENU_TYPES;
+    }
+    else
+    {
+        sBrowsedList = id;
+        sBrowsedType = FACILITY_SHOP_TYPE_ALL;
+        StageMonList();
+        gSpecialVar_Result = MON_MENU_LIST;
+    }
+}
+
+// gSpecialVar_0x8004 = chosen row index into Low Tier's type menu. Stages
+// that type's list.
+void FacilityShopSelectMonType(void)
+{
+    sBrowsedType = sMenuRows[gSpecialVar_0x8004].id;
+    StageMonList();
+}
+
+// B on a Pokemon list. Low Tier goes back to its type menu (staged again,
+// gSpecialVar_Result TRUE); everything else goes back to the main menu.
+void FacilityShopLeaveMonList(void)
+{
+    if (sBrowsedList == SHOWDOWN_TIER_LOW)
+    {
+        StageLowTierTypeMenu();
         gSpecialVar_Result = TRUE;
     }
     else
     {
-        StageMonTier(tier, FACILITY_SHOP_TYPE_ALL);
         gSpecialVar_Result = FALSE;
     }
 }
 
-// gSpecialVar_0x8004 = chosen row index into the just-shown type-filter menu.
-// Re-stages the species list for the remembered tier, filtered to that type.
-void FacilityShopSelectMonType(void)
-{
-    u16 index = gSpecialVar_0x8004;
-    u8 typeFilter = sMenuRows[index].id;
-    StageMonTier(sPendingMonTier, typeFilter);
-}
-
 // gSpecialVar_0x8004 = chosen row index into whichever list is currently
-// staged (consumables, held items, or a Pokemon tier/type list).
+// staged (consumables, held items, or a Pokemon list).
 // Out: gSpecialVar_0x8009 = species or item id, VAR_0x8008 = price,
 // STR_VAR_1 = name (for the confirm message).
 void FacilityShopSelectRow(void)
@@ -1556,132 +1708,6 @@ void FacilityShopSelectRow(void)
     gSpecialVar_0x8009 = sMenuRows[index].id;
     gSpecialVar_0x8008 = sMenuRows[index].price;
     StringCopy(gStringVar1, sMenuRows[index].name);
-}
-
-// ----------------------------------------------------------------------------
-// Gauntlet-select menu - the screen above tier-select. One row per gauntlet
-// whose shop wave (unlockGauntlet value) is unlocked and actually has a mon
-// in some tier, plus "Sell a Pokemon". Adding a gauntlet's worth of new mons
-// is exactly one more line in sGauntletWaveNames (and the unlockGauntlet
-// values already on those rows do the rest) - no other change needed here.
-// ----------------------------------------------------------------------------
-
-// One name per shop wave. Wave N is the stock that unlocks on clearing
-// gauntlet N, i.e. what the player buys *for* gauntlet N+1 - so wave 0 is
-// "Gauntlet 1", and wave 8 is the endgame stock. All are listed up front: a
-// wave with no name here never appears in the menu at all
-// (FacilityShopBuildGauntletMenu only walks this table), which silently hid
-// gauntlets 5 and 6's Pokemon while it stopped at 4.
-static const u8 *const sGauntletWaveNames[] =
-{
-    COMPOUND_STRING("Gauntlet 1 Pokemon"),
-    COMPOUND_STRING("Gauntlet 2 Pokemon"),
-    COMPOUND_STRING("Gauntlet 3 Pokemon"),
-    COMPOUND_STRING("Gauntlet 4 Pokemon"),
-    COMPOUND_STRING("Gauntlet 5 Pokemon"),
-    COMPOUND_STRING("Gauntlet 6 Pokemon"),
-    COMPOUND_STRING("Gauntlet 7 Pokemon"),
-    COMPOUND_STRING("Gauntlet 8 Pokemon"),
-    COMPOUND_STRING("Endgame Pokemon"),
-};
-
-static const u8 sText_SellAPokemon[] = _("Sell a Pokemon");
-static const u8 sText_FreeThePokemon[] = _("Free the Pokemon");
-
-// Ten Gauntlets: the Frontier siphon (storyline.md) is offered once, after
-// Rustboro (VAR_ENDGAME_STATE 10), while the player holds the uncharged Crown.
-static bool8 ShouldOfferSiphon(void)
-{
-    return VarGet(VAR_ENDGAME_STATE) == 10 && CheckBagHasItem(ITEM_REPLICA_CROWN, 1);
-}
-
-// Guards against a wave number that's unlocked (in the IsShopEntryUnlocked
-// sense) but was never actually given any Pokemon of its own - e.g. a future
-// gauntlet whose shop-unlock wave is items-only at Keeper 4's counter.
-// Showing a gauntlet option that opens onto an empty tier list would be a
-// dead end, so it just doesn't appear.
-static bool8 GauntletWaveHasAnyMon(u8 wave)
-{
-    u32 tier, i;
-
-    for (tier = 0; tier < ARRAY_COUNT(sMonTiers); tier++)
-    {
-        for (i = 0; i < sMonTierSizes[tier]; i++)
-        {
-            if (sMonTiers[tier][i].unlockGauntlet == wave)
-                return TRUE;
-        }
-    }
-    return FALSE;
-}
-
-// The Pokemon keeper's first screen. Stages one row per unlocked gauntlet
-// wave plus "Sell a Pokemon" - see FacilityShopSelectGauntletRow for what the
-// caller does with the chosen row.
-void FacilityShopBuildGauntletMenu(void)
-{
-    u16 i, count = 0;
-
-    for (i = 0; i < ARRAY_COUNT(sGauntletWaveNames); i++)
-    {
-        if (IsShopEntryUnlocked(i) && GauntletWaveHasAnyMon(i))
-            count++;
-    }
-    count++; // Sell a Pokemon
-    if (ShouldOfferSiphon())
-        count++; // Free the Pokemon
-
-    FreeMenuRows();
-    sMenuRows = Alloc(count * sizeof(struct FacilityShopMenuRow));
-    sMenuRowCount = count;
-
-    for (i = 0, count = 0; i < ARRAY_COUNT(sGauntletWaveNames); i++)
-    {
-        if (!IsShopEntryUnlocked(i) || !GauntletWaveHasAnyMon(i))
-            continue;
-        sMenuRows[count].id = i;
-        sMenuRows[count].price = 0;
-        sMenuRows[count].name = sGauntletWaveNames[i];
-        sMenuRows[count].description = NULL;
-        count++;
-    }
-    sMenuRows[count].id = FACILITY_SHOP_GAUNTLET_SELECT_SELL;
-    sMenuRows[count].price = 0;
-    sMenuRows[count].name = sText_SellAPokemon;
-    sMenuRows[count].description = NULL;
-    if (ShouldOfferSiphon())
-    {
-        count++;
-        sMenuRows[count].id = FACILITY_SHOP_GAUNTLET_SELECT_FREE;
-        sMenuRows[count].price = 0;
-        sMenuRows[count].name = sText_FreeThePokemon;
-        sMenuRows[count].description = NULL;
-    }
-}
-
-// gSpecialVar_0x8004 = chosen row index into the just-shown gauntlet menu.
-// gSpecialVar_Result = TRUE means the player picked "Sell a Pokemon" - the
-// caller goes straight to the sell flow; 2 means "Free the Pokemon" (the
-// siphon, only offered at VAR_ENDGAME_STATE 10). FALSE means sPendingGauntletWave is
-// now set and the caller should show tier-select next.
-void FacilityShopSelectGauntletRow(void)
-{
-    u16 index = gSpecialVar_0x8004;
-    u16 id = sMenuRows[index].id;
-
-    if (id == FACILITY_SHOP_GAUNTLET_SELECT_SELL)
-    {
-        gSpecialVar_Result = TRUE;
-    }
-    else if (id == FACILITY_SHOP_GAUNTLET_SELECT_FREE)
-    {
-        gSpecialVar_Result = 2;
-    }
-    else
-    {
-        sPendingGauntletWave = id;
-        gSpecialVar_Result = FALSE;
-    }
 }
 
 void FacilityShopGetFP(void)

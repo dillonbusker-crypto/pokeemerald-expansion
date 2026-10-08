@@ -56,8 +56,8 @@ enum ScrollMulti
     SCROLL_MULTI_BADGES,
     SCROLL_MULTI_SILPHCO_FLOORS,
     // Ten Gauntlets shop (shop-spec.md), Exchange Service Corner keepers.
-    // SCROLL_MULTI_TEN_GAUNTLETS_MON_TIER_SELECT and _POST_BATTLE are small,
-    // fixed-content menus and stay static. Everything else - consumables,
+    // SCROLL_MULTI_TEN_GAUNTLETS_POST_BATTLE is a small, fixed-content menu
+    // and stays static. Everything else - consumables,
     // held items, every Pokemon tier and its optional type filter - is one
     // dynamically-built list, staged by src/facility_shop.c and read via
     // FacilityShopGetMenuCount/Name/Price/Description() instead of a
@@ -65,7 +65,6 @@ enum ScrollMulti
     // nine more unlocks without a new enum value or a new
     // ShowScrollableMultichoice case each time - see shop-spec.md and
     // shop-unlock-b2.md.
-    SCROLL_MULTI_TEN_GAUNTLETS_MON_TIER_SELECT,
     SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC,
     SCROLL_MULTI_TEN_GAUNTLETS_POST_BATTLE,
 };

@@ -2458,16 +2458,6 @@ void ShowScrollableMultichoice(void)
         task->tScrollOffset = sElevatorScroll;
         task->tSelectedRow = sElevatorCursorPos;
         break;
-    case SCROLL_MULTI_TEN_GAUNTLETS_MON_TIER_SELECT:
-        task->tMaxItemsOnScreen = MAX_SCROLL_MULTI_ON_SCREEN;
-        task->tNumItems = 5;
-        task->tLeft = 14;
-        task->tTop = 1;
-        task->tWidth = 15;
-        task->tHeight = 12;
-        task->tKeepOpenAfterSelect = FALSE;
-        task->tTaskId = taskId;
-        break;
     // Consumables, held items, and every Pokemon tier/type list - see the
     // enum comment in include/constants/field_specials.h. tNumItems comes
     // from whatever src/facility_shop.c staged, not a literal, so this one
@@ -2634,20 +2624,6 @@ static const u8 *const sScrollableMultichoiceOptions[][MAX_SCROLL_MULTI_LENGTH] 
         gText_1F,
         gText_Exit,
     },
-    // Ten Gauntlets: no price suffix here anymore - each gauntlet's wave
-    // prices its own Premium/Strong/Standard/Budget rows differently (see
-    // shop-unlock-b3.md's escalating tier prices), so a single fixed number
-    // per tier stopped being true the moment gauntlet 3's wave shipped. Sell
-    // moved up to the gauntlet-select screen (FacilityShopBuildGauntletMenu)
-    // since it isn't tied to any one gauntlet's wave.
-    [SCROLL_MULTI_TEN_GAUNTLETS_MON_TIER_SELECT] =
-    {
-        COMPOUND_STRING("Premium"),
-        COMPOUND_STRING("Strong"),
-        COMPOUND_STRING("Standard"),
-        COMPOUND_STRING("Budget"),
-        gText_Exit
-    },
     // SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC has no entry here - its rows come
     // from src/facility_shop.c at runtime (see Task_ShowScrollableMultichoice
     // below).
@@ -2786,7 +2762,7 @@ static void FacilityShopPrintPriceInList(u8 windowId, u32 id, u8 y)
 
     // Ten Gauntlets: no real row is ever 0FP, so a staged price of 0 means
     // this row isn't a purchase at all - the type-filter menu's type/"All"
-    // rows and the gauntlet-select menu's gauntlet/"Sell" rows all stage 0
+    // rows and the Pokemon menu's tier/"Sell" rows all stage 0
     // here on purpose. Skip drawing a price next to a row that isn't for
     // sale.
     price = FacilityShopGetMenuRowPrice(id);

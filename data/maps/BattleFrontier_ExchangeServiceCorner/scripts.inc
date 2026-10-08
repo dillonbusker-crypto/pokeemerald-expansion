@@ -255,11 +255,10 @@ BattleFrontier_ExchangeServiceCorner_EventScript_BagFullMegaStone::
 	end
 
 @ ----------------------------------------------------------------------------
-@ Keeper 4 - Pokemon. Choose a gauntlet's wave first, then a tier within it,
-@ or sell one back from the party for FP. A tier with more mons in that one
-@ wave than fit comfortably in one browse gets a type-filter menu first
-@ (FacilityShopBuildMonTierList decides which, based on the live count for
-@ that wave), otherwise the species list shows directly.
+@ Keeper 4 - Pokemon. The first menu is New arrivals (the last cleared
+@ gauntlet's unlocks), then Showdown's singles tiers, then Sell. Low Tier
+@ (PU and below) opens on a type menu first; every other row opens straight
+@ onto its list. See src/facility_shop.c, "The Pokemon menu".
 @ ----------------------------------------------------------------------------
 
 BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeper::
@@ -272,34 +271,35 @@ BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeper::
 	goto_if_ge VAR_ENDGAME_STATE, 11, BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeperFreed
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemon, MSGBOX_DEFAULT
 	special ShowFacilityFPWindow
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	end
 
 @ Ten Gauntlets: after the siphon the keeper has a line about the freed POKéMON.
 BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeperFreed::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemonFreed, MSGBOX_DEFAULT
 	special ShowFacilityFPWindow
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	end
 
-BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet::
-	special FacilityShopBuildGauntletMenu
+BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu::
+	special FacilityShopBuildMonMenu
 	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC
 	special ShowScrollableMultichoice
 	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ClerkGoodbyeFP
 	copyvar VAR_0x8004, VAR_RESULT
-	special FacilityShopSelectGauntletRow
-	goto_if_eq VAR_RESULT, 2, BattleFrontier_ExchangeServiceCorner_EventScript_FreeThePokemon
-	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonToSell
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonTier
+	special FacilityShopSelectMonMenuRow
+	goto_if_eq VAR_RESULT, MON_MENU_FREE, BattleFrontier_ExchangeServiceCorner_EventScript_FreeThePokemon
+	goto_if_eq VAR_RESULT, MON_MENU_SELL, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonToSell
+	goto_if_eq VAR_RESULT, MON_MENU_TYPES, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonType
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfList
 	end
 
 @ Ten Gauntlets: the Frontier siphon (storyline.md). Offered at state 10 with
-@ the Crown in the bag (FacilityShopBuildGauntletMenu). Charges the CROWN and
+@ the Crown in the bag (FacilityShopBuildMonMenu). Charges the CROWN and
 @ switches every chip off (FLAG_FRONTIER_CHIPS_OFF): state 11.
 BattleFrontier_ExchangeServiceCorner_EventScript_FreeThePokemon::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmSiphon, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	special CloseFacilityFPWindow
 	special FacilityShopFreeMenuRows
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_SiphonBegins, MSGBOX_DEFAULT
@@ -321,48 +321,12 @@ BattleFrontier_ExchangeServiceCorner_EventScript_FreeThePokemon::
 	release
 	end
 
-BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonTier::
-	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_MON_TIER_SELECT
-	special ShowScrollableMultichoice
-	switch VAR_RESULT
-	case 0, BattleFrontier_ExchangeServiceCorner_EventScript_GoPremium
-	case 1, BattleFrontier_ExchangeServiceCorner_EventScript_GoStrong
-	case 2, BattleFrontier_ExchangeServiceCorner_EventScript_GoStandard
-	case 3, BattleFrontier_ExchangeServiceCorner_EventScript_GoBudget
-	case 4, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
-	case MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
-	end
-
-BattleFrontier_ExchangeServiceCorner_EventScript_GoPremium::
-	setvar VAR_0x8009, FACILITY_SHOP_TIER_PREMIUM
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfTier
-	end
-
-BattleFrontier_ExchangeServiceCorner_EventScript_GoStrong::
-	setvar VAR_0x8009, FACILITY_SHOP_TIER_STRONG
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfTier
-	end
-
-BattleFrontier_ExchangeServiceCorner_EventScript_GoStandard::
-	setvar VAR_0x8009, FACILITY_SHOP_TIER_STANDARD
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfTier
-	end
-
-BattleFrontier_ExchangeServiceCorner_EventScript_GoBudget::
-	setvar VAR_0x8009, FACILITY_SHOP_TIER_BUDGET
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfTier
-	end
-
-BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfTier::
-	special FacilityShopBuildMonTierList
-	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonType
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfList
-	end
-
+@ Low Tier's type menu (staged by FacilityShopSelectMonMenuRow or
+@ FacilityShopLeaveMonList).
 BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonType::
 	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC
 	special ShowScrollableMultichoice
-	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonTier
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	copyvar VAR_0x8004, VAR_RESULT
 	special FacilityShopSelectMonType
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfList
@@ -371,10 +335,16 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonType::
 BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonOfList::
 	setvar VAR_0x8004, SCROLL_MULTI_TEN_GAUNTLETS_DYNAMIC
 	special ShowScrollableMultichoice
-	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonTier
+	goto_if_eq VAR_RESULT, MULTI_B_PRESSED, BattleFrontier_ExchangeServiceCorner_EventScript_LeaveMonList
 	copyvar VAR_0x8004, VAR_RESULT
 	special FacilityShopSelectRow
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ConfirmBuyMon
+	end
+
+BattleFrontier_ExchangeServiceCorner_EventScript_LeaveMonList::
+	special FacilityShopLeaveMonList
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonType
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_ConfirmBuyMon::
@@ -420,16 +390,15 @@ BattleFrontier_ExchangeServiceCorner_EventScript_NotEnoughFPForMon::
 @ staged, and selling would silently invalidate it mid-interaction, before
 @ ClerkGoodbyeFP ever runs.
 @
-@ Sell lives on the gauntlet-select screen now (it isn't tied to any one
-@ gauntlet's wave), so every exit from this flow returns to ChooseMonBuilding,
-@ not ChooseMonTier.
+@ Sell lives on the first menu, so every exit from this flow returns there
+@ (ChooseMonMenu).
 BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonToSell::
 	specialvar VAR_RESULT, CalculatePlayerPartyCount
 	goto_if_eq VAR_RESULT, 1, BattleFrontier_ExchangeServiceCorner_EventScript_CantSellLastMon
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_WhichMonToSell, MSGBOX_DEFAULT
 	special FacilityShopFreeMenuRows
 	special ChoosePartyMon
-	goto_if_ge VAR_0x8004, PARTY_SIZE, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	goto_if_ge VAR_0x8004, PARTY_SIZE, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	special FacilityShopSellMonPrompt
 	switch VAR_RESULT
 	case SELL_MON_NOT_SELLABLE, BattleFrontier_ExchangeServiceCorner_EventScript_CantSellMon
@@ -437,32 +406,32 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonToSell::
 	case SELL_MON_NOT_ENOUGH_OWNED, BattleFrontier_ExchangeServiceCorner_EventScript_CantSellNotEnoughOwned
 	buffernumberstring STR_VAR_2, VAR_0x8008
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmSell, MSGBOX_YESNO
-	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	special FacilityShopSellMon
 	special UpdateFacilityFPWindow
 	playse SE_SHOP
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_SoldMon, MSGBOX_DEFAULT
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_CantSellLastMon::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_CantSellLastMon, MSGBOX_DEFAULT
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_CantSellMon::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_CantSellThatMon, MSGBOX_DEFAULT
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_CantSellHoldingItem::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_CantSellHoldingItem, MSGBOX_DEFAULT
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	end
 
 BattleFrontier_ExchangeServiceCorner_EventScript_CantSellNotEnoughOwned::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_CantSellNotEnoughOwned, MSGBOX_DEFAULT
-	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonGauntlet
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	end
 
 @ ----------------------------------------------------------------------------

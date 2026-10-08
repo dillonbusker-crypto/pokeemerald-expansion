@@ -115,6 +115,7 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 
 | What | Status |
 |---|---|
+| The shop's tier menu (New arrivals, Showdown tiers, Low Tier by type; `shop-spec.md`, "The Pokémon menu") and form names (Rotom-Wash...) | Harness scenario 26 (`harness-shop.c`), 11/11: the New Game menu (Low Tier and Sell only, 119 Pokémon, Flying by either type), a real walk through the menus with a purchase and B back out, every count with everything unlocked (513), gauntlet 1's 99 New arrivals, the siphon row. **Not played**: look at the wider list box beside the FP window |
 | Bad Dreams (the optional Darkrai event, gauntlet 7) | Re-run together on the merged `master`: 29 and 30 green. Scenarios 29 (`harness-badB.c`, the sleepers and Joy, 18/18), 30 (`harness-badC.c`, the Pike, Darkrai, the ball guard, a loss, the win, a gauntlet 6 regression, 9/9) and 24/28 (`harness-badA.c`, Scott's 5-Pokémon teams in both battles). **Not played** |
 | The Oldale Paradox researcher (Booster Energy, one per Paradox species; the shop no longer sells it) | Harness scenario 25, 4/4: a non-Paradox refused, a new species paid, a repeat refused, a second species paid. **Not played** |
 | Parts 3-5 after the merge | Scenarios 22, 23 and 24 re-run on the merged `master`: 10/10, 16/16, 14/14 |
@@ -205,7 +206,10 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
   **`harness-part3.c`, `harness-part4.c`, `harness-part5.c`** are copies of
   it with scenarios 22, 23 and 24 added (endgame parts 3-5; each was written
   by a separate agent, so they live in their own files: use the file whose
-  scenario you want as `src/harness.c`). In `harness.c` itself: 21
+  scenario you want as `src/harness.c`). **`harness-shop.c`** has scenario
+  26 (the shop's tier menu); it needs one extra line appended to the copy's
+  `src/field_specials.c`: `bool8 Harness_ScrollMultiOpen(void) { return
+  FindTaskIdByFunc(ScrollableMultichoice_ProcessInput) != TASK_NONE; }`. In `harness.c` itself: 21
   endgame part 2 (Rustboro, loses to Glacia once on purpose); 20
   endgame part 1 (Pyramid to Rustboro, loses Scott on purpose); 14 Wallace
   hidden/shown; 12-13 Wallace probes; 11 endgame towns; 10 Devon Factory; 9
