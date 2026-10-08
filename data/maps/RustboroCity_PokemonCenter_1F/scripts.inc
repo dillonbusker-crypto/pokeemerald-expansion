@@ -32,7 +32,18 @@ RustboroCity_PokemonCenter_1F_EventScript_Boy::
 	end
 
 RustboroCity_PokemonCenter_1F_EventScript_Girl::
+	checktrainerflag TRAINER_ENDGAME_ROXANNE
+	goto_if FALSE, RustboroCity_PokemonCenter_1F_EventScript_GirlOld
+	goto_if_set FLAG_GIRATINA_CAUGHT, RustboroCity_PokemonCenter_1F_EventScript_GirlTearClosed
+	msgbox RustboroCity_PokemonCenter_1F_Text_GirlTear, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonCenter_1F_EventScript_GirlOld::
 	msgbox RustboroCity_PokemonCenter_1F_Text_HMCutNextDoor, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonCenter_1F_EventScript_GirlTearClosed::
+	msgbox RustboroCity_PokemonCenter_1F_Text_GirlTearClosed, MSGBOX_NPC
 	end
 
 RustboroCity_PokemonCenter_1F_Text_PokemonHavePersonalities:

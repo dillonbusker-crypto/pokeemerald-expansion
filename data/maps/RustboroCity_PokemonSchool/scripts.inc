@@ -63,7 +63,18 @@ RustboroCity_PokemonSchool_EventScript_RichBoy::
 	end
 
 RustboroCity_PokemonSchool_EventScript_Lass::
+	checktrainerflag TRAINER_ENDGAME_ROXANNE
+	goto_if FALSE, RustboroCity_PokemonSchool_EventScript_LassOld
+	goto_if_set FLAG_GIRATINA_CAUGHT, RustboroCity_PokemonSchool_EventScript_LassTearClosed
+	msgbox RustboroCity_PokemonSchool_Text_LassTear, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_LassOld::
 	msgbox RustboroCity_PokemonSchool_Text_ConfusedPokemonAttacksItself, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_LassTearClosed::
+	msgbox RustboroCity_PokemonSchool_Text_LassTearClosed, MSGBOX_NPC
 	end
 
 RustboroCity_PokemonSchool_EventScript_SchoolKidM::

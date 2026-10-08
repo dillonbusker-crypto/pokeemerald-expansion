@@ -1,15 +1,27 @@
 RusturfTunnel_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, RusturfTunnel_OnTransition
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, RusturfTunnel_OnFrame
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, RusturfTunnel_OnWarp
 	.byte 0
 
+RusturfTunnel_OnWarp:
+	map_script_2 VAR_TEMP_4, 0, RusturfTunnel_EventScript_FaceNorth
+	.2byte 0
+
+RusturfTunnel_EventScript_FaceNorth::
+	setvar VAR_TEMP_4, 1
+	turnobject LOCALID_PLAYER, DIR_NORTH
+	end
+
 RusturfTunnel_OnFrame:
+	map_script_2 VAR_GIRATINA_EVENT, 1, RusturfTunnel_EventScript_FirstEntry
 	map_script_2 VAR_RUSTURF_TUNNEL_STATE, 4, RusturfTunnel_EventScript_ClearTunnelScene
 	map_script_2 VAR_RUSTURF_TUNNEL_STATE, 5, RusturfTunnel_EventScript_ClearTunnelScene
 	.2byte 0
 
 RusturfTunnel_OnTransition:
 	call_if_eq VAR_RUSTURF_TUNNEL_STATE, 2, RusturfTunnel_EventScript_SetAquaGruntAndPeekoPos
+	call_if_ge VAR_ENDGAME_STATE, 10, RusturfTunnel_EventScript_SetupEndgame
 	end
 
 RusturfTunnel_EventScript_SetAquaGruntAndPeekoPos::
@@ -525,6 +537,103 @@ RusturfTunnel_Text_MikePostBattle:
 	.string "protect POKéMON, right?\l"
 	.string "There's a feel-good story!$"
 
+
+@ Endgame setup: the vanilla people and rocks stay hidden (most are already
+@ hidden from New Game; the two rocks and Hiker Mike are not), the exits all lead
+@ to RUSTBORO, and the tunnel is dark until GIRATINA is caught.
+RusturfTunnel_EventScript_SetupEndgame::
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_WANDA
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_WANDAS_BOYFRIEND
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_AQUA_GRUNT
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_PEEKO
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_BRINEY
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_ROCK_1
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_ROCK_2
+	setflag FLAG_HIDE_RUSTURF_TUNNEL_MIKE
+	setdynamicwarp MAP_RUSTBORO_CITY, 31, 9
+	goto_if_set FLAG_GIRATINA_CAUGHT, Common_EventScript_NopReturn
+	setflashlevel 2
+	return
+
+RusturfTunnel_EventScript_FirstEntry::
+	lockall
+	msgbox RusturfTunnel_Text_Enter, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 2
+	releaseall
+	end
+
+RusturfTunnel_EventScript_Shadow::
+	lockall
+	msgbox RusturfTunnel_Text_Shadow, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 3
+	releaseall
+	end
+
+RusturfTunnel_EventScript_Prints::
+	lockall
+	msgbox RusturfTunnel_Text_Prints, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 4
+	releaseall
+	end
+
+RusturfTunnel_EventScript_Writing::
+	lockall
+	msgbox RusturfTunnel_Text_Writing, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 5
+	releaseall
+	end
+
+RusturfTunnel_EventScript_Sighting::
+	lockall
+	playmoncry SPECIES_GIRATINA, CRY_MODE_ENCOUNTER
+	waitmoncry
+	msgbox RusturfTunnel_Text_Sighting, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 6
+	releaseall
+	end
+
+@ GIRATINA. Checked before the fight, so there is always room for the
+@ GRISEOUS CORE. Anything but a catch leaves it here to try again.
+RusturfTunnel_EventScript_Giratina::
+	lock
+	faceplayer
+	checkitemspace ITEM_GRISEOUS_CORE
+	goto_if_eq VAR_RESULT, FALSE, RusturfTunnel_EventScript_GiratinaBagFull
+	goto_if_ge VAR_GIRATINA_EVENT, 7, RusturfTunnel_EventScript_GiratinaAgain
+	msgbox RusturfTunnel_Text_GiratinaFirst, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 7
+	goto RusturfTunnel_EventScript_GiratinaBattle
+
+RusturfTunnel_EventScript_GiratinaAgain::
+	msgbox RusturfTunnel_Text_GiratinaAgain, MSGBOX_DEFAULT
+RusturfTunnel_EventScript_GiratinaBattle::
+	closemessage
+	playmoncry SPECIES_GIRATINA, CRY_MODE_ENCOUNTER
+	waitmoncry
+	setwildbattle SPECIES_GIRATINA, 60
+	dowildbattle
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, RusturfTunnel_EventScript_GiratinaCaught
+	msgbox RusturfTunnel_Text_GiratinaStays, MSGBOX_DEFAULT
+	release
+	end
+
+RusturfTunnel_EventScript_GiratinaCaught::
+	setflag FLAG_GIRATINA_CAUGHT
+	setvar VAR_GIRATINA_EVENT, 8
+	removeobject LOCALID_RUSTURF_TUNNEL_GIRATINA
+	animateflash 0
+	setflashlevel 0
+	msgbox RusturfTunnel_Text_Caught, MSGBOX_DEFAULT
+	giveitem ITEM_GRISEOUS_CORE
+	msgbox RusturfTunnel_Text_Core, MSGBOX_DEFAULT
+	release
+	end
+
+RusturfTunnel_EventScript_GiratinaBagFull::
+	msgbox RusturfTunnel_Text_BagFull, MSGBOX_DEFAULT
+	release
+	end
 
 @ ============================================================================
 @ Ten Gauntlets: "The Tear" (sprint-a-giratina.md). After ROXANNE's rematch, the

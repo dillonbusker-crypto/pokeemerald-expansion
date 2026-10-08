@@ -468,7 +468,50 @@ RustboroCity_DevonCorp_3F_EventScript_Steven::
 	end
 
 RustboroCity_DevonCorp_3F_EventScript_Scientist::
-	msgbox RustboroCity_DevonCorp_3F_Text_ScientistAfter, MSGBOX_NPC
+	lock
+	faceplayer
+	checktrainerflag TRAINER_ENDGAME_ROXANNE
+	goto_if FALSE, RustboroCity_DevonCorp_3F_EventScript_ScientistCrown
+	goto_if_set FLAG_GIRATINA_CAUGHT, RustboroCity_DevonCorp_3F_EventScript_ScientistTearClosed
+	goto_if_ge VAR_GIRATINA_EVENT, 1, RustboroCity_DevonCorp_3F_EventScript_ScientistTearAgain
+	msgbox RustboroCity_DevonCorp_3F_Text_TearBrief1, MSGBOX_DEFAULT
+	msgbox RustboroCity_DevonCorp_3F_Text_TearBrief2, MSGBOX_DEFAULT
+	msgbox RustboroCity_DevonCorp_3F_Text_TearBrief3, MSGBOX_DEFAULT
+	setvar VAR_GIRATINA_EVENT, 1
+	msgbox RustboroCity_DevonCorp_3F_Text_TearAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, RustboroCity_DevonCorp_3F_EventScript_ScientistTearNotYet
+	goto RustboroCity_DevonCorp_3F_EventScript_ScientistTearLead
+
+@ Before ROXANNE's rematch (and the old line forever after for the CROWN).
+RustboroCity_DevonCorp_3F_EventScript_ScientistCrown::
+	msgbox RustboroCity_DevonCorp_3F_Text_ScientistAfter, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_DevonCorp_3F_EventScript_ScientistTearAgain::
+	msgbox RustboroCity_DevonCorp_3F_Text_TearAskAgain, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, RustboroCity_DevonCorp_3F_EventScript_ScientistTearNotYet
+	goto RustboroCity_DevonCorp_3F_EventScript_ScientistTearLead
+
+RustboroCity_DevonCorp_3F_EventScript_ScientistTearNotYet::
+	msgbox RustboroCity_DevonCorp_3F_Text_TearNotYet, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_DevonCorp_3F_EventScript_ScientistTearClosed::
+	msgbox RustboroCity_DevonCorp_3F_Text_TearClosed, MSGBOX_DEFAULT
+	release
+	end
+
+@ Same pattern as WATTSON leading the player to NEW MAUVILLE.
+RustboroCity_DevonCorp_3F_EventScript_ScientistTearLead::
+	closemessage
+	fadescreen FADE_TO_BLACK
+	msgbox RustboroCity_DevonCorp_3F_Text_TearLed, MSGBOX_DEFAULT
+	closemessage
+	warp MAP_RUSTURF_TUNNEL, 4, 9
+	waitstate
+	releaseall
 	end
 
 RustboroCity_DevonCorp_3F_Text_Stone1:
