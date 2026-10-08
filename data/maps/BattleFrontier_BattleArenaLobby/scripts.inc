@@ -1077,6 +1077,15 @@ BattleFrontier_BattleArenaLobby_EventScript_Hoopa::
 	case SPECIES_LUNALA, BattleFrontier_BattleArenaLobby_EventScript_RingLunala
 	case SPECIES_NECROZMA_DUSK_MANE, BattleFrontier_BattleArenaLobby_EventScript_RingNecrozmaDuskMane
 	case SPECIES_NECROZMA_DAWN_WINGS, BattleFrontier_BattleArenaLobby_EventScript_RingNecrozmaDawnWings
+BattleFrontier_BattleArenaLobby_EventScript_HoopaEnd::
+	release
+	end
+
+BattleFrontier_BattleArenaLobby_EventScript_HoopaRecharging::
+	msgbox BattleFrontier_BattleArenaLobby_Text_HoopaRecharging, MSGBOX_DEFAULT
+	release
+	end
+
 @ "The Tear" (sprint-a-giratina.md): once, from ROXANNE's rematch until
 @ GIRATINA is caught. Before the ring count, so it shows even if both rings
 @ are spent.
@@ -1088,15 +1097,6 @@ BattleFrontier_BattleArenaLobby_EventScript_TearHint::
 	msgbox BattleFrontier_BattleArenaLobby_Text_HoopaTear, MSGBOX_DEFAULT
 	setflag FLAG_HOOPA_TEAR_HINTED
 	return
-
-BattleFrontier_BattleArenaLobby_EventScript_HoopaEnd::
-	release
-	end
-
-BattleFrontier_BattleArenaLobby_EventScript_HoopaRecharging::
-	msgbox BattleFrontier_BattleArenaLobby_Text_HoopaRecharging, MSGBOX_DEFAULT
-	release
-	end
 
 BattleFrontier_BattleArenaLobby_EventScript_OpenRing::
 	msgbox BattleFrontier_BattleArenaLobby_Text_HoopaOpensRing, MSGBOX_DEFAULT
