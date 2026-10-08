@@ -642,6 +642,12 @@ this step. The gossipers are the Outside East Gentleman and Triathlete (M):
 their `GOSSIP_PALACE` case goes through a `..._GossipPalace` label that
 swaps in the shared-dream line while the event is active.
 
+The **Frontier Pokémon Center's regulars** (Joy's patients) sleep too: the
+school kid, the man and the picnicker are asleep on their feet (the kid and
+the picnicker put facing down by the map's OnTransition), each with a dream
+line, the Wing's glow, and a "slept well" line once Darkrai is freed. Their
+Skitty stays awake, pawing at its sleeping trainer.
+
 **2. Nurse Joy's remedy.** ✅ built. Joy (Frontier Pokémon Center), out of work since
 the auto-heal, finally has patients. In the window, talking to her (before
 the heal) she explains an old remedy: a **Cresselia**'s feather, the **Lunar

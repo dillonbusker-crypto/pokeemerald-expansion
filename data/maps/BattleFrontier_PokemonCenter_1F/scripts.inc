@@ -9,7 +9,39 @@ BattleFrontier_PokemonCenter_1F_OnTransition:
 	setflag FLAG_TEMP_5
 	call_if_eq VAR_BROKER_STORY_STATE, 2, BattleFrontier_PokemonCenter_1F_EventScript_SetupHideout
 	call BattleFrontier_PokemonCenter_1F_EventScript_SetupEndgameAbra
+	specialvar VAR_RESULT, IsBadDreamsActive
+	call_if_eq VAR_RESULT, TRUE, BattleFrontier_PokemonCenter_1F_EventScript_SleepersToSleep
 	end
+
+@ Ten Gauntlets: Bad Dreams (storyline.md). NURSE JOY's patients: the
+@ regulars are asleep on their feet, facing down, no wandering. Their SKITTY
+@ is awake.
+BattleFrontier_PokemonCenter_1F_EventScript_SleepersToSleep::
+	setobjectmovementtype LOCALID_FRONTIER_PC_SCHOOL_KID, MOVEMENT_TYPE_FACE_DOWN
+	setobjectmovementtype LOCALID_FRONTIER_PC_PICNICKER, MOVEMENT_TYPE_FACE_DOWN
+	return
+
+@ Bad Dreams: after a sleeper's dream line, the LUNAR WING's glow if the
+@ player carries it.
+BattleFrontier_PokemonCenter_1F_EventScript_WingGlow::
+	checkitem ITEM_LUNAR_WING
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_NopReturn
+	msgbox BattleFrontier_PokemonCenter_1F_Text_WingGlows, MSGBOX_DEFAULT
+	return
+
+@ Bad Dreams: TRUE once DARKRAI is freed while gauntlet 7 is still open, the
+@ window for the sleepers' "slept well" lines.
+BattleFrontier_PokemonCenter_1F_EventScript_CheckWokeUp::
+	setvar VAR_RESULT, FALSE
+	goto_if_unset FLAG_DARKRAI_FREED, Common_EventScript_NopReturn
+	specialvar VAR_RESULT, GetGauntletsClearedCount
+	goto_if_eq VAR_RESULT, 6, BattleFrontier_PokemonCenter_1F_EventScript_WokeUpTrue
+	setvar VAR_RESULT, FALSE
+	return
+
+BattleFrontier_PokemonCenter_1F_EventScript_WokeUpTrue::
+	setvar VAR_RESULT, TRUE
+	return
 
 @ Ten Gauntlets: the endgame ABRA network (data/scripts/endgame_towns.inc).
 @ The FRONTIER's ABRA waits by the counter once STEVEN has sent the player to
@@ -162,6 +194,10 @@ BattleFrontier_PokemonCenter_1F_EventScript_NurseHeal::
 	end
 
 BattleFrontier_PokemonCenter_1F_EventScript_SchoolKid::
+	specialvar VAR_RESULT, IsBadDreamsActive
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_PokemonCenter_1F_SchoolKid_Asleep
+	call BattleFrontier_PokemonCenter_1F_EventScript_CheckWokeUp
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_PokemonCenter_1F_SchoolKid_Awake
 	specialvar VAR_RESULT, GetStoryGossipStage
 	switch VAR_RESULT
 	case GOSSIP_SMUGGLER, BattleFrontier_PokemonCenter_1F_SchoolKid_Gossip0
@@ -182,12 +218,53 @@ BattleFrontier_PokemonCenter_1F_SchoolKid_Text_Gossip0:
 	.string "night... And then nothing.\p"
 	.string "I haven't seen them since.$"
 
+BattleFrontier_PokemonCenter_1F_SchoolKid_Asleep::
+	lock
+	msgbox BattleFrontier_PokemonCenter_1F_SchoolKid_Text_Asleep, MSGBOX_DEFAULT
+	call BattleFrontier_PokemonCenter_1F_EventScript_WingGlow
+	release
+	end
+
+BattleFrontier_PokemonCenter_1F_SchoolKid_Awake::
+	msgbox BattleFrontier_PokemonCenter_1F_SchoolKid_Text_Awake, MSGBOX_NPC
+	end
+
 BattleFrontier_PokemonCenter_1F_EventScript_Man::
+	specialvar VAR_RESULT, IsBadDreamsActive
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_PokemonCenter_1F_Man_Asleep
+	call BattleFrontier_PokemonCenter_1F_EventScript_CheckWokeUp
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_PokemonCenter_1F_Man_Awake
 	msgbox BattleFrontier_PokemonCenter_1F_Text_NextStopBattleArena, MSGBOX_NPC
 	end
 
+BattleFrontier_PokemonCenter_1F_Man_Asleep::
+	lock
+	msgbox BattleFrontier_PokemonCenter_1F_Man_Text_Asleep, MSGBOX_DEFAULT
+	call BattleFrontier_PokemonCenter_1F_EventScript_WingGlow
+	release
+	end
+
+BattleFrontier_PokemonCenter_1F_Man_Awake::
+	msgbox BattleFrontier_PokemonCenter_1F_Man_Text_Awake, MSGBOX_NPC
+	end
+
 BattleFrontier_PokemonCenter_1F_EventScript_Picnicker::
+	specialvar VAR_RESULT, IsBadDreamsActive
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_PokemonCenter_1F_Picnicker_Asleep
+	call BattleFrontier_PokemonCenter_1F_EventScript_CheckWokeUp
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_PokemonCenter_1F_Picnicker_Awake
 	msgbox BattleFrontier_PokemonCenter_1F_Text_GoingThroughEveryChallenge, MSGBOX_NPC
+	end
+
+BattleFrontier_PokemonCenter_1F_Picnicker_Asleep::
+	lock
+	msgbox BattleFrontier_PokemonCenter_1F_Picnicker_Text_Asleep, MSGBOX_DEFAULT
+	call BattleFrontier_PokemonCenter_1F_EventScript_WingGlow
+	release
+	end
+
+BattleFrontier_PokemonCenter_1F_Picnicker_Awake::
+	msgbox BattleFrontier_PokemonCenter_1F_Picnicker_Text_Awake, MSGBOX_NPC
 	end
 
 BattleFrontier_PokemonCenter_1F_EventScript_Skitty::
@@ -195,10 +272,60 @@ BattleFrontier_PokemonCenter_1F_EventScript_Skitty::
 	faceplayer
 	waitse
 	playmoncry SPECIES_SKITTY, CRY_MODE_NORMAL
+	specialvar VAR_RESULT, IsBadDreamsActive
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_PokemonCenter_1F_Skitty_Worried
 	msgbox BattleFrontier_PokemonCenter_1F_Text_Skitty, MSGBOX_DEFAULT
 	waitmoncry
 	release
 	end
+
+BattleFrontier_PokemonCenter_1F_Skitty_Worried::
+	msgbox BattleFrontier_PokemonCenter_1F_Skitty_Text_Worried, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+BattleFrontier_PokemonCenter_1F_Text_WingGlows:
+	.string "The LUNAR WING glows faintly.$"
+
+BattleFrontier_PokemonCenter_1F_SchoolKid_Text_Asleep:
+	.string "…Zzz… not red… not blue… black,\n"
+	.string "with one blue eye… it went behind\l"
+	.string "the curtains… Zzz…$"
+
+BattleFrontier_PokemonCenter_1F_SchoolKid_Text_Awake:
+	.string "I had the same dream every night,\n"
+	.string "a shadow behind some curtains.\p"
+	.string "Last night, nothing at all. Best\n"
+	.string "sleep ever!$"
+
+BattleFrontier_PokemonCenter_1F_Man_Text_Asleep:
+	.string "…Zzz… past the DOME… past the\n"
+	.string "curtains… who's there… one blue\l"
+	.string "eye… Zzz…$"
+
+BattleFrontier_PokemonCenter_1F_Man_Text_Awake:
+	.string "I nodded off right here at the\n"
+	.string "counter, and NURSE JOY couldn't\l"
+	.string "wake me.\p"
+	.string "Then this morning I just woke up,\n"
+	.string "feeling great!$"
+
+BattleFrontier_PokemonCenter_1F_Picnicker_Text_Asleep:
+	.string "…Zzz… another curtain… and\n"
+	.string "another… something's watching…\l"
+	.string "one blue eye… Zzz…$"
+
+BattleFrontier_PokemonCenter_1F_Picnicker_Text_Awake:
+	.string "I slept so well! My SKITTY was\n"
+	.string "curled up on my feet when I woke.\p"
+	.string "I think it kept watch the whole\n"
+	.string "time.$"
+
+BattleFrontier_PokemonCenter_1F_Skitty_Text_Worried:
+	.string "SKITTY: Mya…?\p"
+	.string "SKITTY is pawing at its sleeping\n"
+	.string "trainer.$"
 
 BattleFrontier_PokemonCenter_1F_Text_NeverSeenPokemon:
 	.string "I saw two POKéMON flying low over\n"
