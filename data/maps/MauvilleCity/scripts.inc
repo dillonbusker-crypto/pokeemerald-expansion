@@ -1004,6 +1004,9 @@ MauvilleCity_EventScript_RestoreStatue::
 	playse SE_M_TELEPORT
 	fadescreen FADE_TO_WHITE
 	removeobject LOCALID_MAUVILLE_STATUE_RUBBLE
+	@ addobject leaves the hide flag set, and a set flag stops the object
+	@ respawning when it scrolls back into view: clear it first.
+	clearflag FLAG_TEMP_7
 	addobject LOCALID_MAUVILLE_STATUE
 	setflag FLAG_MAUVILLE_STATUE_RESTORED
 	setvar VAR_CALYREX_EVENT, 2
@@ -1012,6 +1015,7 @@ MauvilleCity_EventScript_RestoreStatue::
 	msgbox MauvilleCity_Text_WindRises, MSGBOX_DEFAULT
 	closemessage
 	fadescreen FADE_TO_WHITE
+	clearflag FLAG_TEMP_8
 	addobject LOCALID_MAUVILLE_CALYREX
 	fadescreen FADE_FROM_WHITE
 	applymovement LOCALID_MAUVILLE_CALYREX, Common_Movement_FacePlayer
