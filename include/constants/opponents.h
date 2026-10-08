@@ -1048,6 +1048,11 @@
 #define TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIAS  988
 #define TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIOS  989
 
+// Endgame towns sprint (sprint-endgame-towns.md), workstream C: the Gym
+// leaders' rematches at full power. Beating each unlocks the town's legend.
+#define TRAINER_ENDGAME_ROXANNE                 990
+#define TRAINER_ENDGAME_WATTSON                 991
+
 // NOTE: Because each Trainer uses a flag to determine when they are defeated, trainer IDs MUST stay below
 //       MAX_TRAINERS_COUNT. The trainer flag range ends there (TRAINER_FLAGS_END in constants/flags.h) and
 //       the system flags (Pokedex, badges, ...) start right after it, so an ID at or past this limit
@@ -1061,7 +1066,7 @@
 //       so it invalidates existing saves - don't grow it again casually. Costs ~14 bytes of SaveBlock1
 //       (304 B free, see save-data-findings.md), checked by the SaveBlock1 STATIC_ASSERT in src/save.c.
 
-#define TRAINERS_COUNT_EMERALD     990
+#define TRAINERS_COUNT_EMERALD     992
 #define MAX_TRAINERS_COUNT_EMERALD 1000
 
 #if IS_FRLG

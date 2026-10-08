@@ -26282,3 +26282,28 @@ Modest Nature
 - Flash Cannon
 - Aura Sphere
 - Thunderbolt
+
+/* Endgame towns sprint, workstream C: PLACEHOLDERS until C's teams land. */
+=== TRAINER_ENDGAME_ROXANNE ===
+Name: ROXANNE
+Class: Leader
+Pic: Leader Roxanne
+Gender: Female
+Music: Female
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Geodude
+Level: 60
+
+=== TRAINER_ENDGAME_WATTSON ===
+Name: WATTSON
+Class: Leader
+Pic: Leader Wattson
+Gender: Male
+Music: Male
+Double Battle: No
+AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
+
+Magnemite
+Level: 65

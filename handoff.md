@@ -14,7 +14,7 @@ harness. History is in `git log`; the story is in `storyline.md`.
   headless-tested only (below). The owner's next step is a full playthrough.
 - **The endgame's teams** are all in `endgame-teams.md` and
   `src/data/trainers.party`; difficulty is untuned.
-- **Trainer IDs: 990 of 1000 used.**
+- **Trainer IDs: 992 of 1000 used** (990-991 reserved for the endgame towns sprint).
 - **Commits are local only.** Pushing from WSL isn't set up.
 
 ## Next: the owner's full playthrough, then tuning
@@ -156,8 +156,10 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 - **Side quests:** the Oldale Paradox researcher (`OldaleTown_House1`,
   `VAR_PARADOX_SHOWN_LO/HI`) is the first; the owner wants more of these for
   late-game items.
-- **Free flags and vars** left from the endgame's reservations: 0x27E-0x27F,
-  0x280-0x287, 0x289-0x28F; `VAR_UNUSED_0x40F7`, `0x40F8`.
+- **Free flags and vars:** flags
+  0x285-0x287, 0x289-0x28F; `VAR_UNUSED_0x40FB`-`0x40FF` (0x281-0x284 and
+  0x40F9-0x40FA are reserved by `sprint-endgame-towns.md`; 0x40F7-0x40F8 are
+  the Paradox researcher's).
 - **The four admins** use grunt overworld sprites (they have none of their
   own); Looker uses the Gentleman sprite at Sky Pillar.
 - **The old Battle Factory maps** and the rest of the vanilla story are still

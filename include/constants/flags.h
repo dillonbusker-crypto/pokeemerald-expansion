@@ -702,10 +702,10 @@
 #define FLAG_DARKRAI_FREED  0x27E // Ten Gauntlets: Bad Dreams (storyline.md, during gauntlet 7): the player broke DARKRAI's chip; SCOTT fights without it
 #define FLAG_RECEIVED_LUNAR_WING  0x27F // Ten Gauntlets: Bad Dreams: NURSE JOY made the LUNAR WING from the player's CRESSELIA
 #define FLAG_BATTLE_NO_CATCHING  0x280 // Ten Gauntlets: Bad Dreams: while set, POKE BALLS can't be thrown (DARKRAI is chipped to SCOTT)
-#define FLAG_UNUSED_0x281  0x281 // Unused Flag
-#define FLAG_UNUSED_0x282  0x282 // Unused Flag
-#define FLAG_UNUSED_0x283  0x283 // Unused Flag
-#define FLAG_UNUSED_0x284  0x284 // Unused Flag
+#define FLAG_GIRATINA_CAUGHT  0x281 // Endgame towns sprint (sprint-endgame-towns.md), workstream A: GIRATINA caught in RUSTURF TUNNEL
+#define FLAG_HOOPA_TEAR_HINTED  0x282 // Workstream A: HOOPA has said one ring won't open (shown once)
+#define FLAG_CALYREX_CAUGHT  0x283 // Workstream B: CALYREX caught in MAUVILLE
+#define FLAG_MAUVILLE_STATUE_RESTORED  0x284 // Workstream B: the toppled statue in MAUVILLE is restored
 #define FLAG_UNUSED_0x285  0x285 // Unused Flag
 #define FLAG_UNUSED_0x286  0x286 // Unused Flag
 #define FLAG_UNUSED_0x287  0x287 // Unused Flag

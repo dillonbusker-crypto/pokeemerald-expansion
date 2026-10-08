@@ -129,11 +129,17 @@ with A at merge: same list).
    (991), real class and pic (Leader). Six each, per D1/D2, written in
    Showdown syntax into a new `endgame-teams.md` section first, legal moves
    checked against the expansion's learnsets, item clause, everything but
-   the box-art legendary sold by the endgame shop. **The box-art legendary**
-   is proposed in Phase 1 for the owner to pick: for Roxanne's Rock team,
-   for example Zygarde (the earth's guardian) or Necrozma; for Wattson's
-   Electric team, Zekrom or Miraidon. Not Giratina or Calyrex (the towns'
-   own legends), and not Scott's (Rayquaza, Groudon, Kyogre, Mewtwo).
+   the box-art legendary sold by the endgame shop. **The box-art
+   legendaries:** Roxanne has **Mega Zygarde** (owner): `Zygarde-Complete @
+   Zygardite`, Mega Evolving in battle, and it is her one Mega. Wattson has
+   **Zekrom** (lead's provisional pick, the owner may swap it for Miraidon)
+   plus one normal Mega. Not Giratina or Calyrex (the towns' own legends),
+   and not Scott's (Rayquaza, Groudon, Kyogre, Mewtwo).
+5. **Verify Mega Zygarde.** No trainer in the game Mega Evolves from a
+   listed `Zygarde-Complete` yet. Add a battle test beside
+   `test/battle/ten_gauntlets_perma_mega.c` (an opponent's Zygarde-Complete
+   holding Zygardite Mega Evolves and stays Mega), run by `make check`. If
+   it can't, report it before changing the set.
 
 **Owns:** `data/maps/RustboroCity_Gym/*`, `data/maps/MauvilleCity_Gym/*`,
 the sealed-door table in `src/facility.c`, `include/constants/opponents.h`,
@@ -250,3 +256,29 @@ goes off track, the lead stops it; its branch is thrown away without touching
 | The post-credits continue (Frontier) can't reach the towns | Phase 1 (A) confirms the ABRA network still runs after state 18; if not, the lead decides |
 | Calyrex's fusion menu misbehaves | B tests one fusion and one unfusion in the harness: it's engine code this project hasn't used yet |
 | Agents collide on a shared file | The reservations commit; "ask the lead" rule; merge order C, A, B |
+
+---
+
+## 7. The overnight loop (owner asleep, 2026-10-08)
+
+The owner approved launching the whole sprint overnight. **Nothing reaches
+`master`.** The work lands on the integration branch `sprint/endgame-towns`
+for the owner's morning review.
+
+- **The Phase 1 owner review becomes a lead review**, against the owner's
+  known preferences. Every taste call (dialogue, the teams, Zekrom) is
+  listed in the morning report so the owner can change it before merging.
+- **Per workstream:** design → lead review (up to 3 fix rounds) → build →
+  the agent's own checks (build, text widths, its harness scenario) → a
+  read-only reviewer agent audits the diff (up to 3 fix rounds) → the lead
+  reads the diff, rebuilds and re-runs the scenario.
+- **Integration (lead)** on `sprint/endgame-towns`: Phase 3 above.
+- **Stop and report instead of guessing:** 3 failed fix rounds, a harness
+  failure the lead can't explain after one re-run, any need outside the
+  plan's files and numbers, anything touching `master`. That workstream
+  pauses; the others continue.
+- **Harness copies:** each agent uses its own scratch folder (never a shared
+  `run/`) and deletes it when done; disk is watched.
+- **Morning report:** what's built, test results, every call made for the
+  owner, anything paused, the dialogue and teams for review, and the one
+  command that merges the branch.
