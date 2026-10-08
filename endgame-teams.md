@@ -1,8 +1,9 @@
 # Endgame Teams — Brain Rematches and the Elite Four
 
 **Status: built.** The five Brain rematches (`TRAINER_FACTORY_*`), the
-Elite Four (`TRAINER_DEVON_*`), New Mauville (`TRAINER_NEW_MAUVILLE_*`) and
-Scott's final teams (`TRAINER_SKY_PILLAR_SCOTT_*`) are in
+Elite Four (`TRAINER_DEVON_*`), New Mauville (`TRAINER_NEW_MAUVILLE_*`),
+the Gym rematches (`TRAINER_ENDGAME_*`) and Scott's final teams
+(`TRAINER_SKY_PILLAR_SCOTT_*`) are in
 `src/data/trainers.party`. Nothing is tuned by play yet. Answers `storyline.md`,
 "Still to decide" #2 (the Brains' upgraded teams) and #3 (the Elite Four's
 teams). Team sets are in Pokémon Showdown syntax, like the gauntlet docs.
@@ -1233,6 +1234,212 @@ stacks.
 5. **Trainer IDs:** five new Brain teams plus four Elite Four members makes
    nine, already counted in `storyline.md`'s budget (984 of 1000 with the
    whole endgame).
+
+---
+
+# The Gym rematches (Roxanne 60, Wattson 65)
+
+Two teams in `src/data/trainers.party` (`TRAINER_ENDGAME_ROXANNE` 990,
+`TRAINER_ENDGAME_WATTSON` 991), for the endgame towns sprint
+(`sprint-endgame-towns.md`, D1 and D2; the Gyms themselves are in
+`sprint-c-gyms.md`). Both singles, class Leader with their own pics, the
+Elite Four's and New Mauville's AI (omniscient, proactive switching).
+
+| Rule | Applied as |
+|---|---|
+| Pool | Every species, item and Mega Stone is sold by the endgame shop (`src/facility_shop.c`, waves 0-7), **except the box-art legendary** (Zygarde-Complete with Zygardite, Miraidon), which is the owner's pick, as the Primals were |
+| Megas | **One each, Mega Evolving in battle:** Roxanne's is her box-art legendary (Mega Zygarde); Wattson's is a normal Mega from the shop (Mega Manectric, his Emerald ace) |
+| Items | Item clause on both teams |
+| Moves | Every move checked against this build's learnsets (level-up, teachable and egg) |
+| Levels | Roxanne 60 (the admins), Wattson 65 (Maxie and Archie) |
+
+## Roxanne: sand and stone, Mega Zygarde at level 60
+
+Glimmora leads with Stealth Rock and Mortal Spin (it clears the player's
+hazards) behind a Focus Sash, and Toxic Debris lays Toxic Spikes when it's hit
+physically. Tyranitar's Sand Stream gives every Rock type +50% Sp. Def, and
+its Thunder Wave is the team's speed control alongside Mega Zygarde's Glare.
+Garganacl walls physical attackers, and Salt Cure does double damage to Water
+and Steel, Rock's two worst matchups. Terrakion (Swords Dance) and a Choice
+Scarf Iron Boulder are the breaker and the revenge killer, both hitting Steel
+with Close Combat. **Mega Zygarde** (216 HP, 216 Sp. Atk, Aura Break) closes:
+Focus Blast is for the Ice types that otherwise check it 4x.
+
+```
+Glimmora @ Focus Sash
+Ability: Toxic Debris
+Level: 60
+EVs: 4 HP / 252 SpA / 252 Spe
+Timid Nature
+IVs: 0 Atk
+- Stealth Rock
+- Mortal Spin
+- Power Gem
+- Earth Power
+
+Tyranitar @ Smooth Rock
+Ability: Sand Stream
+Level: 60
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Stone Edge
+- Knock Off
+- Earthquake
+- Thunder Wave
+
+Garganacl @ Leftovers
+Ability: Purifying Salt
+Level: 60
+EVs: 252 HP / 252 Def / 4 SpD
+Impish Nature
+- Salt Cure
+- Recover
+- Iron Defense
+- Body Press
+
+Terrakion @ Life Orb
+Ability: Justified
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Swords Dance
+- Close Combat
+- Stone Edge
+- Earthquake
+
+Iron Boulder @ Choice Scarf
+Ability: Quark Drive
+Level: 60
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Mighty Cleave
+- Psycho Cut
+- Close Combat
+- Earthquake
+
+Zygarde-Complete @ Zygardite
+Ability: Power Construct
+Level: 60
+EVs: 4 HP / 252 SpA / 252 Spe
+Modest Nature
+IVs: 0 Atk
+- Earth Power
+- Dragon Pulse
+- Focus Blast
+- Glare
+```
+
+| Pokémon | Role |
+|---|---|
+| Glimmora | Hazard lead: Stealth Rock, Toxic Debris, Mortal Spin removal; Sash guarantees a turn |
+| Tyranitar | Sand setter (Smooth Rock, 8 turns), Thunder Wave speed control, Knock Off |
+| Garganacl | Physical wall; Salt Cure punishes Water and Steel; Iron Defense + Body Press |
+| Terrakion | Swords Dance breaker; Close Combat for Steel, Earthquake for the rest |
+| Iron Boulder | Choice Scarf revenge killer; Mighty Cleave goes through Protect |
+| Zygarde-Complete | **Mega Zygarde**, the ace: special attacker, Glare cripples faster threats |
+
+**How to beat it:** Water hits five of six super-effectively and Grass four
+(not Glimmora or Zygarde). Ice is 4x on Zygarde, but mind Focus Blast. Sand
+chips everything that isn't Rock, Ground or Steel, so Steel types do well
+here, until Salt Cure.
+
+*(Brandon's gauntlet 8 team also has Zygarde-Complete @ Zygardite; this is a
+singles set at 60 against his doubles set at 50.)*
+
+## Wattson: Electric Terrain, Miraidon at level 65
+
+Miraidon leads: Hadron Engine sets Electric Terrain on entry, which boosts
+every grounded Electric move by 30%, powers Iron Hands's Quark Drive (Attack)
+and Miraidon's own Sp. Atk. Tapu Koko's Electric Surge resets it. The speed
+control is Prankster Thunder Wave (Thundurus), Raging Bolt's priority
+Thunderclap, and a fast core (Miraidon, Koko, Mega Manectric at 130-135).
+Volt Switch and U-turn keep the momentum; Grass Knot and Ice Punch hit the
+Ground types an Electric team otherwise can't touch. **Mega Manectric**, his
+Emerald ace, is his one normal Mega.
+
+```
+Miraidon @ Choice Specs
+Ability: Hadron Engine
+Level: 65
+EVs: 4 HP / 252 SpA / 252 Spe
+Timid Nature
+IVs: 0 Atk
+- Electro Drift
+- Draco Meteor
+- Volt Switch
+- Overheat
+
+Tapu Koko @ Heavy-Duty Boots
+Ability: Electric Surge
+Level: 65
+EVs: 4 HP / 252 SpA / 252 Spe
+Timid Nature
+IVs: 0 Atk
+- Thunderbolt
+- Dazzling Gleam
+- U-turn
+- Roost
+
+Iron Hands @ Assault Vest
+Ability: Quark Drive
+Level: 65
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Drain Punch
+- Supercell Slam
+- Ice Punch
+- Volt Switch
+
+Thundurus @ Life Orb
+Ability: Prankster
+Level: 65
+EVs: 4 HP / 252 SpA / 252 Spe
+Timid Nature
+IVs: 0 Atk
+- Thunder Wave
+- Nasty Plot
+- Thunderbolt
+- Grass Knot
+
+Raging Bolt @ Leftovers
+Ability: Protosynthesis
+Level: 65
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+IVs: 0 Atk
+- Calm Mind
+- Thunderclap
+- Thunderbolt
+- Dragon Pulse
+
+Manectric @ Manectite
+Ability: Lightning Rod
+Level: 65
+EVs: 4 HP / 252 SpA / 252 Spe
+Timid Nature
+IVs: 0 Atk
+- Thunderbolt
+- Volt Switch
+- Overheat
+- Snarl
+```
+
+| Pokémon | Role |
+|---|---|
+| Miraidon | **Box-art legendary.** Lead, sets Electric Terrain; Choice Specs wallbreaker, Volt Switch pivot |
+| Tapu Koko | Second terrain setter; fast pivot (U-turn); Dazzling Gleam for Dragons |
+| Iron Hands | Bulky physical attacker, Quark Drive in terrain; Ice Punch for Ground and Dragon; Assault Vest |
+| Thundurus | Prankster Thunder Wave speed control; Ground immune; Nasty Plot, Grass Knot for Ground types |
+| Raging Bolt | Calm Mind win condition; Thunderclap priority; Leftovers |
+| Manectric | **Mega Manectric** (Intimidate, 135 Speed): the signature Mega, fast special cleaner and pivot |
+
+**How to beat it:** a Ground type is immune to the Electric moves, and five
+of the six are weak to Ground (Thundurus flies); watch for Ice Punch, Grass
+Knot and Overheat.
+Paralysis from Thundurus is the real threat: carry a Lum Berry or an
+Electric type. A Dragon or Fairy takes on Miraidon and Raging Bolt.
+
+*(Brandon's gauntlet 8 team also has Miraidon and Iron Hands, at 50 in doubles.)*
 
 ---
 
