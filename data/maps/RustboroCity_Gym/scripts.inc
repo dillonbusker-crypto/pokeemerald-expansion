@@ -1,7 +1,21 @@
 RustboroCity_Gym_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, RustboroCity_Gym_OnTransition
 	.byte 0
 
+RustboroCity_Gym_OnTransition:
+	call_if_ge VAR_ENDGAME_STATE, 10, RustboroCity_Gym_EventScript_SetupEndgame
+	end
+
+@ Ten Gauntlets: the GYM only opens in the endgame (state 10, GetEndgameSealedDoorScript).
+@ TEMP_1 hides JOSH, TOMMY, MARC and the guide; ROXANNE is alone. The respawn is
+@ set here too, so a save made inside the GYM still whites out to the Center.
+RustboroCity_Gym_EventScript_SetupEndgame::
+	setflag FLAG_TEMP_1
+	setrespawn HEAL_LOCATION_RUSTBORO_CITY
+	return
+
 RustboroCity_Gym_EventScript_Roxanne::
+	goto_if_ge VAR_ENDGAME_STATE, 10, RustboroCity_Gym_EventScript_EndgameRoxanne
 	trainerbattle_single TRAINER_ROXANNE_1, RustboroCity_Gym_Text_RoxanneIntro, RustboroCity_Gym_Text_RoxanneDefeat, RustboroCity_Gym_EventScript_RoxanneDefeated, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, RustboroCity_Gym_EventScript_RoxanneRematch
@@ -9,6 +23,36 @@ RustboroCity_Gym_EventScript_Roxanne::
 	msgbox RustboroCity_Gym_Text_RoxannePostBattle, MSGBOX_DEFAULT
 	release
 	end
+
+@ The endgame rematch (TRAINER_ENDGAME_ROXANNE, level 60). A loss whites out to
+@ the Center (the held items come back there) and she can be fought again; a
+@ win sets her trainer flag, which opens the GIRATINA event, and she heals the
+@ party and passes on her lead.
+RustboroCity_Gym_EventScript_EndgameRoxanne::
+	lock
+	faceplayer
+	checktrainerflag TRAINER_ENDGAME_ROXANNE
+	goto_if TRUE, RustboroCity_Gym_EventScript_EndgameRoxanneLead
+	msgbox RustboroCity_Gym_Text_EndgameRoxanneIntro, MSGBOX_DEFAULT
+	call RustboroCity_Gym_EventScript_SaveHeldItems
+	trainerbattle_no_intro TRAINER_ENDGAME_ROXANNE, RustboroCity_Gym_Text_EndgameRoxanneDefeat
+	special RestoreFacilityHeldItems
+	clearflag FLAG_STORY_HELD_ITEMS_SAVED
+	special HealPlayerParty
+	msgbox RustboroCity_Gym_Text_EndgameRoxanneAfter, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_Gym_EventScript_EndgameRoxanneLead::
+	msgbox RustboroCity_Gym_Text_EndgameRoxanneRepeat, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_Gym_EventScript_SaveHeldItems::
+	closemessage
+	setflag FLAG_STORY_HELD_ITEMS_SAVED
+	special SaveFacilityHeldItems
+	return
 
 RustboroCity_Gym_EventScript_RoxanneDefeated::
 	message RustboroCity_Gym_Text_ReceivedStoneBadge
@@ -281,3 +325,47 @@ RustboroCity_Gym_Text_RoxanneRematchNeedTwoMons:
 	.string "You only have one POKéMON with you?\p"
 	.string "Please return with at least one more\n"
 	.string "POKéMON.$"
+
+RustboroCity_Gym_Text_EndgameRoxanneIntro:
+	.string "ROXANNE: …I wondered whether you\n"
+	.string "would come, {PLAYER}.\p"
+	.string "After DEVON, I went home and did\n"
+	.string "nothing but think.\p"
+	.string "SCOTT offered me a promise, and I\n"
+	.string "mistook it for ambition.\p"
+	.string "You have never seen my full strength,\n"
+	.string "not at the TOWER, not outside DEVON.\p"
+	.string "A GYM LEADER owes every TRAINER the\n"
+	.string "whole lesson. So here it is.\p"
+	.string "Stone is patient, and stone does not\n"
+	.string "give way. Show me what you are!$"
+
+RustboroCity_Gym_Text_EndgameRoxanneDefeat:
+	.string "Not a crack. Not even a chip…\p"
+	.string "So this is what you have built.$"
+
+RustboroCity_Gym_Text_EndgameRoxanneAfter:
+	.string "ROXANNE: Thank you, {PLAYER}. I needed\n"
+	.string "to see that for myself.\p"
+	.string "ROXANNE had {PLAYER}'s POKéMON\n"
+	.string "restored to full health.\p"
+	.string "ROXANNE: Now, something I cannot\n"
+	.string "set down.\p"
+	.string "Rock keeps a record of everything\n"
+	.string "that has pressed on it. I read those\l"
+	.string "records for a living.\p"
+	.string "Lately the stone of RUSTURF TUNNEL\n"
+	.string "reads wrong. Layers that run into\l"
+	.string "nothing. A draft with no source.\p"
+	.string "I fear space itself is tearing there.\p"
+	.string "The scientist on DEVON's top floor\n"
+	.string "measures such things. Please go and\l"
+	.string "see him.\p"
+	.string "I would trust your eyes over mine.$"
+
+RustboroCity_Gym_Text_EndgameRoxanneRepeat:
+	.string "ROXANNE: Please speak with the\n"
+	.string "scientist on DEVON's top floor.\p"
+	.string "The stone of RUSTURF TUNNEL is not\n"
+	.string "right. I would rather be wrong, but\l"
+	.string "I do not think I am.$"

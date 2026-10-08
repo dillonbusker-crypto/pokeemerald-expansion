@@ -39,7 +39,7 @@
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "1",
       "script": "MauvilleCity_Gym_EventScript_Shawn",
-      "flag": "0"
+      "flag": "FLAG_TEMP_1"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_GIRL_3",
@@ -52,7 +52,7 @@
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "2",
       "script": "MauvilleCity_Gym_EventScript_Vivian",
-      "flag": "0"
+      "flag": "FLAG_TEMP_1"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_YOUNGSTER",
@@ -65,7 +65,7 @@
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "2",
       "script": "MauvilleCity_Gym_EventScript_Ben",
-      "flag": "0"
+      "flag": "FLAG_TEMP_1"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_5",
@@ -78,7 +78,7 @@
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "2",
       "script": "MauvilleCity_Gym_EventScript_Kirk",
-      "flag": "0"
+      "flag": "FLAG_TEMP_1"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MAN_2",
@@ -91,7 +91,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "MauvilleCity_Gym_EventScript_GymGuide",
-      "flag": "0"
+      "flag": "FLAG_TEMP_1"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_MANIAC",
@@ -104,7 +104,7 @@
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "1",
       "script": "MauvilleCity_Gym_EventScript_Angelo",
-      "flag": "0"
+      "flag": "FLAG_TEMP_1"
     }
   ],
   "warp_events": [

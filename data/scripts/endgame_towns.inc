@@ -2,8 +2,9 @@
 @ Ten Gauntlets: the towns of the endgame (storyline.md) - RUSTBORO, MAUVILLE
 @ and SKY PILLAR. The player only ever reaches them by ABRA, and they're cut
 @ off from the rest of Hoenn: the exits turn the player back, the GYMS are
-@ locked (GetEndgameSealedDoorScript, src/facility.c), and the vanilla story
-@ events there are switched off in each map's own scripts.
+@ locked until their town is freed (GetEndgameSealedDoorScript,
+@ src/facility.c: RUSTBORO's from state 10, MAUVILLE's from 15), and the
+@ vanilla story events there are switched off in each map's own scripts.
 @ ============================================================================
 
 @ An ABRA of the network. The map's ABRA sets VAR_0x8004 to where it is
