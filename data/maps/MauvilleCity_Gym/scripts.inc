@@ -1,8 +1,22 @@
 MauvilleCity_Gym_MapScripts::
 	map_script MAP_SCRIPT_ON_LOAD, MauvilleCity_Gym_OnLoad
+	map_script MAP_SCRIPT_ON_TRANSITION, MauvilleCity_Gym_OnTransition
 	.byte 0
 
+MauvilleCity_Gym_OnTransition:
+	call_if_ge VAR_ENDGAME_STATE, 15, MauvilleCity_Gym_EventScript_SetupEndgame
+	end
+
+@ Ten Gauntlets: the GYM only opens in the endgame (state 15, GetEndgameSealedDoorScript).
+@ TEMP_1 hides the trainers and the guide; WATTSON is alone, and the puzzle is
+@ off (OnLoad and the switches). The respawn covers a save made inside.
+MauvilleCity_Gym_EventScript_SetupEndgame::
+	setflag FLAG_TEMP_1
+	setrespawn HEAL_LOCATION_MAUVILLE_CITY
+	return
+
 MauvilleCity_Gym_OnLoad:
+	goto_if_ge VAR_ENDGAME_STATE, 15, MauvilleCity_Gym_EventScript_DeactivatePuzzle
 	goto_if_set FLAG_DEFEATED_MAUVILLE_GYM, MauvilleCity_Gym_EventScript_DeactivatePuzzle
 	switch VAR_MAUVILLE_GYM_STATE
 	case 0, MauvilleCity_Gym_EventScript_UpdateBarriers
@@ -74,6 +88,7 @@ MauvilleCity_Gym_EventScript_DeactivatePuzzle::
 	end
 
 MauvilleCity_Gym_EventScript_Wattson::
+	goto_if_ge VAR_ENDGAME_STATE, 15, MauvilleCity_Gym_EventScript_EndgameWattson
 	trainerbattle_single TRAINER_WATTSON_1, MauvilleCity_Gym_Text_WattsonIntro, MauvilleCity_Gym_Text_WattsonDefeat, MauvilleCity_Gym_EventScript_WattsonDefeated, NO_MUSIC
 	specialvar VAR_RESULT, ShouldTryRematchBattle
 	goto_if_eq VAR_RESULT, TRUE, MauvilleCity_Gym_EventScript_WattsonRematch
@@ -82,6 +97,36 @@ MauvilleCity_Gym_EventScript_Wattson::
 	msgbox MauvilleCity_Gym_Text_WattsonPostBattle, MSGBOX_DEFAULT
 	release
 	end
+
+@ The endgame rematch (TRAINER_ENDGAME_WATTSON, level 65). A loss whites out to
+@ the Center (the held items come back there) and he can be fought again; a
+@ win sets his trainer flag, which opens the CALYREX event, and he heals the
+@ party and passes on his lead.
+MauvilleCity_Gym_EventScript_EndgameWattson::
+	lock
+	faceplayer
+	checktrainerflag TRAINER_ENDGAME_WATTSON
+	goto_if TRUE, MauvilleCity_Gym_EventScript_EndgameWattsonLead
+	msgbox MauvilleCity_Gym_Text_EndgameWattsonIntro, MSGBOX_DEFAULT
+	call MauvilleCity_Gym_EventScript_SaveHeldItems
+	trainerbattle_no_intro TRAINER_ENDGAME_WATTSON, MauvilleCity_Gym_Text_EndgameWattsonDefeat
+	special RestoreFacilityHeldItems
+	clearflag FLAG_STORY_HELD_ITEMS_SAVED
+	special HealPlayerParty
+	msgbox MauvilleCity_Gym_Text_EndgameWattsonAfter, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_Gym_EventScript_EndgameWattsonLead::
+	msgbox MauvilleCity_Gym_Text_EndgameWattsonRepeat, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_Gym_EventScript_SaveHeldItems::
+	closemessage
+	setflag FLAG_STORY_HELD_ITEMS_SAVED
+	special SaveFacilityHeldItems
+	return
 
 MauvilleCity_Gym_EventScript_WattsonDefeated::
 	message MauvilleCity_Gym_Text_ReceivedDynamoBadge
@@ -138,6 +183,7 @@ MauvilleCity_Gym_EventScript_WattsonRematch::
 
 MauvilleCity_Gym_EventScript_Switch1::
 	lockall
+	goto_if_ge VAR_ENDGAME_STATE, 15, MauvilleCity_Gym_EventScript_SwitchDoNothing
 	goto_if_set FLAG_DEFEATED_MAUVILLE_GYM, MauvilleCity_Gym_EventScript_SwitchDoNothing
 	goto_if_eq VAR_MAUVILLE_GYM_STATE, 1, MauvilleCity_Gym_EventScript_SwitchDoNothing
 	setvar VAR_MAUVILLE_GYM_STATE, 1
@@ -147,6 +193,7 @@ MauvilleCity_Gym_EventScript_Switch1::
 
 MauvilleCity_Gym_EventScript_Switch2::
 	lockall
+	goto_if_ge VAR_ENDGAME_STATE, 15, MauvilleCity_Gym_EventScript_SwitchDoNothing
 	goto_if_set FLAG_DEFEATED_MAUVILLE_GYM, MauvilleCity_Gym_EventScript_SwitchDoNothing
 	goto_if_eq VAR_MAUVILLE_GYM_STATE, 2, MauvilleCity_Gym_EventScript_SwitchDoNothing
 	setvar VAR_MAUVILLE_GYM_STATE, 2
@@ -156,6 +203,7 @@ MauvilleCity_Gym_EventScript_Switch2::
 
 MauvilleCity_Gym_EventScript_Switch3::
 	lockall
+	goto_if_ge VAR_ENDGAME_STATE, 15, MauvilleCity_Gym_EventScript_SwitchDoNothing
 	goto_if_set FLAG_DEFEATED_MAUVILLE_GYM, MauvilleCity_Gym_EventScript_SwitchDoNothing
 	goto_if_eq VAR_MAUVILLE_GYM_STATE, 3, MauvilleCity_Gym_EventScript_SwitchDoNothing
 	setvar VAR_MAUVILLE_GYM_STATE, 3
@@ -165,6 +213,7 @@ MauvilleCity_Gym_EventScript_Switch3::
 
 MauvilleCity_Gym_EventScript_Switch4::
 	lockall
+	goto_if_ge VAR_ENDGAME_STATE, 15, MauvilleCity_Gym_EventScript_SwitchDoNothing
 	goto_if_set FLAG_DEFEATED_MAUVILLE_GYM, MauvilleCity_Gym_EventScript_SwitchDoNothing
 	goto_if_eq VAR_MAUVILLE_GYM_STATE, 4, MauvilleCity_Gym_EventScript_SwitchDoNothing
 	setvar VAR_MAUVILLE_GYM_STATE, 4
@@ -419,3 +468,45 @@ MauvilleCity_Gym_Text_WattsonRematchNeedTwoMons:
 	.string "Come see me with two or more\n"
 	.string "POKéMON, all right?$"
 
+MauvilleCity_Gym_Text_EndgameWattsonIntro:
+	.string "WATTSON: Wahahahah! There you are,\n"
+	.string "{PLAYER}!\p"
+	.string "MAUVILLE's lights are on, and the\n"
+	.string "whole town is humming. We did that\l"
+	.string "together, you and I.\p"
+	.string "I switched off the GYM's puzzles.\n"
+	.string "You've been through enough\l"
+	.string "obstacles!\p"
+	.string "But my POKéMON? Fully charged! I've\n"
+	.string "been itching for a proper battle\l"
+	.string "since the day those teams marched in!\p"
+	.string "Show me your sparks, {PLAYER}!$"
+
+MauvilleCity_Gym_Text_EndgameWattsonDefeat:
+	.string "Wahahahah! Bzzt!\p"
+	.string "Overloaded! And I loved every\n"
+	.string "volt of it!$"
+
+MauvilleCity_Gym_Text_EndgameWattsonAfter:
+	.string "WATTSON: What a jolt! My old\n"
+	.string "circuits haven't buzzed like that\l"
+	.string "in years.\p"
+	.string "WATTSON topped up {PLAYER}'s\n"
+	.string "POKéMON.\p"
+	.string "WATTSON: Now, an old coot has a\n"
+	.string "favor to ask.\p"
+	.string "When I built MAUVILLE, I built it\n"
+	.string "around a statue. A crowned POKéMON,\l"
+	.string "carved long before my time.\p"
+	.string "AQUA and MAGMA toppled it during\n"
+	.string "their little occupation. It lies in\l"
+	.string "pieces in the plaza.\p"
+	.string "I haven't the heart to look at it.\n"
+	.string "Would you, {PLAYER}? Young eyes\l"
+	.string "notice things.$"
+
+MauvilleCity_Gym_Text_EndgameWattsonRepeat:
+	.string "WATTSON: The statue in the plaza,\n"
+	.string "{PLAYER}. A crowned POKéMON deserves\l"
+	.string "better than rubble!\p"
+	.string "Have a look when you can.$"

@@ -356,12 +356,13 @@ bool32 IsStoryLockedHomeDoor(u32 mapGroup, u32 mapNum)
 }
 
 // The endgame towns (storyline.md) are cut off from the rest of Hoenn by
-// their exits; inside them, only the GYMS stay shut. TryDoorWarp runs the
-// returned script instead of warping.
-static const struct { u16 map; const u8 *script; } sEndgameSealedDoors[] =
+// their exits; inside them, only the GYMS stay shut, each until its town is
+// freed (VAR_ENDGAME_STATE reaches openState), and then open for good.
+// TryDoorWarp runs the returned script instead of warping.
+static const struct { u16 map; const u8 *script; u16 openState; } sEndgameSealedDoors[] =
 {
-    { MAP_RUSTBORO_CITY_GYM, EventScript_EndgameSealedGym },
-    { MAP_MAUVILLE_CITY_GYM, EventScript_EndgameSealedGym },
+    { MAP_RUSTBORO_CITY_GYM, EventScript_EndgameSealedGym, 10 },  // the Elite Four, Stone and Juan are done
+    { MAP_MAUVILLE_CITY_GYM, EventScript_EndgameSealedGym, 15 },  // New Mauville is done
 };
 
 const u8 *GetEndgameSealedDoorScript(u32 mapGroup, u32 mapNum)
@@ -371,7 +372,8 @@ const u8 *GetEndgameSealedDoorScript(u32 mapGroup, u32 mapNum)
     for (i = 0; i < ARRAY_COUNT(sEndgameSealedDoors); i++)
     {
         if (sEndgameSealedDoors[i].map == map)
-            return sEndgameSealedDoors[i].script;
+            return VarGet(VAR_ENDGAME_STATE) >= sEndgameSealedDoors[i].openState
+                 ? NULL : sEndgameSealedDoors[i].script;
     }
     return NULL;
 }

@@ -708,7 +708,6 @@ MauvilleCity_EventScript_SetupEndgame::
 	call_if_eq VAR_ENDGAME_STATE, 12, MauvilleCity_EventScript_SetupArrivalScene
 	call_if_eq VAR_ENDGAME_STATE, 13, MauvilleCity_EventScript_ShowWattsonAtCenter
 	call_if_eq VAR_ENDGAME_STATE, 14, MauvilleCity_EventScript_SetupCenterScene
-	call_if_eq VAR_ENDGAME_STATE, 15, MauvilleCity_EventScript_ShowWattsonAtCenter
 	return
 
 MauvilleCity_EventScript_ShowGrunts::
