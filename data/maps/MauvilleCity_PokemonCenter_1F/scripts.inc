@@ -52,6 +52,65 @@ MauvilleCity_PokemonCenter_1F_Text_RecordCornerSoundsFun:
 	.string "I don't know what it's about, but it\n"
 	.string "sounds fun. I'll go check it out!$"
 
+@ Ten Gauntlets: the old man tells the legend of the KING OF BOUNTIFUL
+@ HARVEST once WATTSON is beaten (sprint-b-calyrex.md). Whichever of the five
+@ MAUVILLE men he is, this goes first; everything else is the vanilla script.
+MauvilleCity_PokemonCenter_1F_EventScript_OldMan::
+	goto_if_not_defeated TRAINER_ENDGAME_WATTSON, MauvilleCity_PokemonCenter_1F_EventScript_MauvilleOldMan
+	lock
+	faceplayer
+	switch VAR_CALYREX_EVENT
+	case 0, MauvilleCity_PokemonCenter_1F_EventScript_OldManTell
+	case 1, MauvilleCity_PokemonCenter_1F_EventScript_OldManRetell
+	case 2, MauvilleCity_PokemonCenter_1F_EventScript_OldManRetell
+	case 3, MauvilleCity_PokemonCenter_1F_EventScript_OldManSteed
+	case 4, MauvilleCity_PokemonCenter_1F_EventScript_OldManEnd
+	goto MauvilleCity_PokemonCenter_1F_EventScript_MauvilleOldMan
+	end
+
+MauvilleCity_PokemonCenter_1F_EventScript_OldManTell::
+	msgbox MauvilleCity_PokemonCenter_1F_Text_OldManIntro, MSGBOX_DEFAULT
+	setvar VAR_CALYREX_EVENT, 1
+	goto MauvilleCity_PokemonCenter_1F_EventScript_OldManTale
+	end
+
+MauvilleCity_PokemonCenter_1F_EventScript_OldManRetell::
+	msgbox MauvilleCity_PokemonCenter_1F_Text_OldManAgain, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_PokemonCenter_1F_EventScript_MauvilleOldMan
+	goto MauvilleCity_PokemonCenter_1F_EventScript_OldManTale
+	end
+
+MauvilleCity_PokemonCenter_1F_EventScript_OldManTale::
+	msgbox MauvilleCity_PokemonCenter_1F_Text_OldManTale1, MSGBOX_DEFAULT
+	msgbox MauvilleCity_PokemonCenter_1F_Text_OldManTale2, MSGBOX_DEFAULT
+	msgbox MauvilleCity_PokemonCenter_1F_Text_OldManTale3, MSGBOX_DEFAULT
+	release
+	end
+
+@ State 3: the king needs a steed.
+MauvilleCity_PokemonCenter_1F_EventScript_OldManSteed::
+	checkspecies SPECIES_GLASTRIER
+	goto_if_eq VAR_RESULT, TRUE, MauvilleCity_PokemonCenter_1F_EventScript_OldManSteedGo
+	checkspecies SPECIES_SPECTRIER
+	goto_if_eq VAR_RESULT, TRUE, MauvilleCity_PokemonCenter_1F_EventScript_OldManSteedGo
+	msgbox MauvilleCity_PokemonCenter_1F_Text_OldManSteedHint, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_PokemonCenter_1F_EventScript_OldManSteedGo::
+	msgbox MauvilleCity_PokemonCenter_1F_Text_OldManSteedGo, MSGBOX_DEFAULT
+	release
+	end
+
+@ State 4: the end of the tale, which says how to use the REINS. NO is the
+@ vanilla man.
+MauvilleCity_PokemonCenter_1F_EventScript_OldManEnd::
+	msgbox MauvilleCity_PokemonCenter_1F_Text_OldManEndAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_PokemonCenter_1F_EventScript_MauvilleOldMan
+	msgbox MauvilleCity_PokemonCenter_1F_Text_OldManEpilogue, MSGBOX_DEFAULT
+	release
+	end
+
 MauvilleCity_PokemonCenter_1F_Text_OldManIntro:
 	.string "Trainer! You came from the GYM, did\n"
 	.string "you? Then you've heard WATTSON's\l"

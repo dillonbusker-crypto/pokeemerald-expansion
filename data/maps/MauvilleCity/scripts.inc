@@ -19,6 +19,7 @@ MauvilleCity_OnTransition:
 	setvar VAR_MAUVILLE_GYM_STATE, 0
 	call_if_set FLAG_GOT_TM_THUNDERBOLT_FROM_WATTSON, MauvilleCity_EventScript_MoveWattsonBackToGym
 	call MauvilleCity_EventScript_SetupEndgame
+	call MauvilleCity_EventScript_SetupCalyrex
 	end
 
 MauvilleCity_OnFrame:
@@ -961,6 +962,154 @@ MauvilleCity_Text_CenterWattson3:
 @ restored, 3 CALYREX has asked for a steed, 4 caught. Gated on the GYM
 @ rematch (TRAINER_ENDGAME_WATTSON). FLAG_TEMP_6 rubble, 7 statue, 8 CALYREX.
 @ ============================================================================
+
+MauvilleCity_EventScript_SetupCalyrex::
+	setflag FLAG_TEMP_6
+	setflag FLAG_TEMP_7
+	setflag FLAG_TEMP_8
+	goto_if_lt VAR_ENDGAME_STATE, 15, Common_EventScript_NopReturn
+	goto_if_ge VAR_CALYREX_EVENT, 2, MauvilleCity_EventScript_ShowRestoredStatue
+	clearflag FLAG_TEMP_6
+	return
+
+MauvilleCity_EventScript_ShowRestoredStatue::
+	clearflag FLAG_TEMP_7
+	call_if_lt VAR_CALYREX_EVENT, 4, MauvilleCity_EventScript_ShowCalyrex
+	return
+
+MauvilleCity_EventScript_ShowCalyrex::
+	clearflag FLAG_TEMP_8
+	return
+
+@ The rubble. Not beaten WATTSON: nothing. Beaten: a hint, and once the legend
+@ is heard (state 1) the restoration.
+MauvilleCity_EventScript_StatueRubble::
+	lockall
+	goto_if_not_defeated TRAINER_ENDGAME_WATTSON, MauvilleCity_EventScript_RubbleBare
+	goto_if_eq VAR_CALYREX_EVENT, 1, MauvilleCity_EventScript_RestoreStatue
+	msgbox MauvilleCity_Text_RubbleCracked, MSGBOX_DEFAULT
+	releaseall
+	end
+
+MauvilleCity_EventScript_RubbleBare::
+	msgbox MauvilleCity_Text_RubbleBare, MSGBOX_DEFAULT
+	releaseall
+	end
+
+MauvilleCity_EventScript_RestoreStatue::
+	msgbox MauvilleCity_Text_RestorePrompt, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_RestoreLater
+	msgbox MauvilleCity_Text_StatueMends, MSGBOX_DEFAULT
+	closemessage
+	playse SE_M_TELEPORT
+	fadescreen FADE_TO_WHITE
+	removeobject LOCALID_MAUVILLE_STATUE_RUBBLE
+	addobject LOCALID_MAUVILLE_STATUE
+	setflag FLAG_MAUVILLE_STATUE_RESTORED
+	setvar VAR_CALYREX_EVENT, 2
+	fadescreen FADE_FROM_WHITE
+	delay 30
+	msgbox MauvilleCity_Text_WindRises, MSGBOX_DEFAULT
+	closemessage
+	fadescreen FADE_TO_WHITE
+	addobject LOCALID_MAUVILLE_CALYREX
+	fadescreen FADE_FROM_WHITE
+	applymovement LOCALID_MAUVILLE_CALYREX, Common_Movement_FacePlayer
+	waitmovement 0
+	playmoncry SPECIES_CALYREX, CRY_MODE_ENCOUNTER
+	waitmoncry
+	msgbox MauvilleCity_Text_CalyrexAppears, MSGBOX_DEFAULT
+	goto MauvilleCity_EventScript_CalyrexSpeaks
+	end
+
+MauvilleCity_EventScript_RestoreLater::
+	msgbox MauvilleCity_Text_RestoreLater, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ The restored statue, in every state from 2 on.
+MauvilleCity_EventScript_StatueWhole::
+	lockall
+	msgbox MauvilleCity_Text_StatueWhole, MSGBOX_DEFAULT
+	releaseall
+	end
+
+@ CALYREX. State 2: its first words (a reset mid-scene lands here). State 3:
+@ the steed check.
+MauvilleCity_EventScript_Calyrex::
+	lock
+	faceplayer
+	goto_if_eq VAR_CALYREX_EVENT, 2, MauvilleCity_EventScript_CalyrexSpeaks
+	goto MauvilleCity_EventScript_CalyrexSteedCheck
+	end
+
+MauvilleCity_EventScript_CalyrexSpeaks::
+	msgbox MauvilleCity_Text_CalyrexVoice, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_CalyrexCrown1, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_CalyrexCrown2, MSGBOX_DEFAULT
+	setvar VAR_CALYREX_EVENT, 3
+	msgbox MauvilleCity_Text_CalyrexSteed, MSGBOX_DEFAULT
+	goto MauvilleCity_EventScript_CalyrexSteedCheck
+	end
+
+MauvilleCity_EventScript_CalyrexSteedCheck::
+	checkspecies SPECIES_GLASTRIER
+	goto_if_eq VAR_RESULT, TRUE, MauvilleCity_EventScript_CalyrexHasSteed
+	checkspecies SPECIES_SPECTRIER
+	goto_if_eq VAR_RESULT, TRUE, MauvilleCity_EventScript_CalyrexHasSteed
+	msgbox MauvilleCity_Text_CalyrexNoSteed, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_CalyrexHasSteed::
+	msgbox MauvilleCity_Text_CalyrexSees, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_CalyrexReady, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_CalyrexWaits
+	@ Checked before the fight, so the REINS always fit.
+	checkitemspace ITEM_REINS_OF_UNITY
+	goto_if_eq VAR_RESULT, FALSE, MauvilleCity_EventScript_CalyrexBagFull
+	closemessage
+	playmoncry SPECIES_CALYREX, CRY_MODE_ENCOUNTER
+	waitmoncry
+	setwildbattle SPECIES_CALYREX, 60
+	dowildbattle
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, MauvilleCity_EventScript_CalyrexCaught
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, MauvilleCity_EventScript_CalyrexStands
+	msgbox MauvilleCity_Text_CalyrexRan, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_CalyrexWaits::
+	msgbox MauvilleCity_Text_CalyrexWaits, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_CalyrexBagFull::
+	msgbox MauvilleCity_Text_CalyrexBagFull, MSGBOX_DEFAULT
+	release
+	end
+
+@ Knocked out: it stays, at full strength next time. Same for a run.
+MauvilleCity_EventScript_CalyrexStands::
+	msgbox MauvilleCity_Text_CalyrexStands, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_CalyrexCaught::
+	setflag FLAG_CALYREX_CAUGHT
+	setvar VAR_CALYREX_EVENT, 4
+	fadescreen FADE_TO_WHITE
+	removeobject LOCALID_MAUVILLE_CALYREX
+	fadescreen FADE_FROM_WHITE
+	msgbox MauvilleCity_Text_CalyrexCaught, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_CalyrexThanks, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_CalyrexReins, MSGBOX_DEFAULT
+	giveitem ITEM_REINS_OF_UNITY
+	msgbox MauvilleCity_Text_CalyrexReinsHow, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_StatueBlooms, MSGBOX_DEFAULT
+	release
+	end
 
 MauvilleCity_Text_RubbleBare:
 	.string "A heap of broken stone lies in the\n"
