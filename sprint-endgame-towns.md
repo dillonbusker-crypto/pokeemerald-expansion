@@ -1,5 +1,9 @@
 # Sprint: endgame towns (Giratina, Calyrex, the Gym rematches)
 
+**Status (2026-10-08): built and merged on `sprint/endgame-towns`.** The story is
+in `storyline.md`, the state and tests in `handoff.md`; the three design docs
+were folded in and deleted (they are in git history).
+
 Project plan, 2026-10-08. Owner-approved scope: an optional **Giratina** event
 in Rustboro, an optional **Calyrex** event in Mauville, and **Roxanne's and
 Wattson's Gym rematches at full power**. Goal: the endgame towns have

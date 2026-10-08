@@ -1,4 +1,4 @@
-# Handoff — current state (2026-10-05, evening)
+# Handoff — current state (2026-10-08)
 
 Read `CLAUDE.md` and `project-guide.md` first. This file is where the work
 stands: what's built, what's tested, what's loose, what's next, and the test
@@ -14,7 +14,11 @@ harness. History is in `git log`; the story is in `storyline.md`.
   headless-tested only (below). The owner's next step is a full playthrough.
 - **The endgame's teams** are all in `endgame-teams.md` and
   `src/data/trainers.party`; difficulty is untuned.
-- **Trainer IDs: 992 of 1000 used** (990-991 reserved for the endgame towns sprint).
+- **Trainer IDs: 992 of 1000 used** (990-991 are the Gym rematches).
+- **The endgame towns sprint is built** (`storyline.md`, "Rustboro after the
+  liberation" and "Mauville after the liberation"): Roxanne's and Wattson's
+  Gym rematches, Giratina in Rusturf Tunnel, Calyrex in Mauville. Harness
+  only, **not played**.
 - **Commits are local only.** Pushing from WSL isn't set up.
 
 ## Next: the owner's full playthrough, then tuning
@@ -115,6 +119,9 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 
 | What | Status |
 |---|---|
+| Endgame towns: the Gym rematches | Harness scenario 35 (`harness-gyms.c`), 17/17: each door sealed before its town is freed and open from then on (through 18), only the leader inside, Mauville's puzzle off, a loss and a win per leader (flag, heal, items, lead), no Wattson outside at 15. `test/battle/ten_gauntlets_enemy_mega.c` 4/4: an enemy `Zygarde-Complete` Mega Evolves (AI too) and stays Mega. **Not played**: the teams' difficulty |
+| Endgame towns: Giratina (The Tear) | Harness scenario 33 (`harness-giratina.c`), 31/31: nothing before Roxanne, the clues and Hoopa's hint, the escort, the dark walk and its three wrongnesses, a loss, a knock-out, a run, the Master Ball catch and the Core, the exits, after the credits, a full bag. **Not played**: the darkness on screen |
+| Endgame towns: Calyrex (The True King) | Harness scenario 34 (`harness-calyrex.c`), 22/22: rubble only before Wattson, the old man's legend, the Crown's restoration, no steed, a run, a knock-out, the catch and the Reins, never chipped, one fusion (Glastrier) and one unfusion. **Not played**: the stand-in art, Spectrier, the learn-move prompt, save and reload while fused |
 | The shop's tier menu (New arrivals, Showdown tiers, Low Tier by type; `shop-spec.md`, "The Pokémon menu") and form names (Rotom-Wash...) | Harness scenario 26 (`harness-shop.c`), 11/11: the New Game menu (Low Tier and Sell only, 119 Pokémon, Flying by either type), a real walk through the menus with a purchase and B back out, every count with everything unlocked (513), gauntlet 1's 99 New arrivals, the siphon row. **Not played**: look at the wider list box beside the FP window |
 | Bad Dreams: the Frontier Center's regulars asleep | Harness scenario 31 (`harness-badD.c`), 11/11: the kid and picnicker asleep in place, each dream line, the Wing's glow, Skitty, the "slept well" lines, normal lines after gauntlet 7. Scenario 29 re-run: 18/18 (one earlier run missed the Pike lobby's wandering beauty, a harness timing flake). **Not played** |
 | Bad Dreams (the optional Darkrai event, gauntlet 7) | Re-run together on the merged `master`: 29 and 30 green. Scenarios 29 (`harness-badB.c`, the sleepers and Joy, 18/18), 30 (`harness-badC.c`, the Pike, Darkrai, the ball guard, a loss, the win, a gauntlet 6 regression, 9/9) and 24/28 (`harness-badA.c`, Scott's 5-Pokémon teams in both battles). **Not played** |
@@ -156,10 +163,20 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 - **Side quests:** the Oldale Paradox researcher (`OldaleTown_House1`,
   `VAR_PARADOX_SHOWN_LO/HI`) is the first; the owner wants more of these for
   late-game items.
-- **Free flags and vars:** flags
-  0x285-0x287, 0x289-0x28F; `VAR_UNUSED_0x40FB`-`0x40FF` (0x281-0x284 and
-  0x40F9-0x40FA are reserved by `sprint-endgame-towns.md`; 0x40F7-0x40F8 are
-  the Paradox researcher's).
+- **Free flags and vars:** flags 0x286-0x287, 0x289-0x28F;
+  `VAR_UNUSED_0x40FB`-`0x40FF` (0x281-0x285 and 0x40F9-0x40FA are the endgame
+  towns'; 0x40F7-0x40F8 are the Paradox researcher's).
+- **Endgame towns, to look at in the playthrough:** the dark Rusturf Tunnel
+  (light circle, Giratina's sprite, `MUS_PETALBURG_WOODS`); the Mauville
+  statue's stand-in art (a Rock Smash rock as rubble, the Trick House statue)
+  and the Calyrex sprite; both Gym teams' difficulty (Mega Zygarde at 60 is
+  strong; the dial is Focus Blast to Protect or her level); Calyrex fused with
+  Spectrier, the learn-move prompt, a full-party unfuse, save and reload while
+  fused.
+- **Rusturf Tunnel's warps are `MAP_DYNAMIC` for good** (all to Rustboro):
+  restore or delete them at the strip.
+- **Brandon's gauntlet 8 team** already has Zygarde-Complete, Miraidon and Iron
+  Hands; Roxanne and Wattson repeat them (in singles, at 60-65).
 - **The four admins** use grunt overworld sprites (they have none of their
   own); Looker uses the Gentleman sprite at Sky Pillar.
 - **The old Battle Factory maps** and the rest of the vanilla story are still
@@ -212,7 +229,12 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
   scenario you want as `src/harness.c`). **`harness-shop.c`** has scenario
   26 (the shop's tier menu); it needs one extra line appended to the copy's
   `src/field_specials.c`: `bool8 Harness_ScrollMultiOpen(void) { return
-  FindTaskIdByFunc(ScrollableMultichoice_ProcessInput) != TASK_NONE; }`. In `harness.c` itself: 21
+  FindTaskIdByFunc(ScrollableMultichoice_ProcessInput) != TASK_NONE; }`.
+  **`harness-giratina.c` (33), `harness-calyrex.c` (34) and `harness-gyms.c`
+  (35)** are copies of `harness-lucy.c` (which has 1-14, 20, 21, 25 and 32,
+  not the scenarios kept in their own files). `harness-calyrex.c` needs the
+  three lines in its header appended to the copy's `src/start_menu.c` and
+  `src/item_menu.c`. In `harness.c` itself: 21
   endgame part 2 (Rustboro, loses to Glacia once on purpose); 20
   endgame part 1 (Pyramid to Rustboro, loses Scott on purpose); 14 Wallace
   hidden/shown; 12-13 Wallace probes; 11 endgame towns; 10 Devon Factory; 9

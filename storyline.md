@@ -1114,6 +1114,40 @@ Wallace stand outside the Arena in states 10, 11, 15 and 18; at 11 Steven asks
 (YES/NO) and they fly (state 12). Nurse Joy hints once in states 11-14
 (`VAR_FRONTIER_JOY_HINTED`) before her normal heal.
 
+### Rustboro after the liberation: Roxanne and the Tear (optional) ✅
+
+**Built** (the endgame towns sprint). Order: Devon freed (state 10) → Roxanne's
+rematch → Giratina. All of it stays open after the credits.
+
+**Roxanne's Gym** opens at state 10 (`sEndgameSealedDoors`' `openState`,
+`src/facility.c`). Inside, only Roxanne (`FLAG_TEMP_1` hides her trainers and
+the guide). She was gauntlet 3's boss and a Warden; now she gives the player
+"the whole lesson": `TRAINER_ENDGAME_ROXANNE` (990), six at level 60, sand,
+with **Mega Zygarde** (`endgame-teams.md`, "The Gym rematches"). A loss
+whites out to the Center; a win heals the party, and she tells of Rusturf
+Tunnel's stone "reading wrong" and sends the player to Devon's scientist.
+
+**The Tear.** Palkia's blast and Hoopa's rings keep tearing space, and
+**Giratina** has come through in **Rusturf Tunnel**. Gated on Roxanne's
+trainer flag; `VAR_GIRATINA_EVENT` 0-8 (the table is in `RusturfTunnel`'s
+scripts).
+
+- **Clues:** the Rustboro Center girl (wrong shadows), the Trainers' School
+  lass (a tunnel that "goes upward"), and Hoopa, once, reaching for a ring
+  that snaps shut: "something on the other side was angry"
+  (`FLAG_HOOPA_TEAR_HINTED`).
+- **The way in:** Devon 3F's scientist briefs the player and leads them in
+  (YES/NO, fade, warp), as Wattson does for New Mauville.
+- **The tunnel:** dark (flash level 2, no fog), vanilla people, rocks and
+  wild Pokémon gone (Hiker Mike: `FLAG_HIDE_RUSTURF_TUNNEL_MIKE`), every
+  exit a dynamic warp back to Rustboro (31, 9). Three "wrongnesses" on the
+  way: a shadow that takes one more step, the player's own footprints ahead,
+  "GO BACK" scratched backwards.
+- **Giratina** (Altered, level 60) at (19, 18). A knock-out or a run leaves
+  it there; a loss whites out to Rustboro. Caught: the light returns, the
+  **Griseous Core** (Origin Forme when held), `FLAG_GIRATINA_CAUGHT`. Never
+  chipped (`MAPSEC_RUSTURF_TUNNEL`).
+
 ### Mauville: New Mauville ✅
 
 **Built (endgame part 4).** States 12-15 of `VAR_ENDGAME_STATE`, in
@@ -1181,6 +1215,43 @@ once per game (`FLAG_CHANSEY_TRANSFER_EXP_USED`). Steven (state 15) asks if
 the player is ready; YES sets `FLAG_ABRA_TO_SKY_PILLAR`, state 16, and Steven,
 Wallace and Dad (`FLAG_HIDE_ENDGAME_BASE_DAD`, hidden in 16-17) fly to Sky
 Pillar. State 18: Steven, Wallace, Dad, Mom, Joy and the Chansey are all out.
+
+### Mauville after the liberation: Wattson and the True King (optional) ✅
+
+**Built** (the endgame towns sprint). Order: New Mauville cleared (state 15)
+→ Wattson's rematch → Calyrex. All of it stays open after the credits.
+
+**Wattson's Gym** opens at state 15, and the Wattson outside the Center is
+gone from then on. Inside, only Wattson, and **the barrier puzzle is off**
+(he switched it off; the switches do nothing). `TRAINER_ENDGAME_WATTSON`
+(991), six at level 65, Electric Terrain around **Miraidon**, plus Mega
+Manectric. A win heals the party, and he tells of the crowned statue he built
+the town around, toppled by the teams on the lawn by the Center.
+
+**The True King.** The teams crowned Scott; **Calyrex** is a real king, and
+it can tell the Replica Crown is a counterfeit. Gated on Wattson's trainer
+flag; `VAR_CALYREX_EVENT` 0-4 (the table is in `MauvilleCity`'s Calyrex
+block).
+
+- **The statue:** rubble at (29, 6) on the lawn east of the Center, from
+  state 15. Before Wattson falls it is plain rubble.
+- **The legend:** the old man in Mauville's Center (whichever of the five
+  vanilla men the game rolled) tells the King of Bountiful Harvest's tale.
+- **The restoration:** the player holds the **Replica Crown** to the broken
+  crown (YES/NO), and the statue stands whole (`FLAG_MAUVILLE_STATUE_RESTORED`).
+  Not FP (dead by state 15) and not a New Mauville stone (unreachable).
+- **Calyrex** appears and speaks by telepathy: "That is no crown. It is a
+  chain." It asks to see a **Glastrier or Spectrier** in the party; without
+  one, no battle, and the old man hints that the steeds are sold on the
+  island.
+- **The battle:** level 60, catchable. A knock-out or a run leaves it there.
+  Caught: the **Reins of Unity** (fuse and unfuse, the engine's own),
+  `FLAG_CALYREX_CAUGHT`. Never chipped (`MAPSEC_MAUVILLE_CITY`).
+
+**Gossip** for both towns' events (Outside East): the gentleman (state 15) on
+the Gym rematches, the triathlete (state 15) on the toppled stone king, the
+rich boy (after the credits) on Devon's needles going still once Giratina is
+caught.
 
 ### Sky Pillar ✅
 
