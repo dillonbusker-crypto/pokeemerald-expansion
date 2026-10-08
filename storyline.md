@@ -1224,8 +1224,8 @@ Pillar. State 18: Steven, Wallace, Dad, Mom, Joy and the Chansey are all out.
 **Wattson's Gym** opens at state 15, and the Wattson outside the Center is
 gone from then on. Inside, only Wattson, and **the barrier puzzle is off**
 (he switched it off; the switches do nothing). `TRAINER_ENDGAME_WATTSON`
-(991), six at level 65, Electric Terrain around **Miraidon**, plus Mega
-Manectric. A win heals the party, and he tells of the crowned statue he built
+(991), six at level 65, Electric Terrain around **Miraidon**, with
+Magnezone and Mega Zeraora. A win heals the party, and he tells of the crowned statue he built
 the town around, toppled by the teams on the lawn by the Center.
 
 **The True King.** The teams crowned Scott; **Calyrex** is a real king, and

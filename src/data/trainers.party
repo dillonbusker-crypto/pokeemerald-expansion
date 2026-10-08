@@ -26407,24 +26407,23 @@ IVs: 0 Atk
 - Thunderbolt
 - Grass Knot
 
-Raging Bolt @ Leftovers
-Ability: Protosynthesis
+Magnezone @ Air Balloon
+Ability: Magnet Pull
 Level: 65
 EVs: 252 HP / 252 SpA / 4 SpD
 Modest Nature
 IVs: 0 Atk
-- Calm Mind
-- Thunderclap
 - Thunderbolt
-- Dragon Pulse
-
-Manectric @ Manectite
-Ability: Lightning Rod
-Level: 65
-EVs: 4 HP / 252 SpA / 252 Spe
-Timid Nature
-IVs: 0 Atk
-- Thunderbolt
+- Flash Cannon
 - Volt Switch
-- Overheat
-- Snarl
+- Mirror Coat
+
+Zeraora @ Zeraorite
+Ability: Volt Absorb
+Level: 65
+EVs: 252 Atk / 4 SpA / 252 Spe
+Naive Nature
+- Plasma Fists
+- Close Combat
+- Knock Off
+- Grass Knot

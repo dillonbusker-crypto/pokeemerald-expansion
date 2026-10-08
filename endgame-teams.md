@@ -1248,7 +1248,7 @@ Elite Four's and New Mauville's AI (omniscient, proactive switching).
 | Rule | Applied as |
 |---|---|
 | Pool | Every species, item and Mega Stone is sold by the endgame shop (`src/facility_shop.c`, waves 0-7), **except the box-art legendary** (Zygarde-Complete with Zygardite, Miraidon), which is the owner's pick, as the Primals were |
-| Megas | **One each, Mega Evolving in battle:** Roxanne's is her box-art legendary (Mega Zygarde); Wattson's is a normal Mega from the shop (Mega Manectric, his Emerald ace) |
+| Megas | **One each, Mega Evolving in battle:** Roxanne's is her box-art legendary (Mega Zygarde); Wattson's is a normal Mega from the shop (Mega Zeraora, the owner's pick) |
 | Items | Item clause on both teams |
 | Moves | Every move checked against this build's learnsets (level-up, teachable and egg) |
 | Levels | Roxanne 60 (the admins), Wattson 65 (Maxie and Archie) |
@@ -1351,11 +1351,11 @@ singles set at 60 against his doubles set at 50.)*
 Miraidon leads: Hadron Engine sets Electric Terrain on entry, which boosts
 every grounded Electric move by 30%, powers Iron Hands's Quark Drive (Attack)
 and Miraidon's own Sp. Atk. Tapu Koko's Electric Surge resets it. The speed
-control is Prankster Thunder Wave (Thundurus), Raging Bolt's priority
-Thunderclap, and a fast core (Miraidon, Koko, Mega Manectric at 130-135).
-Volt Switch and U-turn keep the momentum; Grass Knot and Ice Punch hit the
-Ground types an Electric team otherwise can't touch. **Mega Manectric**, his
-Emerald ace, is his one normal Mega.
+control is Prankster Thunder Wave (Thundurus) and a fast core (Miraidon, Koko,
+Mega Zeraora at 130-153). Volt Switch and U-turn keep the momentum; Grass Knot
+and Ice Punch hit the Ground types an Electric team otherwise can't touch.
+**Magnezone** is his Emerald line (Magneton was in his Gym team), and **Mega
+Zeraora** is his one normal Mega (the owner's pick over Mega Manectric).
 
 ```
 Miraidon @ Choice Specs
@@ -1401,27 +1401,26 @@ IVs: 0 Atk
 - Thunderbolt
 - Grass Knot
 
-Raging Bolt @ Leftovers
-Ability: Protosynthesis
+Magnezone @ Air Balloon
+Ability: Magnet Pull
 Level: 65
 EVs: 252 HP / 252 SpA / 4 SpD
 Modest Nature
 IVs: 0 Atk
-- Calm Mind
-- Thunderclap
 - Thunderbolt
-- Dragon Pulse
-
-Manectric @ Manectite
-Ability: Lightning Rod
-Level: 65
-EVs: 4 HP / 252 SpA / 252 Spe
-Timid Nature
-IVs: 0 Atk
-- Thunderbolt
+- Flash Cannon
 - Volt Switch
-- Overheat
-- Snarl
+- Mirror Coat
+
+Zeraora @ Zeraorite
+Ability: Volt Absorb
+Level: 65
+EVs: 252 Atk / 4 SpA / 252 Spe
+Naive Nature
+- Plasma Fists
+- Close Combat
+- Knock Off
+- Grass Knot
 ```
 
 | Pokémon | Role |
@@ -1430,14 +1429,14 @@ IVs: 0 Atk
 | Tapu Koko | Second terrain setter; fast pivot (U-turn); Dazzling Gleam for Dragons |
 | Iron Hands | Bulky physical attacker, Quark Drive in terrain; Ice Punch for Ground and Dragon; Assault Vest |
 | Thundurus | Prankster Thunder Wave speed control; Ground immune; Nasty Plot, Grass Knot for Ground types |
-| Raging Bolt | Calm Mind win condition; Thunderclap priority; Leftovers |
-| Manectric | **Mega Manectric** (Intimidate, 135 Speed): the signature Mega, fast special cleaner and pivot |
+| Magnezone | His Emerald line. Magnet Pull traps and removes Steel types; Air Balloon covers the 4x Ground weakness until popped; Mirror Coat punishes special attackers |
+| Zeraora | **Mega Zeraora** (157 Atk, 147 SpA, 153 Speed, Volt Absorb): the ace. Terrain-boosted Plasma Fists, Close Combat for Steel, Knock Off, Grass Knot for heavy Ground types |
 
 **How to beat it:** a Ground type is immune to the Electric moves, and five
-of the six are weak to Ground (Thundurus flies); watch for Ice Punch, Grass
-Knot and Overheat.
+of the six are weak to Ground (Thundurus flies; Magnezone's Balloon holds
+until it's hit); watch for Ice Punch, Grass Knot and Overheat.
 Paralysis from Thundurus is the real threat: carry a Lum Berry or an
-Electric type. A Dragon or Fairy takes on Miraidon and Raging Bolt.
+Electric type. A Dragon or Fairy takes on Miraidon. Steel types: beware Magnezone's trap.
 
 *(Brandon's gauntlet 8 team also has Miraidon and Iron Hands, at 50 in doubles.)*
 
