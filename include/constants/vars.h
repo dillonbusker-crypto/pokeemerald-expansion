@@ -270,7 +270,7 @@
 #define VAR_PARADOX_SHOWN_HI                             0x40F8 // Ten Gauntlets: bits 16-31 of the same
 #define VAR_GIRATINA_EVENT                               0x40F9 // Endgame towns sprint, workstream A: the GIRATINA event's progress
 #define VAR_CALYREX_EVENT                                0x40FA // Workstream B: the CALYREX event's progress
-#define VAR_UNUSED_0x40FB                                0x40FB // Unused Var
+#define VAR_HOOPA_REST_STATE                             0x40FB // Ten Gauntlets: VAR_ENDGAME_STATE at HOOPA's last catch (it rests until the story moves on)
 #define VAR_UNUSED_0x40FC                                0x40FC // Unused Var
 #define VAR_UNUSED_0x40FD                                0x40FD // Unused Var
 #define VAR_UNUSED_0x40FE                                0x40FE // Unused Var

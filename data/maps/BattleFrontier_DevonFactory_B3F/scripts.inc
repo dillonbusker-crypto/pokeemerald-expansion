@@ -224,8 +224,10 @@ BattleFrontier_DevonFactory_B3F_Movement_LungeDown:
 	face_down
 	step_end
 
+@ (9, 9) back to (9, 11): a tile clear of the player, who steps in at (9, 9).
 BattleFrontier_DevonFactory_B3F_Movement_WallacePushedBack:
 	lock_facing_direction
+	walk_fast_down
 	walk_fast_down
 	unlock_facing_direction
 	step_end

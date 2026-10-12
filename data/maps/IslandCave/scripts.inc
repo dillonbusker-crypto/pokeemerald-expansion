@@ -286,6 +286,7 @@ IslandCave_EventScript_HoopaCaught::
 	call_if_eq VAR_HOOPA_TARGET, SPECIES_NECROZMA_DUSK_MANE, IslandCave_EventScript_CaughtNecrozmaDuskMane
 	call_if_eq VAR_HOOPA_TARGET, SPECIES_NECROZMA_DAWN_WINGS, IslandCave_EventScript_CaughtNecrozmaDawnWings
 	addvar VAR_HOOPA_CATCHES, 1
+	copyvar VAR_HOOPA_REST_STATE, VAR_ENDGAME_STATE
 	msgbox IslandCave_Text_HoopaRecharge, MSGBOX_DEFAULT
 	goto IslandCave_EventScript_HoopaTakesBack
 

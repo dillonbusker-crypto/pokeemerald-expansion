@@ -6884,9 +6884,10 @@ void ItemUseCB_ReplicaCrown(u8 taskId, TaskFunc task)
         return;
     }
 
-    // The CROWN holds one permanent Mega after the siphon, six after New
-    // Mauville (GetReplicaCrownLimit). Turning one back is always allowed.
-    if (!gSpeciesInfo[species].isMegaEvolution && CountPermanentMegasInParty() >= GetReplicaCrownLimit())
+    // The CROWN holds one permanent Mega after the siphon, boxed or not, and a
+    // whole party after New Mauville (IsReplicaCrownFull). Turning one back is
+    // always allowed.
+    if (!gSpeciesInfo[species].isMegaEvolution && IsReplicaCrownFull())
     {
         gPartyMenuUseExitCallback = FALSE;
         PlaySE(SE_SELECT);

@@ -132,13 +132,13 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
 | Endgame part 5 (Sky Pillar, the ending) | Harness scenario 24 (`harness-part5.c`), 14/14: the ambush, the bikeless climb of all five floors, Scott **lost on purpose** (white-out to Joy outside, healed, items back, no re-catch), won, Looker, state 18, the credits entered with the continue warp at the Frontier; Mega Rayquaza (no stone) and both Primals kept their forms and abilities. **Not played** |
 | Endgame part 2 (Rustboro) | Harness scenario 21, **19/19 green**: the ABRA in and out of the Centers, the ambush, the Elite Four in order (out-of-order talks refused), a loss to Glacia whiting out to Rustboro's Center (healed, items back, beaten members stay gone), Stone's scene and the Crown, vanilla 3F events off, Juan, two Hoopa rings, the new gossip beat. **Not played** |
 | Endgame part 1 | Harness scenario 20, **18/18 green**: Pyramid to Rustboro, every Brain fight, the cells, Scott's battle **lost on purpose** (outcome checked, no white-out, team healed, items back), the base, the Broker, a Hoopa trip, the ABRA. **Not played** |
-| Hoopa catching a legendary | Not run (the knock-out path was) |
+| Hoopa catching a legendary | Not run (the knock-out path was). Since the owner's playthrough: after a catch Hoopa rests until `VAR_ENDGAME_STATE` goes up (`VAR_HOOPA_REST_STATE`, no rest after the credits); built, not run |
 | Endgame gossip beats | Built, widths checked; code-read only |
 | Endgame towns | Harness scenario 11, 14/14. **Not played** |
 | Wallace hiding | Harness scenario 14, 7/7 (incl. an old save). **Not played** |
 | Tag-battle party fix | Harness: Ever Grande win and loss, distinct species picked 1,4,3 |
 | Devon Factory maps | Harness scenario 10. **Not played** |
-| Permanent Megas, Replica Crown | Engine tests in `test/battle/ten_gauntlets_perma_mega.c`. No scene gives the Crown yet |
+| Permanent Megas, Replica Crown | Engine tests in `test/battle/ten_gauntlets_perma_mega.c`. The one-charge Crown (states 11-13) now counts permanent Megas in the PC boxes and Day Care too (`IsReplicaCrownFull`; boxing one used to free the charge); built, not run |
 | Crown event (after gauntlet 7) | Littleroot part played by the owner; the Factory standoff visuals not confirmed |
 | Broker's-letter event | Ever Grande part played; the rest not hand-tested |
 | Dialogue pass, opening, gossip | Built, widths checked. **Not played** |
@@ -164,8 +164,9 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
   `VAR_PARADOX_SHOWN_LO/HI`) is the first; the owner wants more of these for
   late-game items.
 - **Free flags and vars:** flags 0x286-0x287, 0x289-0x28F;
-  `VAR_UNUSED_0x40FB`-`0x40FF` (0x281-0x285 and 0x40F9-0x40FA are the endgame
-  towns'; 0x40F7-0x40F8 are the Paradox researcher's).
+  `VAR_UNUSED_0x40FC`-`0x40FF` (0x281-0x285 and 0x40F9-0x40FA are the endgame
+  towns'; 0x40F7-0x40F8 are the Paradox researcher's; 0x40FB is
+  `VAR_HOOPA_REST_STATE`).
 - **Endgame towns, to look at in the playthrough:** the dark Rusturf Tunnel
   (light circle, Giratina's sprite, `MUS_PETALBURG_WOODS`); the Mauville
   statue's stand-in art (a Rock Smash rock as rubble, the Trick House statue)

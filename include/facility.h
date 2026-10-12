@@ -106,6 +106,7 @@ void OldaleCheckParadox(void);
 u16 IsBadDreamsActive(void);
 void OldaleMarkParadoxShown(void);
 u32 CountPermanentMegasInParty(void);
+bool32 IsReplicaCrownFull(void);
 // special: VAR_0x8008 = VAR_0x8004 wins' FP for the current gauntlet (src/facility.c).
 void FacilityGetWinsPrice(void);
 void StripBirchsLab(void);

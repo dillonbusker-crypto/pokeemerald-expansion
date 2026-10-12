@@ -23,6 +23,7 @@
 #include "fieldmap.h"
 #include "frontier_util.h"
 #include "pokemon.h"
+#include "pokemon_storage_system.h"
 #include "random.h"
 #include "save.h"
 #include "strings.h"
@@ -642,9 +643,10 @@ bool32 IsFrontierChippedMon(struct Pokemon *mon)
         && metLocation != MAPSEC_RUSTURF_TUNNEL && metLocation != MAPSEC_MAUVILLE_CITY;
 }
 
-// How many permanent Megas the REPLICA CROWN can hold in the party at once
-// (storyline.md): one once the siphon charges it (VAR_ENDGAME_STATE 11),
-// all six once New Mauville's generator supercharges it (state 14).
+// How many permanent Megas the REPLICA CROWN can hold (storyline.md;
+// IsReplicaCrownFull): one in all once the siphon charges it
+// (VAR_ENDGAME_STATE 11), a whole party once New Mauville's generator
+// supercharges it (state 14).
 u32 GetReplicaCrownLimit(void)
 {
     u32 state = VarGet(VAR_ENDGAME_STATE);
@@ -765,6 +767,32 @@ u32 CountPermanentMegasInParty(void)
     return n;
 }
 
+// Whether the REPLICA CROWN can't make another permanent Mega. Charged once
+// (states 11-13) it holds one for good, so a permanent Mega in a PC box or the
+// Day Care still uses it up; supercharged, it holds a whole party.
+bool32 IsReplicaCrownFull(void)
+{
+    u32 i, j, n, limit = GetReplicaCrownLimit();
+
+    n = CountPermanentMegasInParty();
+    if (limit >= PARTY_SIZE)
+        return n >= limit;
+    for (i = 0; i < TOTAL_BOXES_COUNT; i++)
+    {
+        for (j = 0; j < IN_BOX_COUNT; j++)
+        {
+            if (gSpeciesInfo[GetBoxMonDataAt(i, j, MON_DATA_SPECIES)].isMegaEvolution)
+                n++;
+        }
+    }
+    for (i = 0; i < DAYCARE_MON_COUNT; i++)
+    {
+        if (gSpeciesInfo[GetBoxMonData(&gSaveBlock1Ptr->daycare.mons[i].mon, MON_DATA_SPECIES)].isMegaEvolution)
+            n++;
+    }
+    return n >= limit;
+}
+
 // The endgame after gauntlet 8 (storyline.md; VAR_ENDGAME_STATE is explained
 // in BattleFrontier_OutsideEast). special: VAR_RESULT = how many of the five
 // Brains guarding the Factory are beaten. Each one hands over a piece of the
@@ -792,10 +820,19 @@ void GetFactoryBrainsBeaten(void)
 
 // special: VAR_RESULT = HOOPA's rings the player can still use. One opens at
 // the Arena base after the Factory, one after DEVON (JUAN's apology) and one
-// after New Mauville (the teams leave the city). Only a catch uses a ring up.
+// after New Mauville (the teams leave the city). Only a catch uses a ring up,
+// and an unused ring carries over, but after a catch HOOPA rests until the
+// story moves on (VAR_HOOPA_REST_STATE), so never two catches in a row. After
+// the credits (state 18) there's nothing left to pace.
 void GetHoopaRingsLeft(void)
 {
     u32 rings = 0;
+
+    if (VarGet(VAR_ENDGAME_STATE) < 18 && VarGet(VAR_ENDGAME_STATE) == VarGet(VAR_HOOPA_REST_STATE))
+    {
+        gSpecialVar_Result = 0;
+        return;
+    }
 
     if (VarGet(VAR_ENDGAME_STATE) >= 6)
         rings++;

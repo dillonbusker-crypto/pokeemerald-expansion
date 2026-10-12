@@ -1051,7 +1051,8 @@ existence** to beat Scott. Optional.
 - **Knocked out or escaped:** it flees, and the player can come back to try
   again. Only a **catch** uses up Hoopa's ring.
 - **After a catch,** Hoopa takes the player back to the Arena and has to
-  recharge.
+  recharge: it rests until the story moves on (`VAR_ENDGAME_STATE` goes up),
+  so there are never two catches in a row. After the credits it doesn't rest.
 - **Three rings in all:** after the Factory, after the Elite Four, and after
   Archie and Maxie. Any ring the player doesn't use stays available.
 
