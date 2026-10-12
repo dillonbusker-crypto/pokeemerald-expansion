@@ -25006,13 +25006,12 @@ Modest Nature
  * (storyline.md). Level 100, every one a permanent Mega (listed already in
  * Mega form, holding a real item), raw power and no balance. Mega Darkrai
  * replaces Mega Kangaskhan, which stays the player's. He has the Lati the
- * player didn't catch. No SCOTT battle sprite exists yet: Gentleman is a
- * stand-in until there's art. */
+ * player didn't catch. */
 
 === TRAINER_FACTORY_SCOTT_LATIAS ===
 Name: SCOTT
 Class: Founder
-Pic: Gentleman
+Pic: Founder Scott
 Gender: Male
 Music: Intense
 Double Battle: No
@@ -25081,7 +25080,7 @@ Adamant Nature
 === TRAINER_FACTORY_SCOTT_LATIOS ===
 Name: SCOTT
 Class: Founder
-Pic: Gentleman
+Pic: Founder Scott
 Gender: Male
 Music: Intense
 Double Battle: No
@@ -25867,7 +25866,7 @@ Modest Nature
 === TRAINER_SKY_PILLAR_SCOTT_LATIAS ===
 Name: SCOTT
 Class: Founder
-Pic: Gentleman
+Pic: Founder Scott
 Gender: Male
 Music: Intense
 Double Battle: No
@@ -25936,7 +25935,7 @@ Timid Nature
 === TRAINER_SKY_PILLAR_SCOTT_LATIOS ===
 Name: SCOTT
 Class: Founder
-Pic: Gentleman
+Pic: Founder Scott
 Gender: Male
 Music: Intense
 Double Battle: No
@@ -26009,7 +26008,7 @@ Timid Nature
 === TRAINER_FACTORY_SCOTT_NO_DARKRAI_LATIAS ===
 Name: SCOTT
 Class: Founder
-Pic: Gentleman
+Pic: Founder Scott
 Gender: Male
 Music: Intense
 Double Battle: No
@@ -26078,7 +26077,7 @@ Adamant Nature
 === TRAINER_FACTORY_SCOTT_NO_DARKRAI_LATIOS ===
 Name: SCOTT
 Class: Founder
-Pic: Gentleman
+Pic: Founder Scott
 Gender: Male
 Music: Intense
 Double Battle: No
@@ -26147,7 +26146,7 @@ Adamant Nature
 === TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIAS ===
 Name: SCOTT
 Class: Founder
-Pic: Gentleman
+Pic: Founder Scott
 Gender: Male
 Music: Intense
 Double Battle: No
@@ -26217,7 +26216,7 @@ Modest Nature
 === TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIOS ===
 Name: SCOTT
 Class: Founder
-Pic: Gentleman
+Pic: Founder Scott
 Gender: Male
 Music: Intense
 Double Battle: No

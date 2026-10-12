@@ -109,9 +109,9 @@ scripts: 1 gauntlet 8 cleared ... 7 sent to Rustboro).
 | Gossip: SIEGE, AFTERMATH, DEVON beats | `GetStoryGossipStage` |
 | The Frontier's ABRA, now in the Pokémon Center | Pokémon Center 1F |
 
-Scott's trainer class is `FOUNDER`. **He has no battle sprite yet: the owner
-is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
-`src/data/trainers.party`; Gentleman stands in).
+Scott's trainer class is `FOUNDER`; his battle sprite is the owner's
+`graphics/trainers/front_pics/founder_scott.png` (`Pic: Founder Scott`, all
+eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
 
 ---
 
@@ -197,7 +197,6 @@ is making one** (`Pic:` on both `TRAINER_FACTORY_SCOTT_*` in
 
 - The owner's save still has the duplicate Landorus from the old tag-battle
   bug.
-- **Scott's battle sprite** (above).
 - **Tag battles** where the player picks three need `Multi Party: Half` on both
   opponents (`trainers.party`).
 - **Pricing questions:** should the Arena's 100 FP mock battle be priced in
