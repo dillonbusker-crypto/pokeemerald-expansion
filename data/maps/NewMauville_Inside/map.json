@@ -138,7 +138,7 @@
       "local_id": "LOCALID_NEW_MAUVILLE_MATT",
       "graphics_id": "OBJ_EVENT_GFX_AQUA_MEMBER_M",
       "x": 4,
-      "y": 9,
+      "y": 6,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
@@ -165,15 +165,15 @@
     {
       "local_id": "LOCALID_NEW_MAUVILLE_MAXIE",
       "graphics_id": "OBJ_EVENT_GFX_MAXIE",
-      "x": 33,
-      "y": 5,
+      "x": 4,
+      "y": 9,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NewMauville_Inside_EventScript_GeneratorLeaders",
+      "script": "NewMauville_Inside_EventScript_Maxie",
       "flag": "FLAG_TEMP_5"
     },
     {
@@ -189,6 +189,20 @@
       "trainer_sight_or_berry_tree_id": "0",
       "script": "NewMauville_Inside_EventScript_GeneratorLeaders",
       "flag": "FLAG_TEMP_6"
+    },
+    {
+      "local_id": "LOCALID_NEW_MAUVILLE_MAXIE_BEATEN",
+      "graphics_id": "OBJ_EVENT_GFX_MAXIE",
+      "x": 33,
+      "y": 5,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_FACE_DOWN",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "NewMauville_Inside_EventScript_GeneratorLeaders",
+      "flag": "FLAG_TEMP_7"
     }
   ],
   "warp_events": [
@@ -307,6 +321,15 @@
       "elevation": 3,
       "var": "VAR_NEW_MAUVILLE_ADMINS",
       "var_value": "2",
+      "script": "NewMauville_Inside_EventScript_MaxieTrigger"
+    },
+    {
+      "type": "trigger",
+      "x": 4,
+      "y": 7,
+      "elevation": 3,
+      "var": "VAR_NEW_MAUVILLE_ADMINS",
+      "var_value": "3",
       "script": "NewMauville_Inside_EventScript_MattTrigger"
     },
     {
@@ -315,7 +338,7 @@
       "y": 5,
       "elevation": 3,
       "var": "VAR_NEW_MAUVILLE_ADMINS",
-      "var_value": "3",
+      "var_value": "4",
       "script": "NewMauville_Inside_EventScript_ShellyTrigger5"
     },
     {
@@ -324,7 +347,7 @@
       "y": 4,
       "elevation": 3,
       "var": "VAR_NEW_MAUVILLE_ADMINS",
-      "var_value": "3",
+      "var_value": "4",
       "script": "NewMauville_Inside_EventScript_ShellyTrigger4"
     },
     {

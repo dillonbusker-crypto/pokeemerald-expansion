@@ -89,7 +89,11 @@ breaks existing saves (the last raise already needed a New Game).
 Experience flows only with **real badges** (`FLAG_REAL_BADGES`: Steven after
 gauntlet 4, Scott swaps them back after 7, Wallace after 8) and only for
 **unchipped** Pokémon (met in Artisan Cave or, through Hoopa's rings, Island
-Cave). The Frontier siphon (endgame part 2+) is to lift the chip rule.
+Cave). The Frontier siphon (endgame part 3, state 11) lifts the chip rule,
+and at the same moment lifts every chipped Pokémon below level 60 to 60
+(`SiphonLiftChippedLevels`); the shop sells at 60 from then on. Before it,
+shop Pokémon sit at 50 with nothing to grind on, so a fight written for
+"after the siphon" can assume a party of 60s, not 50s.
 Facility battles never give Experience. Obedience is real: the player holds
 `FLAG_BADGE08_GET` from the starter on, which makes everything obey.
 

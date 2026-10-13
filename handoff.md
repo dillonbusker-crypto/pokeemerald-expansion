@@ -29,8 +29,10 @@ them on a screen:
 
 - Every endgame scene's **staging** (who walks where, facing, timing).
 - **Difficulty** of the Elite Four (52-55), the admins (60), Maxie and
-  Archie (65, no heal between them) and Scott at 100; and the Chansey's
-  single level-100 transfer.
+  Archie (65, each after his own team's admins, a heal between) and Scott at
+  100; and the Chansey's single level-100 transfer. The siphon now lifts
+  every chipped Pokémon to 60 and the shop sells at 60 after it
+  (2026-10-13): check the party's levels after "Free the POKéMON".
 - **Sky Pillar's 4F**: the clean layout still has three cracked tiles at
   (6-9, 4), and vanilla's bikeless route drops through one into 3F's inner
   room to reach the upper stairs. The harness walks it fine; decide whether
@@ -51,11 +53,11 @@ them on a screen:
 
 | Piece | Where |
 |---|---|
-| The siphon: the Pokémon keeper's "Free the POKéMON" (state 10 with the Crown), `FLAG_CROWN_CHARGED`, `FLAG_FRONTIER_CHIPS_OFF`; state 11 | `BattleFrontier_ExchangeServiceCorner`, `src/facility_shop.c` |
+| The siphon: the Pokémon keeper's "Free the POKéMON" (state 10 with the Crown), every chipped Pokémon below 60 lifted to 60 (`SiphonLiftChippedLevels`, party, boxes, Day Care), the shop at 60 from then on, `FLAG_CROWN_CHARGED`, `FLAG_FRONTIER_CHIPS_OFF`; state 11 | `BattleFrontier_ExchangeServiceCorner`, `src/facility.c`, `src/facility_shop.c` |
 | The Crown's limit: one permanent Mega from state 11, six from 14 | `GetReplicaCrownLimit`, `src/party_menu.c` |
 | Steven's hub outside the Arena: every state's lines, the Mauville send-off (12, `FLAG_ABRA_TO_MAUVILLE`), the Sky Pillar send-off (16, `FLAG_ABRA_TO_SKY_PILLAR`), the post-credits lines (18) | `BattleFrontier_OutsideEast` |
 | Mauville overrun; Wattson, Steven and Wallace; Wattson leads the player down (fade + warp, state 13); respawn at Mauville's Center | `MauvilleCity` |
-| New Mauville: wild encounters off, the door open, exits lead back to Mauville; the four admins in order (`VAR_NEW_MAUVILLE_ADMINS`); Maxie and Archie back to back, no heal, a loss repeats both; the Crown supercharged (state 14) | `NewMauville_Entrance`, `NewMauville_Inside` |
+| New Mauville: wild encounters off, the door open, exits lead back to Mauville; the five guards in order, Tabitha, Courtney, Maxie, Matt, Shelly (`VAR_NEW_MAUVILLE_ADMINS`, 0-5), a heal after each; Archie alone at the generator with the beaten Maxie beside him, a loss repeats Archie only; the Crown supercharged (state 14) | `NewMauville_Entrance`, `NewMauville_Inside` |
 | The teams leave; Hoopa's third ring; state 15 | `MauvilleCity` |
 | Nurse Joy and the Chansey outside the Arena: `TransferExpToLevel100`, once (`FLAG_CHANSEY_TRANSFER_EXP_USED`) | `BattleFrontier_OutsideEast`, `src/facility.c` |
 | Sky Pillar: the allies, the seven Brains' ambush (state 17), Joy by the door as the white-out respawn (`HEAL_LOCATION_SKY_PILLAR_OUTSIDE`), clean floors, no wild Pokémon | `SkyPillar_Outside`, `SkyPillar_1F-5F` |
@@ -127,8 +129,8 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
 | Bad Dreams (the optional Darkrai event, gauntlet 7) | Re-run together on the merged `master`: 29 and 30 green. Scenarios 29 (`harness-badB.c`, the sleepers and Joy, 18/18), 30 (`harness-badC.c`, the Pike, Darkrai, the ball guard, a loss, the win, a gauntlet 6 regression, 9/9) and 24/28 (`harness-badA.c`, Scott's 5-Pokémon teams in both battles). **Not played** |
 | The Oldale Paradox researcher (Booster Energy, one per Paradox species; the shop no longer sells it) | Harness scenario 25, 4/4: a non-Paradox refused, a new species paid, a repeat refused, a second species paid. **Not played** |
 | Parts 3-5 after the merge | Scenarios 22, 23 and 24 re-run on the merged `master`: 10/10, 16/16, 14/14 |
-| Endgame part 3 (the siphon, the hub, the Chansey) | Harness scenario 22 (`harness-part3.c`), 10/10: the keeper's menu, the flags, chips off, Steven's send-offs, Transfer EXP (Eggs and level 100 refused, once only), every state's cast. **Not played** |
-| Endgame part 4 (Mauville, New Mauville) | Harness scenario 23 (`harness-part4.c`), 16/16: Wattson's way in, the four admins, Archie **lost on purpose** (white-out to Mauville's Center, both leaders reset), both won, the supercharge, the exit scene, three rings; Primals stayed Primal with their weather. **Not played** |
+| Endgame part 3 (the siphon, the hub, the Chansey) | Harness scenario 22 (`harness-part3.c`), re-run 2026-10-13, 10/10: the keeper's menu, the flags, chips off, the level catch-up (chipped 50s in the party, box 0 and the Day Care to 60 with full HP; an Island Cave 50, a 70 and an Egg untouched), Steven's send-offs, Transfer EXP (Eggs and level 100 refused, once only), every state's cast. **Not played** |
+| Endgame part 4 (Mauville, New Mauville) | Harness scenario 23 (`harness-part4.c`), re-run 2026-10-13 after the split, 18/18: Wattson's way in, the five guards in order (Tabitha, Courtney, Maxie, Matt, Shelly), Maxie gone from the corridor and shown at the generator after his win and after a reload, Archie **lost on purpose** (white-out to Mauville's Center, Maxie stays beaten, only Archie reset), Archie won (Maxie fought once, Archie twice), the supercharge, the exit scene, three rings; Primals stayed Primal with their weather. **Not played** |
 | Endgame part 5 (Sky Pillar, the ending) | Harness scenario 24 (`harness-part5.c`), 14/14: the ambush, the bikeless climb of all five floors, Scott **lost on purpose** (white-out to Joy outside, healed, items back, no re-catch), won, Looker, state 18, the credits entered with the continue warp at the Frontier; Mega Rayquaza (no stone) and both Primals kept their forms and abilities. **Not played** |
 | Endgame part 2 (Rustboro) | Harness scenario 21, **19/19 green**: the ABRA in and out of the Centers, the ambush, the Elite Four in order (out-of-order talks refused), a loss to Glacia whiting out to Rustboro's Center (healed, items back, beaten members stay gone), Stone's scene and the Crown, vanilla 3F events off, Juan, two Hoopa rings, the new gossip beat. **Not played** |
 | Endgame part 1 | Harness scenario 20, **18/18 green**: Pyramid to Rustboro, every Brain fight, the cells, Scott's battle **lost on purpose** (outcome checked, no white-out, team healed, items back), the base, the Broker, a Hoopa trip, the ABRA. **Not played** |

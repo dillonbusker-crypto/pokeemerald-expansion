@@ -691,7 +691,7 @@ MauvilleCity_EventScript_EndgameAbra::
 @      WALLACE stay to clear it, and WATTSON leads the player to NEW MAUVILLE
 @      (state 13). A white-out anywhere from here on lands in the CENTER.
 @   13 WATTSON waits by the CENTER's door, ready to lead the player back down
-@   14 MAXIE and ARCHIE are beaten: the player comes out of the CENTER (New
+@   14 ARCHIE is beaten (after MAXIE): the player comes out of the CENTER (New
 @      Mauville's exit warp), the teams have left, and WATTSON, STEVEN and
 @      WALLACE wait outside (state 15 after the scene)
 @   15 WATTSON stays in town; STEVEN and WALLACE are at the FRONTIER

@@ -740,11 +740,17 @@ the one exception to the shop rule: Groudon and Kyogre aren't sold, because
 Scott lent them.
 
 **Levels.** The four admins are level 60, five over the top of the Elite
-Four (52-55): the player has had the siphon and (perhaps) another Hoopa
-legend since, and gains Experience now that the chips are off. The leaders
-are level 65, five over the admins, and their five teammates match their
-Primal. The player has at most one permanent Mega here (the Crown holds six
-only after these fights are won).
+Four (52-55): the siphon lifted every chipped Pokémon to 60 (the level of
+Hoopa's legendaries) and the shop sells at 60 from then on, so the player's
+whole party is at least 60 here and gains Experience now that the chips are
+off. The leaders are level 65, five over the admins, and their five teammates
+match their Primal. The player has at most one permanent Mega here (the Crown
+holds six only after these fights are won).
+
+**Order (changed 2026-10-13).** Each leader guards his own team's wing, with
+a full heal after every fight: Tabitha, Courtney, **Maxie**, then Matt, Shelly,
+**Archie** at the generator. They used to be fought back to back with no
+heal, and a loss repeated both; the owner's playthrough found that a cliff.
 
 **Megas.** Each admin has **one normal Mega**, holding its stone and Mega
 Evolving in battle (like the Brains). Maxie and Archie have **no Mega**: each
@@ -1050,8 +1056,8 @@ rain boosts Water and halves Fire, so remove Politoed before it sets up.
 
 ## Maxie: sun, Primal Groudon at level 65
 
-Maxie is the first of the generator pair (the Scrambler: no heal between him
-and Archie). **Primal Groudon leads.**
+Maxie holds Magma's last stretch, after Tabitha and Courtney, and the coil
+heals the party after him like after any admin. **Primal Groudon leads.**
 Desolate Land makes harsh sunlight, and when Groudon leaves or faints, Torkoal's
 Drought resumes ordinary sun. Venusaur and Charizard are the sun sweepers,
 Volcarona and Heatran the Fire attackers. No Mega: Groudon-Primal is the ace.
@@ -1129,7 +1135,8 @@ Chlorophyll sweeps.
 
 ## Archie: rain, Primal Kyogre at level 65
 
-The mirror of Maxie. **Primal Kyogre leads**, and Primordial Sea makes heavy
+The mirror of Maxie, fought alone at the generator after Matt and Shelly.
+**Primal Kyogre leads**, and Primordial Sea makes heavy
 rain (Fire moves fail outright). Pelipper's Drizzle takes over once Kyogre is
 gone. Kingdra, Barraskewda and Ludicolo all have Swift Swim; Zapdos's Thunder
 never misses in rain. No Mega.

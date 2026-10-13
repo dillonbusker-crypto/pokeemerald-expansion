@@ -296,7 +296,9 @@ BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu::
 
 @ Ten Gauntlets: the Frontier siphon (storyline.md). Offered at state 10 with
 @ the Crown in the bag (FacilityShopBuildMonMenu). Charges the CROWN and
-@ switches every chip off (FLAG_FRONTIER_CHIPS_OFF): state 11.
+@ switches every chip off (FLAG_FRONTIER_CHIPS_OFF): state 11. First, the
+@ Experience the chips held back comes out: every chipped Pokemon below
+@ level 60 catches up to it (SiphonLiftChippedLevels, before the flag).
 BattleFrontier_ExchangeServiceCorner_EventScript_FreeThePokemon::
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_ConfirmSiphon, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
@@ -313,6 +315,7 @@ BattleFrontier_ExchangeServiceCorner_EventScript_FreeThePokemon::
 	special ShakeCamera
 	waitstate
 	delay 30
+	special SiphonLiftChippedLevels
 	setflag FLAG_CROWN_CHARGED
 	setflag FLAG_FRONTIER_CHIPS_OFF
 	setvar VAR_ENDGAME_STATE, 11
@@ -538,9 +541,11 @@ BattleFrontier_ExchangeServiceCorner_Text_SiphonDone:
 	.string "Every chip in the FRONTIER's POKéMON\n"
 	.string "went dark. The energy flowed into\l"
 	.string "the CROWN, and the CROWN is charged.\p"
-	.string "KEEPER: Look at them! They're\n"
-	.string "stretching. They're ready to grow\l"
-	.string "again!$"
+	.string "KEEPER: Look at them! The chips were\n"
+	.string "holding them down. All that growth,\l"
+	.string "all at once! They've caught up with\l"
+	.string "the free ones.\p"
+	.string "And they'll keep growing from here.$"
 
 BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemonFreed:
 	.string "Welcome!\p"

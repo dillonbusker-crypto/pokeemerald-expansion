@@ -1782,7 +1782,9 @@ void FacilityShopGiveFP(void)
 // Level 50, neutral nature, 31 IVs, zero EVs, current level-up moveset,
 // primary ability (named exceptions above) - the shop-spec.md defaults for
 // a purchased Pokemon (its "Open questions for implementation" section,
-// answered).
+// answered). Once the siphon has freed the Frontier's Pokemon
+// (FLAG_FRONTIER_CHIPS_OFF) they come at FRONTIER_SIPHON_LEVEL instead, the
+// level the siphon lifted the player's own to (SiphonLiftChippedLevels).
 //
 // No held item on the mon - the player buys their own from the shop.
 // Shared by the Pokemon keeper and the Broker, so a Pokemon is built
@@ -1792,7 +1794,7 @@ static void CreateShopMon(struct Pokemon *mon, u16 species)
     struct PokemonTemplate template = {0};
 
     template.species = species;
-    template.level = 50;
+    template.level = FlagGet(FLAG_FRONTIER_CHIPS_OFF) ? FRONTIER_SIPHON_LEVEL : 50;
     template.gender = MON_GENDER_RANDOM;
     template.nature = NATURE_HARDY;
     template.origin = GIFTMON_ORIGIN;

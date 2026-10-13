@@ -56,6 +56,7 @@ bool16 IsFrontierPOSDown(void);
 // The story's Experience rule - see src/facility.c.
 bool32 FrontierStoryAllowsExp(void);
 bool32 IsFrontierChippedMon(struct Pokemon *mon);
+bool32 IsFrontierChippedBoxMon(struct BoxPokemon *boxMon);
 
 // gSpecialVar_0x8004 = FACILITY_GAUNTLET_* this mat represents in.
 // IsFacilityRunActiveForGauntlet: TRUE if a run is active AND it's for
@@ -101,6 +102,10 @@ const u8 *GetEndgameSealedDoorScript(u32 mapGroup, u32 mapNum);
 // (src/facility.c; used by ItemUseCB_ReplicaCrown).
 u32 GetReplicaCrownLimit(void);
 void TransferExpToLevel100(void);
+// The level every chipped Pokemon catches up to when the siphon frees it,
+// and the level the shop sells at from then on (SiphonLiftChippedLevels).
+#define FRONTIER_SIPHON_LEVEL 60
+void SiphonLiftChippedLevels(void);
 // The Paradox researcher in OLDALE (src/facility.c).
 void OldaleCheckParadox(void);
 u16 IsBadDreamsActive(void);

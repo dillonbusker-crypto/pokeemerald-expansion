@@ -1106,6 +1106,13 @@ disabled, and the shard energy flows into the Crown (`FLAG_CROWN_CHARGED`).
 - **The Crown can now make one Pokémon a permanent Mega.** Only one.
 - **The chips are off.** Every Pokémon the player owns can now gain
   Experience.
+- **The held-back growth comes out at once.** The chips kept every Frontier
+  Pokémon at level 50 while the free ones (Hoopa's, at 60) grew. Every
+  chipped Pokémon below level 60, in the party, the boxes and the Day Care,
+  catches up to 60 (`SiphonLiftChippedLevels`, `src/facility.c`). From now on
+  the shop sells at level 60 too. Moves aren't learned (as with the Chansey).
+  Decided 2026-10-13, after the owner's playthrough reached New Mauville with
+  three Pokémon still at 50 against level 60 admins.
 - STEVEN: they'll need a power source as big as the Factory's to stand toe to
   toe with Scott. WALLACE: their Pokémon will never reach level 100 before
   Scott is long gone. NURSE JOY: she might be able to help, but she needs time.
@@ -1117,7 +1124,8 @@ takes the ABRA (`FLAG_ABRA_TO_MAUVILLE`).
 
 ✅ **Built.** The keeper's "Free the Pokemon" row appears at `VAR_ENDGAME_STATE`
 10 with the Crown in the bag (`FacilityShopBuildGauntletMenu`); the flash, the
-shake, `FLAG_CROWN_CHARGED`, `FLAG_FRONTIER_CHIPS_OFF`, state 11. Steven and
+shake, the level-60 catch-up, `FLAG_CROWN_CHARGED`, `FLAG_FRONTIER_CHIPS_OFF`,
+state 11. Steven and
 Wallace stand outside the Arena in states 10, 11, 15 and 18; at 11 Steven asks
 (YES/NO) and they fly (state 12). Nurse Joy hints once in states 11-14
 (`VAR_FRONTIER_JOY_HINTED`) before her normal heal.
@@ -1170,13 +1178,21 @@ MAUVILLE", and a warp just inside the door (state 13). From state 12 on,
 and Wattson outside it leads the player back down (state 13). New
 Mauville's wild encounters, VOLTORBs, locked door, red switch and
 Thunderstone are off; its only exit warp now leads to Mauville's Center
-door, never Route 110. The admins stand on one-tile stretches, in order
-Tabitha, Courtney, Matt, Shelly (`VAR_NEW_MAUVILLE_ADMINS`); the player uses the
-Scrambler before each, and a charging coil heals the party after each, held
-items restored. Maxie and Archie are fought back to back
-with no heal (the Scrambler); a loss whites out and both are fought again,
-because state 14 is only set after the second win. Teams: `endgame-teams.md`,
+door, never Route 110. The guards stand on one-tile stretches, in order
+Tabitha, Courtney, **Maxie**, Matt, Shelly (`VAR_NEW_MAUVILLE_ADMINS`, 0-5);
+the player uses the Scrambler before each, and a charging coil heals the
+party after each, held items restored. Archie is fought alone at the
+generator, the beaten Maxie standing beside him (a second Maxie object,
+shown from Maxie's trainer flag); a loss whites out and only Archie is fought
+again, because state 14 is set after his win. Teams: `endgame-teams.md`,
 "New Mauville".
+
+**Changed 2026-10-13** (the owner's playthrough): Maxie and Archie used to be
+fought back to back with no heal at the generator, and a loss repeated both.
+Twelve Pokémon at 65 behind four admins at 60 was a cliff, so each leader now
+guards his own team's wing: Magma's admins, then Maxie; Aqua's admins, then
+Archie. The player can leave for Mauville's Center between the wings and
+rebuild for the other weather.
 
 
 **The town.** Mauville is **overrun by Team Aqua and Team Magma**. **Wattson**
@@ -1191,14 +1207,12 @@ source for Scott's Crown, in case it ever runs dry. They stay to clear the
 town (off-screen, no grunt battles for the player). **Wattson leads the player
 to New Mauville**, which solves the sealed Route 110 water.
 
-**New Mauville.** The four admins block the way to the generator: **Tabitha
-and Courtney** (Magma) and **Matt and Shelly** (Aqua). The player beats all
-four.
-
-**The generator: Maxie and Archie.** Scott gave them **permanent Primal
-Groudon and Kyogre** to guard it. Two battles, **back to back, no healing**
-(the Scrambler). A loss whites out to Mauville's Pokémon Center, and both must
-be fought again.
+**New Mauville.** Scott gave Maxie and Archie **permanent Primal Groudon and
+Kyogre** to guard the generator, and each team holds one wing. Magma's half
+first: **Tabitha, Courtney**, then **Maxie** himself. Then Aqua's: **Matt,
+Shelly**, and at the generator **Archie**, with the beaten Maxie standing by
+to watch. Five fights with a heal after each, then Archie; a loss whites out
+to Mauville's Pokémon Center and only that fight is repeated.
 
 **After the win:**
 

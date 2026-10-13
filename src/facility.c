@@ -632,15 +632,20 @@ bool32 FrontierStoryAllowsExp(void)
 // sealed chamber (reached no other way): caught wild, so no chip either.
 // The Frontier siphon (endgame part 3) drains every chip for the CROWN's
 // charge, and from then on nothing is chipped.
-bool32 IsFrontierChippedMon(struct Pokemon *mon)
+bool32 IsFrontierChippedBoxMon(struct BoxPokemon *boxMon)
 {
-    u32 metLocation = GetMonData(mon, MON_DATA_MET_LOCATION);
+    u32 metLocation = GetBoxMonData(boxMon, MON_DATA_MET_LOCATION);
 
     if (FlagGet(FLAG_FRONTIER_CHIPS_OFF))
         return FALSE;
     // Never chipped: the two caves, GIRATINA's tunnel and CALYREX's MAUVILLE
     return metLocation != MAPSEC_ARTISAN_CAVE && metLocation != MAPSEC_ISLAND_CAVE
         && metLocation != MAPSEC_RUSTURF_TUNNEL && metLocation != MAPSEC_MAUVILLE_CITY;
+}
+
+bool32 IsFrontierChippedMon(struct Pokemon *mon)
+{
+    return IsFrontierChippedBoxMon(&mon->box);
 }
 
 // How many permanent Megas the REPLICA CROWN can hold (storyline.md;
@@ -656,6 +661,62 @@ u32 GetReplicaCrownLimit(void)
     if (state >= 11)
         return 1;
     return 0;
+}
+
+// Ten Gauntlets: the siphon (storyline.md, "The siphon"). The chips held
+// every Frontier Pokemon at level 50 while the player's unchipped legendaries
+// (Hoopa's, at 60) grew; when the CROWN drains the chips, the Experience they
+// held back comes out at once and every chipped Pokemon below
+// FRONTIER_SIPHON_LEVEL catches up to it, in the party, the PC boxes and the
+// Day Care. Eggs and anything already past that level are left alone. Moves
+// are not learned (the Chansey's TransferExpToLevel100 doesn't either).
+// Called before FLAG_FRONTIER_CHIPS_OFF is set, so IsFrontierChippedMon still
+// tells a chipped Pokemon from a free one.
+static void LiftBoxMonToSiphonLevel(struct BoxPokemon *boxMon)
+{
+    u16 species = GetBoxMonData(boxMon, MON_DATA_SPECIES_OR_EGG);
+    u32 exp;
+
+    if (species == SPECIES_NONE || species == SPECIES_EGG)
+        return;
+    if (GetLevelFromBoxMonExp(boxMon) >= FRONTIER_SIPHON_LEVEL)
+        return;
+    exp = gExperienceTables[gSpeciesInfo[species].growthRate][FRONTIER_SIPHON_LEVEL];
+    SetBoxMonData(boxMon, MON_DATA_EXP, &exp);
+}
+
+void SiphonLiftChippedLevels(void)
+{
+    u32 i, j;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        struct Pokemon *mon = &gPlayerParty[i];
+
+        if (GetMonData(mon, MON_DATA_SPECIES_OR_EGG) == SPECIES_NONE || !IsFrontierChippedMon(mon))
+            continue;
+        LiftBoxMonToSiphonLevel(&mon->box);
+        CalculateMonStats(mon);
+    }
+    for (i = 0; i < TOTAL_BOXES_COUNT; i++)
+    {
+        for (j = 0; j < IN_BOX_COUNT; j++)
+        {
+            struct BoxPokemon *boxMon = GetBoxedMonPtr(i, j);
+
+            if (GetBoxMonData(boxMon, MON_DATA_SPECIES_OR_EGG) == SPECIES_NONE || !IsFrontierChippedBoxMon(boxMon))
+                continue;
+            LiftBoxMonToSiphonLevel(boxMon);
+        }
+    }
+    for (i = 0; i < DAYCARE_MON_COUNT; i++)
+    {
+        struct BoxPokemon *boxMon = &gSaveBlock1Ptr->daycare.mons[i].mon;
+
+        if (GetBoxMonData(boxMon, MON_DATA_SPECIES_OR_EGG) == SPECIES_NONE || !IsFrontierChippedBoxMon(boxMon))
+            continue;
+        LiftBoxMonToSiphonLevel(boxMon);
+    }
 }
 
 // Ten Gauntlets: the Chansey's Transfer EXP (storyline.md, Mauville). The
