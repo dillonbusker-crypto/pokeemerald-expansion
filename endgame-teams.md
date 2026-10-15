@@ -52,7 +52,12 @@ Littleroot. That gives three singles and two doubles.
 | Glacia | Ice | Mega Froslass, Abomasnow, Crabominable, Baxcalibur | Calyrex-Ice, Kyurem-White | Kyurem-White |
 | Drake | Dragon | Mega Feraligatr, Charizard X, Garchomp Z, Dragonite | Eternatus, Koraidon | Koraidon |
 
-All singles, as in vanilla.
+All singles, as in vanilla. **They are fought in pairs, back to back, at Devon
+Corp:** Sidney then Phoebe on 1F, Glacia then Drake on 2F, with the rival
+healing the party between the two of a pair. A loss anywhere in a pair
+whites out to Rustboro's Pokémon Center and resets the pair (both are
+fought again); a finished pair stays beaten. Phoebe and Drake therefore
+face a party that was healed after one fight, not a fresh one.
 
 ---
 
@@ -439,7 +444,9 @@ Mega Evolution**, but no non-Mega member of these teams has a Mega form, so
 nothing is left to evolve. Levels climb **52, 52, 53, 53, 54, 55** on every
 team: the ace is at 55, the second strongest at 54. That is two to five over
 the player's chipped level 50. AI: as the Brains. Every item on a team is
-different. Built, never battle-tested or played.
+different. Fought in pairs, back to back, with the rival's heal between the
+two of a pair (see "The Elite Four" table above); a loss resets the pair. Built,
+never battle-tested or played.
 
 ## Engine notes (the seven rewritten teams)
 
@@ -951,10 +958,16 @@ off. The leaders are level 65, five over the admins, and their five teammates
 match their Primal. The player has at most one permanent Mega here (the Crown
 holds six only after these fights are won).
 
-**Order (changed 2026-10-13).** Each leader guards his own team's wing, with
-a full heal after every fight: Tabitha, Courtney, **Maxie**, then Matt, Shelly,
-**Archie** at the generator. They used to be fought back to back with no
-heal, and a loss repeated both; the owner's playthrough found that a cliff.
+**Order (changed 2026-10-15).** The four admins are the gates, in order
+Tabitha, Courtney, Matt, Shelly, with a charging-coil heal after each. Then
+**Maxie and Archie stand together at the generator and are fought back to
+back**: Maxie first, then the rival (who has run in behind the player) heals
+the party, then Archie. A loss to either whites out to Mauville's Pokémon
+Center and **both are fought again**. This reverses the 2026-10-13 order (each
+leader at the end of his own team's wing, with a full heal after every fight),
+which was made because twelve Pokémon at 65 straight after four admins at 60
+was a cliff. The rival's heal between the leaders and the siphon's level 60
+party are what make the pair fair now.
 
 **Megas.** Each admin has **one normal Mega**, holding its stone and Mega
 Evolving in battle (like the Brains). Maxie and Archie have **permanent
@@ -1261,9 +1274,9 @@ rain boosts Water and halves Fire, so remove Politoed before it sets up.
 
 ## Maxie: sun, Primal Groudon at level 65
 
-**Rewritten 2026-10-15** (the owner's roster; no shop-pool rule). Maxie holds
-Magma's last stretch, after Tabitha and Courtney, and the coil heals the party
-after him like after any admin. **Primal Groudon leads.** Desolate Land makes
+**Rewritten 2026-10-15** (the owner's roster; no shop-pool rule). Maxie
+stands at the generator beside Archie and is fought first, after all four
+admins; the rival heals the party after him. **Primal Groudon leads.** Desolate Land makes
 harsh sunlight and Water moves fail outright. Three **permanent Megas**: Mega
 Charizard Y (Drought, the sun backup), Mega Heatran (Air Balloon) and Mega
 Blaziken (Focus Sash, Speed Boost). Reshiram and Ho-Oh are the legendaries.
@@ -1384,8 +1397,9 @@ finer dial is Swords Dance (swap for Rock Polish or Fire Blast).
 
 ## Archie: rain, Primal Kyogre at level 65
 
-**Rewritten 2026-10-15.** The mirror of Maxie, fought alone at the generator
-after Matt and Shelly. **Primal Kyogre leads**, and Primordial Sea makes heavy
+**Rewritten 2026-10-15.** The mirror of Maxie, fought second at the
+generator after the rival's heal, with Maxie already beaten (a loss repeats
+both). **Primal Kyogre leads**, and Primordial Sea makes heavy
 rain (Fire moves fail outright). Four **permanent Megas**: Golisopod (Assault
 Vest), Swampert (Choice Band, Swift Swim), Starmie (Choice Scarf) and Greninja
 (Life Orb). Lugia (Multiscale, Boots) is the anchor.

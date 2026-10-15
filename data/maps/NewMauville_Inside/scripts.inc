@@ -269,21 +269,24 @@ NewMauville_Inside_Text_SteppedOnSwitchGeneratorStopped:
 @ BattleFrontier_OutsideEast). The VOLTORBs, the wild encounters, the locked
 @ door and the red switch are switched off; the buttons and barriers still
 @ work as in vanilla.
-@   13 five guards hold the corridors, each fought once, in order: MAGMA's
-@      ADMINS and then MAXIE (TABITHA, COURTNEY, MAXIE), then AQUA's (MATT,
-@      SHELLY). VAR_NEW_MAUVILLE_ADMINS counts them (0-5), and a trigger just
-@      before each starts the fight. The player uses the SCRAMBLER before
-@      each, so a beaten guard stays beaten; each leaves, a charging coil
-@      heals the party, and the held items come back
-@      (EventScript_RestoreStoryHeldItems), win or white-out.
-@      At the generator ARCHIE is fought alone, with the beaten MAXIE standing
-@      beside him (a second MAXIE object, LOCALID_NEW_MAUVILLE_MAXIE_BEATEN,
-@      shown once MAXIE's trainer flag is set). A loss whites out to
-@      MAUVILLE's POKEMON CENTER and only ARCHIE is fought again: state 14 is
-@      set after his win.
+@   13 four guards hold the corridors, each fought once, in order: MAGMA's
+@      ADMINS (TABITHA, COURTNEY), then AQUA's (MATT, SHELLY).
+@      VAR_NEW_MAUVILLE_ADMINS counts them (0-4), and a trigger just before
+@      each starts the fight. The player uses the SCRAMBLER before each, so a
+@      beaten guard stays beaten; each leaves, a charging coil heals the
+@      party, and the held items come back (EventScript_RestoreStoryHeldItems),
+@      win or white-out.
+@      At the generator MAXIE and ARCHIE guard it together and are fought back
+@      to back: MAXIE first, then the RIVAL (who runs in behind the player)
+@      patches the party up, then ARCHIE. A trigger column at x 29 or a talk
+@      starts the scene. A loss in either fight whites out to MAUVILLE's
+@      POKEMON CENTER, and the whole pair is fought again: OnTransition
+@      clears MAXIE's trainer flag in state 13 (ARCHIE's is only set together
+@      with state 14).
 @   14 the CROWN is supercharged; MAXIE and ARCHIE are gone
-@ FLAG_TEMP_1-4 the admins, 5 MAXIE in the corridor, 6 ARCHIE, 7 MAXIE at the
-@ generator.
+@ FLAG_TEMP_1-4 the admins (TABITHA, COURTNEY, MATT, SHELLY), 5 the RIVAL
+@ (absent until the generator scene adds her/him), 6 MAXIE and ARCHIE at the
+@ generator (shown together in state 13).
 @ ============================================================================
 
 NewMauville_Inside_EventScript_SetupEndgame::
@@ -293,17 +296,17 @@ NewMauville_Inside_EventScript_SetupEndgame::
 	setflag FLAG_TEMP_4
 	setflag FLAG_TEMP_5
 	setflag FLAG_TEMP_6
-	setflag FLAG_TEMP_7
+	call Common_EventScript_SetupRivalGfxId
 	goto_if_ne VAR_ENDGAME_STATE, 13, Common_EventScript_NopReturn
 	setrespawn HEAL_LOCATION_MAUVILLE_CITY
 	clearflag FLAG_TEMP_6
+	@ A MAXIE win that wasn't followed by an ARCHIE win is forgotten: both
+	@ are fought again.
+	cleartrainerflag TRAINER_NEW_MAUVILLE_MAXIE
 	checktrainerflag TRAINER_NEW_MAUVILLE_TABITHA
 	call_if FALSE, NewMauville_Inside_EventScript_ShowTabitha
 	checktrainerflag TRAINER_NEW_MAUVILLE_COURTNEY
 	call_if FALSE, NewMauville_Inside_EventScript_ShowCourtney
-	checktrainerflag TRAINER_NEW_MAUVILLE_MAXIE
-	call_if FALSE, NewMauville_Inside_EventScript_ShowMaxie
-	call_if TRUE, NewMauville_Inside_EventScript_ShowMaxieBeaten
 	checktrainerflag TRAINER_NEW_MAUVILLE_MATT
 	call_if FALSE, NewMauville_Inside_EventScript_ShowMatt
 	checktrainerflag TRAINER_NEW_MAUVILLE_SHELLY
@@ -316,14 +319,6 @@ NewMauville_Inside_EventScript_ShowTabitha::
 
 NewMauville_Inside_EventScript_ShowCourtney::
 	clearflag FLAG_TEMP_2
-	return
-
-NewMauville_Inside_EventScript_ShowMaxie::
-	clearflag FLAG_TEMP_5
-	return
-
-NewMauville_Inside_EventScript_ShowMaxieBeaten::
-	clearflag FLAG_TEMP_7
 	return
 
 NewMauville_Inside_EventScript_ShowMatt::
@@ -378,31 +373,6 @@ NewMauville_Inside_EventScript_CourtneyFight::
 	setvar VAR_NEW_MAUVILLE_ADMINS, 2
 	goto NewMauville_Inside_EventScript_GuardLeaves
 
-@ MAXIE holds the stretch at (4, 9), MAGMA's last. Beaten, he leaves for the
-@ generator: the second MAXIE object there is shown (FLAG_TEMP_7), and on every
-@ later visit SetupEndgame shows it from his trainer flag.
-NewMauville_Inside_EventScript_MaxieTrigger::
-	lockall
-	setvar VAR_LAST_TALKED, LOCALID_NEW_MAUVILLE_MAXIE
-	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterUp
-	waitmovement 0
-	goto NewMauville_Inside_EventScript_MaxieFight
-
-NewMauville_Inside_EventScript_Maxie::
-	lockall
-	faceplayer
-	goto_if_ne VAR_NEW_MAUVILLE_ADMINS, 2, NewMauville_Inside_EventScript_NotYet
-	goto NewMauville_Inside_EventScript_MaxieFight
-
-NewMauville_Inside_EventScript_MaxieFight::
-	msgbox NewMauville_Inside_Text_Maxie, MSGBOX_DEFAULT
-	call DevonFactory_EventScript_UseScrambler
-	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_MAXIE, NewMauville_Inside_Text_MaxieDefeat
-	msgbox NewMauville_Inside_Text_MaxieAfter, MSGBOX_DEFAULT
-	setvar VAR_NEW_MAUVILLE_ADMINS, 3
-	clearflag FLAG_TEMP_7
-	goto NewMauville_Inside_EventScript_GuardLeaves
-
 NewMauville_Inside_EventScript_MattTrigger::
 	lockall
 	setvar VAR_LAST_TALKED, LOCALID_NEW_MAUVILLE_MATT
@@ -413,7 +383,7 @@ NewMauville_Inside_EventScript_MattTrigger::
 NewMauville_Inside_EventScript_Matt::
 	lockall
 	faceplayer
-	goto_if_ne VAR_NEW_MAUVILLE_ADMINS, 3, NewMauville_Inside_EventScript_NotYet
+	goto_if_ne VAR_NEW_MAUVILLE_ADMINS, 2, NewMauville_Inside_EventScript_NotYet
 	goto NewMauville_Inside_EventScript_MattFight
 
 NewMauville_Inside_EventScript_MattFight::
@@ -421,7 +391,7 @@ NewMauville_Inside_EventScript_MattFight::
 	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_MATT, NewMauville_Inside_Text_MattDefeat
 	msgbox NewMauville_Inside_Text_MattAfter, MSGBOX_DEFAULT
-	setvar VAR_NEW_MAUVILLE_ADMINS, 4
+	setvar VAR_NEW_MAUVILLE_ADMINS, 3
 	goto NewMauville_Inside_EventScript_GuardLeaves
 
 @ SHELLY stands at (21, 5); on the upper lane the trigger brings her up beside
@@ -446,7 +416,7 @@ NewMauville_Inside_EventScript_ShellyTrigger::
 NewMauville_Inside_EventScript_Shelly::
 	lockall
 	faceplayer
-	goto_if_ne VAR_NEW_MAUVILLE_ADMINS, 4, NewMauville_Inside_EventScript_NotYet
+	goto_if_ne VAR_NEW_MAUVILLE_ADMINS, 3, NewMauville_Inside_EventScript_NotYet
 	goto NewMauville_Inside_EventScript_ShellyFight
 
 NewMauville_Inside_EventScript_ShellyFight::
@@ -454,7 +424,7 @@ NewMauville_Inside_EventScript_ShellyFight::
 	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_SHELLY, NewMauville_Inside_Text_ShellyDefeat
 	msgbox NewMauville_Inside_Text_ShellyAfter, MSGBOX_DEFAULT
-	setvar VAR_NEW_MAUVILLE_ADMINS, 5
+	setvar VAR_NEW_MAUVILLE_ADMINS, 4
 	goto NewMauville_Inside_EventScript_GuardLeaves
 
 NewMauville_Inside_EventScript_NotYet::
@@ -462,7 +432,7 @@ NewMauville_Inside_EventScript_NotYet::
 	releaseall
 	end
 
-@ Shared by all five. VAR_LAST_TALKED is the guard just beaten.
+@ Shared by all four. VAR_LAST_TALKED is the guard just beaten.
 NewMauville_Inside_EventScript_GuardLeaves::
 	special RestoreFacilityHeldItems
 	clearflag FLAG_STORY_HELD_ITEMS_SAVED
@@ -475,13 +445,13 @@ NewMauville_Inside_EventScript_GuardLeaves::
 	releaseall
 	end
 
-@ The beaten MAXIE and ARCHIE stand at (33, 5) and (34, 5). Walking into the
-@ room (x 29) or talking to either starts the same scene: ARCHIE's battle.
+@ MAXIE and ARCHIE stand at (33, 5) and (34, 5). Walking into the room (x 29)
+@ or talking to either starts the same scene: both fights, back to back.
 NewMauville_Inside_EventScript_GeneratorLeadersTrigger::
 	lockall
 	applymovement LOCALID_PLAYER, Common_Movement_WalkInPlaceFasterRight
 	waitmovement 0
-	applymovement LOCALID_NEW_MAUVILLE_MAXIE_BEATEN, Common_Movement_FaceLeft
+	applymovement LOCALID_NEW_MAUVILLE_MAXIE, Common_Movement_FaceLeft
 	applymovement LOCALID_NEW_MAUVILLE_ARCHIE, Common_Movement_FaceLeft
 	waitmovement 0
 	goto NewMauville_Inside_EventScript_GeneratorLeadersScene
@@ -495,6 +465,29 @@ NewMauville_Inside_EventScript_GeneratorLeadersScene::
 	msgbox NewMauville_Inside_Text_MaxieAtGenerator, MSGBOX_DEFAULT
 	msgbox NewMauville_Inside_Text_Archie1, MSGBOX_DEFAULT
 	msgbox NewMauville_Inside_Text_Archie2, MSGBOX_DEFAULT
+	closemessage
+	@ The RIVAL arrives right behind the player. From the x 29 trigger the
+	@ RIVAL runs in from the west; from a talk (any tile beside the leaders)
+	@ the RIVAL just appears below the player.
+	getplayerxy VAR_0x8004, VAR_0x8005
+	call_if_eq VAR_0x8004, 29, NewMauville_Inside_EventScript_RivalRunsIn
+	call_if_ne VAR_0x8004, 29, NewMauville_Inside_EventScript_RivalAppears
+	msgbox NewMauville_Inside_Text_RivalArrives, MSGBOX_DEFAULT
+	@ MAXIE first. A loss ends the script here (white-out).
+	call DevonFactory_EventScript_UseScrambler
+	setvar VAR_LAST_TALKED, LOCALID_NEW_MAUVILLE_MAXIE
+	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_MAXIE, NewMauville_Inside_Text_MaxieDefeat
+	msgbox NewMauville_Inside_Text_MaxieAfter, MSGBOX_DEFAULT
+	special RestoreFacilityHeldItems
+	clearflag FLAG_STORY_HELD_ITEMS_SAVED
+	@ The RIVAL patches the party up.
+	closemessage
+	fadescreen FADE_TO_BLACK
+	special HealPlayerParty
+	fadescreen FADE_FROM_BLACK
+	msgbox NewMauville_Inside_Text_RivalHealed, MSGBOX_DEFAULT
+	@ Then ARCHIE.
+	msgbox NewMauville_Inside_Text_ArchieNext, MSGBOX_DEFAULT
 	call DevonFactory_EventScript_UseScrambler
 	setvar VAR_LAST_TALKED, LOCALID_NEW_MAUVILLE_ARCHIE
 	trainerbattle_no_intro TRAINER_NEW_MAUVILLE_ARCHIE, NewMauville_Inside_Text_ArchieDefeat
@@ -527,12 +520,68 @@ NewMauville_Inside_EventScript_GeneratorLeadersScene::
 	msgbox NewMauville_Inside_Text_MaxieBitter, MSGBOX_DEFAULT
 	msgbox NewMauville_Inside_Text_ArchieBitter, MSGBOX_DEFAULT
 	closemessage
+	msgbox NewMauville_Inside_Text_RivalAfter, MSGBOX_DEFAULT
+	closemessage
 	fadescreen FADE_TO_BLACK
-	removeobject LOCALID_NEW_MAUVILLE_MAXIE_BEATEN
+	removeobject LOCALID_NEW_MAUVILLE_MAXIE
 	removeobject LOCALID_NEW_MAUVILLE_ARCHIE
+	removeobject LOCALID_NEW_MAUVILLE_RIVAL
+	setflag FLAG_TEMP_5
 	fadescreen FADE_FROM_BLACK
 	msgbox NewMauville_Inside_Text_LeadersGone, MSGBOX_DEFAULT
 	releaseall
+	end
+
+@ The RIVAL object is added to the map only here. The player stands at
+@ (29, 4-8); (27, 7) is blocked, so on row 7 the RIVAL comes in along row 6
+@ and steps down. The RIVAL ends one tile left of the player, facing right.
+NewMauville_Inside_EventScript_RivalRunsIn::
+	copyvar VAR_0x8006, VAR_0x8005
+	call_if_eq VAR_0x8005, 7, NewMauville_Inside_EventScript_RivalLane6
+	setobjectxyperm LOCALID_NEW_MAUVILLE_RIVAL, 26, VAR_0x8006
+	clearflag FLAG_TEMP_5
+	addobject LOCALID_NEW_MAUVILLE_RIVAL
+	applymovement LOCALID_NEW_MAUVILLE_RIVAL, NewMauville_Inside_Movement_RivalRunsIn
+	waitmovement 0
+	call_if_eq VAR_0x8005, 7, NewMauville_Inside_EventScript_RivalStepsDown
+	return
+
+NewMauville_Inside_EventScript_RivalLane6::
+	setvar VAR_0x8006, 6
+	return
+
+NewMauville_Inside_EventScript_RivalStepsDown::
+	applymovement LOCALID_NEW_MAUVILLE_RIVAL, NewMauville_Inside_Movement_RivalStepsDown
+	waitmovement 0
+	return
+
+@ From a talk the player can stand beside either leader; the RIVAL appears
+@ on the tile below (row 6 at most), out of the leaders' way.
+NewMauville_Inside_EventScript_RivalAppears::
+	addvar VAR_0x8005, 1
+	setobjectxyperm LOCALID_NEW_MAUVILLE_RIVAL, VAR_0x8004, VAR_0x8005
+	clearflag FLAG_TEMP_5
+	addobject LOCALID_NEW_MAUVILLE_RIVAL
+	applymovement LOCALID_NEW_MAUVILLE_RIVAL, Common_Movement_FaceUp
+	waitmovement 0
+	return
+
+NewMauville_Inside_Movement_RivalRunsIn:
+	walk_fast_right
+	walk_fast_right
+	step_end
+
+NewMauville_Inside_Movement_RivalStepsDown:
+	walk_fast_down
+	face_right
+	step_end
+
+@ Only reachable if the scene is cut short; the RIVAL is normally gone.
+NewMauville_Inside_EventScript_Rival::
+	lock
+	faceplayer
+	msgbox NewMauville_Inside_Text_RivalTalk, MSGBOX_DEFAULT
+	release
 	end
 
 NewMauville_Inside_Text_NotYet:
@@ -574,36 +623,25 @@ NewMauville_Inside_Text_CourtneyDefeat:
 
 NewMauville_Inside_Text_CourtneyAfter:
 	.string "COURTNEY: …Ah. You're strong.\p"
-	.string "…MAXIE himself holds the next\n"
-	.string "stretch. …He's not like us.\p"
+	.string "…The way beyond is AQUA's. MATT,\n"
+	.string "then SHELLY. …They're loud.\l"
+	.string "…But not weak.\p"
 	.string "…Be careful. …That's all.$"
-
-NewMauville_Inside_Text_Maxie:
-	.string "MAXIE: So. You've come through\n"
-	.string "TABITHA and COURTNEY.\p"
-	.string "SCOTT warned us you would.\p"
-	.string "He also gave me what I always\n"
-	.string "wanted. GROUDON, for good.\p"
-	.string "All I have to do is guard this\n"
-	.string "generator. I don't intend to lose\l"
-	.string "it twice.$"
 
 NewMauville_Inside_Text_MaxieDefeat:
 	.string "Impossible… GROUDON's power…$"
 
 NewMauville_Inside_Text_MaxieAfter:
 	.string "MAXIE: …So that's that.\p"
-	.string "AQUA holds the rest of the way.\n"
-	.string "MATT, SHELLY, and ARCHIE at the\l"
-	.string "generator.\p"
-	.string "I'll be there. I want to see\n"
-	.string "ARCHIE's face when you do to him\l"
-	.string "what you just did to me.$"
+	.string "The rest falls to you, ARCHIE.\p"
+	.string "I want to see your face when this\n"
+	.string "child does to you what was just\l"
+	.string "done to me.$"
 
 NewMauville_Inside_Text_Matt:
 	.string "MATT: Hah! So you're the one who\n"
-	.string "walked through MAGMA's lot. Even\l"
-	.string "MAXIE!\p"
+	.string "walked through MAGMA's lot. Both\l"
+	.string "TABITHA and COURTNEY!\p"
 	.string "That's their problem. TEAM AQUA's\n"
 	.string "finest stands in your way now!$"
 
@@ -629,26 +667,56 @@ NewMauville_Inside_Text_ShellyDefeat:
 NewMauville_Inside_Text_ShellyAfter:
 	.string "SHELLY: Fine, fine. I lost.\p"
 	.string "The generator's through the door\n"
-	.string "ahead. ARCHIE is waiting.\p"
-	.string "And MAXIE, for whatever that's\n"
-	.string "worth now. Don't come crying to me.$"
+	.string "ahead. MAXIE and ARCHIE are\l"
+	.string "waiting, the pair of them.\p"
+	.string "Don't come crying to me.$"
 
 NewMauville_Inside_Text_MaxieAtGenerator:
-	.string "MAXIE: …It's here, ARCHIE.\p"
-	.string "As I said. Through all four of them,\n"
-	.string "and through me.$"
+	.string "MAXIE: So. You've come through\n"
+	.string "TABITHA, COURTNEY, MATT and SHELLY.\p"
+	.string "SCOTT warned us you would.\p"
+	.string "He also gave me what I always\n"
+	.string "wanted. GROUDON, for good.\p"
+	.string "ARCHIE and I guard this generator\n"
+	.string "together. I go first.\p"
+	.string "I don't intend to lose it twice.$"
 
 NewMauville_Inside_Text_Archie1:
-	.string "ARCHIE: Hah! So MAXIE lost. I won't.\p"
-	.string "SCOTT gave us what we always\n"
-	.string "wanted, kid. GROUDON and KYOGRE,\l"
-	.string "for good.\p"
-	.string "All I have to do is guard this\n"
-	.string "generator.$"
+	.string "ARCHIE: Hah! Two of us, one\n"
+	.string "generator, kid!\p"
+	.string "SCOTT gave me KYOGRE, for good.\n"
+	.string "MAXIE's up first. Then me.$"
 
 NewMauville_Inside_Text_Archie2:
-	.string "ARCHIE: Nobody touches it.\n"
-	.string "KYOGRE and I will see to that!$"
+	.string "ARCHIE: And once I'm done with you,\n"
+	.string "there's no rest. Not for you, not\l"
+	.string "for anyone near that generator!$"
+
+NewMauville_Inside_Text_RivalArrives:
+	.string "{RIVAL}: {PLAYER}! I'm here!\n"
+	.string "I ran the whole way down.\p"
+	.string "Go on. I'll patch everyone up\n"
+	.string "after the first one!$"
+
+NewMauville_Inside_Text_RivalHealed:
+	.string "{RIVAL} patched up {PLAYER}'s\n"
+	.string "POKéMON.\p"
+	.string "{RIVAL}: That's the best I can do.\n"
+	.string "Go get him!$"
+
+NewMauville_Inside_Text_ArchieNext:
+	.string "ARCHIE: Healed up? Good. I want\n"
+	.string "no excuses.\p"
+	.string "My turn, kid. No rest!$"
+
+NewMauville_Inside_Text_RivalTalk:
+	.string "{RIVAL}: I'm right behind you,\n"
+	.string "{PLAYER}. Go!$"
+
+NewMauville_Inside_Text_RivalAfter:
+	.string "{RIVAL}: It's really done. I'll\n"
+	.string "head up first and tell WATTSON.\p"
+	.string "Don't be long, okay?$"
 
 NewMauville_Inside_Text_ArchieDefeat:
 	.string "No… Not even KYOGRE…$"

@@ -248,7 +248,7 @@
 #define VAR_GIFT_UNUSED_5                                0x40E2 // Var is written to, but never read
 #define VAR_GIFT_UNUSED_6                                0x40E3 // Var is written to, but never read
 #define VAR_GIFT_UNUSED_7                                0x40E4 // var is written to, but never read
-#define VAR_NEW_MAUVILLE_ADMINS                          0x40E5 // Ten Gauntlets: how many of New Mauville's guards are beaten, in order (0-5: TABITHA, COURTNEY, MAXIE, MATT, SHELLY), see NewMauville_Inside
+#define VAR_NEW_MAUVILLE_ADMINS                          0x40E5 // Ten Gauntlets: how many of New Mauville's guards are beaten, in order (0-4: TABITHA, COURTNEY, MATT, SHELLY; MAXIE and ARCHIE are fought together at the generator), see NewMauville_Inside
 #define VAR_DAILY_SLOTS                                  0x40E6
 #define VAR_DAILY_WILDS                                  0x40E7
 #define VAR_DAILY_BLENDER                                0x40E8

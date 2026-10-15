@@ -8,21 +8,40 @@ RustboroCity_DevonCorp_1F_OnTransition:
 	end
 
 @ ============================================================================
-@ Ten Gauntlets: Rustboro, Devon Corporation (storyline.md; the states are
+@ Eight Gauntlets: Rustboro, Devon Corporation (storyline.md; the states are
 @ explained in RustboroCity's scripts). The staff are gone, and the ELITE FOUR
-@ hold the building: SIDNEY in the lobby and PHOEBE on the stairs here,
-@ GLACIA and DRAKE on 2F. Each is fought once, in order, and leaves. The
-@ player uses the SCRAMBLER before each (DevonFactory_EventScript_UseScrambler):
-@ no heal between them, a loss whites out to RUSTBORO's POKEMON CENTER, and
-@ whoever is beaten stays beaten.
+@ hold the building, fought in PAIRS: SIDNEY in the lobby then PHOEBE from the
+@ stairs here, GLACIA then DRAKE on 2F. Flow of a pair:
+@   - the player talks to the first member (from any side), the SCRAMBLER
+@     (DevonFactory_EventScript_UseScrambler) saves the held items, they fight;
+@   - win: the member leaves (items restored), and during that fade the player
+@     and the RIVAL are placed on fixed tiles, so the staging never depends on
+@     where the player stood; the rival heals the party;
+@   - the second member walks over and fights at once (no walking away);
+@     win: they leave and the rival leaves too.
+@ A loss anywhere whites out to RUSTBORO's POKEMON CENTER. Losing to the
+@ second member inside a pair would leave the first beaten, so OnTransition
+@ clears the first member's trainer flag whenever the second is unbeaten: a
+@ pair resets as a pair. Beaten pairs stay beaten. The rival (FLAG_TEMP_4)
+@ is only here while VAR_ENDGAME_STATE is 8 and the pair is unfinished.
 @ ============================================================================
 
 RustboroCity_DevonCorp_1F_EventScript_SetupEndgame::
 	setflag FLAG_TEMP_1
+	call Common_EventScript_SetupRivalGfxId
+	checktrainerflag TRAINER_DEVON_PHOEBE
+	call_if FALSE, RustboroCity_DevonCorp_1F_EventScript_ResetSidney
 	checktrainerflag TRAINER_DEVON_SIDNEY
 	call_if TRUE, RustboroCity_DevonCorp_1F_EventScript_HideSidney
 	checktrainerflag TRAINER_DEVON_PHOEBE
 	call_if TRUE, RustboroCity_DevonCorp_1F_EventScript_HidePhoebe
+	setflag FLAG_TEMP_4
+	call_if_eq VAR_ENDGAME_STATE, 8, RustboroCity_DevonCorp_1F_EventScript_CheckRival
+	return
+
+@ PHOEBE unbeaten: SIDNEY stands there again.
+RustboroCity_DevonCorp_1F_EventScript_ResetSidney::
+	cleartrainerflag TRAINER_DEVON_SIDNEY
 	return
 
 RustboroCity_DevonCorp_1F_EventScript_HideSidney::
@@ -33,6 +52,18 @@ RustboroCity_DevonCorp_1F_EventScript_HidePhoebe::
 	setflag FLAG_TEMP_3
 	return
 
+RustboroCity_DevonCorp_1F_EventScript_CheckRival::
+	checktrainerflag TRAINER_DEVON_PHOEBE
+	call_if FALSE, RustboroCity_DevonCorp_1F_EventScript_ShowRival
+	return
+
+RustboroCity_DevonCorp_1F_EventScript_ShowRival::
+	clearflag FLAG_TEMP_4
+	return
+
+@ SIDNEY, then (after the rival's heal) PHOEBE walks down to the player. The
+@ player and the rival are put on fixed tiles during the fade: the player at
+@ (14,6) facing up, the rival walking from (11,6) to (13,6).
 RustboroCity_DevonCorp_1F_EventScript_Sidney::
 	lock
 	faceplayer
@@ -40,27 +71,75 @@ RustboroCity_DevonCorp_1F_EventScript_Sidney::
 	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_DEVON_SIDNEY, RustboroCity_DevonCorp_1F_Text_SidneyDefeat
 	msgbox RustboroCity_DevonCorp_1F_Text_SidneyAfter, MSGBOX_DEFAULT
-	goto DevonCorp_EventScript_EliteFourLeaves
+	special RestoreFacilityHeldItems
+	clearflag FLAG_STORY_HELD_ITEMS_SAVED
+	closemessage
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_DEVON_CORP_SIDNEY
+	setobjectxy OBJ_EVENT_ID_PLAYER, 14, 6
+	setobjectxy LOCALID_DEVON_CORP_RIVAL, 11, 6
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceUp
+	waitmovement 0
+	applymovement LOCALID_DEVON_CORP_RIVAL, Common_Movement_FaceRight
+	waitmovement 0
+	fadescreen FADE_FROM_BLACK
+	applymovement LOCALID_DEVON_CORP_RIVAL, RustboroCity_DevonCorp_1F_Movement_RivalComesOver
+	waitmovement 0
+	msgbox RustboroCity_DevonCorp_1F_Text_RivalBeforeHeal, MSGBOX_DEFAULT
+	call DevonCorp_EventScript_RivalPatchesUp
+	applymovement LOCALID_DEVON_CORP_PHOEBE, RustboroCity_DevonCorp_1F_Movement_PhoebeComesDown
+	waitmovement 0
+	goto RustboroCity_DevonCorp_1F_EventScript_PhoebeFight
 
+RustboroCity_DevonCorp_1F_Movement_RivalComesOver:
+	walk_right
+	walk_right
+	face_up
+	step_end
+
+RustboroCity_DevonCorp_1F_Movement_PhoebeComesDown:
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+@ Talking to PHOEBE on the stairs before SIDNEY is beaten. (Once SIDNEY is
+@ beaten she comes down on her own; the branch below is only a fallback.)
 RustboroCity_DevonCorp_1F_EventScript_Phoebe::
 	lock
 	faceplayer
 	checktrainerflag TRAINER_DEVON_SIDNEY
 	goto_if FALSE, RustboroCity_DevonCorp_1F_EventScript_PhoebeNotYet
+	goto RustboroCity_DevonCorp_1F_EventScript_PhoebeFight
+
+RustboroCity_DevonCorp_1F_EventScript_PhoebeFight::
 	msgbox RustboroCity_DevonCorp_1F_Text_Phoebe, MSGBOX_DEFAULT
 	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_DEVON_PHOEBE, RustboroCity_DevonCorp_1F_Text_PhoebeDefeat
 	msgbox RustboroCity_DevonCorp_1F_Text_PhoebeAfter, MSGBOX_DEFAULT
-	goto DevonCorp_EventScript_EliteFourLeaves
+	setvar VAR_LAST_TALKED, LOCALID_DEVON_CORP_PHOEBE
+	call DevonCorp_EventScript_EliteFourLeaves
+	msgbox RustboroCity_DevonCorp_1F_Text_RivalAfterPair, MSGBOX_DEFAULT
+	closemessage
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_DEVON_CORP_RIVAL
+	fadescreen FADE_FROM_BLACK
+	release
+	end
 
 RustboroCity_DevonCorp_1F_EventScript_PhoebeNotYet::
 	msgbox RustboroCity_DevonCorp_1F_Text_PhoebeNotYet, MSGBOX_DEFAULT
 	release
 	end
 
-@ Shared by all four. The held items they use up come back, win or white-out
-@ (EventScript_RestoreStoryHeldItems), as after any story fight.
-@ VAR_LAST_TALKED is still the member just beaten.
+RustboroCity_DevonCorp_1F_EventScript_Rival::
+	msgbox RustboroCity_DevonCorp_1F_Text_Rival, MSGBOX_NPC
+	end
+
+@ Shared by the second member of each pair (PHOEBE, DRAKE): the held items
+@ they used up come back (EventScript_RestoreStoryHeldItems also does it after
+@ a white-out) and the member leaves. The caller sets VAR_LAST_TALKED to the
+@ member's local id, then continues with the rival's line.
 DevonCorp_EventScript_EliteFourLeaves::
 	special RestoreFacilityHeldItems
 	clearflag FLAG_STORY_HELD_ITEMS_SAVED
@@ -68,8 +147,16 @@ DevonCorp_EventScript_EliteFourLeaves::
 	fadescreen FADE_TO_BLACK
 	removeobject VAR_LAST_TALKED
 	fadescreen FADE_FROM_BLACK
-	release
-	end
+	return
+
+@ Shared by both floors, between the two fights of a pair.
+DevonCorp_EventScript_RivalPatchesUp::
+	closemessage
+	fadescreen FADE_TO_BLACK
+	special HealPlayerParty
+	fadescreen FADE_FROM_BLACK
+	msgbox DevonCorp_Text_RivalPatchedUp, MSGBOX_DEFAULT
+	return
 
 RustboroCity_DevonCorp_1F_EventScript_BlockStairs::
 	setobjectxyperm LOCALID_DEVON_CORP_STAIR_GUARD, 14, 2
@@ -224,7 +311,8 @@ RustboroCity_DevonCorp_1F_Text_SidneyDefeat:
 RustboroCity_DevonCorp_1F_Text_SidneyAfter:
 	.string "SIDNEY: I lost fair and square.\n"
 	.string "I'm done guarding doors.\p"
-	.string "PHOEBE's on the stairs. Good luck.$"
+	.string "PHOEBE's already coming down. No\n"
+	.string "breaks today, kid. Good luck.$"
 
 RustboroCity_DevonCorp_1F_Text_PhoebeNotYet:
 	.string "PHOEBE: Not so fast.\p"
@@ -232,7 +320,8 @@ RustboroCity_DevonCorp_1F_Text_PhoebeNotYet:
 	.string "first, then me.$"
 
 RustboroCity_DevonCorp_1F_Text_Phoebe:
-	.string "PHOEBE: You got past SIDNEY.\p"
+	.string "PHOEBE: You got past SIDNEY, so I\n"
+	.string "came down to meet you.\p"
 	.string "SCOTT's CROWN bound my BANETTE's\n"
 	.string "MEGA EVOLUTION for good.\p"
 	.string "It said it never wanted to change\n"
@@ -248,3 +337,24 @@ RustboroCity_DevonCorp_1F_Text_PhoebeAfter:
 	.string "PHOEBE: The stairs are yours.\p"
 	.string "GLACIA is upstairs. She won't go\n"
 	.string "easy on you.$"
+
+RustboroCity_DevonCorp_1F_Text_Rival:
+	.string "{RIVAL}: Go on, {PLAYER}. I've got\n"
+	.string "your back.\p"
+	.string "I can't battle them for you, but I\n"
+	.string "can make sure you're in one piece\l"
+	.string "when you're done.$"
+
+RustboroCity_DevonCorp_1F_Text_RivalBeforeHeal:
+	.string "{RIVAL}: {PLAYER}! You beat him!\p"
+	.string "But PHOEBE's already coming down.\n"
+	.string "Hold still, quick!$"
+
+DevonCorp_Text_RivalPatchedUp:
+	.string "{RIVAL} patched up {PLAYER}'s\n"
+	.string "POKéMON.$"
+
+RustboroCity_DevonCorp_1F_Text_RivalAfterPair:
+	.string "{RIVAL}: Two down, two to go!\p"
+	.string "Upstairs. I'm right behind you,\n"
+	.string "{PLAYER}.$"

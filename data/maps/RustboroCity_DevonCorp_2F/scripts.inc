@@ -7,15 +7,26 @@ RustboroCity_DevonCorp_2F_OnTransition:
 	call_if_eq VAR_FOSSIL_RESURRECTION_STATE, 1, RustboroCity_DevonCorp_2F_EventScript_SetFossilReady
 	end
 
-@ Ten Gauntlets: Rustboro, Devon Corporation (see RustboroCity_DevonCorp_1F).
-@ The scientists are gone; GLACIA guards the hall and DRAKE the stairs to
-@ STONE's office.
+@ Eight Gauntlets: Rustboro, Devon Corporation (see RustboroCity_DevonCorp_1F,
+@ which explains the pairs). The scientists are gone; GLACIA guards the hall
+@ and DRAKE the stairs to STONE's office. The second pair: GLACIA, the
+@ rival's heal, then DRAKE walks over from the stairs.
 RustboroCity_DevonCorp_2F_EventScript_SetupEndgame::
 	setflag FLAG_TEMP_1
+	call Common_EventScript_SetupRivalGfxId
+	checktrainerflag TRAINER_DEVON_DRAKE
+	call_if FALSE, RustboroCity_DevonCorp_2F_EventScript_ResetGlacia
 	checktrainerflag TRAINER_DEVON_GLACIA
 	call_if TRUE, RustboroCity_DevonCorp_2F_EventScript_HideGlacia
 	checktrainerflag TRAINER_DEVON_DRAKE
 	call_if TRUE, RustboroCity_DevonCorp_2F_EventScript_HideDrake
+	setflag FLAG_TEMP_4
+	call_if_eq VAR_ENDGAME_STATE, 8, RustboroCity_DevonCorp_2F_EventScript_CheckRival
+	return
+
+@ DRAKE unbeaten: GLACIA stands there again.
+RustboroCity_DevonCorp_2F_EventScript_ResetGlacia::
+	cleartrainerflag TRAINER_DEVON_GLACIA
 	return
 
 RustboroCity_DevonCorp_2F_EventScript_HideGlacia::
@@ -26,6 +37,18 @@ RustboroCity_DevonCorp_2F_EventScript_HideDrake::
 	setflag FLAG_TEMP_3
 	return
 
+RustboroCity_DevonCorp_2F_EventScript_CheckRival::
+	checktrainerflag TRAINER_DEVON_DRAKE
+	call_if FALSE, RustboroCity_DevonCorp_2F_EventScript_ShowRival
+	return
+
+RustboroCity_DevonCorp_2F_EventScript_ShowRival::
+	clearflag FLAG_TEMP_4
+	return
+
+@ GLACIA, then (after the rival's heal) DRAKE walks over from the stairs. The
+@ player and the rival are put on fixed tiles during the fade: the player at
+@ (9,2) facing left, the rival walking from (12,2) to (10,2).
 RustboroCity_DevonCorp_2F_EventScript_Glacia::
 	lock
 	faceplayer
@@ -33,22 +56,71 @@ RustboroCity_DevonCorp_2F_EventScript_Glacia::
 	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_DEVON_GLACIA, RustboroCity_DevonCorp_2F_Text_GlaciaDefeat
 	msgbox RustboroCity_DevonCorp_2F_Text_GlaciaAfter, MSGBOX_DEFAULT
-	goto DevonCorp_EventScript_EliteFourLeaves
+	special RestoreFacilityHeldItems
+	clearflag FLAG_STORY_HELD_ITEMS_SAVED
+	closemessage
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_DEVON_CORP_GLACIA
+	setobjectxy OBJ_EVENT_ID_PLAYER, 9, 2
+	setobjectxy LOCALID_DEVON_CORP_RIVAL, 12, 2
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_FaceLeft
+	waitmovement 0
+	applymovement LOCALID_DEVON_CORP_RIVAL, Common_Movement_FaceLeft
+	waitmovement 0
+	fadescreen FADE_FROM_BLACK
+	applymovement LOCALID_DEVON_CORP_RIVAL, RustboroCity_DevonCorp_2F_Movement_RivalComesOver
+	waitmovement 0
+	msgbox RustboroCity_DevonCorp_2F_Text_RivalBeforeHeal, MSGBOX_DEFAULT
+	call DevonCorp_EventScript_RivalPatchesUp
+	applymovement LOCALID_DEVON_CORP_DRAKE, RustboroCity_DevonCorp_2F_Movement_DrakeComesOver
+	waitmovement 0
+	goto RustboroCity_DevonCorp_2F_EventScript_DrakeFight
 
+RustboroCity_DevonCorp_2F_Movement_RivalComesOver:
+	walk_left
+	walk_left
+	step_end
+
+RustboroCity_DevonCorp_2F_Movement_DrakeComesOver:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+@ Talking to DRAKE before GLACIA is beaten. (Once GLACIA is beaten he walks
+@ over on his own; the branch below is only a fallback.)
 RustboroCity_DevonCorp_2F_EventScript_Drake::
 	lock
 	faceplayer
 	checktrainerflag TRAINER_DEVON_GLACIA
 	goto_if FALSE, RustboroCity_DevonCorp_2F_EventScript_DrakeNotYet
+	goto RustboroCity_DevonCorp_2F_EventScript_DrakeFight
+
+RustboroCity_DevonCorp_2F_EventScript_DrakeFight::
 	msgbox RustboroCity_DevonCorp_2F_Text_Drake, MSGBOX_DEFAULT
 	call DevonFactory_EventScript_UseScrambler
 	trainerbattle_no_intro TRAINER_DEVON_DRAKE, RustboroCity_DevonCorp_2F_Text_DrakeDefeat
 	msgbox RustboroCity_DevonCorp_2F_Text_DrakeAfter, MSGBOX_DEFAULT
-	goto DevonCorp_EventScript_EliteFourLeaves
+	setvar VAR_LAST_TALKED, LOCALID_DEVON_CORP_DRAKE
+	call DevonCorp_EventScript_EliteFourLeaves
+	msgbox RustboroCity_DevonCorp_2F_Text_RivalAfterPair, MSGBOX_DEFAULT
+	closemessage
+	fadescreen FADE_TO_BLACK
+	removeobject LOCALID_DEVON_CORP_RIVAL
+	fadescreen FADE_FROM_BLACK
+	release
+	end
 
 RustboroCity_DevonCorp_2F_EventScript_DrakeNotYet::
 	msgbox RustboroCity_DevonCorp_2F_Text_DrakeNotYet, MSGBOX_DEFAULT
 	release
+	end
+
+RustboroCity_DevonCorp_2F_EventScript_Rival::
+	msgbox RustboroCity_DevonCorp_2F_Text_Rival, MSGBOX_NPC
 	end
 
 RustboroCity_DevonCorp_2F_EventScript_SetFossilReady::
@@ -438,8 +510,9 @@ RustboroCity_DevonCorp_2F_Text_GlaciaDefeat:
 	.string "How hot your spirits burn!$"
 
 RustboroCity_DevonCorp_2F_Text_GlaciaAfter:
-	.string "GLACIA: Go on. DRAKE is waiting by\n"
-	.string "the stairs.$"
+	.string "GLACIA: Go on. DRAKE is already on\n"
+	.string "his way, and he won't wait for you\l"
+	.string "to rest.$"
 
 RustboroCity_DevonCorp_2F_Text_DrakeNotYet:
 	.string "DRAKE: Hmph. GLACIA first.\p"
@@ -462,3 +535,18 @@ RustboroCity_DevonCorp_2F_Text_DrakeAfter:
 	.string "again.\p"
 	.string "STONE is upstairs. He has a great\n"
 	.string "deal to answer for.$"
+
+RustboroCity_DevonCorp_2F_Text_Rival:
+	.string "{RIVAL}: Two more to go, {PLAYER}.\n"
+	.string "GLACIA first, then DRAKE.\p"
+	.string "I'm right here if you need me.$"
+
+RustboroCity_DevonCorp_2F_Text_RivalBeforeHeal:
+	.string "{RIVAL}: {PLAYER}! That's three!\p"
+	.string "DRAKE's already on his way over.\n"
+	.string "Hold still, quick!$"
+
+RustboroCity_DevonCorp_2F_Text_RivalAfterPair:
+	.string "{RIVAL}: That's all four!\p"
+	.string "Go on, {PLAYER}. STONE is right\n"
+	.string "upstairs. I'll catch up.$"

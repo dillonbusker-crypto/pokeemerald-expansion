@@ -1071,13 +1071,17 @@ Winona, Juan and Roxanne, loyal to Scott to the end. "It's up to you to get
 past the ELITE FOUR."
 
 **Inside.** **Sidney, Phoebe, Glacia and Drake** stand on Devon's 1F and 2F,
-placed so the player must fight them one at a time: Sidney in the lobby and
-Phoebe on the stairs, Glacia in the 2F hall and Drake on the stairs to 3F.
-Each refuses until the one before is beaten ("We do this the League's way"),
-the player uses the Scrambler before each, and each leaves once beaten. Levels 52–55, three to
-four permanent Megas each plus legendaries (`endgame-teams.md`); they're not chipped, so they keep
-their real levels. **A loss whites out to Rustboro's Pokémon Center**;
-members already beaten stay beaten.
+fought in **pairs, back to back**: Sidney in the lobby then Phoebe from the
+stairs, Glacia in the 2F hall then Drake from the 3F stairs. The player uses
+the Scrambler before each fight, and the first member leaves once beaten. **The rival** stands in Devon's lobby and the 2F hall (only while the
+pair is unfinished), heals the party, and Phoebe or Drake walks over and
+fights at once. During the fade after the first member leaves, the player and
+the rival are placed on fixed tiles, so the scene never depends on where the
+player stood. The rival leaves after each pair and is not on 3F. Levels 52–55,
+three to four permanent Megas each plus legendaries (`endgame-teams.md`);
+they're not chipped, so they keep their real levels. **A loss anywhere in a
+pair whites out to Rustboro's Pokémon Center and resets the pair**: both
+members are fought again. Pairs already beaten stay beaten.
 
 **President Stone (3F).** Steven and Wallace catch up with the player here.
 Stone just wanted Devon to lead in cutting-edge technology, and believed Scott
@@ -1179,22 +1183,21 @@ MAUVILLE", and a warp just inside the door (state 13). From state 12 on,
 and Wattson outside it leads the player back down (state 13). New
 Mauville's wild encounters, VOLTORBs, locked door, red switch and
 Thunderstone are off; its only exit warp now leads to Mauville's Center
-door, never Route 110. The guards stand on one-tile stretches, in order
-Tabitha, Courtney, **Maxie**, Matt, Shelly (`VAR_NEW_MAUVILLE_ADMINS`, 0-5);
-the player uses the Scrambler before each, and a charging coil heals the
-party after each, held items restored. Archie is fought alone at the
-generator, the beaten Maxie standing beside him (a second Maxie object,
-shown from Maxie's trainer flag); a loss whites out and only Archie is fought
-again, because state 14 is set after his win. Teams: `endgame-teams.md`,
-"New Mauville".
+door, never Route 110. The four admins stand on one-tile stretches, in
+order Tabitha, Courtney, Matt, Shelly (`VAR_NEW_MAUVILLE_ADMINS`, 0-4); the
+player uses the Scrambler before each, and a charging coil heals the party
+after each, held items restored. **Maxie and Archie stand together at the generator** and are fought
+back to back: both speak, **the rival runs in behind the player**, Maxie
+fights, the rival heals the party, then Archie fights. A loss to either
+whites out to Mauville's Center and the pair is fought again (state 14 is set
+only after Archie's win). Teams: `endgame-teams.md`, "New Mauville".
 
-**Changed 2026-10-13** (the owner's playthrough): Maxie and Archie used to be
-fought back to back with no heal at the generator, and a loss repeated both.
-Twelve Pokémon at 65 behind four admins at 60 was a cliff, so each leader now
-guards his own team's wing: Magma's admins, then Maxie; Aqua's admins, then
-Archie. The player can leave for Mauville's Center between the wings and
-rebuild for the other weather.
-
+**Changed 2026-10-15** (the owner's playthrough, again): the leaders are
+fought back to back at the generator again, which reverses the 2026-10-13
+change that gave each leader his own team's wing. What makes it fair this time
+is the **rival's heal between the two** and the **party at level 60** after
+the siphon (twelve Pokémon at 65 behind four admins at 60 was the cliff
+before).
 
 **The town.** Mauville is **overrun by Team Aqua and Team Magma**. **Wattson**
 rushes up:
@@ -1209,11 +1212,12 @@ town (off-screen, no grunt battles for the player). **Wattson leads the player
 to New Mauville**, which solves the sealed Route 110 water.
 
 **New Mauville.** Scott gave Maxie and Archie **permanent Primal Groudon and
-Kyogre** to guard the generator, and each team holds one wing. Magma's half
-first: **Tabitha, Courtney**, then **Maxie** himself. Then Aqua's: **Matt,
-Shelly**, and at the generator **Archie**, with the beaten Maxie standing by
-to watch. Five fights with a heal after each, then Archie; a loss whites out
-to Mauville's Pokémon Center and only that fight is repeated.
+Kyogre** to guard the generator. The four admins hold the corridors first:
+**Tabitha, Courtney, Matt, Shelly**, with a heal after each. Then Maxie and
+Archie, side by side at the generator, are fought **back to back with the
+rival's heal between them**, and **the rival** has run down behind the player.
+A loss to either whites out to Mauville's Pokémon Center and both are fought
+again.
 
 **After the win:**
 

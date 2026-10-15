@@ -30,9 +30,10 @@ is there for speed). Things to look at especially, because no one has seen
 them on a screen:
 
 - Every endgame scene's **staging** (who walks where, facing, timing).
-- **Difficulty** of the Elite Four (52-55), the admins (60), Maxie and
-  Archie (65, each after his own team's admins, a heal between) and Scott at
-  100; and the Chansey's single level-100 transfer. The Elite Four, Maxie,
+- **Difficulty** of the Elite Four (52-55, in pairs with the rival's heal
+  between the two), the admins (60), Maxie and Archie (65, back to back at
+  the generator after all four admins, the rival's heal between them) and
+  Scott at 100; and the Chansey's single level-100 transfer. The Elite Four, Maxie,
   Archie and Scott were rewritten on 2026-10-15 and are the hardest teams
   in the game on paper: three to four permanent Megas plus legendaries
   each, Calyrex-Shadow with Nasty Plot, Kyurem-White, Koraidon, and a Scott
@@ -40,6 +41,17 @@ them on a screen:
   `endgame-teams.md` gives each team's easiest dial. The siphon now lifts
   every chipped Pokémon to 60 and the shop sells at 60 after it
   (2026-10-13): check the party's levels after "Free the POKéMON".
+- **The pair scenes' staging** (rewritten 2026-10-15, never seen on a
+  screen). Devon 1F and 2F: during the fade after the first member leaves,
+  the player and the rival are placed on fixed tiles (1F: player (14,6),
+  rival walks (11,6) to (13,6), Phoebe walks (14,2) to (14,5); 2F: player
+  (9,2), rival (12,2) to (10,2), Drake (2,2) to (8,2)). Check it from every
+  side the player can talk to the first member from, and that a loss in the
+  second fight resets the pair. New Mauville: the rival runs in behind the
+  player on each of the five x=29 trigger rows (y 4-8; on row 7 the rival
+  comes along row 6 and steps down), and on the talk path (the player beside
+  either leader) the rival just appears below the player. Check the heal
+  between Maxie and Archie, and that a loss to either repeats both.
 - **Sky Pillar's 4F**: the clean layout still has three cracked tiles at
   (6-9, 4), and vanilla's bikeless route drops through one into 3F's inner
   room to reach the upper stairs. The harness walks it fine; decide whether
@@ -64,7 +76,7 @@ them on a screen:
 | The Crown's limit: one permanent Mega from state 11, six from 14 | `GetReplicaCrownLimit`, `src/party_menu.c` |
 | Steven's hub outside the Arena: every state's lines, the Mauville send-off (12, `FLAG_ABRA_TO_MAUVILLE`), the Sky Pillar send-off (16, `FLAG_ABRA_TO_SKY_PILLAR`), the post-credits lines (18) | `BattleFrontier_OutsideEast` |
 | Mauville overrun; Wattson, Steven and Wallace; Wattson leads the player down (fade + warp, state 13); respawn at Mauville's Center | `MauvilleCity` |
-| New Mauville: wild encounters off, the door open, exits lead back to Mauville; the five guards in order, Tabitha, Courtney, Maxie, Matt, Shelly (`VAR_NEW_MAUVILLE_ADMINS`, 0-5), a heal after each; Archie alone at the generator with the beaten Maxie beside him, a loss repeats Archie only; the Crown supercharged (state 14) | `NewMauville_Entrance`, `NewMauville_Inside` |
+| New Mauville: wild encounters off, the door open, exits lead back to Mauville; the four admin gates in order, Tabitha, Courtney, Matt, Shelly (`VAR_NEW_MAUVILLE_ADMINS`, 0-4, **renumbered 2026-10-15**), a coil heal after each; then Maxie and Archie together at the generator (33,5) and (34,5), fought back to back (the x=29 trigger or a talk starts it, **the rival runs in behind the player**, Maxie, the rival's heal, Archie), a loss to either repeats both (`OnTransition` clears Maxie's flag in state 13); the Crown supercharged (state 14), the Primals taken back, both leave and the rival too. Rewritten 2026-10-15, **built only** | `NewMauville_Entrance`, `NewMauville_Inside` |
 | The teams leave; Hoopa's third ring; state 15 | `MauvilleCity` |
 | Nurse Joy and the Chansey outside the Arena: `TransferExpToLevel100`, once (`FLAG_CHANSEY_TRANSFER_EXP_USED`) | `BattleFrontier_OutsideEast`, `src/facility.c` |
 | Sky Pillar: the allies, the seven Brains' ambush (state 17), Joy by the door as the white-out respawn (`HEAL_LOCATION_SKY_PILLAR_OUTSIDE`), clean floors, no wild Pokémon | `SkyPillar_Outside`, `SkyPillar_1F-5F` |
@@ -89,7 +101,7 @@ scripts).
 |---|---|
 | The ABRA lands in Rustboro's Pokémon Center, beside the town's ABRA | `RustboroCity_PokemonCenter_1F`, `endgame_towns.inc` |
 | Steven and Wallace block Devon's door; talking starts the Wardens' ambush (off-screen) | `RustboroCity` (state 7 → 8) |
-| Elite Four, in order, each leaves when beaten; a loss whites out to the Center | Devon 1F (Sidney, Phoebe), 2F (Glacia, Drake) |
+| Elite Four in **pairs, back to back** (rewritten 2026-10-15, built only): Sidney then Phoebe on 1F, Glacia then Drake on 2F. The rival heals between the two (in the lobby and the 2F hall, `OBJ_EVENT_GFX_VAR_0`, `FLAG_TEMP_4`, only in state 8 while the pair is unfinished) and leaves after each pair. The second member walks over and fights at once; the player and rival are placed on fixed tiles during the fade. A loss anywhere whites out to the Center and resets the pair (`OnTransition` clears the first member's flag while the second is unbeaten). The rival is not on 3F | Devon 1F (Sidney, Phoebe), 2F (Glacia, Drake) |
 | Stone's confession, the scientist, `ITEM_REPLICA_CROWN` | Devon 3F (state 8 → 9) |
 | Juan's apology as the player comes out; Hoopa's second ring | `RustboroCity` (state 9 → 10), `GetHoopaRingsLeft` |
 | Devon's staff hidden; the letter, PokéNav, Exp. Share and fossils off | Devon 1F-3F |
@@ -130,6 +142,7 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
 | What | Status |
 |---|---|
 | The seven rewritten teams (2026-10-15): Sidney, Phoebe, Glacia, Drake, Maxie, Archie and Scott's Sky Pillar team | Written from `endgame-teams.md` into `src/data/trainers.party`; **built only, not battle-tested and not played**. Engine risks to check when played: `Necrozma-Ultra` staying Ultra after a faint (a one-line guard in `CanBattlerFormChange` is in, with no test yet; without it a test or debug build tripped the form-change assert); `Zygarde-Mega` listed directly (no test lists it); the newer Megas' abilities, sprites and cries (Starmie, Golisopod, Greninja, Crabominable, Abomasnow, Feraligatr, Dragonite, Heatran have never run in a trainer team); the Calyrex abilities as `ABILITY_AS_ONE_*` constants in the generated data; three to four permanent Megas on one team (tests cover one at a time); Maxie's slow Groudon-Primal winning the lead weather war; Phoebe's Prankster Destiny Bond against a Dark type |
+| The pair flows (2026-10-15): the Elite Four in pairs at Devon, Maxie and Archie back to back at New Mauville, both with the rival's heal | Rewritten in `RustboroCity_DevonCorp_1F/2F` and `NewMauville_Inside` (scripts, `map.json`, `VAR_NEW_MAUVILLE_ADMINS` 0-4); **built only, not battle-tested, not played**. **Harness scenarios 21 and 23 now test the OLD flows (single fights, Maxie in the corridor, Archie alone) and must be rewritten before they are trusted.** To cover: a pair's staging on the fixed tiles, the rival's heal, the second member fighting at once, a loss in the second fight resetting both, held items restored after each win and a white-out, the rival gone after each pair and absent from 3F; at New Mauville the four admins, the rival added only at the generator scene (all five trigger rows and the talk path), the heal between, a loss to either repeating both, the unchanged supercharge, the rival gone |
 | Endgame towns: the Gym rematches | Harness scenario 35 (`harness-gyms.c`), 17/17: each door sealed before its town is freed and open from then on (through 18), only the leader inside, Mauville's puzzle off, a loss and a win per leader (a loss: no white-out, still in the Gym, healed, items back, flag clear, the "come back" line; a win: flag, heal, items, lead), no Wattson outside at 15. `test/battle/ten_gauntlets_enemy_mega.c` 4/4: an enemy `Zygarde-Complete` Mega Evolves (AI too) and stays Mega. **Not played**: the teams' difficulty |
 | Endgame towns: Giratina (The Tear) | Harness scenario 33 (`harness-giratina.c`), 31/31: nothing before Roxanne, the clues and Hoopa's hint, the escort, the dark walk and its three wrongnesses, a loss, a knock-out, a run, the Master Ball catch and the Core, the exits, after the credits, a full bag. **Not played**: the darkness on screen |
 | Endgame towns: Calyrex (The True King) | Harness scenario 34 (`harness-calyrex.c`), 22/22: rubble only before Wattson, the old man's legend, the Crown's restoration, no steed, a run, a knock-out, the catch and the Reins, never chipped, one fusion (Glastrier) and one unfusion. **Not played**: the stand-in art, Spectrier, the learn-move prompt, save and reload while fused |
@@ -137,11 +150,11 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
 | Bad Dreams: the Frontier Center's regulars asleep | Harness scenario 31 (`harness-badD.c`), 11/11: the kid and picnicker asleep in place, each dream line, the Wing's glow, Skitty, the "slept well" lines, normal lines after gauntlet 7. Scenario 29 re-run: 18/18 (one earlier run missed the Pike lobby's wandering beauty, a harness timing flake). **Not played** |
 | Bad Dreams (the optional Darkrai event, gauntlet 7) | Re-run together on the merged `master`: 29 and 30 green. Scenarios 29 (`harness-badB.c`, the sleepers and Joy, 18/18), 30 (`harness-badC.c`, the Pike, Darkrai, the ball guard, a loss, the win, a gauntlet 6 regression, 9/9) and 24/28 (`harness-badA.c`, Scott's 5-Pokémon teams in both battles). **Not played** |
 | The Oldale Paradox researcher (Booster Energy, one per Paradox species; the shop no longer sells it) | Harness scenario 25, 4/4: a non-Paradox refused, a new species paid, a repeat refused, a second species paid. **Not played** |
-| Parts 3-5 after the merge | Scenarios 22, 23 and 24 re-run on the merged `master`: 10/10, 16/16, 14/14 |
+| Parts 3-5 after the merge | Scenarios 22, 23 and 24 re-run on the merged `master`: 10/10, 16/16, 14/14 (scenario 23 predates the 2026-10-15 New Mauville rewrite) |
 | Endgame part 3 (the siphon, the hub, the Chansey) | Harness scenario 22 (`harness-part3.c`), re-run 2026-10-13, 10/10: the keeper's menu, the flags, chips off, the level catch-up (chipped 50s in the party, box 0 and the Day Care to 60 with full HP; an Island Cave 50, a 70 and an Egg untouched), Steven's send-offs, Transfer EXP (Eggs and level 100 refused, once only), every state's cast. **Not played** |
-| Endgame part 4 (Mauville, New Mauville) | Harness scenario 23 (`harness-part4.c`), re-run 2026-10-13 after the split, 18/18: Wattson's way in, the five guards in order (Tabitha, Courtney, Maxie, Matt, Shelly), Maxie gone from the corridor and shown at the generator after his win and after a reload, Archie **lost on purpose** (white-out to Mauville's Center, Maxie stays beaten, only Archie reset), Archie won (Maxie fought once, Archie twice), the supercharge, the exit scene, three rings; Primals stayed Primal with their weather. **Not played** |
+| Endgame part 4 (Mauville, New Mauville) | Harness scenario 23 (`harness-part4.c`), re-run 2026-10-13 after the split, 18/18; **predates the 2026-10-15 rewrite (it tests the old order, with Maxie in the corridor, and fails or passes for the wrong reasons)**: Wattson's way in, the five guards in order (Tabitha, Courtney, Maxie, Matt, Shelly), Maxie gone from the corridor and shown at the generator after his win and after a reload, Archie **lost on purpose** (white-out to Mauville's Center, Maxie stays beaten, only Archie reset), Archie won (Maxie fought once, Archie twice), the supercharge, the exit scene, three rings; Primals stayed Primal with their weather. **Not played** |
 | Endgame part 5 (Sky Pillar, the ending) | Harness scenario 24 (`harness-part5.c`), 14/14: the ambush, the bikeless climb of all five floors, Scott **lost on purpose** (white-out to Joy outside, healed, items back, no re-catch), won, Looker, state 18, the credits entered with the continue warp at the Frontier; Mega Rayquaza (no stone) and both Primals kept their forms and abilities. **Not played** |
-| Endgame part 2 (Rustboro) | Harness scenario 21, **19/19 green**: the ABRA in and out of the Centers, the ambush, the Elite Four in order (out-of-order talks refused), a loss to Glacia whiting out to Rustboro's Center (healed, items back, beaten members stay gone), Stone's scene and the Crown, vanilla 3F events off, Juan, two Hoopa rings, the new gossip beat. **Not played** |
+| Endgame part 2 (Rustboro) | Harness scenario 21, **19/19 green** before the 2026-10-15 pair rewrite (it **predates the change**: single Elite Four fights, no rival): the ABRA in and out of the Centers, the ambush, the Elite Four in order (out-of-order talks refused), a loss to Glacia whiting out to Rustboro's Center (healed, items back, beaten members stay gone), Stone's scene and the Crown, vanilla 3F events off, Juan, two Hoopa rings, the new gossip beat. **Not played** |
 | Endgame part 1 | Harness scenario 20, **18/18 green**: Pyramid to Rustboro, every Brain fight, the cells, Scott's battle **lost on purpose** (outcome checked, no white-out, team healed, items back), the base, the Broker, a Hoopa trip, the ABRA. **Not played** |
 | Hoopa catching a legendary | Not run (the knock-out path was). Since the owner's playthrough: after a catch Hoopa rests until `VAR_ENDGAME_STATE` goes up (`VAR_HOOPA_REST_STATE`, no rest after the credits); built, not run |
 | Endgame gossip beats | Built, widths checked; code-read only |
@@ -166,6 +179,15 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
   `BattleFrontier_OutsideWest_EventScript_Man3` and delete the block at the
   end of its `scripts.inc` before release.
 - **Unplayed endgame** (parts 1-5): see "Next" above.
+- **The rival's New Mauville parting line** (`NewMauville_Inside_Text_RivalAfter`)
+  says they head up first to tell Wattson, but the rival is not in the
+  Mauville street scene afterwards (Wattson, Steven and Wallace only). Fine
+  as it is, or add the rival there: the owner's call.
+- **`VAR_NEW_MAUVILLE_ADMINS` was renumbered on 2026-10-15** (0-5 became 0-4:
+  Maxie's step left the corridor). A save made in the middle of New Mauville
+  before that day would be off by one (a count of 2 would now mean Courtney
+  is beaten and Matt is next, where it used to mean Maxie was next). New
+  Games are unaffected; the owner's playthrough should start fresh.
 - **Scott's Sky Pillar teams are identical now.** All four entries
   (`_LATIAS`, `_LATIOS`, `_NO_DARKRAI_LATIAS`, `_NO_DARKRAI_LATIOS`) hold the
   same six (Mega Rayquaza, Kyogre-Primal, Groudon-Primal, Mega Mewtwo Y, Mega
