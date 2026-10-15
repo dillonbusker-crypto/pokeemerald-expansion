@@ -712,12 +712,13 @@ in `src/item_use.c` returns the new `BALL_THROW_UNABLE_CHIPPED` while it is set
 used), and `Overworld_ResetBattleFlagsAndVars()` clears it on a white-out.
 Harness scenario 30 (`harness-badC.c`) covers it.
 
-**5. The payoff ✅ built.** With `FLAG_DARKRAI_FREED`, Scott's two later battles use
+**5. The payoff ✅ built.** With `FLAG_DARKRAI_FREED`, Scott's Factory battle uses
 teams with **Mega Magearna standing in** for Darkrai
-(`TRAINER_FACTORY_SCOTT_NO_DARKRAI_*`, `TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_*`),
-and he says so: in the Factory, "Someone cut my DARKRAI loose while I was
-away. It doesn't matter."; at Sky Pillar, that it only cost him a spare:
-Devon built him a Magearna, which never needed a chip to obey.
+(`TRAINER_FACTORY_SCOTT_NO_DARKRAI_*`), and he says so: "Someone cut my
+DARKRAI loose while I was away. It doesn't matter." At Sky Pillar his team has
+no Darkrai either way (rewritten 2026-10-15), and the line there is a shrug:
+it only cost him a spare, and he doesn't carry spares anymore, every ball on
+his belt is a legend.
 
 ### After gauntlet 7: the Crown is taken ✅
 

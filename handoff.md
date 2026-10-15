@@ -172,10 +172,11 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
   Zygarde, Ultra Necrozma), so the Bad Dreams reward and the Lati choice no
   longer change the final battle (they still change the Factory fight).
   The Sky Pillar script still branches on `FLAG_STEVEN_HAS_LATIOS` and
-  `FLAG_DARKRAI_FREED`, and its "one short" Darkrai line
-  (`SkyPillar_Top_EventScript_ScottOneShort`) now conflicts with a
-  six-Pokémon team. **The owner decides**: collapse to one entry and rewrite
-  the lines, or keep the copies. Nothing was changed in the script.
+  `FLAG_DARKRAI_FREED` (harmless: the four entries are the same team). The
+  "one short" Darkrai line (`SkyPillar_Top_EventScript_ScottOneShort`) was
+  rewritten to fit on 2026-10-15: Scott shrugs it off as a spare he no longer
+  carries. Collapsing the four entries to one would free three trainer IDs;
+  the owner's call.
 - **Bad Dreams** (`storyline.md`, "During gauntlet 7"): look at the Pike
   lair's darkness on screen (`setflashlevel 2` in
   `BattleFrontier_BattlePikeRoomFinal`'s `SetUpLair`), and the Latios

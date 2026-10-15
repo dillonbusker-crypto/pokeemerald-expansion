@@ -282,7 +282,8 @@ SkyPillar_Top_EventScript_ScottBattle::
 	@ He has the Lati the player didn't catch: FLAG_STEVEN_HAS_LATIOS means the
 	@ player's is a LATIOS. A loss is a normal white-out (to NURSE JOY), so
 	@ nothing below this runs then.
-	@ Bad Dreams: a player who freed DARKRAI fights the teams with MAGEARNA in its place.
+	@ Bad Dreams: the four Sky Pillar entries hold the same team since 2026-10-15;
+	@ the branch only keeps the trainer flags apart.
 	goto_if_set FLAG_DARKRAI_FREED, SkyPillar_Top_EventScript_BattleScottNoDarkrai
 	call_if_set FLAG_STEVEN_HAS_LATIOS, SkyPillar_Top_EventScript_BattleScottLatias
 	call_if_unset FLAG_STEVEN_HAS_LATIOS, SkyPillar_Top_EventScript_BattleScottLatios
@@ -411,10 +412,10 @@ SkyPillar_Top_Text_ScottTurns:
 	.string "It needs to be bigger than yours.$"
 
 SkyPillar_Top_Text_ScottOneShort:
-	.string "SCOTT: Whoever freed my DARKRAI\n"
-	.string "only cost me a spare.\p"
-	.string "DEVON built me a MAGEARNA. It never\n"
-	.string "needed a chip to obey.$"
+	.string "SCOTT: Whoever cut my DARKRAI\n"
+	.string "loose only cost me a spare.\p"
+	.string "I don't carry spares anymore.\n"
+	.string "Every ball on my belt is a legend.$"
 
 SkyPillar_Top_Text_ScottAgain:
 	.string "SCOTT: Back for more?\p"

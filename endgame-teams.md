@@ -1551,9 +1551,8 @@ Second: Swampert's Band to Sitrus Berry, or take the Scarf off Starmie.
    whole endgame).
 6. **Scott's four Sky Pillar entries are identical now** (see "The final
    battle"). The script still branches on `FLAG_STEVEN_HAS_LATIOS` and
-   `FLAG_DARKRAI_FREED`, and its "one short" Darkrai line no longer fits a
-   six-Pokémon team. The owner decides what to do with the three copies and
-   the lines.
+   `FLAG_DARKRAI_FREED`; the "one short" Darkrai line was rewritten to fit.
+   The owner decides whether to collapse the three copies.
 
 ---
 
@@ -1920,11 +1919,11 @@ is needed), and Zygarde-Mega listed directly (no test lists it yet).
 With the Lati and Mega Darkrai gone from the Sky Pillar team, **all four
 Sky Pillar entries are identical.** The Sky Pillar script still branches on
 them: `FLAG_STEVEN_HAS_LATIOS` picks the Latias or Latios entry, and
-`FLAG_DARKRAI_FREED` picks the Bad Dreams one. Scott's "one short" line there
-(`SkyPillar_Top_EventScript_ScottOneShort`) and the Magearna line also still
-describe the old roster. The owner decides: delete three entries and point
-everything at one, or keep the copies and rewrite the lines. Nothing was
-changed in the script.
+`FLAG_DARKRAI_FREED` picks the Bad Dreams one, which is harmless. Scott's
+"one short" line there (`SkyPillar_Top_EventScript_ScottOneShort`) was
+rewritten on 2026-10-15 to fit the new roster: a freed Darkrai only cost him a
+spare, and he doesn't carry spares anymore. Deleting three entries and
+pointing everything at one would free three trainer IDs; the owner's call.
 
 ## The Factory teams (unchanged)
 
