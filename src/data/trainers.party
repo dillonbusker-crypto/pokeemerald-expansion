@@ -25729,7 +25729,7 @@ Class: Magma Leader
 Pic: Magma Leader Maxie
 Gender: Male
 Music: Magma
-Double Battle: No
+Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 
 Groudon-Primal @ Leftovers
@@ -25739,7 +25739,7 @@ EVs: 252 HP / 252 Atk / 4 SpD
 IVs: 0 Spe
 Brave Nature
 - Swords Dance
-- Earthquake
+- Precipice Blades
 - Fire Punch
 - Stone Edge
 
@@ -25799,7 +25799,7 @@ Class: Aqua Leader
 Pic: Aqua Leader Archie
 Gender: Male
 Music: Aqua
-Double Battle: No
+Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 
 Kyogre-Primal @ Leftovers
@@ -25828,7 +25828,7 @@ Level: 65
 EVs: 4 HP / 252 Atk / 252 Spe
 Adamant Nature
 - Waterfall
-- Earthquake
+- High Horsepower
 - Ice Punch
 - Knock Off
 
@@ -25847,7 +25847,7 @@ Ability: Protean
 Level: 65
 EVs: 4 HP / 252 SpA / 252 Spe
 Timid Nature
-- Surf
+- Hydro Pump
 - Dark Pulse
 - Ice Beam
 - Grass Knot

@@ -277,9 +277,10 @@ NewMauville_Inside_Text_SteppedOnSwitchGeneratorStopped:
 @      party, and the held items come back (EventScript_RestoreStoryHeldItems),
 @      win or white-out.
 @      At the generator MAXIE and ARCHIE guard it together and are fought back
-@      to back: MAXIE first, then the RIVAL (who runs in behind the player)
-@      patches the party up, then ARCHIE. A trigger column at x 29 or a talk
-@      starts the scene. A loss in either fight whites out to MAUVILLE's
+@      to back: both speak, the RIVAL runs in from off screen along row 5 to
+@      stand behind the player, MAXIE is fought, the RIVAL patches the party
+@      up, then ARCHIE. A trigger column at x 29 or a talk starts the
+@      scene. A loss in either fight whites out to MAUVILLE's
 @      POKEMON CENTER, and the whole pair is fought again: OnTransition
 @      clears MAXIE's trainer flag in state 13 (ARCHIE's is only set together
 @      with state 14).
@@ -464,15 +465,17 @@ NewMauville_Inside_EventScript_GeneratorLeaders::
 NewMauville_Inside_EventScript_GeneratorLeadersScene::
 	msgbox NewMauville_Inside_Text_MaxieAtGenerator, MSGBOX_DEFAULT
 	msgbox NewMauville_Inside_Text_Archie1, MSGBOX_DEFAULT
-	msgbox NewMauville_Inside_Text_Archie2, MSGBOX_DEFAULT
 	closemessage
-	@ The RIVAL arrives right behind the player. From the x 29 trigger the
-	@ RIVAL runs in from the west; from a talk (any tile beside the leaders)
-	@ the RIVAL just appears below the player.
+	@ The RIVAL runs in along row 5 from off screen. From the x 29 trigger
+	@ the RIVAL stops right behind the player; from a talk (any tile beside
+	@ the leaders) the RIVAL stops at (31, 5).
 	getplayerxy VAR_0x8004, VAR_0x8005
 	call_if_eq VAR_0x8004, 29, NewMauville_Inside_EventScript_RivalRunsIn
-	call_if_ne VAR_0x8004, 29, NewMauville_Inside_EventScript_RivalAppears
+	call_if_ne VAR_0x8004, 29, NewMauville_Inside_EventScript_RivalRunsInFar
 	msgbox NewMauville_Inside_Text_RivalArrives, MSGBOX_DEFAULT
+	msgbox NewMauville_Inside_Text_MaxieOrder, MSGBOX_DEFAULT
+	msgbox NewMauville_Inside_Text_ArchieNoBreak, MSGBOX_DEFAULT
+	msgbox NewMauville_Inside_Text_RivalGo, MSGBOX_DEFAULT
 	@ MAXIE first. A loss ends the script here (white-out).
 	call DevonFactory_EventScript_UseScrambler
 	setvar VAR_LAST_TALKED, LOCALID_NEW_MAUVILLE_MAXIE
@@ -532,46 +535,106 @@ NewMauville_Inside_EventScript_GeneratorLeadersScene::
 	releaseall
 	end
 
-@ The RIVAL object is added to the map only here. The player stands at
-@ (29, 4-8); (27, 7) is blocked, so on row 7 the RIVAL comes in along row 6
-@ and steps down. The RIVAL ends one tile left of the player, facing right.
+@ The RIVAL object is added to the map only here. It spawns at (20, 5), off
+@ screen west of the barrier (column x 21 is down by now), runs east along
+@ row 5 to (28, 5), then steps to the player's row (4-8) and ends one tile
+@ left of the player, facing right.
 NewMauville_Inside_EventScript_RivalRunsIn::
-	copyvar VAR_0x8006, VAR_0x8005
-	call_if_eq VAR_0x8005, 7, NewMauville_Inside_EventScript_RivalLane6
-	setobjectxyperm LOCALID_NEW_MAUVILLE_RIVAL, 26, VAR_0x8006
+	setobjectxyperm LOCALID_NEW_MAUVILLE_RIVAL, 20, 5
 	clearflag FLAG_TEMP_5
 	addobject LOCALID_NEW_MAUVILLE_RIVAL
 	applymovement LOCALID_NEW_MAUVILLE_RIVAL, NewMauville_Inside_Movement_RivalRunsIn
 	waitmovement 0
-	call_if_eq VAR_0x8005, 7, NewMauville_Inside_EventScript_RivalStepsDown
+	call_if_eq VAR_0x8005, 4, NewMauville_Inside_EventScript_RivalToRow4
+	call_if_eq VAR_0x8005, 5, NewMauville_Inside_EventScript_RivalToRow5
+	call_if_eq VAR_0x8005, 6, NewMauville_Inside_EventScript_RivalToRow6
+	call_if_eq VAR_0x8005, 7, NewMauville_Inside_EventScript_RivalToRow7
+	call_if_eq VAR_0x8005, 8, NewMauville_Inside_EventScript_RivalToRow8
 	return
 
-NewMauville_Inside_EventScript_RivalLane6::
-	setvar VAR_0x8006, 6
-	return
-
-NewMauville_Inside_EventScript_RivalStepsDown::
-	applymovement LOCALID_NEW_MAUVILLE_RIVAL, NewMauville_Inside_Movement_RivalStepsDown
+NewMauville_Inside_EventScript_RivalToRow4::
+	applymovement LOCALID_NEW_MAUVILLE_RIVAL, NewMauville_Inside_Movement_RivalToRow4
 	waitmovement 0
 	return
 
-@ From a talk the player can stand beside either leader; the RIVAL appears
-@ on the tile below (row 6 at most), out of the leaders' way.
-NewMauville_Inside_EventScript_RivalAppears::
-	addvar VAR_0x8005, 1
-	setobjectxyperm LOCALID_NEW_MAUVILLE_RIVAL, VAR_0x8004, VAR_0x8005
+NewMauville_Inside_EventScript_RivalToRow5::
+	applymovement LOCALID_NEW_MAUVILLE_RIVAL, Common_Movement_FaceRight
+	waitmovement 0
+	return
+
+NewMauville_Inside_EventScript_RivalToRow6::
+	applymovement LOCALID_NEW_MAUVILLE_RIVAL, NewMauville_Inside_Movement_RivalToRow6
+	waitmovement 0
+	return
+
+NewMauville_Inside_EventScript_RivalToRow7::
+	applymovement LOCALID_NEW_MAUVILLE_RIVAL, NewMauville_Inside_Movement_RivalToRow7
+	waitmovement 0
+	return
+
+NewMauville_Inside_EventScript_RivalToRow8::
+	applymovement LOCALID_NEW_MAUVILLE_RIVAL, NewMauville_Inside_Movement_RivalToRow8
+	waitmovement 0
+	return
+
+@ From a talk the player stands at (32, 5), (35, 5), (33, 6) or (34, 6): the
+@ RIVAL runs the whole of row 5 and stops at (31, 5), facing right.
+NewMauville_Inside_EventScript_RivalRunsInFar::
+	setobjectxyperm LOCALID_NEW_MAUVILLE_RIVAL, 20, 5
 	clearflag FLAG_TEMP_5
 	addobject LOCALID_NEW_MAUVILLE_RIVAL
-	applymovement LOCALID_NEW_MAUVILLE_RIVAL, Common_Movement_FaceUp
+	applymovement LOCALID_NEW_MAUVILLE_RIVAL, NewMauville_Inside_Movement_RivalRunsInFar
 	waitmovement 0
 	return
 
+@ (20, 5) to (28, 5).
 NewMauville_Inside_Movement_RivalRunsIn:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
 	walk_fast_right
 	walk_fast_right
 	step_end
 
-NewMauville_Inside_Movement_RivalStepsDown:
+@ (20, 5) to (31, 5).
+NewMauville_Inside_Movement_RivalRunsInFar:
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	walk_fast_right
+	face_right
+	step_end
+
+@ From (28, 5) to the player's row, beside the player at (29, y).
+NewMauville_Inside_Movement_RivalToRow4:
+	walk_fast_up
+	face_right
+	step_end
+
+NewMauville_Inside_Movement_RivalToRow6:
+	walk_fast_down
+	face_right
+	step_end
+
+NewMauville_Inside_Movement_RivalToRow7:
+	walk_fast_down
+	walk_fast_down
+	face_right
+	step_end
+
+NewMauville_Inside_Movement_RivalToRow8:
+	walk_fast_down
+	walk_fast_down
 	walk_fast_down
 	face_right
 	step_end
@@ -632,11 +695,9 @@ NewMauville_Inside_Text_MaxieDefeat:
 	.string "Impossible… GROUDON's power…$"
 
 NewMauville_Inside_Text_MaxieAfter:
-	.string "MAXIE: …So that's that.\p"
-	.string "The rest falls to you, ARCHIE.\p"
-	.string "I want to see your face when this\n"
-	.string "child does to you what was just\l"
-	.string "done to me.$"
+	.string "MAXIE: …Hmph.\p"
+	.string "ARCHIE. Show this child what\n"
+	.string "KYOGRE is for.$"
 
 NewMauville_Inside_Text_Matt:
 	.string "MATT: Hah! So you're the one who\n"
@@ -674,48 +735,54 @@ NewMauville_Inside_Text_ShellyAfter:
 NewMauville_Inside_Text_MaxieAtGenerator:
 	.string "MAXIE: So. You've come through\n"
 	.string "TABITHA, COURTNEY, MATT and SHELLY.\p"
-	.string "SCOTT warned us you would.\p"
-	.string "He also gave me what I always\n"
-	.string "wanted. GROUDON, for good.\p"
-	.string "ARCHIE and I guard this generator\n"
-	.string "together. I go first.\p"
-	.string "I don't intend to lose it twice.$"
+	.string "SCOTT said you would. He also told\n"
+	.string "me what to do about it.\p"
+	.string "And he gave me what I always\n"
+	.string "wanted. GROUDON is mine for good.$"
 
 NewMauville_Inside_Text_Archie1:
 	.string "ARCHIE: Hah! Two of us, one\n"
 	.string "generator, kid!\p"
-	.string "SCOTT gave me KYOGRE, for good.\n"
-	.string "MAXIE's up first. Then me.$"
-
-NewMauville_Inside_Text_Archie2:
-	.string "ARCHIE: And once I'm done with you,\n"
-	.string "there's no rest. Not for you, not\l"
-	.string "for anyone near that generator!$"
+	.string "KYOGRE is mine for keeps. Neither\n"
+	.string "of us is handing ours back!$"
 
 NewMauville_Inside_Text_RivalArrives:
-	.string "{RIVAL}: {PLAYER}! I'm here!\n"
-	.string "I ran the whole way down.\p"
-	.string "Go on. I'll patch everyone up\n"
-	.string "after the first one!$"
+	.string "{RIVAL}: {PLAYER}!… Phew… I found\n"
+	.string "the way down!\p"
+	.string "I'm not leaving you alone with\n"
+	.string "these two.$"
+
+NewMauville_Inside_Text_MaxieOrder:
+	.string "MAXIE: Your friend may watch, child.\p"
+	.string "This is done one at a time, and I\n"
+	.string "am first.$"
+
+NewMauville_Inside_Text_ArchieNoBreak:
+	.string "ARCHIE: And the moment he's done,\n"
+	.string "it's me. No break in between, kid!$"
+
+NewMauville_Inside_Text_RivalGo:
+	.string "{RIVAL}: Go, {PLAYER}! The second the\n"
+	.string "first one is down, I'll patch\l"
+	.string "everyone up!$"
 
 NewMauville_Inside_Text_RivalHealed:
 	.string "{RIVAL} patched up {PLAYER}'s\n"
 	.string "POKéMON.\p"
-	.string "{RIVAL}: That's the best I can do.\n"
-	.string "Go get him!$"
+	.string "{RIVAL}: That's everyone.\n"
+	.string "One more, {PLAYER}!$"
 
 NewMauville_Inside_Text_ArchieNext:
-	.string "ARCHIE: Healed up? Good. I want\n"
-	.string "no excuses.\p"
-	.string "My turn, kid. No rest!$"
+	.string "ARCHIE: My turn. Let's see how long\n"
+	.string "you last against the sea, kid!$"
 
 NewMauville_Inside_Text_RivalTalk:
 	.string "{RIVAL}: I'm right behind you,\n"
 	.string "{PLAYER}. Go!$"
 
 NewMauville_Inside_Text_RivalAfter:
-	.string "{RIVAL}: It's really done. I'll\n"
-	.string "head up first and tell WATTSON.\p"
+	.string "{RIVAL}: It's over… I'll wait for you\n"
+	.string "up top.\p"
 	.string "Don't be long, okay?$"
 
 NewMauville_Inside_Text_ArchieDefeat:

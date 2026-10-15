@@ -31,7 +31,7 @@ them on a screen:
 
 - Every endgame scene's **staging** (who walks where, facing, timing).
 - **Difficulty** of the Elite Four (52-55, in pairs with the rival's heal
-  between the two), the admins (60), Maxie and Archie (65, back to back at
+  between the two), the admins (60), Maxie and Archie (65, **doubles since 2026-10-15**, back to back at
   the generator after all four admins, the rival's heal between them) and
   Scott at 100; and the Chansey's single level-100 transfer. The Elite Four, Maxie,
   Archie and Scott were rewritten on 2026-10-15 and are the hardest teams
@@ -47,11 +47,12 @@ them on a screen:
   rival walks (11,6) to (13,6), Phoebe walks (14,2) to (14,5); 2F: player
   (9,2), rival (12,2) to (10,2), Drake (2,2) to (8,2)). Check it from every
   side the player can talk to the first member from, and that a loss in the
-  second fight resets the pair. New Mauville: the rival runs in behind the
-  player on each of the five x=29 trigger rows (y 4-8; on row 7 the rival
-  comes along row 6 and steps down), and on the talk path (the player beside
-  either leader) the rival just appears below the player. Check the heal
-  between Maxie and Archie, and that a loss to either repeats both.
+  second fight resets the pair. New Mauville: the rival runs in from off
+  screen at (20,5), through the lowered x=21 barrier and along row 5, then
+  steps to the player's row on each of the five x=29 trigger rows (y 4-8);
+  on the talk path (the player beside either leader) the rival runs the
+  same way and stops at (31,5). Check the heal between Maxie and Archie,
+  that both fights are doubles, and that a loss to either repeats both.
 - **Sky Pillar's 4F**: the clean layout still has three cracked tiles at
   (6-9, 4), and vanilla's bikeless route drops through one into 3F's inner
   room to reach the upper stairs. The harness walks it fine; decide whether
@@ -76,7 +77,7 @@ them on a screen:
 | The Crown's limit: one permanent Mega from state 11, six from 14 | `GetReplicaCrownLimit`, `src/party_menu.c` |
 | Steven's hub outside the Arena: every state's lines, the Mauville send-off (12, `FLAG_ABRA_TO_MAUVILLE`), the Sky Pillar send-off (16, `FLAG_ABRA_TO_SKY_PILLAR`), the post-credits lines (18) | `BattleFrontier_OutsideEast` |
 | Mauville overrun; Wattson, Steven and Wallace; Wattson leads the player down (fade + warp, state 13); respawn at Mauville's Center | `MauvilleCity` |
-| New Mauville: wild encounters off, the door open, exits lead back to Mauville; the four admin gates in order, Tabitha, Courtney, Matt, Shelly (`VAR_NEW_MAUVILLE_ADMINS`, 0-4, **renumbered 2026-10-15**), a coil heal after each; then Maxie and Archie together at the generator (33,5) and (34,5), fought back to back (the x=29 trigger or a talk starts it, **the rival runs in behind the player**, Maxie, the rival's heal, Archie), a loss to either repeats both (`OnTransition` clears Maxie's flag in state 13); the Crown supercharged (state 14), the Primals taken back, both leave and the rival too. Rewritten 2026-10-15, **built only** | `NewMauville_Entrance`, `NewMauville_Inside` |
+| New Mauville: wild encounters off, the door open, exits lead back to Mauville; the four admin gates in order, Tabitha, Courtney, Matt, Shelly (`VAR_NEW_MAUVILLE_ADMINS`, 0-4, **renumbered 2026-10-15**), a coil heal after each; then Maxie and Archie together at the generator (33,5) and (34,5), fought back to back (the x=29 trigger or a talk starts it, **the rival runs in behind the player**, Maxie, the rival's heal, Archie), a loss to either repeats both (`OnTransition` clears Maxie's flag in state 13); **Maxie and Archie are 6v6 doubles now (2026-10-15)**, the four admins stay singles; the Crown supercharged (state 14), the Primals taken back, both leave and the rival too. Rewritten 2026-10-15, **built only** | `NewMauville_Entrance`, `NewMauville_Inside` |
 | The teams leave; Hoopa's third ring; state 15 | `MauvilleCity` |
 | Nurse Joy and the Chansey outside the Arena: `TransferExpToLevel100`, once (`FLAG_CHANSEY_TRANSFER_EXP_USED`) | `BattleFrontier_OutsideEast`, `src/facility.c` |
 | Sky Pillar: the allies, the seven Brains' ambush (state 17), Joy by the door as the white-out respawn (`HEAL_LOCATION_SKY_PILLAR_OUTSIDE`), clean floors, no wild Pokémon | `SkyPillar_Outside`, `SkyPillar_1F-5F` |

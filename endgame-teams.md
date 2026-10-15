@@ -945,7 +945,9 @@ for the four admins: every species and item is sold by the shop by gauntlet 8
 (checked against `src/facility_shop.c`; the Mega Stones are Cameruptite,
 Houndoominite, Sharpedonite and Swampertite), item clause per team, every move
 checked against the expansion's learnsets, no OHKO, no evasion, no sleep. AI as
-the Elite Four: omniscient, proactive switching. All singles. **Maxie and
+the Elite Four: omniscient, proactive switching. **The four admins are
+singles. Maxie and Archie are 6v6 doubles** (as of 2026-10-15), fought back to
+back with the rival's heal between. **Maxie and
 Archie were rewritten on 2026-10-15** and, like the Elite Four, no longer
 follow the shop rule: each has a permanent Primal (which Scott lent), three or
 four permanent Megas and a legendary.
@@ -1283,6 +1285,11 @@ Blaziken (Focus Sash, Speed Boost). Reshiram and Ho-Oh are the legendaries.
 Groudon holds Leftovers, not the Red Orb, because it's listed directly as
 `Groudon-Primal`.
 
+**Doubles (2026-10-15).** Maxie's fight is a 6v6 double battle, so two of his
+Pokémon are out at once. Precipice Blades hits both foes only, so it never
+harms Heatran or Blaziken beside Groudon. Earthquake is gone from Groudon
+for that reason. Desolate Land still starts the battle.
+
 ```
 Groudon-Primal @ Leftovers
 Ability: Desolate Land
@@ -1291,7 +1298,7 @@ EVs: 252 HP / 252 Atk / 4 SpD
 Brave Nature
 IVs: 0 Spe
 - Swords Dance
-- Earthquake
+- Precipice Blades
 - Fire Punch
 - Stone Edge
 
@@ -1356,7 +1363,7 @@ wins on bulk (266 HP, 274 Def, Leftovers). **Untested**: a headless lead
 against a lead is one run.
 
 **Win conditions.** (1) Groudon under Desolate Land: Swords Dance (330 Atk),
-then Earthquake, Stone Edge and Fire Punch. Its 4x Water weakness is hidden
+then Precipice Blades, Stone Edge and Fire Punch. Its 4x Water weakness is hidden
 while the sun holds. (2) After Groudon falls, Charizard Y's Drought sets
 ordinary sun, but only on switch-in, so if the AI sends Heatran or Blaziken
 first there is no weather until Charizard comes in. Charizard is slot 2.
@@ -1374,7 +1381,9 @@ Everyone else works without weather.
   is 322 after one turn. Swords Dance, Flare Blitz, Close Combat, Thunder
   Punch for Water and Flying.
 - **Ho-Oh** (Heavy-Duty Boots, Adamant, Regenerator): Sacred Fire, Brave Bird,
-  Earthquake, Recover.
+  Earthquake, Recover. Earthquake stays in doubles: Charizard Y and Ho-Oh's
+  other partners are often immune, and the AI discounts a move that would
+  hurt its partner.
 
 **Counterplay.** *Holding the player's Primal Kyogre* and switching it in
 after Groudon is the real answer: Primordial Sea makes every Fire move fail,
@@ -1404,6 +1413,12 @@ rain (Fire moves fail outright). Four **permanent Megas**: Golisopod (Assault
 Vest), Swampert (Choice Band, Swift Swim), Starmie (Choice Scarf) and Greninja
 (Life Orb). Lugia (Multiscale, Boots) is the anchor.
 
+**Doubles (2026-10-15).** Archie's fight is a 6v6 double battle. Origin Pulse
+hits both foes without touching his own side (Water Spout would too, but it is
+Scott's, not Archie's), and Primordial Sea still starts the battle. Surf is replaced by Hydro Pump on
+Greninja and Earthquake by High Horsepower on Swampert, because both spreads
+would hit Kyogre or any other partner.
+
 ```
 Kyogre-Primal @ Leftovers
 Ability: Primordial Sea
@@ -1431,7 +1446,7 @@ Level: 65
 EVs: 4 HP / 252 Atk / 252 Spe
 Adamant Nature
 - Waterfall
-- Earthquake
+- High Horsepower
 - Ice Punch
 - Knock Off
 
@@ -1450,7 +1465,7 @@ Ability: Protean
 Level: 65
 EVs: 4 HP / 252 SpA / 252 Spe
 Timid Nature
-- Surf
+- Hydro Pump
 - Dark Pulse
 - Ice Beam
 - Grass Knot
@@ -1477,15 +1492,16 @@ Greninja outspeed nearly everything and need no rain.
   First Impression (priority), Liquidation, Leech Life, Knock Off. Only the
   Vest protects it, and it is 4x weak to Fire, safe while Primordial Sea holds.
 - **Mega Swampert** (Choice Band, Adamant, 157 Speed, 314 in rain): Waterfall,
-  Earthquake, Ice Punch, Knock Off. Without rain it is merely decent, which
+  High Horsepower, Ice Punch, Knock Off. High Horsepower is a single-target
+  Ground move, so it never hits Kyogre. Without rain it is merely decent, which
   is deliberate.
 - **Mega Starmie** (Choice Scarf, Naive, 252 Atk / 4 SpA / 252 Spe): **Huge
   Power makes it a physical attacker** (392 Atk, Speed 244, 366 with the
   Scarf). It is mixed for coverage: Liquidation and Zen Headbutt are the
   STABs, Ice Beam and Thunderbolt hit Grass, Dragon, Flying and Water on the
   special side.
-- **Mega Greninja** (Life Orb, Timid, Speed 275): Surf, Dark Pulse, Ice Beam,
-  Grass Knot. Protean works once per battle in this repo and Greninja is
+- **Mega Greninja** (Life Orb, Timid, Speed 275): Hydro Pump, Dark Pulse, Ice Beam,
+  Grass Knot. Hydro Pump is single-target, so it never hits Kyogre. Protean works once per battle in this repo and Greninja is
   already Water/Dark, so the single use goes to Ice Beam or Grass Knot. Grass
   Knot is also a non-Water answer through Desolate Land.
 - **Lugia** (Heavy-Duty Boots, Modest): Multiscale halves the first hit, then
