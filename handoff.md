@@ -1,4 +1,4 @@
-# Handoff — current state (2026-10-08)
+# Handoff — current state (2026-10-15)
 
 Read `CLAUDE.md` and `project-guide.md` first. This file is where the work
 stands: what's built, what's tested, what's loose, what's next, and the test
@@ -13,7 +13,9 @@ harness. History is in `git log`; the story is in `storyline.md`.
   ✅). **None of the endgame has been played by hand**: parts 1-5 are
   headless-tested only (below). The owner's next step is a full playthrough.
 - **The endgame's teams** are all in `endgame-teams.md` and
-  `src/data/trainers.party`; difficulty is untuned.
+  `src/data/trainers.party`; difficulty is untuned. On 2026-10-15 the owner
+  replaced the rosters of the Elite Four, Maxie, Archie and Scott's Sky Pillar
+  team (built only, see "Testing status").
 - **Trainer IDs: 992 of 1000 used** (990-991 are the Gym rematches).
 - **The endgame towns sprint is built** (`storyline.md`, "Rustboro after the
   liberation" and "Mauville after the liberation"): Roxanne's and Wattson's
@@ -30,7 +32,12 @@ them on a screen:
 - Every endgame scene's **staging** (who walks where, facing, timing).
 - **Difficulty** of the Elite Four (52-55), the admins (60), Maxie and
   Archie (65, each after his own team's admins, a heal between) and Scott at
-  100; and the Chansey's single level-100 transfer. The siphon now lifts
+  100; and the Chansey's single level-100 transfer. The Elite Four, Maxie,
+  Archie and Scott were rewritten on 2026-10-15 and are the hardest teams
+  in the game on paper: three to four permanent Megas plus legendaries
+  each, Calyrex-Shadow with Nasty Plot, Kyurem-White, Koraidon, and a Scott
+  of three tanks and Ultra Necrozma. Nobody has fought them, and
+  `endgame-teams.md` gives each team's easiest dial. The siphon now lifts
   every chipped Pokémon to 60 and the shop sells at 60 after it
   (2026-10-13): check the party's levels after "Free the POKéMON".
 - **Sky Pillar's 4F**: the clean layout still has three cracked tiles at
@@ -61,14 +68,15 @@ them on a screen:
 | The teams leave; Hoopa's third ring; state 15 | `MauvilleCity` |
 | Nurse Joy and the Chansey outside the Arena: `TransferExpToLevel100`, once (`FLAG_CHANSEY_TRANSFER_EXP_USED`) | `BattleFrontier_OutsideEast`, `src/facility.c` |
 | Sky Pillar: the allies, the seven Brains' ambush (state 17), Joy by the door as the white-out respawn (`HEAL_LOCATION_SKY_PILLAR_OUTSIDE`), clean floors, no wild Pokémon | `SkyPillar_Outside`, `SkyPillar_1F-5F` |
-| The top: the Master Ball and Rayquaza (`FLAG_SKY_PILLAR_RAYQUAZA_CAUGHT`), the Scrambler, Scott at 100 (Mega Rayquaza, both Primals, Mega Mewtwo Y, the Lati, Mega Darkrai), Looker's arrest, state 18, the credits | `SkyPillar_Top`, `EndgameClear` |
+| The top: the Master Ball and Rayquaza (`FLAG_SKY_PILLAR_RAYQUAZA_CAUGHT`), the Scrambler, Scott at 100 (Mega Rayquaza, both Primals, Mega Mewtwo Y, Mega Zygarde, Ultra Necrozma; rewritten 2026-10-15), Looker's arrest, state 18, the credits | `SkyPillar_Top`, `EndgameClear` |
 | Gossip: SIPHON, MAUVILLE, MAUVILLE_FREED, SKY_PILLAR, ENDING | `GetStoryGossipStage`, all 12 gossip NPCs |
 | Vanilla gifts off in Rustboro's Cutter's house, Mauville's houses 1-2 and the Game Corner | those interiors |
 
 Engine facts the harness confirmed: a trainer's `Groudon-Primal` /
 `Kyogre-Primal` / `Rayquaza-Mega` listed directly stays in that form through
 faints and switches, with Desolate Land, Primordial Sea and Delta Stream
-firing; no stone or orb is needed.
+firing; no stone or orb is needed. Not yet confirmed: `Necrozma-Ultra`
+and `Zygarde-Mega` listed directly (Scott's new team).
 
 ---
 
@@ -121,6 +129,7 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
 
 | What | Status |
 |---|---|
+| The seven rewritten teams (2026-10-15): Sidney, Phoebe, Glacia, Drake, Maxie, Archie and Scott's Sky Pillar team | Written from `endgame-teams.md` into `src/data/trainers.party`; **built only, not battle-tested and not played**. Engine risks to check when played: `Necrozma-Ultra` staying Ultra after a faint (a one-line guard in `CanBattlerFormChange` is in, with no test yet; without it a test or debug build tripped the form-change assert); `Zygarde-Mega` listed directly (no test lists it); the newer Megas' abilities, sprites and cries (Starmie, Golisopod, Greninja, Crabominable, Abomasnow, Feraligatr, Dragonite, Heatran have never run in a trainer team); the Calyrex abilities as `ABILITY_AS_ONE_*` constants in the generated data; three to four permanent Megas on one team (tests cover one at a time); Maxie's slow Groudon-Primal winning the lead weather war; Phoebe's Prankster Destiny Bond against a Dark type |
 | Endgame towns: the Gym rematches | Harness scenario 35 (`harness-gyms.c`), 17/17: each door sealed before its town is freed and open from then on (through 18), only the leader inside, Mauville's puzzle off, a loss and a win per leader (a loss: no white-out, still in the Gym, healed, items back, flag clear, the "come back" line; a win: flag, heal, items, lead), no Wattson outside at 15. `test/battle/ten_gauntlets_enemy_mega.c` 4/4: an enemy `Zygarde-Complete` Mega Evolves (AI too) and stays Mega. **Not played**: the teams' difficulty |
 | Endgame towns: Giratina (The Tear) | Harness scenario 33 (`harness-giratina.c`), 31/31: nothing before Roxanne, the clues and Hoopa's hint, the escort, the dark walk and its three wrongnesses, a loss, a knock-out, a run, the Master Ball catch and the Core, the exits, after the credits, a full bag. **Not played**: the darkness on screen |
 | Endgame towns: Calyrex (The True King) | Harness scenario 34 (`harness-calyrex.c`), 22/22: rubble only before Wattson, the old man's legend, the Crown's restoration, no steed, a run, a knock-out, the catch and the Reins, never chipped, one fusion (Glastrier) and one unfusion. **Not played**: the stand-in art, Spectrier, the learn-move prompt, save and reload while fused |
@@ -157,6 +166,16 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
   `BattleFrontier_OutsideWest_EventScript_Man3` and delete the block at the
   end of its `scripts.inc` before release.
 - **Unplayed endgame** (parts 1-5): see "Next" above.
+- **Scott's Sky Pillar teams are identical now.** All four entries
+  (`_LATIAS`, `_LATIOS`, `_NO_DARKRAI_LATIAS`, `_NO_DARKRAI_LATIOS`) hold the
+  same six (Mega Rayquaza, Kyogre-Primal, Groudon-Primal, Mega Mewtwo Y, Mega
+  Zygarde, Ultra Necrozma), so the Bad Dreams reward and the Lati choice no
+  longer change the final battle (they still change the Factory fight).
+  The Sky Pillar script still branches on `FLAG_STEVEN_HAS_LATIOS` and
+  `FLAG_DARKRAI_FREED`, and its "one short" Darkrai line
+  (`SkyPillar_Top_EventScript_ScottOneShort`) now conflicts with a
+  six-Pokémon team. **The owner decides**: collapse to one entry and rewrite
+  the lines, or keep the copies. Nothing was changed in the script.
 - **Bad Dreams** (`storyline.md`, "During gauntlet 7"): look at the Pike
   lair's darkness on screen (`setflashlevel 2` in
   `BattleFrontier_BattlePikeRoomFinal`'s `SetUpLair`), and the Latios
@@ -196,7 +215,7 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
   fails with `JSONPROC_ERROR` there, that's the fix.
 - **The Elite Four's lines** are first drafts in their vanilla voices; tune
   them after a playthrough, along with the teams' difficulty
-  (`endgame-teams.md`, Open questions 2 and 3).
+  (`endgame-teams.md`, Open question 3).
 
 - The owner's save still has the duplicate Landorus from the old tag-battle
   bug.

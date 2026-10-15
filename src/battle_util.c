@@ -8733,8 +8733,9 @@ static bool32 CanBattlerFormChange(enum BattlerId battler, enum FormChanges meth
     case FORM_CHANGE_FAINT:
         // Ten Gauntlets: a Mega that started the battle as one is permanent
         // (the Replica Crown) and doesn't revert. One that Mega Evolved this
-        // battle has its original species saved in changedSpecies.
-        if (IsBattlerMegaEvolved(battler) && GetBattlerPartyState(battler)->changedSpecies == SPECIES_NONE)
+        // battle has its original species saved in changedSpecies. The final
+        // battle's Ultra Necrozma is permanent the same way.
+        if ((IsBattlerMegaEvolved(battler) || IsBattlerUltraBursted(battler)) && GetBattlerPartyState(battler)->changedSpecies == SPECIES_NONE)
             return FALSE;
         if (IsBattlerMegaEvolved(battler) || IsBattlerUltraBursted(battler) || IsBattlerInTeraForm(battler) || IsGigantamaxed(battler))
             return TRUE;

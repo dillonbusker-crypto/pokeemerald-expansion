@@ -25163,45 +25163,45 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 Mugshot: Purple
 
-Ting-Lu @ Leftovers
-Ability: Vessel of Ruin
+Yveltal @ Life Orb
+Ability: Dark Aura
 Level: 52
-EVs: 252 HP / 4 Atk / 252 SpD
-Careful Nature
-- Stealth Rock
-- Ruination
-- Earthquake
-- Whirlwind
+EVs: 4 Atk / 252 SpA / 252 Spe
+Hasty Nature
+- Oblivion Wing
+- Knock Off
+- Sucker Punch
+- Heat Wave
 
-Meowscarada @ Choice Band
-Ability: Protean
+Sharpedo-Mega @ Choice Band
+Ability: Strong Jaw
 Level: 52
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
-- Flower Trick
-- Knock Off
-- Triple Axel
-- U-turn
+- Crunch
+- Liquidation
+- Ice Fang
+- Psychic Fangs
 
-Weavile @ Black Glasses
-Ability: Pressure
+Roaring Moon @ Booster Energy
+Ability: Protosynthesis
+Level: 53
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Dragon Dance
+- Dragon Claw
+- Knock Off
+- Iron Head
+
+Absol-Mega-Z @ Black Glasses
+Ability: Sharpness
 Level: 53
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
 - Swords Dance
-- Triple Axel
-- Knock Off
-- Ice Shard
-
-Darkrai @ Choice Specs
-Ability: Bad Dreams
-Level: 53
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-- Dark Pulse
-- Sludge Bomb
-- Focus Blast
-- Ice Beam
+- Night Slash
+- Play Rough
+- Close Combat
 
 Tyranitar-Mega @ Weakness Policy
 Ability: Sand Stream
@@ -25213,15 +25213,16 @@ Adamant Nature
 - Knock Off
 - Earthquake
 
-Absol-Mega-Z @ Life Orb
-Ability: Sharpness
+Darkrai-Mega @ Leftovers
+Ability: Bad Dreams
 Level: 55
-EVs: 252 Atk / 4 Def / 252 Spe
-Jolly Nature
-- Swords Dance
-- Night Slash
-- Shadow Claw
-- Close Combat
+EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
+Timid Nature
+- Nasty Plot
+- Dark Pulse
+- Sludge Bomb
+- Focus Blast
 
 === TRAINER_DEVON_PHOEBE ===
 Name: PHOEBE
@@ -25233,49 +25234,20 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 Mugshot: Green
 
-Gholdengo @ Air Balloon
-Ability: Good as Gold
+Gengar-Mega @ Focus Sash
+Ability: Shadow Tag
 Level: 52
-EVs: 252 HP / 252 SpA / 4 Spe
-Modest Nature
-- Nasty Plot
-- Make It Rain
-- Shadow Ball
-- Recover
-
-Ceruledge @ Focus Sash
-Ability: Flash Fire
-Level: 52
-EVs: 252 Atk / 4 Def / 252 Spe
-Jolly Nature
-- Swords Dance
-- Bitter Blade
-- Poltergeist
-- Shadow Sneak
-
-Skeledirge @ Leftovers
-Ability: Unaware
-Level: 53
-EVs: 252 HP / 252 Def / 4 SpA
-Bold Nature
-- Torch Song
-- Hex
-- Slack Off
-- Will-O-Wisp
-
-Flutter Mane @ Booster Energy
-Ability: Protosynthesis
-Level: 53
 EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
 Timid Nature
-- Calm Mind
-- Moonblast
 - Shadow Ball
-- Mystical Fire
+- Sludge Bomb
+- Focus Blast
+- Destiny Bond
 
-Banette-Mega @ Life Orb
+Banette-Mega @ Spell Tag
 Ability: Prankster
-Level: 54
+Level: 52
 EVs: 252 HP / 252 Atk / 4 Def
 Adamant Nature
 - Poltergeist
@@ -25283,15 +25255,48 @@ Adamant Nature
 - Will-O-Wisp
 - Destiny Bond
 
-Chandelure-Mega @ Choice Specs
+Marshadow @ Choice Band
+Ability: Technician
+Level: 53
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Spectral Thief
+- Close Combat
+- Shadow Sneak
+- Stone Edge
+
+Chandelure-Mega @ Choice Scarf
 Ability: Infiltrator
-Level: 55
+Level: 53
 EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
 Timid Nature
 - Shadow Ball
 - Fire Blast
 - Energy Ball
 - Psychic
+
+Lunala @ Leftovers
+Ability: Shadow Shield
+Level: 54
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Atk
+Modest Nature
+- Calm Mind
+- Moongeist Beam
+- Moonblast
+- Moonlight
+
+Calyrex-Shadow @ Life Orb
+Ability: ABILITY_AS_ONE_SHADOW_RIDER
+Level: 55
+EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
+Timid Nature
+- Nasty Plot
+- Astral Barrage
+- Psyshock
+- Giga Drain
 
 === TRAINER_DEVON_GLACIA ===
 Name: GLACIA
@@ -25303,65 +25308,68 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 Mugshot: Pink
 
-Ninetales-Alola @ Light Clay
+Froslass-Mega @ Focus Sash
 Ability: Snow Warning
 Level: 52
-EVs: 252 HP / 4 SpA / 252 Spe
+EVs: 252 SpA / 4 SpD / 252 Spe
 Timid Nature
 - Aurora Veil
-- Freeze-Dry
-- Moonblast
-- Encore
-
-Chien-Pao @ Choice Band
-Ability: Sword of Ruin
-Level: 52
-EVs: 252 Atk / 4 Def / 252 Spe
-Jolly Nature
-- Icicle Crash
-- Sucker Punch
-- Sacred Sword
-- Ice Shard
-
-Cloyster @ White Herb
-Ability: Skill Link
-Level: 53
-EVs: 252 Atk / 4 Def / 252 Spe
-Adamant Nature
-- Shell Smash
-- Icicle Spear
-- Rock Blast
-- Ice Shard
-
-Iron Bundle @ Booster Energy
-Ability: Quark Drive
-Level: 53
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-- Freeze-Dry
-- Hydro Pump
-- Taunt
-- Flip Turn
-
-Froslass-Mega @ Icy Rock
-Ability: Snow Warning
-Level: 54
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
 - Blizzard
 - Shadow Ball
-- Spikes
 - Will-O-Wisp
+
+Abomasnow-Mega @ Icy Rock
+Ability: Snow Warning
+Level: 52
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Atk / 0 Spe
+Quiet Nature
+- Aurora Veil
+- Blizzard
+- Giga Drain
+- Earth Power
+
+Crabominable-Mega @ Leftovers
+Ability: Iron Fist
+Level: 53
+EVs: 252 HP / 252 Atk / 4 SpD
+IVs: 0 Spe
+Brave Nature
+- Bulk Up
+- Ice Hammer
+- Drain Punch
+- Knock Off
 
 Baxcalibur-Mega @ Loaded Dice
 Ability: Thermal Exchange
-Level: 55
+Level: 53
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
 - Swords Dance
 - Icicle Spear
 - Scale Shot
 - Earthquake
+
+Calyrex-Ice @ Life Orb
+Ability: ABILITY_AS_ONE_ICE_RIDER
+Level: 54
+EVs: 252 HP / 252 Atk / 4 SpD
+IVs: 0 Spe
+Brave Nature
+- Swords Dance
+- Glacial Lance
+- Close Combat
+- High Horsepower
+
+Kyurem-White @ Choice Specs
+Ability: Turboblaze
+Level: 55
+EVs: 252 SpA / 4 SpD / 252 Spe
+Timid Nature
+- Ice Beam
+- Draco Meteor
+- Earth Power
+- Fusion Flare
 
 === TRAINER_DEVON_DRAKE ===
 Name: DRAKE
@@ -25373,49 +25381,29 @@ Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 Mugshot: Blue
 
-Archaludon @ Leftovers
-Ability: Stamina
+Feraligatr-Mega @ Lum Berry
+Ability: Dragonize
 Level: 52
-EVs: 252 HP / 252 Def / 4 SpA
-Bold Nature
-- Stealth Rock
-- Draco Meteor
-- Flash Cannon
-- Body Press
-
-Walking Wake @ Choice Specs
-Ability: Protosynthesis
-Level: 52
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-- Hydro Steam
-- Draco Meteor
-- Flamethrower
-- Flip Turn
-
-Raging Bolt @ Booster Energy
-Ability: Protosynthesis
-Level: 53
-EVs: 252 HP / 252 SpA / 4 SpD
-Modest Nature
-- Calm Mind
-- Thunderclap
-- Dragon Pulse
-- Thunderbolt
-
-Dragonite @ Choice Band
-Ability: Multiscale
-Level: 53
 EVs: 252 Atk / 4 Def / 252 Spe
 Adamant Nature
-- Extreme Speed
-- Outrage
+- Dragon Dance
+- Double-Edge
+- Waterfall
 - Earthquake
-- Fire Punch
+
+Charizard-Mega-X @ Weakness Policy
+Ability: Tough Claws
+Level: 52
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Dragon Dance
+- Flare Blitz
+- Dragon Claw
+- Roost
 
 Garchomp-Mega-Z @ Life Orb
 Ability: Levitate
-Level: 54
+Level: 53
 EVs: 4 Atk / 252 SpA / 252 Spe
 Naive Nature
 - Draco Meteor
@@ -25423,15 +25411,36 @@ Naive Nature
 - Fire Blast
 - Stone Edge
 
-Salamence-Mega @ Heavy-Duty Boots
-Ability: Aerilate
-Level: 55
+Dragonite-Mega @ Heavy-Duty Boots
+Ability: Multiscale
+Level: 53
 EVs: 252 Atk / 4 Def / 252 Spe
 Adamant Nature
 - Dragon Dance
-- Double-Edge
+- Outrage
+- Extreme Speed
 - Earthquake
-- Roost
+
+Eternatus @ Leftovers
+Ability: Pressure
+Level: 54
+EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
+Timid Nature
+- Dynamax Cannon
+- Sludge Bomb
+- Flamethrower
+- Recover
+
+Koraidon @ Choice Band
+Ability: Orichalcum Pulse
+Level: 55
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Collision Course
+- Flare Blitz
+- Dragon Claw
+- U-turn
 
 /* Ten Gauntlets: endgame part 4, New Mauville (storyline.md). The admins and
  * MAXIE/ARCHIE go right after this comment. */
@@ -25727,44 +25736,24 @@ Groudon-Primal @ Leftovers
 Ability: Desolate Land
 Level: 65
 EVs: 252 HP / 252 Atk / 4 SpD
-Adamant Nature
+IVs: 0 Spe
+Brave Nature
 - Swords Dance
-- Precipice Blades
+- Earthquake
 - Fire Punch
 - Stone Edge
 
-Torkoal @ Heat Rock
+Charizard-Mega-Y @ Life Orb
 Ability: Drought
 Level: 65
-EVs: 252 HP / 252 Def / 4 SpA
-Bold Nature
-IVs: 0 Atk
-- Stealth Rock
-- Lava Plume
-- Earth Power
-- Rapid Spin
-
-Venusaur @ Black Sludge
-Ability: Chlorophyll
-Level: 65
-EVs: 4 HP / 252 SpA / 252 Spe
+EVs: 4 Def / 252 SpA / 252 Spe
 Timid Nature
-- Growth
-- Giga Drain
-- Sludge Bomb
-- Earth Power
+- Fire Blast
+- Solar Beam
+- Focus Blast
+- Roost
 
-Volcarona @ Heavy-Duty Boots
-Ability: Flame Body
-Level: 65
-EVs: 252 HP / 4 SpA / 252 Spe
-Timid Nature
-- Quiver Dance
-- Fiery Dance
-- Bug Buzz
-- Morning Sun
-
-Heatran @ Air Balloon
+Heatran-Mega @ Air Balloon
 Ability: Flash Fire
 Level: 65
 EVs: 252 HP / 252 SpA / 4 SpD
@@ -25772,17 +25761,37 @@ Modest Nature
 - Magma Storm
 - Earth Power
 - Flash Cannon
-- Taunt
+- Dark Pulse
 
-Charizard @ Choice Specs
-Ability: Solar Power
+Reshiram @ Assault Vest
+Ability: Turboblaze
 Level: 65
-EVs: 4 Def / 252 SpA / 252 Spe
-Timid Nature
-- Fire Blast
-- Air Slash
-- Focus Blast
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Blue Flare
+- Draco Meteor
+- Earth Power
 - Solar Beam
+
+Blaziken-Mega @ Focus Sash
+Ability: Speed Boost
+Level: 65
+EVs: 4 HP / 252 Atk / 252 Spe
+Jolly Nature
+- Swords Dance
+- Flare Blitz
+- Close Combat
+- Thunder Punch
+
+Ho-Oh @ Heavy-Duty Boots
+Ability: Regenerator
+Level: 65
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+- Sacred Fire
+- Brave Bird
+- Earthquake
+- Recover
 
 === TRAINER_NEW_MAUVILLE_ARCHIE ===
 Name: ARCHIE
@@ -25803,54 +25812,54 @@ Modest Nature
 - Ice Beam
 - Calm Mind
 
-Pelipper @ Damp Rock
-Ability: Drizzle
+Golisopod-Mega @ Assault Vest
+Ability: Tough Claws
 Level: 65
-EVs: 252 HP / 252 Def / 4 SpA
-Bold Nature
-- Hurricane
-- Scald
-- U-turn
-- Roost
-
-Kingdra @ Choice Specs
-Ability: Swift Swim
-Level: 65
-EVs: 4 HP / 252 SpA / 252 Spe
-Modest Nature
-- Hydro Pump
-- Draco Meteor
-- Ice Beam
-- Flip Turn
-
-Barraskewda @ Choice Band
-Ability: Swift Swim
-Level: 65
-EVs: 252 Atk / 4 Def / 252 Spe
+EVs: 252 HP / 252 Atk / 4 Def
 Adamant Nature
+- First Impression
 - Liquidation
-- Close Combat
-- Flip Turn
-- Psychic Fangs
+- Leech Life
+- Knock Off
 
-Ludicolo @ Life Orb
+Swampert-Mega @ Choice Band
 Ability: Swift Swim
 Level: 65
-EVs: 4 HP / 252 SpA / 252 Spe
-Modest Nature
-- Hydro Pump
-- Giga Drain
-- Ice Beam
-- Focus Blast
+EVs: 4 HP / 252 Atk / 252 Spe
+Adamant Nature
+- Waterfall
+- Earthquake
+- Ice Punch
+- Knock Off
 
-Zapdos @ Heavy-Duty Boots
-Ability: Pressure
+Starmie-Mega @ Choice Scarf
+Ability: Huge Power
+Level: 65
+EVs: 252 Atk / 4 SpA / 252 Spe
+Naive Nature
+- Liquidation
+- Zen Headbutt
+- Ice Beam
+- Thunderbolt
+
+Greninja-Mega @ Life Orb
+Ability: Protean
+Level: 65
+EVs: 4 HP / 252 SpA / 252 Spe
+Timid Nature
+- Surf
+- Dark Pulse
+- Ice Beam
+- Grass Knot
+
+Lugia @ Heavy-Duty Boots
+Ability: Multiscale
 Level: 65
 EVs: 252 HP / 252 SpA / 4 SpD
 Modest Nature
-- Thunder
-- Hurricane
-- Heat Wave
+- Aeroblast
+- Psychic
+- Calm Mind
 - Roost
 
 /* Ten Gauntlets: endgame part 5, the final battle at SKY PILLAR
@@ -25858,10 +25867,11 @@ Modest Nature
 
 /* SCOTT at the top of SKY PILLAR, the final battle (storyline.md, endgame-
  * teams.md, "The final battle"). Level 100, every one listed directly in its
- * permanent form (Mega Rayquaza keeps no stone; the Primals hold their orbs),
- * every one holding a different item, raw power and no balance: the three
- * weathers overwrite each other on purpose. Latias or Latios is the one the
- * player didn't catch. Gentleman stands in for his missing battle sprite. */
+ * permanent form (Mega Rayquaza keeps no stone, the Primals hold real items,
+ * Necrozma-Ultra and Zygarde-Mega are permanent too), every one holding a
+ * different item, raw power and no balance: the three weathers overwrite each
+ * other on purpose. Rewritten 2026-10-15: the Lati and Darkrai are gone, so
+ * all four entries below hold the same team (the script still picks by flag). */
 
 === TRAINER_SKY_PILLAR_SCOTT_LATIAS ===
 Name: SCOTT
@@ -25872,65 +25882,68 @@ Music: Intense
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient
 
-Rayquaza-Mega @ Choice Band
+Rayquaza-Mega @ Focus Sash
 Ability: Delta Stream
 Level: 100
 EVs: 252 Atk / 4 SpD / 252 Spe
-Adamant Nature
+Jolly Nature
+- Dragon Dance
 - Dragon Ascent
 - Extreme Speed
 - Earthquake
-- Stone Edge
 
-Kyogre-Primal @ Blue Orb
+Kyogre-Primal @ Assault Vest
 Ability: Primordial Sea
 Level: 100
-EVs: 252 SpA / 4 SpD / 252 Spe
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Atk
 Modest Nature
 - Water Spout
 - Origin Pulse
 - Ice Beam
 - Thunder
 
-Groudon-Primal @ Red Orb
+Groudon-Primal @ Shuca Berry
 Ability: Desolate Land
 Level: 100
-EVs: 252 Atk / 4 SpD / 252 Spe
+EVs: 252 HP / 252 Atk / 4 SpD
 Adamant Nature
 - Precipice Blades
-- Fire Punch
+- Heat Crash
 - Stone Edge
-- Thunder Punch
+- Swords Dance
 
 Mewtwo-Mega-Y @ Life Orb
 Ability: Insomnia
 Level: 100
 EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
 Timid Nature
 - Psystrike
 - Aura Sphere
 - Ice Beam
-- Fire Blast
-
-Latias-Mega @ Choice Specs
-Ability: Levitate
-Level: 100
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-- Draco Meteor
-- Mist Ball
 - Thunderbolt
-- Ice Beam
 
-Darkrai-Mega @ Black Glasses
-Ability: Bad Dreams
+Zygarde-Mega @ Leftovers
+Ability: Aura Break
+Level: 100
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Core Enforcer
+- Earth Power
+- Sludge Wave
+- Focus Blast
+
+Necrozma-Ultra @ Choice Scarf
+Ability: Neuroforce
 Level: 100
 EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
 Timid Nature
+- Photon Geyser
 - Dark Pulse
-- Sludge Bomb
-- Focus Blast
-- Ice Beam
+- Flash Cannon
+- Earth Power
 
 === TRAINER_SKY_PILLAR_SCOTT_LATIOS ===
 Name: SCOTT
@@ -25941,65 +25954,68 @@ Music: Intense
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient
 
-Rayquaza-Mega @ Choice Band
+Rayquaza-Mega @ Focus Sash
 Ability: Delta Stream
 Level: 100
 EVs: 252 Atk / 4 SpD / 252 Spe
-Adamant Nature
+Jolly Nature
+- Dragon Dance
 - Dragon Ascent
 - Extreme Speed
 - Earthquake
-- Stone Edge
 
-Kyogre-Primal @ Blue Orb
+Kyogre-Primal @ Assault Vest
 Ability: Primordial Sea
 Level: 100
-EVs: 252 SpA / 4 SpD / 252 Spe
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Atk
 Modest Nature
 - Water Spout
 - Origin Pulse
 - Ice Beam
 - Thunder
 
-Groudon-Primal @ Red Orb
+Groudon-Primal @ Shuca Berry
 Ability: Desolate Land
 Level: 100
-EVs: 252 Atk / 4 SpD / 252 Spe
+EVs: 252 HP / 252 Atk / 4 SpD
 Adamant Nature
 - Precipice Blades
-- Fire Punch
+- Heat Crash
 - Stone Edge
-- Thunder Punch
+- Swords Dance
 
 Mewtwo-Mega-Y @ Life Orb
 Ability: Insomnia
 Level: 100
 EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
 Timid Nature
 - Psystrike
 - Aura Sphere
 - Ice Beam
-- Fire Blast
-
-Latios-Mega @ Choice Specs
-Ability: Levitate
-Level: 100
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-- Draco Meteor
-- Psyshock
 - Thunderbolt
-- Ice Beam
 
-Darkrai-Mega @ Black Glasses
-Ability: Bad Dreams
+Zygarde-Mega @ Leftovers
+Ability: Aura Break
+Level: 100
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Core Enforcer
+- Earth Power
+- Sludge Wave
+- Focus Blast
+
+Necrozma-Ultra @ Choice Scarf
+Ability: Neuroforce
 Level: 100
 EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
 Timid Nature
+- Photon Geyser
 - Dark Pulse
-- Sludge Bomb
-- Focus Blast
-- Ice Beam
+- Flash Cannon
+- Earth Power
 
 /* Ten Gauntlets: Bad Dreams (storyline.md, during gauntlet 7). SCOTT's teams
  * without DARKRAI, for a player who freed it. Entries go right after this
@@ -26152,65 +26168,68 @@ Music: Intense
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient
 
-Rayquaza-Mega @ Choice Band
+Rayquaza-Mega @ Focus Sash
 Ability: Delta Stream
 Level: 100
 EVs: 252 Atk / 4 SpD / 252 Spe
-Adamant Nature
+Jolly Nature
+- Dragon Dance
 - Dragon Ascent
 - Extreme Speed
 - Earthquake
-- Stone Edge
 
-Kyogre-Primal @ Blue Orb
+Kyogre-Primal @ Assault Vest
 Ability: Primordial Sea
 Level: 100
-EVs: 252 SpA / 4 SpD / 252 Spe
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Atk
 Modest Nature
 - Water Spout
 - Origin Pulse
 - Ice Beam
 - Thunder
 
-Groudon-Primal @ Red Orb
+Groudon-Primal @ Shuca Berry
 Ability: Desolate Land
 Level: 100
-EVs: 252 Atk / 4 SpD / 252 Spe
+EVs: 252 HP / 252 Atk / 4 SpD
 Adamant Nature
 - Precipice Blades
-- Fire Punch
+- Heat Crash
 - Stone Edge
-- Thunder Punch
+- Swords Dance
 
 Mewtwo-Mega-Y @ Life Orb
 Ability: Insomnia
 Level: 100
 EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
 Timid Nature
 - Psystrike
 - Aura Sphere
 - Ice Beam
-- Fire Blast
-
-Latias-Mega @ Choice Specs
-Ability: Levitate
-Level: 100
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-- Draco Meteor
-- Mist Ball
 - Thunderbolt
-- Ice Beam
 
-Magearna-Mega @ Expert Belt
-Ability: Soul-Heart
+Zygarde-Mega @ Leftovers
+Ability: Aura Break
 Level: 100
-EVs: 252 SpA / 4 SpD / 252 Spe
+EVs: 252 HP / 252 SpA / 4 SpD
 Modest Nature
-- Fleur Cannon
+- Core Enforcer
+- Earth Power
+- Sludge Wave
+- Focus Blast
+
+Necrozma-Ultra @ Choice Scarf
+Ability: Neuroforce
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
+Timid Nature
+- Photon Geyser
+- Dark Pulse
 - Flash Cannon
-- Aura Sphere
-- Thunderbolt
+- Earth Power
 
 
 === TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIOS ===
@@ -26222,65 +26241,68 @@ Music: Intense
 Double Battle: No
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient
 
-Rayquaza-Mega @ Choice Band
+Rayquaza-Mega @ Focus Sash
 Ability: Delta Stream
 Level: 100
 EVs: 252 Atk / 4 SpD / 252 Spe
-Adamant Nature
+Jolly Nature
+- Dragon Dance
 - Dragon Ascent
 - Extreme Speed
 - Earthquake
-- Stone Edge
 
-Kyogre-Primal @ Blue Orb
+Kyogre-Primal @ Assault Vest
 Ability: Primordial Sea
 Level: 100
-EVs: 252 SpA / 4 SpD / 252 Spe
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Atk
 Modest Nature
 - Water Spout
 - Origin Pulse
 - Ice Beam
 - Thunder
 
-Groudon-Primal @ Red Orb
+Groudon-Primal @ Shuca Berry
 Ability: Desolate Land
 Level: 100
-EVs: 252 Atk / 4 SpD / 252 Spe
+EVs: 252 HP / 252 Atk / 4 SpD
 Adamant Nature
 - Precipice Blades
-- Fire Punch
+- Heat Crash
 - Stone Edge
-- Thunder Punch
+- Swords Dance
 
 Mewtwo-Mega-Y @ Life Orb
 Ability: Insomnia
 Level: 100
 EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
 Timid Nature
 - Psystrike
 - Aura Sphere
 - Ice Beam
-- Fire Blast
-
-Latios-Mega @ Choice Specs
-Ability: Levitate
-Level: 100
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-- Draco Meteor
-- Psyshock
 - Thunderbolt
-- Ice Beam
 
-Magearna-Mega @ Expert Belt
-Ability: Soul-Heart
+Zygarde-Mega @ Leftovers
+Ability: Aura Break
 Level: 100
-EVs: 252 SpA / 4 SpD / 252 Spe
+EVs: 252 HP / 252 SpA / 4 SpD
 Modest Nature
-- Fleur Cannon
+- Core Enforcer
+- Earth Power
+- Sludge Wave
+- Focus Blast
+
+Necrozma-Ultra @ Choice Scarf
+Ability: Neuroforce
+Level: 100
+EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
+Timid Nature
+- Photon Geyser
+- Dark Pulse
 - Flash Cannon
-- Aura Sphere
-- Thunderbolt
+- Earth Power
 
 /* Endgame towns: the Gym rematches (endgame-teams.md, "The Gym rematches"). */
 === TRAINER_ENDGAME_ROXANNE ===

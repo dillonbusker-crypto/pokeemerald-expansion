@@ -1,10 +1,12 @@
 # Endgame Teams — Brain Rematches and the Elite Four
 
-**Status: built.** The five Brain rematches (`TRAINER_FACTORY_*`), the
-Elite Four (`TRAINER_DEVON_*`), New Mauville (`TRAINER_NEW_MAUVILLE_*`),
+**Status: built, not played.** The five Brain rematches (`TRAINER_FACTORY_*`),
+the Elite Four (`TRAINER_DEVON_*`), New Mauville (`TRAINER_NEW_MAUVILLE_*`),
 the Gym rematches (`TRAINER_ENDGAME_*`) and Scott's final teams
-(`TRAINER_SKY_PILLAR_SCOTT_*`) are in
-`src/data/trainers.party`. Nothing is tuned by play yet. Answers `storyline.md`,
+(`TRAINER_SKY_PILLAR_SCOTT_*`) are in `src/data/trainers.party`. **On
+2026-10-15 the owner replaced the rosters of the Elite Four, Maxie, Archie and
+Scott's Sky Pillar team**; those seven are described below as rewritten, built
+only, not battle-tested. Nothing is tuned by play yet. Answers `storyline.md`,
 "Still to decide" #2 (the Brains' upgraded teams) and #3 (the Elite Four's
 teams). Team sets are in Pokémon Showdown syntax, like the gauntlet docs.
 
@@ -14,12 +16,12 @@ teams). Team sets are in Pokémon Showdown syntax, like the gauntlet docs.
 
 | Rule | Applied as |
 |---|---|
-| Pool | **Only Pokémon and Mega Stones the player can buy by gauntlet 8** (shop waves 0–7 in `src/facility_shop.c`). No Zacian, Miraidon, Zygarde, Mewtwo, Lati or Kangaskhan. Every species was checked against the shop list |
+| Pool | **The Brains, the Gym rematches and the four New Mauville admins:** only Pokémon and Mega Stones the player can buy by gauntlet 8 (shop waves 0–7 in `src/facility_shop.c`). No Zacian, Miraidon, Zygarde, Mewtwo, Lati or Kangaskhan, except the Gym rematches' box-art legendaries. Every species was checked against the shop list. **The Elite Four, Maxie, Archie and Scott are the owner's own rosters (2026-10-15) and no longer follow it**: legendaries, Paradox Pokémon and newer Megas |
 | Priority | OU and Uber first, using Showdown's tier data as of 2026-10-05. Singles teams are judged by Gen 9 singles and National Dex tiers (National Dex is where Megas are tiered). Doubles teams are judged by doubles tiers (DOU/DUber) |
-| Items | Item clause on every team. Every item is sold by the shop |
+| Items | Item clause on every team. The Brains', Gym and admin items are sold by the shop. The rewritten teams use whatever fits, so Booster Energy, Spell Tag or Shuca Berry need not be sold |
 | Moves | Every move was checked against the expansion's own learnsets, including egg moves from pre-evolutions, so the player could copy any set. One exception: Rotom-Wash's Hydro Pump comes from its form change, as on Noland's built team |
 | Brains | **Normal Megas** that hold their stone and Mega Evolve in battle (one per team). Level 50, since they're Scott's chipped trainers |
-| Elite Four | **Two permanent Megas each.** These are listed already in Mega form, holding a real item. Real levels from 52 to 55, with the ace at 55 (`storyline.md`: "up to 55") |
+| Elite Four | **Three to four permanent Megas each, plus legendaries.** Listed already in Mega form, holding a real item. Real levels 52/52/53/53/54/55, the ace at 55 (`storyline.md`: "up to 55") |
 | Bans | No OHKO moves, no evasion moves, no Dark Void. Sleep appears only on Lucy (Spore), as on her gauntlet team |
 
 ### Which Brains get new teams
@@ -43,12 +45,12 @@ Littleroot. That gives three singles and two doubles.
 
 ### The Elite Four
 
-| Member | Type | Permanent Megas | Ace (Lv 55) |
-|---|---|---|---|
-| Sidney | Dark | Mega Absol Z, Mega Tyranitar | Mega Absol Z (his vanilla ace) |
-| Phoebe | Ghost | Mega Banette (her vanilla Pokémon), Mega Chandelure | Mega Chandelure |
-| Glacia | Ice | Mega Baxcalibur, Mega Froslass | Mega Baxcalibur |
-| Drake | Dragon | Mega Salamence, Mega Garchomp Z | Mega Salamence (his vanilla ace) |
+| Member | Type | Permanent Megas | Legendaries and Paradox | Ace (Lv 55) |
+|---|---|---|---|---|
+| Sidney | Dark | Mega Sharpedo, Absol Z, Tyranitar, Darkrai | Yveltal, Roaring Moon | Mega Darkrai |
+| Phoebe | Ghost | Mega Gengar, Banette, Chandelure | Marshadow, Lunala, Calyrex-Shadow | Calyrex-Shadow |
+| Glacia | Ice | Mega Froslass, Abomasnow, Crabominable, Baxcalibur | Calyrex-Ice, Kyurem-White | Kyurem-White |
+| Drake | Dragon | Mega Feraligatr, Charizard X, Garchomp Z, Dragonite | Eternatus, Koraidon | Koraidon |
 
 All singles, as in vanilla.
 
@@ -426,63 +428,97 @@ grows with every hit it takes.
 
 ---
 
-# The Elite Four (levels 52–55, permanent Megas)
+# The Elite Four (levels 52–55, permanent Megas and legendaries)
 
-Each team has two permanent Megas, which start the battle Mega Evolved and
-hold a real item. Under the perma-Mega rule they **don't use up the trainer's
-one Mega Evolution**, so a third, normal Mega is possible later (see Open
-questions). Levels: 52–53 for the regulars, 54 for the second Mega, 55 for the
-ace. That's two to five levels over the player's chipped level 50. AI: as the
-Brains.
+**Rewritten 2026-10-15** from the owner's new rosters. The old shop-pool teams
+are gone. Each team has **three to four permanent Megas** and one or two
+legendaries or Paradox Pokémon. A permanent Mega is listed already in Mega
+form, holding a real item (`Sharpedo-Mega @ Choice Band`), and doesn't revert
+on switching or fainting. Permanent Megas **don't use up the trainer's one
+Mega Evolution**, but no non-Mega member of these teams has a Mega form, so
+nothing is left to evolve. Levels climb **52, 52, 53, 53, 54, 55** on every
+team: the ace is at 55, the second strongest at 54. That is two to five over
+the player's chipped level 50. AI: as the Brains. Every item on a team is
+different. Built, never battle-tested or played.
 
-## Sidney — Dark
+## Engine notes (the seven rewritten teams)
 
-Ting-Lu lays Stealth Rock, and Vessel of Ruin lowers the player's Attack. Mega
-Tyranitar's Sand Stream gives the sand-immune team free chip damage. **Mega
-Absol Z** (Dark/Ghost, Sharpness, 154 Atk, **151 Speed**) cleans up behind
-them. Darkrai is Uber. Weavile (UU) adds Ice coverage and Ice Shard
-priority, and keeps Kingambit to Anabel's team alone.
+Found while the sets were checked against this build's learnsets, abilities
+and species data.
+
+- **Species names that differ from the obvious:** `Calyrex-Shadow`,
+  `Calyrex-Ice`, `Urshifu-Single-Strike`, `Absol-Mega-Z`, `Garchomp-Mega-Z`,
+  `Zygarde-Mega`, `Necrozma-Ultra`, `Greninja-Mega`.
+- **Calyrex's ability must be written as a constant.** "As One" is the
+  display name of both As One abilities, so a name lookup is ambiguous.
+  Phoebe's Calyrex uses `Ability: ABILITY_AS_ONE_SHADOW_RIDER` and Glacia's
+  `Ability: ABILITY_AS_ONE_ICE_RIDER`. trainerproc accepts any text that starts
+  with `ABILITY_`.
+- **A permanent Mega has only its Mega ability.** Mega Sharpedo has no Speed
+  Boost (only Strong Jaw), Mega Golisopod has no Emergency Exit (only Tough
+  Claws). None of these sets relies on a lost ability.
+- **Booster Energy works under sand.** `TryBoosterEnergy`
+  (`src/battle_hold_effects.c`) only checks for sun. Under sun, Protosynthesis
+  comes from the sun and the item stays unused.
+- **Mega Starmie is a Huge Power physical attacker** (the Mega's only ability).
+  **Mega Zygarde is a special attacker** (216 SpA, 70 Atk).
+- **Pokémon listed directly in a late form:** `Necrozma-Ultra` keeps its form
+  through a faint in a release build, but a test build marks the test invalid
+  and a debug build crashes (a form-change assert). A guard beside the
+  permanent-Mega one in `CanBattlerFormChange` (`src/battle_util.c`) is being
+  added. `Zygarde-Mega` is covered by the permanent-Mega rule but no test lists
+  it directly.
+- Partial IV lines (`IVs: 0 Atk`) are accepted by trainerproc.
+
+## Sidney: Dark
+
+**Lead: Yveltal** (Life Orb, Hasty, Dark Aura). Dark Aura raises every Dark
+move on the field, the player's too, while it's out. Mega Sharpedo (Choice
+Band) follows. Roaring Moon, Mega Absol Z and Mega Tyranitar are the setup
+trio, and **Mega Darkrai** (Leftovers) closes at 55. The whole team is Dark,
+so it shares one set of holes (Fighting, Fairy, Bug), and the moves are
+chosen to cover them.
 
 ```
-Ting-Lu @ Leftovers
-Ability: Vessel of Ruin
+Yveltal @ Life Orb
+Ability: Dark Aura
 Level: 52
-EVs: 252 HP / 4 Atk / 252 SpD
-Careful Nature
-- Stealth Rock
-- Ruination
-- Earthquake
-- Whirlwind
+EVs: 4 Atk / 252 SpA / 252 Spe
+Hasty Nature
+- Oblivion Wing
+- Knock Off
+- Sucker Punch
+- Heat Wave
 
-Meowscarada @ Choice Band
-Ability: Protean
+Sharpedo-Mega @ Choice Band
+Ability: Strong Jaw
 Level: 52
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
-- Flower Trick
-- Knock Off
-- Triple Axel
-- U-turn
+- Crunch
+- Liquidation
+- Ice Fang
+- Psychic Fangs
 
-Weavile @ Black Glasses
-Ability: Pressure
+Roaring Moon @ Booster Energy
+Ability: Protosynthesis
+Level: 53
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Dragon Dance
+- Dragon Claw
+- Knock Off
+- Iron Head
+
+Absol-Mega-Z @ Black Glasses
+Ability: Sharpness
 Level: 53
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
 - Swords Dance
-- Triple Axel
-- Knock Off
-- Ice Shard
-
-Darkrai @ Choice Specs
-Ability: Bad Dreams
-Level: 53
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-- Dark Pulse
-- Sludge Bomb
-- Focus Blast
-- Ice Beam
+- Night Slash
+- Play Rough
+- Close Combat
 
 Tyranitar-Mega @ Weakness Policy
 Ability: Sand Stream
@@ -494,73 +530,84 @@ Adamant Nature
 - Knock Off
 - Earthquake
 
-Absol-Mega-Z @ Life Orb
-Ability: Sharpness
+Darkrai-Mega @ Leftovers
+Ability: Bad Dreams
 Level: 55
-EVs: 252 Atk / 4 Def / 252 Spe
-Jolly Nature
-- Swords Dance
-- Night Slash
-- Shadow Claw
-- Close Combat
-```
-
-*(Sharpness boosts Night Slash. Shadow Claw is the Ghost STAB, because Absol
-learns no Ghost-type slicing move.)*
-
-## Phoebe — Ghost
-
-**Mega Banette** is her own vanilla Pokémon. Prankster gives it priority
-Will-O-Wisp and Destiny Bond, though Dark types are immune to those, and 165
-Attack behind Poltergeist. **Mega Chandelure** (175 Sp. Atk, Infiltrator) is
-her ace and holds Choice Specs, which a normal Mega can't hold. Skeledirge's
-Unaware means setup sweepers can't simply boost past her. Flutter Mane,
-Ceruledge and Gholdengo are OU or Uber.
-
-```
-Gholdengo @ Air Balloon
-Ability: Good as Gold
-Level: 52
-EVs: 252 HP / 252 SpA / 4 Spe
-Modest Nature
-- Nasty Plot
-- Make It Rain
-- Shadow Ball
-- Recover
-
-Ceruledge @ Focus Sash
-Ability: Flash Fire
-Level: 52
-EVs: 252 Atk / 4 Def / 252 Spe
-Jolly Nature
-- Swords Dance
-- Bitter Blade
-- Poltergeist
-- Shadow Sneak
-
-Skeledirge @ Leftovers
-Ability: Unaware
-Level: 53
-EVs: 252 HP / 252 Def / 4 SpA
-Bold Nature
-- Torch Song
-- Hex
-- Slack Off
-- Will-O-Wisp
-
-Flutter Mane @ Booster Energy
-Ability: Protosynthesis
-Level: 53
 EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
 Timid Nature
-- Calm Mind
-- Moonblast
-- Shadow Ball
-- Mystical Fire
+- Nasty Plot
+- Dark Pulse
+- Sludge Bomb
+- Focus Blast
+```
 
-Banette-Mega @ Life Orb
+**Win conditions.** (1) The setup trio: Roaring Moon and Mega Tyranitar with
+Dragon Dance, Absol with Swords Dance. Each needs one free turn, and the
+Pokémon before them exist to trade and make it. (2) Mega Darkrai: it hits hard
+with no setup and nukes after one Nasty Plot. It is frail, so it comes in last
+against a thinned team.
+
+- **Yveltal** (252 SpA / 252 Spe, Hasty, Speed 171): special lead. Oblivion
+  Wing heals, Knock Off and Sucker Punch are the Dark STAB and priority, Heat
+  Wave covers Steel, Grass and Ice.
+- **Mega Sharpedo** (Jolly, Speed 179): a glass cannon with Strong Jaw bite
+  moves (Crunch, Ice Fang, Psychic Fangs) plus Liquidation, all boosted by the
+  Band. Psychic Fangs turns Fighting and Poison walls into KOs. The Band lock
+  is its weakness: each of the four moves hits a different set of targets.
+- **Roaring Moon** (Booster Energy, Adamant): Adamant on purpose. If an
+  Intimidate drops its Attack on entry and Speed becomes the highest stat,
+  Booster Energy would boost Speed instead. Adamant keeps it on Attack (222
+  Atk, 180 Spe, 270 after one Dragon Dance). Iron Head is the Fairy answer.
+- **Mega Absol Z** (Black Glasses, Jolly, Speed 235): the fast cleaner. Dark/
+  Ghost, so Fighting, Normal and Psychic do nothing to it. Play Rough and
+  Close Combat cover the Dragons, Fighting and Steel that the Dark STAB can't
+  reach. Black Glasses, not Life Orb: recoil plus its own team's sand would
+  wear down a 148 HP body.
+- **Mega Tyranitar** (Weakness Policy, Dragon Dance): sets sand and sweeps. A
+  super-effective hit from the player's many Fighting, Ground, Fairy and Water
+  attackers becomes +2 Attack and +2 Sp. Atk. Speed is only 98, so it needs
+  a Dragon Dance turn.
+- **Mega Darkrai** (Leftovers, Timid, 0 Atk IV): Nasty Plot, Dark Pulse, Sludge
+  Bomb for Fairy, Focus Blast for Steel, Normal and Ice. Bad Dreams is its only
+  ability and does nothing here (no sleep).
+
+**Own-sand cost.** Tyranitar's Sand Stream chips every other member, 1/16 a
+turn. Absol and Sharpedo have under 160 HP and are the fragile ones. The Mega's
+ability is fixed, so the only mitigation is that Tyranitar comes in mid-game.
+
+**How to beat it:** Fighting, Fairy and Bug attackers. Absol is immune to
+Fighting, so go through the others. A hard Fairy Mega is covered by Iron Head,
+Play Rough, Sludge Bomb and Heat Wave, but Roaring Moon is 4x weak to Fairy.
+Weakness Policy gives Tyranitar one answer to a super-effective hit if it
+survives. Under the player's sun, Moon gets its boost from the sun instead.
+
+**Easiest dial:** Mega Darkrai's level (55 to 53). Harder: put Life Orb back
+on Darkrai.
+
+## Phoebe: Ghost
+
+**Lead: Mega Gengar** (Focus Sash, Shadow Tag). Leading makes the player's
+blind opening pick a commitment, with no pivoting out. Mega Banette (her
+vanilla Pokémon), Marshadow, **Mega Chandelure** (Choice Scarf), Lunala and
+**Calyrex-Shadow** (the ace, 55) follow. Three permanent Megas, three
+legendaries.
+
+```
+Gengar-Mega @ Focus Sash
+Ability: Shadow Tag
+Level: 52
+EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
+Timid Nature
+- Shadow Ball
+- Sludge Bomb
+- Focus Blast
+- Destiny Bond
+
+Banette-Mega @ Spell Tag
 Ability: Prankster
-Level: 54
+Level: 52
 EVs: 252 HP / 252 Atk / 4 Def
 Adamant Nature
 - Poltergeist
@@ -568,145 +615,240 @@ Adamant Nature
 - Will-O-Wisp
 - Destiny Bond
 
-Chandelure-Mega @ Choice Specs
+Marshadow @ Choice Band
+Ability: Technician
+Level: 53
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Spectral Thief
+- Close Combat
+- Shadow Sneak
+- Stone Edge
+
+Chandelure-Mega @ Choice Scarf
 Ability: Infiltrator
-Level: 55
+Level: 53
 EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
 Timid Nature
 - Shadow Ball
 - Fire Blast
 - Energy Ball
 - Psychic
+
+Lunala @ Leftovers
+Ability: Shadow Shield
+Level: 54
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Atk
+Modest Nature
+- Calm Mind
+- Moongeist Beam
+- Moonblast
+- Moonlight
+
+Calyrex-Shadow @ Life Orb
+Ability: ABILITY_AS_ONE_SHADOW_RIDER
+Level: 55
+EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
+Timid Nature
+- Nasty Plot
+- Astral Barrage
+- Psyshock
+- Giga Drain
 ```
 
-*(Mega Banette is slow at base 75 Speed, so it runs max HP rather than Speed.
-Its Destiny Bond and Will-O-Wisp are the threats, not its Speed.)*
+**Win conditions.** (1) Gengar and Banette are an attrition pair: Sash, then an
+attack or Destiny Bond, so each trades one for one or better. (2) Marshadow
+punishes setup: Spectral Thief steals the player's boosts. (3) Chandelure,
+Lunala and Calyrex finish: Calyrex's Nasty Plot at 243 Speed can sweep from
+one free turn.
 
-## Glacia — Ice
+- **Mega Gengar** (Sash, Timid, 0 Atk IV, Speed 207): 170 SpA behind Shadow
+  Ball, Sludge Bomb and Focus Blast. Shadow Tag stops the player's switches.
+  Ghost types, Shed Shell and pivot moves escape it, which is the intended
+  counterplay.
+- **Mega Banette** (Spell Tag, Adamant, 252 HP / 252 Atk): Prankster makes
+  Will-O-Wisp and Destiny Bond priority. Poltergeist needs the target to hold
+  an item. Gunk Shot is the backup and the Fairy answer.
+- **Marshadow** (Choice Band, Jolly, Speed 205): Technician boosts Shadow Sneak.
+  Spectral Thief, Close Combat, Shadow Sneak, Stone Edge. The Band lock works
+  best when it is already out as the player sets up.
+- **Mega Chandelure** (Choice Scarf, Timid, 0 Atk IV): 175 SpA, Infiltrator
+  ignores Substitute and screens. At level 53, Speed is 165, and 247 with the
+  Scarf, past nearly every unboosted level-50 Pokémon. The Scarf locks it into
+  one attack.
+- **Lunala** (Leftovers, Modest, 252 HP / 252 SpA): Shadow Shield halves the
+  first hit. Calm Mind, Moongeist Beam (ignores abilities), Moonblast,
+  Moonlight.
+- **Calyrex-Shadow** (Life Orb, Timid, 0 Atk IV): As One (Unnerve and Grim
+  Neigh) stops berries and gives +1 SpA per KO. Nasty Plot, Astral Barrage,
+  Psyshock for physical walls, Giga Drain for Dark types.
 
-**A snow team.** Ninetales-Alola sets snow and Aurora Veil on turn one. Mega
-Froslass (Snow Warning, Icy Rock) resets snow for eight turns, and its
-Blizzard never misses in snow. Snow raises every Ice type's Defense by 50%,
-which suits **Mega Baxcalibur** (175 Atk) running Swords Dance with Loaded
-Dice multi-hit moves. Cloyster's Shell Smash and Chien-Pao's Sword of Ruin
-finish what's left. Ice has few OU Pokémon. Chien-Pao, Iron Bundle and
-Baxcalibur are Uber, and Ninetales-Alola is DOU.
+**Coverage.** Dark types (resist Ghost, immune to Psychic): Focus Blast, Gunk
+Shot, Close Combat, Fire Blast, Energy Ball, Moonblast, Giga Drain. Normal
+types: Sludge Bomb, Focus Blast, Moonblast. Steel: Focus Blast, Fire Blast,
+Close Combat, Stone Edge. Fairy: Sludge Bomb and Gunk Shot.
+
+**To check when played.** Destiny Bond is a self-target move, so Dark types
+should not block it with Prankster, but that call path wasn't traced. The AI
+has no deliberate Shadow Tag play: the trap is strongest on the lead.
+
+**How to beat it:** Ghost types (immune to the trap), Shed Shell, U-turn or
+Volt Switch. Priority or a Scarf on the Sash lead still loses the Destiny Bond
+trade. Dark Megas face Gunk Shot, Focus Blast and Close Combat. Hard Trick
+Room or stall faces a burning Banette and Lunala's Calm Mind.
+
+**Easiest dial:** Calyrex's Nasty Plot slot (Protect or Dark Pulse), or drop
+it to 54 and shift the others down one. Second: Gengar's Sash to Expert Belt.
+
+## Glacia: Ice
+
+**Lead: Mega Froslass** (Focus Sash, Snow Warning) sets snow and Aurora Veil.
+Mega Abomasnow (Icy Rock) refreshes snow to eight turns and recasts the Veil
+as the first one expires. Every member is part Ice, so snow raises the whole
+team's Defense by 50%. Mega Crabominable and Mega Baxcalibur are the Defense-
+boosted bruisers, **Calyrex-Ice** is second (54) and **Kyurem-White** is the
+ace (55). Four permanent Megas, two legendaries.
 
 ```
-Ninetales-Alola @ Light Clay
+Froslass-Mega @ Focus Sash
 Ability: Snow Warning
 Level: 52
-EVs: 252 HP / 4 SpA / 252 Spe
+EVs: 252 SpA / 4 SpD / 252 Spe
 Timid Nature
 - Aurora Veil
-- Freeze-Dry
-- Moonblast
-- Encore
-
-Chien-Pao @ Choice Band
-Ability: Sword of Ruin
-Level: 52
-EVs: 252 Atk / 4 Def / 252 Spe
-Jolly Nature
-- Icicle Crash
-- Sucker Punch
-- Sacred Sword
-- Ice Shard
-
-Cloyster @ White Herb
-Ability: Skill Link
-Level: 53
-EVs: 252 Atk / 4 Def / 252 Spe
-Adamant Nature
-- Shell Smash
-- Icicle Spear
-- Rock Blast
-- Ice Shard
-
-Iron Bundle @ Booster Energy
-Ability: Quark Drive
-Level: 53
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-- Freeze-Dry
-- Hydro Pump
-- Taunt
-- Flip Turn
-
-Froslass-Mega @ Icy Rock
-Ability: Snow Warning
-Level: 54
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
 - Blizzard
 - Shadow Ball
-- Spikes
 - Will-O-Wisp
+
+Abomasnow-Mega @ Icy Rock
+Ability: Snow Warning
+Level: 52
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Atk / 0 Spe
+Quiet Nature
+- Aurora Veil
+- Blizzard
+- Giga Drain
+- Earth Power
+
+Crabominable-Mega @ Leftovers
+Ability: Iron Fist
+Level: 53
+EVs: 252 HP / 252 Atk / 4 SpD
+IVs: 0 Spe
+Brave Nature
+- Bulk Up
+- Ice Hammer
+- Drain Punch
+- Knock Off
 
 Baxcalibur-Mega @ Loaded Dice
 Ability: Thermal Exchange
-Level: 55
+Level: 53
 EVs: 252 Atk / 4 Def / 252 Spe
 Jolly Nature
 - Swords Dance
 - Icicle Spear
 - Scale Shot
 - Earthquake
-```
 
-## Drake — Dragon
+Calyrex-Ice @ Life Orb
+Ability: ABILITY_AS_ONE_ICE_RIDER
+Level: 54
+EVs: 252 HP / 252 Atk / 4 SpD
+IVs: 0 Spe
+Brave Nature
+- Swords Dance
+- Glacial Lance
+- Close Combat
+- High Horsepower
 
-**Mega Salamence** is Drake's vanilla ace. The second permanent Mega is **Mega
-Garchomp Z** (Levitate, 151 Speed, mixed attacker), which ties in his vanilla
-Flygon. Archaludon (Stamina) lays Stealth Rock. Raging Bolt and Walking Wake
-are top-tier special Dragons, and Dragonite's Choice Band Extreme Speed is the
-team's priority move. Every member is OU or Uber except Garchomp (UUBL in
-singles, OU in National Dex).
-
-```
-Archaludon @ Leftovers
-Ability: Stamina
-Level: 52
-EVs: 252 HP / 252 Def / 4 SpA
-Bold Nature
-- Stealth Rock
-- Draco Meteor
-- Flash Cannon
-- Body Press
-
-Walking Wake @ Choice Specs
-Ability: Protosynthesis
-Level: 52
+Kyurem-White @ Choice Specs
+Ability: Turboblaze
+Level: 55
 EVs: 252 SpA / 4 SpD / 252 Spe
 Timid Nature
-- Hydro Steam
+- Ice Beam
 - Draco Meteor
-- Flamethrower
-- Flip Turn
+- Earth Power
+- Fusion Flare
+```
 
-Raging Bolt @ Booster Energy
-Ability: Protosynthesis
-Level: 53
-EVs: 252 HP / 252 SpA / 4 SpD
-Modest Nature
-- Calm Mind
-- Thunderclap
-- Dragon Pulse
-- Thunderbolt
+**Win conditions.** (1) Kyurem-White's Choice Specs close out the tail:
+Fusion Flare for Steel, Earth Power for Fire and Steel, and Turboblaze ignores
+abilities. (2) Calyrex-Ice or Baxcalibur sweep after one Swords Dance, with
+Chilling Neigh giving Calyrex +1 Attack per KO.
 
-Dragonite @ Choice Band
-Ability: Multiscale
-Level: 53
+- **Mega Froslass** (Sash, Timid, Speed 195): Aurora Veil on turn one, Blizzard
+  (never misses in snow), Shadow Ball, Will-O-Wisp against physical attackers.
+- **Mega Abomasnow** (Icy Rock, Quiet, 252 HP / 252 SpA, 0 Atk and 0 Spe IV):
+  Icy Rock is on Abomasnow, not Froslass, because the lead is gone in two or
+  three turns. Blizzard, Giga Drain (no Leftovers, so it heals itself), Earth
+  Power, Aurora Veil. 4x weak to Fire.
+- **Mega Crabominable** (Leftovers, Brave, 252 HP / 252 Atk, 0 Spe IV): Bulk
+  Up, with Iron Fist on Ice Hammer and Drain Punch, and snow Defense. Knock
+  Off for Ghost and Psychic.
+- **Mega Baxcalibur** (Loaded Dice, Jolly, Speed 161): Swords Dance, Icicle
+  Spear and Scale Shot (4 to 5 hits), Earthquake. Thermal Exchange stops burns.
+- **Calyrex-Ice** (Life Orb, Brave, 252 HP / 252 Atk, 0 Spe IV): As One
+  (Chilling Neigh). Swords Dance, Glacial Lance, Close Combat and High
+  Horsepower for Steel, Fire, Rock and Poison.
+- **Kyurem-White** (Choice Specs, Timid, Speed 177): Ice Beam, Draco Meteor,
+  Earth Power, Fusion Flare.
+
+**No Trick Room.** Three of the six are fast, and the AI sets Trick Room whenever
+it is slower than the player, which would fire for Calyrex and invert half the
+team. The slow ones run Brave and 0 Spe IV, so if the *player* sets Trick Room
+they move first.
+
+**How to beat it:** Fire, Fighting, Rock and Steel hit every Ice type, and
+Abomasnow takes 4x Fire. The coverage moves (Fusion Flare, Earth Power, Close Combat, Drain Punch)
+punish the usual answers. Fairies are the real wall: only Fusion Flare and
+Earth Power get through. Dragons trade with Kyurem and Baxcalibur, which are
+Dragon too.
+
+**To check when played.** Snow's +50% Defense for Ice types is Gen 9
+behaviour (`B_SNOW_WARNING = GEN_LATEST`); if it's off, the slow trio loses
+its bulk plan.
+
+**Easiest dial:** drop Aurora Veil from Abomasnow and put Kyurem's Specs on
+Life Orb, then shift every level down one. Harder: Light Clay on Froslass in
+place of the Sash.
+
+## Drake: Dragon
+
+**Lead: Mega Feraligatr** (Lum Berry, Dragonize). The first two are Dragon
+Dance setup leads (Feraligatr and Mega Charizard X), then Mega Garchomp Z (the
+fast cleaner), Mega Dragonite (Multiscale), **Eternatus** (54) and **Koraidon**
+(the ace, 55). Four permanent Megas, two legendaries.
+
+```
+Feraligatr-Mega @ Lum Berry
+Ability: Dragonize
+Level: 52
 EVs: 252 Atk / 4 Def / 252 Spe
 Adamant Nature
-- Extreme Speed
-- Outrage
+- Dragon Dance
+- Double-Edge
+- Waterfall
 - Earthquake
-- Fire Punch
+
+Charizard-Mega-X @ Weakness Policy
+Ability: Tough Claws
+Level: 52
+EVs: 252 Atk / 4 Def / 252 Spe
+Adamant Nature
+- Dragon Dance
+- Flare Blitz
+- Dragon Claw
+- Roost
 
 Garchomp-Mega-Z @ Life Orb
 Ability: Levitate
-Level: 54
+Level: 53
 EVs: 4 Atk / 252 SpA / 252 Spe
 Naive Nature
 - Draco Meteor
@@ -714,30 +856,92 @@ Naive Nature
 - Fire Blast
 - Stone Edge
 
-Salamence-Mega @ Heavy-Duty Boots
-Ability: Aerilate
-Level: 55
+Dragonite-Mega @ Heavy-Duty Boots
+Ability: Multiscale
+Level: 53
 EVs: 252 Atk / 4 Def / 252 Spe
 Adamant Nature
 - Dragon Dance
-- Double-Edge
+- Outrage
+- Extreme Speed
 - Earthquake
-- Roost
+
+Eternatus @ Leftovers
+Ability: Pressure
+Level: 54
+EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
+Timid Nature
+- Dynamax Cannon
+- Sludge Bomb
+- Flamethrower
+- Recover
+
+Koraidon @ Choice Band
+Ability: Orichalcum Pulse
+Level: 55
+EVs: 252 Atk / 4 Def / 252 Spe
+Jolly Nature
+- Collision Course
+- Flare Blitz
+- Dragon Claw
+- U-turn
 ```
+
+**Why Koraidon is the ace and not Dragonite.** Dragonite's strength
+(Multiscale and Dragon Dance) is conditional on one hit and one free turn.
+Koraidon needs neither: Orichalcum Pulse brings the sun and boosts its Attack,
+and with a Band it hits for about 410 Attack at 55.
+
+**Win conditions.** (1) A Dragon Dance chain in the front half (Feraligatr,
+Charizard X, Dragonite). (2) The back half is pure frontal damage: Eternatus
+and Koraidon, which a Haze or Roar doesn't answer.
+
+- **Mega Feraligatr** (Lum Berry, Adamant, Speed 135): Dragonize turns Double-
+  Edge into a Dragon STAB. Waterfall and Earthquake for Fire, Ground, Steel.
+  Lum Berry for the status a slow setup lead draws. It leads because
+  Koraidon's sun halves Water.
+- **Mega Charizard X** (Weakness Policy, Adamant): Tough Claws boosts Flare
+  Blitz and Dragon Claw (both contact). A Rock, Ground or Fairy hit turns
+  into +2/+2. The swingiest item here: Leftovers is the safe swap.
+- **Mega Garchomp Z** (Life Orb, Naive, 252 SpA, Speed 235): Draco Meteor, Fire
+  Blast, Earthquake and Stone Edge.
+- **Mega Dragonite** (Heavy-Duty Boots, Adamant): Dragon Dance, Outrage, Extreme
+  Speed (the team's priority), Earthquake. Boots keep Multiscale through
+  Stealth Rock.
+- **Eternatus** (Leftovers, Timid, 0 Atk IV, Speed 215): Dynamax Cannon (a plain
+  100 BP Dragon move here), Sludge Bomb for Fairy, Flamethrower, Recover.
+- **Koraidon** (Choice Band, Jolly, Speed 225): Collision Course, Flare Blitz,
+  Dragon Claw, U-turn as the exit from the Band lock.
+
+**Coverage.** Dragon moves are walled by Steel and immune on Fairy. Fairy: Flare
+Blitz (Charizard, Koraidon), Sludge Bomb (Eternatus), Fire Blast (Garchomp).
+Steel: Earthquake (three Pokémon) and every Fire move. Ice and Dragon, the real
+Dragon weaknesses, are covered by Rock, Ground and Fire coverage and Extreme
+Speed.
+
+**How to beat it:** Fairies and Ice into the front four (Charizard X's Policy
+turns a Fairy hit into +2/+2). Ice into Dragonite only works while Multiscale
+is down. Haze, Roar, Whirlwind and Unaware answer the three Dragon Dance
+users and do nothing to Eternatus or Koraidon, which is the point.
+
+**Easiest dial:** Koraidon's Choice Band to Sitrus Berry, or its level (55 to
+54). Alternatively give Charizard Leftovers in place of the Policy.
 
 ---
 
 # New Mauville (admins level 60, leaders level 65)
 
 Six teams in `src/data/trainers.party` (`TRAINER_NEW_MAUVILLE_*`, 978-983),
-answering `storyline.md`, "Still to decide" #4. Same rules table as above:
-every species and item is sold by the shop by gauntlet 8 (checked against
-`src/facility_shop.c`; the Mega Stones are Cameruptite, Houndoominite,
-Sharpedonite and Swampertite), item clause per team, every move checked
-against the expansion's learnsets, no OHKO, no evasion, no sleep. AI as the
-Elite Four: omniscient, proactive switching. All singles. The Primals are
-the one exception to the shop rule: Groudon and Kyogre aren't sold, because
-Scott lent them.
+answering `storyline.md`, "Still to decide" #4. Same rules table as above
+for the four admins: every species and item is sold by the shop by gauntlet 8
+(checked against `src/facility_shop.c`; the Mega Stones are Cameruptite,
+Houndoominite, Sharpedonite and Swampertite), item clause per team, every move
+checked against the expansion's learnsets, no OHKO, no evasion, no sleep. AI as
+the Elite Four: omniscient, proactive switching. All singles. **Maxie and
+Archie were rewritten on 2026-10-15** and, like the Elite Four, no longer
+follow the shop rule: each has a permanent Primal (which Scott lent), three or
+four permanent Megas and a legendary.
 
 **Levels.** The four admins are level 60, five over the top of the Elite
 Four (52-55): the siphon lifted every chipped Pokémon to 60 (the level of
@@ -753,10 +957,11 @@ a full heal after every fight: Tabitha, Courtney, **Maxie**, then Matt, Shelly,
 heal, and a loss repeated both; the owner's playthrough found that a cliff.
 
 **Megas.** Each admin has **one normal Mega**, holding its stone and Mega
-Evolving in battle (like the Brains). Maxie and Archie have **no Mega**: each
-has a permanent Primal, listed directly in Primal form (`Groudon-Primal`,
-`Kyogre-Primal`) holding Leftovers, so it doesn't revert on switching or
-fainting and Desolate Land or Primordial Sea starts the battle.
+Evolving in battle (like the Brains). Maxie and Archie have **permanent
+Megas** instead, listed already in Mega form holding a real item (Maxie three,
+Archie four), plus a permanent Primal, listed directly in Primal form
+(`Groudon-Primal`, `Kyogre-Primal`) holding Leftovers, so it doesn't revert on
+switching or fainting and Desolate Land or Primordial Sea starts the battle.
 
 | Trainer | Theme | Mega | Level |
 |---|---|---|---|
@@ -764,8 +969,8 @@ fainting and Desolate Land or Primordial Sea starts the battle.
 | Courtney | Magma: Fire, Rock, Ground, Dark | Mega Houndoom | 60 |
 | Matt | Aqua: Water, Dark, Ice | Mega Sharpedo | 60 |
 | Shelly | Aqua: Water, Dark, Ground | Mega Swampert | 60 |
-| Maxie | Sun, built around Primal Groudon | none | 65 |
-| Archie | Rain, built around Primal Kyogre | none | 65 |
+| Maxie | Sun, built around Primal Groudon | Permanent: Charizard Y, Heatran, Blaziken | 65 |
+| Archie | Rain, built around Primal Kyogre | Permanent: Golisopod, Swampert, Starmie, Greninja | 65 |
 
 ## Tabitha: Magma, Fire and Ground
 
@@ -1056,55 +1261,38 @@ rain boosts Water and halves Fire, so remove Politoed before it sets up.
 
 ## Maxie: sun, Primal Groudon at level 65
 
-Maxie holds Magma's last stretch, after Tabitha and Courtney, and the coil
-heals the party after him like after any admin. **Primal Groudon leads.**
-Desolate Land makes harsh sunlight, and when Groudon leaves or faints, Torkoal's
-Drought resumes ordinary sun. Venusaur and Charizard are the sun sweepers,
-Volcarona and Heatran the Fire attackers. No Mega: Groudon-Primal is the ace.
+**Rewritten 2026-10-15** (the owner's roster; no shop-pool rule). Maxie holds
+Magma's last stretch, after Tabitha and Courtney, and the coil heals the party
+after him like after any admin. **Primal Groudon leads.** Desolate Land makes
+harsh sunlight and Water moves fail outright. Three **permanent Megas**: Mega
+Charizard Y (Drought, the sun backup), Mega Heatran (Air Balloon) and Mega
+Blaziken (Focus Sash, Speed Boost). Reshiram and Ho-Oh are the legendaries.
+Groudon holds Leftovers, not the Red Orb, because it's listed directly as
+`Groudon-Primal`.
 
 ```
 Groudon-Primal @ Leftovers
 Ability: Desolate Land
 Level: 65
 EVs: 252 HP / 252 Atk / 4 SpD
-Adamant Nature
+Brave Nature
+IVs: 0 Spe
 - Swords Dance
-- Precipice Blades
+- Earthquake
 - Fire Punch
 - Stone Edge
 
-Torkoal @ Heat Rock
+Charizard-Mega-Y @ Life Orb
 Ability: Drought
 Level: 65
-EVs: 252 HP / 252 Def / 4 SpA
-Bold Nature
-IVs: 0 Atk
-- Stealth Rock
-- Lava Plume
-- Earth Power
-- Rapid Spin
-
-Venusaur @ Black Sludge
-Ability: Chlorophyll
-Level: 65
-EVs: 4 HP / 252 SpA / 252 Spe
+EVs: 4 Def / 252 SpA / 252 Spe
 Timid Nature
-- Growth
-- Giga Drain
-- Sludge Bomb
-- Earth Power
+- Fire Blast
+- Solar Beam
+- Focus Blast
+- Roost
 
-Volcarona @ Heavy-Duty Boots
-Ability: Flame Body
-Level: 65
-EVs: 252 HP / 4 SpA / 252 Spe
-Timid Nature
-- Quiver Dance
-- Fiery Dance
-- Bug Buzz
-- Morning Sun
-
-Heatran @ Air Balloon
+Heatran-Mega @ Air Balloon
 Ability: Flash Fire
 Level: 65
 EVs: 252 HP / 252 SpA / 4 SpD
@@ -1112,34 +1300,95 @@ Modest Nature
 - Magma Storm
 - Earth Power
 - Flash Cannon
-- Taunt
+- Dark Pulse
 
-Charizard @ Choice Specs
-Ability: Solar Power
+Reshiram @ Assault Vest
+Ability: Turboblaze
 Level: 65
-EVs: 4 Def / 252 SpA / 252 Spe
-Timid Nature
-- Fire Blast
-- Air Slash
-- Focus Blast
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Blue Flare
+- Draco Meteor
+- Earth Power
 - Solar Beam
+
+Blaziken-Mega @ Focus Sash
+Ability: Speed Boost
+Level: 65
+EVs: 4 HP / 252 Atk / 252 Spe
+Jolly Nature
+- Swords Dance
+- Flare Blitz
+- Close Combat
+- Thunder Punch
+
+Ho-Oh @ Heavy-Duty Boots
+Ability: Regenerator
+Level: 65
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+- Sacred Fire
+- Brave Bird
+- Earthquake
+- Recover
 ```
 
-*(Primal Groudon holds Leftovers, not the Red Orb, because the Red Orb isn't
-sold. Listed as Groudon-Primal, it needs no orb to be Primal.)*
+**The weather war.** The player knows Maxie leads Groudon, so the obvious
+answer is to lead their own Primal Kyogre. Switch-in abilities resolve
+fastest-first, so the slowest Primal on the field keeps the weather.
+Groudon is built **slow** on purpose: Brave and a 0 Spe IV with no Speed EVs
+make Speed 109 at level 65, below any plausible level-60 Kyogre-Primal. Its
+Desolate Land lands last and Kyogre's Water moves fail from turn one. Groudon
+wins on bulk (266 HP, 274 Def, Leftovers). **Untested**: a headless lead
+against a lead is one run.
 
-**How to beat it:** Desolate Land makes Water moves fail outright, so use
-Grass, Ice and Steel. Take Groudon out before it sets up Swords Dance.
-Once it's gone, Torkoal's Drought keeps the sun going and Venusaur
-Chlorophyll sweeps.
+**Win conditions.** (1) Groudon under Desolate Land: Swords Dance (330 Atk),
+then Earthquake, Stone Edge and Fire Punch. Its 4x Water weakness is hidden
+while the sun holds. (2) After Groudon falls, Charizard Y's Drought sets
+ordinary sun, but only on switch-in, so if the AI sends Heatran or Blaziken
+first there is no weather until Charizard comes in. Charizard is slot 2.
+Everyone else works without weather.
+
+- **Mega Charizard Y** (Life Orb, Timid, 272 SpA, Speed 196): Fire Blast,
+  Solar Beam (instant in sun), Focus Blast, Roost. No Choice item, because a
+  locked Fire Blast would be wasted under Primordial Sea.
+- **Mega Heatran** (Air Balloon, Modest, 322 SpA, Speed 112): Magma Storm
+  traps. The Balloon covers its 4x Ground weakness until it pops. Earth Power,
+  Flash Cannon and Dark Pulse for Psychic and Ghost.
+- **Reshiram** (Assault Vest, Modest): Blue Flare, Draco Meteor (the Rayquaza
+  and Latios answer), Earth Power, Solar Beam. All four are attacks.
+- **Mega Blaziken** (Focus Sash, Jolly): Speed Boost is permanent, so 215 Speed
+  is 322 after one turn. Swords Dance, Flare Blitz, Close Combat, Thunder
+  Punch for Water and Flying.
+- **Ho-Oh** (Heavy-Duty Boots, Adamant, Regenerator): Sacred Fire, Brave Bird,
+  Earthquake, Recover.
+
+**Counterplay.** *Holding the player's Primal Kyogre* and switching it in
+after Groudon is the real answer: Primordial Sea makes every Fire move fail,
+and Groudon takes 4x Water. The team still has non-Fire damage everywhere
+except Charizard, which has only Focus Blast. *Mega Rayquaza* (Delta Stream)
+lifts the Water ban and exposes Groudon too. Reshiram's Draco Meteor is the
+check. *Cloud Nine or Air Lock* (the player picks abilities) turns both
+Desolate Land's Water block and the sun off: the hardest counter, and no
+moveset fixes it. *Stealth Rock* hits Charizard and Ho-Oh 4x, so Ho-Oh holds
+Boots.
+
+**How to beat it:** Desolate Land makes Water fail, so use Grass, Ice and
+Steel, or bring Kyogre-Primal in late. Take Groudon out before Swords Dance.
+Expect the first four turns to be hard and the fight to ease once Groudon
+falls without Drought.
+
+**Easiest dial:** Groudon's Speed. Adamant with the IV at 31 (Speed 142) lets a
+low-Speed Kyogre land its weather last, and the fight gets much easier. The
+finer dial is Swords Dance (swap for Rock Polish or Fire Blast).
 
 ## Archie: rain, Primal Kyogre at level 65
 
-The mirror of Maxie, fought alone at the generator after Matt and Shelly.
-**Primal Kyogre leads**, and Primordial Sea makes heavy
-rain (Fire moves fail outright). Pelipper's Drizzle takes over once Kyogre is
-gone. Kingdra, Barraskewda and Ludicolo all have Swift Swim; Zapdos's Thunder
-never misses in rain. No Mega.
+**Rewritten 2026-10-15.** The mirror of Maxie, fought alone at the generator
+after Matt and Shelly. **Primal Kyogre leads**, and Primordial Sea makes heavy
+rain (Fire moves fail outright). Four **permanent Megas**: Golisopod (Assault
+Vest), Swampert (Choice Band, Swift Swim), Starmie (Choice Scarf) and Greninja
+(Life Orb). Lugia (Multiscale, Boots) is the anchor.
 
 ```
 Kyogre-Primal @ Leftovers
@@ -1152,95 +1401,159 @@ Modest Nature
 - Ice Beam
 - Calm Mind
 
-Pelipper @ Damp Rock
-Ability: Drizzle
+Golisopod-Mega @ Assault Vest
+Ability: Tough Claws
 Level: 65
-EVs: 252 HP / 252 Def / 4 SpA
-Bold Nature
-- Hurricane
-- Scald
-- U-turn
-- Roost
-
-Kingdra @ Choice Specs
-Ability: Swift Swim
-Level: 65
-EVs: 4 HP / 252 SpA / 252 Spe
-Modest Nature
-- Hydro Pump
-- Draco Meteor
-- Ice Beam
-- Flip Turn
-
-Barraskewda @ Choice Band
-Ability: Swift Swim
-Level: 65
-EVs: 252 Atk / 4 Def / 252 Spe
+EVs: 252 HP / 252 Atk / 4 Def
 Adamant Nature
+- First Impression
 - Liquidation
-- Close Combat
-- Flip Turn
-- Psychic Fangs
+- Leech Life
+- Knock Off
 
-Ludicolo @ Life Orb
+Swampert-Mega @ Choice Band
 Ability: Swift Swim
 Level: 65
-EVs: 4 HP / 252 SpA / 252 Spe
-Modest Nature
-- Hydro Pump
-- Giga Drain
-- Ice Beam
-- Focus Blast
+EVs: 4 HP / 252 Atk / 252 Spe
+Adamant Nature
+- Waterfall
+- Earthquake
+- Ice Punch
+- Knock Off
 
-Zapdos @ Heavy-Duty Boots
-Ability: Pressure
+Starmie-Mega @ Choice Scarf
+Ability: Huge Power
+Level: 65
+EVs: 252 Atk / 4 SpA / 252 Spe
+Naive Nature
+- Liquidation
+- Zen Headbutt
+- Ice Beam
+- Thunderbolt
+
+Greninja-Mega @ Life Orb
+Ability: Protean
+Level: 65
+EVs: 4 HP / 252 SpA / 252 Spe
+Timid Nature
+- Surf
+- Dark Pulse
+- Ice Beam
+- Grass Knot
+
+Lugia @ Heavy-Duty Boots
+Ability: Multiscale
 Level: 65
 EVs: 252 HP / 252 SpA / 4 SpD
 Modest Nature
-- Thunder
-- Hurricane
-- Heat Wave
+- Aeroblast
+- Psychic
+- Calm Mind
 - Roost
 ```
 
+**Win conditions.** (1) The rain snowball: Kyogre's Calm Mind, then Swampert at
+314 Speed in rain. (2) Two weather-proof stat checks: Mega Starmie and Mega
+Greninja outspeed nearly everything and need no rain.
+
+- **Kyogre-Primal** (Leftovers, Modest, 266 HP, 330 SpA, Speed 142): a bulk
+  piece, not a speed piece. Origin Pulse, Thunder (never misses in rain), Ice
+  Beam, Calm Mind.
+- **Mega Golisopod** (Assault Vest, Adamant): Tough Claws boosts every attack.
+  First Impression (priority), Liquidation, Leech Life, Knock Off. Only the
+  Vest protects it, and it is 4x weak to Fire, safe while Primordial Sea holds.
+- **Mega Swampert** (Choice Band, Adamant, 157 Speed, 314 in rain): Waterfall,
+  Earthquake, Ice Punch, Knock Off. Without rain it is merely decent, which
+  is deliberate.
+- **Mega Starmie** (Choice Scarf, Naive, 252 Atk / 4 SpA / 252 Spe): **Huge
+  Power makes it a physical attacker** (392 Atk, Speed 244, 366 with the
+  Scarf). It is mixed for coverage: Liquidation and Zen Headbutt are the
+  STABs, Ice Beam and Thunderbolt hit Grass, Dragon, Flying and Water on the
+  special side.
+- **Mega Greninja** (Life Orb, Timid, Speed 275): Surf, Dark Pulse, Ice Beam,
+  Grass Knot. Protean works once per battle in this repo and Greninja is
+  already Water/Dark, so the single use goes to Ice Beam or Grass Knot. Grass
+  Knot is also a non-Water answer through Desolate Land.
+- **Lugia** (Heavy-Duty Boots, Modest): Multiscale halves the first hit, then
+  Roost. Aeroblast, Psychic, Calm Mind, Roost.
+
+**After Kyogre falls.** The weather is gone (there's no second setter) and Swift
+Swim switches off, so Swampert drops to 157 Speed. Starmie, Greninja, Lugia and
+Golisopod lose only the 1.5x on Water moves.
+
+**Counterplay.** *Primal Groudon* (Desolate Land) shuts down all the Water
+moves, leaves Kyogre only Ice Beam, and exposes Golisopod to Fire. Everyone in
+the back five has a live non-Water move. *A Fire Mega* once the rain is gone
+(Charizard, Blaziken) one-shots Golisopod. *Mega Rayquaza* lifts the rain boost
+but changes little else.
+
 **How to beat it:** Electric and Grass hit the Water types, and Primordial Sea
-blanks Fire. Kyogre's Calm Mind makes it a wall, so pressure it before it
-stacks.
+blanks Fire. Pressure Kyogre before it stacks Calm Mind. Starmie's 392 Attack
+is the highest raw physical number on the field at 65.
+
+**Easiest dial:** Kyogre's Calm Mind slot (Surf instead stops the snowball).
+Second: Swampert's Band to Sitrus Berry, or take the Scarf off Starmie.
 
 ---
 
 ## Open questions for review
 
-1. **Repeats across opponents.** There are only about 30 OU and Uber Pokémon
-   in the pool, so some show up twice. Phoebe now uses Mega Banette and
-   Skeledirge, so Mega Gengar is Lucy's alone. Sidney now uses Weavile, so
-   Kingambit is Anabel's alone. Repeats that remain:
-   - **Mega Salamence:** a normal Mega for Tucker, permanent for Drake.
-     It's the signature Pokémon of both. If you want it on only one, Tucker
-     can take Mega Metagross (National Dex Uber) instead.
-   - **Against Spenser's and Brandon's gauntlet teams:** Chien-Pao (Glacia),
-     Flutter Mane (Phoebe), Great Tusk (Tucker), Iron Hands (Anabel) and
-     Tornadus (Lucy) each also appear on one of those two teams. The player
-     doesn't fight Spenser or Brandon again, so these only repeat against
-     gauntlets 7 and 8.
-2. **A third Mega for the Elite Four?** Permanent Megas don't use up the
-   battle's one Mega Evolution, so each Elite Four member *could* also Mega
-   Evolve a normal Mega mid-battle. These teams don't, to keep to "two per
-   team." It's an easy way to raise the difficulty later.
-3. **Difficulty.** These are full-strength teams with no handicaps. The Elite
-   Four comes before the siphon, so the player has no permanent Megas yet;
-   their only edge is a level 60 legendary from Hoopa, if they caught one.
-   The levels stay at 52–55 for playtesting (your call). They're the
-   simplest dial to turn.
-4. **Engine checks when built:**
-   - Mega Heatran, Mega Magearna, Mega Absol Z, Mega Garchomp Z, Mega
-     Baxcalibur, Mega Froslass and Mega Chandelure are newer Megas (Legends:
-     Z-A and later). Check that each one transforms and that its ability
-     works in a quick battle.
-   - Enemy permanent Megas are tested, but no team has run two yet.
+1. **Repeats across opponents.** The Elite Four, Maxie, Archie and Scott no
+   longer follow the shop pool, so repeats are the owner's picks. Repeats
+   that remain:
+   - **Normal Mega for one trainer, permanent for another:** Mega Gengar
+     (Lucy, Phoebe), Mega Heatran (Anabel, Maxie), Mega Blaziken (Greta,
+     Maxie), Mega Swampert (Shelly, Archie), Mega Sharpedo (Matt, Sidney).
+   - **Same Pokémon, different Mega or no Mega:** Marshadow (Greta, Phoebe),
+     Roaring Moon (Tucker, Sidney), Greninja (Matt, Archie's Mega), Garchomp
+     (Tabitha, Drake's Mega).
+   - **By design:** the Primals (Maxie's and Archie's, which Scott takes back),
+     Mega Darkrai (Sidney's ace, Scott's Factory team), Mega Zygarde
+     (Roxanne, Scott).
+   - Gone: Mega Salamence is Tucker's alone now (Drake no longer has it), and
+     Kingambit is still Anabel's alone.
+   - **Against Spenser's and Brandon's gauntlet teams:** Great Tusk (Tucker),
+     Iron Hands (Anabel) and Tornadus (Lucy) each also appear on one of those
+     two teams. The new rosters add none. The player doesn't fight Spenser or
+     Brandon again, so these only repeat against gauntlets 7 and 8.
+2. **A normal Mega on top?** Resolved as moot for the Elite Four: permanent
+   Megas don't use up the battle's one Mega Evolution, but every non-Mega
+   member (Yveltal, Roaring Moon, Marshadow, Lunala, Calyrex, Kyurem-White,
+   Eternatus, Koraidon) has no Mega form, and the teams already carry three to
+   four permanent Megas.
+3. **Difficulty.** These are full-strength teams with no handicaps, and
+   harder than the old ones: each Elite Four team has two Uber legendaries
+   or a legendary and a Paradox, and Scott's back half is now three tanks and
+   an Ultra, where it was frail. The Elite Four comes before the siphon, so
+   the player has no permanent Megas yet; their only edge is a level 60
+   legendary from Hoopa, if they caught one. Levels stay at 52–55 for
+   playtesting (your call), and each section lists its own easiest dial. The
+   Elite Four's hardest threats: Calyrex-Shadow's Nasty Plot (Phoebe), Kyurem-
+   White (Glacia), Koraidon (Drake), Mega Darkrai (Sidney).
+4. **Engine checks when played:**
+   - **Necrozma-Ultra and Zygarde-Mega listed directly** (Scott). Ultra
+     needs the form-change guard (in progress) and a test; Zygarde-Mega is
+     covered by the permanent-Mega rule but untested directly.
+   - **Megas untested in a trainer team:** Mega Starmie, Golisopod,
+     Greninja, Crabominable, Abomasnow, Feraligatr, Dragonite and Heatran.
+     Check that each transforms, shows its sprite and that its ability works
+     in a quick battle. Mega Magearna, Absol Z, Garchomp Z, Baxcalibur,
+     Froslass and Chandelure are newer Megas (Legends: Z-A and later) that
+     the old teams used, and they were never run either.
+   - **The Calyrex abilities** as `ABILITY_AS_ONE_*` constants: confirm the
+     generated `trainers.h` has them.
+   - **Three to four permanent Megas on one team:** the engine tests cover a
+     single permanent Mega at a time.
+   - **Maxie's weather war** (a slow Groudon-Primal landing Desolate Land
+     last) and Phoebe's Prankster Destiny Bond against a Dark type.
 5. **Trainer IDs:** five new Brain teams plus four Elite Four members makes
    nine, already counted in `storyline.md`'s budget (984 of 1000 with the
    whole endgame).
+6. **Scott's four Sky Pillar entries are identical now** (see "The final
+   battle"). The script still branches on `FLAG_STEVEN_HAS_LATIOS` and
+   `FLAG_DARKRAI_FREED`, and its "one short" Darkrai line no longer fits a
+   six-Pokémon team. The owner decides what to do with the three copies and
+   the lines.
 
 ---
 
@@ -1451,114 +1764,179 @@ Electric type. A Dragon or Fairy takes on Miraidon. Steel types: beware Magnezon
 
 # The final battle
 
-**Built** (`TRAINER_SKY_PILLAR_SCOTT_LATIAS` / `_LATIOS`, 984-985,
-`src/data/trainers.party`). Answers `storyline.md`, "Still to decide" #5
-(Scott's movesets, EVs and items). Scott at the top of Sky Pillar: **level
-100, every Pokémon listed directly in its permanent form** (Mega Rayquaza
-keeps no stone, the Primals hold their orbs), **every one holding a different
-item** (item clause), four attacks each, max EVs in their attacking stat and
-Speed, and **no balance at all.**
+**Built** (`TRAINER_SKY_PILLAR_SCOTT_LATIAS` / `_LATIOS` and
+`_NO_DARKRAI_LATIAS` / `_LATIOS`, `src/data/trainers.party`), **rewritten
+2026-10-15** from the owner's new roster. Never battle-tested or played.
+Answers `storyline.md`, "Still to decide" #5 (Scott's movesets, EVs and items).
+Scott at the top of Sky Pillar: **level 100, every Pokémon listed directly in
+its permanent form** (Mega Rayquaza, Mega Mewtwo Y and Mega Zygarde keep no
+stone, the Primals and Ultra Necrozma no orb or crystal), **every one holding
+a different item** (item clause), four attacks each, max EVs in the attacking
+stat and Speed (or HP in place of Speed on the three slow Pokémon), and **no
+balance at all.**
 
 | Rule | Applied as |
 |---|---|
-| Pool | None. This is Scott's own team, so the shop's pool doesn't apply: legendaries, Primals and Mega Rayquaza |
-| Which Lati | Same logic as the Factory: `FLAG_STEVEN_HAS_LATIOS` set (the player's is a Latios) means Scott has **Latias**, otherwise Latios |
-| Overlap with the Factory | Mewtwo-Mega-Y, the Lati and Darkrai-Mega are the Factory sets unchanged. Gengar, Salamence and Mawile make way for the three legendaries |
-| Order | Rayquaza leads, then Kyogre, Groudon, Mewtwo, the Lati, Darkrai |
-| AI | As the Factory teams (`Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient`), `Music: Intense`, class `Founder`, `Gentleman` standing in for his missing sprite |
+| Pool | None. This is Scott's own team, so the shop's pool doesn't apply: legendaries, Primals, Mega Rayquaza, Mega Zygarde, Ultra Necrozma |
+| Variants | **All four Sky Pillar entries are now the same six Pokémon.** The Latias and Latios entries and the two Bad Dreams entries no longer differ. The Lati and Mega Darkrai live only on the Factory teams (below) |
+| Order | Rayquaza leads, then Kyogre, Groudon, Mewtwo, Zygarde, Necrozma |
+| AI | `Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Omniscient` (no Smart Switching), `Music: Intense`, class `Founder`, `Pic: Founder Scott` |
 | Whiteout | A normal white-out: the player wakes up beside Nurse Joy outside the tower, and the held items come back |
 
-**The weathers fight each other on purpose.** Mega Rayquaza (Delta Stream)
-leads. Kyogre (Primordial Sea) and Groudon (Desolate Land) each overwrite the
-last when they come in, and a Primal's weather also cancels Rayquaza's. His
-own weather cancels his teammates' advantage. It's "raw power, no balance"
-made literal. A balanced team with pivots and speed control beats it.
-
-## Scott: the Latias team (a Latios player)
+## Scott at Sky Pillar
 
 ```
-Rayquaza-Mega @ Choice Band
+Rayquaza-Mega @ Focus Sash
 Ability: Delta Stream
 Level: 100
 EVs: 252 Atk / 4 SpD / 252 Spe
-Adamant Nature
+Jolly Nature
+- Dragon Dance
 - Dragon Ascent
 - Extreme Speed
 - Earthquake
-- Stone Edge
 
-Kyogre-Primal @ Blue Orb
+Kyogre-Primal @ Assault Vest
 Ability: Primordial Sea
 Level: 100
-EVs: 252 SpA / 4 SpD / 252 Spe
+EVs: 252 HP / 252 SpA / 4 SpD
+IVs: 0 Atk
 Modest Nature
 - Water Spout
 - Origin Pulse
 - Ice Beam
 - Thunder
 
-Groudon-Primal @ Red Orb
+Groudon-Primal @ Shuca Berry
 Ability: Desolate Land
 Level: 100
-EVs: 252 Atk / 4 SpD / 252 Spe
+EVs: 252 HP / 252 Atk / 4 SpD
 Adamant Nature
 - Precipice Blades
-- Fire Punch
+- Heat Crash
 - Stone Edge
-- Thunder Punch
+- Swords Dance
 
 Mewtwo-Mega-Y @ Life Orb
 Ability: Insomnia
 Level: 100
 EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
 Timid Nature
 - Psystrike
 - Aura Sphere
 - Ice Beam
-- Fire Blast
-
-Latias-Mega @ Choice Specs
-Ability: Levitate
-Level: 100
-EVs: 252 SpA / 4 SpD / 252 Spe
-Timid Nature
-- Draco Meteor
-- Mist Ball
 - Thunderbolt
-- Ice Beam
 
-Darkrai-Mega @ Black Glasses
-Ability: Bad Dreams
+Zygarde-Mega @ Leftovers
+Ability: Aura Break
+Level: 100
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Core Enforcer
+- Earth Power
+- Sludge Wave
+- Focus Blast
+
+Necrozma-Ultra @ Choice Scarf
+Ability: Neuroforce
 Level: 100
 EVs: 252 SpA / 4 SpD / 252 Spe
+IVs: 0 Atk
 Timid Nature
+- Photon Geyser
 - Dark Pulse
-- Sludge Bomb
-- Focus Blast
-- Ice Beam
+- Flash Cannon
+- Earth Power
 ```
 
-## Scott: the Latios team (a Latias player)
+Items are six different: Focus Sash, Assault Vest, Shuca Berry, Life Orb,
+Leftovers, Choice Scarf.
 
-The same team, with **Latios-Mega** in the fifth slot: Draco Meteor,
-**Psyshock** (instead of Mist Ball), Thunderbolt, Ice Beam, still Choice
-Specs and Timid, as on his Factory team.
+**The slow three absorb, the fast three kill.** Rayquaza (361 Speed), Mewtwo
+(416) and Necrozma (588 with the Scarf) outspeed almost everything a player
+can field. Kyogre, Groudon and Zygarde (216, 216, 236 Speed, uninvested) are
+the stat-check wall: 404, 404 and 636 HP, behind an Assault Vest, a Shuca Berry
+and Leftovers. "No balance" means no pivoting, no hazards, no status, no
+screens, no Pokémon whose job is to be a wall.
 
-## Scott without Darkrai (Bad Dreams)
+**The weathers are a relay, not a clash.** Scott has no Smart Switching, so a
+Primal or Delta Stream Pokémon is always gone before the next one arrives:
+Delta Stream, then rain, then sun, each ending when its holder faints. Two
+weather Pokémon are never out together in singles. (An earlier draft of this
+doc claimed the weathers cancel each other. They only do if the player
+switches.)
 
-A player who freed Darkrai in the optional Bad Dreams event
-(`FLAG_DARKRAI_FREED`, see storyline.md) fights a Scott who has lost it.
-Both level-100 battles then use variants with **Mega Magearna standing in**
-for Mega Darkrai, in Darkrai's slot, and nothing else changed (the owner's
-call: a stand-in, not an empty slot). Magearna is Devon-built, so it needed
-no chip to obey:
-`TRAINER_FACTORY_SCOTT_NO_DARKRAI_LATIAS` / `_LATIOS` in the Pillar Chamber
-(Mewtwo, Lati@s, Magearna @ Wise Glasses, Gengar, Salamence, Mawile) and
-`TRAINER_SKY_PILLAR_SCOTT_NO_DARKRAI_LATIAS` / `_LATIOS` at the top of Sky
-Pillar (Rayquaza, Kyogre, Groudon, Mewtwo, Lati@s, Magearna @ Expert Belt).
+**Win conditions.** (1) The Primals: Kyogre's Water Spout in its own rain does
+about twice an average level-80 bulky Mega's HP, and Groudon's Heat Crash
+about 1.6 times. Each Primal also shuts down a type: Primordial Sea erases the
+player's Fire moves, Desolate Land their Water moves. (2) The fast trio
+finishes the damaged remainder. Every one of the 18 types is hit super
+effectively by at least one move on the team.
+
+- **Mega Rayquaza** (Focus Sash, Jolly, 252 Atk / 4 SpD / 252 Spe, Speed 361):
+  Dragon Dance, Dragon Ascent, Extreme Speed, Earthquake. The Sash guarantees
+  a move. It isn't Choice-locked, because Scott has no Smart Switching. Dragon
+  Dance (541 Speed after one) is the one setup move the AI uses well.
+- **Kyogre-Primal** (Assault Vest, Modest, 0 Atk IV): Water Spout, Origin
+  Pulse (takes over below about 75% HP), Ice Beam, Thunder. No Fire Blast: it
+  fails in Primordial Sea. Atk IV 0 against Foul Play.
+- **Groudon-Primal** (Shuca Berry, Adamant): Precipice Blades, Heat Crash (120
+  BP only under about 200 kg), Stone Edge, Swords Dance. The Shuca Berry takes
+  the first Ground hit, so in the sun it has no real weakness.
+- **Mewtwo-Mega-Y** (Life Orb, Timid, 0 Atk IV, Speed 416, SpA 535): Psystrike
+  (hits Defense), Aura Sphere (never misses), Ice Beam, Thunderbolt for the
+  Water types that shrug off the rest.
+- **Zygarde-Mega** (Leftovers, Modest, 636 HP, SpA 584): **a special attacker**
+  (216 SpA, 70 Atk), so Thousand Arrows isn't worth a slot. Core Enforcer, Earth
+  Power, Sludge Wave (Fairy and Grass), Focus Blast (its own Ice problem).
+- **Necrozma-Ultra** (Choice Scarf, Timid, 0 Atk IV, Speed 588, SpA 433):
+  Neuroforce (x1.25 on super-effective hits) with four super-effective angles.
+  Photon Geyser is special here (it uses the higher of Atk and SpA) and hits
+  Special Defense, while Psystrike hits Defense. Dark Pulse for the Psychic
+  and Ghost mirrors, Flash Cannon for Fairy, Earth Power for Steel. The Scarf
+  makes it outspeed even a Dragon-Danced Rayquaza and locks it into one move,
+  which a no-switching AI will feel.
+
+**How to beat it:** Scarf or priority on the Sash lead. A Ground-STAB hit into
+Groudon (the Shuca Berry takes the first). An Ice Beam into Zygarde (4x, but
+636 HP survives it, so it trades once). Dark, Bug or Ghost hitters into
+Mewtwo and Necrozma (70 and 97 base Defense). **How it makes them pay:** no
+free turn to set up a stall or a Perish Song, and the bulky trio punishes a
+Pokémon brought to answer one of them.
+
+**Easiest dial:** take the three bulk items off the slow trio (Kyogre's
+Assault Vest to Mystic Water, Groudon's Shuca Berry to Soft Sand, Zygarde's
+Leftovers to Wise Glasses): a stat check becomes a glass-cannon race.
+Harder: Necrozma's Scarf to Life Orb or Expert Belt (it has the lowest
+damage on the team).
+
+**To check when played** (engine): Necrozma-Ultra staying Ultra through a
+faint (a one-line guard is being added to `CanBattlerFormChange`, and a test
+is needed), and Zygarde-Mega listed directly (no test lists it yet).
+
+## The variants (a script question for the owner)
+
+With the Lati and Mega Darkrai gone from the Sky Pillar team, **all four
+Sky Pillar entries are identical.** The Sky Pillar script still branches on
+them: `FLAG_STEVEN_HAS_LATIOS` picks the Latias or Latios entry, and
+`FLAG_DARKRAI_FREED` picks the Bad Dreams one. Scott's "one short" line there
+(`SkyPillar_Top_EventScript_ScottOneShort`) and the Magearna line also still
+describe the old roster. The owner decides: delete three entries and point
+everything at one, or keep the copies and rewrite the lines. Nothing was
+changed in the script.
+
+## The Factory teams (unchanged)
+
+Scott's Pillar Chamber teams after gauntlet 8 are **not rewritten**
+(`TRAINER_FACTORY_SCOTT_LATIAS` / `_LATIOS` and `_NO_DARKRAI_*`): Mega Mewtwo
+Y, Mega Latias or Latios (by `FLAG_STEVEN_HAS_LATIOS`), Mega Darkrai, Mega
+Gengar, Mega Salamence and Mega Mawile. A player who freed Darkrai in Bad
+Dreams (`FLAG_DARKRAI_FREED`) fights a Scott with **Mega Magearna standing in**
+for Darkrai, in Darkrai's slot, and nothing else changed:
 
 ```
-Magearna-Mega @ Expert Belt   (Wise Glasses on the Factory team)
+Magearna-Mega @ Wise Glasses
 Ability: Soul-Heart
 Level: 100
 EVs: 252 SpA / 4 SpD / 252 Spe
@@ -1570,8 +1948,5 @@ Modest Nature
 ```
 
 Darkrai hit harder on the Dark side; Magearna trades that for a Steel/Fairy
-body and Soul-Heart snowballing off every faint. A real loss of power, so
-freeing Darkrai still pays, without leaving the slot empty. The Latias/Latios choice
-still follows `FLAG_STEVEN_HAS_LATIOS`, and the rematch after a loss uses the
-same variant. Scott acknowledges it before the Factory battle and in the Sky
-Pillar scene.
+body and Soul-Heart snowballing off every faint. Scott acknowledges the
+missing Darkrai before the Factory battle.

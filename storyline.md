@@ -1073,8 +1073,8 @@ past the ELITE FOUR."
 placed so the player must fight them one at a time: Sidney in the lobby and
 Phoebe on the stairs, Glacia in the 2F hall and Drake on the stairs to 3F.
 Each refuses until the one before is beaten ("We do this the League's way"),
-the player uses the Scrambler before each, and each leaves once beaten. Levels 52–55, two
-permanent Megas each (`endgame-teams.md`); they're not chipped, so they keep
+the player uses the Scrambler before each, and each leaves once beaten. Levels 52–55, three to
+four permanent Megas each plus legendaries (`endgame-teams.md`); they're not chipped, so they keep
 their real levels. **A loss whites out to Rustboro's Pokémon Center**;
 members already beaten stay beaten.
 
@@ -1298,7 +1298,7 @@ He activates the Scrambler. **This is life or death.**
 
 ### The final battle ✅
 
-**Built:** `TRAINER_SKY_PILLAR_SCOTT_LATIAS/_LATIOS`; the two teams are in `endgame-teams.md`, "The final battle". A win sets state 18, Looker and Steven arrest Scott, then `EndgameClear` saves and rolls the credits (no Hall of Fame); the game continues at the Frontier.
+**Built:** `TRAINER_SKY_PILLAR_SCOTT_LATIAS/_LATIOS`; the team is in `endgame-teams.md`, "The final battle". A win sets state 18, Looker and Steven arrest Scott, then `EndgameClear` saves and rolls the credits (no Hall of Fame); the game continues at the Frontier.
 
 **Scott, level 100, every Pokémon permanently transformed, every one holding
 an item, and no balance at all.**
@@ -1309,11 +1309,12 @@ an item, and no balance at all.**
 | Primal Groudon | Desolate Land, taken back from Maxie |
 | Primal Kyogre | Primordial Sea, taken back from Archie |
 | Mega Mewtwo Y | Giovanni's, 194 base Special Attack |
-| Mega Latias or Latios | The one the player left behind |
-| Mega Darkrai | Replaces Mega Kangaskhan (see the first battle) |
+| Mega Zygarde | 216 base Sp. Atk and 636 HP at level 100, Aura Break |
+| Ultra Necrozma | Neuroforce, 167 base Attack and Sp. Atk, a Choice Scarf |
 
-His first team's other three Megas (Gengar, Salamence, Mawile) make way for
-the legendaries.
+The Factory team's Mega Latias or Latios, Mega Darkrai, Mega Gengar, Mega
+Salamence and Mega Mawile make way for the legendaries: the Lati and Darkrai
+stay on the Factory team only.
 
 **Raw power only**, every set four attacks. **His own weathers fight each
 other:** Desolate Land, Primordial Sea and Delta Stream each override the last,
@@ -1507,15 +1508,19 @@ happy ending.
    rematches; Spenser and Brandon aren't rematched). Their Factory lines are
    still placeholders.
 3. ~~The Elite Four's teams~~ ✅ Proposed in `endgame-teams.md` (levels
-   52–55, two permanent Megas each). The Wardens' ambush at Devon is shown,
+   52–55, three to four permanent Megas each plus legendaries, rewritten
+   2026-10-15). The Wardens' ambush at Devon is shown,
    with the fight itself off-screen.
 4. ~~Archie and Maxie's full teams around their permanent Primals~~ ✅
    Built (`endgame-teams.md`, "New Mauville"): level 65, a sun team around
    Primal Groudon and a rain team around Primal Kyogre; the four admins
    (level 60, one normal Mega each) go with them.
 5. ~~Scott's movesets, EVs and items~~ ✅ Built, in `endgame-teams.md` ("The final battle").
-6. ~~Scott's replacement for Mega Kangaskhan~~ ✅ **Mega Darkrai**, on both
-   his teams.
+   The Sky Pillar team was rewritten on 2026-10-15 (Mega Rayquaza, both
+   Primals, Mega Mewtwo Y, Mega Zygarde, Ultra Necrozma); the Factory teams
+   keep their original sets.
+6. ~~Scott's replacement for Mega Kangaskhan~~ ✅ **Mega Darkrai**, on the
+   Factory team only (the Sky Pillar team no longer has it).
 7. How the Arena's sparring works in detail (`frontier-dialogue.md` has the
    spec so far).
 8. ~~Steven's PokéNav~~ Dropped: not a concern (owner's call).
