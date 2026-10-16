@@ -986,7 +986,7 @@ battle opens on Drought or Drizzle and the Primal's weather comes later.
 | Courtney | Magma: Fire, Rock, Ground, Dark | Mega Houndoom | 60 |
 | Matt | Aqua: Water, Dark, Ice | Mega Sharpedo | 60 |
 | Shelly | Aqua: Water, Dark, Ground | Mega Swampert | 60 |
-| Maxie | Sun, Primal Groudon in the back | Permanent: Charizard Y; support: Incineroar, Volcarona, Grimmsnarl | 65 |
+| Maxie | Sun, Primal Groudon in the back | Permanent: Charizard Y; support: Incineroar, Volcarona; Ho-Oh, Reshiram | 65 |
 | Archie | Rain, Primal Kyogre in the back | Permanent: Swampert, Starmie; support: Politoed, Indeedee-F | 65 |
 
 ## Tabitha: Magma, Fire and Ground
@@ -1283,10 +1283,12 @@ stands at the generator beside Archie and is fought first, after all four
 admins; the rival heals the party after him. **Mega Charizard Y and
 Incineroar lead**: Drought sets ordinary sun on turn one and Fake Out buys
 the first Heat Wave. Primal Groudon is in the **back**, slot 6, with no ace
-flag (the owner wants to see how the AI uses it unprompted). Two permanent
-Megas (Charizard Y, Groudon-Primal as the permanent Primal) and, new on
-2026-10-16, two off-theme support pieces: **Volcarona** (Rage Powder) and
-**Grimmsnarl** (Prankster screens, Fake Out). Reshiram is the legendary.
+flag (the owner wants to see how the AI uses it unprompted). One permanent
+Mega (Charizard Y) plus the permanent Primal, one off-theme support piece new
+on 2026-10-16 (**Volcarona**, Rage Powder), and two legendaries, Reshiram and
+Ho-Oh. Grimmsnarl held the sixth slot for a few hours on 2026-10-16; the owner
+swapped it back for Ho-Oh, wanting more brute force now that the player's
+Miraidon and Crowned Zacian are gone.
 Groudon holds Leftovers, not the Red Orb, because it's listed directly as
 `Groudon-Primal`.
 
@@ -1315,7 +1317,7 @@ Adamant Nature
 - Knock Off
 - Parting Shot
 
-Volcarona @ Heavy-Duty Boots
+Volcarona @ Rocky Helmet
 Ability: Flame Body
 Level: 65
 EVs: 252 HP / 252 Def / 4 SpD
@@ -1335,15 +1337,15 @@ Modest Nature
 - Earth Power
 - Solar Beam
 
-Grimmsnarl @ Light Clay
-Ability: Prankster
+Ho-Oh @ Heavy-Duty Boots
+Ability: Regenerator
 Level: 65
-EVs: 252 HP / 4 Def / 252 SpD
-Careful Nature
-- Fake Out
-- Reflect
-- Light Screen
-- Spirit Break
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+- Sacred Fire
+- Brave Bird
+- Tailwind
+- Recover
 
 Groudon-Primal @ Leftovers
 Ability: Desolate Land
@@ -1364,9 +1366,8 @@ blunts the physical side, and Heat Wave in sun with Life Orb hits both foes.
 Parting Shot takes Incineroar out for a second Fake Out later: the AI's
 Fake Out logic fires on the user's first turn after any entry.
 
-**Win conditions.** (1) Sun plus screens: Grimmsnarl (259 HP,
-179 SpD) sets Reflect and Light Screen with priority and Light
-Clay, and every Fire attacker becomes twice as hard to remove. (2) Groudon
+**Win conditions.** (1) Sun plus Tailwind: Ho-Oh sets Tailwind and the
+whole team doubles its Speed for four turns, Groudon included. (2) Groudon
 late: Desolate Land overwrites whatever weather is up when it enters, Water
 moves fail from that turn, and Swords Dance (330 Atk, 266 HP,
 233 Def, Leftovers) runs the endgame. With no ace flag the AI may
@@ -1375,32 +1376,35 @@ no Speed investment) no longer matters for a weather war, because nothing on
 the player's side sets Primordial Sea: the player never has a Kyogre before
 Sky Pillar.
 
-- **Volcarona** (246 HP, 165 Def, Bold, Boots): the
+- **Volcarona** (246 HP, 165 Def, Bold, Rocky Helmet): the
   redirector. Rage Powder pulls single-target attacks off Charizard or
-  Groudon, Flame Body burns whatever touches it, and Morning Sun heals two
-  thirds in sun. Quiver Dance makes it a threat if it is left alone
+  Groudon, Flame Body and the Helmet punish whatever touches it, and Morning
+  Sun heals two thirds in sun. It gave the Boots to Ho-Oh (item clause) and
+  takes half from Stealth Rock, so Morning Sun has to carry it. Quiver Dance makes it a threat if it is left alone
   (200 SpA uninvested). Rage Powder does not affect Grass types,
   Overcoat or Safety Goggles.
 - **Reshiram** (Assault Vest, Modest): Blue Flare, Draco Meteor (the Rayquaza
   and Miraidon answer), Earth Power, Solar Beam. All four are attacks.
-- **Grimmsnarl**: Fake Out, Reflect, Light Screen, Spirit Break. Dark typing
-  echoes Mightyena. A second Fake Out user beside Incineroar.
+- **Ho-Oh** (Heavy-Duty Boots, Adamant, Regenerator): Sacred Fire, Brave
+  Bird, Tailwind, Recover. The brute. Earthquake is gone from the old set
+  because it now hits Incineroar, Reshiram and Groudon; Tailwind took the
+  slot and speeds up the whole team.
 
 **Counterplay.** *Cloud Nine or Air Lock* (the player picks abilities) turns
 the sun off and Solar Beam becomes a two-turn move. *Mega Rayquaza* (Delta
 Stream) does the same to the sun; Reshiram's Draco Meteor is the check.
-*Stealth Rock* hits Charizard and Volcarona 4x, so Volcarona holds Boots and
-Charizard is expected to lead before rocks are up. *Grass types and Safety
-Goggles* ignore Rage Powder. *Taunt* on Grimmsnarl stops the screens.
+*Stealth Rock* hits Charizard, Volcarona and Ho-Oh 4x; Ho-Oh holds the
+Boots, Charizard is expected to lead before rocks are up, and Volcarona has
+Morning Sun. *Grass types and Safety Goggles* ignore Rage Powder. *Rock*
+hits three of the six super-effectively.
 
-**How to beat it:** take Grimmsnarl out before the screens or Taunt it, hit
-Charizard with Rock, and bring Water for Groudon only after Desolate Land
+**How to beat it:** Rock hits Charizard, Volcarona and Ho-Oh 4x, and bring
+Water for Groudon only after Desolate Land
 has been overwritten or Groudon has fallen. Rain setters of the player's own
 (Politoed, Pelipper) win the weather while Groudon is in the back.
 
-**Easiest dial:** Grimmsnarl's Light Clay (Sitrus Berry makes the screens five
-turns). Second: Swords Dance on Groudon (Rock Slide instead). The lead order
-is the owner's choice and stays.
+**Easiest dial:** Ho-Oh's Tailwind (Protect instead). Second: Swords Dance on
+Groudon (Rock Slide instead). The lead order is the owner's choice and stays.
 
 ## Archie: rain, Primal Kyogre at level 65
 

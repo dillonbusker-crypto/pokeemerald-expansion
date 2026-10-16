@@ -25752,7 +25752,7 @@ Adamant Nature
 - Knock Off
 - Parting Shot
 
-Volcarona @ Heavy-Duty Boots
+Volcarona @ Rocky Helmet
 Ability: Flame Body
 Level: 65
 EVs: 252 HP / 252 Def / 4 SpD
@@ -25772,15 +25772,15 @@ Modest Nature
 - Earth Power
 - Solar Beam
 
-Grimmsnarl @ Light Clay
-Ability: Prankster
+Ho-Oh @ Heavy-Duty Boots
+Ability: Regenerator
 Level: 65
-EVs: 252 HP / 4 Def / 252 SpD
-Careful Nature
-- Fake Out
-- Reflect
-- Light Screen
-- Spirit Break
+EVs: 252 HP / 252 Atk / 4 Def
+Adamant Nature
+- Sacred Fire
+- Brave Bird
+- Tailwind
+- Recover
 
 Groudon-Primal @ Leftovers
 Ability: Desolate Land
