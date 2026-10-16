@@ -986,7 +986,7 @@ battle opens on Drought or Drizzle and the Primal's weather comes later.
 | Courtney | Magma: Fire, Rock, Ground, Dark | Mega Houndoom | 60 |
 | Matt | Aqua: Water, Dark, Ice | Mega Sharpedo | 60 |
 | Shelly | Aqua: Water, Dark, Ground | Mega Swampert | 60 |
-| Maxie | Sun, Primal Groudon in the back | Permanent: Charizard Y; support: Incineroar, Volcarona; Ho-Oh, Reshiram | 65 |
+| Maxie | Sun, Primal Groudon in the back | Permanent: Charizard Y, Heatran; support: Volcarona; Ho-Oh, Reshiram | 65 |
 | Archie | Rain, Primal Kyogre in the back | Permanent: Swampert, Starmie; support: Politoed, Indeedee-F | 65 |
 
 ## Tabitha: Magma, Fire and Ground
@@ -1280,15 +1280,16 @@ rain boosts Water and halves Fire, so remove Politoed before it sets up.
 
 **Rewritten 2026-10-16** (the owner's roster; no shop-pool rule). Maxie
 stands at the generator beside Archie and is fought first, after all four
-admins; the rival heals the party after him. **Mega Charizard Y and
-Incineroar lead**: Drought sets ordinary sun on turn one and Fake Out buys
-the first Heat Wave. Primal Groudon is in the **back**, slot 6, with no ace
-flag (the owner wants to see how the AI uses it unprompted). One permanent
-Mega (Charizard Y) plus the permanent Primal, one off-theme support piece new
-on 2026-10-16 (**Volcarona**, Rage Powder), and two legendaries, Reshiram and
-Ho-Oh. Grimmsnarl held the sixth slot for a few hours on 2026-10-16; the owner
-swapped it back for Ho-Oh, wanting more brute force now that the player's
-Miraidon and Crowned Zacian are gone.
+admins; the rival heals the party after him. **Mega Charizard Y and Mega
+Heatran lead**: Drought sets ordinary sun on turn one, Heat Wave hits both
+foes and never touches Heatran, and Flash Fire makes the player's own Fire
+moves feed it. Primal Groudon is in the **back**, slot 6, with no ace flag
+(the owner wants to see how the AI uses it unprompted). Two permanent Megas
+(Charizard Y, Heatran) plus the permanent Primal, one off-theme support piece
+new on 2026-10-16 (**Volcarona**, Rage Powder), and two legendaries, Reshiram
+and Ho-Oh. Grimmsnarl and Incineroar each held a slot for a few hours on
+2026-10-16; the owner swapped them back for Ho-Oh and Heatran, wanting more
+brute force now that the player's Miraidon and Crowned Zacian are gone.
 Groudon holds Leftovers, not the Red Orb, because it's listed directly as
 `Groudon-Primal`.
 
@@ -1307,15 +1308,15 @@ Timid Nature
 - Focus Blast
 - Protect
 
-Incineroar @ Sitrus Berry
-Ability: Intimidate
+Heatran-Mega @ Air Balloon
+Ability: Flash Fire
 Level: 65
-EVs: 252 HP / 252 Atk / 4 SpD
-Adamant Nature
-- Fake Out
-- Flare Blitz
-- Knock Off
-- Parting Shot
+EVs: 252 HP / 252 SpA / 4 SpD
+Modest Nature
+- Magma Storm
+- Earth Power
+- Flash Cannon
+- Dark Pulse
 
 Volcarona @ Rocky Helmet
 Ability: Flame Body
@@ -1360,11 +1361,12 @@ Brave Nature
 
 **The opening.** Charizard Y (272 SpA, Speed 215) is faster than
 anything the player is likely to lead, so Drought lands first and holds unless
-the player brings a setter or Cloud Nine / Air Lock. Incineroar
-(259 HP, 236 Atk) Fakes Out the bigger threat, Intimidate
-blunts the physical side, and Heat Wave in sun with Life Orb hits both foes.
-Parting Shot takes Incineroar out for a second Fake Out later: the AI's
-Fake Out logic fires on the user's first turn after any entry.
+the player brings a setter or Cloud Nine / Air Lock. Heat Wave in sun with
+Life Orb hits both foes. Mega Heatran (Air Balloon, Modest, 322 SpA, Speed
+112) traps with Magma Storm and covers Psychic and Ghost with Flash Cannon and
+Dark Pulse; the Balloon hides its 4x Ground weakness until it pops. Both
+leads take super-effective Water, so a rain lead with a spread Water move is
+the sharpest opening against them.
 
 **Win conditions.** (1) Sun plus Tailwind: Ho-Oh sets Tailwind and the
 whole team doubles its Speed for four turns, Groudon included. (2) Groudon
@@ -1387,8 +1389,8 @@ Sky Pillar.
   and Miraidon answer), Earth Power, Solar Beam. All four are attacks.
 - **Ho-Oh** (Heavy-Duty Boots, Adamant, Regenerator): Sacred Fire, Brave
   Bird, Tailwind, Recover. The brute. Earthquake is gone from the old set
-  because it now hits Incineroar, Reshiram and Groudon; Tailwind took the
-  slot and speeds up the whole team.
+  because it would hit Reshiram, Groudon and a popped-Balloon Heatran;
+  Tailwind took the slot and speeds up the whole team.
 
 **Counterplay.** *Cloud Nine or Air Lock* (the player picks abilities) turns
 the sun off and Solar Beam becomes a two-turn move. *Mega Rayquaza* (Delta
@@ -1547,11 +1549,11 @@ Starmie. Second: Kyogre's Vest to Leftovers (the old set with Calm Mind).
    that remain:
    - **Normal Mega for one trainer, permanent for another:** Mega Gengar
      (Lucy, Phoebe), Mega Swampert (Shelly, Archie), Mega Sharpedo (Matt,
-     Sidney). Mega Heatran, Mega Blaziken and Mega Greninja left Maxie's and
-     Archie's teams on 2026-10-16.
+     Sidney), Mega Heatran (Anabel, Maxie). Mega Blaziken and Mega Greninja
+     left Maxie's and Archie's teams on 2026-10-16.
    - **Same Pokémon, different Mega or no Mega:** Marshadow (Greta, Phoebe),
      Roaring Moon (Tucker, Sidney), Garchomp (Tabitha, Drake's Mega).
-     Indeedee-F and Incineroar also appear on pool trainers' teams.
+     Indeedee-F also appears on pool trainers' teams.
    - **By design:** the Primals (Maxie's and Archie's, which Scott takes back),
      Mega Darkrai (Sidney's ace, Scott's Factory team), Mega Zygarde
      (Roxanne, Scott).
@@ -1580,9 +1582,8 @@ Starmie. Second: Kyogre's Vest to Leftovers (the old set with Calm Mind).
      needs the form-change guard (in progress) and a test; Zygarde-Mega is
      covered by the permanent-Mega rule but untested directly.
    - **Megas untested in a trainer team:** Mega Starmie, Crabominable,
-     Abomasnow, Feraligatr and Dragonite. (Mega Golisopod and Greninja left
-     the teams on 2026-10-16; Mega Heatran remains only as Anabel's in-battle
-     Mega.) Check that each transforms, shows
+     Abomasnow, Feraligatr, Dragonite and Heatran. (Mega Golisopod and
+     Greninja left the teams on 2026-10-16.) Check that each transforms, shows
      its sprite and that its ability works in a quick battle. Mega Magearna, Absol Z, Garchomp Z, Baxcalibur,
      Froslass and Chandelure are newer Megas (Legends: Z-A and later) that
      the old teams used, and they were never run either.
