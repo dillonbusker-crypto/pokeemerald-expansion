@@ -25732,36 +25732,35 @@ Music: Magma
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 
-Groudon-Primal @ Leftovers
-Ability: Desolate Land
-Level: 65
-EVs: 252 HP / 252 Atk / 4 SpD
-IVs: 0 Spe
-Brave Nature
-- Swords Dance
-- Precipice Blades
-- Fire Punch
-- Stone Edge
-
 Charizard-Mega-Y @ Life Orb
 Ability: Drought
 Level: 65
 EVs: 4 Def / 252 SpA / 252 Spe
 Timid Nature
-- Fire Blast
+- Heat Wave
 - Solar Beam
 - Focus Blast
-- Roost
+- Protect
 
-Heatran-Mega @ Air Balloon
-Ability: Flash Fire
+Incineroar @ Sitrus Berry
+Ability: Intimidate
 Level: 65
-EVs: 252 HP / 252 SpA / 4 SpD
-Modest Nature
-- Magma Storm
-- Earth Power
-- Flash Cannon
-- Dark Pulse
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Fake Out
+- Flare Blitz
+- Knock Off
+- Parting Shot
+
+Volcarona @ Heavy-Duty Boots
+Ability: Flame Body
+Level: 65
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Rage Powder
+- Morning Sun
+- Heat Wave
+- Quiver Dance
 
 Reshiram @ Assault Vest
 Ability: Turboblaze
@@ -25773,25 +25772,25 @@ Modest Nature
 - Earth Power
 - Solar Beam
 
-Blaziken-Mega @ Focus Sash
-Ability: Speed Boost
+Grimmsnarl @ Light Clay
+Ability: Prankster
 Level: 65
-EVs: 4 HP / 252 Atk / 252 Spe
-Jolly Nature
-- Swords Dance
-- Flare Blitz
-- Close Combat
-- Thunder Punch
+EVs: 252 HP / 4 Def / 252 SpD
+Careful Nature
+- Fake Out
+- Reflect
+- Light Screen
+- Spirit Break
 
-Ho-Oh @ Heavy-Duty Boots
-Ability: Regenerator
+Groudon-Primal @ Leftovers
+Ability: Desolate Land
 Level: 65
-EVs: 252 HP / 252 Atk / 4 Def
-Adamant Nature
-- Sacred Fire
-- Brave Bird
-- Earthquake
-- Recover
+EVs: 252 HP / 252 Atk / 4 SpD
+Brave Nature
+- Swords Dance
+- Precipice Blades
+- Fire Punch
+- Stone Edge
 
 === TRAINER_NEW_MAUVILLE_ARCHIE ===
 Name: ARCHIE
@@ -25802,25 +25801,15 @@ Music: Aqua
 Double Battle: Yes
 AI: Check Bad Move / Try To Faint / Check Viability / HP Aware / Smart Mon Choices / Smart Switching / Omniscient
 
-Kyogre-Primal @ Leftovers
-Ability: Primordial Sea
+Politoed @ Damp Rock
+Ability: Drizzle
 Level: 65
-EVs: 252 HP / 252 SpA / 4 SpD
-Modest Nature
-- Origin Pulse
-- Thunder
-- Ice Beam
-- Calm Mind
-
-Golisopod-Mega @ Assault Vest
-Ability: Tough Claws
-Level: 65
-EVs: 252 HP / 252 Atk / 4 Def
-Adamant Nature
-- First Impression
-- Liquidation
-- Leech Life
-- Knock Off
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Scald
+- Icy Wind
+- Helping Hand
+- Protect
 
 Swampert-Mega @ Choice Band
 Ability: Swift Swim
@@ -25832,25 +25821,15 @@ Adamant Nature
 - Ice Punch
 - Knock Off
 
-Starmie-Mega @ Choice Scarf
-Ability: Huge Power
+Indeedee-F @ Psychic Seed
+Ability: Psychic Surge
 Level: 65
-EVs: 252 Atk / 4 SpA / 252 Spe
-Naive Nature
-- Liquidation
-- Zen Headbutt
-- Ice Beam
-- Thunderbolt
-
-Greninja-Mega @ Life Orb
-Ability: Protean
-Level: 65
-EVs: 4 HP / 252 SpA / 252 Spe
-Timid Nature
-- Hydro Pump
-- Dark Pulse
-- Ice Beam
-- Grass Knot
+EVs: 252 HP / 4 Def / 252 SpD
+Calm Nature
+- Follow Me
+- Expanding Force
+- Dazzling Gleam
+- Protect
 
 Lugia @ Heavy-Duty Boots
 Ability: Multiscale
@@ -25861,6 +25840,26 @@ Modest Nature
 - Psychic
 - Calm Mind
 - Roost
+
+Starmie-Mega @ Choice Scarf
+Ability: Huge Power
+Level: 65
+EVs: 252 Atk / 4 SpA / 252 Spe
+Naive Nature
+- Liquidation
+- Zen Headbutt
+- Ice Beam
+- Thunderbolt
+
+Kyogre-Primal @ Assault Vest
+Ability: Primordial Sea
+Level: 65
+EVs: 252 HP / 4 Def / 252 SpD
+Calm Nature
+- Origin Pulse
+- Ice Beam
+- Thunder
+- Hydro Pump
 
 /* Ten Gauntlets: endgame part 5, the final battle at SKY PILLAR
  * (storyline.md). SCOTT's two level-100 teams go right after this comment. */

@@ -5,8 +5,9 @@ the Elite Four (`TRAINER_DEVON_*`), New Mauville (`TRAINER_NEW_MAUVILLE_*`),
 the Gym rematches (`TRAINER_ENDGAME_*`) and Scott's final teams
 (`TRAINER_SKY_PILLAR_SCOTT_*`) are in `src/data/trainers.party`. **On
 2026-10-15 the owner replaced the rosters of the Elite Four, Maxie, Archie and
-Scott's Sky Pillar team**; those seven are described below as rewritten, built
-only, not battle-tested. Nothing is tuned by play yet. Answers `storyline.md`,
+Scott's Sky Pillar team, and on 2026-10-16 Maxie and Archie again** (new leads,
+off-theme doubles support, Primals in the back); those seven are described
+below as rewritten, built only, not battle-tested. Nothing is tuned by play yet. Answers `storyline.md`,
 "Still to decide" #2 (the Brains' upgraded teams) and #3 (the Elite Four's
 teams). Team sets are in Pokémon Showdown syntax, like the gauntlet docs.
 
@@ -462,8 +463,7 @@ and species data.
   `Ability: ABILITY_AS_ONE_ICE_RIDER`. trainerproc accepts any text that starts
   with `ABILITY_`.
 - **A permanent Mega has only its Mega ability.** Mega Sharpedo has no Speed
-  Boost (only Strong Jaw), Mega Golisopod has no Emergency Exit (only Tough
-  Claws). None of these sets relies on a lost ability.
+  Boost (only Strong Jaw). None of these sets relies on a lost ability.
 - **Booster Energy works under sand.** `TryBoosterEnergy`
   (`src/battle_hold_effects.c`) only checks for sun. Under sun, Protosynthesis
   comes from the sun and the item stays unused.
@@ -948,9 +948,10 @@ checked against the expansion's learnsets, no OHKO, no evasion, no sleep. AI as
 the Elite Four: omniscient, proactive switching. **The four admins are
 singles. Maxie and Archie are 6v6 doubles** (as of 2026-10-15), fought back to
 back with the rival's heal between. **Maxie and
-Archie were rewritten on 2026-10-15** and, like the Elite Four, no longer
-follow the shop rule: each has a permanent Primal (which Scott lent), three or
-four permanent Megas and a legendary.
+Archie were rewritten on 2026-10-15 and again on 2026-10-16** and, like the
+Elite Four, no longer follow the shop rule: each has a permanent Primal (which
+Scott lent) in the back, permanent Megas, a legendary and one or two off-theme
+doubles support pieces (Fake Out, redirection, screens, terrain).
 
 **Levels.** The four admins are level 60, five over the top of the Elite
 Four (52-55): the siphon lifted every chipped Pokémon to 60 (the level of
@@ -973,10 +974,11 @@ party are what make the pair fair now.
 
 **Megas.** Each admin has **one normal Mega**, holding its stone and Mega
 Evolving in battle (like the Brains). Maxie and Archie have **permanent
-Megas** instead, listed already in Mega form holding a real item (Maxie three,
-Archie four), plus a permanent Primal, listed directly in Primal form
-(`Groudon-Primal`, `Kyogre-Primal`) holding Leftovers, so it doesn't revert on
-switching or fainting and Desolate Land or Primordial Sea starts the battle.
+Megas** instead, listed already in Mega form holding a real item (Maxie one,
+Archie two), plus a permanent Primal, listed directly in Primal form
+(`Groudon-Primal`, `Kyogre-Primal`) holding a real item, so it doesn't revert on
+switching or fainting. Since 2026-10-16 both Primals are in slot 6, so the
+battle opens on Drought or Drizzle and the Primal's weather comes later.
 
 | Trainer | Theme | Mega | Level |
 |---|---|---|---|
@@ -984,8 +986,8 @@ switching or fainting and Desolate Land or Primordial Sea starts the battle.
 | Courtney | Magma: Fire, Rock, Ground, Dark | Mega Houndoom | 60 |
 | Matt | Aqua: Water, Dark, Ice | Mega Sharpedo | 60 |
 | Shelly | Aqua: Water, Dark, Ground | Mega Swampert | 60 |
-| Maxie | Sun, built around Primal Groudon | Permanent: Charizard Y, Heatran, Blaziken | 65 |
-| Archie | Rain, built around Primal Kyogre | Permanent: Golisopod, Swampert, Starmie, Greninja | 65 |
+| Maxie | Sun, Primal Groudon in the back | Permanent: Charizard Y; support: Incineroar, Volcarona, Grimmsnarl | 65 |
+| Archie | Rain, Primal Kyogre in the back | Permanent: Swampert, Starmie; support: Politoed, Indeedee-F | 65 |
 
 ## Tabitha: Magma, Fire and Ground
 
@@ -1276,51 +1278,52 @@ rain boosts Water and halves Fire, so remove Politoed before it sets up.
 
 ## Maxie: sun, Primal Groudon at level 65
 
-**Rewritten 2026-10-15** (the owner's roster; no shop-pool rule). Maxie
+**Rewritten 2026-10-16** (the owner's roster; no shop-pool rule). Maxie
 stands at the generator beside Archie and is fought first, after all four
-admins; the rival heals the party after him. **Primal Groudon leads.** Desolate Land makes
-harsh sunlight and Water moves fail outright. Three **permanent Megas**: Mega
-Charizard Y (Drought, the sun backup), Mega Heatran (Air Balloon) and Mega
-Blaziken (Focus Sash, Speed Boost). Reshiram and Ho-Oh are the legendaries.
+admins; the rival heals the party after him. **Mega Charizard Y and
+Incineroar lead**: Drought sets ordinary sun on turn one and Fake Out buys
+the first Heat Wave. Primal Groudon is in the **back**, slot 6, with no ace
+flag (the owner wants to see how the AI uses it unprompted). Two permanent
+Megas (Charizard Y, Groudon-Primal as the permanent Primal) and, new on
+2026-10-16, two off-theme support pieces: **Volcarona** (Rage Powder) and
+**Grimmsnarl** (Prankster screens, Fake Out). Reshiram is the legendary.
 Groudon holds Leftovers, not the Red Orb, because it's listed directly as
 `Groudon-Primal`.
 
-**Doubles (2026-10-15).** Maxie's fight is a 6v6 double battle, so two of his
-Pokémon are out at once. Precipice Blades hits both foes only, so it never
-harms Heatran or Blaziken beside Groudon. Earthquake is gone from Groudon
-for that reason. Desolate Land still starts the battle.
+**Doubles.** Heat Wave hits both foes and never touches the partner, so
+Charizard and Volcarona can fire it beside anyone. Precipice Blades hits both
+foes only. Earthquake is gone from the team.
 
 ```
-Groudon-Primal @ Leftovers
-Ability: Desolate Land
-Level: 65
-EVs: 252 HP / 252 Atk / 4 SpD
-Brave Nature
-IVs: 0 Spe
-- Swords Dance
-- Precipice Blades
-- Fire Punch
-- Stone Edge
-
 Charizard-Mega-Y @ Life Orb
 Ability: Drought
 Level: 65
 EVs: 4 Def / 252 SpA / 252 Spe
 Timid Nature
-- Fire Blast
+- Heat Wave
 - Solar Beam
 - Focus Blast
-- Roost
+- Protect
 
-Heatran-Mega @ Air Balloon
-Ability: Flash Fire
+Incineroar @ Sitrus Berry
+Ability: Intimidate
 Level: 65
-EVs: 252 HP / 252 SpA / 4 SpD
-Modest Nature
-- Magma Storm
-- Earth Power
-- Flash Cannon
-- Dark Pulse
+EVs: 252 HP / 252 Atk / 4 SpD
+Adamant Nature
+- Fake Out
+- Flare Blitz
+- Knock Off
+- Parting Shot
+
+Volcarona @ Heavy-Duty Boots
+Ability: Flame Body
+Level: 65
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Rage Powder
+- Morning Sun
+- Heat Wave
+- Quiver Dance
 
 Reshiram @ Assault Vest
 Ability: Turboblaze
@@ -1332,113 +1335,114 @@ Modest Nature
 - Earth Power
 - Solar Beam
 
-Blaziken-Mega @ Focus Sash
-Ability: Speed Boost
+Grimmsnarl @ Light Clay
+Ability: Prankster
 Level: 65
-EVs: 4 HP / 252 Atk / 252 Spe
-Jolly Nature
-- Swords Dance
-- Flare Blitz
-- Close Combat
-- Thunder Punch
+EVs: 252 HP / 4 Def / 252 SpD
+Careful Nature
+- Fake Out
+- Reflect
+- Light Screen
+- Spirit Break
 
-Ho-Oh @ Heavy-Duty Boots
-Ability: Regenerator
+Groudon-Primal @ Leftovers
+Ability: Desolate Land
 Level: 65
-EVs: 252 HP / 252 Atk / 4 Def
-Adamant Nature
-- Sacred Fire
-- Brave Bird
-- Earthquake
-- Recover
+EVs: 252 HP / 252 Atk / 4 SpD
+Brave Nature
+- Swords Dance
+- Precipice Blades
+- Fire Punch
+- Stone Edge
 ```
 
-**The weather war.** The player knows Maxie leads Groudon, so the obvious
-answer is to lead their own Primal Kyogre. Switch-in abilities resolve
-fastest-first, so the slowest Primal on the field keeps the weather.
-Groudon is built **slow** on purpose: Brave and a 0 Spe IV with no Speed EVs
-make Speed 109 at level 65, below any plausible level-60 Kyogre-Primal. Its
-Desolate Land lands last and Kyogre's Water moves fail from turn one. Groudon
-wins on bulk (266 HP, 274 Def, Leftovers). **Untested**: a headless lead
-against a lead is one run.
+**The opening.** Charizard Y (272 SpA, Speed 215) is faster than
+anything the player is likely to lead, so Drought lands first and holds unless
+the player brings a setter or Cloud Nine / Air Lock. Incineroar
+(259 HP, 236 Atk) Fakes Out the bigger threat, Intimidate
+blunts the physical side, and Heat Wave in sun with Life Orb hits both foes.
+Parting Shot takes Incineroar out for a second Fake Out later: the AI's
+Fake Out logic fires on the user's first turn after any entry.
 
-**Win conditions.** (1) Groudon under Desolate Land: Swords Dance (330 Atk),
-then Precipice Blades, Stone Edge and Fire Punch. Its 4x Water weakness is hidden
-while the sun holds. (2) After Groudon falls, Charizard Y's Drought sets
-ordinary sun, but only on switch-in, so if the AI sends Heatran or Blaziken
-first there is no weather until Charizard comes in. Charizard is slot 2.
-Everyone else works without weather.
+**Win conditions.** (1) Sun plus screens: Grimmsnarl (259 HP,
+179 SpD) sets Reflect and Light Screen with priority and Light
+Clay, and every Fire attacker becomes twice as hard to remove. (2) Groudon
+late: Desolate Land overwrites whatever weather is up when it enters, Water
+moves fail from that turn, and Swords Dance (330 Atk, 266 HP,
+233 Def, Leftovers) runs the endgame. With no ace flag the AI may
+also bring it in early through Smart Switching. Its Speed (127, Brave,
+no Speed investment) no longer matters for a weather war, because nothing on
+the player's side sets Primordial Sea: the player never has a Kyogre before
+Sky Pillar.
 
-- **Mega Charizard Y** (Life Orb, Timid, 272 SpA, Speed 196): Fire Blast,
-  Solar Beam (instant in sun), Focus Blast, Roost. No Choice item, because a
-  locked Fire Blast would be wasted under Primordial Sea.
-- **Mega Heatran** (Air Balloon, Modest, 322 SpA, Speed 112): Magma Storm
-  traps. The Balloon covers its 4x Ground weakness until it pops. Earth Power,
-  Flash Cannon and Dark Pulse for Psychic and Ghost.
+- **Volcarona** (246 HP, 165 Def, Bold, Boots): the
+  redirector. Rage Powder pulls single-target attacks off Charizard or
+  Groudon, Flame Body burns whatever touches it, and Morning Sun heals two
+  thirds in sun. Quiver Dance makes it a threat if it is left alone
+  (200 SpA uninvested). Rage Powder does not affect Grass types,
+  Overcoat or Safety Goggles.
 - **Reshiram** (Assault Vest, Modest): Blue Flare, Draco Meteor (the Rayquaza
-  and Latios answer), Earth Power, Solar Beam. All four are attacks.
-- **Mega Blaziken** (Focus Sash, Jolly): Speed Boost is permanent, so 215 Speed
-  is 322 after one turn. Swords Dance, Flare Blitz, Close Combat, Thunder
-  Punch for Water and Flying.
-- **Ho-Oh** (Heavy-Duty Boots, Adamant, Regenerator): Sacred Fire, Brave Bird,
-  Earthquake, Recover. Earthquake stays in doubles: Charizard Y and Ho-Oh's
-  other partners are often immune, and the AI discounts a move that would
-  hurt its partner.
+  and Miraidon answer), Earth Power, Solar Beam. All four are attacks.
+- **Grimmsnarl**: Fake Out, Reflect, Light Screen, Spirit Break. Dark typing
+  echoes Mightyena. A second Fake Out user beside Incineroar.
 
-**Counterplay.** *Holding the player's Primal Kyogre* and switching it in
-after Groudon is the real answer: Primordial Sea makes every Fire move fail,
-and Groudon takes 4x Water. The team still has non-Fire damage everywhere
-except Charizard, which has only Focus Blast. *Mega Rayquaza* (Delta Stream)
-lifts the Water ban and exposes Groudon too. Reshiram's Draco Meteor is the
-check. *Cloud Nine or Air Lock* (the player picks abilities) turns both
-Desolate Land's Water block and the sun off: the hardest counter, and no
-moveset fixes it. *Stealth Rock* hits Charizard and Ho-Oh 4x, so Ho-Oh holds
-Boots.
+**Counterplay.** *Cloud Nine or Air Lock* (the player picks abilities) turns
+the sun off and Solar Beam becomes a two-turn move. *Mega Rayquaza* (Delta
+Stream) does the same to the sun; Reshiram's Draco Meteor is the check.
+*Stealth Rock* hits Charizard and Volcarona 4x, so Volcarona holds Boots and
+Charizard is expected to lead before rocks are up. *Grass types and Safety
+Goggles* ignore Rage Powder. *Taunt* on Grimmsnarl stops the screens.
 
-**How to beat it:** Desolate Land makes Water fail, so use Grass, Ice and
-Steel, or bring Kyogre-Primal in late. Take Groudon out before Swords Dance.
-Expect the first four turns to be hard and the fight to ease once Groudon
-falls without Drought.
+**How to beat it:** take Grimmsnarl out before the screens or Taunt it, hit
+Charizard with Rock, and bring Water for Groudon only after Desolate Land
+has been overwritten or Groudon has fallen. Rain setters of the player's own
+(Politoed, Pelipper) win the weather while Groudon is in the back.
 
-**Easiest dial:** Groudon's Speed. Adamant with the IV at 31 (Speed 142) lets a
-low-Speed Kyogre land its weather last, and the fight gets much easier. The
-finer dial is Swords Dance (swap for Rock Polish or Fire Blast).
+**Easiest dial:** Grimmsnarl's Light Clay (Sitrus Berry makes the screens five
+turns). Second: Swords Dance on Groudon (Rock Slide instead). The lead order
+is the owner's choice and stays.
 
 ## Archie: rain, Primal Kyogre at level 65
 
-**Rewritten 2026-10-15.** The mirror of Maxie, fought second at the
+**Rewritten 2026-10-16.** The mirror of Maxie, fought second at the
 generator after the rival's heal, with Maxie already beaten (a loss repeats
-both). **Primal Kyogre leads**, and Primordial Sea makes heavy
-rain (Fire moves fail outright). Four **permanent Megas**: Golisopod (Assault
-Vest), Swampert (Choice Band, Swift Swim), Starmie (Choice Scarf) and Greninja
-(Life Orb). Lugia (Multiscale, Boots) is the anchor.
+both). **Politoed and Mega Swampert lead**: Drizzle sets rain on turn one and
+Swift Swim makes Swampert the fastest thing on the field. Primal Kyogre is in
+the **back**, slot 6, with no ace flag. Two permanent Megas (Swampert,
+Starmie) plus Kyogre-Primal, and one off-theme support piece new on
+2026-10-16: **Indeedee-F** (Psychic Surge, Follow Me). Lugia is the anchor.
 
-**Doubles (2026-10-15).** Archie's fight is a 6v6 double battle. Origin Pulse
-hits both foes without touching his own side (Water Spout would too, but it is
-Scott's, not Archie's), and Primordial Sea still starts the battle. Surf is replaced by Hydro Pump on
-Greninja and Earthquake by High Horsepower on Swampert, because both spreads
-would hit Kyogre or any other partner.
+**Why the rebuild (2026-10-16).** In the owner's playthrough a Miraidon
+one-shot the old Modest Leftovers Kyogre on turn one: Hadron Engine's terrain,
+STAB and the super-effective boost on Electro Drift are too much for a
+five-level lead. Three answers are stacked here. Kyogre now holds an Assault
+Vest and is Calm with full special bulk (266 HP, 301 SpD, and
+259 SpA uninvested); by hand calculation it survives Electro Drift
+from full even inside Electric Terrain, and comfortably once the terrain is
+gone. Indeedee-F's Psychic Surge replaces Electric Terrain on entry, which
+switches off Hadron Engine's boost, and its Follow Me soaks Electro Drift at
+neutral (227 HP, 222 SpD, Psychic Seed on top). Mega Swampert's
+Choice Band High Horsepower is a clean kill on Miraidon, which is weak to
+Ground. These are estimates, not engine runs.
+
+**Doubles.** Origin Pulse hits both foes without touching Archie's side (Water
+Spout would too, but it is Scott's, not Archie's). Hydro Pump replaces Calm
+Mind on Kyogre because the Vest blocks status moves. High Horsepower is
+single-target, so it never hits a partner. Expanding Force becomes a spread
+move in Psychic Terrain. Psychic Terrain also blocks the player's priority
+(Fake Out, Sucker Punch, Grassy Glide, Extreme Speed), which is why Archie
+carries no Fake Out of his own.
 
 ```
-Kyogre-Primal @ Leftovers
-Ability: Primordial Sea
+Politoed @ Damp Rock
+Ability: Drizzle
 Level: 65
-EVs: 252 HP / 252 SpA / 4 SpD
-Modest Nature
-- Origin Pulse
-- Thunder
-- Ice Beam
-- Calm Mind
-
-Golisopod-Mega @ Assault Vest
-Ability: Tough Claws
-Level: 65
-EVs: 252 HP / 252 Atk / 4 Def
-Adamant Nature
-- First Impression
-- Liquidation
-- Leech Life
-- Knock Off
+EVs: 252 HP / 252 Def / 4 SpD
+Bold Nature
+- Scald
+- Icy Wind
+- Helping Hand
+- Protect
 
 Swampert-Mega @ Choice Band
 Ability: Swift Swim
@@ -1450,25 +1454,15 @@ Adamant Nature
 - Ice Punch
 - Knock Off
 
-Starmie-Mega @ Choice Scarf
-Ability: Huge Power
+Indeedee-F @ Psychic Seed
+Ability: Psychic Surge
 Level: 65
-EVs: 252 Atk / 4 SpA / 252 Spe
-Naive Nature
-- Liquidation
-- Zen Headbutt
-- Ice Beam
-- Thunderbolt
-
-Greninja-Mega @ Life Orb
-Ability: Protean
-Level: 65
-EVs: 4 HP / 252 SpA / 252 Spe
-Timid Nature
-- Hydro Pump
-- Dark Pulse
-- Ice Beam
-- Grass Knot
+EVs: 252 HP / 4 Def / 252 SpD
+Calm Nature
+- Follow Me
+- Expanding Force
+- Dazzling Gleam
+- Protect
 
 Lugia @ Heavy-Duty Boots
 Ability: Multiscale
@@ -1479,50 +1473,64 @@ Modest Nature
 - Psychic
 - Calm Mind
 - Roost
+
+Starmie-Mega @ Choice Scarf
+Ability: Huge Power
+Level: 65
+EVs: 252 Atk / 4 SpA / 252 Spe
+Naive Nature
+- Liquidation
+- Zen Headbutt
+- Ice Beam
+- Thunderbolt
+
+Kyogre-Primal @ Assault Vest
+Ability: Primordial Sea
+Level: 65
+EVs: 252 HP / 4 Def / 252 SpD
+Calm Nature
+- Origin Pulse
+- Ice Beam
+- Thunder
+- Hydro Pump
 ```
 
-**Win conditions.** (1) The rain snowball: Kyogre's Calm Mind, then Swampert at
-314 Speed in rain. (2) Two weather-proof stat checks: Mega Starmie and Mega
-Greninja outspeed nearly everything and need no rain.
+**Win conditions.** (1) The rain lead: Politoed (253 HP, 179 Def,
+Damp Rock for eight turns) sets rain and Swampert (157 Speed, doubled in
+rain) hits with a Banded Waterfall or High Horsepower on turn one while
+Politoed Icy Winds or Helping Hands. (2) Kyogre late: Primordial Sea
+overwrites any weather when it enters, Fire fails, and Origin Pulse hits both
+foes under heavy rain. With no ace flag the AI may bring it in earlier through
+Smart Switching. (3) Mega Starmie as the weather-proof stat check.
 
-- **Kyogre-Primal** (Leftovers, Modest, 266 HP, 330 SpA, Speed 142): a bulk
-  piece, not a speed piece. Origin Pulse, Thunder (never misses in rain), Ice
-  Beam, Calm Mind.
-- **Mega Golisopod** (Assault Vest, Adamant): Tough Claws boosts every attack.
-  First Impression (priority), Liquidation, Leech Life, Knock Off. Only the
-  Vest protects it, and it is 4x weak to Fire, safe while Primordial Sea holds.
-- **Mega Swampert** (Choice Band, Adamant, 157 Speed, 314 in rain): Waterfall,
-  High Horsepower, Ice Punch, Knock Off. High Horsepower is a single-target
-  Ground move, so it never hits Kyogre. Without rain it is merely decent, which
-  is deliberate.
-- **Mega Starmie** (Choice Scarf, Naive, 252 Atk / 4 SpA / 252 Spe): **Huge
-  Power makes it a physical attacker** (392 Atk, Speed 244, 366 with the
-  Scarf). It is mixed for coverage: Liquidation and Zen Headbutt are the
-  STABs, Ice Beam and Thunderbolt hit Grass, Dragon, Flying and Water on the
-  special side.
-- **Mega Greninja** (Life Orb, Timid, Speed 275): Hydro Pump, Dark Pulse, Ice Beam,
-  Grass Knot. Hydro Pump is single-target, so it never hits Kyogre. Protean works once per battle in this repo and Greninja is
-  already Water/Dark, so the single use goes to Ice Beam or Grass Knot. Grass
-  Knot is also a non-Water answer through Desolate Land.
+- **Politoed**: Scald, Icy Wind (speed control, both foes), Helping Hand,
+  Protect. The second rain setter: when Kyogre leaves, the heavy rain ends,
+  and Politoed re-entering gives Swampert its rain back.
+- **Mega Swampert** (Choice Band, Adamant): Waterfall, High Horsepower, Ice
+  Punch, Knock Off. Without rain it is merely decent, which is deliberate.
+- **Indeedee-F**: Follow Me, Expanding Force, Dazzling Gleam, Protect. Follow
+  Me has no powder hole (it works on Grass types and Safety Goggles).
 - **Lugia** (Heavy-Duty Boots, Modest): Multiscale halves the first hit, then
-  Roost. Aeroblast, Psychic, Calm Mind, Roost.
-
-**After Kyogre falls.** The weather is gone (there's no second setter) and Swift
-Swim switches off, so Swampert drops to 157 Speed. Starmie, Greninja, Lugia and
-Golisopod lose only the 1.5x on Water moves.
+  Roost. Aeroblast, Psychic (boosted in Psychic Terrain), Calm Mind, Roost.
+- **Mega Starmie** (Choice Scarf, Naive): **Huge Power makes it a physical
+  attacker** (392 Atk, Speed 244, 366 with the Scarf). Liquidation and Zen
+  Headbutt are the STABs, Ice Beam and Thunderbolt the coverage.
+- **Kyogre-Primal** (Assault Vest, Calm): Origin Pulse, Ice Beam, Thunder
+  (never misses in rain), Hydro Pump. A wall with a spread move, not a Calm
+  Mind sweeper any more.
 
 **Counterplay.** *Primal Groudon* (Desolate Land) shuts down all the Water
-moves, leaves Kyogre only Ice Beam, and exposes Golisopod to Fire. Everyone in
-the back five has a live non-Water move. *A Fire Mega* once the rain is gone
-(Charizard, Blaziken) one-shots Golisopod. *Mega Rayquaza* lifts the rain boost
-but changes little else.
+moves and leaves Kyogre Ice Beam and Thunder. *Grass* hits Politoed,
+Swampert (4x) and Kyogre; Indeedee's Follow Me takes single-target Grass
+moves off them. *Mega Rayquaza* lifts the rain boost. *Taunt* on Indeedee
+stops Follow Me. *Spread Electric moves* are not redirected.
 
-**How to beat it:** Electric and Grass hit the Water types, and Primordial Sea
-blanks Fire. Pressure Kyogre before it stacks Calm Mind. Starmie's 392 Attack
-is the highest raw physical number on the field at 65.
+**How to beat it:** remove Indeedee first or Taunt it, then Electric and
+Grass hit the Water types. Starmie's 392 Attack is the highest raw physical
+number on the field at 65.
 
-**Easiest dial:** Kyogre's Calm Mind slot (Surf instead stops the snowball).
-Second: Swampert's Band to Sitrus Berry, or take the Scarf off Starmie.
+**Easiest dial:** Swampert's Band to Sitrus Berry, or take the Scarf off
+Starmie. Second: Kyogre's Vest to Leftovers (the old set with Calm Mind).
 
 ---
 
@@ -1532,11 +1540,12 @@ Second: Swampert's Band to Sitrus Berry, or take the Scarf off Starmie.
    longer follow the shop pool, so repeats are the owner's picks. Repeats
    that remain:
    - **Normal Mega for one trainer, permanent for another:** Mega Gengar
-     (Lucy, Phoebe), Mega Heatran (Anabel, Maxie), Mega Blaziken (Greta,
-     Maxie), Mega Swampert (Shelly, Archie), Mega Sharpedo (Matt, Sidney).
+     (Lucy, Phoebe), Mega Swampert (Shelly, Archie), Mega Sharpedo (Matt,
+     Sidney). Mega Heatran, Mega Blaziken and Mega Greninja left Maxie's and
+     Archie's teams on 2026-10-16.
    - **Same Pokémon, different Mega or no Mega:** Marshadow (Greta, Phoebe),
-     Roaring Moon (Tucker, Sidney), Greninja (Matt, Archie's Mega), Garchomp
-     (Tabitha, Drake's Mega).
+     Roaring Moon (Tucker, Sidney), Garchomp (Tabitha, Drake's Mega).
+     Indeedee-F and Incineroar also appear on pool trainers' teams.
    - **By design:** the Primals (Maxie's and Archie's, which Scott takes back),
      Mega Darkrai (Sidney's ace, Scott's Factory team), Mega Zygarde
      (Roxanne, Scott).
@@ -1564,18 +1573,20 @@ Second: Swampert's Band to Sitrus Berry, or take the Scarf off Starmie.
    - **Necrozma-Ultra and Zygarde-Mega listed directly** (Scott). Ultra
      needs the form-change guard (in progress) and a test; Zygarde-Mega is
      covered by the permanent-Mega rule but untested directly.
-   - **Megas untested in a trainer team:** Mega Starmie, Golisopod,
-     Greninja, Crabominable, Abomasnow, Feraligatr, Dragonite and Heatran.
-     Check that each transforms, shows its sprite and that its ability works
-     in a quick battle. Mega Magearna, Absol Z, Garchomp Z, Baxcalibur,
+   - **Megas untested in a trainer team:** Mega Starmie, Crabominable,
+     Abomasnow, Feraligatr and Dragonite. (Mega Golisopod and Greninja left
+     the teams on 2026-10-16; Mega Heatran remains only as Anabel's in-battle
+     Mega.) Check that each transforms, shows
+     its sprite and that its ability works in a quick battle. Mega Magearna, Absol Z, Garchomp Z, Baxcalibur,
      Froslass and Chandelure are newer Megas (Legends: Z-A and later) that
      the old teams used, and they were never run either.
    - **The Calyrex abilities** as `ABILITY_AS_ONE_*` constants: confirm the
      generated `trainers.h` has them.
    - **Three to four permanent Megas on one team:** the engine tests cover a
      single permanent Mega at a time.
-   - **Maxie's weather war** (a slow Groudon-Primal landing Desolate Land
-     last) and Phoebe's Prankster Destiny Bond against a Dark type.
+   - **The Primals entering from the back** (2026-10-16: no ace flag, so
+     Smart Switching decides when) and Phoebe's Prankster Destiny Bond
+     against a Dark type.
 5. **Trainer IDs:** five new Brain teams plus four Elite Four members makes
    nine, already counted in `storyline.md`'s budget (984 of 1000 with the
    whole endgame).
