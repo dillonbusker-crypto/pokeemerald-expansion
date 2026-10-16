@@ -1039,9 +1039,12 @@ third in `GetHoopaRingsLeft` (`src/facility.c`) when it's built.
 The Hoopa the player freed wants to help **recruit the strongest Pokémon in
 existence** to beat Scott. Optional.
 
-- **Twelve choices:** Miraidon, Xerneas, Yveltal, Zacian, Ho-Oh, Lugia,
-  Reshiram, Zekrom, Solgaleo, Lunala, Necrozma Dusk Mane and Necrozma Dawn
-  Wings. Scott's legendaries (Rayquaza, Groudon, Kyogre, Mewtwo) and the
+- **Eleven choices:** Xerneas, Yveltal, Zacian, Ho-Oh, Lugia, Reshiram,
+  Zekrom, Solgaleo, Lunala, Necrozma Dusk Mane and Necrozma Dawn Wings.
+  **Miraidon was removed on 2026-10-16**: with Choice Specs it one-shot the
+  endgame bosses (Primal Kyogre first), and it is the only pick banned even
+  from Smogon's Ubers. Its Island Cave branches and catch flag stay, so a
+  save that already caught one keeps it. Wattson's rematch still runs one. Scott's legendaries (Rayquaza, Groudon, Kyogre, Mewtwo) and the
   champions' (Dialga, Palkia) aren't on the list.
 - **The cave.** The player is sent through a ring to a cave (one of the Regi
   caves, reused, its legendary sprite chosen by a variable). **Hoopa blocks

@@ -1413,7 +1413,9 @@ Starmie) plus Kyogre-Primal, and one off-theme support piece new on
 2026-10-16: **Indeedee-F** (Psychic Surge, Follow Me). Lugia is the anchor.
 
 **Why the rebuild (2026-10-16).** In the owner's playthrough a Miraidon
-one-shot the old Modest Leftovers Kyogre on turn one: Hadron Engine's terrain,
+(Hoopa's, level 60, with Choice Specs) one-shot the old Modest Leftovers Kyogre
+on turn one. Miraidon was removed from Hoopa's list the same day, but the
+answers stay: Zekrom and a shop Zeraora hit the same weakness. Hadron Engine's terrain,
 STAB and the super-effective boost on Electro Drift are too much for a
 five-level lead. Three answers are stacked here. Kyogre now holds an Assault
 Vest and is Calm with full special bulk (266 HP, 301 SpD, and

@@ -1050,7 +1050,9 @@ BattleFrontier_BattleArenaLobby_EventScript_Hoopa::
 	msgbox BattleFrontier_BattleArenaLobby_Text_HoopaOffer, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_BattleArenaLobby_EventScript_HoopaEnd
 	msgbox BattleFrontier_BattleArenaLobby_Text_HoopaWhichOne, MSGBOX_DEFAULT
-	call_if_unset FLAG_HOOPA_CAUGHT_MIRAIDON, BattleFrontier_BattleArenaLobby_EventScript_PushMiraidon
+	@ Eleven choices. MIRAIDON was removed 2026-10-16 (Choice Specs Miraidon
+	@ one-shot the endgame bosses); its cave branches and catch flag stay in
+	@ IslandCave so a save that already caught one is unaffected.
 	call_if_unset FLAG_HOOPA_CAUGHT_XERNEAS, BattleFrontier_BattleArenaLobby_EventScript_PushXerneas
 	call_if_unset FLAG_HOOPA_CAUGHT_YVELTAL, BattleFrontier_BattleArenaLobby_EventScript_PushYveltal
 	call_if_unset FLAG_HOOPA_CAUGHT_ZACIAN, BattleFrontier_BattleArenaLobby_EventScript_PushZacian
@@ -1065,7 +1067,6 @@ BattleFrontier_BattleArenaLobby_EventScript_Hoopa::
 	dynmultipush BattleFrontier_BattleArenaLobby_Text_HoopaCancel, MULTI_B_PRESSED
 	dynmultistack 0, 0, FALSE, 6, FALSE, 0, DYN_MULTICHOICE_CB_NONE
 	switch VAR_RESULT
-	case SPECIES_MIRAIDON, BattleFrontier_BattleArenaLobby_EventScript_RingMiraidon
 	case SPECIES_XERNEAS, BattleFrontier_BattleArenaLobby_EventScript_RingXerneas
 	case SPECIES_YVELTAL, BattleFrontier_BattleArenaLobby_EventScript_RingYveltal
 	case SPECIES_ZACIAN, BattleFrontier_BattleArenaLobby_EventScript_RingZacian
@@ -1106,10 +1107,6 @@ BattleFrontier_BattleArenaLobby_EventScript_OpenRing::
 	waitstate
 	release
 	end
-
-BattleFrontier_BattleArenaLobby_EventScript_PushMiraidon::
-	dynmultipush BattleFrontier_BattleArenaLobby_Text_Miraidon, SPECIES_MIRAIDON
-	return
 
 BattleFrontier_BattleArenaLobby_EventScript_PushXerneas::
 	dynmultipush BattleFrontier_BattleArenaLobby_Text_Xerneas, SPECIES_XERNEAS
@@ -1155,10 +1152,6 @@ BattleFrontier_BattleArenaLobby_EventScript_PushNecrozmaDawnWings::
 	dynmultipush BattleFrontier_BattleArenaLobby_Text_NecrozmaDawnWings, SPECIES_NECROZMA_DAWN_WINGS
 	return
 
-BattleFrontier_BattleArenaLobby_EventScript_RingMiraidon::
-	setvar VAR_HOOPA_TARGET, SPECIES_MIRAIDON
-	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
-
 BattleFrontier_BattleArenaLobby_EventScript_RingXerneas::
 	setvar VAR_HOOPA_TARGET, SPECIES_XERNEAS
 	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
@@ -1202,9 +1195,6 @@ BattleFrontier_BattleArenaLobby_EventScript_RingNecrozmaDuskMane::
 BattleFrontier_BattleArenaLobby_EventScript_RingNecrozmaDawnWings::
 	setvar VAR_HOOPA_TARGET, SPECIES_NECROZMA_DAWN_WINGS
 	goto BattleFrontier_BattleArenaLobby_EventScript_OpenRing
-
-BattleFrontier_BattleArenaLobby_Text_Miraidon:
-	.string "MIRAIDON$"
 
 BattleFrontier_BattleArenaLobby_Text_Xerneas:
 	.string "XERNEAS$"

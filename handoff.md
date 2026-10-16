@@ -128,7 +128,7 @@ scripts: 1 gauntlet 8 cleared ... 7 sent to Rustboro).
 | Cells free Mom, Dad, the Broker, Hoopa | Factory B1F |
 | Scott's no-white-out battle (`B_FLAG_NO_WHITEOUT`), level 100, Mega Darkrai | Factory B3F |
 | The Arena base: free shop (`FLAG_FRONTIER_SHOP_FREE`), 99 Ultra Balls, Steven | Outside East, Exchange Service Corner |
-| Hoopa's rings: twelve box-art legendaries, Island Cave, level 60, unchipped | Arena lobby, Island Cave |
+| Hoopa's rings: eleven box-art legendaries (Miraidon removed 2026-10-16), Island Cave, level 60, unchipped | Arena lobby, Island Cave |
 | Gossip: SIEGE, AFTERMATH, DEVON beats | `GetStoryGossipStage` |
 | The Frontier's ABRA, now in the Pokémon Center | Pokémon Center 1F |
 
