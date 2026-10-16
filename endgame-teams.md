@@ -1472,7 +1472,7 @@ Calm Nature
 - Dazzling Gleam
 - Protect
 
-Lugia @ Heavy-Duty Boots
+Lugia @ Leftovers
 Ability: Multiscale
 Level: 65
 EVs: 252 HP / 252 SpA / 4 SpD
@@ -1518,8 +1518,11 @@ Smart Switching. (3) Mega Starmie as the weather-proof stat check.
   Punch, Knock Off. Without rain it is merely decent, which is deliberate.
 - **Indeedee-F**: Follow Me, Expanding Force, Dazzling Gleam, Protect. Follow
   Me has no powder hole (it works on Grass types and Safety Goggles).
-- **Lugia** (Heavy-Duty Boots, Modest): Multiscale halves the first hit, then
-  Roost. Aeroblast, Psychic (boosted in Psychic Terrain), Calm Mind, Roost.
+- **Lugia** (Leftovers, Modest): Multiscale halves the first hit, then Roost
+  and Leftovers keep it full so Multiscale keeps working. Aeroblast, Psychic
+  (boosted in Psychic Terrain), Calm Mind, Roost. The Boots came off on
+  2026-10-16 (owner's call); Stealth Rock now costs it a quarter and breaks
+  Multiscale on entry, so Roost matters more.
 - **Mega Starmie** (Choice Scarf, Naive): **Huge Power makes it a physical
   attacker** (392 Atk, Speed 244, 366 with the Scarf). Liquidation and Zen
   Headbutt are the STABs, Ice Beam and Thunderbolt the coverage.
