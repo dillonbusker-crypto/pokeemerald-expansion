@@ -237,7 +237,9 @@ IslandCave_EventScript_BattleYveltal::
 	return
 
 IslandCave_EventScript_BattleZacian::
-	setwildbattle SPECIES_ZACIAN, 60, ITEM_RUSTED_SWORD
+	@ No Rusted Sword (removed 2026-10-16 for balance): Hero form, Ubers-legal,
+	@ not Crowned. The sword is sold nowhere, so the player cannot crown it.
+	setwildbattle SPECIES_ZACIAN, 60
 	return
 
 IslandCave_EventScript_BattleHoOh::

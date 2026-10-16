@@ -1050,8 +1050,11 @@ existence** to beat Scott. Optional.
   caves, reused, its legendary sprite chosen by a variable). **Hoopa blocks
   the exit.** Walking into the legendary's overworld sprite starts the battle.
 - **The legendary** is **level 60** and **not chipped**, so it gains
-  Experience. Zacian holds the **Rusted Sword**, so it battles as Crowned
-  Zacian and keeps the sword when caught.
+  Experience. Zacian holds **no Rusted Sword** (removed 2026-10-16 for
+  balance): it is the Hero form, Ubers-legal, and the sword is sold nowhere,
+  so it cannot be crowned. With Miraidon gone, no Hoopa pick is banned from
+  Ubers; the only such Pokémon the player can get is Calyrex-Shadow, just
+  before the final Scott fight.
 - **Knocked out or escaped:** it flees, and the player can come back to try
   again. Only a **catch** uses up Hoopa's ring.
 - **After a catch,** Hoopa takes the player back to the Arena and has to
