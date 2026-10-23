@@ -28,15 +28,22 @@ EverGrandeCity_PokemonLeague_1F_EventScript_Nurse::
 	release
 	end
 
+@ Ten Gauntlets: no POKéMART sells to the player anywhere (the only shop is
+@ the Frontier's). The LEAGUE's counter is closed. The vanilla list below is
+@ unreferenced.
 EverGrandeCity_PokemonLeague_1F_EventScript_Clerk::
 	lock
 	faceplayer
-	message gText_HowMayIServeYou
-	waitmessage
-	pokemart EverGrandeCity_PokemonLeague_1F_Pokemart
-	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	msgbox EverGrandeCity_PokemonLeague_1F_Text_ClerkClosed, MSGBOX_DEFAULT
 	release
 	end
+
+EverGrandeCity_PokemonLeague_1F_Text_ClerkClosed:
+	.string "Welcome… I'm afraid the counter is\n"
+	.string "closed.\p"
+	.string "With the ELITE FOUR gone, the LEAGUE\n"
+	.string "hasn't ordered stock in weeks. I'm\l"
+	.string "only here to mind the register.$"
 
 	.align 2
 EverGrandeCity_PokemonLeague_1F_Pokemart:

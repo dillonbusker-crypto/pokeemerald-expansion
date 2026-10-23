@@ -262,7 +262,10 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
   wins? Should early services have a floor (Second Wind is 150 FP in
   gauntlets 1-2)?
 - **Endgame towns:** the vanilla gifts and services inside open buildings
-  are all off now (2026-10-23; the Mart purchases and the nurses stay).
+  are all off now (2026-10-23; the nurses stay). **No Poké Mart sells to the
+  player anywhere** (2026-10-23): Oldale and the Frontier were bare already;
+  Rustboro, Mauville and the Ever Grande League counter now refuse with a
+  story line per beat. The vanilla item lists stay in the files, unreferenced.
   **Glass doors** (Devon Corp, the Game Corner) warp through
   `TryStartWarpEventScript`, so sealing one would need a check there. Sky
   Pillar still has its cracked floors; the owner wants the climb smooth (no

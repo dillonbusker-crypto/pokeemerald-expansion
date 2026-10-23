@@ -1,15 +1,49 @@
 MauvilleCity_Mart_MapScripts::
 	.byte 0
 
+@ Ten Gauntlets: no POKéMART sells to the player anywhere (the only shop is
+@ the Frontier's). The grunts cleared the shelves; what they left behind is
+@ WATTSON's evidence, then the CENTER's order. The vanilla list is unreferenced.
 MauvilleCity_Mart_EventScript_Clerk::
 	lock
 	faceplayer
-	message gText_HowMayIServeYou
-	waitmessage
-	pokemart MauvilleCity_Mart_Pokemart
-	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_Mart_EventScript_ClerkEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_Mart_EventScript_ClerkFreed
+	msgbox MauvilleCity_Mart_Text_ClerkClearedOut, MSGBOX_DEFAULT
 	release
 	end
+
+MauvilleCity_Mart_EventScript_ClerkFreed::
+	msgbox MauvilleCity_Mart_Text_ClerkEvidence, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_Mart_EventScript_ClerkEnding::
+	msgbox MauvilleCity_Mart_Text_ClerkSpokenFor, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_Mart_Text_ClerkClearedOut:
+	.string "Welcome… I'm sorry, there's nothing\n"
+	.string "to sell you.\p"
+	.string "The grunts cleared every shelf this\n"
+	.string "morning and paid in cash. They said\l"
+	.string "the new order would make it right.$"
+
+MauvilleCity_Mart_Text_ClerkEvidence:
+	.string "Welcome… The grunts left a mountain\n"
+	.string "of stock behind when they ran.\p"
+	.string "It's all evidence now. WATTSON's\n"
+	.string "orders: not a box leaves this shop\l"
+	.string "until he says so.$"
+
+MauvilleCity_Mart_Text_ClerkSpokenFor:
+	.string "Welcome… Full shelves at last, and\n"
+	.string "every box is spoken for.\p"
+	.string "NURSE JOY ordered the lot for the\n"
+	.string "CENTER's reopening. I'm not breaking\l"
+	.string "that order for anyone.$"
 
 	.align 2
 MauvilleCity_Mart_Pokemart:

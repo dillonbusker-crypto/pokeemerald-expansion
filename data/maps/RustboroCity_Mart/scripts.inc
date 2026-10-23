@@ -1,14 +1,38 @@
 RustboroCity_Mart_MapScripts::
 	.byte 0
 
+@ Ten Gauntlets: no POKéMART sells to the player anywhere (the only shop is
+@ the Frontier's). The clerk rations what little comes in to townsfolk, then
+@ the restock is spoken for. The vanilla pokemart lists below are unreferenced.
 RustboroCity_Mart_EventScript_Clerk::
 	lock
 	faceplayer
-	message gText_HowMayIServeYou
-	waitmessage
-	goto_if_unset FLAG_MET_DEVON_EMPLOYEE, RustboroCity_Mart_EventScript_PokemartBasic
-	goto_if_set FLAG_MET_DEVON_EMPLOYEE, RustboroCity_Mart_EventScript_PokemartExpanded
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_Mart_EventScript_ClerkFreed
+	msgbox RustboroCity_Mart_Text_ClerkRationing, MSGBOX_DEFAULT
+	release
 	end
+
+RustboroCity_Mart_EventScript_ClerkFreed::
+	msgbox RustboroCity_Mart_Text_ClerkSpokenFor, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_Mart_Text_ClerkRationing:
+	.string "Welcome… Sorry, I can't sell to you.\p"
+	.string "Not a single delivery since the ELITE\n"
+	.string "FOUR took DEVON. What's left on these\l"
+	.string "shelves is rationed to townsfolk.\p"
+	.string "You're from the FRONTIER, aren't you?\n"
+	.string "Then you've a shop of your own.$"
+
+RustboroCity_Mart_Text_ClerkSpokenFor:
+	.string "Welcome… The trucks are running\n"
+	.string "again, but don't get your hopes up.\p"
+	.string "Every box that comes in is spoken for.\n"
+	.string "NURSE JOY put in the CENTER's first\l"
+	.string "order in years, and I'm filling it\l"
+	.string "before anyone else's.$"
 
 RustboroCity_Mart_EventScript_PokemartBasic::
 	pokemart RustboroCity_Mart_Pokemart_Basic
