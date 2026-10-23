@@ -721,8 +721,8 @@ void SiphonLiftChippedLevels(void)
 
 // Ten Gauntlets: the Chansey's Transfer EXP (storyline.md, Mauville). The
 // supercharged CROWN pours the Experience of every CHANSEY in the Pokemon
-// Centers into one Pokemon: it goes to level 100, once per game
-// (FLAG_CHANSEY_TRANSFER_EXP_USED, set by the script on success).
+// Centers into the chosen Pokemon: it goes to level 100. The script lets the
+// player repeat it for as many Pokemon as they like (Scott's team is six at 100).
 // In: gSpecialVar_0x8004 = party slot. Out: gSpecialVar_Result = 0 done,
 // 1 an Egg, 2 already level 100.
 void TransferExpToLevel100(void)

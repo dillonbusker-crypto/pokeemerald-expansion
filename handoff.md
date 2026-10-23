@@ -33,7 +33,7 @@ them on a screen:
 - **Difficulty** of the Elite Four (52-55, in pairs with the rival's heal
   between the two), the admins (60), Maxie and Archie (65, **doubles since 2026-10-15**, back to back at
   the generator after all four admins, the rival's heal between them) and
-  Scott at 100; and the Chansey's single level-100 transfer. The Elite Four, Maxie,
+  Scott at 100; and the Chansey's level-100 transfers (unlimited since 2026-10-23). The Elite Four, Maxie,
   Archie and Scott were rewritten on 2026-10-15 and are the hardest teams
   in the game on paper: three to four permanent Megas plus legendaries
   each, Calyrex-Shadow with Nasty Plot, Kyurem-White, Koraidon, and a Scott
@@ -79,7 +79,7 @@ them on a screen:
 | Mauville overrun; Wattson, Steven and Wallace; Wattson leads the player down (fade + warp, state 13); respawn at Mauville's Center | `MauvilleCity` |
 | New Mauville: wild encounters off, the door open, exits lead back to Mauville; the four admin gates in order, Tabitha, Courtney, Matt, Shelly (`VAR_NEW_MAUVILLE_ADMINS`, 0-4, **renumbered 2026-10-15**), a coil heal after each; then Maxie and Archie together at the generator (33,5) and (34,5), fought back to back (the x=29 trigger or a talk starts it, **the rival runs in behind the player**, Maxie, the rival's heal, Archie), a loss to either repeats both (`OnTransition` clears Maxie's flag in state 13); **Maxie and Archie are 6v6 doubles now (2026-10-15)**, the four admins stay singles; the Crown supercharged (state 14), the Primals taken back, both leave and the rival too. Rewritten 2026-10-15, **built only** | `NewMauville_Entrance`, `NewMauville_Inside` |
 | The teams leave; Hoopa's third ring; state 15 | `MauvilleCity` |
-| Nurse Joy and the Chansey outside the Arena: `TransferExpToLevel100`, once (`FLAG_CHANSEY_TRANSFER_EXP_USED`) | `BattleFrontier_OutsideEast`, `src/facility.c` |
+| Nurse Joy and the Chansey outside the Arena: `TransferExpToLevel100`, repeatable (unlimited since 2026-10-23; the once-only flag 0x27B is free) | `BattleFrontier_OutsideEast`, `src/facility.c` |
 | Sky Pillar: the allies, the seven Brains' ambush (state 17), Joy by the door as the white-out respawn (`HEAL_LOCATION_SKY_PILLAR_OUTSIDE`), clean floors, no wild Pokémon | `SkyPillar_Outside`, `SkyPillar_1F-5F` |
 | The top: the Master Ball and Rayquaza (`FLAG_SKY_PILLAR_RAYQUAZA_CAUGHT`), the Scrambler, Scott at 100 (Mega Rayquaza, both Primals, Mega Mewtwo Y, Mega Zygarde, Ultra Necrozma; rewritten 2026-10-15), Looker's arrest, state 18, the credits | `SkyPillar_Top`, `EndgameClear` |
 | Gossip: SIPHON, MAUVILLE, MAUVILLE_FREED, SKY_PILLAR, ENDING | `GetStoryGossipStage`, all 12 gossip NPCs |
@@ -152,7 +152,7 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
 | Bad Dreams (the optional Darkrai event, gauntlet 7) | Re-run together on the merged `master`: 29 and 30 green. Scenarios 29 (`harness-badB.c`, the sleepers and Joy, 18/18), 30 (`harness-badC.c`, the Pike, Darkrai, the ball guard, a loss, the win, a gauntlet 6 regression, 9/9) and 24/28 (`harness-badA.c`, Scott's 5-Pokémon teams in both battles). **Not played** |
 | The Oldale Paradox researcher (Booster Energy, one per Paradox species; the shop no longer sells it) | Harness scenario 25, 4/4: a non-Paradox refused, a new species paid, a repeat refused, a second species paid. **Not played** |
 | Parts 3-5 after the merge | Scenarios 22, 23 and 24 re-run on the merged `master`: 10/10, 16/16, 14/14 (scenario 23 predates the 2026-10-15 New Mauville rewrite) |
-| Endgame part 3 (the siphon, the hub, the Chansey) | Harness scenario 22 (`harness-part3.c`), re-run 2026-10-13, 10/10: the keeper's menu, the flags, chips off, the level catch-up (chipped 50s in the party, box 0 and the Day Care to 60 with full HP; an Island Cave 50, a 70 and an Egg untouched), Steven's send-offs, Transfer EXP (Eggs and level 100 refused, once only), every state's cast. **Not played** |
+| Endgame part 3 (the siphon, the hub, the Chansey) | Harness scenario 22 (`harness-part3.c`), re-run 2026-10-13, 10/10: the keeper's menu, the flags, chips off, the level catch-up (chipped 50s in the party, box 0 and the Day Care to 60 with full HP; an Island Cave 50, a 70 and an Egg untouched), Steven's send-offs, Transfer EXP (Eggs and level 100 refused, once only), every state's cast. **Not played**. **Predates 2026-10-23**: Transfer EXP is unlimited now, so its checks 305-307 (`FLAG_CHANSEY_TRANSFER_EXP_USED`, which no longer exists) fail to compile until rewritten: after a success Joy asks "Another one?" (YES picks again, NO ends) |
 | Endgame part 4 (Mauville, New Mauville) | Harness scenario 23 (`harness-part4.c`), re-run 2026-10-13 after the split, 18/18; **predates the 2026-10-15 rewrite (it tests the old order, with Maxie in the corridor, and fails or passes for the wrong reasons)**: Wattson's way in, the five guards in order (Tabitha, Courtney, Maxie, Matt, Shelly), Maxie gone from the corridor and shown at the generator after his win and after a reload, Archie **lost on purpose** (white-out to Mauville's Center, Maxie stays beaten, only Archie reset), Archie won (Maxie fought once, Archie twice), the supercharge, the exit scene, three rings; Primals stayed Primal with their weather. **Not played** |
 | Endgame part 5 (Sky Pillar, the ending) | Harness scenario 24 (`harness-part5.c`), 14/14: the ambush, the bikeless climb of all five floors, Scott **lost on purpose** (white-out to Joy outside, healed, items back, no re-catch), won, Looker, state 18, the credits entered with the continue warp at the Frontier; Mega Rayquaza (no stone) and both Primals kept their forms and abilities. **Not played** |
 | Endgame part 2 (Rustboro) | Harness scenario 21, **19/19 green** before the 2026-10-15 pair rewrite (it **predates the change**: single Elite Four fights, no rival): the ABRA in and out of the Centers, the ambush, the Elite Four in order (out-of-order talks refused), a loss to Glacia whiting out to Rustboro's Center (healed, items back, beaten members stay gone), Stone's scene and the Crown, vanilla 3F events off, Juan, two Hoopa rings, the new gossip beat. **Not played** |
@@ -208,7 +208,7 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
 - **Side quests:** the Oldale Paradox researcher (`OldaleTown_House1`,
   `VAR_PARADOX_SHOWN_LO/HI`) is the first; the owner wants more of these for
   late-game items.
-- **Free flags and vars:** flags 0x286-0x287, 0x289-0x28F;
+- **Free flags and vars:** flags 0x27B, 0x286-0x287, 0x289-0x28F;
   `VAR_UNUSED_0x40FC`-`0x40FF` (0x281-0x285 and 0x40F9-0x40FA are the endgame
   towns'; 0x40F7-0x40F8 are the Paradox researcher's; 0x40FB is
   `VAR_HOOPA_REST_STATE`).

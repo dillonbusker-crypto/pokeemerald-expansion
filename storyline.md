@@ -1239,14 +1239,16 @@ left the city. Wattson thanks them. Hoopa's third ring is ready.
 **Back at the Frontier.** **Nurse Joy** has found a way: the supercharged
 Crown can draw in the Experience of every **Chansey** at the Pokémon Center
 (**Transfer EXP**). A Chansey now sits outside the Arena. The player picks a
-Pokémon, and **it goes to level 100**. Steven waits outside the Arena; when the
+Pokémon, and **it goes to level 100**, for as many Pokémon as they like. Steven waits outside the Arena; when the
 player is ready, the ABRA takes them to Sky Pillar (`FLAG_ABRA_TO_SKY_PILLAR`).
 
 ✅ **Built** (endgame part 3). Joy and the Chansey stand at (41, 32) and (42, 32)
 below the Arena door from state 15 (`FLAG_HIDE_ENDGAME_BASE_JOY`). Talking to
 Joy: explanation, YES/NO, pick a party Pokémon, `TransferExpToLevel100`
-(`src/facility.c`; Eggs and level-100 Pokémon are refused without using it),
-once per game (`FLAG_CHANSEY_TRANSFER_EXP_USED`). Steven (state 15) asks if
+(`src/facility.c`; Eggs and level-100 Pokémon are refused), then "Another
+one?" until the player says no. **Unlimited** since 2026-10-23 (it was once
+per game: Scott's final team is six at level 100, so one Pokémon at 100
+against five at 60 was never a fight). Steven (state 15) asks if
 the player is ready; YES sets `FLAG_ABRA_TO_SKY_PILLAR`, state 16, and Steven,
 Wallace and Dad (`FLAG_HIDE_ENDGAME_BASE_DAD`, hidden in 16-17) fly to Sky
 Pillar. State 18: Steven, Wallace, Dad, Mom, Joy and the Chansey are all out.

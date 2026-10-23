@@ -3551,13 +3551,12 @@ BattleFrontier_OutsideEast_EventScript_BaseDadEnd::
 
 @ ----------------------------------------------------------------------------
 @ Endgame part 3: NURSE JOY and her CHANSEY (state 15 on). JOY explains Transfer
-@ EXP; the player picks one Pokemon and it goes to level 100, once only
-@ (FLAG_CHANSEY_TRANSFER_EXP_USED).
+@ EXP; the player picks a Pokemon and it goes to level 100, as many times as
+@ they like (SCOTT's final team is six at 100).
 @ ----------------------------------------------------------------------------
 BattleFrontier_OutsideEast_EventScript_JoyChansey::
 	lock
 	faceplayer
-	goto_if_set FLAG_CHANSEY_TRANSFER_EXP_USED, BattleFrontier_OutsideEast_EventScript_JoyChanseyUsed
 	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyExplain, MSGBOX_DEFAULT
 	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyAsk, MSGBOX_YESNO
 	goto_if_eq VAR_RESULT, NO, BattleFrontier_OutsideEast_EventScript_JoyChanseyNotNow
@@ -3568,13 +3567,14 @@ BattleFrontier_OutsideEast_EventScript_JoyChanseyPick::
 	special TransferExpToLevel100
 	goto_if_eq VAR_RESULT, 1, BattleFrontier_OutsideEast_EventScript_JoyChanseyEgg
 	goto_if_eq VAR_RESULT, 2, BattleFrontier_OutsideEast_EventScript_JoyChanseyAlready100
-	setflag FLAG_CHANSEY_TRANSFER_EXP_USED
 	bufferpartymonnick STR_VAR_1, VAR_0x8004
 	playfanfare MUS_LEVEL_UP
 	message BattleFrontier_OutsideEast_Text_JoyChanseyGrew
 	waitmessage
 	waitfanfare
 	waitbuttonpress
+	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyAnother, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, BattleFrontier_OutsideEast_EventScript_JoyChanseyPick
 	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyDone, MSGBOX_DEFAULT
 	release
 	end
@@ -3591,11 +3591,6 @@ BattleFrontier_OutsideEast_EventScript_JoyChanseyAlready100::
 
 BattleFrontier_OutsideEast_EventScript_JoyChanseyNotNow::
 	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyNotNow, MSGBOX_DEFAULT
-	release
-	end
-
-BattleFrontier_OutsideEast_EventScript_JoyChanseyUsed::
-	msgbox BattleFrontier_OutsideEast_Text_JoyChanseyUsed, MSGBOX_DEFAULT
 	release
 	end
 
@@ -3817,8 +3812,10 @@ BattleFrontier_OutsideEast_Text_JoyChanseyExplain:
 	.string "HOENN's POKéMON CENTERS.\p"
 	.string "I taught this one a new move:\n"
 	.string "TRANSFER EXP.\p"
-	.string "One POKéMON will rise to level\n"
-	.string "100. Only one, and only once.$"
+	.string "Any POKéMON you bring me will rise\n"
+	.string "to level 100. As many as you need.\p"
+	.string "SCOTT's whole team is at 100. Yours\n"
+	.string "should be too.$"
 
 BattleFrontier_OutsideEast_Text_JoyChanseyAsk:
 	.string "NURSE JOY: Shall we do it now?$"
@@ -3843,16 +3840,13 @@ BattleFrontier_OutsideEast_Text_JoyChanseyGrew:
 	.string "CHANSEY used TRANSFER EXP!\p"
 	.string "{STR_VAR_1} grew to LV. 100!$"
 
-BattleFrontier_OutsideEast_Text_JoyChanseyDone:
-	.string "NURSE JOY: There. CHANSEY and I\n"
-	.string "gave everything we had.\p"
-	.string "Go and put it to good use.$"
+BattleFrontier_OutsideEast_Text_JoyChanseyAnother:
+	.string "NURSE JOY: There! Another one?$"
 
-BattleFrontier_OutsideEast_Text_JoyChanseyUsed:
-	.string "NURSE JOY: CHANSEY is spent. That\n"
-	.string "was all the EXPERIENCE it could\l"
-	.string "give.\p"
-	.string "Go and finish this, {PLAYER}.$"
+BattleFrontier_OutsideEast_Text_JoyChanseyDone:
+	.string "NURSE JOY: Go and put it to good\n"
+	.string "use. We'll be right here if you\l"
+	.string "need us again.$"
 
 BattleFrontier_OutsideEast_Text_ChanseyCry:
 	.string "CHANSEY: Chan! Chansey!$"
