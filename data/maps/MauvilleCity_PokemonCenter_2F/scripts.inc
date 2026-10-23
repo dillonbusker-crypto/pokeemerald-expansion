@@ -18,15 +18,35 @@ MauvilleCity_PokemonCenter_2F_EventScript_RecordCorner::
 	call CableClub_EventScript_RecordCorner
 	end
 
+@ Ten Gauntlets: follows the story (GetStoryGossipStage).
 MauvilleCity_PokemonCenter_2F_EventScript_Youngster::
-	msgbox MauvilleCity_PokemonCenter_2F_Text_Youngster, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_PokemonCenter_2F_EventScript_YoungsterEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_PokemonCenter_2F_EventScript_YoungsterFreed
+	msgbox MauvilleCity_PokemonCenter_2F_Text_YoungsterOccupied, MSGBOX_NPC
 	end
 
-MauvilleCity_PokemonCenter_2F_Text_Youngster:
-	.string "Did you know that you can link battle\n"
-	.string "at the COLOSSEUM here?\p"
-	.string "They put up your record on the wall\n"
-	.string "for everyone to see.\p"
-	.string "It's embarrassing if you lose more\n"
-	.string "often than you win…$"
+MauvilleCity_PokemonCenter_2F_EventScript_YoungsterFreed::
+	msgbox MauvilleCity_PokemonCenter_2F_Text_YoungsterFreed, MSGBOX_NPC
+	end
+
+MauvilleCity_PokemonCenter_2F_EventScript_YoungsterEnding::
+	msgbox MauvilleCity_PokemonCenter_2F_Text_YoungsterEnding, MSGBOX_NPC
+	end
+
+MauvilleCity_PokemonCenter_2F_Text_YoungsterOccupied:
+	.string "Nobody has used the COLOSSEUM since\n"
+	.string "the teams came to town.\p"
+	.string "Even the record on the wall went dark\n"
+	.string "when the lights started to flicker.$"
+
+MauvilleCity_PokemonCenter_2F_Text_YoungsterFreed:
+	.string "The record wall lit up again!\p"
+	.string "My name is on it, in the “lost”\n"
+	.string "column. Better on the wall than off it.$"
+
+MauvilleCity_PokemonCenter_2F_Text_YoungsterEnding:
+	.string "WATTSON posted a notice: free\n"
+	.string "COLOSSEUM day for everyone.\p"
+	.string "I'll take losing in public, thanks.$"
 

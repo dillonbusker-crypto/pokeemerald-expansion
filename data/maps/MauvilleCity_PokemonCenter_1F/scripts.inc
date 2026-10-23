@@ -21,36 +21,117 @@ MauvilleCity_PokemonCenter_1F_EventScript_Nurse::
 	release
 	end
 
+@ Ten Gauntlets: the townsfolk follow the story (GetStoryGossipStage).
 MauvilleCity_PokemonCenter_1F_EventScript_Woman1::
-	msgbox MauvilleCity_PokemonCenter_1F_Text_ManOverThereSaysWeirdThings, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_PokemonCenter_1F_EventScript_Woman1Ending
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_PokemonCenter_1F_EventScript_Woman1Freed
+	msgbox MauvilleCity_PokemonCenter_1F_Text_Woman1Occupied, MSGBOX_NPC
+	end
+
+MauvilleCity_PokemonCenter_1F_EventScript_Woman1Freed::
+	msgbox MauvilleCity_PokemonCenter_1F_Text_Woman1Freed, MSGBOX_NPC
+	end
+
+@ The old man's tale is told at the statue; she has seen it stand again.
+MauvilleCity_PokemonCenter_1F_EventScript_Woman1Ending::
+	goto_if_set FLAG_MAUVILLE_STATUE_RESTORED, MauvilleCity_PokemonCenter_1F_EventScript_Woman1EndingWhole
+	msgbox MauvilleCity_PokemonCenter_1F_Text_Woman1Ending, MSGBOX_NPC
+	end
+
+MauvilleCity_PokemonCenter_1F_EventScript_Woman1EndingWhole::
+	msgbox MauvilleCity_PokemonCenter_1F_Text_Woman1EndingWhole, MSGBOX_NPC
 	end
 
 MauvilleCity_PokemonCenter_1F_EventScript_Woman2::
-	msgbox MauvilleCity_PokemonCenter_1F_Text_MyDataUpdatedFromRecordCorner, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_PokemonCenter_1F_EventScript_Woman2Ending
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_PokemonCenter_1F_EventScript_Woman2Freed
+	msgbox MauvilleCity_PokemonCenter_1F_Text_Woman2Occupied, MSGBOX_NPC
+	end
+
+MauvilleCity_PokemonCenter_1F_EventScript_Woman2Freed::
+	msgbox MauvilleCity_PokemonCenter_1F_Text_Woman2Freed, MSGBOX_NPC
+	end
+
+MauvilleCity_PokemonCenter_1F_EventScript_Woman2Ending::
+	msgbox MauvilleCity_PokemonCenter_1F_Text_Woman2Ending, MSGBOX_NPC
 	end
 
 MauvilleCity_PokemonCenter_1F_EventScript_Youngster::
-	msgbox MauvilleCity_PokemonCenter_1F_Text_RecordCornerSoundsFun, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_PokemonCenter_1F_EventScript_YoungsterEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_PokemonCenter_1F_EventScript_YoungsterFreed
+	msgbox MauvilleCity_PokemonCenter_1F_Text_YoungsterOccupied, MSGBOX_NPC
 	end
 
-MauvilleCity_PokemonCenter_1F_Text_ManOverThereSaysWeirdThings:
-	.string "That man over there, he says weird\n"
-	.string "things!\p"
-	.string "He's funny in a weird way.\n"
-	.string "I doubt I'll forget about him!$"
+MauvilleCity_PokemonCenter_1F_EventScript_YoungsterFreed::
+	msgbox MauvilleCity_PokemonCenter_1F_Text_YoungsterFreed, MSGBOX_NPC
+	end
 
-MauvilleCity_PokemonCenter_1F_Text_MyDataUpdatedFromRecordCorner:
-	.string "When I accessed the RECORD CORNER,\n"
-	.string "the data for what's hot in DEWFORD\l"
-	.string "got updated.\p"
-	.string "Now that bit of data is the same\n"
-	.string "as my friend's!$"
+MauvilleCity_PokemonCenter_1F_EventScript_YoungsterEnding::
+	msgbox MauvilleCity_PokemonCenter_1F_Text_YoungsterEnding, MSGBOX_NPC
+	end
 
-MauvilleCity_PokemonCenter_1F_Text_RecordCornerSoundsFun:
-	.string "A RECORD CORNER opened upstairs in\n"
-	.string "the POKéMON CENTER.\p"
-	.string "I don't know what it's about, but it\n"
-	.string "sounds fun. I'll go check it out!$"
+MauvilleCity_PokemonCenter_1F_Text_Woman1Occupied:
+	.string "That man over there keeps saying the\n"
+	.string "lights will come back.\p"
+	.string "With the grunts right outside! He's\n"
+	.string "funny in a weird way. I'm glad\l"
+	.string "somebody isn't afraid.$"
+
+MauvilleCity_PokemonCenter_1F_Text_Woman1Freed:
+	.string "That man said the lights would come\n"
+	.string "back, and they did!\p"
+	.string "Now he tells everyone about the stone\n"
+	.string "on the lawn. Weird. But I've stopped\l"
+	.string "doubting him.$"
+
+MauvilleCity_PokemonCenter_1F_Text_Woman1Ending:
+	.string "That man still talks about mending the\n"
+	.string "broken stone on the lawn.\p"
+	.string "Weird. But he's been right so far.$"
+
+MauvilleCity_PokemonCenter_1F_Text_Woman1EndingWhole:
+	.string "That man was right about the stone\n"
+	.string "king. It stands whole on the lawn.\p"
+	.string "I'm never doubting him again.$"
+
+MauvilleCity_PokemonCenter_1F_Text_Woman2Occupied:
+	.string "A grunt demanded that the nurse heal\n"
+	.string "his POKéMON. She said no, politely.\p"
+	.string "The CENTER was empty, and I've never\n"
+	.string "been prouder of anyone.$"
+
+MauvilleCity_PokemonCenter_1F_Text_Woman2Freed:
+	.string "The grunts are gone, and the nurse\n"
+	.string "still waves at the door.\p"
+	.string "Nobody comes in. The POKéNAV heals\n"
+	.string "everyone's POKéMON for them.$"
+
+MauvilleCity_PokemonCenter_1F_Text_Woman2Ending:
+	.string "The nurse had four patients this\n"
+	.string "morning! DEVON switched the POKéNAV's\l"
+	.string "auto-heal off “for review.”\p"
+	.string "She cried. The good kind.$"
+
+MauvilleCity_PokemonCenter_1F_Text_YoungsterOccupied:
+	.string "I wanted to see the COLOSSEUM up\n"
+	.string "there, but the lights keep flickering\l"
+	.string "and the link rooms won't start.\p"
+	.string "Dad says the grunts are drawing too\n"
+	.string "much power from somewhere.$"
+
+MauvilleCity_PokemonCenter_1F_Text_YoungsterFreed:
+	.string "The lights are steady and the link\n"
+	.string "rooms work again!\p"
+	.string "I'm going to lose every COLOSSEUM\n"
+	.string "battle, but I'll lose steadily.$"
+
+MauvilleCity_PokemonCenter_1F_Text_YoungsterEnding:
+	.string "People are battling upstairs again!\p"
+	.string "I lost to a boy who has never left\n"
+	.string "town. Best loss of my life.$"
 
 @ Ten Gauntlets: the old man tells the legend of the KING OF BOUNTIFUL
 @ HARVEST once WATTSON is beaten (sprint-b-calyrex.md). Whichever of the five

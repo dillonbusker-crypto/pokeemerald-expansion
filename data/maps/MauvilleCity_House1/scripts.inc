@@ -1,12 +1,25 @@
 MauvilleCity_House1_MapScripts::
 	.byte 0
 
-@ Ten Gauntlets: no HM Rock Smash here. The Dude just talks; the original
-@ gift script below is unreachable.
+@ Ten Gauntlets: no HM Rock Smash here. The Dude just talks (and still
+@ refuses, whatever the story); the original gift script below is unreachable.
 MauvilleCity_House1_EventScript_RockSmashDude::
 	lock
 	faceplayer
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_House1_EventScript_RockSmashDudeEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_House1_EventScript_RockSmashDudeFreed
 	msgbox MauvilleCity_House1_Text_TenGauntletsNoHM, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_House1_EventScript_RockSmashDudeFreed::
+	msgbox MauvilleCity_House1_Text_NoHMFreed, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_House1_EventScript_RockSmashDudeEnding::
+	msgbox MauvilleCity_House1_Text_NoHMEnding, MSGBOX_DEFAULT
 	release
 	end
 
@@ -30,6 +43,21 @@ MauvilleCity_House1_Text_TenGauntletsNoHM:
 	.string "With all the trouble in town, I'm\n"
 	.string "keeping my ROCK SMASHING to myself.\p"
 	.string "Stay safe out there!$"
+
+MauvilleCity_House1_Text_NoHMFreed:
+	.string "Woohoo! ...No HM today, either.\p"
+	.string "But the grunts are gone, and my ROCK\n"
+	.string "SMASHING is back in my own hands.\p"
+	.string "That stone on the lawn? Not for\n"
+	.string "smashing. Not even I would dare.$"
+
+MauvilleCity_House1_Text_NoHMEnding:
+	.string "Woohoo! ...No HM here. Not today,\n"
+	.string "not ever.\p"
+	.string "But the grunts are gone, SCOTT is in\n"
+	.string "handcuffs, and I smashed a boulder\l"
+	.string "just because I could.\p"
+	.string "Woohoo!$"
 
 MauvilleCity_House1_Text_ImRockSmashDudeTakeThis:
 	.string "Woohoo!\p"

@@ -6,7 +6,20 @@ MauvilleCity_House2_MapScripts::
 MauvilleCity_House2_EventScript_Woman::
 	lock
 	faceplayer
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_House2_EventScript_WomanEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_House2_EventScript_WomanFreed
 	msgbox MauvilleCity_House2_Text_TenGauntletsNoCoinCase, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_House2_EventScript_WomanFreed::
+	msgbox MauvilleCity_House2_Text_NoCoinCaseFreed, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_House2_EventScript_WomanEnding::
+	msgbox MauvilleCity_House2_Text_NoCoinCaseEnding, MSGBOX_DEFAULT
 	release
 	end
 
@@ -52,6 +65,18 @@ MauvilleCity_House2_Text_TenGauntletsNoCoinCase:
 	.string "I'd love a bike ride to SLATEPORT, but\n"
 	.string "not with the town like this.\p"
 	.string "I'll wait until it's quiet again.$"
+
+MauvilleCity_House2_Text_NoCoinCaseFreed:
+	.string "The grunts are gone, but the roads are\n"
+	.string "still blocked. WATTSON says soon.\p"
+	.string "When they open, I'm cycling straight\n"
+	.string "to SLATEPORT.$"
+
+MauvilleCity_House2_Text_NoCoinCaseEnding:
+	.string "SCOTT is arrested, and the roadblocks\n"
+	.string "are coming down.\p"
+	.string "I'm packing a lunch for SLATEPORT.\n"
+	.string "Finally, the wind at my back.$"
 
 MauvilleCity_House2_Text_BuyHarborMailAtSlateport:
 	.string "If I had a BIKE, it'd be easy to cycle to\n"

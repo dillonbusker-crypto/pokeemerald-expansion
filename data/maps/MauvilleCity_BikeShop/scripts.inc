@@ -1,9 +1,29 @@
 MauvilleCity_BikeShop_MapScripts::
 	.byte 0
 
+@ Ten Gauntlets: no BIKE is ever handed out (the climb to SKY PILLAR is on
+@ foot). RYDEL just talks; the original gift script below is unreachable.
 MauvilleCity_BikeShop_EventScript_Rydel::
 	lock
 	faceplayer
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_BikeShop_EventScript_RydelEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_BikeShop_EventScript_RydelFreed
+	msgbox MauvilleCity_BikeShop_Text_RydelOccupied, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_BikeShop_EventScript_RydelFreed::
+	msgbox MauvilleCity_BikeShop_Text_RydelFreed, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_BikeShop_EventScript_RydelEnding::
+	msgbox MauvilleCity_BikeShop_Text_RydelEnding, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_BikeShop_EventScript_RydelVanilla::
 	goto_if_set FLAG_RECEIVED_BIKE, MauvilleCity_BikeShop_EventScript_AskSwitchBikes
 	goto_if_set FLAG_DECLINED_BIKE, MauvilleCity_BikeShop_EventScript_SkipGreeting
 	msgbox MauvilleCity_BikeShop_Text_RydelGreeting, MSGBOX_DEFAULT
@@ -96,8 +116,83 @@ MauvilleCity_BikeShop_EventScript_SwitchMachForAcro::
 	goto MauvilleCity_BikeShop_EventScript_ComeBackToSwitchBikes
 	end
 
+@ Ten Gauntlets: RYDEL's assistant is the third of MAUVILLE's hidden helpers.
+@ He rewired a charging coil from NEW MAUVILLE's old lines; once per game it
+@ lifts one party POKéMON to level 65 (RaiseMonToLevel).
 MauvilleCity_BikeShop_EventScript_Assistant::
-	msgbox MauvilleCity_BikeShop_Text_HandbooksAreInBack, MSGBOX_NPC
+	lock
+	faceplayer
+	goto_if_set FLAG_MAUVILLE_RAISE_3, MauvilleCity_BikeShop_EventScript_AssistantUsed
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_BikeShop_EventScript_AssistantIntroEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_BikeShop_EventScript_AssistantIntroFreed
+	msgbox MauvilleCity_BikeShop_Text_AssistantIntroOccupied, MSGBOX_DEFAULT
+	goto MauvilleCity_BikeShop_EventScript_AssistantOffer
+	end
+
+MauvilleCity_BikeShop_EventScript_AssistantIntroFreed::
+	msgbox MauvilleCity_BikeShop_Text_AssistantIntroFreed, MSGBOX_DEFAULT
+	goto MauvilleCity_BikeShop_EventScript_AssistantOffer
+	end
+
+MauvilleCity_BikeShop_EventScript_AssistantIntroEnding::
+	msgbox MauvilleCity_BikeShop_Text_AssistantIntroEnding, MSGBOX_DEFAULT
+	goto MauvilleCity_BikeShop_EventScript_AssistantOffer
+	end
+
+MauvilleCity_BikeShop_EventScript_AssistantOffer::
+	msgbox MauvilleCity_BikeShop_Text_AssistantOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_BikeShop_EventScript_AssistantNotNow
+MauvilleCity_BikeShop_EventScript_AssistantPick::
+	msgbox MauvilleCity_BikeShop_Text_AssistantWhich, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, MauvilleCity_BikeShop_EventScript_AssistantNotNow
+	setvar VAR_0x8005, 65
+	special RaiseMonToLevel
+	goto_if_eq VAR_RESULT, 1, MauvilleCity_BikeShop_EventScript_AssistantEgg
+	goto_if_eq VAR_RESULT, 2, MauvilleCity_BikeShop_EventScript_AssistantTooStrong
+	setflag FLAG_MAUVILLE_RAISE_3
+	bufferpartymonnick STR_VAR_1, VAR_0x8004
+	playfanfare MUS_LEVEL_UP
+	message MauvilleCity_BikeShop_Text_AssistantGrew
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	msgbox MauvilleCity_BikeShop_Text_AssistantDone, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_BikeShop_EventScript_AssistantEgg::
+	msgbox MauvilleCity_BikeShop_Text_AssistantEgg, MSGBOX_DEFAULT
+	goto MauvilleCity_BikeShop_EventScript_AssistantPick
+	end
+
+MauvilleCity_BikeShop_EventScript_AssistantTooStrong::
+	msgbox MauvilleCity_BikeShop_Text_AssistantTooStrong, MSGBOX_DEFAULT
+	goto MauvilleCity_BikeShop_EventScript_AssistantPick
+	end
+
+MauvilleCity_BikeShop_EventScript_AssistantNotNow::
+	msgbox MauvilleCity_BikeShop_Text_AssistantNotNow, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_BikeShop_EventScript_AssistantUsed::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_BikeShop_EventScript_AssistantUsedEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_BikeShop_EventScript_AssistantUsedFreed
+	msgbox MauvilleCity_BikeShop_Text_AssistantUsedOccupied, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_BikeShop_EventScript_AssistantUsedFreed::
+	msgbox MauvilleCity_BikeShop_Text_AssistantUsedFreed, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_BikeShop_EventScript_AssistantUsedEnding::
+	msgbox MauvilleCity_BikeShop_Text_AssistantUsedEnding, MSGBOX_DEFAULT
+	release
 	end
 
 MauvilleCity_BikeShop_EventScript_MachBikeHandbook::
@@ -175,6 +270,29 @@ MauvilleCity_BikeShop_EventScript_Jumps::
 MauvilleCity_BikeShop_EventScript_ExitAcroHandbook::
 	release
 	end
+
+MauvilleCity_BikeShop_Text_RydelOccupied:
+	.string "Well, well, a customer! ...No. I can\n"
+	.string "see you aren't here for a BIKE.\p"
+	.string "Nobody rides in a town where grunts\n"
+	.string "block the roads. My BIKES gather dust,\l"
+	.string "and I've nothing left to fix!\p"
+	.string "But chin up! The wind will be back!$"
+
+MauvilleCity_BikeShop_Text_RydelFreed:
+	.string "The grunts are gone, and all the wind\n"
+	.string "in MAUVILLE came back with them!\p"
+	.string "SCOTT is headed for SKY PILLAR? No\n"
+	.string "BIKE for you, I'm afraid. That climb is\l"
+	.string "for your own two legs!\p"
+	.string "May the wind be at your back anyway!$"
+
+MauvilleCity_BikeShop_Text_RydelEnding:
+	.string "The shop is quiet, and it's the good\n"
+	.string "kind of quiet now.\p"
+	.string "I've oiled every chain twice. Nothing\n"
+	.string "left to fix! Best problem I've ever had.\p"
+	.string "May the wind always be at your back!$"
 
 MauvilleCity_BikeShop_Text_RydelGreeting:
 	.string "Well, well, what have we here?\n"
@@ -254,6 +372,65 @@ MauvilleCity_BikeShop_Text_OhYourBikeIsInPC:
 	.string "and I'll be happy to exchange it!\p"
 	.string "May the wind always be at your back\n"
 	.string "on your adventure!$"
+
+MauvilleCity_BikeShop_Text_AssistantIntroOccupied:
+	.string "Don't tell RYDEL. Nobody's buying\n"
+	.string "BIKES, so I've been tinkering.$"
+
+MauvilleCity_BikeShop_Text_AssistantIntroFreed:
+	.string "The grunts are gone, and RYDEL still\n"
+	.string "thinks I'm oiling chains.\p"
+	.string "Don't tell him I'm tinkering.$"
+
+MauvilleCity_BikeShop_Text_AssistantIntroEnding:
+	.string "Nothing to fix and nobody to sell to,\n"
+	.string "so I've been tinkering all week.$"
+
+MauvilleCity_BikeShop_Text_AssistantOffer:
+	.string "I salvaged a charging coil from the\n"
+	.string "old NEW MAUVILLE lines, the kind that\l"
+	.string "heals a whole team.\p"
+	.string "Then I rewired it. Now it doesn't just\n"
+	.string "heal. It makes a POKéMON grow.\p"
+	.string "One POKéMON, one go. The wire won't\n"
+	.string "last. Want to try it?$"
+
+MauvilleCity_BikeShop_Text_AssistantWhich:
+	.string "Which POKéMON do I clip onto the coil?$"
+
+MauvilleCity_BikeShop_Text_AssistantNotNow:
+	.string "Okay. The coil will keep. Just don't\n"
+	.string "touch the red wire.$"
+
+MauvilleCity_BikeShop_Text_AssistantEgg:
+	.string "That's an EGG! The coil would scramble\n"
+	.string "it. Pick another.$"
+
+MauvilleCity_BikeShop_Text_AssistantTooStrong:
+	.string "That one is already charged past what\n"
+	.string "this coil can do. Pick another.$"
+
+MauvilleCity_BikeShop_Text_AssistantGrew:
+	.string "{STR_VAR_1} was clipped on and\n"
+	.string "grew to LV. 65!$"
+
+MauvilleCity_BikeShop_Text_AssistantDone:
+	.string "Whoa. It worked! ...And the coil is\n"
+	.string "toast. Smells like toast, too.$"
+
+MauvilleCity_BikeShop_Text_AssistantUsedOccupied:
+	.string "The coil is fried. Don't tell RYDEL I\n"
+	.string "fried it. Or that it worked.$"
+
+MauvilleCity_BikeShop_Text_AssistantUsedFreed:
+	.string "NEW MAUVILLE is quiet now, so no more\n"
+	.string "spare lines to salvage. The coil was\l"
+	.string "one of a kind.$"
+
+MauvilleCity_BikeShop_Text_AssistantUsedEnding:
+	.string "RYDEL found the burnt coil. He says\n"
+	.string "it's the best thing anyone has ever\l"
+	.string "done in his shop.$"
 
 MauvilleCity_BikeShop_Text_HandbooksAreInBack:
 	.string "I'm learning about BIKES while\n"

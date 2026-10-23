@@ -33,20 +33,67 @@ MauvilleCity_EventScript_MoveWattsonBackToGym::
 	setflag FLAG_WATTSON_REMATCH_AVAILABLE
 	return
 
+@ Ten Gauntlets: the townsfolk follow the story (GetStoryGossipStage). Up to
+@ GOSSIP_MAUVILLE the teams hold the town; GOSSIP_MAUVILLE_FREED and
+@ GOSSIP_SKY_PILLAR is the town freed; GOSSIP_ENDING is after SCOTT's arrest.
 MauvilleCity_EventScript_Boy::
-	msgbox MauvilleCity_Text_NurseHurtMonBackToHealth, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_EventScript_BoyEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_EventScript_BoyFreed
+	msgbox MauvilleCity_Text_BoyOccupied, MSGBOX_NPC
+	end
+
+MauvilleCity_EventScript_BoyFreed::
+	msgbox MauvilleCity_Text_BoyFreed, MSGBOX_NPC
+	end
+
+MauvilleCity_EventScript_BoyEnding::
+	msgbox MauvilleCity_Text_BoyEnding, MSGBOX_NPC
 	end
 
 MauvilleCity_EventScript_Maniac::
-	msgbox MauvilleCity_Text_AllSortsOfPeopleComeThrough, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_EventScript_ManiacEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_EventScript_ManiacFreed
+	msgbox MauvilleCity_Text_ManiacOccupied, MSGBOX_NPC
+	end
+
+MauvilleCity_EventScript_ManiacFreed::
+	msgbox MauvilleCity_Text_ManiacFreed, MSGBOX_NPC
+	end
+
+MauvilleCity_EventScript_ManiacEnding::
+	msgbox MauvilleCity_Text_ManiacEnding, MSGBOX_NPC
 	end
 
 MauvilleCity_EventScript_Woman::
-	msgbox MauvilleCity_Text_RydelVeryGenerous, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_EventScript_WomanEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_EventScript_WomanFreed
+	msgbox MauvilleCity_Text_WomanOccupied, MSGBOX_NPC
+	end
+
+MauvilleCity_EventScript_WomanFreed::
+	msgbox MauvilleCity_Text_WomanFreed, MSGBOX_NPC
+	end
+
+MauvilleCity_EventScript_WomanEnding::
+	msgbox MauvilleCity_Text_WomanEnding, MSGBOX_NPC
 	end
 
 MauvilleCity_EventScript_RichBoy::
-	msgbox MauvilleCity_Text_PokemonCanJumpYouOnBike, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_EventScript_RichBoyEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_EventScript_RichBoyFreed
+	msgbox MauvilleCity_Text_RichBoyOccupied, MSGBOX_NPC
+	end
+
+MauvilleCity_EventScript_RichBoyFreed::
+	msgbox MauvilleCity_Text_RichBoyFreed, MSGBOX_NPC
+	end
+
+MauvilleCity_EventScript_RichBoyEnding::
+	msgbox MauvilleCity_Text_RichBoyEnding, MSGBOX_NPC
 	end
 
 MauvilleCity_EventScript_CitySign::
@@ -66,16 +113,96 @@ MauvilleCity_EventScript_GameCornerSign::
 	end
 
 MauvilleCity_EventScript_SchoolKidM::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_EventScript_SchoolKidMEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_EventScript_SchoolKidMFreed
+	msgbox MauvilleCity_Text_SchoolKidMOccupied, MSGBOX_NPC
+	end
+
+MauvilleCity_EventScript_SchoolKidMFreed::
+	msgbox MauvilleCity_Text_SchoolKidMFreed, MSGBOX_NPC
+	end
+
+MauvilleCity_EventScript_SchoolKidMEnding::
+	msgbox MauvilleCity_Text_SchoolKidMEnding, MSGBOX_NPC
+	end
+
+@ Ten Gauntlets: the old ROLLOUT tutor (move_tutors.inc is untouched, nobody
+@ runs it now). He is the first of MAUVILLE's three hidden helpers: once per
+@ game he lifts one party POKéMON to level 65 (RaiseMonToLevel).
+MauvilleCity_EventScript_FatMan::
 	lock
 	faceplayer
-	goto_if_set FLAG_TV_EXPLAINED, MauvilleCity_EventScript_TVExplained
-	msgbox MauvilleCity_Text_ExplainTV, MSGBOX_DEFAULT
-	setflag FLAG_TV_EXPLAINED
+	goto_if_set FLAG_MAUVILLE_RAISE_1, MauvilleCity_EventScript_FatManUsed
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_EventScript_FatManIntroEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_EventScript_FatManIntroFreed
+	msgbox MauvilleCity_Text_FatManIntroOccupied, MSGBOX_DEFAULT
+	goto MauvilleCity_EventScript_FatManOffer
+	end
+
+MauvilleCity_EventScript_FatManIntroFreed::
+	msgbox MauvilleCity_Text_FatManIntroFreed, MSGBOX_DEFAULT
+	goto MauvilleCity_EventScript_FatManOffer
+	end
+
+MauvilleCity_EventScript_FatManIntroEnding::
+	msgbox MauvilleCity_Text_FatManIntroEnding, MSGBOX_DEFAULT
+	goto MauvilleCity_EventScript_FatManOffer
+	end
+
+MauvilleCity_EventScript_FatManOffer::
+	msgbox MauvilleCity_Text_FatManOffer, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_FatManNotNow
+MauvilleCity_EventScript_FatManPick::
+	msgbox MauvilleCity_Text_FatManWhich, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, MauvilleCity_EventScript_FatManNotNow
+	setvar VAR_0x8005, 65
+	special RaiseMonToLevel
+	goto_if_eq VAR_RESULT, 1, MauvilleCity_EventScript_FatManEgg
+	goto_if_eq VAR_RESULT, 2, MauvilleCity_EventScript_FatManTooStrong
+	setflag FLAG_MAUVILLE_RAISE_1
+	bufferpartymonnick STR_VAR_1, VAR_0x8004
+	playfanfare MUS_LEVEL_UP
+	message MauvilleCity_Text_FatManGrew
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	msgbox MauvilleCity_Text_FatManDone, MSGBOX_DEFAULT
 	release
 	end
 
-MauvilleCity_EventScript_TVExplained::
-	msgbox MauvilleCity_Text_BeenCheckingOutTV, MSGBOX_DEFAULT
+MauvilleCity_EventScript_FatManEgg::
+	msgbox MauvilleCity_Text_FatManEgg, MSGBOX_DEFAULT
+	goto MauvilleCity_EventScript_FatManPick
+	end
+
+MauvilleCity_EventScript_FatManTooStrong::
+	msgbox MauvilleCity_Text_FatManTooStrong, MSGBOX_DEFAULT
+	goto MauvilleCity_EventScript_FatManPick
+	end
+
+MauvilleCity_EventScript_FatManNotNow::
+	msgbox MauvilleCity_Text_FatManNotNow, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_FatManUsed::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_EventScript_FatManUsedEnding
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_EventScript_FatManUsedFreed
+	msgbox MauvilleCity_Text_FatManUsedOccupied, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_FatManUsedFreed::
+	msgbox MauvilleCity_Text_FatManUsedFreed, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_FatManUsedEnding::
+	msgbox MauvilleCity_Text_FatManUsedEnding, MSGBOX_DEFAULT
 	release
 	end
 
@@ -624,26 +751,140 @@ MauvilleCity_Text_WattsonYoungTakeCharge:
 	.string "It pleases me to no end to see\n"
 	.string "the young step up and take charge!$"
 
-MauvilleCity_Text_NurseHurtMonBackToHealth:
-	.string "You know, it's cool to have POKéMON\n"
-	.string "battles and stuff…\p"
-	.string "But if your POKéMON gets hurt,\n"
-	.string "you have to nurse it back to health.$"
+MauvilleCity_Text_BoyOccupied:
+	.string "Weird thing: the grunts marched right\n"
+	.string "past the POKéMON CENTER.\p"
+	.string "Nobody goes in anymore. The POKéNAV\n"
+	.string "heals everything, so why would they?$"
 
-MauvilleCity_Text_AllSortsOfPeopleComeThrough:
+MauvilleCity_Text_BoyFreed:
+	.string "The grunts are gone, and the lights\n"
+	.string "stopped flickering.\p"
+	.string "I never noticed how much I liked\n"
+	.string "a quiet street.$"
+
+MauvilleCity_Text_BoyEnding:
+	.string "The POKéMON CENTER has patients\n"
+	.string "again!\p"
+	.string "A whole line of them. Okay, three.\n"
+	.string "But three is a line when it was zero.$"
+
+MauvilleCity_Text_ManiacOccupied:
 	.string "The roads of this town stretch north\n"
 	.string "and south, and east and west.\p"
-	.string "Because of that, we get all sorts of\n"
-	.string "people coming through.$"
+	.string "TEAM AQUA and TEAM MAGMA block all\n"
+	.string "four. Nobody's come through since\l"
+	.string "dawn. Except you.\p"
+	.string "How did you get in? Did you… teleport?$"
 
-MauvilleCity_Text_RydelVeryGenerous:
-	.string "Have you been to RYDEL'S CYCLES yet?\p"
-	.string "RYDEL, the owner, is a very generous\n"
-	.string "man.$"
+MauvilleCity_Text_ManiacFreed:
+	.string "The grunts are gone, but the roadblocks\n"
+	.string "are still up. WATTSON says crews are\l"
+	.string "clearing them.\p"
+	.string "Give it a few days. All sorts of people\n"
+	.string "will be coming through again.$"
 
-MauvilleCity_Text_PokemonCanJumpYouOnBike:
-	.string "Even if you're riding a BIKE,\n"
-	.string "wild POKéMON could jump you.$"
+MauvilleCity_Text_ManiacEnding:
+	.string "The roadblocks are coming down, one\n"
+	.string "by one.\p"
+	.string "All sorts of people will be coming\n"
+	.string "through again soon. I can hardly\l"
+	.string "wait to be bored.$"
+
+MauvilleCity_Text_WomanOccupied:
+	.string "I saw WATTSON run toward the water\n"
+	.string "with two strangers.\p"
+	.string "He's the only one who can turn the\n"
+	.string "lights back on. I hope he knows what\l"
+	.string "he's doing.$"
+
+MauvilleCity_Text_WomanFreed:
+	.string "WATTSON is back in his GYM! I saw him\n"
+	.string "wave through the window.\p"
+	.string "He didn't even say “wahahaha.”\n"
+	.string "He will soon. I can feel it.$"
+
+MauvilleCity_Text_WomanEnding:
+	.string "RYDEL is giving out free tune-ups to\n"
+	.string "celebrate. Bikes, kettles, anything.\p"
+	.string "I told you he was a very generous man.$"
+
+MauvilleCity_Text_RichBoyOccupied:
+	.string "My father put everything into DEVON.\p"
+	.string "The grunts say SCOTT's new order has\n"
+	.string "no use for shares.\p"
+	.string "Dad hasn't spoken since lunch.$"
+
+MauvilleCity_Text_RichBoyFreed:
+	.string "Dad is selling his DEVON shares.\p"
+	.string "He says DEVON should have known\n"
+	.string "better than to build SCOTT's CROWN.\p"
+	.string "I've never been so proud of him.\n"
+	.string "Or so poor.$"
+
+MauvilleCity_Text_RichBoyEnding:
+	.string "Dad bought his DEVON shares back,\n"
+	.string "cheap.\p"
+	.string "“The company has learned its lesson,”\n"
+	.string "he says. I'm told that's how the rich\l"
+	.string "forgive.$"
+
+MauvilleCity_Text_FatManIntroOccupied:
+	.string "Keep your voice down. The grunts are\n"
+	.string "still circling the block.$"
+
+MauvilleCity_Text_FatManIntroFreed:
+	.string "The grunts are gone, and I can talk\n"
+	.string "out loud again!$"
+
+MauvilleCity_Text_FatManIntroEnding:
+	.string "SCOTT's locked up. Good. Now an old\n"
+	.string "man can stand on his corner in peace.$"
+
+MauvilleCity_Text_FatManOffer:
+	.string "I used to teach ROLLOUT. These days\n"
+	.string "POKéMON learn what they like, and I'm\l"
+	.string "out of work.\p"
+	.string "But the chips held POKéMON back for\n"
+	.string "years, and my drills piled up unused.\p"
+	.string "I can pour all of them into one\n"
+	.string "POKéMON, once. Want that?$"
+
+MauvilleCity_Text_FatManWhich:
+	.string "Which POKéMON gets my drills?$"
+
+MauvilleCity_Text_FatManNotNow:
+	.string "No rush. A set of drills this big\n"
+	.string "wants the right student.$"
+
+MauvilleCity_Text_FatManEgg:
+	.string "That's an EGG. There's nothing in it\n"
+	.string "to drill yet.\p"
+	.string "Pick another.$"
+
+MauvilleCity_Text_FatManTooStrong:
+	.string "That one is past anything I can\n"
+	.string "teach. Pick another.$"
+
+MauvilleCity_Text_FatManGrew:
+	.string "{STR_VAR_1} rolled through the\n"
+	.string "whole routine and grew to LV. 65!$"
+
+MauvilleCity_Text_FatManDone:
+	.string "That's every drill I own. Go put\n"
+	.string "them to work!$"
+
+MauvilleCity_Text_FatManUsedOccupied:
+	.string "I've taught you all I know.\n"
+	.string "Now I just keep an eye out for grunts.$"
+
+MauvilleCity_Text_FatManUsedFreed:
+	.string "My drills are in good hands now.\n"
+	.string "And the street is mine again.$"
+
+MauvilleCity_Text_FatManUsedEnding:
+	.string "Retired for real this time. I sit\n"
+	.string "here and watch the town wake up.$"
 
 MauvilleCity_Text_CitySign:
 	.string "MAUVILLE CITY\n"
@@ -663,20 +904,24 @@ MauvilleCity_Text_GameCornerSign:
 	.string "“The play spot for all!”\n"
 	.string "MAUVILLE GAME CORNER$"
 
-MauvilleCity_Text_ExplainTV:
-	.string "Hi, do you check out TV at all?\p"
-	.string "They've added a bunch of cool new\n"
-	.string "shows recently.\p"
-	.string "TV is so cool. I've seen my friends on\n"
-	.string "TV just out of the blue.\p"
-	.string "And, sometimes, they even put you on TV\n"
-	.string "without telling you.\p"
-	.string "I wish I would be on TV sometime.\p"
-	.string "That's why I think you should check\n"
-	.string "out TVs whenever you can.$"
+MauvilleCity_Text_SchoolKidMOccupied:
+	.string "Every TV in town is showing the same\n"
+	.string "man: SCOTT, announcing a new HOENN.\p"
+	.string "I always wanted to be on TV.\n"
+	.string "Not next to him.$"
 
-MauvilleCity_Text_BeenCheckingOutTV:
-	.string "Hi, have you been checking out TVs?$"
+MauvilleCity_Text_SchoolKidMFreed:
+	.string "The TV is back to normal! A cooking\n"
+	.string "show! I've never been so glad to see\l"
+	.string "a cooking show.\p"
+	.string "They did show the grunts leaving\n"
+	.string "town. Not me, again.$"
+
+MauvilleCity_Text_SchoolKidMEnding:
+	.string "They showed SCOTT being led away in\n"
+	.string "handcuffs. On every channel.\p"
+	.string "I still want to be on TV. Just for\n"
+	.string "a better episode.$"
 
 @ Ten Gauntlets: the endgame ABRA network (data/scripts/endgame_towns.inc).
 MauvilleCity_EventScript_EndgameAbra::
