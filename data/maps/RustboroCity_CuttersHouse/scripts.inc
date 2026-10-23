@@ -25,7 +25,18 @@ RustboroCity_CuttersHouse_EventScript_ExplainCut::
 	end
 
 RustboroCity_CuttersHouse_EventScript_Lass::
-	msgbox RustboroCity_CuttersHouse_Text_DadHelpedClearLandOfTrees, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_CuttersHouse_EventScript_LassEnding
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_CuttersHouse_EventScript_LassFreed
+	msgbox RustboroCity_CuttersHouse_Text_Lass, MSGBOX_NPC
+	end
+
+RustboroCity_CuttersHouse_EventScript_LassEnding::
+	msgbox RustboroCity_CuttersHouse_Text_LassEnding, MSGBOX_NPC
+	end
+
+RustboroCity_CuttersHouse_EventScript_LassFreed::
+	msgbox RustboroCity_CuttersHouse_Text_LassFreed, MSGBOX_NPC
 	end
 
 RustboroCity_CuttersHouse_Text_TenGauntletsNoHM:
@@ -58,9 +69,24 @@ RustboroCity_CuttersHouse_Text_ExplainCut:
 	.string "And, unlike a TM, an HM can be used\n"
 	.string "more than once.$"
 
-RustboroCity_CuttersHouse_Text_DadHelpedClearLandOfTrees:
-	.string "When they were expanding the city of\n"
-	.string "RUSTBORO, my dad helped out.\p"
-	.string "He made his POKéMON use CUT to clear\n"
-	.string "the land of trees.$"
+RustboroCity_CuttersHouse_Text_Lass:
+	.string "When they expanded RUSTBORO, my dad\n"
+	.string "cleared the trees with CUT.\p"
+	.string "Now he just watches the door. He's\n"
+	.string "waiting for everyone to come home\l"
+	.string "from the island.$"
+
+RustboroCity_CuttersHouse_Text_LassFreed:
+	.string "Dad polished his old CUT sign this\n"
+	.string "morning. The roads are open.\p"
+	.string "He says trainers might come back now.\n"
+	.string "He won't say it out loud, in case it\l"
+	.string "jinxes it.$"
+
+RustboroCity_CuttersHouse_Text_LassEnding:
+	.string "Someone asked about CUT today!\n"
+	.string "Dad cried a little.\p"
+	.string "He taught them for an hour, for free.\n"
+	.string "The HM can wait, he said. The lesson\l"
+	.string "couldn't.$"
 
