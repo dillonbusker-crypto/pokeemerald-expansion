@@ -1294,6 +1294,40 @@ the Gym rematches, the triathlete (state 15) on the toppled stone king, the
 rich boy (after the credits) on Devon's needles going still once Giratina is
 caught.
 
+### The towns' people ✅
+
+**Built 2026-10-23.** Every vanilla townsperson in Rustboro and Mauville,
+outdoors and in every open building, speaks to the story, branching on
+`GetStoryGossipStage`: Rustboro under the Elite Four (states 7-9), freed
+(10 on, with siphon and Mauville touches for a few) and after the credits;
+Mauville overrun (12-14), freed (15-17) and after the credits. Ordinary
+lives run through it: the PokéNav heal that emptied the Centers, the boy
+whose Frontier Pokémon never grows, Walda's dad who built the auto-heal,
+the Game Corner regular who bet on a chipped Pokémon. The Tear and the
+statue are hinted, never named. Vanilla services are off: the Seedot trade,
+Walda's wallpaper, the Rollout tutor, Rydel's bike, the Game Corner's doll
+and coins (the Marts and the nurses still work).
+
+**Six hidden helpers** reward exploring. Each raises **one** party Pokémon
+to a level, once per game (`RaiseMonToLevel`, `src/facility.c`; Eggs and
+anything already at or past the level are refused, moves aren't learned):
+
+| Town | Level | Who | Why |
+|---|---|---|---|
+| Rustboro | 55 | The Devon engineer outdoors (`FLAG_RUSTBORO_RAISE_1`) | Walked out of the Chip Lab with a charger under his coat; it pays out what the chips held back, up to 55 before Devon's monitors would notice |
+| Rustboro | 55 | The night nurse in Flat 2, 3F (`FLAG_RUSTBORO_RAISE_2`) | Put out of work by the PokéNav; kept one patient's worth of the full recovery course |
+| Rustboro | 55 | The Trainers' School teacher (`FLAG_RUSTBORO_RAISE_3`) | The night class nobody attends, every drill in one sitting |
+| Mauville | 65 | The ex-Rollout tutor outdoors (`FLAG_MAUVILLE_RAISE_1`) | Twenty years of drills with nobody to give them to |
+| Mauville | 65 | The Game Corner cook (`FLAG_MAUVILLE_RAISE_2`) | Feeds the house's old prize Pokémon a chip-free diet |
+| Mauville | 65 | Rydel's assistant (`FLAG_MAUVILLE_RAISE_3`) | A healing coil salvaged from New Mauville, rewired to grow a Pokémon; it fries after one use |
+
+Nobody announces them. One vague hint per town: Flat 2 1F's old woman
+("somebody upstairs is still keeping shift hours") and the Mauville Mart
+man ("a few folks in town can bring a POKéMON up to speed; talk to
+everyone", gone once all three are spent). Rustboro's 55 matters before the
+siphon (a party of 50s against the Elite Four at 52-55); Mauville's 65
+matches Maxie and Archie.
+
 ### Sky Pillar ✅
 
 **Built** (endgame part 5; `SkyPillar_Outside`/`_Top` scripts): the ambush at state 16 -> 17, Nurse Joy by the door (the white-out respawn, `HEAL_LOCATION_SKY_PILLAR_OUTSIDE`), the climb on the `*_CLEAN` layouts with no wild encounters (4F still drops you through its one cracked tile into 3F's inner room, as vanilla's climb does), Scott's Master Ball catch and the battle at the top.

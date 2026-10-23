@@ -21,6 +21,18 @@ harness. History is in `git log`; the story is in `storyline.md`.
   liberation" and "Mauville after the liberation"): Roxanne's and Wattson's
   Gym rematches, Giratina in Rusturf Tunnel, Calyrex in Mauville. Harness
   only, **not played**.
+- **The towns' people are written (2026-10-23)**: every vanilla townsperson
+  in Rustboro and Mauville, outdoors and in every open building, now follows
+  the story (`GetStoryGossipStage`: under the Elite Four / overrun, freed,
+  after the credits), and **six hidden helpers** each raise one party
+  Pokémon once: three in Rustboro to 55 (the Devon engineer outdoors, the
+  night nurse in Flat 2's 3F, the School teacher), three in Mauville to 65
+  (the ex-Rollout tutor outdoors, the Game Corner cook, Rydel's assistant).
+  One hint per town (Rustboro: Flat 2 1F's old woman; Mauville: the Mart
+  man). `RaiseMonToLevel` (`src/facility.c`), `FLAG_RUSTBORO_RAISE_1-3`,
+  `FLAG_MAUVILLE_RAISE_1-3`. Vanilla extras switched off with them: the
+  Seedot trade, Walda's wallpaper, the Rollout tutor, Rydel's bike, the Game
+  Corner doll and coins. **Built and width-checked only, not run.**
 - **Commits are local only.** Pushing from WSL isn't set up.
 
 ## Next: the owner's full playthrough, then tuning
@@ -83,7 +95,7 @@ them on a screen:
 | Sky Pillar: the allies, the seven Brains' ambush (state 17), Joy by the door as the white-out respawn (`HEAL_LOCATION_SKY_PILLAR_OUTSIDE`), clean floors, no wild Pokémon | `SkyPillar_Outside`, `SkyPillar_1F-5F` |
 | The top: the Master Ball and Rayquaza (`FLAG_SKY_PILLAR_RAYQUAZA_CAUGHT`), the Scrambler, Scott at 100 (Mega Rayquaza, both Primals, Mega Mewtwo Y, Mega Zygarde, Ultra Necrozma; rewritten 2026-10-15), Looker's arrest, state 18, the credits | `SkyPillar_Top`, `EndgameClear` |
 | Gossip: SIPHON, MAUVILLE, MAUVILLE_FREED, SKY_PILLAR, ENDING | `GetStoryGossipStage`, all 12 gossip NPCs |
-| Vanilla gifts off in Rustboro's Cutter's house, Mauville's houses 1-2 and the Game Corner | those interiors |
+| Vanilla gifts off in Rustboro's Cutter's house, Mauville's houses 1-2 and the Game Corner; since 2026-10-23 also the Seedot trade, Walda's wallpaper, the Rollout tutor, Rydel's bike, the Game Corner doll and coins | those interiors |
 
 Engine facts the harness confirmed: a trainer's `Groudon-Primal` /
 `Kyogre-Primal` / `Rayquaza-Mega` listed directly stays in that form through
@@ -144,6 +156,7 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
 |---|---|
 | The seven rewritten teams (2026-10-15): Sidney, Phoebe, Glacia, Drake, Maxie, Archie and Scott's Sky Pillar team | Written from `endgame-teams.md` into `src/data/trainers.party`; **built only, not battle-tested and not played**. Engine risks to check when played: `Necrozma-Ultra` staying Ultra after a faint (a one-line guard in `CanBattlerFormChange` is in, with no test yet; without it a test or debug build tripped the form-change assert); `Zygarde-Mega` listed directly (no test lists it); the newer Megas' abilities, sprites and cries (Starmie, Golisopod, Greninja, Crabominable, Abomasnow, Feraligatr, Dragonite, Heatran have never run in a trainer team); the Calyrex abilities as `ABILITY_AS_ONE_*` constants in the generated data; three to four permanent Megas on one team (tests cover one at a time); the Primals entering from slot 6 with no ace flag (Maxie and Archie were rewritten again 2026-10-16: Charizard Y and Mega Heatran lead Maxie with Volcarona, Reshiram, Ho-Oh; Politoed and Mega Swampert lead Archie with Indeedee-F, Lugia, Mega Starmie; Indeedee-F's Psychic Surge and an Assault Vest Kyogre answer the owner's Miraidon); Phoebe's Prankster Destiny Bond against a Dark type |
 | The pair flows (2026-10-15): the Elite Four in pairs at Devon, Maxie and Archie back to back at New Mauville, both with the rival's heal | Rewritten in `RustboroCity_DevonCorp_1F/2F` and `NewMauville_Inside` (scripts, `map.json`, `VAR_NEW_MAUVILLE_ADMINS` 0-4); **built only, not battle-tested, not played**. **Harness scenarios 21 and 23 now test the OLD flows (single fights, Maxie in the corridor, Archie alone) and must be rewritten before they are trusted.** To cover: a pair's staging on the fixed tiles, the rival's heal, the second member fighting at once, a loss in the second fight resetting both, held items restored after each win and a white-out, the rival gone after each pair and absent from 3F; at New Mauville the four admins, the rival added only at the generator scene (all five trigger rows and the talk path), the heal between, a loss to either repeating both, the unchanged supercharge, the rival gone |
+| The towns' people and the six helpers (2026-10-23) | **Built only**: `make` clean, `textwidth.py` 0 over-wide. Not run, not played. To check when played: each helper's pick, Egg and "too strong" loops, the flag after a success, the "used" lines per beat, the hint lines vanishing (Mauville) once all three are spent; the Rustboro raise refusing a party already at 60 after the siphon; every NPC's beat switch at states 7/8/10/11/13/15/18 |
 | Endgame towns: the Gym rematches | Harness scenario 35 (`harness-gyms.c`), 17/17: each door sealed before its town is freed and open from then on (through 18), only the leader inside, Mauville's puzzle off, a loss and a win per leader (a loss: no white-out, still in the Gym, healed, items back, flag clear, the "come back" line; a win: flag, heal, items, lead), no Wattson outside at 15. **Predates 2026-10-23**: with `FLAG_CHANSEY_TRANSFER_EXP_USED` set both leaders are at level 100; scenario 35 never sets it, so it still tests 60 and 65. `test/battle/ten_gauntlets_enemy_mega.c` 4/4: an enemy `Zygarde-Complete` Mega Evolves (AI too) and stays Mega. **Not played**: the teams' difficulty |
 | Endgame towns: Giratina (The Tear) | Harness scenario 33 (`harness-giratina.c`), 31/31: nothing before Roxanne, the clues and Hoopa's hint, the escort, the dark walk and its three wrongnesses, a loss, a knock-out, a run, the Master Ball catch and the Core, the exits, after the credits, a full bag. **Not played**: the darkness on screen |
 | Endgame towns: Calyrex (The True King) | Harness scenario 34 (`harness-calyrex.c`), 22/22: rubble only before Wattson, the old man's legend, the Crown's restoration, no steed, a run, a knock-out, the catch and the Reins, never chipped, one fusion (Glastrier) and one unfusion. **Not played**: the stand-in art, Spectrier, the learn-move prompt, save and reload while fused |
@@ -208,7 +221,7 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
 - **Side quests:** the Oldale Paradox researcher (`OldaleTown_House1`,
   `VAR_PARADOX_SHOWN_LO/HI`) is the first; the owner wants more of these for
   late-game items.
-- **Free flags and vars:** flags 0x286-0x287, 0x289-0x28F;
+- **Free flags and vars:** flags 0x286-0x287, 0x28F (0x289-0x28E are the towns' helpers);
   `VAR_UNUSED_0x40FC`-`0x40FF` (0x281-0x285 and 0x40F9-0x40FA are the endgame
   towns'; 0x40F7-0x40F8 are the Paradox researcher's; 0x40FB is
   `VAR_HOOPA_REST_STATE`).
@@ -248,12 +261,12 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
 - **Pricing questions:** should the Arena's 100 FP mock battle be priced in
   wins? Should early services have a floor (Second Wind is 150 FP in
   gauntlets 1-2)?
-- **Endgame towns:** the vanilla gifts inside open buildings are still
-  reachable (Cutter's house HM Cut, Mauville house 1 HM Rock Smash, house 2
-  Coin Case, the Game Corner), and **glass doors** (Devon Corp, the Game
-  Corner) warp through `TryStartWarpEventScript`, so sealing one needs a
-  check there. Sky Pillar still has its cracked floors; the owner wants the
-  climb smooth (no bike). New Mauville needs Wattson's way in.
+- **Endgame towns:** the vanilla gifts and services inside open buildings
+  are all off now (2026-10-23; the Mart purchases and the nurses stay).
+  **Glass doors** (Devon Corp, the Game Corner) warp through
+  `TryStartWarpEventScript`, so sealing one would need a check there. Sky
+  Pillar still has its cracked floors; the owner wants the climb smooth (no
+  bike, and Rydel no longer hands one out).
 - **The Factory generator** (`~/decomps/headless-harness/factory/`) still makes
   seven B2F lights; regenerating B2F would undo the five-light edit.
 - The old Battle Factory maps (gauntlet-6 "Assembly Line" text) are unused:
