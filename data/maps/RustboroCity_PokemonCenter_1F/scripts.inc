@@ -148,3 +148,215 @@ RustboroCity_PokemonCenter_1F_Text_GirlTearClosed:
 	.string "I almost miss it. It was the most\n"
 	.string "interesting thing that ever\l"
 	.string "happened to me.$"
+
+@ ----------------------------------------------------------------------------
+@ Ten Gauntlets: a WOBBUFFET has been queuing at the counter since the POKéNAV
+@ emptied the POKéMON CENTERS. It is the whole line. Each talk plays the next
+@ gag (VAR_RUSTBORO_WOBBUFFET, 0-3, cycles); after the credits the CENTER has
+@ patients again and its number finally comes up.
+@ ----------------------------------------------------------------------------
+RustboroCity_PokemonCenter_1F_EventScript_Wobbuffet::
+	lock
+	faceplayer
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_PokemonCenter_1F_EventScript_WobbuffetEnding
+	goto_if_eq VAR_RUSTBORO_WOBBUFFET, 1, RustboroCity_PokemonCenter_1F_EventScript_WobbuffetCounter
+	goto_if_eq VAR_RUSTBORO_WOBBUFFET, 2, RustboroCity_PokemonCenter_1F_EventScript_WobbuffetPoint
+	goto_if_eq VAR_RUSTBORO_WOBBUFFET, 3, RustboroCity_PokemonCenter_1F_EventScript_WobbuffetTicket
+	@ 0: the salute.
+	playmoncry SPECIES_WOBBUFFET, CRY_MODE_NORMAL
+	msgbox RustboroCity_PokemonCenter_1F_Text_WobbuffetSalute, MSGBOX_DEFAULT
+	waitmoncry
+	setvar VAR_RUSTBORO_WOBBUFFET, 1
+	release
+	end
+
+@ 1: the player tries to squeeze past, and bounces off (COUNTER).
+RustboroCity_PokemonCenter_1F_EventScript_WobbuffetCounter::
+	msgbox RustboroCity_PokemonCenter_1F_Text_WobbuffetSqueeze, MSGBOX_DEFAULT
+	closemessage
+	call_if_eq VAR_FACING, DIR_NORTH, RustboroCity_PokemonCenter_1F_EventScript_WobbuffetPushNorth
+	call_if_eq VAR_FACING, DIR_SOUTH, RustboroCity_PokemonCenter_1F_EventScript_WobbuffetPushSouth
+	call_if_eq VAR_FACING, DIR_WEST, RustboroCity_PokemonCenter_1F_EventScript_WobbuffetPushWest
+	call_if_eq VAR_FACING, DIR_EAST, RustboroCity_PokemonCenter_1F_EventScript_WobbuffetPushEast
+	playse SE_WALL_HIT
+	applymovement LOCALID_RUSTBORO_PC_WOBBUFFET, RustboroCity_PokemonCenter_1F_Movement_WobbuffetBrace
+	waitmovement 0
+	call_if_eq VAR_FACING, DIR_NORTH, RustboroCity_PokemonCenter_1F_EventScript_WobbuffetBounceNorth
+	call_if_eq VAR_FACING, DIR_SOUTH, RustboroCity_PokemonCenter_1F_EventScript_WobbuffetBounceSouth
+	call_if_eq VAR_FACING, DIR_WEST, RustboroCity_PokemonCenter_1F_EventScript_WobbuffetBounceWest
+	call_if_eq VAR_FACING, DIR_EAST, RustboroCity_PokemonCenter_1F_EventScript_WobbuffetBounceEast
+	msgbox RustboroCity_PokemonCenter_1F_Text_WobbuffetCounter, MSGBOX_DEFAULT
+	setvar VAR_RUSTBORO_WOBBUFFET, 2
+	release
+	end
+
+RustboroCity_PokemonCenter_1F_EventScript_WobbuffetPushNorth::
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_PokemonCenter_1F_Movement_PushNorth
+	waitmovement 0
+	return
+
+RustboroCity_PokemonCenter_1F_EventScript_WobbuffetPushSouth::
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_PokemonCenter_1F_Movement_PushSouth
+	waitmovement 0
+	return
+
+RustboroCity_PokemonCenter_1F_EventScript_WobbuffetPushWest::
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_PokemonCenter_1F_Movement_PushWest
+	waitmovement 0
+	return
+
+RustboroCity_PokemonCenter_1F_EventScript_WobbuffetPushEast::
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_PokemonCenter_1F_Movement_PushEast
+	waitmovement 0
+	return
+
+RustboroCity_PokemonCenter_1F_EventScript_WobbuffetBounceNorth::
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_PokemonCenter_1F_Movement_BounceNorth
+	waitmovement 0
+	return
+
+RustboroCity_PokemonCenter_1F_EventScript_WobbuffetBounceSouth::
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_PokemonCenter_1F_Movement_BounceSouth
+	waitmovement 0
+	return
+
+RustboroCity_PokemonCenter_1F_EventScript_WobbuffetBounceWest::
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_PokemonCenter_1F_Movement_BounceWest
+	waitmovement 0
+	return
+
+RustboroCity_PokemonCenter_1F_EventScript_WobbuffetBounceEast::
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_PokemonCenter_1F_Movement_BounceEast
+	waitmovement 0
+	return
+
+@ 2: the player points at the empty counter.
+RustboroCity_PokemonCenter_1F_EventScript_WobbuffetPoint::
+	msgbox RustboroCity_PokemonCenter_1F_Text_WobbuffetPoint1, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_RUSTBORO_PC_WOBBUFFET, RustboroCity_PokemonCenter_1F_Movement_WobbuffetLookUp
+	waitmovement 0
+	delay 30
+	applymovement LOCALID_RUSTBORO_PC_WOBBUFFET, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox RustboroCity_PokemonCenter_1F_Text_WobbuffetPoint2, MSGBOX_DEFAULT
+	setvar VAR_RUSTBORO_WOBBUFFET, 3
+	release
+	end
+
+@ 3: the ticket.
+RustboroCity_PokemonCenter_1F_EventScript_WobbuffetTicket::
+	msgbox RustboroCity_PokemonCenter_1F_Text_WobbuffetTicket, MSGBOX_DEFAULT
+	setvar VAR_RUSTBORO_WOBBUFFET, 0
+	release
+	end
+
+@ After the credits: its number comes up.
+RustboroCity_PokemonCenter_1F_EventScript_WobbuffetEnding::
+	msgbox RustboroCity_PokemonCenter_1F_Text_WobbuffetEnding1, MSGBOX_DEFAULT
+	closemessage
+	playmoncry SPECIES_WOBBUFFET, CRY_MODE_NORMAL
+	applymovement LOCALID_RUSTBORO_PC_WOBBUFFET, RustboroCity_PokemonCenter_1F_Movement_WobbuffetBrace
+	waitmovement 0
+	waitmoncry
+	msgbox RustboroCity_PokemonCenter_1F_Text_WobbuffetEnding2, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_PokemonCenter_1F_Movement_WobbuffetBrace:
+	walk_in_place_fast_up
+	walk_in_place_fast_up
+	face_player
+	step_end
+
+RustboroCity_PokemonCenter_1F_Movement_WobbuffetLookUp:
+	face_up
+	step_end
+
+RustboroCity_PokemonCenter_1F_Movement_PushNorth:
+	walk_in_place_fast_up
+	walk_in_place_fast_up
+	step_end
+
+RustboroCity_PokemonCenter_1F_Movement_PushSouth:
+	walk_in_place_fast_down
+	walk_in_place_fast_down
+	step_end
+
+RustboroCity_PokemonCenter_1F_Movement_PushWest:
+	walk_in_place_fast_left
+	walk_in_place_fast_left
+	step_end
+
+RustboroCity_PokemonCenter_1F_Movement_PushEast:
+	walk_in_place_fast_right
+	walk_in_place_fast_right
+	step_end
+
+RustboroCity_PokemonCenter_1F_Movement_BounceNorth:
+	jump_in_place_up
+	step_end
+
+RustboroCity_PokemonCenter_1F_Movement_BounceSouth:
+	jump_in_place_down
+	step_end
+
+RustboroCity_PokemonCenter_1F_Movement_BounceWest:
+	jump_in_place_left
+	step_end
+
+RustboroCity_PokemonCenter_1F_Movement_BounceEast:
+	jump_in_place_right
+	step_end
+
+RustboroCity_PokemonCenter_1F_Text_WobbuffetSalute:
+	.string "WOBBUFFET: Woooob!\p"
+	.string "It saluted. It is standing in line\n"
+	.string "for the counter.\p"
+	.string "It is the whole line.$"
+
+RustboroCity_PokemonCenter_1F_Text_WobbuffetSqueeze:
+	.string "WOBBUFFET: Wob.\p"
+	.string "It is still in line. {PLAYER} tried\n"
+	.string "to squeeze past.$"
+
+RustboroCity_PokemonCenter_1F_Text_WobbuffetCounter:
+	.string "WOBBUFFET used COUNTER!\p"
+	.string "{PLAYER} bounced off.\p"
+	.string "WOBBUFFET: Wooob.\n"
+	.string "It has not lost its place.$"
+
+RustboroCity_PokemonCenter_1F_Text_WobbuffetPoint1:
+	.string "WOBBUFFET: Wob?\p"
+	.string "{PLAYER} pointed at the counter.\n"
+	.string "There is nobody waiting at it.$"
+
+RustboroCity_PokemonCenter_1F_Text_WobbuffetPoint2:
+	.string "WOBBUFFET looked at the counter.\p"
+	.string "WOBBUFFET looked at {PLAYER}.\p"
+	.string "WOBBUFFET did not move. It was here\n"
+	.string "first.$"
+
+RustboroCity_PokemonCenter_1F_Text_WobbuffetTicket:
+	.string "WOBBUFFET: …Wob.\p"
+	.string "It is holding a numbered ticket from\n"
+	.string "the dispenser.\p"
+	.string "The number is 1. The sign above the\n"
+	.string "counter says NOW SERVING: 1.\p"
+	.string "It has been saying that since the\n"
+	.string "POKéNAV came out.$"
+
+RustboroCity_PokemonCenter_1F_Text_WobbuffetEnding1:
+	.string "The CENTER has patients again, and a\n"
+	.string "real line.\p"
+	.string "WOBBUFFET is at the front of it. It\n"
+	.string "was always at the front of it.\p"
+	.string "NURSE JOY: Number 1? Number 1,\n"
+	.string "please!$"
+
+RustboroCity_PokemonCenter_1F_Text_WobbuffetEnding2:
+	.string "WOBBUFFET: WOOOOOOOB!\p"
+	.string "It wept. NURSE JOY wept. The man\n"
+	.string "behind it checked his ticket and\l"
+	.string "wept too. His number is 2.$"

@@ -1321,13 +1321,26 @@ anything already at or past the level are refused, moves aren't learned):
 | Mauville | 65 | The Game Corner cook (`FLAG_MAUVILLE_RAISE_2`) | Feeds the house's old prize Pokémon a chip-free diet |
 | Mauville | 65 | Rydel's assistant (`FLAG_MAUVILLE_RAISE_3`) | A healing coil salvaged from New Mauville, rewired to grow a Pokémon; it fries after one use |
 
+**The Wobbuffet** (Rustboro, built 2026-10-23): a Wobbuffet has been
+queuing at the Pokémon Center's counter since the PokéNav emptied the
+Centers, at (5, 4) beside the nurse's spot. It is the whole line. Each talk
+plays the next gag (`VAR_RUSTBORO_WOBBUFFET`, cycling): the salute; the
+player tries to squeeze past and bounces off ("WOBBUFFET used COUNTER!",
+a push-and-hop in the player's facing); the player points at the empty
+counter and it looks, looks back, and does not move; the numbered ticket
+(1, and the sign has said NOW SERVING: 1 since the PokéNav came out). After
+the credits the Center has a real line, Joy calls number 1, and everyone
+weeps, including the man behind it holding number 2. No battle, no reward:
+a joke.
+
 **The Ditto** (Mauville, built 2026-10-23): a Ditto has been living in
 town as a second School Kid, standing in the dead-end corner behind the Bike
 Shop (38, 6) and never blinking. The Maniac hints at it in every beat ("two
 of that SCHOOL KID… the second one never blinks"). Talking to the copy gets
 a flat echo of the real kid's lines and "Poke it?"; YES melts it into a
 Ditto (`OBJ_EVENT_GFX_VAR_1`, `VAR_OBJ_GFX_ID_1`) and starts a **wild battle
-at level 60**, catchable, never chipped. Caught: gone for good
+at level 60**: **shiny, with Imposter** (`createmon` over the wild slot),
+catchable, never chipped. Caught: gone for good
 (`FLAG_MAUVILLE_DITTO_CAUGHT`), and the Maniac crows. Knocked out or run
 from: it melts back into the kid and waits.
 

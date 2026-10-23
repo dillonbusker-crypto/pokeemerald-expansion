@@ -91,7 +91,8 @@ MauvilleCity_EventScript_ManiacDittoCaught::
 @ the dead-end corner behind the BIKE SHOP (38, 6); the MANIAC hints at it.
 @ The object wears OBJ_EVENT_GFX_VAR_1, set to the SCHOOL KID on every map
 @ load (OnTransition). Poking it swaps the sprite to DITTO (remove and re-add
-@ the object, so it re-reads the var) and starts a wild battle at level 60.
+@ the object, so it re-reads the var) and starts a wild battle at level 60:
+@ a shiny DITTO with IMPOSTER (createmon over the setwildbattle slot).
 @ Caught: gone for good (FLAG_MAUVILLE_DITTO_CAUGHT, also the object's flag;
 @ never chipped, MAPSEC_MAUVILLE_CITY). Knocked out or run from: it melts
 @ back into the kid and waits.
@@ -104,7 +105,7 @@ MauvilleCity_EventScript_DittoKid::
 	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_DittoKidLeave
 	closemessage
 	playse SE_M_MINIMIZE
-	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_SPECIES(DITTO)
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_SPECIES_SHINY(DITTO)
 	removeobject LOCALID_MAUVILLE_DITTO
 	clearflag FLAG_MAUVILLE_DITTO_CAUGHT
 	addobject LOCALID_MAUVILLE_DITTO
@@ -114,6 +115,9 @@ MauvilleCity_EventScript_DittoKid::
 	playmoncry SPECIES_DITTO, CRY_MODE_ENCOUNTER
 	waitmoncry
 	setwildbattle SPECIES_DITTO, 60
+	@ Shiny, with IMPOSTER (the hidden ability, slot 2): createmon replaces
+	@ the wild slot setwildbattle just filled.
+	createmon 1, 0, SPECIES_DITTO, 60, abilityNum=2, shinyMode=SHINY_MODE_ALWAYS
 	dowildbattle
 	specialvar VAR_RESULT, GetBattleOutcome
 	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, MauvilleCity_EventScript_DittoCaught
@@ -171,8 +175,8 @@ MauvilleCity_Text_DittoKidLeave:
 
 MauvilleCity_Text_DittoKidMelts:
 	.string "The SCHOOL KID wobbled, sagged, and\n"
-	.string "melted into a purple blob!\p"
-	.string "It's a DITTO!$"
+	.string "melted into a glittering blue blob!\p"
+	.string "It's a DITTO! A shiny one!$"
 
 MauvilleCity_Text_DittoKidBack:
 	.string "The DITTO sagged, stretched, and\n"

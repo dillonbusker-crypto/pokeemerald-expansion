@@ -36,9 +36,16 @@ harness. History is in `git log`; the story is in `storyline.md`.
 - **Mauville's Ditto (2026-10-23)**: a second School Kid behind the Bike Shop
   at (38, 6) is a Ditto; the Maniac hints at it. Poking it swaps the sprite
   (`OBJ_EVENT_GFX_VAR_1`, remove and re-add) and starts a catchable wild
-  battle at 60; `FLAG_MAUVILLE_DITTO_CAUGHT`. **Built only, not run**: check
+  battle at 60, shiny with Imposter (`createmon 1, 0` after `setwildbattle`,
+  untested pattern); `FLAG_MAUVILLE_DITTO_CAUGHT`. **Built only, not run**: check
   the sprite swap on screen, the kid coming back after a knock-out or a run,
   and the object gone after a catch and a reload.
+- **Rustboro's Wobbuffet (2026-10-23)**: a joke NPC at (5, 4) in the
+  Pokémon Center, queuing at the empty counter; four cycling gags
+  (`VAR_RUSTBORO_WOBBUFFET`) and an after-the-credits payoff. **Built only,
+  not run**: check the push-and-hop plays right from all four sides (the
+  player walks in place toward it, then hops), and that the wandering boy
+  can't wedge the player.
 - **Commits are local only.** Pushing from WSL isn't set up.
 
 ## Next: the owner's full playthrough, then tuning
@@ -228,7 +235,7 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
   `VAR_PARADOX_SHOWN_LO/HI`) is the first; the owner wants more of these for
   late-game items.
 - **Free flags and vars:** flags 0x287, 0x28F (0x286 is the Ditto, 0x289-0x28E the towns' helpers);
-  `VAR_UNUSED_0x40FC`-`0x40FF` (0x281-0x285 and 0x40F9-0x40FA are the endgame
+  `VAR_UNUSED_0x40FD`-`0x40FF` (0x40FC is the Wobbuffet) (0x281-0x285 and 0x40F9-0x40FA are the endgame
   towns'; 0x40F7-0x40F8 are the Paradox researcher's; 0x40FB is
   `VAR_HOOPA_REST_STATE`).
 - **Endgame towns, to look at in the playthrough:** the dark Rusturf Tunnel
