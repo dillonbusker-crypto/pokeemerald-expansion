@@ -638,9 +638,11 @@ bool32 IsFrontierChippedBoxMon(struct BoxPokemon *boxMon)
 
     if (FlagGet(FLAG_FRONTIER_CHIPS_OFF))
         return FALSE;
-    // Never chipped: the two caves, GIRATINA's tunnel and CALYREX's MAUVILLE
+    // Never chipped: the two caves, GIRATINA's tunnel, CALYREX's MAUVILLE and
+    // ARCEUS's NAVEL ROCK
     return metLocation != MAPSEC_ARTISAN_CAVE && metLocation != MAPSEC_ISLAND_CAVE
-        && metLocation != MAPSEC_RUSTURF_TUNNEL && metLocation != MAPSEC_MAUVILLE_CITY;
+        && metLocation != MAPSEC_RUSTURF_TUNNEL && metLocation != MAPSEC_MAUVILLE_CITY
+        && metLocation != MAPSEC_NAVEL_ROCK;
 }
 
 bool32 IsFrontierChippedMon(struct Pokemon *mon)

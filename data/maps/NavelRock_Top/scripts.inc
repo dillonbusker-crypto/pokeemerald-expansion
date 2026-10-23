@@ -3,10 +3,90 @@ NavelRock_Top_MapScripts::
 	map_script MAP_SCRIPT_ON_RESUME, NavelRock_Top_OnResume
 	.byte 0
 
+@ Ten Gauntlets: the summit is reached only by the old woman's AZURE FLUTE
+@ (BattleFrontier_Lounge8), and ARCEUS stands where HO-OH roosted. HO-OH
+@ never shows and his trigger (VAR_TEMP_1) never fires; the ladder down
+@ leads back to the old woman's house (map.json). The vanilla HO-OH scripts
+@ below are unreferenced.
 NavelRock_Top_OnTransition:
-	call_if_set FLAG_CAUGHT_HO_OH, NavelRock_Top_EventScript_HideHoOh
-	call_if_unset FLAG_CAUGHT_HO_OH, NavelRock_Top_EventScript_TryShowHoOh
+	setvar VAR_TEMP_1, 1
+	setflag FLAG_HIDE_HO_OH
 	end
+
+@ ARCEUS at (12, 8), at the head of the path; level 60, catchable, never
+@ chipped (MAPSEC_NAVEL_ROCK). Caught: gone (FLAG_ARCEUS_CAUGHT),
+@ VAR_ARCEUS_EVENT 2, and the light carries the player back to the house.
+@ Knocked out or run from: it stays.
+NavelRock_Top_EventScript_Arceus::
+	lock
+	faceplayer
+	msgbox NavelRock_Top_Text_ArceusBefore, MSGBOX_DEFAULT
+	msgbox NavelRock_Top_Text_ArceusChallenge, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, NavelRock_Top_EventScript_ArceusStepBack
+	closemessage
+	playmoncry SPECIES_ARCEUS, CRY_MODE_ENCOUNTER
+	waitmoncry
+	setwildbattle SPECIES_ARCEUS, 60
+	dowildbattle
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, NavelRock_Top_EventScript_ArceusCaught
+	goto_if_eq VAR_RESULT, B_OUTCOME_WON, NavelRock_Top_EventScript_ArceusStands
+	msgbox NavelRock_Top_Text_ArceusLetGo, MSGBOX_DEFAULT
+	release
+	end
+
+NavelRock_Top_EventScript_ArceusStepBack::
+	msgbox NavelRock_Top_Text_ArceusStepBack, MSGBOX_DEFAULT
+	release
+	end
+
+NavelRock_Top_EventScript_ArceusStands::
+	msgbox NavelRock_Top_Text_ArceusStands, MSGBOX_DEFAULT
+	release
+	end
+
+NavelRock_Top_EventScript_ArceusCaught::
+	setflag FLAG_ARCEUS_CAUGHT
+	setvar VAR_ARCEUS_EVENT, 2
+	fadescreen FADE_TO_WHITE
+	removeobject LOCALID_NAVEL_ROCK_ARCEUS
+	fadescreen FADE_FROM_WHITE
+	msgbox NavelRock_Top_Text_ArceusCaught, MSGBOX_DEFAULT
+	closemessage
+	warpwhitefade MAP_BATTLE_FRONTIER_LOUNGE8, 1, 5
+	waitstate
+	release
+	end
+
+NavelRock_Top_Text_ArceusBefore:
+	.string "It did not move.\n"
+	.string "It did not need to.\p"
+	.string "{PLAYER} felt very small.$"
+
+NavelRock_Top_Text_ArceusChallenge:
+	.string "Challenge it?$"
+
+NavelRock_Top_Text_ArceusStepBack:
+	.string "{PLAYER} stepped back.\p"
+	.string "It watched. It had been watching\n"
+	.string "since before there were eyes.$"
+
+NavelRock_Top_Text_ArceusStands:
+	.string "It rose into the light, and came\n"
+	.string "down again, whole.\p"
+	.string "It is not finished with {PLAYER}.$"
+
+NavelRock_Top_Text_ArceusLetGo:
+	.string "It let {PLAYER} go.\p"
+	.string "It did not need to chase.$"
+
+NavelRock_Top_Text_ArceusCaught:
+	.string "The light folded in on itself and\n"
+	.string "was gone.\p"
+	.string "Far below, {PLAYER} thought, an old\n"
+	.string "woman's hum had just stopped.\p"
+	.string "The light rose again, gently this\n"
+	.string "time, and carried {PLAYER} home.$"
 
 NavelRock_Top_EventScript_HideHoOh::
 	setvar VAR_TEMP_1, 1

@@ -40,6 +40,13 @@ harness. History is in `git log`; the story is in `storyline.md`.
   untested pattern); `FLAG_MAUVILLE_DITTO_CAUGHT`. **Built only, not run**: check
   the sprite swap on screen, the kid coming back after a knock-out or a run,
   and the object gone after a catch and a reload.
+- **The Azure Flute and Arceus (2026-10-23)**: the old woman in Lounge 8
+  sends a player carrying Giratina to Navel Rock's summit, where Arceus is
+  catchable at 60 (`VAR_ARCEUS_EVENT`, `FLAG_ARCEUS_CAUGHT`; the summit's
+  ladder now warps to Lounge 8's door, Ho-Oh is hidden for good). **Built
+  only, not run**: check the white fade both ways, the player's facing on
+  arrival at (12, 18), the Arceus sprite at (12, 8), a knock-out leaving it
+  in place, the ladder back, and the Experience rule on the caught Arceus.
 - **Rustboro's Wobbuffet (2026-10-23)**: a joke NPC at (5, 4) in the
   Pokémon Center, queuing at the empty counter; four cycling gags
   (`VAR_RUSTBORO_WOBBUFFET`) and an after-the-credits payoff. **Built only,
@@ -234,8 +241,8 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
 - **Side quests:** the Oldale Paradox researcher (`OldaleTown_House1`,
   `VAR_PARADOX_SHOWN_LO/HI`) is the first; the owner wants more of these for
   late-game items.
-- **Free flags and vars:** flags 0x287, 0x28F (0x286 is the Ditto, 0x289-0x28E the towns' helpers);
-  `VAR_UNUSED_0x40FD`-`0x40FF` (0x40FC is the Wobbuffet) (0x281-0x285 and 0x40F9-0x40FA are the endgame
+- **Free flags and vars:** flag 0x28F (0x286 is the Ditto, 0x287 Arceus, 0x289-0x28E the towns' helpers);
+  `VAR_UNUSED_0x40FE`-`0x40FF` (0x40FC is the Wobbuffet, 0x40FD Arceus) (0x281-0x285 and 0x40F9-0x40FA are the endgame
   towns'; 0x40F7-0x40F8 are the Paradox researcher's; 0x40FB is
   `VAR_HOOPA_REST_STATE`).
 - **Endgame towns, to look at in the playthrough:** the dark Rusturf Tunnel

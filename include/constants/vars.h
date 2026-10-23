@@ -272,7 +272,7 @@
 #define VAR_CALYREX_EVENT                                0x40FA // Workstream B: the CALYREX event's progress
 #define VAR_HOOPA_REST_STATE                             0x40FB // Ten Gauntlets: VAR_ENDGAME_STATE at HOOPA's last catch (it rests until the story moves on)
 #define VAR_RUSTBORO_WOBBUFFET                           0x40FC // Ten Gauntlets: which gag the WOBBUFFET queuing in RUSTBORO's POKEMON CENTER does next (0-3, cycles)
-#define VAR_UNUSED_0x40FD                                0x40FD // Unused Var
+#define VAR_ARCEUS_EVENT                                 0x40FD // Ten Gauntlets: the old woman's AZURE FLUTE (Lounge 8): 0 not blown, 1 blown (ARCEUS waits on NAVEL ROCK's summit), 2 ARCEUS caught
 #define VAR_UNUSED_0x40FE                                0x40FE // Unused Var
 #define VAR_UNUSED_0x40FF                                0x40FF // Unused Var
 

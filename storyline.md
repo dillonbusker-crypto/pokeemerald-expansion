@@ -1321,6 +1321,26 @@ anything already at or past the level are refused, moves aren't learned):
 | Mauville | 65 | The Game Corner cook (`FLAG_MAUVILLE_RAISE_2`) | Feeds the house's old prize Pokémon a chip-free diet |
 | Mauville | 65 | Rydel's assistant (`FLAG_MAUVILLE_RAISE_3`) | A healing coil salvaged from New Mauville, rewired to grow a Pokémon; it fries after one use |
 
+**The Azure Flute and Arceus** (the Frontier and Navel Rock, built
+2026-10-23): an old woman in Lounge 8 (the house at (1, 4)) has heard "a hum,
+like a flute with no one playing it" all her life: the one who made the
+world, still listening. Her lines follow the Tear (`VAR_GIRATINA_EVENT`,
+`FLAG_GIRATINA_CAUGHT`): the hum has changed, something clawed its way up,
+show it to her. She always asks to be **shown one Pokémon** (the party
+menu): anything but Giratina she **blesses in the name of mighty Arceus**
+(flavour only: "{nick} looked blessed. Probably."; an Egg is blessed
+"whatever you turn out to be"). **Shown Giratina** (either forme) she takes it for the King of the Underworld, is adamant it
+must be exorcised, draws the **Azure Flute** she has had all along from her
+shawl and blows it. The player hears nothing, the room goes white
+(`warpwhitefade`), and they stand at the foot of **Navel Rock's summit**
+(`NavelRock_Top`, (12, 18)), where **Arceus** stands where Ho-Oh roosted.
+Level 60, catchable, never chipped (`MAPSEC_NAVEL_ROCK`). Caught: the light
+carries the player back to her house, the hum stops, and she notes Giratina
+is still in their ball alongside its maker ("let them argue it out").
+Knocked out or run from: it stays, and she plays again on request
+(`VAR_ARCEUS_EVENT` 1). The summit's ladder leads back to her door; Ho-Oh
+never shows there. `FLAG_ARCEUS_CAUGHT`.
+
 **The Wobbuffet** (Rustboro, built 2026-10-23): a Wobbuffet has been
 queuing at the Pokémon Center's counter since the PokéNav emptied the
 Centers, at (5, 4) beside the nurse's spot. It is the whole line. Each talk
