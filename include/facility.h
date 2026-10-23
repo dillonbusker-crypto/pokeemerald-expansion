@@ -104,6 +104,7 @@ const u8 *GetEndgameSealedDoorScript(u32 mapGroup, u32 mapNum);
 // (src/facility.c; used by ItemUseCB_ReplicaCrown).
 u32 GetReplicaCrownLimit(void);
 void TransferExpToLevel100(void);
+void RaiseMonToLevel(void);
 // The level every chipped Pokemon catches up to when the siphon frees it,
 // and the level the shop sells at from then on (SiphonLiftChippedLevels).
 #define FRONTIER_SIPHON_LEVEL 60

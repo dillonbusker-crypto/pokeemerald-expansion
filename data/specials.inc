@@ -93,6 +93,7 @@ gSpecials::
 	def_special GetGauntletsClearedCount
 	def_special GetStoryGossipStage
 	def_special TransferExpToLevel100
+	def_special RaiseMonToLevel
 	def_special SiphonLiftChippedLevels
 	def_special OldaleCheckParadox
 	def_special OldaleMarkParadoxShown

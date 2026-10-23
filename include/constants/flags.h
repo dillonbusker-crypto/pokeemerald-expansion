@@ -710,12 +710,12 @@
 #define FLAG_UNUSED_0x286  0x286 // Unused Flag
 #define FLAG_UNUSED_0x287  0x287 // Unused Flag
 #define FLAG_SKY_PILLAR_RAYQUAZA_CAUGHT  0x288 // Ten Gauntlets: SCOTT has caught RAYQUAZA at the top of SKY PILLAR (the scene never replays after a loss). Endgame part 5 owns 0x288-0x28F
-#define FLAG_UNUSED_0x289  0x289 // Unused Flag
-#define FLAG_UNUSED_0x28A  0x28A // Unused Flag
-#define FLAG_UNUSED_0x28B  0x28B // Unused Flag
-#define FLAG_UNUSED_0x28C  0x28C // Unused Flag
-#define FLAG_UNUSED_0x28D  0x28D // Unused Flag
-#define FLAG_UNUSED_0x28E  0x28E // Unused Flag
+#define FLAG_RUSTBORO_RAISE_1  0x289 // Ten Gauntlets: endgame towns, the first RUSTBORO townsperson has raised one Pokemon to level 55 (RaiseMonToLevel, once each)
+#define FLAG_RUSTBORO_RAISE_2  0x28A // Ten Gauntlets: the second RUSTBORO townsperson's level-55 raise used
+#define FLAG_RUSTBORO_RAISE_3  0x28B // Ten Gauntlets: the third RUSTBORO townsperson's level-55 raise used
+#define FLAG_MAUVILLE_RAISE_1  0x28C // Ten Gauntlets: the first MAUVILLE townsperson's level-65 raise used
+#define FLAG_MAUVILLE_RAISE_2  0x28D // Ten Gauntlets: the second MAUVILLE townsperson's level-65 raise used
+#define FLAG_MAUVILLE_RAISE_3  0x28E // Ten Gauntlets: the third MAUVILLE townsperson's level-65 raise used
 #define FLAG_UNUSED_0x28F  0x28F // Unused Flag
 #define FLAG_UNUSED_0x290  0x290 // Unused Flag
 #define FLAG_UNUSED_0x291  0x291 // Unused Flag

@@ -772,6 +772,35 @@ void TransferExpToLevel100(void)
     gSpecialVar_Result = 0;
 }
 
+// Ten Gauntlets: the endgame towns' hidden helpers (three in RUSTBORO at 55,
+// three in MAUVILLE at 65, one use each, FLAG_RUSTBORO_RAISE_* and
+// FLAG_MAUVILLE_RAISE_*). Like TransferExpToLevel100 but to a chosen level,
+// and nothing already at or past it is touched. Moves are not learned.
+// In: gSpecialVar_0x8004 = party slot, gSpecialVar_0x8005 = the level.
+// Out: gSpecialVar_Result = 0 done, 1 an Egg, 2 already at or past that level.
+void RaiseMonToLevel(void)
+{
+    struct Pokemon *mon = &gPlayerParty[gSpecialVar_0x8004];
+    u16 species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
+    u32 level = gSpecialVar_0x8005;
+
+    if (level > MAX_LEVEL)
+        level = MAX_LEVEL;
+    if (species == SPECIES_EGG)
+    {
+        gSpecialVar_Result = 1;
+        return;
+    }
+    if (GetMonData(mon, MON_DATA_LEVEL) >= level)
+    {
+        gSpecialVar_Result = 2;
+        return;
+    }
+    SetMonData(mon, MON_DATA_EXP, &gExperienceTables[gSpeciesInfo[species].growthRate][level]);
+    CalculateMonStats(mon);
+    gSpecialVar_Result = 0;
+}
+
 // Ten Gauntlets: the researcher in OLDALE's first house pays one BOOSTER
 // ENERGY for each Paradox species the player shows him (the shop doesn't
 // sell it). The shown species are a 32-bit mask across VAR_PARADOX_SHOWN_LO/HI,
