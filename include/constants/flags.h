@@ -707,7 +707,7 @@
 #define FLAG_CALYREX_CAUGHT  0x283 // Workstream B: CALYREX caught in MAUVILLE
 #define FLAG_MAUVILLE_STATUE_RESTORED  0x284 // Workstream B: the toppled statue in MAUVILLE is restored
 #define FLAG_HIDE_RUSTURF_TUNNEL_MIKE  0x285 // Workstream A: hides Hiker Mike in RUSTURF TUNNEL in the endgame
-#define FLAG_UNUSED_0x286  0x286 // Unused Flag
+#define FLAG_MAUVILLE_DITTO_CAUGHT  0x286 // Ten Gauntlets: the DITTO posing as a second SCHOOL KID in MAUVILLE (behind the BIKE SHOP) has been caught; also its object's flag
 #define FLAG_UNUSED_0x287  0x287 // Unused Flag
 #define FLAG_SKY_PILLAR_RAYQUAZA_CAUGHT  0x288 // Ten Gauntlets: SCOTT has caught RAYQUAZA at the top of SKY PILLAR (the scene never replays after a loss). Endgame part 5 owns 0x288-0x28F
 #define FLAG_RUSTBORO_RAISE_1  0x289 // Ten Gauntlets: endgame towns, the first RUSTBORO townsperson has raised one Pokemon to level 55 (RaiseMonToLevel, once each)

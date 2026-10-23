@@ -33,6 +33,12 @@ harness. History is in `git log`; the story is in `storyline.md`.
   `FLAG_MAUVILLE_RAISE_1-3`. Vanilla extras switched off with them: the
   Seedot trade, Walda's wallpaper, the Rollout tutor, Rydel's bike, the Game
   Corner doll and coins. **Built and width-checked only, not run.**
+- **Mauville's Ditto (2026-10-23)**: a second School Kid behind the Bike Shop
+  at (38, 6) is a Ditto; the Maniac hints at it. Poking it swaps the sprite
+  (`OBJ_EVENT_GFX_VAR_1`, remove and re-add) and starts a catchable wild
+  battle at 60; `FLAG_MAUVILLE_DITTO_CAUGHT`. **Built only, not run**: check
+  the sprite swap on screen, the kid coming back after a knock-out or a run,
+  and the object gone after a catch and a reload.
 - **Commits are local only.** Pushing from WSL isn't set up.
 
 ## Next: the owner's full playthrough, then tuning
@@ -221,7 +227,7 @@ eight `SCOTT` entries in `src/data/trainers.party`). **Not seen in battle yet.**
 - **Side quests:** the Oldale Paradox researcher (`OldaleTown_House1`,
   `VAR_PARADOX_SHOWN_LO/HI`) is the first; the owner wants more of these for
   late-game items.
-- **Free flags and vars:** flags 0x286-0x287, 0x28F (0x289-0x28E are the towns' helpers);
+- **Free flags and vars:** flags 0x287, 0x28F (0x286 is the Ditto, 0x289-0x28E the towns' helpers);
   `VAR_UNUSED_0x40FC`-`0x40FF` (0x281-0x285 and 0x40F9-0x40FA are the endgame
   towns'; 0x40F7-0x40F8 are the Paradox researcher's; 0x40FB is
   `VAR_HOOPA_REST_STATE`).

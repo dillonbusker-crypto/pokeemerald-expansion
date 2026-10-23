@@ -20,6 +20,8 @@ MauvilleCity_OnTransition:
 	call_if_set FLAG_GOT_TM_THUNDERBOLT_FROM_WATTSON, MauvilleCity_EventScript_MoveWattsonBackToGym
 	call MauvilleCity_EventScript_SetupEndgame
 	call MauvilleCity_EventScript_SetupCalyrex
+	@ The DITTO behind the BIKE SHOP wears the SCHOOL KID's sprite until poked.
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_SCHOOL_KID_M
 	end
 
 MauvilleCity_OnFrame:
@@ -51,20 +53,137 @@ MauvilleCity_EventScript_BoyEnding::
 	msgbox MauvilleCity_Text_BoyEnding, MSGBOX_NPC
 	end
 
+@ The MANIAC also hints at the DITTO (MauvilleCity_EventScript_DittoKid) in
+@ every beat, and crows about it once it's caught.
 MauvilleCity_EventScript_Maniac::
+	lock
+	faceplayer
 	specialvar VAR_RESULT, GetStoryGossipStage
 	goto_if_ge VAR_RESULT, GOSSIP_ENDING, MauvilleCity_EventScript_ManiacEnding
 	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE_FREED, MauvilleCity_EventScript_ManiacFreed
-	msgbox MauvilleCity_Text_ManiacOccupied, MSGBOX_NPC
+	msgbox MauvilleCity_Text_ManiacOccupied, MSGBOX_DEFAULT
+	goto MauvilleCity_EventScript_ManiacDitto
 	end
 
 MauvilleCity_EventScript_ManiacFreed::
-	msgbox MauvilleCity_Text_ManiacFreed, MSGBOX_NPC
+	msgbox MauvilleCity_Text_ManiacFreed, MSGBOX_DEFAULT
+	goto MauvilleCity_EventScript_ManiacDitto
 	end
 
 MauvilleCity_EventScript_ManiacEnding::
-	msgbox MauvilleCity_Text_ManiacEnding, MSGBOX_NPC
+	msgbox MauvilleCity_Text_ManiacEnding, MSGBOX_DEFAULT
+	goto MauvilleCity_EventScript_ManiacDitto
 	end
+
+MauvilleCity_EventScript_ManiacDitto::
+	goto_if_set FLAG_MAUVILLE_DITTO_CAUGHT, MauvilleCity_EventScript_ManiacDittoCaught
+	msgbox MauvilleCity_Text_ManiacDittoHint, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_ManiacDittoCaught::
+	msgbox MauvilleCity_Text_ManiacDittoCaught, MSGBOX_DEFAULT
+	release
+	end
+
+@ ----------------------------------------------------------------------------
+@ Ten Gauntlets: a DITTO has been living in town as a second SCHOOL KID, in
+@ the dead-end corner behind the BIKE SHOP (38, 6); the MANIAC hints at it.
+@ The object wears OBJ_EVENT_GFX_VAR_1, set to the SCHOOL KID on every map
+@ load (OnTransition). Poking it swaps the sprite to DITTO (remove and re-add
+@ the object, so it re-reads the var) and starts a wild battle at level 60.
+@ Caught: gone for good (FLAG_MAUVILLE_DITTO_CAUGHT, also the object's flag;
+@ never chipped, MAPSEC_MAUVILLE_CITY). Knocked out or run from: it melts
+@ back into the kid and waits.
+@ ----------------------------------------------------------------------------
+MauvilleCity_EventScript_DittoKid::
+	lock
+	faceplayer
+	msgbox MauvilleCity_Text_DittoKidTalk, MSGBOX_DEFAULT
+	msgbox MauvilleCity_Text_DittoKidPoke, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_EventScript_DittoKidLeave
+	closemessage
+	playse SE_M_MINIMIZE
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_SPECIES(DITTO)
+	removeobject LOCALID_MAUVILLE_DITTO
+	clearflag FLAG_MAUVILLE_DITTO_CAUGHT
+	addobject LOCALID_MAUVILLE_DITTO
+	waitse
+	msgbox MauvilleCity_Text_DittoKidMelts, MSGBOX_DEFAULT
+	closemessage
+	playmoncry SPECIES_DITTO, CRY_MODE_ENCOUNTER
+	waitmoncry
+	setwildbattle SPECIES_DITTO, 60
+	dowildbattle
+	specialvar VAR_RESULT, GetBattleOutcome
+	goto_if_eq VAR_RESULT, B_OUTCOME_CAUGHT, MauvilleCity_EventScript_DittoCaught
+	setvar VAR_OBJ_GFX_ID_1, OBJ_EVENT_GFX_SCHOOL_KID_M
+	removeobject LOCALID_MAUVILLE_DITTO
+	clearflag FLAG_MAUVILLE_DITTO_CAUGHT
+	addobject LOCALID_MAUVILLE_DITTO
+	msgbox MauvilleCity_Text_DittoKidBack, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_DittoKidLeave::
+	msgbox MauvilleCity_Text_DittoKidLeave, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_EventScript_DittoCaught::
+	setflag FLAG_MAUVILLE_DITTO_CAUGHT
+	removeobject LOCALID_MAUVILLE_DITTO
+	msgbox MauvilleCity_Text_DittoCaught, MSGBOX_DEFAULT
+	release
+	end
+
+MauvilleCity_Text_ManiacDittoHint:
+	.string "Oh, and here's a rare one for my\n"
+	.string "collection: there are two of that\l"
+	.string "SCHOOL KID.\p"
+	.string "One by the MART, one in the corner\n"
+	.string "behind the BIKE SHOP.\p"
+	.string "The second one never blinks. Go and\n"
+	.string "have a look. I dare you.$"
+
+MauvilleCity_Text_ManiacDittoCaught:
+	.string "So the second SCHOOL KID was a DITTO!\n"
+	.string "Living among us, in a dead end,\l"
+	.string "not blinking.\p"
+	.string "I'd have paid good money for a\n"
+	.string "photograph of that.$"
+
+MauvilleCity_Text_DittoKidTalk:
+	.string "I am a SCHOOL KID. I go to school.\n"
+	.string "I like… TV. Yes. TV.\p"
+	.string "Every TV in town shows the same man.\n"
+	.string "I am a SCHOOL KID.$"
+
+MauvilleCity_Text_DittoKidPoke:
+	.string "{PLAYER} looked closer. Its eyes\n"
+	.string "weren't blinking, and its outline\l"
+	.string "wobbled like jelly.\p"
+	.string "Poke it?$"
+
+MauvilleCity_Text_DittoKidLeave:
+	.string "The SCHOOL KID stared straight\n"
+	.string "ahead. It did not blink.$"
+
+MauvilleCity_Text_DittoKidMelts:
+	.string "The SCHOOL KID wobbled, sagged, and\n"
+	.string "melted into a purple blob!\p"
+	.string "It's a DITTO!$"
+
+MauvilleCity_Text_DittoKidBack:
+	.string "The DITTO sagged, stretched, and\n"
+	.string "settled back into the shape of a\l"
+	.string "SCHOOL KID.\p"
+	.string "It went on not blinking.$"
+
+MauvilleCity_Text_DittoCaught:
+	.string "The second SCHOOL KID is gone. The\n"
+	.string "corner behind the BIKE SHOP is just\l"
+	.string "a corner again.$"
 
 MauvilleCity_EventScript_Woman::
 	specialvar VAR_RESULT, GetStoryGossipStage
