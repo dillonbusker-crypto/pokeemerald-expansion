@@ -4,59 +4,75 @@ RustboroCity_House1_MapScripts::
 RustboroCity_House1_EventScript_Trader::
 	lock
 	faceplayer
-	goto_if_set FLAG_RUSTBORO_NPC_TRADE_COMPLETED, RustboroCity_House1_EventScript_TradeCompleted
-	ingame_trade INGAME_TRADE_SEEDOT, RustboroCity_House1_Text_IllTradeIfYouWant, RustboroCity_House1_EventScript_DeclineTrade, RustboroCity_House1_EventScript_NotRequestedMon, RustboroCity_House1_Text_PleaseBeGoodToMyPokemon
-	setflag FLAG_RUSTBORO_NPC_TRADE_COMPLETED
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_House1_EventScript_TraderEnding
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_House1_EventScript_TraderFreed
+	msgbox RustboroCity_House1_Text_Trader, MSGBOX_DEFAULT
 	release
 	end
 
-RustboroCity_House1_EventScript_DeclineTrade::
-	msgbox RustboroCity_House1_Text_YouDontWantToThatsOkay, MSGBOX_DEFAULT
+RustboroCity_House1_EventScript_TraderEnding::
+	msgbox RustboroCity_House1_Text_TraderEnding, MSGBOX_DEFAULT
 	release
 	end
 
-RustboroCity_House1_EventScript_NotRequestedMon::
-	bufferspeciesname STR_VAR_1, VAR_0x8009
-	msgbox RustboroCity_House1_Text_DoesntLookLikeMonToMe, MSGBOX_DEFAULT
-	release
-	end
-
-RustboroCity_House1_EventScript_TradeCompleted::
-	msgbox RustboroCity_House1_Text_AnyPokemonCanBeCute, MSGBOX_DEFAULT
+RustboroCity_House1_EventScript_TraderFreed::
+	msgbox RustboroCity_House1_Text_TraderFreed, MSGBOX_DEFAULT
 	release
 	end
 
 RustboroCity_House1_EventScript_Hiker::
-	msgbox RustboroCity_House1_Text_AllSortsOfPlaces, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_House1_EventScript_HikerEnding
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_House1_EventScript_HikerFreed
+	msgbox RustboroCity_House1_Text_Hiker, MSGBOX_NPC
 	end
 
-RustboroCity_House1_Text_IllTradeIfYouWant:
+RustboroCity_House1_EventScript_HikerEnding::
+	msgbox RustboroCity_House1_Text_HikerEnding, MSGBOX_NPC
+	end
+
+RustboroCity_House1_EventScript_HikerFreed::
+	msgbox RustboroCity_House1_Text_HikerFreed, MSGBOX_NPC
+	end
+
+RustboroCity_House1_Text_Trader:
 	.string "Huh? My POKéMON is cute?\n"
 	.string "Sure, I knew that.\p"
-	.string "But if you really want, I'm willing\n"
-	.string "to trade it to you.\p"
-	.string "I'll trade you my {STR_VAR_2} for\n"
-	.string "a {STR_VAR_1} if you want.$"
+	.string "I almost traded it once. Not now.\n"
+	.string "In a town like this, my SEEDOT is the\l"
+	.string "only thing not worried about the\l"
+	.string "ELITE FOUR.$"
 
-RustboroCity_House1_Text_PleaseBeGoodToMyPokemon:
-	.string "Eheheh…\n"
-	.string "Please be good to my POKéMON.$"
+RustboroCity_House1_Text_TraderFreed:
+	.string "My SEEDOT is still cute. I knew that.\p"
+	.string "STONE confessing made me think about\n"
+	.string "what I'd trade away. Not my SEEDOT,\l"
+	.string "for one.$"
 
-RustboroCity_House1_Text_DoesntLookLikeMonToMe:
-	.string "Huh? That doesn't look anything like\n"
-	.string "a {STR_VAR_1} to me.$"
+RustboroCity_House1_Text_TraderEnding:
+	.string "Any POKéMON can be cute if you raise it\n"
+	.string "with care and kindness.\p"
+	.string "I've always said so. I hear it's on a\n"
+	.string "poster at DEVON now. I like to think\l"
+	.string "I started that.$"
 
-RustboroCity_House1_Text_YouDontWantToThatsOkay:
-	.string "Oh, if you don't want to, that's okay.\n"
-	.string "But my POKéMON is cute, you know…$"
-
-RustboroCity_House1_Text_AnyPokemonCanBeCute:
-	.string "Any POKéMON can be cute if you raise\n"
-	.string "it with care and kindness.$"
-
-RustboroCity_House1_Text_AllSortsOfPlaces:
+RustboroCity_House1_Text_Hiker:
 	.string "In all sorts of places, there are all\n"
 	.string "sorts of POKéMON and people.\p"
-	.string "I find that fascinating, so I go to all\n"
-	.string "sorts of places.$"
+	.string "I slipped into town just before the\n"
+	.string "roads shut. Now I'm a guest of\l"
+	.string "whatever happens at DEVON.$"
+
+RustboroCity_House1_Text_HikerFreed:
+	.string "The roads are open, but I'm staying a\n"
+	.string "while. The tunnel feels odd, like\l"
+	.string "walking uphill on level ground.\p"
+	.string "I'll leave when it stops.$"
+
+RustboroCity_House1_Text_HikerEnding:
+	.string "I'm off to see the rest of HOENN.\n"
+	.string "MAUVILLE, the FRONTIER, all of it.\p"
+	.string "There are all sorts of places out there.\n"
+	.string "I'm going to find every one.$"
 

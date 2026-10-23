@@ -139,59 +139,177 @@ RustboroCity_Movement_ScientistLeave:
 RustboroCity_EventScript_FatMan::
 	lock
 	faceplayer
-	goto_if_set FLAG_DEVON_GOODS_STOLEN, RustboroCity_EventScript_FatManSawGrunt
-	msgbox RustboroCity_Text_WeShortenItToDevon, MSGBOX_DEFAULT
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_EventScript_FatManEnding
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_EventScript_FatManFreed
+	msgbox RustboroCity_Text_FatMan, MSGBOX_DEFAULT
 	release
 	end
 
-RustboroCity_EventScript_FatManSawGrunt::
-	msgbox RustboroCity_Text_SneakyLookingManWentAroundCorner, MSGBOX_DEFAULT
+RustboroCity_EventScript_FatManEnding::
+	msgbox RustboroCity_Text_FatManEnding, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_EventScript_FatManFreed::
+	msgbox RustboroCity_Text_FatManFreed, MSGBOX_DEFAULT
 	release
 	end
 
 RustboroCity_EventScript_DevonEmployee2::
 	lock
 	faceplayer
-	msgbox RustboroCity_Text_YoureNewAroundHere, MSGBOX_DEFAULT
+	goto_if_set FLAG_RUSTBORO_RAISE_1, RustboroCity_EventScript_DevonEmployee2Used
+	msgbox RustboroCity_Text_DevonEmployee2Offer, MSGBOX_DEFAULT
+	msgbox RustboroCity_Text_DevonEmployee2Ask, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, RustboroCity_EventScript_DevonEmployee2NotNow
+RustboroCity_EventScript_DevonEmployee2Pick::
+	msgbox RustboroCity_Text_DevonEmployee2Which, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, RustboroCity_EventScript_DevonEmployee2NotNow
+	setvar VAR_0x8005, 55
+	special RaiseMonToLevel
+	goto_if_eq VAR_RESULT, 1, RustboroCity_EventScript_DevonEmployee2Egg
+	goto_if_eq VAR_RESULT, 2, RustboroCity_EventScript_DevonEmployee2TooStrong
+	setflag FLAG_RUSTBORO_RAISE_1
+	bufferpartymonnick STR_VAR_1, VAR_0x8004
+	playfanfare MUS_LEVEL_UP
+	message RustboroCity_Text_DevonEmployee2Grew
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	msgbox RustboroCity_Text_DevonEmployee2Done, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_EventScript_DevonEmployee2Egg::
+	msgbox RustboroCity_Text_DevonEmployee2Egg, MSGBOX_DEFAULT
+	goto RustboroCity_EventScript_DevonEmployee2Pick
+	end
+
+RustboroCity_EventScript_DevonEmployee2TooStrong::
+	msgbox RustboroCity_Text_DevonEmployee2TooStrong, MSGBOX_DEFAULT
+	goto RustboroCity_EventScript_DevonEmployee2Pick
+	end
+
+RustboroCity_EventScript_DevonEmployee2NotNow::
+	msgbox RustboroCity_Text_DevonEmployee2NotNow, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_EventScript_DevonEmployee2Used::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_EventScript_DevonEmployee2UsedEnding
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_EventScript_DevonEmployee2UsedFreed
+	msgbox RustboroCity_Text_DevonEmployee2Used, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_EventScript_DevonEmployee2UsedEnding::
+	msgbox RustboroCity_Text_DevonEmployee2UsedEnding, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_EventScript_DevonEmployee2UsedFreed::
+	msgbox RustboroCity_Text_DevonEmployee2UsedFreed, MSGBOX_DEFAULT
 	release
 	end
 
 RustboroCity_EventScript_Woman::
-	msgbox RustboroCity_Text_GymLeaderIsntEasyWithFire, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_EventScript_WomanEnding
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_EventScript_WomanFreed
+	msgbox RustboroCity_Text_Woman, MSGBOX_NPC
+	end
+
+RustboroCity_EventScript_WomanEnding::
+	msgbox RustboroCity_Text_WomanEnding, MSGBOX_NPC
+	end
+
+RustboroCity_EventScript_WomanFreed::
+	msgbox RustboroCity_Text_WomanFreed, MSGBOX_NPC
 	end
 
 RustboroCity_EventScript_Man1::
 	lock
 	faceplayer
-	goto_if_set FLAG_BADGE01_GET, RustboroCity_EventScript_Man1HaveBadge
-	msgbox RustboroCity_Text_HaveYouChallengedGym, MSGBOX_DEFAULT
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_EventScript_Man1Ending
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_EventScript_Man1Freed
+	goto_if_ge VAR_ENDGAME_STATE, 8, RustboroCity_EventScript_Man1Ambush
+	msgbox RustboroCity_Text_Man1, MSGBOX_DEFAULT
 	release
 	end
 
-RustboroCity_EventScript_Man1HaveBadge::
-	msgbox RustboroCity_Text_HeyThatsRustborosGymBadge, MSGBOX_DEFAULT
+RustboroCity_EventScript_Man1Ending::
+	msgbox RustboroCity_Text_Man1Ending, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_EventScript_Man1Freed::
+	msgbox RustboroCity_Text_Man1Freed, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_EventScript_Man1Ambush::
+	msgbox RustboroCity_Text_Man1Ambush, MSGBOX_DEFAULT
 	release
 	end
 
 RustboroCity_EventScript_Boy2::
 	lock
 	faceplayer
-	goto_if_set FLAG_RECEIVED_POKENAV, RustboroCity_EventScript_Boy2BrineyLeftTunnel
-	msgbox RustboroCity_Text_MrBrineyWalksInTheTunnel, MSGBOX_DEFAULT
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_EventScript_Boy2Ending
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE, RustboroCity_EventScript_Boy2Late
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_EventScript_Boy2Freed
+	msgbox RustboroCity_Text_Boy2, MSGBOX_DEFAULT
 	release
 	end
 
-RustboroCity_EventScript_Boy2BrineyLeftTunnel::
-	msgbox RustboroCity_Text_MrBrineyLovesPeeko, MSGBOX_DEFAULT
+RustboroCity_EventScript_Boy2Ending::
+	msgbox RustboroCity_Text_Boy2Ending, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_EventScript_Boy2Late::
+	msgbox RustboroCity_Text_Boy2Late, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_EventScript_Boy2Freed::
+	msgbox RustboroCity_Text_Boy2Freed, MSGBOX_DEFAULT
 	release
 	end
 
 RustboroCity_EventScript_Twin::
-	msgbox RustboroCity_Text_WowYouHavePokemon, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_EventScript_TwinEnding
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_EventScript_TwinFreed
+	msgbox RustboroCity_Text_Twin, MSGBOX_NPC
+	end
+
+RustboroCity_EventScript_TwinEnding::
+	msgbox RustboroCity_Text_TwinEnding, MSGBOX_NPC
+	end
+
+RustboroCity_EventScript_TwinFreed::
+	msgbox RustboroCity_Text_TwinFreed, MSGBOX_NPC
 	end
 
 RustboroCity_EventScript_NinjaBoy::
-	msgbox RustboroCity_Text_CatchRarePokemonIfIGoToSchool, MSGBOX_SIGN
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_EventScript_NinjaBoyEnding
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_EventScript_NinjaBoyFreed
+	msgbox RustboroCity_Text_NinjaBoy, MSGBOX_SIGN
+	end
+
+RustboroCity_EventScript_NinjaBoyEnding::
+	msgbox RustboroCity_Text_NinjaBoyEnding, MSGBOX_SIGN
+	end
+
+RustboroCity_EventScript_NinjaBoyFreed::
+	msgbox RustboroCity_Text_NinjaBoyFreed, MSGBOX_SIGN
 	end
 
 RustboroCity_EventScript_TunnelSign::
@@ -226,7 +344,26 @@ RustboroCity_EventScript_CuttersHouseSign::
 RustboroCity_EventScript_LittleBoy::
 	lock
 	faceplayer
-	msgbox RustboroCity_Text_PokemonCanChangeLookFromExp, MSGBOX_DEFAULT
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_EventScript_LittleBoyEnding
+	goto_if_ge VAR_RESULT, GOSSIP_SIPHON, RustboroCity_EventScript_LittleBoySiphon
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_EventScript_LittleBoyFreed
+	msgbox RustboroCity_Text_LittleBoy, MSGBOX_DEFAULT
+	goto RustboroCity_LittleBoyDone
+
+RustboroCity_EventScript_LittleBoyEnding::
+	msgbox RustboroCity_Text_LittleBoyEnding, MSGBOX_DEFAULT
+	goto RustboroCity_LittleBoyDone
+
+RustboroCity_EventScript_LittleBoySiphon::
+	msgbox RustboroCity_Text_LittleBoySiphon, MSGBOX_DEFAULT
+	goto RustboroCity_LittleBoyDone
+
+RustboroCity_EventScript_LittleBoyFreed::
+	msgbox RustboroCity_Text_LittleBoyFreed, MSGBOX_DEFAULT
+	goto RustboroCity_LittleBoyDone
+
+RustboroCity_LittleBoyDone::
 	applymovement LOCALID_RUSTBORO_LITTLE_BOY, Common_Movement_FaceOriginalDirection
 	waitmovement 0
 	release
@@ -235,7 +372,21 @@ RustboroCity_EventScript_LittleBoy::
 RustboroCity_EventScript_LittleGirl::
 	lock
 	faceplayer
-	msgbox RustboroCity_Text_PokemonChangeShape, MSGBOX_DEFAULT
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_EventScript_LittleGirlEnding
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_EventScript_LittleGirlFreed
+	msgbox RustboroCity_Text_LittleGirl, MSGBOX_DEFAULT
+	goto RustboroCity_LittleGirlDone
+
+RustboroCity_EventScript_LittleGirlEnding::
+	msgbox RustboroCity_Text_LittleGirlEnding, MSGBOX_DEFAULT
+	goto RustboroCity_LittleGirlDone
+
+RustboroCity_EventScript_LittleGirlFreed::
+	msgbox RustboroCity_Text_LittleGirlFreed, MSGBOX_DEFAULT
+	goto RustboroCity_LittleGirlDone
+
+RustboroCity_LittleGirlDone::
 	applymovement LOCALID_RUSTBORO_LITTLE_GIRL, Common_Movement_FaceOriginalDirection
 	waitmovement 0
 	release
@@ -244,7 +395,20 @@ RustboroCity_EventScript_LittleGirl::
 RustboroCity_EventScript_Man2::
 	lock
 	faceplayer
-	msgbox RustboroCity_Text_TradePokemonGrowFast, MSGBOX_DEFAULT
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_EventScript_Man2Ending
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_EventScript_Man2Freed
+	msgbox RustboroCity_Text_Man2, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_EventScript_Man2Ending::
+	msgbox RustboroCity_Text_Man2Ending, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_EventScript_Man2Freed::
+	msgbox RustboroCity_Text_Man2Freed, MSGBOX_DEFAULT
 	release
 	end
 
@@ -1018,83 +1182,281 @@ RustboroCity_Movement_RivalApproachPlayer7:
 	step_end
 
 RustboroCity_EventScript_Boy1::
-	msgbox RustboroCity_Text_YouCanHave2On2Battle, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_EventScript_Boy1Ending
+	goto_if_ge VAR_RESULT, GOSSIP_MAUVILLE, RustboroCity_EventScript_Boy1Late
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_EventScript_Boy1Freed
+	msgbox RustboroCity_Text_Boy1, MSGBOX_NPC
 	end
 
-RustboroCity_Text_WeShortenItToDevon:
+RustboroCity_EventScript_Boy1Ending::
+	msgbox RustboroCity_Text_Boy1Ending, MSGBOX_NPC
+	end
+
+RustboroCity_EventScript_Boy1Late::
+	msgbox RustboroCity_Text_Boy1Late, MSGBOX_NPC
+	end
+
+RustboroCity_EventScript_Boy1Freed::
+	msgbox RustboroCity_Text_Boy1Freed, MSGBOX_NPC
+	end
+
+RustboroCity_Text_FatMan:
 	.string "The DEVON CORPORATION…\n"
 	.string "We all just shorten it to DEVON.\p"
-	.string "That company makes all sorts of\n"
-	.string "convenient products.$"
+	.string "It's a fine company. They'll have\n"
+	.string "those ELITE FOUR off the step by\l"
+	.string "tonight.\p"
+	.string "Surely.$"
 
-RustboroCity_Text_SneakyLookingManWentAroundCorner:
-	.string "Hm? A sneaky-looking man?\p"
-	.string "Come to think of it, yes, a shady-\n"
-	.string "looking guy went around the corner.$"
+RustboroCity_Text_FatManFreed:
+	.string "STONE has confessed to something.\n"
+	.string "The papers won't say what.\p"
+	.string "I've lived beside DEVON for thirty\n"
+	.string "years. I find I'd rather not know.\p"
+	.string "…No. I'd very much like to know.$"
 
-RustboroCity_Text_HaveYouChallengedGym:
-	.string "Have you taken the POKéMON GYM\n"
-	.string "challenge?\p"
-	.string "When you get that shiny GYM BADGE\n"
-	.string "in hand, I guess TRAINERS begin to\l"
-	.string "realize what is required of them.$"
+RustboroCity_Text_FatManEnding:
+	.string "New management at DEVON. They've\n"
+	.string "repainted the sign.\p"
+	.string "We still just shorten it to DEVON.\n"
+	.string "It sounds lighter, somehow.$"
 
-RustboroCity_Text_HeyThatsRustborosGymBadge:
-	.string "Hey, that's RUSTBORO's GYM BADGE!\p"
-	.string "Out of all the POKéMON GYM BADGES,\n"
-	.string "RUSTBORO's is the coolest, I'd say.$"
+RustboroCity_Text_Man1:
+	.string "The ELITE FOUR stand at DEVON's door\n"
+	.string "like they own it.\p"
+	.string "Staff sent home, deliveries turned\n"
+	.string "back. People say it's a “new order”.\l"
+	.string "Whoever's order it is, I didn't ask\l"
+	.string "for it.$"
 
-RustboroCity_Text_YoureNewAroundHere:
-	.string "Oh? Who might you be?\n"
-	.string "You're a new face around these parts.\p"
-	.string "Have you just transferred into the\n"
-	.string "POKéMON TRAINER'S SCHOOL?$"
+RustboroCity_Text_Man1Ambush:
+	.string "I saw it from the corner.\n"
+	.string "Three GYM LEADERS jumped STEVEN and\l"
+	.string "the CHAMPION right at DEVON's door!\p"
+	.string "I thought GYM LEADERS were meant to be\n"
+	.string "on our side.\p"
+	.string "The CHAMPION won, of course. Then\n"
+	.string "they all walked off looking like they'd\l"
+	.string "lost something.$"
 
-RustboroCity_Text_GymLeaderIsntEasyWithFire:
-	.string "I challenged the GYM LEADER, but…\p"
-	.string "It's not going to be easy winning with\n"
-	.string "my FIRE-type POKéMON…\p"
-	.string "FIRE-type POKéMON don't match up\n"
-	.string "well against ROCK-type POKéMON…$"
+RustboroCity_Text_Man1Freed:
+	.string "They say STONE told the CHAMPION and\n"
+	.string "STEVEN everything.\p"
+	.string "The papers say “misjudgement”. I say\n"
+	.string "you don't need the ELITE FOUR for a\l"
+	.string "misjudgement.$"
 
-RustboroCity_Text_MrBrineyWalksInTheTunnel:
-	.string "The old sailor MR. BRINEY lives in\n"
-	.string "a cottage by the sea.\p"
-	.string "He goes for walks in the tunnel every\n"
-	.string "so often.$"
+RustboroCity_Text_Man1Ending:
+	.string "SCOTT, under arrest. I never thought\n"
+	.string "I'd read that.\p"
+	.string "He used to stand in the SCHOOL's\n"
+	.string "doorway and watch the kids. I thought\l"
+	.string "he was just fond of children.$"
 
-RustboroCity_Text_MrBrineyLovesPeeko:
-	.string "The old sailor MR. BRINEY lives in\n"
-	.string "a cottage by the sea.\p"
-	.string "He said he was going shopping in\n"
-	.string "SLATEPORT for his pet, PEEKO.\p"
-	.string "That old sea dog, he must really love\n"
-	.string "that PEEKO.$"
+RustboroCity_Text_DevonEmployee2Offer:
+	.string "Hm? You're not DEVON security.\n"
+	.string "You've the look of someone from the\l"
+	.string "FRONTIER.\p"
+	.string "I'm a DEVON engineer. Was. The ELITE\n"
+	.string "FOUR sent us all home, and I walked\l"
+	.string "out with a charger from the CHIP LAB\l"
+	.string "under my coat.\p"
+	.string "The chips held back whatever a POKéMON\n"
+	.string "earned. My rig pays some of it out,\l"
+	.string "up to LV. 55. Any higher and DEVON's\l"
+	.string "monitors would notice.\p"
+	.string "I have enough charge for one go.$"
 
-RustboroCity_Text_WowYouHavePokemon:
+RustboroCity_Text_DevonEmployee2Ask:
+	.string "Shall I put one of yours on the rig?$"
+
+RustboroCity_Text_DevonEmployee2Which:
+	.string "Which POKéMON?$"
+
+RustboroCity_Text_DevonEmployee2NotNow:
+	.string "Suit yourself. I'm not going anywhere.\n"
+	.string "I've been sent home.$"
+
+RustboroCity_Text_DevonEmployee2Egg:
+	.string "That's an EGG. Nothing for the rig to\n"
+	.string "charge. Pick another.$"
+
+RustboroCity_Text_DevonEmployee2TooStrong:
+	.string "That one's already past LV. 55. The rig\n"
+	.string "would only tickle it. Pick another.$"
+
+RustboroCity_Text_DevonEmployee2Grew:
+	.string "The rig hummed and the lights dimmed.\p"
+	.string "{STR_VAR_1} grew to LV. 55!$"
+
+RustboroCity_Text_DevonEmployee2Done:
+	.string "Drained to the last drop. Keep that\n"
+	.string "quiet, will you?$"
+
+RustboroCity_Text_DevonEmployee2Used:
+	.string "The charge is spent. Don't tell DEVON.\p"
+	.string "…Actually, nobody there is in a\n"
+	.string "position to hear.$"
+
+RustboroCity_Text_DevonEmployee2UsedFreed:
+	.string "They've called us back to DEVON to\n"
+	.string "give statements. I'll hand the rig in.\p"
+	.string "…Eventually.$"
+
+RustboroCity_Text_DevonEmployee2UsedEnding:
+	.string "I handed the rig in. The new management\n"
+	.string "didn't even frown.\p"
+	.string "They asked if I could build more.$"
+
+RustboroCity_Text_Woman:
+	.string "I came to challenge the GYM, but\n"
+	.string "it's locked. ROXANNE has vanished.\p"
+	.string "With the ELITE FOUR camped at DEVON,\n"
+	.string "nobody in this town is challenging\l"
+	.string "anything.$"
+
+RustboroCity_Text_WomanFreed:
+	.string "The GYM lights are on again!\n"
+	.string "ROXANNE's back. I saw her go in.\p"
+	.string "I'll still lose with my FIRE-types.\n"
+	.string "But it's good to have someone to\l"
+	.string "lose to.$"
+
+RustboroCity_Text_WomanEnding:
+	.string "ROXANNE has a line out the door\n"
+	.string "again.\p"
+	.string "I'm still losing with my FIRE-types.\n"
+	.string "I've decided I like it.$"
+
+RustboroCity_Text_Boy2:
+	.string "The road out of town has been shut\n"
+	.string "since the ELITE FOUR came.\p"
+	.string "MR. BRINEY walks in the tunnel now\n"
+	.string "and then. I haven't seen him in days.$"
+
+RustboroCity_Text_Boy2Freed:
+	.string "The road is open, but I'm staying put.\n"
+	.string "The tunnel feels odd now. Like climbing\l"
+	.string "a stair that isn't there.\p"
+	.string "I don't think MR. BRINEY minds. He'd\n"
+	.string "walk through anything for PEEKO.$"
+
+RustboroCity_Text_Boy2Late:
+	.string "I heard AQUA and MAGMA took over\n"
+	.string "MAUVILLE. Together!\p"
+	.string "The tunnel feels odd, and now this.\n"
+	.string "MR. BRINEY still hasn't turned up.\l"
+	.string "I hope he's just out sailing.$"
+
+RustboroCity_Text_Boy2Ending:
+	.string "The tunnel feels like a tunnel again.\n"
+	.string "Mostly.\p"
+	.string "MR. BRINEY came by with PEEKO on his\n"
+	.string "shoulder, like nothing had happened.\l"
+	.string "That old sea dog.$"
+
+RustboroCity_Text_Twin:
 	.string "Wow, you have POKéMON with you, too.\p"
-	.string "When I get bigger, I'm going to go\n"
-	.string "places with POKéMON, too.$"
+	.string "My big sister says to stay away from\n"
+	.string "DEVON. There are scary trainers.\p"
+	.string "When I get bigger I'm going to go\n"
+	.string "places with POKéMON. Not there,\l"
+	.string "though.$"
 
-RustboroCity_Text_CatchRarePokemonIfIGoToSchool:
+RustboroCity_Text_TwinFreed:
+	.string "The scary trainers went away!\p"
+	.string "Sis says the PRESIDENT said sorry to\n"
+	.string "the whole town. Or something.\l"
+	.string "I was on the swing.$"
+
+RustboroCity_Text_TwinEnding:
+	.string "When I get bigger I'm going to go\n"
+	.string "places with POKéMON.\p"
+	.string "Sis says there are good places to go\n"
+	.string "again now. I'm going to try all of\l"
+	.string "them.$"
+
+RustboroCity_Text_NinjaBoy:
 	.string "POKéMON TRAINER'S SCHOOL!\p"
-	.string "If I go to this school, will I be able\n"
-	.string "to catch rare POKéMON easily?$"
+	.string "I want to go, but everyone's too busy\n"
+	.string "whispering about the ELITE FOUR to\l"
+	.string "enrol me.\p"
+	.string "If I learn enough there, could I make\n"
+	.string "them leave DEVON alone?$"
 
-RustboroCity_Text_PokemonCanChangeLookFromExp:
-	.string "If a POKéMON gains experience in\n"
-	.string "battles, it can sometimes change in\l"
-	.string "the way it looks.$"
+RustboroCity_Text_NinjaBoyFreed:
+	.string "The ELITE FOUR left DEVON! Someone\n"
+	.string "beat them!\p"
+	.string "I'm still going to the SCHOOL.\n"
+	.string "Next time, I want to be the one.$"
 
-RustboroCity_Text_PokemonChangeShape:
-	.string "A POKéMON changes shape?\n"
-	.string "If one did that, I would be shocked!$"
+RustboroCity_Text_NinjaBoyEnding:
+	.string "I start at the TRAINER'S SCHOOL next\n"
+	.string "week! The teacher says he finally has\l"
+	.string "something to teach again.$"
 
-RustboroCity_Text_TradePokemonGrowFast:
-	.string "A POKéMON you get in a trade from\n"
-	.string "someone grows fast.\p"
-	.string "But if you don't have certain GYM\n"
-	.string "BADGES, it may not obey you…$"
+RustboroCity_Text_LittleBoy:
+	.string "My POKéMON never gets any stronger.\n"
+	.string "DAD brought it home from the FRONTIER,\l"
+	.string "and it's been the same ever since.\p"
+	.string "I asked it to try harder. It looked\n"
+	.string "like it was trying very hard.$"
+
+RustboroCity_Text_LittleBoyFreed:
+	.string "DAD says the FRONTIER has its wires\n"
+	.string "crossed or something.\p"
+	.string "My POKéMON is still the same.\n"
+	.string "I told it that's okay.$"
+
+RustboroCity_Text_LittleBoySiphon:
+	.string "My POKéMON grew! All at once!\p"
+	.string "It woke up big and proud and a little\n"
+	.string "surprised. DAD says it's from the\l"
+	.string "FRONTIER. I don't care why.$"
+
+RustboroCity_Text_LittleBoyEnding:
+	.string "My POKéMON is stronger than me now.\p"
+	.string "I told it to wait up.$"
+
+RustboroCity_Text_LittleGirl:
+	.string "I visit the NURSE at the POKéMON\n"
+	.string "CENTER. She's always on her own.\p"
+	.string "She says nobody needs her now.\n"
+	.string "I told her I do. That's fair, isn't it?$"
+
+RustboroCity_Text_LittleGirlFreed:
+	.string "The NURSE says the CENTERS might come\n"
+	.string "back some day.\p"
+	.string "Until then I'm going to keep visiting.\n"
+	.string "Someone has to use the couch.$"
+
+RustboroCity_Text_LittleGirlEnding:
+	.string "The NURSE had real patients this week!\n"
+	.string "She let me hold the clipboard.\p"
+	.string "I'm going to be a NURSE. Or a TRAINER.\n"
+	.string "Or both.$"
+
+RustboroCity_Text_Man2:
+	.string "I put in thirty-one years at DEVON.\n"
+	.string "Thirty-one!\p"
+	.string "Now the ELITE FOUR stand at my old\n"
+	.string "front door, and I can't even collect\l"
+	.string "my pension form.$"
+
+RustboroCity_Text_Man2Freed:
+	.string "STONE confessed, they say. Thirty-one\n"
+	.string "years and I never once heard him\l"
+	.string "raise his voice.\p"
+	.string "I keep wondering what I built parts\n"
+	.string "for, all that time.$"
+
+RustboroCity_Text_Man2Ending:
+	.string "My pension came through! New\n"
+	.string "management, new letterhead, same old\l"
+	.string "me.\p"
+	.string "It feels strange to cash it, knowing\n"
+	.string "what the money paid for.$"
 
 RustboroCity_Text_OutOfTheWay:
 	.string "Get out!\n"
@@ -1288,15 +1650,32 @@ RustboroCity_Text_IdBetterGetBackToWork:
 	.string "Okay, I'd better get back to work.\n"
 	.string "Please take care, {PLAYER}!$"
 
-RustboroCity_Text_YouCanHave2On2Battle:
+RustboroCity_Text_Boy1:
 	.string "Did you know this?\p"
-	.string "You can have a 2-on-2 battle even\n"
-	.string "if you're not with another TRAINER.\p"
-	.string "If you catch the eyes of two TRAINERS\n"
-	.string "when you have two or more POKéMON,\l"
-	.string "they'll both challenge you.\p"
-	.string "Don't you think it'd be cool if you\n"
-	.string "could beat two TRAINERS by yourself?$"
+	.string "The ELITE FOUR's POKéMON don't change\n"
+	.string "back after MEGA EVOLUTION. My cousin\l"
+	.string "saw it through the window.\p"
+	.string "Isn't that the coolest… I mean, the\n"
+	.string "scariest thing ever?$"
+
+RustboroCity_Text_Boy1Freed:
+	.string "Did you know this?\p"
+	.string "The ELITE FOUR lost! Somebody beat all\n"
+	.string "four of them!\p"
+	.string "I'd have given up my lunch to see it.$"
+
+RustboroCity_Text_Boy1Late:
+	.string "Did you know this?\p"
+	.string "AQUA and MAGMA work together now, in\n"
+	.string "MAUVILLE. They're calling it a\l"
+	.string "“new order”.\p"
+	.string "Mom stopped letting me read the paper.$"
+
+RustboroCity_Text_Boy1Ending:
+	.string "Did you know this?\p"
+	.string "SCOTT's been arrested!\p"
+	.string "…Everybody knew? I was the last to\n"
+	.string "hear? Ugh.$"
 
 @ ============================================================================
 @ Ten Gauntlets: Rustboro, Devon Corporation (storyline.md; VAR_ENDGAME_STATE

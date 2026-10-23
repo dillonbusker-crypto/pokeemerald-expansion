@@ -51,15 +51,48 @@ RustboroCity_PokemonSchool_EventScript_ExitTopicSelect::
 	end
 
 RustboroCity_PokemonSchool_EventScript_GameboyKid1::
-	msgbox RustboroCity_PokemonSchool_Text_TradingRightNow, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_PokemonSchool_EventScript_GameboyKid1Ending
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_PokemonSchool_EventScript_GameboyKid1Freed
+	msgbox RustboroCity_PokemonSchool_Text_GameboyKid1, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_GameboyKid1Ending::
+	msgbox RustboroCity_PokemonSchool_Text_GameboyKid1Ending, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_GameboyKid1Freed::
+	msgbox RustboroCity_PokemonSchool_Text_GameboyKid1Freed, MSGBOX_NPC
 	end
 
 RustboroCity_PokemonSchool_EventScript_GameboyKid2::
-	msgbox RustboroCity_PokemonSchool_Text_AlwaysWantedSeedot, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_PokemonSchool_EventScript_GameboyKid2Ending
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_PokemonSchool_EventScript_GameboyKid2Freed
+	msgbox RustboroCity_PokemonSchool_Text_GameboyKid2, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_GameboyKid2Ending::
+	msgbox RustboroCity_PokemonSchool_Text_GameboyKid2Ending, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_GameboyKid2Freed::
+	msgbox RustboroCity_PokemonSchool_Text_GameboyKid2Freed, MSGBOX_NPC
 	end
 
 RustboroCity_PokemonSchool_EventScript_RichBoy::
-	msgbox RustboroCity_PokemonSchool_Text_PokemontCantUseManMadeItems, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_PokemonSchool_EventScript_RichBoyEnding
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_PokemonSchool_EventScript_RichBoyFreed
+	msgbox RustboroCity_PokemonSchool_Text_RichBoy, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_RichBoyEnding::
+	msgbox RustboroCity_PokemonSchool_Text_RichBoyEnding, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_RichBoyFreed::
+	msgbox RustboroCity_PokemonSchool_Text_RichBoyFreed, MSGBOX_NPC
 	end
 
 RustboroCity_PokemonSchool_EventScript_Lass::
@@ -70,7 +103,18 @@ RustboroCity_PokemonSchool_EventScript_Lass::
 	end
 
 RustboroCity_PokemonSchool_EventScript_LassOld::
-	msgbox RustboroCity_PokemonSchool_Text_ConfusedPokemonAttacksItself, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_PokemonSchool_EventScript_LassOldEnding
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_PokemonSchool_EventScript_LassOldFreed
+	msgbox RustboroCity_PokemonSchool_Text_LassOld, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_LassOldEnding::
+	msgbox RustboroCity_PokemonSchool_Text_LassOldEnding, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_LassOldFreed::
+	msgbox RustboroCity_PokemonSchool_Text_LassOldFreed, MSGBOX_NPC
 	end
 
 RustboroCity_PokemonSchool_EventScript_LassTearClosed::
@@ -78,7 +122,18 @@ RustboroCity_PokemonSchool_EventScript_LassTearClosed::
 	end
 
 RustboroCity_PokemonSchool_EventScript_SchoolKidM::
-	msgbox RustboroCity_PokemonSchool_Text_PokemonHealItselfWithBerry, MSGBOX_NPC
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_PokemonSchool_EventScript_SchoolKidMEnding
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_PokemonSchool_EventScript_SchoolKidMFreed
+	msgbox RustboroCity_PokemonSchool_Text_SchoolKidM, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_SchoolKidMEnding::
+	msgbox RustboroCity_PokemonSchool_Text_SchoolKidMEnding, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_SchoolKidMFreed::
+	msgbox RustboroCity_PokemonSchool_Text_SchoolKidMFreed, MSGBOX_NPC
 	end
 
 RustboroCity_PokemonSchool_EventScript_StudentNotebook::
@@ -88,18 +143,14 @@ RustboroCity_PokemonSchool_EventScript_StudentNotebook::
 RustboroCity_PokemonSchool_EventScript_Teacher::
 	lock
 	faceplayer
-	goto_if_set FLAG_RECEIVED_QUICK_CLAW, RustboroCity_PokemonSchool_EventScript_GaveQuickClaw
+	goto_if_set FLAG_RECEIVED_QUICK_CLAW, RustboroCity_PokemonSchool_EventScript_TeacherLesson
 	call_if_eq VAR_FACING, DIR_EAST, RustboroCity_PokemonSchool_EventScript_TeacherCheckOnStudentsEast
 	call_if_eq VAR_FACING, DIR_WEST, RustboroCity_PokemonSchool_EventScript_TeacherCheckOnStudentsWest
 	msgbox RustboroCity_PokemonSchool_Text_StudentsWhoDontStudyGetQuickClaw, MSGBOX_DEFAULT
 	giveitem ITEM_QUICK_CLAW
 	goto_if_eq VAR_RESULT, 0, Common_EventScript_ShowBagIsFull
-	closemessage
-	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterDown
-	waitmovement 0
 	setflag FLAG_RECEIVED_QUICK_CLAW
-	release
-	end
+	goto RustboroCity_PokemonSchool_EventScript_TeacherLesson
 
 RustboroCity_PokemonSchool_EventScript_TeacherCheckOnStudentsEast::
 	applymovement VAR_LAST_TALKED, RustboroCity_PokemonSchool_Movement_TeacherCheckOnStudentsEast
@@ -111,8 +162,65 @@ RustboroCity_PokemonSchool_EventScript_TeacherCheckOnStudentsWest::
 	waitmovement 0
 	return
 
-RustboroCity_PokemonSchool_EventScript_GaveQuickClaw::
-	msgbox RustboroCity_PokemonSchool_Text_ExplainQuickClaw, MSGBOX_DEFAULT
+RustboroCity_PokemonSchool_EventScript_TeacherLesson::
+	faceplayer
+	goto_if_set FLAG_RUSTBORO_RAISE_3, RustboroCity_PokemonSchool_EventScript_TeacherLessonUsed
+	msgbox RustboroCity_PokemonSchool_Text_TeacherLessonOffer, MSGBOX_DEFAULT
+	msgbox RustboroCity_PokemonSchool_Text_TeacherLessonAsk, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, RustboroCity_PokemonSchool_EventScript_TeacherLessonNotNow
+RustboroCity_PokemonSchool_EventScript_TeacherLessonPick::
+	msgbox RustboroCity_PokemonSchool_Text_TeacherLessonWhich, MSGBOX_DEFAULT
+	special ChoosePartyMon
+	goto_if_ge VAR_0x8004, PARTY_SIZE, RustboroCity_PokemonSchool_EventScript_TeacherLessonNotNow
+	setvar VAR_0x8005, 55
+	special RaiseMonToLevel
+	goto_if_eq VAR_RESULT, 1, RustboroCity_PokemonSchool_EventScript_TeacherLessonEgg
+	goto_if_eq VAR_RESULT, 2, RustboroCity_PokemonSchool_EventScript_TeacherLessonTooStrong
+	setflag FLAG_RUSTBORO_RAISE_3
+	bufferpartymonnick STR_VAR_1, VAR_0x8004
+	playfanfare MUS_LEVEL_UP
+	message RustboroCity_PokemonSchool_Text_TeacherLessonGrew
+	waitmessage
+	waitfanfare
+	waitbuttonpress
+	msgbox RustboroCity_PokemonSchool_Text_TeacherLessonDone, MSGBOX_DEFAULT
+	goto RustboroCity_PokemonSchool_EventScript_TeacherFinish
+
+RustboroCity_PokemonSchool_EventScript_TeacherLessonEgg::
+	msgbox RustboroCity_PokemonSchool_Text_TeacherLessonEgg, MSGBOX_DEFAULT
+	goto RustboroCity_PokemonSchool_EventScript_TeacherLessonPick
+	end
+
+RustboroCity_PokemonSchool_EventScript_TeacherLessonTooStrong::
+	msgbox RustboroCity_PokemonSchool_Text_TeacherLessonTooStrong, MSGBOX_DEFAULT
+	goto RustboroCity_PokemonSchool_EventScript_TeacherLessonPick
+	end
+
+RustboroCity_PokemonSchool_EventScript_TeacherLessonNotNow::
+	msgbox RustboroCity_PokemonSchool_Text_TeacherLessonNotNow, MSGBOX_DEFAULT
+	goto RustboroCity_PokemonSchool_EventScript_TeacherFinish
+
+RustboroCity_PokemonSchool_EventScript_TeacherLessonUsed::
+	specialvar VAR_RESULT, GetStoryGossipStage
+	goto_if_ge VAR_RESULT, GOSSIP_ENDING, RustboroCity_PokemonSchool_EventScript_TeacherLessonUsedEnding
+	goto_if_ge VAR_RESULT, GOSSIP_SIPHON, RustboroCity_PokemonSchool_EventScript_TeacherLessonUsedSiphon
+	goto_if_ge VAR_RESULT, GOSSIP_DEVON_FREED, RustboroCity_PokemonSchool_EventScript_TeacherLessonUsedFreed
+	msgbox RustboroCity_PokemonSchool_Text_TeacherLessonUsed, MSGBOX_DEFAULT
+	goto RustboroCity_PokemonSchool_EventScript_TeacherFinish
+
+RustboroCity_PokemonSchool_EventScript_TeacherLessonUsedEnding::
+	msgbox RustboroCity_PokemonSchool_Text_TeacherLessonUsedEnding, MSGBOX_DEFAULT
+	goto RustboroCity_PokemonSchool_EventScript_TeacherFinish
+
+RustboroCity_PokemonSchool_EventScript_TeacherLessonUsedSiphon::
+	msgbox RustboroCity_PokemonSchool_Text_TeacherLessonUsedSiphon, MSGBOX_DEFAULT
+	goto RustboroCity_PokemonSchool_EventScript_TeacherFinish
+
+RustboroCity_PokemonSchool_EventScript_TeacherLessonUsedFreed::
+	msgbox RustboroCity_PokemonSchool_Text_TeacherLessonUsedFreed, MSGBOX_DEFAULT
+	goto RustboroCity_PokemonSchool_EventScript_TeacherFinish
+
+RustboroCity_PokemonSchool_EventScript_TeacherFinish::
 	closemessage
 	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterDown
 	waitmovement 0
@@ -255,47 +363,158 @@ RustboroCity_PokemonSchool_Text_ExplainFreeze:
 	.string "Thaw it out using an ICE HEAL.$"
 
 RustboroCity_PokemonSchool_Text_StudentsWhoDontStudyGetQuickClaw:
-	.string "Students who don't study get a little\n"
-	.string "taste of my QUICK CLAW.\p"
-	.string "Whether or not you are a good student \n"
-	.string "will be evident from the way you use\l"
-	.string "this item.$"
+	.string "Students who skipped their studies\n"
+	.string "used to get a taste of my QUICK CLAW.\p"
+	.string "But the desks are empty these days.\n"
+	.string "There's no one left to confiscate\l"
+	.string "from. Here, you take it.$"
 
-RustboroCity_PokemonSchool_Text_ExplainQuickClaw:
-	.string "A POKéMON holding the QUICK CLAW will\n"
-	.string "occasionally speed up and get to move\l"
-	.string "before its opponent.\p"
-	.string "There are many other items that are\n"
-	.string "meant to be held by POKéMON.\p"
-	.string "Just those alone will give you many\n"
-	.string "topics to study!$"
+RustboroCity_PokemonSchool_Text_TeacherLessonOffer:
+	.string "EXP, battles, badges… I taught them\n"
+	.string "all of it. Then it stopped working.\p"
+	.string "I don't know what to teach any more.\n"
+	.string "But I still have one lesson: my night\l"
+	.string "class. The one nobody attends.\p"
+	.string "One POKéMON, every drill in the book,\n"
+	.string "in a single sitting. It graduates at\l"
+	.string "LV. 55. I only have time for one.$"
 
-RustboroCity_PokemonSchool_Text_TradingRightNow:
+RustboroCity_PokemonSchool_Text_TeacherLessonAsk:
+	.string "Would you like to enrol a POKéMON?$"
+
+RustboroCity_PokemonSchool_Text_TeacherLessonWhich:
+	.string "Which POKéMON will be attending?$"
+
+RustboroCity_PokemonSchool_Text_TeacherLessonNotNow:
+	.string "The door is open whenever you're\n"
+	.string "ready. It's not as if the room is\l"
+	.string "full.$"
+
+RustboroCity_PokemonSchool_Text_TeacherLessonEgg:
+	.string "An EGG can't sit a lesson. It can't\n"
+	.string "even sit up. Choose another.$"
+
+RustboroCity_PokemonSchool_Text_TeacherLessonTooStrong:
+	.string "That one is past LV. 55 already. It\n"
+	.string "could teach my class. Choose another.$"
+
+RustboroCity_PokemonSchool_Text_TeacherLessonGrew:
+	.string "The lesson ran late into the night.\p"
+	.string "{STR_VAR_1} grew to LV. 55!$"
+
+RustboroCity_PokemonSchool_Text_TeacherLessonDone:
+	.string "Top marks. There's nothing left I can\n"
+	.string "teach it. Not that there was much\l"
+	.string "when I started.$"
+
+RustboroCity_PokemonSchool_Text_TeacherLessonUsed:
+	.string "That was my last good lesson. The rest\n"
+	.string "is waiting for someone to tell me what\l"
+	.string "to teach.$"
+
+RustboroCity_PokemonSchool_Text_TeacherLessonUsedFreed:
+	.string "They tell me the ELITE FOUR are gone.\n"
+	.string "Maybe I'll find my syllabus yet.$"
+
+RustboroCity_PokemonSchool_Text_TeacherLessonUsedSiphon:
+	.string "They say the FRONTIER's POKéMON can\n"
+	.string "grow again. EXP matters once more!\p"
+	.string "I'm dusting off my old lesson plans.$"
+
+RustboroCity_PokemonSchool_Text_TeacherLessonUsedEnding:
+	.string "A new syllabus arrived from the new\n"
+	.string "DEVON. Nothing about badges.\p"
+	.string "The first chapter is “bond”. I think\n"
+	.string "I can teach that.$"
+
+RustboroCity_PokemonSchool_Text_GameboyKid1:
 	.string "I'm trading POKéMON with my friend\n"
-	.string "right now.$"
+	.string "right now.\p"
+	.string "The teacher doesn't mind. Nobody's\n"
+	.string "told him what to teach, so he lets\l"
+	.string "us.$"
 
-RustboroCity_PokemonSchool_Text_AlwaysWantedSeedot:
-	.string "I always wanted a SEEDOT, and\n"
-	.string "I'm finally getting one!$"
+RustboroCity_PokemonSchool_Text_GameboyKid1Freed:
+	.string "I'm trading POKéMON with my friend.\p"
+	.string "My cousin says the FRONTIER gives\n"
+	.string "everything away now. Even POKéMON!\l"
+	.string "That's cheating, right?$"
 
-RustboroCity_PokemonSchool_Text_PokemontCantUseManMadeItems:
-	.string "POKéMON can hold items, but they\n"
-	.string "don't know what to do with man-made\l"
-	.string "items like POTION and ANTIDOTE.$"
+RustboroCity_PokemonSchool_Text_GameboyKid1Ending:
+	.string "I'm trading POKéMON with my friend\n"
+	.string "right now.\p"
+	.string "We're trading back what we swapped\n"
+	.string "during the DEVON scare. Some things\l"
+	.string "you shouldn't give away.$"
 
-RustboroCity_PokemonSchool_Text_ConfusedPokemonAttacksItself:
-	.string "You know how some POKéMON moves can\n"
-	.string "confuse a POKéMON?\p"
-	.string "A confused POKéMON will sometimes\n"
-	.string "attack itself without meaning to.\p"
-	.string "But once it leaves battle, it will\n"
-	.string "return to normal.$"
+RustboroCity_PokemonSchool_Text_GameboyKid2:
+	.string "I always wanted a SEEDOT.\p"
+	.string "The man in the house across the way\n"
+	.string "won't trade me his. He says he's too\l"
+	.string "attached.$"
 
-RustboroCity_PokemonSchool_Text_PokemonHealItselfWithBerry:
+RustboroCity_PokemonSchool_Text_GameboyKid2Freed:
+	.string "He still won't trade me his SEEDOT.\p"
+	.string "I respect that. I'll just look at it\n"
+	.string "a lot.$"
+
+RustboroCity_PokemonSchool_Text_GameboyKid2Ending:
+	.string "He still won't trade me his SEEDOT.\n"
+	.string "But he lets me visit it.\p"
+	.string "I think that's a fair deal.$"
+
+RustboroCity_PokemonSchool_Text_RichBoy:
+	.string "My father owns DEVON shares.\n"
+	.string "I'm told not to mention it this week.\p"
+	.string "POKéMON can hold items, but they don't\n"
+	.string "know what to do with money.\l"
+	.string "Neither does Father, lately.$"
+
+RustboroCity_PokemonSchool_Text_RichBoyFreed:
+	.string "My father sold his DEVON shares the day\n"
+	.string "before the news. He calls it luck.\p"
+	.string "I'm learning what that word means.$"
+
+RustboroCity_PokemonSchool_Text_RichBoyEnding:
+	.string "Father bought DEVON shares back at the\n"
+	.string "new price. He says it's for the\l"
+	.string "children.\p"
+	.string "I'm the child. I'm still not sure\n"
+	.string "what I did.$"
+
+RustboroCity_PokemonSchool_Text_LassOld:
+	.string "Everyone at school keeps talking\n"
+	.string "about the ELITE FOUR.\p"
+	.string "Our teacher says, “We'll take that up\n"
+	.string "tomorrow.” It has been tomorrow for\l"
+	.string "a week.$"
+
+RustboroCity_PokemonSchool_Text_LassOldFreed:
+	.string "The ELITE FOUR are gone. Our teacher\n"
+	.string "says, “We'll take that up tomorrow.”\p"
+	.string "I think he means it this time.$"
+
+RustboroCity_PokemonSchool_Text_LassOldEnding:
+	.string "We had a real lesson today. Nothing\n"
+	.string "about badges, nothing about scores.\p"
+	.string "I understood all of it. That's never\n"
+	.string "happened before.$"
+
+RustboroCity_PokemonSchool_Text_SchoolKidM:
 	.string "A POKéMON holding a BERRY will heal\n"
 	.string "itself…\p"
-	.string "There are many kinds of items that\n"
-	.string "POKéMON can hold…\p"
+	.string "I'm trying to take notes, but the\n"
+	.string "teacher doesn't know what to teach.\l"
+	.string "So I'm writing down what he doesn't\l"
+	.string "say. There's more of it.$"
+
+RustboroCity_PokemonSchool_Text_SchoolKidMFreed:
+	.string "My notes are mostly arrows now.\n"
+	.string "Arrows from DEVON to everything.$"
+
+RustboroCity_PokemonSchool_Text_SchoolKidMEnding:
+	.string "My notes are getting longer again.\n"
+	.string "The teacher is saying things!\p"
 	.string "Boy, it sure is hard taking notes\n"
 	.string "down…$"
 
