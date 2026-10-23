@@ -98,7 +98,8 @@ MauvilleCity_Gym_EventScript_Wattson::
 	release
 	end
 
-@ The endgame rematch (TRAINER_ENDGAME_WATTSON, level 65): a friendly fight, no
+@ The endgame rematch (TRAINER_ENDGAME_WATTSON, level 65, or 100 once the
+@ CHANSEY's Transfer EXP has been used: LiftOptionalEndgameTrainerParty): a friendly fight, no
 @ SCRAMBLER (storyline.md). Win or lose he heals the party and the held items
 @ come back; a loss never whites out (FLAG_ENDGAME_NO_WHITEOUT), and he can be
 @ fought again on the spot. A win sets his trainer flag, which opens the

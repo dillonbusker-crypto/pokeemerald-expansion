@@ -24,7 +24,8 @@ RustboroCity_Gym_EventScript_Roxanne::
 	release
 	end
 
-@ The endgame rematch (TRAINER_ENDGAME_ROXANNE, level 60): a friendly fight, no
+@ The endgame rematch (TRAINER_ENDGAME_ROXANNE, level 60, or 100 once the
+@ CHANSEY's Transfer EXP has been used: LiftOptionalEndgameTrainerParty): a friendly fight, no
 @ SCRAMBLER (storyline.md). Win or lose she heals the party and the held items
 @ come back; a loss never whites out (FLAG_ENDGAME_NO_WHITEOUT), and she can be
 @ fought again on the spot. A win sets her trainer flag, which opens the

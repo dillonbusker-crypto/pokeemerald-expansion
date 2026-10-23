@@ -1607,7 +1607,7 @@ Starmie. Second: Kyogre's Vest to Leftovers (the old set with Calm Mind).
 
 ---
 
-# The Gym rematches (Roxanne 60, Wattson 65)
+# The Gym rematches (Roxanne 60, Wattson 65; both 100 once Transfer EXP has been used)
 
 Two teams in `src/data/trainers.party` (`TRAINER_ENDGAME_ROXANNE` 990,
 `TRAINER_ENDGAME_WATTSON` 991), for the endgame towns sprint
@@ -1621,7 +1621,7 @@ Elite Four's and New Mauville's AI (omniscient, proactive switching).
 | Megas | **One each, Mega Evolving in battle:** Roxanne's is her box-art legendary (Mega Zygarde); Wattson's is a normal Mega from the shop (Mega Zeraora, the owner's pick) |
 | Items | Item clause on both teams |
 | Moves | Every move checked against this build's learnsets (level-up, teachable and egg) |
-| Levels | Roxanne 60 (the admins), Wattson 65 (Maxie and Archie) |
+| Levels | Roxanne 60 (the admins), Wattson 65 (Maxie and Archie). **Both 100** once the Chansey's Transfer EXP has been used at least once (`FLAG_CHANSEY_TRANSFER_EXP_USED`, `LiftOptionalEndgameTrainerParty` in `src/facility.c`, since 2026-10-23): the player can have six at 100 by then |
 
 ## Roxanne: sand and stone, Mega Zygarde at level 60
 

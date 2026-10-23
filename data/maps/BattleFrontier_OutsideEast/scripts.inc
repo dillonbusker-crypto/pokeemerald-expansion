@@ -3552,7 +3552,8 @@ BattleFrontier_OutsideEast_EventScript_BaseDadEnd::
 @ ----------------------------------------------------------------------------
 @ Endgame part 3: NURSE JOY and her CHANSEY (state 15 on). JOY explains Transfer
 @ EXP; the player picks a Pokemon and it goes to level 100, as many times as
-@ they like (SCOTT's final team is six at 100).
+@ they like (SCOTT's final team is six at 100). The first use sets
+@ FLAG_CHANSEY_TRANSFER_EXP_USED, which lifts the optional Gym rematches to 100.
 @ ----------------------------------------------------------------------------
 BattleFrontier_OutsideEast_EventScript_JoyChansey::
 	lock
@@ -3567,6 +3568,7 @@ BattleFrontier_OutsideEast_EventScript_JoyChanseyPick::
 	special TransferExpToLevel100
 	goto_if_eq VAR_RESULT, 1, BattleFrontier_OutsideEast_EventScript_JoyChanseyEgg
 	goto_if_eq VAR_RESULT, 2, BattleFrontier_OutsideEast_EventScript_JoyChanseyAlready100
+	setflag FLAG_CHANSEY_TRANSFER_EXP_USED
 	bufferpartymonnick STR_VAR_1, VAR_0x8004
 	playfanfare MUS_LEVEL_UP
 	message BattleFrontier_OutsideEast_Text_JoyChanseyGrew

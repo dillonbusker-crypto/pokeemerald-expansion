@@ -685,6 +685,33 @@ static void LiftBoxMonToSiphonLevel(struct BoxPokemon *boxMon)
     SetBoxMonData(boxMon, MON_DATA_EXP, &exp);
 }
 
+// Ten Gauntlets: once the CHANSEY has lifted a Pokemon to level 100 (the
+// player can have six at 100 from then on), the optional endgame fights are
+// at 100 too, or they'd be formalities: ROXANNE's and WATTSON's Gym rematches
+// (60 and 65 in trainers.party). Called from DoTrainerBattle after the party
+// is built; moves, items and the rest are untouched.
+void LiftOptionalEndgameTrainerParty(u16 trainerId, struct Pokemon *party)
+{
+    u32 i;
+
+    if (trainerId != TRAINER_ENDGAME_ROXANNE && trainerId != TRAINER_ENDGAME_WATTSON)
+        return;
+    if (!FlagGet(FLAG_CHANSEY_TRANSFER_EXP_USED))
+        return;
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        struct Pokemon *mon = &party[i];
+        u16 species = GetMonData(mon, MON_DATA_SPECIES);
+        u32 exp;
+
+        if (species == SPECIES_NONE)
+            continue;
+        exp = gExperienceTables[gSpeciesInfo[species].growthRate][MAX_LEVEL];
+        SetMonData(mon, MON_DATA_EXP, &exp);
+        CalculateMonStats(mon);
+    }
+}
+
 void SiphonLiftChippedLevels(void)
 {
     u32 i, j;

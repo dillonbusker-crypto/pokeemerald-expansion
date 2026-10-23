@@ -55,6 +55,8 @@ u16 GetStoryGossipStage(void);
 bool16 IsFrontierPOSDown(void);
 // The story's Experience rule - see src/facility.c.
 bool32 FrontierStoryAllowsExp(void);
+// The optional endgame fights at level 100 once Transfer EXP has been used.
+void LiftOptionalEndgameTrainerParty(u16 trainerId, struct Pokemon *party);
 bool32 IsFrontierChippedMon(struct Pokemon *mon);
 bool32 IsFrontierChippedBoxMon(struct BoxPokemon *boxMon);
 

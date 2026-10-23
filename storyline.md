@@ -1149,7 +1149,8 @@ rematch → Giratina. All of it stays open after the credits.
 **Roxanne's Gym** opens at state 10 (`sEndgameSealedDoors`' `openState`,
 `src/facility.c`). Inside, only Roxanne (`FLAG_TEMP_1` hides her trainers and
 the guide). She was gauntlet 3's boss and a Warden; now she gives the player
-"the whole lesson": `TRAINER_ENDGAME_ROXANNE` (990), six at level 60, sand,
+"the whole lesson": `TRAINER_ENDGAME_ROXANNE` (990), six at level 60 (**100 once
+the Chansey's Transfer EXP has been used**, `LiftOptionalEndgameTrainerParty`), sand,
 with **Mega Zygarde** (`endgame-teams.md`, "The Gym rematches"). A friendly
 fight, no Scrambler: win or lose she heals the party, and a loss never whites
 out (try again on the spot). A win: she tells of Rusturf Tunnel's stone
@@ -1248,7 +1249,9 @@ Joy: explanation, YES/NO, pick a party Pokémon, `TransferExpToLevel100`
 (`src/facility.c`; Eggs and level-100 Pokémon are refused), then "Another
 one?" until the player says no. **Unlimited** since 2026-10-23 (it was once
 per game: Scott's final team is six at level 100, so one Pokémon at 100
-against five at 60 was never a fight). Steven (state 15) asks if
+against five at 60 was never a fight). The first use sets
+`FLAG_CHANSEY_TRANSFER_EXP_USED`, and from then on the optional Gym rematches
+(Roxanne, Wattson) are fought at level 100. Steven (state 15) asks if
 the player is ready; YES sets `FLAG_ABRA_TO_SKY_PILLAR`, state 16, and Steven,
 Wallace and Dad (`FLAG_HIDE_ENDGAME_BASE_DAD`, hidden in 16-17) fly to Sky
 Pillar. State 18: Steven, Wallace, Dad, Mom, Joy and the Chansey are all out.
@@ -1261,7 +1264,7 @@ Pillar. State 18: Steven, Wallace, Dad, Mom, Joy and the Chansey are all out.
 **Wattson's Gym** opens at state 15, and the Wattson outside the Center is
 gone from then on. Inside, only Wattson, and **the barrier puzzle is off**
 (he switched it off; the switches do nothing). `TRAINER_ENDGAME_WATTSON`
-(991), six at level 65, Electric Terrain around **Miraidon**, with
+(991), six at level 65 (100 once Transfer EXP has been used, as Roxanne), Electric Terrain around **Miraidon**, with
 Magnezone and Mega Zeraora. A friendly fight like Roxanne's (no Scrambler, a
 heal either way, no white-out). A win: he tells of the crowned statue he built
 the town around, toppled by the teams on the lawn by the Center.
