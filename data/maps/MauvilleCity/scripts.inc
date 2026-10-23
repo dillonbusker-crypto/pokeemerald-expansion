@@ -1320,8 +1320,13 @@ MauvilleCity_Text_CenterWallace:
 MauvilleCity_Text_CenterWattson3:
 	.string "WATTSON: STEVEN and WALLACE are\n"
 	.string "off. I'll stay and mind the town.\p"
-	.string "Go on, {PLAYER}. The ABRA's by the\n"
-	.string "POKéMON CENTER.$"
+	.string "And {PLAYER}… my GYM's doors are\n"
+	.string "open again. First time in weeks.\p"
+	.string "I've been itching for a proper\n"
+	.string "battle. Come and give an old man\l"
+	.string "one, when you've a moment!\p"
+	.string "Wahahahah! I'll be waiting inside.\n"
+	.string "The ABRA's by the POKéMON CENTER.$"
 
 @ ============================================================================
 @ Ten Gauntlets: CALYREX, "The True King" (sprint-b-calyrex.md).

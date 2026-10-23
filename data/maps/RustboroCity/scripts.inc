@@ -1777,6 +1777,7 @@ RustboroCity_EventScript_JuanScene::
 	closemessage
 	turnobject LOCALID_RUSTBORO_ENDGAME_JUAN, DIR_NORTH
 	msgbox RustboroCity_Text_JuanToPlayer, MSGBOX_DEFAULT
+	msgbox RustboroCity_Text_JuanRoxanneGym, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_RUSTBORO_ENDGAME_JUAN, RustboroCity_Movement_JuanLeaves
 	waitmovement 0
@@ -1860,6 +1861,16 @@ RustboroCity_Text_JuanToPlayer:
 	.string "sorry.\p"
 	.string "It was not yours to carry.\n"
 	.string "Forgive me.$"
+
+RustboroCity_Text_JuanRoxanneGym:
+	.string "JUAN: ROXANNE took it hardest of us.\p"
+	.string "She has gone back to her GYM, and\n"
+	.string "she has opened it. For you.\p"
+	.string "“A GYM LEADER owes every TRAINER\n"
+	.string "the whole lesson,” she said.\p"
+	.string "Go to her when you are ready. She\n"
+	.string "will not hold back, and you should\l"
+	.string "not either.$"
 
 RustboroCity_Text_JuanWallace3:
 	.string "WALLACE: STEVEN is staying with his\n"

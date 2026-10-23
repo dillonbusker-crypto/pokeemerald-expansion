@@ -269,7 +269,16 @@ BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeper::
 	specialvar VAR_RESULT, IsFrontierPOSDown
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeperPOSDown
 	goto_if_ge VAR_ENDGAME_STATE, 11, BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeperFreed
+	goto_if_set FLAG_FRONTIER_SHOP_FREE, BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeperFreeShop
 	msgbox BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemon, MSGBOX_DEFAULT
+	special ShowFacilityFPWindow
+	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
+	end
+
+@ Ten Gauntlets: after the Factory (states 6-10) the shop is free and the
+@ keeper says so; after the siphon (11 on) the freed line below covers both.
+BattleFrontier_ExchangeServiceCorner_EventScript_PokemonKeeperFreeShop::
+	msgbox BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemonFreeShop, MSGBOX_DEFAULT
 	special ShowFacilityFPWindow
 	goto BattleFrontier_ExchangeServiceCorner_EventScript_ChooseMonMenu
 	end
@@ -545,6 +554,11 @@ BattleFrontier_ExchangeServiceCorner_Text_SiphonDone:
 	.string "holding them down. All that growth,\l"
 	.string "all at once! They've caught up with\l"
 	.string "the free ones.\p"
+	.string "Yours too, every one that came\n"
+	.string "through here: level 60, the lot.\p"
+	.string "And the shelves! Every POKéMON in\n"
+	.string "this shop is level 60 from today.\l"
+	.string "Still free, still yours to pick.\p"
 	.string "And they'll keep growing from here.$"
 
 BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemonFreed:
@@ -552,6 +566,15 @@ BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemonFreed:
 	.string "Since the chips went dark, the\n"
 	.string "POKéMON here are growing again.\l"
 	.string "They seem so much happier.\p"
+	.string "Every one on the shelves is level\n"
+	.string "60 now, and still free.\p"
+	.string "Take your pick.$"
+
+BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemonFreeShop:
+	.string "Welcome!\p"
+	.string "The BROKER's orders, since the\n"
+	.string "FACTORY fried our tills: every\l"
+	.string "POKéMON here is free. For the cause.\p"
 	.string "Take your pick.$"
 
 BattleFrontier_ExchangeServiceCorner_Text_WelcomePokemon:
