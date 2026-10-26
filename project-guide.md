@@ -37,7 +37,7 @@ reasoning needs no simplification.
 | Build | `make -j$(nproc)` produces `pokeemerald.gba` |
 | Tests | `make check`: **15 known failures** (deliberate project changes); more is new |
 | Testing | mGBA on Windows (ROM over `\\wsl$`), or the headless harness (`handoff.md`) |
-| GitHub | Pushing from WSL isn't set up; everything is local commits |
+| GitHub | `origin` is the owner's fork; `git push origin master` works (the `gh` CLI is logged in). Never force-push |
 
 Don't re-run environment setup.
 

@@ -53,7 +53,7 @@ harness. History is in `git log`; the story is in `storyline.md`.
   not run**: check the push-and-hop plays right from all four sides (the
   player walks in place toward it, then hops), and that the wandering boy
   can't wedge the player.
-- **Commits are local only.** Pushing from WSL isn't set up.
+- **Pushing works** (since 2026-10-26, the `gh` CLI is logged in): `git push origin master` after a batch of commits; the fork is the off-machine backup.
 
 ## Next: the owner's full playthrough, then tuning
 
